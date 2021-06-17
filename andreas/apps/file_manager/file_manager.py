@@ -2,6 +2,7 @@ from talon import app, Module, Context, actions, app
 from os import path, environ
 from user.util import merge
 
+ctx = Context()
 mod = Module()
 mod.tag("file_manager", desc="Tag for enabling generic file management commands")
 mod.list("path", desc="List of the users favorite paths")
@@ -34,14 +35,22 @@ class Actions:
     def file_manager_terminal_here():
         """Opens terminal at current location"""
 
-# ----- WINDOWS -----
 
-
-ctx_win = Context()
-
-ctx_win.matches = r"""
-os: windows
-"""
+def get_windows_paths():
+    return  {
+        "recycle bin":          "shell:RecycleBinFolder",
+        "root":                 environ["HOMEDRIVE"],
+        "app data":             environ["APPDATA"],
+        "program files":        environ["PROGRAMFILES"],
+        "temp":                 environ["TEMP"],
+        "windows":              environ["WINDIR"]
+    }
+    
+def get_linux_paths():
+    return {
+        "root":                 "/",
+        "temp":                "/tmp"
+    }
 
 def on_ready():
     user_path = str(actions.path.user_home())
@@ -51,23 +60,26 @@ def on_ready():
         "Downloads",
         "Dropbox"
     ]
-    ctx_win.lists["self.path"] = merge(
+    common_paths = {
+        "user":                 user_path,
+        "talon app":            str(actions.path.talon_app()),
+        "talon home":           str(actions.path.talon_home()),
+        "talon user":           str(actions.path.talon_user())
+    }
+    os_paths = {}
+    if app.platform == "windows":
+        os_paths = get_windows_paths()
+    elif app.platform == "linux":
+        os_paths = get_linux_paths()
+
+    ctx.lists["self.path"] = merge(
         {p.lower(): path.join(user_path, p) for p in user_dirs},
-        {
-            "recycle bin":          "shell:RecycleBinFolder",
-            "root":                 environ["HOMEDRIVE"],
-            "user":                 user_path,
-            "app data":             environ["APPDATA"],
-            "program files":        environ["PROGRAMFILES"],
-            "temp":                 environ["TEMP"],
-            "windows":              environ["WINDIR"],
-            "talon app":            str(actions.path.talon_app()),
-            "talon home":           str(actions.path.talon_home()),
-            "talon user":           str(actions.path.talon_user())
-        }
+        common_paths,
+        os_paths
     )
 
-    # for k, v in sorted(ctx_win.lists["self.path"].items(), key=lambda i: i[1]):
+    # for k, v in sorted(ctx.lists["self.path"].items(), key=lambda i: i[1]):
     #     print(f"{k.ljust(20)}{v}")
+
 
 app.register("ready", on_ready)
