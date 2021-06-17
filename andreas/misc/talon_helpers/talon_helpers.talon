@@ -1,0 +1,31 @@
+talon print context:
+	name = app.name()
+	executable =  app.executable()
+	bundle = app.bundle()
+	title = win.title()
+	print("Name: {name}")
+	print("Executable: {executable}")
+	print("Bundle: {bundle}")
+	print("Title: {title}")
+
+talon print title:           print(win.title())
+talon print tags:            print(" \n{user.talon_get_tags()}")
+talon print modes:           print(" \n{user.talon_get_modes()}")
+talon print captures:        print(" \n{user.talon_get_captures()}")
+talon print lists:           print(" \n{user.talon_get_lists()}")
+talon print actions:         print(" \n{user.talon_get_actions()}")
+talon print actions long:    print(" \n{user.talon_get_actions_long()}")
+
+talon copy title:            clip.set_text(win.title())
+talon copy tags:             clip.set_text(user.talon_get_tags())
+talon copy modes:            clip.set_text(user.talon_get_modes())
+talon copy captures:         clip.set_text(user.talon_get_captures())
+talon copy actions:          clip.set_text(user.talon_get_actions())
+talon copy actions long:     clip.set_text(user.talon_get_actions_long())
+
+talon copy python context:   user.talon_add_context_clipboard_python()
+talon copy context:          user.talon_add_context_clipboard()
+talon copy commands:         user.help_copy_all_commands()
+
+talon open log:              user.talon_run("tail_log")
+talon open repl:             user.talon_run("repl")

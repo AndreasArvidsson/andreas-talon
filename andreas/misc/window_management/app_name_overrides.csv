@@ -1,0 +1,29 @@
+vscodium, Code
+foobar2000, foobar
+ConEmu64.exe, Terminal
+WindowsTerminal.exe, Terminal
+netbeans64.exe, Netbeans
+Microsoft Visual Studio 2019, Visual Studio
+Windows Explorer, Explorer
+Windows Command Processor, Command
+
+talon.exe,
+ConEmuC64.exe,
+conhost.exe,
+ShellExperienceHost.exe,
+StartMenuExperienceHost.exe,
+SearchApp.exe,
+TextInputHost.exe,
+LogiOverlay.exe,
+RuntimeBroker.exe,
+ApplicationFrameHost.exe,
+PerfWatson2.exe,
+ServiceHub.IdentityHost.exe,
+rundll32.exe,
+dllhost.exe,
+smartscreen.exe,
+csrss.exe,
+WWAHost.exe,
+OpenConsole.exe,
+svchost.exe,
+wslhost.exe,
