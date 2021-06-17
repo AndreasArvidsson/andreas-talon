@@ -1,4 +1,4 @@
-# Text: formatters + words, symbols, numbers
+# Text: formatters + words, punctuation, numbers
 <user.format_text>:            user.insert_string(format_text)
 <user.format_text> over:       user.insert_string(format_text)
 

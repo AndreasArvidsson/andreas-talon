@@ -7,28 +7,17 @@ cwd = os.path.dirname(os.path.realpath(__file__))
 overrides_directory = cwd
 override_file_name = "app_name_overrides.csv"
 override_file_path = os.path.join(overrides_directory, override_file_name)
- 
+
 mod = Module()
 ctx = Context()
 
 mod.mode("focus")
 
-mod.list("running", desc="all running applications")
-ctx.lists["user.running"] = {}
+mod.list("running_application", desc="all running applications")
+ctx.lists["self.running_application"] = {}
 
 # a list of the current overrides
 overrides = {}
-
-# a list of the currently running application names
-running_application_dict = {}
-
-@mod.capture(rule="{self.running}")  # | <user.text>)")
-def running_applications(m) -> str:
-    "Returns a single application name"
-    try:
-        return m.running
-    except AttributeError:
-        return m.text
 
 def parse_name(name):
     if name.lower() in overrides:
@@ -50,31 +39,22 @@ def parse_name(name):
     return name
 
 def update_lists():
-    global running_application_dict
-    running_application_dict = {}
     running = {}
-
     for cur_app in ui.apps(background=False):
         name = cur_app.name
         name = parse_name(name)
         if not name:
             continue
-
+        # TODO
+        # if name in running:
+        #     print(f"conflict {name}")
         running[name] = cur_app.name
-        running_application_dict[cur_app.name] = True
-
-    lists = {
-        "self.running": running
-    }
-
-    # batch update lists
-    ctx.lists.update(lists)
+    ctx.lists["self.running_application"] = running
 
 def update_overrides(name, flags):
     """Updates the overrides list"""
     global overrides
     overrides = {}
-
     if name is None or name == override_file_path:
         with open(override_file_path, "r") as f:
             for line in f:
@@ -87,22 +67,6 @@ def update_overrides(name, flags):
 
 def get_running_app(name: str) -> ui.App:
     """Get the first available running app with `name`."""
-    # We should use the capture result directly if it's already in the list
-    # of running applications. Otherwise, name is from <user.text> and we
-    # can be a bit fuzzier
-    if name not in running_application_dict:
-        if len(name) < 3:
-            raise RuntimeError(
-                f'Skipped getting app: "{name}" has less than 3 chars.'
-            )
-        for running_name, full_application_name in ctx.lists[
-            "self.running"
-        ].items():
-            if running_name == name or running_name.lower().startswith(
-                name.lower()
-            ):
-                name = full_application_name
-                break
     for app in ui.apps():
         if app.name == name and not app.background:
             return app
@@ -118,16 +82,10 @@ class Actions:
 
     def focus_index(index: int):
         """Focus a new application by index"""
-        names = list(ctx.lists["user.running"].values())
-
-        if index < 1 or index > len(names):
-            error = "Focus index {} is out of range (1-{})".format(
-                index, len(names)
-            )
-            app.notify(error)
+        names = list(ctx.lists["user.running_application"].values())
+        if index < 0 or index >= len(names):
             return
-
-        name = names[index-1]
+        name = names[index]
         actions.user.focus_name(name)
 
     def focus_toggle():
@@ -148,9 +106,9 @@ def gui(gui: imgui.GUI):
     gui.text("Focus")
     gui.line()
     index = 1
-    for line in ctx.lists["self.running"]:
-        gui.text("Focus {}: {} ".format(index, line))
-        index = index + 1
+    for name in ctx.lists["self.running_application"]:
+        gui.text(f"Focus {index}: {name}")
+        index += 1
     gui.line()
     if gui.button("Hide"):
         actions.user.focus_hide()
