@@ -6,7 +6,7 @@
 # Public special keys.
 enter:                       key(enter)
 tab:                         key(tab)
-(escape | esc):              user.key_escape()
+(escape | esc | stop):       user.key_escape()
 
 # ------- Prefixed keys -------
 

@@ -1,4 +1,5 @@
-not mode: sleep
+mode: command
+mode: dictation
 -
 
 ^dictation mode$:
@@ -13,6 +14,6 @@ not mode: sleep
     mode.enable("command")
     app.notify("Command mode")
 
-^demo mode on$:
+^demo mode$:
     mode.enable("user.demo")
     app.notify("Demo mode on")

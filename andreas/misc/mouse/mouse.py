@@ -1,6 +1,19 @@
-from talon import Module, actions, app, cron, ctrl, noise, ui
+from talon import Context, Module, actions, app, cron, ctrl, noise, ui
 from talon_plugins import eye_mouse
 from talon_plugins.eye_mouse import config, toggle_control
+
+mod = Module()
+ctx = Context()
+
+mod.list("mouse_click", desc="Available mouse clicks")
+ctx.lists["self.mouse_click"] = {
+    "left":    "left",
+    "right":   "right",
+    "middle":  "middle",
+    "mid":     "middle",
+    "double":  "double",
+    "dub":     "double"
+}
 
 scroll_job = None
 gaze_job = None
@@ -9,8 +22,6 @@ scroll_dir = 1
 scroll_step = 120
 mouse_control = False
 zoom_control = False
-
-mod = Module()
 
 
 def on_pop(active: bool):
@@ -27,7 +38,7 @@ def on_pop(active: bool):
 
 noise.register("pop", on_pop)
 
-#TODO
+# TODO
 def on_hiss(active: bool):
     print("hiss !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 noise.register("hiss", on_hiss)
@@ -35,11 +46,8 @@ noise.register("hiss", on_hiss)
 
 @mod.action_class
 class Actions:
-    def mouse_click(action: str, force: bool = False):
+    def mouse_click(action: str):
         """Click mouse button"""
-        if not force and not actions.user.zoom_mouse_idle():
-            actions.user.zoom_mouse_click(action)
-            return
         stop_scroll()
         if action == "left":
             ctrl.mouse_click(button=0)
@@ -50,10 +58,6 @@ class Actions:
         elif action == "double":
             ctrl.mouse_click(button=0)
             ctrl.mouse_click(button=0)
-        elif action == "control_click":
-            actions.key("ctrl:down")
-            ctrl.mouse_click(button=0)
-            actions.key("ctrl:up")
 
     def mouse_stop():
         """Stops mouse action"""
@@ -99,29 +103,29 @@ class Actions:
         global scroll_speed
         scroll_speed = speed * 10
         actions.user.mouse_print_scroll_speed()
-    
+
     def mouse_scroll_increase():
         """Increase scroll speed"""
         global scroll_speed
         scroll_speed = scroll_speed + 20
         actions.user.mouse_print_scroll_speed()
-        
+
     def mouse_scroll_decrease():
         """Decrease scroll speed"""
         global scroll_speed
         scroll_speed = scroll_speed - 20
         actions.user.mouse_print_scroll_speed()
-    
+
     def mouse_print_scroll_speed():
-        """Get scroll speed"""  
+        """Get scroll speed"""
         app.notify("Mouse scroll speed:\n{}%".format(scroll_speed))
-        
+
     def mouse_gaze_scroll():
         """Starts gaze scroll"""
         global gaze_job
         stop_scroll()
         gaze_job = cron.interval("60ms", scroll_gaze_helper)
-        
+
     def mouse_calibrate():
         """Start calibration"""
         eye_mouse.calib_start()
@@ -150,6 +154,7 @@ class Actions:
         if 0 in ctrl.mouse_buttons_down():
             ctrl.mouse_click(button=0, up=True)
 
+
 def stop_scroll():
     global scroll_job, gaze_job
     if scroll_job:
@@ -159,11 +164,13 @@ def stop_scroll():
         cron.cancel(gaze_job)
         gaze_job = None
 
+
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
         p = scroll_speed / 100
         amount = p * scroll_dir * scroll_step / 20
         actions.mouse_scroll(by_lines=False, y=amount)
+
 
 def scroll_gaze_helper():
     if actions.user.zoom_mouse_idle():
@@ -187,4 +194,4 @@ def scroll_gaze_helper():
 
         midpoint = rect.y + rect.height / 2
         amount = int(((y - midpoint) / (rect.height / 10)) ** 3)
-        actions.mouse_scroll(by_lines=False, y=amount)        
+        actions.mouse_scroll(by_lines=False, y=amount)
