@@ -2,10 +2,6 @@ from talon import Context, Module, app, clip, cron, imgui, actions, ui, fs
 from talon import fs
 import os
 
-# ########################################################################
-# # global settings
-# ########################################################################
-
 # a list of alternatives where each line is a comma separated list
 # e.g. where,wear,ware
 # a suitable one can be found here:
@@ -16,15 +12,15 @@ mod = Module()
 mod.mode("alternatives")
 
 cwd = os.path.dirname(os.path.realpath(__file__))
-alternatives_file = os.path.join(cwd, "alternatives.csv")
+homophones_file = os.path.join(cwd, "homophones.csv")
 
 def read_file(name, flags):
-    if name != alternatives_file:
+    if name != homophones_file:
         return
 
     phones = {}
     canonical_list = []
-    with open(alternatives_file, "r") as f:
+    with open(homophones_file, "r") as f:
         for line in f:
             words = line.rstrip().split(",")
             canonical_list.append(words[0])
@@ -33,10 +29,10 @@ def read_file(name, flags):
                 old_words = phones.get(word, [])
                 phones[word] = sorted(set(old_words + words))
 
-    global all_alternatives
-    all_alternatives = phones
+    global all_homophones
+    all_homophones = phones
 
-read_file(alternatives_file, None)
+read_file(homophones_file, None)
 fs.watch(cwd, read_file)
 
 main_screen = ui.main_screen()
@@ -65,13 +61,13 @@ def update_alternatives(word, last):
     is_upper = word.isupper()
     word = word.lower()
 
-    if word not in all_alternatives:
+    if word not in all_homophones:
         if gui.showing:
             actions.user.alternatives_hide()
         return False
 
     is_last = last
-    active_word_list = all_alternatives[word]
+    active_word_list = all_homophones[word]
 
     if active_word_list[0].lower() != word:
         active_word_list = active_word_list[:]
