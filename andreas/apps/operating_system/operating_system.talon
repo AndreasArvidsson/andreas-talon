@@ -1,5 +1,1 @@
-window new:                 app.window_open()
-window close:               app.window_close()
-window (previous | prev):   app.window_previous()
-window next:                app.window_next()
 go settings:                user.open_settings()

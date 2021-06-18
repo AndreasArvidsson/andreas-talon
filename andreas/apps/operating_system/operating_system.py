@@ -24,12 +24,6 @@ os: windows
 """
 
 
-@ctx_win.action_class("app")
-class AppActionsWin:
-    def window_open():      key("ctrl-n")
-    def window_close():     key("alt-f4")
-
-
 @ctx_win.action_class("user")
 class UserActionsWin:
     def exec(command: str):
