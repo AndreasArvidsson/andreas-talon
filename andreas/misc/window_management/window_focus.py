@@ -86,7 +86,6 @@ def focus_app_by_name(name: str):
 def focus_app_by_pid(pid: int):
     for app in ui.apps(background=False):
         if app.pid == pid:
-            print(app)
             app.focus()
             actions.user.focus_hide()
             return
