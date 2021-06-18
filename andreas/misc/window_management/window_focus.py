@@ -12,44 +12,45 @@ mod = Module()
 ctx = Context()
 
 mod.mode("focus")
-
 mod.list("running_application", desc="all running applications")
 ctx.lists["self.running_application"] = {}
 
-# a list of the current overrides
+# Mapping of current overrides
 overrides = {}
+# Mapping between app name and list of running pids
+pids = {}
+
 
 def parse_name(name):
     if name.lower() in overrides:
         return overrides[name.lower()]
-
     if name.endswith(".exe"):
         name = name.rsplit(".", 1)[0]
-
     if " - " in name:
         name = name.rsplit(" - ", 1)[0]
-
     # Split on camel case
     parts = re.split("(?<=[a-z])(?=[A-Z])", name)
     name = " ".join(parts)
     # Split on digits
     parts = re.split("(?<=\\D)(?=\\d)", name)
     name = " ".join(parts)
-
     return name
 
+
 def update_lists():
+    global pids
+    pids = {}
     running = {}
-    for cur_app in ui.apps(background=False):
-        name = cur_app.name
-        name = parse_name(name)
+    for app in ui.apps(background=False):
+        name = parse_name(app.name)
         if not name:
             continue
-        # TODO
-        # if name in running:
-        #     print(f"conflict {name}")
-        running[name] = cur_app.name
+        running[name] = name
+        app_pids = pids.get(name, [])
+        app_pids.append(app.pid)
+        pids[name] = sorted(app_pids)
     ctx.lists["self.running_application"] = running
+
 
 def update_overrides(name, flags):
     """Updates the overrides list"""
@@ -65,12 +66,24 @@ def update_overrides(name, flags):
 
     update_lists()
 
+
 def get_running_app(name: str) -> ui.App:
-    """Get the first available running app with `name`."""
-    for app in ui.apps():
-        if app.name == name and not app.background:
+    """Get next running app with `name`."""
+    app_pids = pids[name]
+    pid = app_pids[0]
+
+    # Get text window pid if same application as active
+    active_pid = ui.active_app().pid
+    if active_pid in app_pids:
+        i = app_pids.index(active_pid) + 1
+        if i < len(app_pids):
+            pid = app_pids[i]
+
+    for app in ui.apps(background=False):
+        if app.pid == pid:
             return app
     raise RuntimeError(f'App not running: "{name}"')
+
 
 @mod.action_class
 class Actions:
@@ -101,6 +114,7 @@ class Actions:
         actions.mode.disable("user.focus")
         gui.hide()
 
+
 @imgui.open(x=0)
 def gui(gui: imgui.GUI):
     gui.text("Focus")
@@ -117,11 +131,12 @@ def gui(gui: imgui.GUI):
 def on_launch_close(event):
     update_lists()
 
-# Talon starts faster if you don't use the `talon.ui` module during launch
+
 def on_ready():
     update_overrides(None, None)
     fs.watch(overrides_directory, update_overrides)
     ui.register("app_launch", on_launch_close)
     ui.register("app_close", on_launch_close)
+
 
 app.register("ready", on_ready)
