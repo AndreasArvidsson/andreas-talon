@@ -3,7 +3,6 @@ app: vscode
 tag(): user.ide
 
 # Language features
-suggest:                   user.vscode("editor.action.triggerSuggest")
 suggest param:             user.vscode("editor.action.triggerParameterHints")
 imports organize:          user.vscode("editor.action.organizeImports")
 problem next:              user.vscode("editor.action.marker.nextInFiles")

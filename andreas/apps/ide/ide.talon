@@ -48,3 +48,4 @@ stop:                          user.debug_stop()
 
 # ----- Misc -----
 quick fix:                     user.quick_fix()
+suggest:                       code.complete()
