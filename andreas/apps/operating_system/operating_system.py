@@ -28,8 +28,6 @@ os: windows
 class AppActionsWin:
     def window_open():      key("ctrl-n")
     def window_close():     key("alt-f4")
-    def window_previous():  key("alt-tab")
-    def window_next():      key("ctrl-alt-tab")
 
 
 @ctx_win.action_class("user")

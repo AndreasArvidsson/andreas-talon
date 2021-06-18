@@ -18,7 +18,8 @@ ctx.lists["self.running_application"] = {}
 # Mapping of current overrides
 overrides = {}
 # Mapping between app name and list of running pids
-pids = {}
+name_to_pids = {}
+pid_to_pids = {}
 
 
 def parse_name(name):
@@ -38,17 +39,20 @@ def parse_name(name):
 
 
 def update_lists():
-    global pids
-    pids = {}
+    global name_to_pids, pid_to_pids
+    name_to_pids = {}
+    pid_to_pids = {}
     running = {}
     for app in ui.apps(background=False):
         name = parse_name(app.name)
         if not name:
             continue
-        running[name] = name
-        app_pids = pids.get(name, [])
-        app_pids.append(app.pid)
-        pids[name] = sorted(app_pids)
+        running[name] = app.name
+        pids = name_to_pids.get(name, [])
+        pids.append(app.pid)
+        pids = sorted(pids)
+        name_to_pids[app.name] = pids
+        pid_to_pids[app.pid] = pids
     ctx.lists["self.running_application"] = running
 
 
@@ -67,39 +71,58 @@ def update_overrides(name, flags):
     update_lists()
 
 
-def get_running_app(name: str) -> ui.App:
-    """Get next running app with `name`."""
-    app_pids = pids[name]
-    pid = app_pids[0]
-
-    # Get text window pid if same application as active
+def focus_app_by_name(name: str):
+    pids = name_to_pids[name]
     active_pid = ui.active_app().pid
-    if active_pid in app_pids:
-        i = app_pids.index(active_pid) + 1
-        if i < len(app_pids):
-            pid = app_pids[i]
 
+    # Focus next window on same app
+    if active_pid in pids:
+        cycle_windows_on_current_app(1)
+    # Focus first window of new app
+    else:
+        focus_app_by_pid(pids[0])
+
+
+def focus_app_by_pid(pid: int):
     for app in ui.apps(background=False):
         if app.pid == pid:
-            return app
-    raise RuntimeError(f'App not running: "{name}"')
+            print(app)
+            app.focus()
+            actions.user.focus_hide()
+            return
+    raise RuntimeError(f'App not running: "{pid}"')
+
+def cycle_windows_on_current_app(diff: int):
+    # Get text window pid if same application as active
+    active_pid = ui.active_app().pid
+    if active_pid in pid_to_pids:
+        pids = pid_to_pids[active_pid]
+        i = pids.index(active_pid) + diff
+        if i < 0:
+            i = len(pids) - 1
+        elif i >= len(pids):
+            i = 0
+        focus_app_by_pid(pids[i])
+  
+
+@ctx.action_class("app")
+class AppActionsWin:
+    def window_previous():  cycle_windows_on_current_app(-1)
+    def window_next():      cycle_windows_on_current_app(1)
 
 
 @mod.action_class
 class Actions:
     def focus_name(name: str):
         """Focus a new application by name"""
-        app = get_running_app(name)
-        app.focus()
-        actions.user.focus_hide()
+        focus_app_by_name(name)
 
     def focus_index(index: int):
         """Focus a new application by index"""
         names = list(ctx.lists["user.running_application"].values())
         if index < 0 or index >= len(names):
             return
-        name = names[index]
-        actions.user.focus_name(name)
+        focus_app_by_name(names[index])
 
     def focus_toggle():
         """Shows/hides all running applications"""
