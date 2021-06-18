@@ -12,7 +12,7 @@ and app.name: Code
 os: linux
 and app.name: code-oss
 os: linux
-and app.name: VSCodium
+and app.name: Codium
 """
 mod.apps.vscode = """
 os: windows
@@ -24,6 +24,7 @@ and app.name: VSCodium
 os: windows
 and app.exe: VSCodium.exe
 """
+
 
 ctx = Context()
 ctx.matches = r"""
