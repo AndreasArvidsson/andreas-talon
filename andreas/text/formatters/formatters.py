@@ -1,9 +1,8 @@
-from talon import Module, Context, actions, ui, imgui, app
-from talon.grammar import Phrase
-from typing import List, Union
+from talon import Module, Context, actions, imgui
 import logging
 import re
-import numbers
+from user.util import split_camel
+
 
 ctx = Context()
 
@@ -158,6 +157,8 @@ class Actions:
         actions.user.insert_string(text)
 
 
+
+
 def format_phrase(phrase: str, fmtrs: str):
     global last_phrase, last_phrase_formatted
     last_phrase = phrase
@@ -171,7 +172,7 @@ def format_phrase(phrase: str, fmtrs: str):
 
 
 def format_words(text: str, delimiter: str, func_first=None, func_rest=None):
-    words = splitWords(text)
+    words = split_words(text)
     result = []
     for i, word in enumerate(words):
         if i == 0:
@@ -196,15 +197,14 @@ def surround(text, char):
     return char + text + char
 
 
-def splitWords(text):
+def split_words(text):
     # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
     text = re.sub(r"[-_.:/](?!\s)+", " ", text)
     # Split camel case. Including numbers
-    parts = re.split(
-        "(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])", text)
-    return " ".join(parts).split()
+    text = " ".join(split_camel(text))
+    return text.split()
 
-# Test splitWords
+# Test split_words
 # tests = {
 #     "say": "hello, I'm ip address 2!",
 #     "sentence": "Hello, I'm ip address 2!",
@@ -219,6 +219,6 @@ def splitWords(text):
 #     "dunder":"hello__there__ip_address__2"
 # }
 # for key, value in tests.items():
-#     words = splitWords(value)
+#     words = split_words(value)
 #     text = " ".join(words)
 #     print(f"{key.ljust(15)}{value.ljust(35)}{text}")

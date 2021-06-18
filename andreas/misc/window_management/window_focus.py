@@ -1,7 +1,7 @@
 from talon import Context, Module, app, imgui, ui, fs, actions
+from user.util import cycle, split_camel
 import os
 import re
-from user.util import cycle
 
 # Construct at startup a list of overides for application names (similar to how homophone list is managed)
 cwd = os.path.dirname(os.path.realpath(__file__))
@@ -30,12 +30,7 @@ def parse_name(name):
     if " - " in name:
         name = name.rsplit(" - ", 1)[0]
     name = re.sub(r"[^a-zA-Z0-9]", " ", name)
-    # Split on camel case
-    parts = re.split("(?<=[a-z])(?=[A-Z])", name)
-    name = " ".join(parts)
-    # Split on digits
-    parts = re.split("(?<=\\D)(?=\\d)", name)
-    name = " ".join(parts)
+    name = " ".join(split_camel(name))
     return name
 
 

@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+import re
 
 def merge(*args):
     result = {}
@@ -26,3 +27,7 @@ def cramp(value, min, max):
     if value > max:
         return max
     return value
+
+def split_camel(text: str):
+    """Split camel case. Including numbers"""
+    return re.split("(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])", text)
