@@ -3,6 +3,7 @@ from talon import imgui, Module, speech_system, actions, app
 # We keep command_history_size lines of history, but by default display only
 # command_history_display of them.
 mod = Module()
+
 setting_command_history_size = mod.setting("command_history_size", int, default=50)
 setting_command_history_display = mod.setting(
     "command_history_display", int, default=10
@@ -29,14 +30,12 @@ def on_phrase(j):
         history = history[-setting_command_history_size.get() :]
 
 
-# todo: dynamic rect?
 @imgui.open(y=0)
 def gui(gui: imgui.GUI):
     global history
     text = (
         history[:] if hist_more else history[-setting_command_history_display.get() :]
     )
-    print(text)
     for line in text:
         gui.text(line)
 
