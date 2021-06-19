@@ -66,3 +66,19 @@ class BrowserActions:
     def show_extensions():      key("ctrl-shift-a")
     def show_history():         key("ctrl-h")
     def toggle_dev_tools():     key("ctrl-shift-i")
+
+
+# ----- LINUX -----
+
+ctx_linux = Context()
+ctx_linux.matches = r"""
+os: linux
+app: firefox
+"""
+
+@ctx_linux.action_class("user")
+class UserActionsLinux:
+    def tab_final():    key("alt-9")
+    def tab_jump(number: int):
+        if number < 9:
+            key(f"alt-{number}")

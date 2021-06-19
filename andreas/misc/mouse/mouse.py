@@ -12,7 +12,8 @@ ctx.lists["self.mouse_click"] = {
     "middle":  "middle",
     "mid":     "middle",
     "double":  "double",
-    "dub":     "double"
+    "dub":     "double",
+    "touch":   "touch"
 }
 
 scroll_job = None
