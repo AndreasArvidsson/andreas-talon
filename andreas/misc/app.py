@@ -1,16 +1,9 @@
-from talon import Context
+from talon import Context, actions
+key = actions.key
 
-# ----- Windows -----
+ctx = Context()
 
-ctx_win = Context()
-
-ctx_win.matches = r"""
-os: windows
-os: linux
-"""
-
-
-@ctx_win.action_class("app")
+@ctx.action_class("app")
 class AppActionsWin:
     def window_open():      key("ctrl-n")
     def window_close():     key("alt-f4")

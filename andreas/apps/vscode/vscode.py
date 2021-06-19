@@ -12,7 +12,7 @@ and app.name: Code
 os: linux
 and app.name: code-oss
 os: linux
-and app.name: Codium
+and app.name: VSCodium
 """
 mod.apps.vscode = """
 os: windows
