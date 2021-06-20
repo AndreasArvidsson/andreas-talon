@@ -7,7 +7,7 @@ edit:                    key(e)
 (show | hide) sidebar:   key(ctrl-shift-d)
 (show | hide) panel:     key(ctrl-.)
 
-go [all] unreads:        key(ctrl-shift-a)
+all unreads:             key(ctrl-shift-a)
 go to:                   key(ctrl-k)
 
 channel prev:            key(alt-up)
