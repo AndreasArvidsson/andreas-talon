@@ -100,7 +100,7 @@ replace all:                       user.find_replace_all()
 
 # ----- Misc -----
 spamma:                            ", "
-colgap:                            ": "
+colgap | coal gap:                 ": "
 
 # ----- Brackets -----
 args:

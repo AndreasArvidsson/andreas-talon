@@ -5,12 +5,14 @@ mod = Module()
 ctx = Context()
 mod.tag("keys")
 
-alphabet = "alpha bravo charlie delta echo foxtrot golf hotel india juliet kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whiskey xray yankee zulu".split(" ")
+# alphabet = "alpha bravo charlie delta echo foxtrot golf hotel india juliet kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whiskey xray yankee zulu".split(" ")
+alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
 default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(" ")
 
 mod.list("key_alphabet", desc="The spoken phonetic alphabet")
 ctx.lists["self.key_alphabet"] = merge(
-    {w: w[0] for w in alphabet},
+    # {w: w[0] for w in alphabet},
+    {alphabet[i]: chr(ord("a") + i) for i in range(len(alphabet))},
     {"oke": "å", "aerlig": "ä", "oesten": "ö"}
 )
 
@@ -136,3 +138,7 @@ class Actions:
         """Click escape key"""
         if not actions.user.mouse_stop():
            actions.key("escape")
+
+    def get_alphabet():
+        """Return alphabet"""
+        return ctx.lists["self.key_alphabet"]

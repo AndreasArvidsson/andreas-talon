@@ -9,6 +9,8 @@ from talon.grammar import Phrase
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
 mod.mode("help", "mode for commands that are available only when help is visible")
+mod.mode("help_alphabet", "Mode for showing the alphabet help gui")
+
 setting_help_max_contexts_per_page = mod.setting(
     "help_max_contexts_per_page",
     type=int,
@@ -148,6 +150,19 @@ def get_pages(item_line_counts: List[int]) -> List[int]:
             page = current_page
         pages.append(page)
     return pages
+
+@imgui.open(y=0)
+def gui_alphabet(gui: imgui.GUI):
+    global alphabet
+    gui.text("Alphabet help")
+    gui.line()
+    alphabet = actions.user.get_alphabet()
+    for key, val in alphabet.items():
+        key += ":"
+        gui.text(f"{key.ljust(12)} {val}")
+    gui.line()
+    if gui.button("hide"):
+            actions.user.help_alphabet_hide()
 
 
 @imgui.open(x=300, y=0)
@@ -583,6 +598,19 @@ class Actions:
             if len(names) > 1:
                 result += "--------------------\n"
         clip.set_text(result)
+
+    def help_show_alphabet_toggle():
+        """Toggle hep alphabet gui"""
+        if gui_alphabet.showing:
+            actions.user.help_alphabet_hide()
+        else:
+            actions.mode.enable("user.help_alphabet")
+            gui_alphabet.show()
+
+    def help_alphabet_hide():
+        """Hide alphabet gui"""
+        actions.mode.disable("user.help_alphabet")
+        gui_alphabet.hide()
 
 
 def commands_updated(_):
