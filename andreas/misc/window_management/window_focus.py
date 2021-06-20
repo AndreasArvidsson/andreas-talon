@@ -62,8 +62,10 @@ def get_windows(app_name: str) -> list:
     res = sorted(res, key=lambda w: w.id)
     return list(res)
 
-def focus_app_by_name(name: str, diff: int = 1):
+def focus_app(name: str, diff: int = 1):
     windows = get_windows(name)
+    if (len(windows) == 0):
+        raise RuntimeError(f'App not running: "{name}"')
     i = 0
     # Focus next window on same app
     if ui.active_app().name == name:
@@ -78,22 +80,23 @@ def focus_app_by_name(name: str, diff: int = 1):
 @ctx.action_class("app")
 class AppActionsWin:
     def window_previous():
-        focus_app_by_name(ui.active_app().name, -1)
+        focus_app(ui.active_app().name, -1)
     def window_next():
-        focus_app_by_name(ui.active_app().name, 1)
+        focus_app(ui.active_app().name, 1)
 
 
 @mod.action_class
 class Actions:
     def focus_name(name: str):
         """Focus application by name"""
-        focus_app_by_name(name)
+        focus_app(name)
+        actions.user.focus_hide()
 
     def focus_index(index: int):
         """Focus application by index"""
         names = list(ctx.lists["user.running_application"].values())
         if index > -1 and index < len(names):
-            focus_app_by_name(names[index])
+            actions.user.focus_name(names[index])
 
     def focus_toggle():
         """Shows/hides all running applications"""
