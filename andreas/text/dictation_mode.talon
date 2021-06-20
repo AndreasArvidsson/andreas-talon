@@ -11,8 +11,8 @@ cap <user.word>:
 # Escape, type things that would otherwise be commands/symbols
 ^escape <user.words>$:              auto_insert(user.words)
 
-# Phoneticly spell word with alphabet letters
-#spell {user.key_alphabet}+$:       user.insert_characters(key_alphabet_list)
+# Phoneticly spell word with letters from the alphabet
+<user.spell>:                       auto_insert(spell)
 
 # Reformat
 ^format it as <user.formatters>$:   user.formatters_reformat_selection(formatters)
