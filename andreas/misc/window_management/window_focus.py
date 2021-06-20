@@ -18,8 +18,6 @@ ctx.lists["self.running_application"] = {}
 
 # Mapping of current overrides
 overrides = {}
-# Mapping between app name and list of running pids
-name_to_pids = {}
 
 
 def parse_name(name):
@@ -33,19 +31,16 @@ def parse_name(name):
     name = " ".join(split_camel(name))
     return name
 
-
 def update_lists():
     global name_to_pids
     name_to_pids = {}
     running = {}
-    for app in ui.apps(background=False):
-        name = parse_name(app.name)
+    for window in ui.windows():
+        app_name = window.app.name
+        name = parse_name(app_name)
         if not name:
             continue
-        running[name] = app.name
-        pids = name_to_pids.get(name, [])
-        pids.append(app.pid)
-        name_to_pids[app.name] = sorted(pids)
+        running[name] = app_name
     ctx.lists["self.running_application"] = running
 
 
@@ -62,29 +57,22 @@ def update_overrides(name, flags):
                     overrides[line[0].lower()] = line[1].strip()
     update_lists()
 
-
+def get_windows(app_name: str) -> list:
+    res = filter(lambda w: w.app.name == app_name, ui.windows())
+    res = sorted(res, key=lambda w: w.id)
+    return list(res)
 
 def focus_app_by_name(name: str, diff: int = 1):
-    pids = name_to_pids[name]
-    active_pid = ui.active_app().pid
+    windows = get_windows(name)
     i = 0
     # Focus next window on same app
-    if active_pid in pids:
+    if ui.active_app().name == name:
         i = cycle(
-            pids.index(active_pid) + diff,
+            windows.index(ui.active_window()) + diff,
             0,
-            len(pids) -1
+            len(windows) -1
         )
-    # Focus app by selected pid
-    focus_app_by_pid(pids[i])
-
-def focus_app_by_pid(pid: int):
-    for app in ui.apps(background=False):
-        if app.pid == pid:
-            app.focus()
-            actions.user.focus_hide()
-            return
-    raise RuntimeError(f'App not running: "{pid}"')
+    windows[i].focus()
 
 
 @ctx.action_class("app")
