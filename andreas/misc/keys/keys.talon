@@ -1,9 +1,15 @@
 # ------- Public keys, No prefix -------
 
-# Public symbol keys: !, %, _
+# Letters [A-Z]
+{user.key_alphabet}:         key(key_alphabet)
+
+# Symbol keys: !, %, _
 {user.key_symbol}:           "{key_symbol}"
 
-# Public special keys.
+# Digits [0-9]
+{user.key_number}:           key(key_number)
+
+# Special keys.
 enter:                       key(enter)
 tab:                         key(tab)
 (escape | esc | stop):       user.key_escape()

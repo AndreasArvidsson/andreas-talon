@@ -151,15 +151,16 @@ def get_pages(item_line_counts: List[int]) -> List[int]:
         pages.append(page)
     return pages
 
-@imgui.open(y=0)
+main_screen = ui.main_screen()
+
+@imgui.open(x=main_screen.width-100, w=100)
 def gui_alphabet(gui: imgui.GUI):
     global alphabet
-    gui.text("Alphabet help")
+    gui.text("Alphabet")
     gui.line()
     alphabet = actions.user.get_alphabet()
     for key, val in alphabet.items():
-        key += ":"
-        gui.text(f"{key.ljust(12)} {val}")
+        gui.text(f"{val}:  {key}")
     gui.line()
     if gui.button("hide"):
             actions.user.help_alphabet_hide()

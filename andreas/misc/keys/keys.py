@@ -6,7 +6,8 @@ ctx = Context()
 mod.tag("keys")
 
 # alphabet = "alpha bravo charlie delta echo foxtrot golf hotel india juliet kilo lima mike november oscar papa quebec romeo sierra tango uniform victor whiskey xray yankee zulu".split(" ")
-alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
+# alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
+alphabet = "air bat cap drum each fine gust harp ice jury kilo look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
 default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(" ")
 
 mod.list("key_alphabet", desc="The spoken phonetic alphabet")

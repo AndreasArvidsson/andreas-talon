@@ -10,11 +10,9 @@ cap words <user.words> over:   user.insert_formatted(words, "CAPITALIZE_FIRST_WO
 word <user.word>:              user.insert_string(word)
 cap word <user.word>:          user.insert_formatted(word, "CAPITALIZE_FIRST_WORD")
 
-# Abbreviated word: breif application -> app
-<user.abbreviation>:           "{abbreviation}"
-
 # Phoneticly spell word with letters from the alphabet
-<user.spell>:                  user.insert_string(spell)
+# TODO
+# <user.spell>:                  user.insert_string(spell)
 
 # Select last
 select last:                   user.history_select_last_phrase()
