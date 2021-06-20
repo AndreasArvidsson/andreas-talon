@@ -121,6 +121,11 @@ def spell(m) -> str:
     """Spell word phoneticly"""
     return "".join(m.key_alphabet_list)
 
+@mod.capture(rule="({self.key_alphabet} | {self.key_number} | {self.key_symbol})")
+def any_alphanumeric_key(m) -> str:
+    "any alphanumeric key"
+    return str(m)
+
 @mod.capture(rule="{self.key_alphabet}")
 def letter(m) -> str:
     """One letter in the alphabet"""
