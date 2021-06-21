@@ -35,12 +35,11 @@ def update_lists():
     global name_to_pids
     name_to_pids = {}
     running = {}
-    for window in ui.windows():
-        app_name = window.app.name
-        name = parse_name(app_name)
+    for app in ui.apps(background=False):
+        name = parse_name(app.name)
         if not name:
             continue
-        running[name] = app_name
+        running[name] = app.name
     ctx.lists["self.running_application"] = running
 
 
