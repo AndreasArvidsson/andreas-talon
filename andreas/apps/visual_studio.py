@@ -34,7 +34,6 @@ class AppActions:
     # ----- Tabs -----
     def tab_previous():     key("ctrl-alt-pageup")
     def tab_next():         key("ctrl-alt-pagedown")
-    def tab_open():         skip()
 
 
 @ctx.action_class("user")

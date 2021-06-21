@@ -12,8 +12,8 @@ tag: user.tabs
 
 @ctx.action_class("app")
 class app_actions:
-    def tab_previous():     key("ctrl-shift-tab")
-    def tab_next():         key("ctrl-tab")
+    def tab_previous():     key("ctrl-pageup")
+    def tab_next():         key("ctrl-pagedown")
     def tab_open():         key("ctrl-t")
     def tab_close():        key("ctrl-w")
     def tab_reopen():       key("ctrl-shift-t")

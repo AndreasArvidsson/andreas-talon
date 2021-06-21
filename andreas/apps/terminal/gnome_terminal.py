@@ -20,8 +20,6 @@ ctx.tags = ["terminal", "user.bash", "user.tabs"]
 @ctx.action_class("app")
 class AppActions:
     def window_open():      key("ctrl-shift-n")
-    def tab_previous():     key("ctrl-pageup")
-    def tab_next():         key("ctrl-pagedown")
     def tab_open():         key("ctrl-shift-t")
     def tab_close():        key("ctrl-shift-w")
 

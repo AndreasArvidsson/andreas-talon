@@ -66,13 +66,6 @@ class WinActions:
         return ""
 
 
-@ctx.action_class("app")
-class AppActions:
-    def tab_previous():         key("ctrl-pageup")
-    def tab_next():             key("ctrl-pagedown")
-    def tab_open():             actions.skip()
-
-
 @ctx.action_class("code")
 class CodeActions:
     def complete():             vscode("editor.action.triggerSuggest")
