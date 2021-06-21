@@ -1,14 +1,13 @@
 vscodium, Code
-foobar2000, foobar
-ConEmu64.exe, Terminal
+Codium, Code
 WindowsTerminal.exe, Terminal
+Gnome-terminal, Terminal
 netbeans64.exe, Netbeans
 Microsoft Visual Studio 2019, Visual Studio
 Windows Explorer, Explorer
 Windows Command Processor, Command
-
+foobar2000, foobar
 Org.gnome.Nautilus, Nautilus
-Gnome-terminal, Terminal
 
 talon.exe,
 ConEmuC64.exe,
