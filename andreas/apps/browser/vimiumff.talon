@@ -3,7 +3,6 @@ app: firefox
 
 hunt:                             key(escape f)
 hunt new:                         key(escape F)
-insert:                           key(i)
 
 half up:                          key(alt-pageup)
 half down:                        key(alt-pagedown)
