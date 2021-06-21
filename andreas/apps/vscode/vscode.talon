@@ -59,17 +59,6 @@ go forward:                user.vscode("workbench.action.navigateForward")
 install extension:         user.vscode("workbench.extensions.action.installVSIX")
 minimap (show | hide):     user.vscode("editor.action.toggleMinimap")
 show settings:             user.vscode("workbench.action.openGlobalSettings")
-command [<user.text>]:
+do command [<user.text>]:
 	user.vscode("workbench.action.showCommands")
 	insert(user.text or "")
-
-# Andreas plugin
-hunt <user.text_symbol>:   user.vscode("andreas.jumpSearch", text_symbol)
-hunt word <word>:          user.vscode("andreas.jumpSearch", word)
-hunt clear:                user.vscode("andreas.jumpCancel")
-{user.vscode_actions} <user.letters>:
-	user.vscode("andreas.jumpAction", vscode_actions, letters)
-replace <user.letters> with <word>:
-	user.vscode("andreas.jumpAction", "replace", letters, word)
-insert <word> at <user.letters>:
-	user.vscode("andreas.jumpAction", "insert", letters, word)
