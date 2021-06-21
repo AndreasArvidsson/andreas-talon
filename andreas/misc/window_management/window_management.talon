@@ -5,6 +5,7 @@ window new:                           app.window_open()
 window close:                         app.window_close()
 window (previous | prev):             app.window_previous()
 window next:                          app.window_next()
+window last:                          key("alt-tab")
 
 ^snap <user.window_snap_position>$:   user.snap_window(window_snap_position)
 ^snap next [screen]$:                 user.move_window_next_screen()

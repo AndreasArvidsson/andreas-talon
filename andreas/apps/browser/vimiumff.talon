@@ -5,5 +5,10 @@ hunt:                             key(escape f)
 hunt new:                         key(escape F)
 insert:                           key(i)
 
-go <user.letter>:                 key(letter)
-go <user.letter> <user.letter>:   key("{letter_1} {letter_2}")
+half up:                          key(alt-pageup)
+half down:                        key(alt-pagedown)
+
+small up:                         key(alt-up)
+small down:                       key(alt-down)
+small left:                       key(alt-left)
+small right:                      key(alt-right)

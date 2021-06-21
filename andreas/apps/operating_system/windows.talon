@@ -3,7 +3,6 @@ os: windows
 
 task view:            key(super-tab)
 task manager:         key(ctrl-shift-escape)
-window last:          key("alt-tab")
 window switch:        key("ctrl-alt-tab")
 
 start menu:           key(super)
