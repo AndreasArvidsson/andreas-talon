@@ -113,7 +113,7 @@ def handle_existing_request_file(path):
             raise Exception("Found recent request file; vscode is probably hung")
     else:
         print("Removing stale request file")
-        robust_unlink(path)
+        path.unlink()
 
 
 def run_vscode_command(
@@ -164,14 +164,8 @@ def run_vscode_command(
         uuid=uuid,
     )
 
-    # First, write the request to the request file, which makes us the sole
-    # owner because all other processes will try to open it with 'x'
+    # First, write the request to the request file
     write_request(request, request_path)
-
-    # We clear the response file if it does exist, though it shouldn't
-    if response_path.exists():
-        print("WARNING: Found old response file")
-        robust_unlink(response_path)
 
     # Then, perform keystroke telling VSCode to execute the command in the
     # request file.  Because only the active VSCode instance will accept
@@ -182,10 +176,7 @@ def run_vscode_command(
     try:
         decoded_contents = read_json_with_timeout(response_path)
     finally:
-        # NB: We remove response file first because we want to do this while we
-        # still own the request file
-        robust_unlink(response_path)
-        robust_unlink(request_path)
+        unlink_if_exists(response_path)
 
     if decoded_contents["uuid"] != uuid:
         raise Exception("uuids did not match")
@@ -214,28 +205,11 @@ def get_communication_dir_path():
     return Path(gettempdir()) / f"vscode-command-server{suffix}"
 
 
-def robust_unlink(path: Path):
-    """Unlink the given file if it exists, and if we're on windows and it is
-    currently in use, just rename it
-
-    Args:
-        path (Path): The path to unlink
-    """
+def unlink_if_exists(path):
     try:
-        path.unlink(missing_ok=True)
-    except OSError as e:
-        if hasattr(e, "winerror") and e.winerror == 32:
-
-            graveyard_dir = get_communication_dir_path() / "graveyard"
-            graveyard_dir.mkdir(parents=True, exist_ok=True)
-            graveyard_path = graveyard_dir / str(uuid4())
-            print(
-                f"WARNING: File {path} was in use when we tried to delete it; "
-                f"moving to graveyard at path {graveyard_path}"
-            )
-            path.rename(graveyard_path)
-        else:
-            raise e
+        path.unlink()
+    except FileNotFoundError:
+        pass
 
 
 def read_json_with_timeout(path: str) -> Any:
@@ -291,7 +265,7 @@ class Actions:
         finish."""
         run_vscode_command(command_id, wait_for_finish=True)
 
-    #def vscode_with_plugin(
+    # def vscode_with_plugin(
     def vscode(
         command_id: str,
         arg1: Any = NotSet,
