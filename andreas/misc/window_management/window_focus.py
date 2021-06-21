@@ -47,14 +47,15 @@ def update_lists():
 def update_overrides(name, flags):
     """Updates the overrides list"""
     global overrides
-    overrides = {}
+    res = {}
     if name is None or name == override_file_path:
         with open(override_file_path, "r") as f:
             for line in f:
                 line = line.rstrip()
                 line = line.split(",")
                 if len(line) == 2:
-                    overrides[line[0].lower()] = line[1].strip()
+                    res[line[0].lower()] = line[1].strip()
+    overrides = res
     update_lists()
 
 def get_windows(app_name: str) -> list:
