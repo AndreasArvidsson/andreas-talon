@@ -1,8 +1,8 @@
 app: firefox
 -
 
-hunt:                             key(escape f)
-hunt new:                         key(escape F)
+hunt:                             key(escape ctrl-alt-f)
+hunt new:                         key(escape ctrl-alt-F)
 
 half up:                          key(alt-pageup)
 half down:                        key(alt-pagedown)
