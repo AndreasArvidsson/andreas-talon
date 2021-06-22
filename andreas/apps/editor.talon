@@ -1,7 +1,3 @@
-mode: command
-mode: dictation
--
-
 # ----- Navigation -----
 page up:                           edit.page_up()
 page down:                         edit.page_down()
@@ -100,7 +96,8 @@ replace all:                       user.find_replace_all()
 
 # ----- Misc -----
 spamma:                            ", "
-colgap | coalgap:                  ": "
+colgap:                            ": "
+period:                            ". "
 
 # ----- Brackets -----
 args:

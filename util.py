@@ -5,7 +5,11 @@ def merge(*args):
     result = {}
     for arg in args:
         if isinstance(arg, dict):
-            result.update(arg)
+            for k, v in arg.items():
+                if v == None:
+                    del result[k]
+                else:
+                    result[k] = v
         elif isinstance(arg, Iterable):
             for v in arg:
                 result[v] = v
