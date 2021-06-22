@@ -2,6 +2,8 @@ from talon import Module, Context, actions
 from user.util import merge
 import re
 insert = actions.insert
+key = actions.key
+
 mod = Module()
 ctx = Context()
 
@@ -61,9 +63,7 @@ class UserActions:
     def op_div_assign():        insert(" /= ")
     def op_mod():               insert(" % ")
     def op_mod_assign():        insert(" %= ")
-    def op_exp():
-        insert("Math.pow()")
-        actions.key("left")
+    def op_exp():               actions.skip()
     
     # Boolean operators
     def op_and():               insert(" && ")
@@ -79,32 +79,32 @@ class UserActions:
     # Selection statements
     def code_if():
         insert("if () {\n\n}\n")
-        actions.key("up:3 end left:3")
+        key("up:3 end left:3")
     def code_elif():
         insert("else if () {\n\n}\n")
-        actions.key("up:3 end left:3")
+        key("up:3 end left:3")
     def code_else():
         insert("else {\n\n}\n")
-        actions.key("up:2")
+        key("up:2")
     def code_switch():
         insert("switch () {\n\n}\n")
-        actions.key("up:3 end left:3")
+        key("up:3 end left:3")
     def code_case(): insert("case ")
     def code_default(): insert("default:")
     
     # Iteration statements
     def code_for():
         insert("for (int i = 0; i < .size(); ++i) {\n\n}\n")
-        actions.key("up:3 home right:20")
+        key("up:3 home right:20")
     def code_while():
         insert("while () {\n\n}\n")
-        actions.key("up:3 end left:3")
+        key("up:3 end left:3")
     def code_do_while():
         insert("do {\n\n} while ();\n")
-        actions.key("up end left:2")
+        key("up end left:2")
     def code_foreach():
         insert("for (final  : ) {\n\n}\n")
-        actions.key("up:3 end left:6")
+        key("up:3 end left:6")
     
     # Miscellaneous statements
     def code_break(): insert("break;")
@@ -115,15 +115,15 @@ class UserActions:
     def code_comment(): insert("// ")
     def code_block_comment():
         insert("/*\n\n*/")
-        actions.key("up")
+        key("up")
     def code_print(text: str):
         if text:
-            actions.insert('System.out.println("{}");\n'.format(
+            insert('System.out.println("{}");\n'.format(
                 actions.user.formatted_text(text, "CAPITALIZE_FIRST_WORD")
             ))
         else:
-            actions.insert("System.out.println();")
-            actions.key("left:2")
+            insert("System.out.println();")
+            key("left:2")
 
     # Class statement
     def code_class(access_modifier: str or None, name: str):
@@ -132,8 +132,8 @@ class UserActions:
             text = f"{access_modifier} {text}"
         else:
             text = f"public {text}"
-        actions.insert(text)
-        actions.key("up tab")
+        insert(text)
+        key("up tab")
 
     # Constructor statement
     def code_constructor(access_modifier: str or None):
@@ -144,16 +144,16 @@ class UserActions:
             text = f"{access_modifier} {name}"
         else:
             text = f"public {name}"
-        actions.insert(f"{text}() {{\n\n}}\n")
-        actions.key("up:3 end left:3")
+        insert(f"{text}() {{\n\n}}\n")
+        key("up:3 end left:3")
 
     # Function statement
     def code_function(access_modifier: str or None, name: str):
-        text = f"void {name}() {{\n\n}}\n"
+        text = f"void {name}() {{}}\n"
         if access_modifier:
             text = f"{access_modifier} {text}"
-        actions.insert(text)
-        actions.key("up:3 end left:3")
+        insert(text)
+        key("up end left enter up end left:3")
 
     # Variable declaration
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
@@ -164,16 +164,16 @@ class UserActions:
             text = f"{access_modifier} {text}"
         if assign:
             text = text + " = "
-        actions.insert(text)
+        insert(text)
 
     # Function call
     def code_call_function(name: str):
-        actions.insert(f"{name}()")
-        actions.key("left")
+        insert(f"{name}()")
+        key("left")
     
     # Member access
     def code_member_access(operator: str, name: str):
-        actions.insert("{}{}".format(operator, name))
+        insert(f"{operator}{name}")
 
     # Formatting getters
     def code_get_class_format() -> str:     return "PASCAL_CASE"

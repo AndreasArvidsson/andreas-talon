@@ -109,16 +109,16 @@ class UserActions:
         key("up")
     def code_print(text: str):
         if text:
-            actions.insert('console.log("{}")'.format(
+            insert('console.log("{}")'.format(
                 actions.user.formatted_text(text, "CAPITALIZE_FIRST_WORD")
             ))
         else:
-            actions.insert("console.log()")
+            insert("console.log()")
             key("left")
 
     # Class statement
     def code_class(access_modifier: str or None, name: str):
-        actions.insert(f"class {name} {{\n\n\n}}")
+        insert(f"class {name} {{\n\n\n}}")
         key("up tab")    
 
     # Constructor statement
@@ -128,8 +128,8 @@ class UserActions:
 
     # Function statement
     def code_function(access_modifier: str or None, name: str):
-        actions.insert(f"function {name}() {{\n\n}}\n")
-        key("up:3 end left:3")
+        insert(f"function {name}() {{}}\n")
+        key("up end left enter up end left:3")
 
     # Variable statement
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
@@ -139,16 +139,16 @@ class UserActions:
             text = name
         if assign:
             text = text + " = "
-        actions.insert(text)
+        insert(text)
 
     # Function called
     def code_call_function(name: str):
-        actions.insert(f"{name}()")
+        insert(f"{name}()")
         key("left")
 
     # Member access
     def code_member_access(operator: str, name: str):
-        actions.insert(f"{operator}{name}")
+        insert(f"{operator}{name}")
 
     # Formatting getters
     def code_get_class_format() -> str:     return "PASCAL_CASE"
