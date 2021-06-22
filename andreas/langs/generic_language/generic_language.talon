@@ -56,6 +56,7 @@ var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name>:
 	name = user.formatted_text(variable_name, format)
 	user.history_add_phrase(name)
 	user.code_variable(code_access_modifier or "", code_data_type or "", name, "")
+
 var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name> (equals | equal):
 	format = user.code_get_variable_format()
 	name = user.formatted_text(variable_name, format)
@@ -66,7 +67,12 @@ type {user.code_data_type}:    "{code_data_type} "
 
 # ----- Function call -----
 call {user.code_function}:      user.code_call_function(code_function)
-call <user.variable_name>:      user.code_call_function(variable_name)
+
+call <user.variable_name>:      
+	format = user.code_get_function_format()
+	name = user.formatted_text(variable_name, format)
+	user.history_add_phrase(name)
+	user.code_call_function(name)
 
 # ----- Member access -----
 {user.code_member_op} {user.code_member}:

@@ -127,9 +127,7 @@ class UserActions:
 
     # Function statement
     def code_function(access_modifier: str or None, name: str):
-        comment = " ".join(name.split("_"))
-        comment = actions.user.formatted_text(comment, "CAPITALIZE_FIRST_WORD")
-        insert("def {}():" .format(name, comment))
+        insert(f"def {name}():")
         key("left:2")
 
     # Variable statement
