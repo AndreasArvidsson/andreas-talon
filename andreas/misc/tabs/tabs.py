@@ -11,7 +11,7 @@ tag: user.tabs
 
 
 @ctx.action_class("app")
-class app_actions:
+class AppActions:
     def tab_previous():     key("ctrl-pageup")
     def tab_next():         key("ctrl-pagedown")
     def tab_open():         key("ctrl-t")
@@ -20,7 +20,7 @@ class app_actions:
 
 
 @mod.action_class
-class tab_actions:
+class TabActions:
     def tab_jump(number: int):
         """Jumps to the specified tab"""
         key(f"ctrl-{number}")
