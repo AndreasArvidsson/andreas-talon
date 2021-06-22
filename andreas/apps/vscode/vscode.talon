@@ -47,7 +47,7 @@ fold that:               user.vscode("editor.fold")
 unfold that:             user.vscode("editor.unfold")
 fold recursive:          user.vscode("editor.foldAllMarkerRegions")
 unfold recursive:        user.vscode("editor.unfoldRecursively")
-fold all:                user.vscode("editor.foldAll")e
+fold all:                user.vscode("editor.foldAll")
 unfold all:              user.vscode("editor.unfoldAll")
 fold comments:           user.vscode("editor.foldAllBlockComments")
 
