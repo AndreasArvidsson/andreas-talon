@@ -9,6 +9,7 @@ dot exe:                          ".exe"
 dot bin:                          ".bin"
 dot (jason | jay son):            ".json"
 dot (javascript | java script):   ".js"
+dot text:                         ".txt"
 
 dot com:                          ".com"
 dot net:                          ".net"
