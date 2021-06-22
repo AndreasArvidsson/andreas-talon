@@ -84,7 +84,7 @@ ctx.lists["self.key_symbol"] = merge(
 
         "quote":            '"',
         "apostrophe":       "'",
-        "back tick":        "` ",
+        "back tick":        "`",
 
         "slash":            "/",
         "backslash":        "\\",
@@ -99,8 +99,8 @@ ctx.lists["self.key_symbol"] = merge(
         "angle":            "<",
         "right angle":      ">",
 
-        "caret":            "^ ",
-        "tilde":            "~ ",
+        "caret":            "^",
+        "tilde":            "~",
         "plus":             "+",
         "minus":            "-",
         "equals":           "="
