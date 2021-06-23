@@ -38,7 +38,7 @@ ctx_talon.matches = r"""
 app: vscode
 and mode: user.talon
 app: vscode
-and mode: command 
+and mode: user.auto_lang
 and code.language: talon
 """
 
@@ -160,6 +160,13 @@ class TalonUserActions:
     # ----- Format -----
     def format_document():      vscode("andreas.formatDocument")
     def format_selection():     actions.skip()
+
+
+@ctx_talon.action_class("edit")
+class TalonEditActions:
+    def save():
+        actions.user.format_document()
+        actions.next()
 
 
 @mod.action_class
