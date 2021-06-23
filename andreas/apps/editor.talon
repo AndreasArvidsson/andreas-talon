@@ -54,7 +54,7 @@ redo it:                           edit.redo()
 del right:                         user.delete_right()
 
 remove:                            edit.delete_word()
-remfor:                            user.delete_word_right()
+rem right:                         user.delete_word_right()
 
 scratch line:                      edit.delete_line()
 scratch head:                      user.delete_line_start()

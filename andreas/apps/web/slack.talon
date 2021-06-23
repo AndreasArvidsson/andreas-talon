@@ -8,7 +8,8 @@ edit:                    key(e)
 (show | hide) panel:     key(ctrl-.)
 
 all unreads:             key(ctrl-shift-a)
-go to:                   key(ctrl-k)
+jump to:                 key(ctrl-k)
+direct messages:         key(ctrl-shift-k)
 
 channel prev:            key(alt-up)
 channel next:            key(alt-down)
