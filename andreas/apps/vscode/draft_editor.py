@@ -1,5 +1,4 @@
 from talon import Module, actions, ui
-import time
 
 mod = Module()
 active_window = None
@@ -12,10 +11,14 @@ class Actions:
         global active_window, editor
         active_window = ui.active_window()
         editor = get_editor()
+        has_selected_text = actions.edit.selected_text() != ""
+        if has_selected_text:
+            actions.edit.copy()
         actions.edit.copy()
-        focus_window(editor)
+        actions.user.focus_window(editor)
         new_file()
-        actions.edit.paste()
+        if has_selected_text:
+            actions.edit.paste()
 
     def draft_editor_save():
         """Save draft editor"""
@@ -25,8 +28,19 @@ class Actions:
         actions.edit.select_all()
         actions.edit.copy()
         close_file()
-        focus_window(active_window)
+        actions.user.focus_window(active_window)
         actions.edit.paste()
+        active_window = None
+        editor = None
+
+    def draft_editor_discard():
+        """Discard draft editor"""
+        global active_window, editor
+        if not active_window or ui.active_window() != editor:
+            return
+        actions.edit.select_all()
+        close_file()
+        actions.user.focus_window(active_window)
         active_window = None
         editor = None
 
@@ -50,11 +64,3 @@ def new_file():
 def close_file():
     actions.edit.delete()
     actions.app.tab_close()
-
-def focus_window(window):
-    window.focus()
-    t1 = time.monotonic()
-    while ui.active_window() != window:
-        if time.monotonic() - t1 > 1:
-            raise RuntimeError(f"Can't focus window: {window.title}")
-        actions.sleep("50ms")

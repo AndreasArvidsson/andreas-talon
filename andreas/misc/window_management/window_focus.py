@@ -2,6 +2,7 @@ from talon import Context, Module, app, imgui, ui, fs, actions
 from user.util import cycle, split_camel
 import os
 import re
+import time
 
 # Construct at startup a list of overides for application names (similar to how homophone list is managed)
 cwd = os.path.dirname(os.path.realpath(__file__))
@@ -111,6 +112,16 @@ class Actions:
         actions.mode.disable("user.focus")
         gui.hide()
 
+    def focus_window(window: ui.Window):
+        """Focus window and wait until finished"""
+        window.focus()
+        t1 = time.monotonic()
+        while ui.active_window() != window:
+            if time.monotonic() - t1 > 1:
+                raise RuntimeError(f"Can't focus window: {window.title}")
+            actions.sleep("50ms")
+
+
 
 @imgui.open(x=0)
 def gui(gui: imgui.GUI):
@@ -127,7 +138,6 @@ def gui(gui: imgui.GUI):
 
 def on_launch_close(event):
     update_lists()
-
 
 def on_ready():
     update_overrides(None, None)

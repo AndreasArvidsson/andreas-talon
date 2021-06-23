@@ -25,6 +25,7 @@ bar run:                 user.vscode("workbench.view.debug")
 bar search:              user.vscode("workbench.view.search")
 bar source:              user.vscode("workbench.view.scm")
 bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
+bar file:                user.vscode("workbench.files.action.showActiveFileInExplorer")
 
 # Panels
 panel (show | hide):     user.vscode("workbench.action.togglePanel")
