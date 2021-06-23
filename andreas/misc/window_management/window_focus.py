@@ -1,4 +1,5 @@
-from talon import Context, Module, app, imgui, ui, fs, actions
+from talon import Context, Module, app, imgui, ui, fs, actions, speech_system, scope
+from talon.grammar import Phrase
 from user.util import cycle, split_camel
 import os
 import re
@@ -75,7 +76,7 @@ def focus_app(name: str, diff: int = 1):
             0,
             len(windows) -1
         )
-    windows[i].focus()
+    actions.user.focus_window(windows[i])
 
 
 @ctx.action_class("app")
@@ -88,10 +89,13 @@ class AppActionsWin:
 
 @mod.action_class
 class Actions:
-    def focus_name(name: str):
+    def focus_name(name: str, phrase: Phrase = None):
         """Focus application by name"""
         focus_app(name)
         actions.user.focus_hide()
+        if phrase:
+            actions.sleep("200ms")
+            actions.user.rephrase(phrase)
 
     def focus_index(index: int):
         """Focus application by index"""
