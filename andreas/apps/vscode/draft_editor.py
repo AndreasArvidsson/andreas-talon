@@ -8,7 +8,7 @@ editor = None
 @mod.action_class
 class Actions:
     def draft_editor_open():
-        """Open draft jump"""
+        """Open draft editor"""
         global active_window, editor
         active_window = ui.active_window()
         editor = get_editor()
@@ -18,7 +18,7 @@ class Actions:
         actions.edit.paste()
 
     def draft_editor_save():
-        """Save draft jump"""
+        """Save draft editor"""
         global active_window, editor
         if not active_window or ui.active_window() != editor:
             return
@@ -56,5 +56,5 @@ def focus_window(window):
     t1 = time.monotonic()
     while ui.active_window() != window:
         if time.monotonic() - t1 > 1:
-            raise RuntimeError("Can't focus window")
+            raise RuntimeError(f"Can't focus window: {window.title}")
         actions.sleep("50ms")
