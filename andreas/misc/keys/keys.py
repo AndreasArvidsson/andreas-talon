@@ -92,12 +92,16 @@ ctx.lists["self.key_symbol"] = merge(
 
         "paren":            "(",
         "right paren":      ")",
+        "rearen":           ")",
         "brace":            "{",
         "right brace":      "}",
+        "race":             "}",
         "square":           "[",
         "right square":     "]",
+        "rare":             "]",
         "angle":            "<",
         "right angle":      ">",
+        "rangle":           ">",
 
         "caret":            "^",
         "tilde":            "~",
