@@ -51,7 +51,7 @@ select righter [<number_small>]:   user.extend_word_right(number_small or 1)
 redo it:                           edit.redo()
 
 (del | delete):                    edit.delete()
-del right:                         user.delete_right()
+drill:                             user.delete_right()
 
 remove:                            edit.delete_word()
 rem right:                         user.delete_word_right()
