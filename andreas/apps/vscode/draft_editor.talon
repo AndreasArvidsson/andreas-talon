@@ -8,9 +8,3 @@ draft all:
 draft line:
 	edit.select_line()
 	user.draft_editor_open()
-
-draft save:
-	user.draft_editor_save()
-
-draft discard:
-	user.draft_editor_discard()

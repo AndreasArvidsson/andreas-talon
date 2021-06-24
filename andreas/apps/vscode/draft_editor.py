@@ -1,49 +1,44 @@
 from talon import Module, actions, ui
 
 mod = Module()
+mod.mode("draft_editor", "Mode to show if the draft editor is open")
+
 active_window = None
-editor = None
 
 @mod.action_class
 class Actions:
     def draft_editor_open():
         """Open draft editor"""
-        global active_window, editor
+        global active_window
         active_window = ui.active_window()
         editor = get_editor()
         has_selected_text = actions.edit.selected_text() != ""
         if has_selected_text:
             actions.edit.copy()
-        actions.edit.copy()
         actions.user.focus_window(editor)
         new_file()
         if has_selected_text:
             actions.edit.paste()
+        actions.mode.enable("user.draft_editor")
 
     def draft_editor_save():
         """Save draft editor"""
-        global active_window, editor
-        if not active_window or ui.active_window() != editor:
-            return
-        actions.edit.select_all()
-        actions.edit.copy()
-        close_file()
-        actions.user.focus_window(active_window)
-        actions.edit.paste()
-        active_window = None
-        editor = None
+        close_editor(True)
 
     def draft_editor_discard():
         """Discard draft editor"""
-        global active_window, editor
-        if not active_window or ui.active_window() != editor:
-            return
-        actions.edit.select_all()
-        close_file()
-        actions.user.focus_window(active_window)
-        active_window = None
-        editor = None
+        close_editor(False)
 
+
+def close_editor(save: bool):
+    actions.mode.disable("user.draft_editor")
+    actions.edit.select_all()
+    if save:
+        actions.edit.copy()
+    close_file()
+    actions.user.focus_window(active_window)
+    if save:
+        actions.edit.paste()
 
 def get_editor():
     editor_names = {
