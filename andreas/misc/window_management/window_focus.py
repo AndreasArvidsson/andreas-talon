@@ -98,7 +98,7 @@ class Actions:
             actions.sleep("200ms")
             actions.user.rephrase(phrase)
 
-    def focus_names(names: List[str], phrases: List[Phrase] = None):
+    def focus_names(names: List[str], phrases: List[Phrase]):
         """Focus applications by name"""
         for n, p in zip(names, phrases):
             actions.user.focus_name(n, p)
