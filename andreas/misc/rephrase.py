@@ -14,7 +14,7 @@ speech_system.register("post:phrase", on_post_phrase)
 @mod.action_class
 class Actions: 
     def rephrase(phrase: Phrase):
-        """Rerun phrase"""
+        """Re-evaluate and run phrase"""
         current_phrase = phrase_stack[-1]
         ts = current_phrase["_ts"]
         start = phrase.words[0].start - ts
