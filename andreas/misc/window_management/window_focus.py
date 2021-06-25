@@ -1,6 +1,7 @@
 from talon import Context, Module, app, imgui, ui, fs, actions, speech_system, scope
 from talon.grammar import Phrase
 from user.util import cycle, split_camel
+from typing import List
 import os
 import re
 import time
@@ -96,6 +97,11 @@ class Actions:
         if phrase:
             actions.sleep("200ms")
             actions.user.rephrase(phrase)
+
+    def focus_names(names: List[str], phrases: List[Phrase] = None):
+        """Focus applications by name"""
+        for n, p in zip(names, phrases):
+            actions.user.focus_name(n, p)
 
     def focus_index(index: int):
         """Focus application by index"""

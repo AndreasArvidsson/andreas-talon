@@ -2,8 +2,9 @@ focus (help | show):                user.focus_toggle()
 
 focus {user.running_application}:
 	user.focus_name(running_application)
-focus {user.running_application} <phrase>$:
-	user.focus_name(running_application, phrase)
+
+(focus {user.running_application} <phrase>)+$:
+	user.focus_names(running_application_list, phrase_list)
 
 window new:                         app.window_open()
 window close:                       app.window_close()
