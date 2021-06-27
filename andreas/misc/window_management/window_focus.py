@@ -34,15 +34,12 @@ def parse_name(name):
     name = " ".join(split_camel(name))
     return name
 
-def update_lists():
-    global name_to_pids
-    name_to_pids = {}
+def update_running():
     running = {}
     for app in ui.apps(background=False):
         name = parse_name(app.name)
-        if not name:
-            continue
-        running[name] = app.name
+        if name:
+            running[name] = app.name
     ctx.lists["self.running_application"] = running
 
 
@@ -58,41 +55,48 @@ def update_overrides(name, flags):
                 if len(line) == 2:
                     res[line[0].lower()] = line[1].strip()
     overrides = res
-    update_lists()
+    update_running()
 
-def get_windows(app_name: str) -> list:
-    res = filter(lambda w: w.app.name == app_name, ui.windows())
-    res = sorted(res, key=lambda w: w.id)
-    return list(res)
+def get_app(name: str) -> ui.App:
+    for app in ui.apps(background=False):
+        if app.name == name:
+            return app
+    raise RuntimeError(f'App not running: "{name}"')
 
-def focus_app(name: str, diff: int = 1):
-    windows = get_windows(name)
-    if (len(windows) == 0):
-        raise RuntimeError(f'App not running: "{name}"')
-    i = 0
-    # Focus next window on same app
-    if ui.active_app().name == name:
-        i = cycle(
-            windows.index(ui.active_window()) + diff,
-            0,
-            len(windows) -1
-        )
+def cycle_windows(app: ui.App, diff: int):
+    windows = app.windows()
+    if len(windows) == 0:
+        return
+    i = cycle(
+        windows.index(ui.active_window()) + diff,
+        0,
+        len(windows) -1
+    )
     actions.user.focus_window(windows[i])
+
+def focus_name(name: str):
+    app = get_app(name)
+    # Focus next window on same app
+    if app == ui.active_app():
+        cycle_windows(app, 1)
+    # Focus app
+    else:
+        actions.user.focus_app(app)
 
 
 @ctx.action_class("app")
 class AppActionsWin:
     def window_previous():
-        focus_app(ui.active_app().name, -1)
+        cycle_windows(ui.active_app(), -1)
     def window_next():
-        focus_app(ui.active_app().name, 1)
+        cycle_windows(ui.active_app(), 1)
 
 
 @mod.action_class
 class Actions:
     def focus_name(name: str, phrase: Phrase = None):
         """Focus application by name"""
-        focus_app(name)
+        focus_name(name)
         actions.user.focus_hide()
         if phrase:
             actions.sleep("200ms")
@@ -122,6 +126,15 @@ class Actions:
         actions.mode.disable("user.focus")
         gui.hide()
 
+    def focus_app(app: ui.App):
+        """Focus app and wait until finished"""
+        app.focus()
+        t1 = time.monotonic()
+        while ui.active_app() != app:
+            if time.monotonic() - t1 > 1:
+                raise RuntimeError(f"Can't focus app: {app.name}")
+            actions.sleep("50ms")
+
     def focus_window(window: ui.Window):
         """Focus window and wait until finished"""
         window.focus()
@@ -145,15 +158,11 @@ def gui(gui: imgui.GUI):
     if gui.button("Hide"):
         actions.user.focus_hide()
 
-
-def on_launch_close(event):
-    update_lists()
-
 def on_ready():
     update_overrides(None, None)
     fs.watch(overrides_directory, update_overrides)
-    ui.register("app_launch", on_launch_close)
-    ui.register("app_close", on_launch_close)
+    ui.register("app_launch", lambda e: update_running())
+    ui.register("app_close", lambda e: update_running())
 
 
 app.register("ready", on_ready)
