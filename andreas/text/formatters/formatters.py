@@ -1,7 +1,7 @@
 from talon import Module, Context, actions, imgui
 import logging
 import re
-from user.util import split_camel
+from user.util import de_camel
 
 
 ctx = Context()
@@ -201,7 +201,7 @@ def split_words(text):
     # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
     text = re.sub(r"[-_.:/](?!\s)+", " ", text)
     # Split camel case. Including numbers
-    text = " ".join(split_camel(text))
+    text = de_camel(text)
     return text.split()
 
 # Test split_words

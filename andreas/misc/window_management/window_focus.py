@@ -1,6 +1,6 @@
 from talon import Context, Module, app, imgui, ui, fs, actions, speech_system, scope
 from talon.grammar import Phrase
-from user.util import cycle, split_camel
+from user.util import cycle, de_camel
 from typing import List
 import os
 import re
@@ -31,7 +31,7 @@ def parse_name(name):
     if " - " in name:
         name = name.rsplit(" - ", 1)[0]
     name = re.sub(r"[^a-zA-Z0-9]", " ", name)
-    name = " ".join(split_camel(name))
+    name = de_camel(name)
     return name
 
 def update_running():
@@ -50,10 +50,10 @@ def update_overrides(name, flags):
     if name is None or name == override_file_path:
         with open(override_file_path, "r") as f:
             for line in f:
-                line = line.rstrip()
                 line = line.split(",")
                 if len(line) == 2:
                     res[line[0].lower()] = line[1].strip()
+    print(res.keys())
     overrides = res
     update_running()
 
