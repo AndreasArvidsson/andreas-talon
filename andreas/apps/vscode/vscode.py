@@ -66,6 +66,11 @@ class WinActions:
         return ""
 
 
+@ctx.action_class("app")
+class AppActions:
+    def tab_open():             vscode("workbench.action.files.newUntitledFile")
+
+
 @ctx.action_class("code")
 class CodeActions:
     def complete():             vscode("editor.action.triggerSuggest")
