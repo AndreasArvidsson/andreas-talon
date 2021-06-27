@@ -37,6 +37,17 @@ extension_lang_map = {
     ".html": "html"
 }
 
+# Create a mode for each defined language
+for __, lang in extension_lang_map.items():
+    mod.mode(lang)
+
+# Create a mode for the automated language detection. This is active when no lang is forced.
+mod.mode("auto_lang")
+
+# Auto lang is eanabled by default
+app.register("ready", lambda: actions.user.code_clear_language_mode())
+
+
 @ctx.action_class("code")
 class code_actions:
     def language():
@@ -44,11 +55,6 @@ class code_actions:
         if file_extension and file_extension in extension_lang_map:
             return extension_lang_map[file_extension]
         return ""
-
-mod.mode("auto_lang")
-# create a mode for each defined language
-for __, lang in extension_lang_map.items():
-    mod.mode(lang)
 
 @mod.action_class
 class Actions:
@@ -64,8 +70,3 @@ class Actions:
         actions.mode.enable("user.auto_lang")
         for __, lang in extension_lang_map.items():
             actions.mode.disable("user.{}".format(lang))
-
-def on_ready():
-    actions.mode.enable("user.auto_lang")
-
-app.register("ready", on_ready)
