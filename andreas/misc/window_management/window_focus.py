@@ -64,7 +64,7 @@ def get_app(name: str) -> ui.App:
     raise RuntimeError(f'App not running: "{name}"')
 
 def cycle_windows(app: ui.App, diff: int):
-    windows = app.windows()
+    windows = sorted(app.windows(), key=lambda w: w.id)
     if len(windows) == 0:
         return
     i = cycle(
