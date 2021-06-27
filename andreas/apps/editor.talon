@@ -94,11 +94,6 @@ find replace [<user.text>]:        user.find_replace(text or "")
 replace word:                      user.find_replace_word()
 replace all:                       user.find_replace_all()
 
-# ----- Misc -----
-spamma:                            ", "
-colgap:                            ": "
-period:                            ". "
-
 # ----- Brackets -----
 args:
 	"()"
@@ -112,3 +107,13 @@ diamond:
 block:
 	"{}"
 	key(left)
+
+# ----- Misc -----
+spamma:                            ", "
+colgap:                            ": "
+period:                            ". "
+
+push {user.key_symbol}:
+	edit.line_end()
+	"{key_symbol}"
+	edit.line_insert_down()
