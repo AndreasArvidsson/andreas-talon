@@ -31,8 +31,8 @@ format document:               user.format_document()
 format it:                     user.format_selection()
 
 # ----- Comments -----
-comment it:                    user.comment()
-uncomment it:                  user.uncomment()
+comment:                       user.comment()
+uncomment:                     user.uncomment()
 
 # ----- Run and debug -----
 run program:                   user.run_program()
