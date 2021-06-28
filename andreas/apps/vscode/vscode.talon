@@ -2,6 +2,9 @@ app: vscode
 -
 tag(): user.ide
 
+settings():
+	key_wait = 1
+
 # Language features
 suggest param:           user.vscode("editor.action.triggerParameterHints")
 imports organize:        user.vscode("editor.action.organizeImports")
