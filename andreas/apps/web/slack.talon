@@ -4,8 +4,8 @@ app: slack
 edit last:               key(ctrl-up)
 edit:                    key(e)
 
-(show | hide) sidebar:   key(ctrl-shift-d)
-(show | hide) panel:     key(ctrl-.)
+sidebar (show | hide):   key(ctrl-shift-d)
+panel (show | hide):     key(ctrl-.)
 
 all unreads:             key(ctrl-shift-a)
 jump to:                 key(ctrl-k)
