@@ -81,7 +81,7 @@ drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
 # ----- Save -----
-save it:                           edit.save()
+save:                              edit.save()
 
 # ----- Find / Replace -----
 find [<user.text>]:                edit.find(text or "")
@@ -106,6 +106,14 @@ diamond:
 	key(left)
 block:
 	"{}"
+	key(left)
+
+# ----- Quotes -----
+twin:
+	"''"
+	key(left)
+quad:
+	'""'
 	key(left)
 
 # ----- Misc -----

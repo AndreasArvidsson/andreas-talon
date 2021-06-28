@@ -42,9 +42,9 @@ continue:                      user.debug_continue()
 step over:                     user.debug_step_over()
 step into:                     user.debug_step_into()
 step out:                      user.debug_step_out()
-restart debug:                 user.debug_restart()
-pause debug:                   user.debug_pause()
-stop debug:                    user.debug_stop()
+debug restart:                 user.debug_restart()
+debug pause:                   user.debug_pause()
+debug stop:                    user.debug_stop()
 
 # ----- Misc -----
 quick fix:                     user.quick_fix()

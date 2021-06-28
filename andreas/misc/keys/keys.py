@@ -81,6 +81,8 @@ ctx.lists["self.key_symbol"] = merge(
         "bang":             "!",
         "hash":             "#",
         "star":             "*",
+        "dollar":           "$",
+        "percent":          "%",
 
         "quote":            '"',
         "apostrophe":       "'",
