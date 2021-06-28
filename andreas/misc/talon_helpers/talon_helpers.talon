@@ -15,6 +15,7 @@ talon print captures:        print(" \n{user.talon_get_captures()}")
 talon print lists:           print(" \n{user.talon_get_lists()}")
 talon print actions:         print(" \n{user.talon_get_actions()}")
 talon print actions long:    print(" \n{user.talon_get_actions_long()}")
+talon print list problems:   user.talon_print_list_problems()
 
 talon copy title:            clip.set_text(win.title())
 talon copy tags:             clip.set_text(user.talon_get_tags())

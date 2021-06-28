@@ -75,6 +75,14 @@ class Actions:
         """Get captures as text"""
         return format("captures", registry.captures)
 
+    def talon_print_list_problems():
+        """Search for non almpha keys in meta lists"""
+        for n, l in registry.lists.items():
+            for ml in l:
+                for v in ml:
+                    if re.search(r"[^a-zA-Z ]", v):
+                        print(f"{n} {v}")
+
     def talon_get_lists() -> str:
         """Get lists as text"""
         return format("lists", registry.lists)
