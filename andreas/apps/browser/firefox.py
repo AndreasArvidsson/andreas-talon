@@ -31,6 +31,12 @@ class UserActions:
     def tab_final():    key("ctrl-9")
     def tab_mute():     key("ctrl-m")
 
+    def browser_open(url: str):
+        actions.browser.focus_address()
+        actions.sleep("50ms")
+        actions.insert(url)
+        key("alt-enter")
+
 
 @ctx.action_class("browser")
 class BrowserActions:
@@ -66,6 +72,11 @@ class BrowserActions:
     def show_extensions():      key("ctrl-shift-a")
     def show_history():         key("ctrl-h")
     def toggle_dev_tools():     key("ctrl-shift-i")
+    def go(url: str):
+        actions.browser.focus_address()
+        actions.sleep("50ms")
+        actions.insert(url)
+        key("enter")
 
 
 # ----- LINUX -----

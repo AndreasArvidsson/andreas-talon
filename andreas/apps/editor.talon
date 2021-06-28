@@ -112,7 +112,7 @@ block:
 twin:
 	"''"
 	key(left)
-quad:
+string:
 	'""'
 	key(left)
 

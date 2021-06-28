@@ -37,7 +37,7 @@ formatters_words = {
     "allcaps": formatters_dict["ALL_CAPS"],
     "alldown": formatters_dict["ALL_LOWERCASE"],
     "string": formatters_dict["DOUBLE_QUOTED_STRING"],
-    "sin string": formatters_dict["SINGLE_QUOTED_STRING"],
+    "twin": formatters_dict["SINGLE_QUOTED_STRING"],
     # Splitting formatters
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
     "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
@@ -190,15 +190,13 @@ def capitalize(text): return text.lower().capitalize()
 def lower(text): return text.lower()
 def upper(text): return text.upper()
 
-
 def surround(text, char):
     if text[0] == "'" or text[0] == '"':
         text = text[1:]
     length = len(text)
-    if text[length-1] == "'" or text[length-1] == '"':
-        text = text[:length-1]
+    if text[-1] == "'" or text[-1] == '"':
+        text = text[:-1]
     return char + text + char
-
 
 def split_words(text):
     # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
