@@ -22,6 +22,7 @@ formatters_dict = {
     "CAMEL_CASE": lambda text: format_words(text, "", lower, capitalize),
     "PASCAL_CASE": lambda text: format_words(text, "", capitalize, capitalize),
     "SNAKE_CASE": lambda text: format_words(text, "_", lower, lower),
+    "ALL_CAPS_SNAKE_CASE": lambda text: format_words(text, "_", upper, upper),
     "DASH_SEPARATED": lambda text: format_words(text, "-", lower, lower),
     "DOT_SEPARATED": lambda text: format_words(text, ".", lower, lower),
     "SLASH_SEPARATED": lambda text: format_words(text, "/", lower, lower),
@@ -43,6 +44,7 @@ formatters_words = {
     "camel": formatters_dict["CAMEL_CASE"],
     "pascal": formatters_dict["PASCAL_CASE"],
     "snake": formatters_dict["SNAKE_CASE"],
+    "constant": formatters_dict["ALL_CAPS_SNAKE_CASE"],
     "kebab": formatters_dict["DASH_SEPARATED"],
     "dotted": formatters_dict["DOT_SEPARATED"],
     "slasher": formatters_dict["SLASH_SEPARATED"],
@@ -186,6 +188,7 @@ def format_words(text: str, delimiter: str, func_first=None, func_rest=None):
 
 def capitalize(text): return text.lower().capitalize()
 def lower(text): return text.lower()
+def upper(text): return text.upper()
 
 
 def surround(text, char):
