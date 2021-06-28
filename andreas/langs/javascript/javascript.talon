@@ -1,6 +1,8 @@
 mode: user.javascript
 mode: user.auto_lang
 and code.language: javascript
+mode: user.auto_lang
+and code.language: typescript
 -
 tag(): user.generic_language
 
