@@ -13,9 +13,17 @@ refactor it:             user.vscode("editor.action.refactor")
 whitespace trim:         user.vscode("editor.action.trimTrailingWhitespace")
 
 # Split
-group <number>:          key("ctrl-{number}")
-split right:             user.vscode("workbench.action.splitEditorRight")
-split down:              user.vscode("workbench.action.splitEditorDown")
+split up:                user.vscode("workbench.action.moveEditorToAboveGroup")
+split down:              user.vscode("workbench.action.moveEditorToBelowGroup")
+split left:              user.vscode("workbench.action.moveEditorToLeftGroup")
+split right:             user.vscode("workbench.action.moveEditorToRightGroup")
+focus up:                user.vscode("workbench.action.focusAboveGroup")
+focus down:              user.vscode("workbench.action.focusBelowGroup")
+focus left:              user.vscode("workbench.action.focusLeftGroup")
+focus right:             user.vscode("workbench.action.focusRightGroup")
+split flip:              user.vscode("workbench.action.toggleEditorGroupLayout")
+split clear:             user.vscode("workbench.action.joinTwoGroups")
+split clear all:         user.vscode("workbench.action.editorLayoutSingle")
 
 # Sidebar
 bar explorer:            user.vscode("workbench.view.explorer")
