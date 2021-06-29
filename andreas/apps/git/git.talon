@@ -22,7 +22,7 @@ git checkout develop:       "git checkout develop\n"
 git checkout <user.text>:   "git checkout {text}"
 
 git add [<user.text>]:      "git add {text or ''}"
-git add all:                "git add .\n"
+git add dot:                "git add .\n"
 
 git commit:
 	'git commit -m ""'

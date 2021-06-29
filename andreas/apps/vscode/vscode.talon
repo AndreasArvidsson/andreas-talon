@@ -79,6 +79,7 @@ small down:              key(ctrl-down)
 install extension:       user.vscode("workbench.extensions.action.installVSIX")
 minimap (show | hide):   user.vscode("editor.action.toggleMinimap")
 show settings:           user.vscode("workbench.action.openGlobalSettings")
+dev tools:               user.vscode("workbench.action.toggleDevTools")
 
 please [<user.text>]:
 	user.vscode("workbench.action.showCommands")

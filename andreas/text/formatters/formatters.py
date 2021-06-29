@@ -3,12 +3,7 @@ import logging
 import re
 from user.util import de_camel
 
-
 ctx = Context()
-
-# The last phrase spoken, without & with formatting. Used for reformatting.
-last_phrase = ""
-last_phrase_formatted = ""
 
 formatters_dict = {
     "NOOP": lambda text: text,
@@ -138,15 +133,10 @@ class Actions:
 
     def formatters_reformat_last(formatters: str) -> str:
         """Clears and reformats last formatted phrase"""
-        global last_phrase, last_phrase_formatted
-        if actions.user.history_get_last_phrase() != last_phrase_formatted:
-            # The last thing we inserted isn't the same as the last thing we
-            # formatted, so abort.
-            logging.warning(
-                "formatters_reformat_last(): Last phrase wasn't a formatter!")
-            return
-        actions.user.history_clear_last_phrase()
-        actions.user.insert_formatted(last_phrase, formatters)
+        last_phrase = actions.user.history_get_last_phrase()
+        if last_phrase:
+            actions.user.history_clear_last_phrase()
+            actions.user.insert_formatted(last_phrase, formatters)
 
     def formatters_reformat_selection(formatters: str) -> str:
         """Reformats the current selection."""
@@ -162,14 +152,9 @@ class Actions:
 
 
 def format_phrase(phrase: str, fmtrs: str):
-    global last_phrase, last_phrase_formatted
-    last_phrase = phrase
-
     result = phrase
     for fmtr in fmtrs.split(","):
         result = all_formatters[fmtr](result)
-
-    last_phrase_formatted = result
     return result
 
 
