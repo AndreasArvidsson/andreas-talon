@@ -46,16 +46,15 @@ def update_running():
 def update_overrides(name, flags):
     """Updates the overrides list"""
     global overrides
-    res = {}
     if name is None or name == override_file_path:
+        res = {}
         with open(override_file_path, "r") as f:
             for line in f:
                 line = line.split(",")
                 if len(line) == 2:
                     res[line[0].lower()] = line[1].strip()
-    print(res.keys())
-    overrides = res
-    update_running()
+        overrides = res
+        update_running()
 
 def get_app(name: str) -> ui.App:
     for app in ui.apps(background=False):
