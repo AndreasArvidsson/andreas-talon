@@ -1,9 +1,10 @@
 from talon import imgui, Module, speech_system, actions, app
 
 mod = Module()
-setting_size = mod.setting("command_history_size", int, default=50)
-display_size = mod.setting("command_history_display", int, default=10).get()
+setting_size_setting = mod.setting("command_history_size", int, default=50)
+display_size_setting = mod.setting("command_history_display", int, default=10)
 history = []
+display_size = None
 
 
 def parse_phrase(word_list):
@@ -19,7 +20,7 @@ def on_phrase(j):
         val = parse_phrase(j["phrase"])
     if val != "":
         history.append(val)
-        history = history[-setting_size.get() :]
+        history = history[-setting_size_setting.get() :]
 
 speech_system.register("phrase", on_phrase)
 
@@ -34,6 +35,9 @@ def gui(gui: imgui.GUI):
 class Actions:
     def command_history_toggle():
         """Toggles viewing the history"""
+        global display_size
+        if not display_size:
+            display_size = display_size_setting.get()
         if gui.showing:
             gui.hide()
         else:
@@ -56,7 +60,7 @@ class Actions:
         """Show more history"""
         global display_size
         if not gui.showing:
-            gui.show()
+            actions.user.command_history_toggle()
             return
         if display_size == 1:
             display_size = 3
@@ -64,7 +68,7 @@ class Actions:
             display_size = 5
         else:
             display_size += 5
-        display_size = min(display_size, setting_size.get())
+        display_size = min(display_size, setting_size_setting.get())
 
     def command_history_less():
         """Show less history"""
