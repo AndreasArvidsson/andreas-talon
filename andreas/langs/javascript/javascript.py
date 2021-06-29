@@ -36,7 +36,8 @@ ctx.lists["self.code_statement"] = {
     "arrow":                " => ",
     "this":                 "this",
     "this dot":             "this.",
-    "new":                  "new "
+    "new":                  "new ",
+    "const":                "const "
 }
 
 
