@@ -28,7 +28,7 @@ dupe line <number>:            user.clone_line(number)
 
 # ----- Format -----
 format document:               user.format_document()
-format it:                     user.format_selection()
+format this:                   user.format_selection()
 
 # ----- Comments -----
 comment:                       user.comment()

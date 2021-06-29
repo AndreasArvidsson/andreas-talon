@@ -2,14 +2,14 @@ from talon import Context, Module, app, clip, cron, imgui, actions, ui, fs
 from talon import fs
 import os
 
-# a list of alternatives where each line is a comma separated list
+# a list of homophones where each line is a comma separated list
 # e.g. where,wear,ware
 # a suitable one can be found here:
 # https://github.com/pimentel/homophones
 
 ctx = Context()
 mod = Module()
-mod.mode("alternatives")
+mod.mode("homophones")
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 homophones_file = os.path.join(cwd, "homophones.csv")
@@ -39,18 +39,18 @@ main_screen = ui.main_screen()
 
 @imgui.open(x=0, y=main_screen.y)
 def gui(gui: imgui.GUI):
-    gui.text("Alternatives")
+    gui.text("Homophones")
     gui.line()
     index = 1
     global active_word_list
     for word in active_word_list:
-        gui.text("Alt {}: {} ".format(index, word))
+        gui.text("Choose {}: {} ".format(index, word))
         index = index + 1
     gui.line()
     if gui.button("Hide"):
-        actions.user.alternatives_hide()
+        actions.user.homophones_hide()
 
-def update_alternatives(word, last):
+def update_homophones(word, last):
     global active_word_list, active_word, is_last, pad_left, pad_right
 
     pad_left = word.startswith(" ")
@@ -63,7 +63,7 @@ def update_alternatives(word, last):
 
     if word not in all_homophones:
         if gui.showing:
-            actions.user.alternatives_hide()
+            actions.user.homophones_hide()
         return False
 
     is_last = last
@@ -82,35 +82,38 @@ def update_alternatives(word, last):
             elif is_upper:
                 active_word_list[i] = active_word_list[i].upper()
 
-    actions.mode.enable("user.alternatives")
+    actions.mode.enable("user.homophones")
     gui.show()
     return True
 
 @mod.action_class
 class Actions:
-    def alternatives_selected(word: str):
-        """Show alternatives if the given word is a homophone"""
-        found = update_alternatives(word, False)
+    def homophones_selected():
+        """Show homophones if the given word is a homophone"""
+        word = actions.edit.selected_text()
+        if not word:
+            return
+        found = update_homophones(word, False)
         if not found:
-            app.notify("Found no alternatives for:\n{}".format(word))
+            app.notify("Found no homophones for:\n{}".format(word))
 
-    def alternatives_last(word: str or None):
-        """Show alternatives if the last historical word is a homophone"""
+    def homophones_last(word: str or None):
+        """Show homophones if the last historical word is a homophone"""
         if not word:
             word = actions.user.history_get_last_phrase()
-        update_alternatives(word, True)
+        update_homophones(word, True)
 
-    def alternatives_hide():
-        """Hides the alternatives display"""
-        actions.mode.disable("user.alternatives")
+    def homophones_hide():
+        """Hides the homophones display"""
+        actions.mode.disable("user.homophones")
         gui.hide()
 
-    def alternatives_select(number: int, formatter: str) -> str:
+    def homophones_select(number: int, formatter: str) -> str:
         """selects the alternative by number"""
         global active_word, pad_left, pad_right
 
         if number < 1 or number > len(active_word_list):
-            error = "Alternatives index {} is out of range (1-{})".format(
+            error = "homophones index {} is out of range (1-{})".format(
                 number, len(active_word_list)
             )
             app.notify(error)
@@ -122,7 +125,7 @@ class Actions:
             word = actions.user.formatted_text(word, formatter)
 
         if active_word == word:
-            actions.user.alternatives_hide()
+            actions.user.homophones_hide()
             return
 
         if pad_left:
@@ -148,4 +151,4 @@ class Actions:
             actions.user.history_add_phrase(word)
 
         actions.insert(word)
-        actions.user.alternatives_hide()
+        actions.user.homophones_hide()

@@ -12,6 +12,7 @@ formatters_dict = {
     "DOUBLE_QUOTED_STRING": lambda text: surround(text, '"'),
     "SINGLE_QUOTED_STRING": lambda text: surround(text, "'"),
     # Splitting formatters
+    "REMOVE_FORMATTING": lambda text: format_words(text, " ", lower, lower),
     "CAPITALIZE_ALL_WORDS": lambda text: format_words(text, " ", capitalize, capitalize),
     "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, " ", capitalize),
     "CAMEL_CASE": lambda text: format_words(text, "", lower, capitalize),
@@ -34,6 +35,7 @@ formatters_words = {
     "string": formatters_dict["DOUBLE_QUOTED_STRING"],
     "twin": formatters_dict["SINGLE_QUOTED_STRING"],
     # Splitting formatters
+    "unformat": formatters_dict["REMOVE_FORMATTING"],
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
     "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
     "camel": formatters_dict["CAMEL_CASE"],
@@ -124,7 +126,7 @@ class Actions:
         """Inserts the string"""
         actions.insert(text)
         actions.user.history_add_phrase(text)
-        actions.user.alternatives_last(text)
+        actions.user.homophones_last(text)
 
     def insert_formatted(phrase: str, formatters: str):
         """Inserts a phrase formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""

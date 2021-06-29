@@ -11,8 +11,8 @@ imports organize:        user.vscode("editor.action.organizeImports")
 problem next:            user.vscode("editor.action.marker.nextInFiles")
 problem last:            user.vscode("editor.action.marker.prevInFiles")
 problem fix:             user.vscode("problems.action.showQuickFixes")
-rename it:               user.vscode("editor.action.rename")
-refactor it:             user.vscode("editor.action.refactor")
+rename this:             user.vscode("editor.action.rename")
+refactor this:           user.vscode("editor.action.refactor")
 whitespace trim:         user.vscode("editor.action.trimTrailingWhitespace")
 
 # Split

@@ -46,15 +46,16 @@ def update_running():
 def update_overrides(name, flags):
     """Updates the overrides list"""
     global overrides
-    if name is None or name == override_file_path:
-        res = {}
-        with open(override_file_path, "r") as f:
-            for line in f:
-                line = line.split(",")
-                if len(line) == 2:
-                    res[line[0].lower()] = line[1].strip()
-        overrides = res
-        update_running()
+    if name != override_file_path:
+        return
+    res = {}
+    with open(override_file_path, "r") as f:
+        for line in f:
+            line = line.split(",")
+            if len(line) == 2:
+                res[line[0].lower()] = line[1].strip()
+    overrides = res
+    update_running()
 
 def get_app(name: str) -> ui.App:
     for app in ui.apps(background=False):
@@ -162,7 +163,7 @@ def gui(gui: imgui.GUI):
         actions.user.focus_hide()
 
 def on_ready():
-    update_overrides(None, None)
+    update_overrides(override_file_path, None)
     fs.watch(overrides_directory, update_overrides)
     ui.register("app_launch", lambda e: update_running())
     ui.register("app_close", lambda e: update_running())
