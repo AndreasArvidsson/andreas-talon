@@ -60,6 +60,10 @@ def get_app(name: str) -> ui.App:
     for app in ui.apps(background=False):
         if app.name == name:
             return app
+    parsed_name = parse_name(name)
+    for app in ui.apps(background=False):
+        if parse_name(app.name) == parsed_name:
+            return app
     raise RuntimeError(f'App not running: "{name}"')
 
 def cycle_windows(app: ui.App, diff: int):
