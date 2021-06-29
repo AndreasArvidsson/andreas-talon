@@ -147,15 +147,3 @@ def letter(m) -> str:
 def letters(m) -> str:
     """One or more letters in the alphabet"""
     return "".join(m.key_alphabet_list)
-
-
-@mod.action_class
-class Actions:
-    def key_escape():
-        """Click escape key"""
-        if not actions.user.mouse_stop():
-           actions.key("escape")
-
-    def get_alphabet():
-        """Return alphabet"""
-        return ctx.lists["self.key_alphabet"]

@@ -125,3 +125,5 @@ push {user.key_symbol}:
 	edit.line_end()
 	"{key_symbol}"
 	edit.line_insert_down()
+
+stop:                              user.stop_app()

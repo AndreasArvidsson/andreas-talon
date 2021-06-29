@@ -12,7 +12,7 @@
 # Special keys.
 enter:                       key(enter)
 tab:                         key(tab)
-(escape | esc | stop):       user.key_escape()
+(escape | esc):              key(escape)
 
 # ------- Prefixed keys -------
 

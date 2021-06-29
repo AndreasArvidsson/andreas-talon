@@ -110,8 +110,7 @@ def get_current_context_page_length() -> int:
 
 
 def get_command_line_count(command: Tuple[str, str]) -> int:
-    """This should be kept in sync with draw_commands
-    """
+    """This should be kept in sync with draw_commands"""
     _, body = command
     lines = len(body.split("\n"))
     if lines == 1:
@@ -151,6 +150,7 @@ def get_pages(item_line_counts: List[int]) -> List[int]:
         pages.append(page)
     return pages
 
+
 main_screen = ui.main_screen()
 
 @imgui.open(x=main_screen.width-100, w=100)
@@ -158,12 +158,12 @@ def gui_alphabet(gui: imgui.GUI):
     global alphabet
     gui.text("Alphabet")
     gui.line()
-    alphabet = actions.user.get_alphabet()
+    alphabet = registry.lists["user.key_alphabet"][0]
     for key, val in alphabet.items():
         gui.text(f"{val}:  {key}")
     gui.line()
     if gui.button("hide"):
-            actions.user.help_alphabet_hide()
+        actions.user.help_alphabet_hide()
 
 
 @imgui.open(x=300, y=0)
