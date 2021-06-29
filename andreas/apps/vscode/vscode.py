@@ -96,6 +96,11 @@ class EditActions:
     def indent_more():          vscode("editor.action.indentLines")
     def indent_less():          vscode("editor.action.outdentLines")
 
+    # ----- Save ----- 
+    def save():
+        actions.user.stop_app()
+        actions.next()
+
 
 @ctx.action_class("user")
 class UserActions:

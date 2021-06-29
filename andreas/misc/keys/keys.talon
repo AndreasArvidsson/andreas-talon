@@ -1,5 +1,3 @@
-# ------- Public keys, No prefix -------
-
 # Letters [A-Z]
 {user.key_alphabet}:         key(key_alphabet)
 
@@ -14,11 +12,9 @@ enter:                       key(enter)
 tab:                         key(tab)
 (escape | esc):              key(escape)
 
-# ------- Prefixed keys -------
+# Modifier(s) + key: "control alpha" or "control win left"
+<user.key_modifiers> <user.key_unmodified>:
+	key("{key_modifiers}-{key_unmodified}")
 
 # All un/non modifier keys: [a-z], [0-9], [F1-F12], arrow, symbols
 key <user.key_unmodified>:   key(key_unmodified)
-
-# Modifier(s) + key: "control alpha" or "control win left"
-key <user.key_modifiers> <user.key_unmodified>:
-	key("{key_modifiers}-{key_unmodified}")
