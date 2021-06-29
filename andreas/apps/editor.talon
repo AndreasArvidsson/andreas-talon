@@ -28,37 +28,37 @@ dedent:                            edit.indent_less()
 	user.navigation(navigation_action, navigation_direction or "right", text_symbol)
 
 # ----- Selection -----
-select all:                        edit.select_all()
-select none:                       edit.select_none()
-select line:                       edit.select_line()
-select word:                       edit.select_word()
+take all:                          edit.select_all()
+take none:                         edit.select_none()
+take line:                         edit.select_line()
+take word:                         edit.select_word()
 
-select peak:                       edit.extend_file_start()
-select bottom:                     edit.extend_file_end()
-select head:                       edit.extend_line_start()
-select tail:                       edit.extend_line_end()
+extend peak:                       edit.extend_file_start()
+extend bottom:                     edit.extend_file_end()
+extend head:                       edit.extend_line_start()
+extend tail:                       edit.extend_line_end()
 
-select up [<number_small>]:        user.extend_up(number_small or 1)
-select down [<number_small>]:      user.extend_down(number_small or 1)
-select left [<number_small>]:      user.extend_left(number_small or 1)
-select right [<number_small>]:     user.extend_right(number_small or 1)
+extend up [<number_small>]:        user.extend_up(number_small or 1)
+extend down [<number_small>]:      user.extend_down(number_small or 1)
+extend left [<number_small>]:      user.extend_left(number_small or 1)
+extend right [<number_small>]:     user.extend_right(number_small or 1)
 
-select lefter [<number_small>]:    user.extend_word_left(number_small or 1)
-select righter [<number_small>]:   user.extend_word_right(number_small or 1)
+extend lefter [<number_small>]:    user.extend_word_left(number_small or 1)
+extend righter [<number_small>]:   user.extend_word_right(number_small or 1)
 
 # ----- Delete, undo, redo -----
 (undo it | nope):                  edit.undo()
 redo it:                           edit.redo()
 
-(wipe | del):                      edit.delete()
+del:                               edit.delete()
 drill:                             user.delete_right()
 
 remove:                            edit.delete_word()
-rem right:                         user.delete_word_right()
+wipe:                              user.delete_word_right()
 
-scratch line:                      edit.delete_line()
-scratch head:                      user.delete_line_start()
-scratch tail:                      user.delete_line_end()
+chuck line:                        edit.delete_line()
+chuck head:                        user.delete_line_start()
+chuck tail:                        user.delete_line_end()
 clear line:                        user.clear_line()
 
 # ----- Cut, copy, paste -----

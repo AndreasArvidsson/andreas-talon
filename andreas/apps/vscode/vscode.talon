@@ -37,6 +37,7 @@ bar search:              user.vscode("workbench.view.search")
 bar source:              user.vscode("workbench.view.scm")
 bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
 bar file:                user.vscode("workbench.files.action.showActiveFileInExplorer")
+bar results:             key(ctrl-down)
 
 # Panels
 panel (show | hide):     user.vscode("workbench.action.togglePanel")

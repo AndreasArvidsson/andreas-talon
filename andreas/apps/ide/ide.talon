@@ -17,14 +17,14 @@ head <number>:                 user.line_start(number)
 tail <number>:                 user.line_end(number)
 middle <number>:               user.line_middle(number)
 
-select <number>:               edit.select_line(number)
-go <number> extend <number>:   edit.select_lines(number_1, number_2)
+take line <number>:            edit.select_line(number)
+take <number> past <number>:   edit.select_lines(number_1, number_2)
 extend <number>:               edit.extend_line(number)
 
-scratch <number>:              user.delete_line(number)
-cut <number>:                  user.cut_line(number)
-copy <number>:                 user.copy_line(number)
-(clone | dupe) <number>:       user.clone_line(number)
+chuck line <number>:           user.delete_line(number)
+cut line <number>:             user.cut_line(number)
+copy line <number>:            user.copy_line(number)
+dupe line <number>:            user.clone_line(number)
 
 # ----- Format -----
 format document:               user.format_document()
