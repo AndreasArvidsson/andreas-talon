@@ -3,7 +3,7 @@ app: vscode
 tag(): user.ide
 
 settings():
-	key_wait = 1
+    key_wait = 1
 
 # Language features
 suggest param:           user.vscode("editor.action.triggerParameterHints")
@@ -51,6 +51,7 @@ focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
 # Files / Folders
 folder add:              user.vscode("workbench.action.addRootFolder")
 folder new:              user.vscode("explorer.newFolder")
+file open:               user.vscode("workbench.action.files.openFile")
 file new:                user.vscode("explorer.newFile")
 file open folder:        user.vscode("revealFileInOS")
 file copy path:          user.vscode("copyFilePath")
@@ -82,5 +83,5 @@ show settings:           user.vscode("workbench.action.openGlobalSettings")
 dev tools:               user.vscode("workbench.action.toggleDevTools")
 
 please [<user.text>]:
-	user.vscode("workbench.action.showCommands")
-	insert(user.text or "")
+    user.vscode("workbench.action.showCommands")
+    insert(user.text or "")

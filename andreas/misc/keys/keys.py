@@ -88,6 +88,7 @@ ctx.lists["self.key_symbol"] = merge(
         "quote":            '"',
         "apostrophe":       "'",
         "back tick":        "`",
+        "brick":            "`",
 
         "slash":            "/",
         "backslash":        "\\",

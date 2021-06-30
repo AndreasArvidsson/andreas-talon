@@ -13,9 +13,12 @@ cap word <user.word>:             user.insert_formatted(word, "CAPITALIZE_FIRST_
 # Select last
 select last:                      user.history_select_last_phrase()
 
+# Delete last
+chuck last:                       user.history_clear_last_phrase()
+
 # Show alternatives for selected
 phones this:                      user.homophones_selected()
 
 phones word:
-	edit.select_word()
-	user.homophones_selected()
+    edit.select_word()
+    user.homophones_selected()
