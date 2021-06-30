@@ -50,8 +50,8 @@ def clipboard_rect(rect: ui.Rect):
 def get_screenshot_path(title: str = ""):
     if title:
         title = f" | {title}"
-    date = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-    filename = f"Screenshot from {date}{title}.png"
+    date = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
+    filename = f"Screenshot | {date}{title}.png"
     path = os.path.expanduser(os.path.join("~", "Pictures", filename))
     return os.path.normpath(path)
 
