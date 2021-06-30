@@ -33,6 +33,7 @@ git diff:                   "git diff\n"
 git diff <user.text>:       "git diff {text}"
 
 git pull:                   "git pull\n"
+git pull upstream master:   "git pull upstream master\n"
 git push:                   "git push\n"
 git push tags:              "git push --tags\n"
 

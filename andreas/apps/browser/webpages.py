@@ -11,7 +11,8 @@ ctx.lists["self.webpage"] = {
     "regex cheat sheet":    "https://duckduckgo.com/?q=regex+cheat+sheet&t=ffab&ia=cheatsheet&iax=1",
     "avanza":               "https://www.avanza.se",
     "savr":                 "https://www.savr.com",
-    "swedbank":             "https://swedbank.com",
+    "swedbank":             "https://swedbank.se",
     "sweclockers":          "https://www.sweclockers.com",
-    "goodreads":            "https://www.goodreads.com"
+    "goodreads":            "https://www.goodreads.com",
+    "gmail":                "https://www.gmail.com"
 }
