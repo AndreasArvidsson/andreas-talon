@@ -67,7 +67,7 @@ fold comments:           user.vscode("editor.foldAllBlockComments")
 # Navigation
 go back:                 user.vscode("workbench.action.navigateBack")
 go forward:              user.vscode("workbench.action.navigateForward")
-take word:               user.vscode("editor.action.addSelectionToNextFindMatch")
+take next:               user.vscode("editor.action.addSelectionToNextFindMatch")
 
 # Scroll
 large up:                key(alt-pageup)
