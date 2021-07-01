@@ -1,6 +1,7 @@
 app: vscode
 -
 tag(): user.ide
+tag(): user.scroll
 
 settings():
     key_wait = 1
@@ -45,7 +46,7 @@ panel control:           user.vscode("workbench.panel.repl.view.focus")
 panel output:            user.vscode("workbench.panel.output.focus")
 panel problems:          user.vscode("workbench.panel.markers.view.focus")
 panel terminal:          user.vscode("workbench.action.terminal.focus")
-panel debug:             user.vscode("workbench.debug.action.toggleRepl")
+debug console:           user.vscode("workbench.debug.action.toggleRepl")
 focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Files / Folders
@@ -71,12 +72,6 @@ go forward:              user.vscode("workbench.action.navigateForward")
 take next:               user.vscode("editor.action.addSelectionToNextFindMatch")
 take prev:               user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:          user.vscode("editor.action.selectHighlights")
-
-# Scroll
-large up:                key(alt-pageup)
-large down:              key(alt-pagedown)
-small up:                key(ctrl-up)
-small down:              key(ctrl-down)
 
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")

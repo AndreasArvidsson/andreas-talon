@@ -104,6 +104,9 @@ class EditActions:
         actions.user.stop_app()
         actions.next()
 
+    # ----- Zoom -----
+    def zoom_reset():           vscode("workbench.action.zoomReset")
+
 
 @ctx.action_class("user")
 class UserActions:
@@ -166,6 +169,17 @@ class UserActions:
     # ----- Comments -----
     def comment():              vscode("editor.action.addCommentLine")
     def uncomment():            vscode("editor.action.removeCommentLine")
+
+    # ----- scroll -----
+        # ----- Scroll -----
+    def scrollUp():             key("ctrl-up")
+    def scrollDown():           key("ctrl-down")
+    # def scrollLeft():           key(ctrl-alt-k)
+    # def scrollRight():          key(ctrl-alt-l)
+    def scrollUpPage():         key("alt-pageup")
+    def scrollDownPage():       key("alt-pagedown")
+    def scrollUpHalfPage():     vscode("andreas.scrollUpHalfPage")
+    def scrollDownHalfPage():   vscode("andreas.scrollDownHalfPage")
 
 
 @ctx_talon.action_class("user")

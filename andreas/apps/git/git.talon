@@ -14,6 +14,8 @@ git reset [<user.text>]:    "git reset {text or ''}"
 git branch [<user.text>]:   "git branch {text or ''}"
 git clone [<user.text>]:    "git clone {text or ''}"
 git remote [<user.text>]:   "git remote {text or ''}"
+git fetch [<user.text>]:    "git fetch {text or ''}"
+git fetch upstream:         "git fetch upstream\n"
 
 git checkout:               "git checkout "
 git checkout main:          "git checkout main\n"
@@ -25,8 +27,8 @@ git add [<user.text>]:      "git add {text or ''}"
 git add dot:                "git add .\n"
 
 git commit:
-	'git commit -m ""'
-	key(left)
+    'git commit -m ""'
+    key(left)
 git commit <user.text>:     'git commit -m "{text}"'
 
 git diff:                   "git diff\n"
@@ -42,8 +44,8 @@ git stash show:             "git stash show\n"
 git stash pop:              "git stash pop"
 
 git merge quit:
-	":q"
-	key(enter)
+    ":q"
+    key(enter)
 
 git numstat:                user.git_numstat("")
 git numstat year:           user.git_numstat("1 year")

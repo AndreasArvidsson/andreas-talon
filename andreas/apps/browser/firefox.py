@@ -22,22 +22,6 @@ app: firefox
 """
 
 
-@ctx.action_class("user")
-class UserActions:
-    def tab_jump(number: int):
-        if number < 9:
-            key(f"ctrl-{number}")
-
-    def tab_final():    key("ctrl-9")
-    def tab_mute():     key("ctrl-m")
-
-    def browser_open(url: str):
-        actions.browser.focus_address()
-        actions.sleep("100ms")
-        actions.insert(url)
-        key("alt-enter")
-
-
 @ctx.action_class("browser")
 class BrowserActions:
     def go(url: str):
@@ -77,6 +61,32 @@ class BrowserActions:
         actions.sleep("50ms")
         actions.insert(url)
         key("enter")
+
+
+@ctx.action_class("user")
+class UserActions:
+    def tab_jump(number: int):
+        if number < 9:
+            key(f"ctrl-{number}")
+
+    def tab_final():    key("ctrl-9")
+    def tab_mute():     key("ctrl-m")
+
+    def browser_open(url: str):
+        actions.browser.focus_address()
+        actions.sleep("100ms")
+        actions.insert(url)
+        key("alt-enter")
+
+    # ----- Scroll -----
+    def scrollUp():             key("ctrl-alt-h")
+    def scrollDown():           key("ctrl-alt-j")
+    def scrollLeft():           key("ctrl-alt-k")
+    def scrollRight():          key("ctrl-alt-l")
+    def scrollUpPage():         key("pageup")
+    def scrollDownPage():       key("pagedown")
+    def scrollUpHalfPage():     key("alt-pageup")
+    def scrollDownHalfPage():   key("alt-pagedown")
 
 
 # ----- LINUX -----
