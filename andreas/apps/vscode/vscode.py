@@ -78,6 +78,9 @@ class CodeActions:
 
 @ctx.action_class("edit")
 class EditActions:
+    # ----- selection -----
+    def select_none():          key("escape right")
+
     # ----- Line commands -----
     def line_swap_up():         vscode("editor.action.moveLinesUpAction")
     def line_swap_down():       vscode("editor.action.moveLinesDownAction")
