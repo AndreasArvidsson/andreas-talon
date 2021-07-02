@@ -117,7 +117,7 @@ string:
     key(left)
 
 # ----- Misc -----
-spamma:                            ", "
+spam:                              ", "
 colgap:                            ": "
 period:                            ". "
 smiley face:                       ":)"

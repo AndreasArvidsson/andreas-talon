@@ -171,15 +171,14 @@ class UserActions:
     def uncomment():            vscode("editor.action.removeCommentLine")
 
     # ----- scroll -----
-        # ----- Scroll -----
     def scrollUp():             key("ctrl-up")
     def scrollDown():           key("ctrl-down")
     # def scrollLeft():           key(ctrl-alt-k)
     # def scrollRight():          key(ctrl-alt-l)
     def scrollUpPage():         key("alt-pageup")
     def scrollDownPage():       key("alt-pagedown")
-    def scrollUpHalfPage():     vscode("andreas.scrollUpHalfPage")
-    def scrollDownHalfPage():   vscode("andreas.scrollDownHalfPage")
+    def scrollUpHalfPage():     vscode("editorScroll", { "to": "up", "by": "halfPage"})
+    def scrollDownHalfPage():   vscode("editorScroll", { "to": "down", "by": "halfPage"})
 
 
 @ctx_talon.action_class("user")
