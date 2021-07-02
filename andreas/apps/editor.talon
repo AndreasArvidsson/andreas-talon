@@ -2,8 +2,8 @@
 page up:                           edit.page_up()
 page down:                         edit.page_down()
 
-peak:                              edit.file_start()
-bottom:                            edit.file_end()
+go top:                            edit.file_start()
+go bottom:                         edit.file_end()
 
 head:                              edit.line_start()
 tail:                              edit.line_end()
@@ -25,7 +25,7 @@ dedent:                            edit.indent_less()
 
 # ----- Navigate to specified text/symbol: go right paren
 {user.navigation_action} {user.navigation_direction} to <user.text_symbol>:
-	user.navigation(navigation_action, navigation_direction or "right", text_symbol)
+    user.navigation(navigation_action, navigation_direction or "right", text_symbol)
 
 # ----- Selection -----
 take all:                          edit.select_all()
@@ -33,7 +33,7 @@ take none:                         edit.select_none()
 take line:                         edit.select_line()
 take word:                         edit.select_word()
 
-extend peak:                       edit.extend_file_start()
+extend top:                        edit.extend_file_start()
 extend bottom:                     edit.extend_file_end()
 extend head:                       edit.extend_line_start()
 extend tail:                       edit.extend_line_end()
@@ -81,7 +81,7 @@ drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
 # ----- Save -----
-save:                              edit.save()
+disk:                              edit.save()
 
 # ----- Find / Replace -----
 find [<user.text>]:                edit.find(text or "")
@@ -96,25 +96,25 @@ replace all:                       user.find_replace_all()
 
 # ----- Brackets -----
 args:
-	"()"
-	key(left)
+    "()"
+    key(left)
 index:
-	"[]"
-	key(left)
+    "[]"
+    key(left)
 diamond:
-	"<>"
-	key(left)
+    "<>"
+    key(left)
 block:
-	"{}"
-	key(left)
+    "{}"
+    key(left)
 
 # ----- Quotes -----
 twin:
-	"''"
-	key(left)
+    "''"
+    key(left)
 string:
-	'""'
-	key(left)
+    '""'
+    key(left)
 
 # ----- Misc -----
 spamma:                            ", "
@@ -123,8 +123,8 @@ period:                            ". "
 smiley face:                       ":)"
 
 push {user.key_symbol}:
-	edit.line_end()
-	"{key_symbol}"
-	edit.line_insert_down()
+    edit.line_end()
+    "{key_symbol}"
+    edit.line_insert_down()
 
 stop:                              user.stop_app()
