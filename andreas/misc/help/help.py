@@ -1,7 +1,7 @@
 from collections import defaultdict
 import itertools
 import math
-from typing import Dict, List, Iterable, Set, Tuple, Union
+from typing import Dict, List, Iterable, Set, Tuple
 
 from talon import Module, Context, actions, imgui, Module, registry, ui, app, clip
 from talon.grammar import Phrase

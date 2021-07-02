@@ -1,10 +1,10 @@
 mode: sleep
 -
 
-^talon wake$: 
-    speech.enable()
-    user.mouse_wake()
-    app.notify("Awake")
+settings():
+    speech.timeout = 0
+
+^talon wake$:   user.talon_wake()
 
 #this exists solely to prevent talon from waking up super easily in sleep mode at the moment with wav2letter
-<phrase>: skip()
+<phrase>:       skip()

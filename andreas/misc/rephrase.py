@@ -1,4 +1,4 @@
-from talon import Module, actions, speech_system
+from talon import Module, actions, speech_system, cron
 from talon.grammar import Phrase
 
 mod = Module()
@@ -13,7 +13,7 @@ speech_system.register("post:phrase", on_post_phrase)
 
 @mod.action_class
 class Actions: 
-    def rephrase(phrase: Phrase):
+    def rephrase(phrase: Phrase, run_async: bool = False):
         """Re-evaluate and run phrase"""
         current_phrase = phrase_stack[-1]
         ts = current_phrase["_ts"]
@@ -24,4 +24,7 @@ class Actions:
         pend    = int(end   * 16_000)
         samples = samples[pstart:pend]
 
-        speech_system._on_audio_frame(samples)
+        if run_async:
+            cron.after("0ms", lambda: speech_system._on_audio_frame(samples))
+        else:
+            speech_system._on_audio_frame(samples)
