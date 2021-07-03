@@ -14,5 +14,6 @@ ctx.lists["self.webpage"] = {
     "swedbank":             "https://swedbank.se",
     "sweclockers":          "https://www.sweclockers.com",
     "goodreads":            "https://www.goodreads.com",
-    "gmail":                "https://www.gmail.com"
+    "gmail":                "https://www.gmail.com",
+    "youtube":              "https://www.youtube.com"
 }

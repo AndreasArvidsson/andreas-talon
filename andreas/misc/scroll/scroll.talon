@@ -1,13 +1,13 @@
 tag: user.scroll
 -
 
-scroll north:   user.scrollUp()
-scroll south:   user.scrollDown()
-scroll west:    user.scrollLeft()
-scroll east:    user.scrollRight()
+small up:      user.scrollUp()
+small down:    user.scrollDown()
+small left:    user.scrollLeft()
+small right:   user.scrollRight()
 
-full north:     user.scrollUpPage()
-full south:     user.scrollDownPage()
+half up:       user.scrollUpHalfPage()
+half down:     user.scrollDownHalfPage()
 
-half north:     user.scrollUpHalfPage()
-half south:     user.scrollDownHalfPage()
+full up:       user.scrollUpPage()
+full down:     user.scrollDownPage()
