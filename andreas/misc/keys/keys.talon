@@ -10,11 +10,11 @@
 # Special keys.
 enter:                       key(enter)
 tab:                         key(tab)
-(escape | esc):              key(escape)
+escape:                      key(escape)
 
 # Modifier(s) + key: "control alpha" or "control win left"
 <user.key_modifiers> <user.key_unmodified>:
-	key("{key_modifiers}-{key_unmodified}")
+    key("{key_modifiers}-{key_unmodified}")
 
 # All un/non modifier keys: [a-z], [0-9], [F1-F12], arrow, symbols
 key <user.key_unmodified>:   key(key_unmodified)
