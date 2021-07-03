@@ -6,8 +6,8 @@ scroll south:   user.scrollDown()
 scroll west:    user.scrollLeft()
 scroll east:    user.scrollRight()
 
-page north:     user.scrollUpPage()
-page south:     user.scrollDownPage()
+full north:     user.scrollUpPage()
+full south:     user.scrollDownPage()
 
 half north:     user.scrollUpHalfPage()
 half south:     user.scrollDownHalfPage()

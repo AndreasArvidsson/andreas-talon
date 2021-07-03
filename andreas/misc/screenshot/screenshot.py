@@ -5,21 +5,32 @@ import os
 
 mod = Module()
 
+default_folder = ""
+if app.platform == "windows":
+    default_folder = os.path.expanduser(os.path.join("~", r"OneDrive\Pictures"))
+if not os.path.isdir(default_folder):
+    default_folder = os.path.join("~", "Pictures")
+
+screenshot_folder = mod.setting(
+    "screenshot_folder",
+    type=str,
+    default=default_folder,
+    desc="Where to save screenshots. Note this folder must exist.",
+)
 
 @mod.action_class
 class Actions:
-    def screenshot_screen():
-        """Take screenshot of screen"""
+    def screenshot():
+        """Takes a screenshot of the entire screen and saves it to the pictures folder"""
         screenshot_rect(screen.main_screen().rect)
-    
+
     def screenshot_window():
-        """Take screenshot of window"""
+        """Takes a screenshot of the active window and saves it to the pictures folder"""
         win = ui.active_window()
-        title = f"{win.app.name} | {win.title}"
-        screenshot_rect(win.rect, title)
+        screenshot_rect(win.rect, win.app.name)
 
     def screenshot_selection():
-        """Take screenshot of selection"""
+        """Triggers an application is capable of taking a screenshot of a portion of the screen"""
         if app.platform == "windows":
             actions.key("super-shift-s")
         elif app.platform == "mac":
@@ -27,12 +38,12 @@ class Actions:
         elif app.platform == "linux":
             actions.key("shift-printscr")
 
-    def screenshot_screen_clipboard():
-        """Take screenshot of screen and saves it to the clipboard"""
+    def screenshot_clipboard():
+        """Takes a screenshot of the entire screen and saves it to the clipboard"""
         clipboard_rect(screen.main_screen().rect)
 
     def screenshot_window_clipboard():
-        """Take screenshot of window and saves it to the clipboard"""
+        """Takes a screenshot of the active window and saves it to the clipboard"""
         clipboard_rect(ui.active_window().rect)
 
 
@@ -49,10 +60,11 @@ def clipboard_rect(rect: ui.Rect):
 
 def get_screenshot_path(title: str = ""):
     if title:
-        title = f" | {title}"
+        title = f" | {title.replace('.', '_')}"
     date = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     filename = f"Screenshot | {date}{title}.png"
-    path = os.path.expanduser(os.path.join("~", "Pictures", filename))
+    folder_path = screenshot_folder.get()
+    path = os.path.expanduser(os.path.join(folder_path, filename))
     return os.path.normpath(path)
 
 def flash_rect(rect: ui.Rect):
