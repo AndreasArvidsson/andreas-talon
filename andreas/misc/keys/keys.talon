@@ -8,7 +8,7 @@
 {user.key_number}:           key(key_number)
 
 # Special keys.
-enter:                       key(enter)
+(enter | clap):              key(enter)
 tab:                         key(tab)
 escape:                      key(escape)
 

@@ -120,7 +120,6 @@ string:
 spam:                              ", "
 colgap:                            ": "
 period:                            ". "
-smiley face:                       ":)"
 
 push {user.key_symbol}:
     edit.line_end()

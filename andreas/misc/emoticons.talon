@@ -1,0 +1,6 @@
+face smile:    ":)"
+face wink:    ";)"
+face unsure:   ":/"
+face grin:     ":D"
+face gasp:     ":o"
+face tongue:   ":p"
