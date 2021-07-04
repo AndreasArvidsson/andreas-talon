@@ -48,7 +48,7 @@ class tab_actions:
         """continue statement"""
     def code_return():
         """return statement"""
-    def code_print(text: str):
+    def code_print():
         """Print statement"""
     def code_comment():
         """Inline comment"""

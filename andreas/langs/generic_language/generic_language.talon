@@ -28,7 +28,7 @@ state comment <user.text>:
     "{text}"
 state comment:                 user.code_comment()
 state block comment:           user.code_block_comment()
-state print:                   user.code_print("")
+state print:                   user.code_print()
 state new line:                "\\n"
 state {user.code_statement}:   "{code_statement}"
 

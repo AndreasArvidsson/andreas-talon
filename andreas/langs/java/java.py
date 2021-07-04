@@ -78,33 +78,29 @@ class UserActions:
     
     # Selection statements
     def code_if():
-        insert("if () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("if")
     def code_elif():
-        insert("else if () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("else if")
     def code_else():
-        insert("else {\n\n}\n")
-        key("up:2")
+        insert("else {}")
+        key("left enter")
     def code_switch():
-        insert("switch () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("switch")
     def code_case(): insert("case ")
     def code_default(): insert("default:")
     
     # Iteration statements
     def code_for():
-        insert("for (int i = 0; i < .size(); ++i) {\n\n}\n")
-        key("up:3 home right:20")
+        insert("for (int i = 0; i < .size(); ++i) {}")
+        key("left enter up home right:20")
     def code_while():
-        insert("while () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("while")
     def code_do_while():
-        insert("do {\n\n} while ();\n")
-        key("up end left:2")
+        insert("do {} while ();")
+        key("left:11 enter down end left:2")
     def code_foreach():
-        insert("for (final  : ) {\n\n}\n")
-        key("up:3 end left:6")
+        insert("for (final  : ) {}")
+        key("left enter up end left:6")
     
     # Miscellaneous statements
     def code_break(): insert("break;")
@@ -114,26 +110,21 @@ class UserActions:
     def code_return(): insert("return")
     def code_comment(): insert("// ")
     def code_block_comment():
-        insert("/*\n\n*/")
-        key("up")
-    def code_print(text: str):
-        if text:
-            insert('System.out.println("{}");\n'.format(
-                actions.user.formatted_text(text, "CAPITALIZE_FIRST_WORD")
-            ))
-        else:
-            insert("System.out.println();")
-            key("left:2")
+        insert("/**/")
+        key("left:2 enter:2 up")
+    def code_print():
+        insert("System.out.println();")
+        key("left:2")
 
     # Class statement
     def code_class(access_modifier: str or None, name: str):
-        text = f"class {name} {{\n\n\n}}"
+        text = f"class {name} {{}}"
         if access_modifier:
             text = f"{access_modifier} {text}"
         else:
             text = f"public {text}"
         insert(text)
-        key("up tab")
+        key("left enter")
 
     # Constructor statement
     def code_constructor(access_modifier: str or None):
@@ -141,19 +132,17 @@ class UserActions:
         if not name:
             return
         if access_modifier:
-            text = f"{access_modifier} {name}"
+            name = f"{access_modifier} {name}"
         else:
-            text = f"public {name}"
-        insert(f"{text}() {{\n\n}}\n")
-        key("up:3 end left:3")
+            name = f"public {name}"
+        snip_func(name)
 
     # Function statement
     def code_function(access_modifier: str or None, name: str):
-        text = f"void {name}() {{}}\n"
+        name = f"void {name}"
         if access_modifier:
-            text = f"{access_modifier} {text}"
-        insert(text)
-        key("up end left enter up end left:3")
+            text = f"{access_modifier} {name}"
+        snip_func(name)
 
     # Variable declaration
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
@@ -184,7 +173,7 @@ def get_constructor_name():
     """Code constructor"""
     actions.edit.extend_file_start()
     text = actions.edit.selected_text()
-    actions.edit.select_none()
+    actions.edit.right()
     index1 = text.rfind("class")
     if index1 < 0:
         return
@@ -198,3 +187,7 @@ def get_constructor_name():
     # Strip implements and extends
     name = name.split(" ")[0]
     return name.strip()
+
+def snip_func(name):
+    insert(f"{name} () {{}}")
+    key("left enter up end left:3")

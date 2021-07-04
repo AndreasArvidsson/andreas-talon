@@ -72,33 +72,29 @@ class UserActions:
     
     # Selection statements
     def code_if():
-        insert("if () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("if")
     def code_elif():
-        insert("else if () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("else if")
     def code_else():
-        insert("else {\n\n}\n")
-        key("up:2")
+        insert("else {}")
+        key("left enter")
     def code_switch():
-        insert("switch () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("switch")
     def code_case():        insert("case ")
     def code_default():     insert("default:")
     
     # Iteration statements
     def code_for():
-        insert("for (let i = 0; i < .length; ++i) {\n\n}\n")
-        key("up:3 home right:20")
+        insert("for (let i = 0; i < .length; ++i) {}")
+        key("left enter up home right:20")
     def code_while():
-        insert("while () {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("while")
     def code_do_while():
-        insert("do {\n\n} while ();\n")
-        key("up end left:2")
+        insert("do {} while ();")
+        key("left:11 enter down end left:2")
     def code_foreach():
-        insert("for (const e of ) {\n\n}\n")
-        key("up:3 end left:3")
+        insert("for (const e of ) {}")
+        key("left enter up end left:3")
     
     # Miscellaneous statements
     def code_break():           insert("break;")
@@ -110,29 +106,22 @@ class UserActions:
     def code_block_comment():
         insert("/*\n\n*/")
         key("up")
-    def code_print(text: str):
-        if text:
-            insert('console.log("{}")'.format(
-                actions.user.formatted_text(text, "CAPITALIZE_FIRST_WORD")
-            ))
-        else:
-            insert("console.log()")
-            key("left")
+    def code_print():
+        insert("console.log();")
+        key("left:2")
 
     # Class statement
     def code_class(access_modifier: str or None, name: str):
-        insert(f"class {name} {{\n\n\n}}")
-        key("up tab")    
+        insert(f"class {name} {{}}")
+        key("left enter")
 
     # Constructor statement
     def code_constructor(access_modifier: str):
-        insert("constructor() {\n\n}\n")
-        key("up:3 end left:3")
+        snip_func("constructor")
 
     # Function statement
     def code_function(access_modifier: str or None, name: str):
-        insert(f"function {name}() {{}}\n")
-        key("up end left enter up end left:3")
+        snip_func(name)
 
     # Variable statement
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
@@ -170,3 +159,7 @@ class Actions:
         text = text.replace("(", " = (")
         text = text.replace(")", ") =>")
         actions.insert(text)
+
+def snip_func(name):
+    insert(f"{name} () {{}}")
+    key("left enter up end left:3")
