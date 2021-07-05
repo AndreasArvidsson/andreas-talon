@@ -87,12 +87,6 @@ class Actions:
         """Get lists as text"""
         return format("lists", registry.lists)
 
-    def talon_run(path: str):
-        """Run talon binary"""
-        EXT = ".bat" if app.platform == "windows" else ""
-        path = str(os.path.join(VENV_BIN, f"{path}{EXT}"))
-        ui.launch(path="cmd", args=["/c", path])
-
 
 def format(title, values, get_line = None) -> str:
     text = f"-------- {title.upper()} ({len(values)}) ------------\n"
