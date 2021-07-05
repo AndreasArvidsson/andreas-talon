@@ -106,14 +106,9 @@ class UserActions:
         insert('""""""')
         key("left:3")
 
-    def code_print(text: str):
-        if text:
-            insert('print("{}")'.format(
-                actions.user.formatted_text(text, "CAPITALIZE_FIRST_WORD")
-            ))
-        else:
-            insert("print()")
-            key("left")
+    def code_print():
+        insert("print()")
+        key("left")
 
     # Class statement
     def code_class(access_modifier: str or None, name: str):

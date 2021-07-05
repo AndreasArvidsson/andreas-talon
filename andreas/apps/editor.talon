@@ -9,10 +9,10 @@ head:                              edit.line_start()
 tail:                              edit.line_end()
 middle:                            user.line_middle()
 
-up [<number_small>]:               user.up(number_small or 1)
-down [<number_small>]:             user.down(number_small or 1)
-left [<number_small>]:             user.left(number_small or 1)
-right [<number_small>]:            user.right(number_small or 1)
+go up [<number_small>]:            user.up(number_small or 1)
+go down [<number_small>]:          user.down(number_small or 1)
+go left [<number_small>]:          user.left(number_small or 1)
+go right [<number_small>]:         user.right(number_small or 1)
 
 lefter [<number_small>]:           user.word_left(number_small or 1)
 righter [<number_small>]:          user.word_right(number_small or 1)
@@ -75,7 +75,7 @@ copy head:                         user.copy_line_start()
 copy tail:                         user.copy_line_end()
 
 paste it:                          edit.paste()
-(clone | dupe) line:               edit.line_clone()
+dupe line:                         edit.line_clone()
 
 drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
@@ -87,7 +87,7 @@ disc:                              edit.save()
 find [<user.text>]:                edit.find(text or "")
 find all [<user.text>]:            user.find_all(text or "")
 find file [<user.text>]:           user.find_file(text or "")
-find recent [<user.text>]:         user.find_file_recent(text or "")
+find sesh [<user.text>]:           user.find_project(text or "")
 find (previous | prev):            edit.find_previous()
 find next:                         edit.find_next()
 find replace [<user.text>]:        user.find_replace(text or "")
@@ -120,6 +120,7 @@ string:
 spam:                              ", "
 colgap:                            ": "
 period:                            ". "
+void:                              " "
 
 push {user.key_symbol}:
     edit.line_end()

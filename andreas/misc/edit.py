@@ -343,8 +343,8 @@ class Actions:
 
     def find_file(text: str = None):
         """Find file"""
-    def find_file_recent(text: str = None):
-        """Find recent file"""
+    def find_project(text: str = None):
+        """Find project"""
     def find_all(text: str = None):
         """Find all"""
     def find_replace(text: str = None):

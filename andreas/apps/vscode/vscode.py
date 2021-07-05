@@ -98,7 +98,7 @@ class EditActions:
     def indent_more():          vscode("editor.action.indentLines")
     def indent_less():          vscode("editor.action.outdentLines")
 
-    # ----- Save ----- 
+    # ----- Save -----
     def save():
         actions.user.stop_app()
         actions.next()
@@ -133,7 +133,7 @@ class UserActions:
         if text:
             insert(text)
 
-    def find_file_recent(text: str = None):
+    def find_project(text: str = None):
         vscode("workbench.action.openRecent")
         if text:
             insert(text)
@@ -176,8 +176,11 @@ class UserActions:
     # def scrollRight():          key(ctrl-alt-l)
     def scrollUpPage():         key("alt-pageup")
     def scrollDownPage():       key("alt-pagedown")
-    def scrollUpHalfPage():     vscode("editorScroll", { "to": "up", "by": "halfPage"})
-    def scrollDownHalfPage():   vscode("editorScroll", { "to": "down", "by": "halfPage"})
+
+    def scrollUpHalfPage():     vscode(
+        "editorScroll", {"to": "up", "by": "halfPage"})
+    def scrollDownHalfPage():   vscode(
+        "editorScroll", {"to": "down", "by": "halfPage"})
 
 
 @ctx_talon.action_class("user")
