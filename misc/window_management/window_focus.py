@@ -70,7 +70,8 @@ def get_app(name: str) -> ui.App:
 
 
 def cycle_windows(app: ui.App, diff: int):
-    windows = sorted(app.windows(), key=lambda w: w.id)
+    windows = filter(lambda w: not w.hidden, app.windows())
+    windows = sorted(windows, key=lambda w: w.id)
     if len(windows) == 0:
         return
     i = actions.user.cycle(
