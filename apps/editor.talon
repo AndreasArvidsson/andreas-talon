@@ -47,7 +47,7 @@ extend lefter [<number_small>]:    user.extend_word_left(number_small or 1)
 extend righter [<number_small>]:   user.extend_word_right(number_small or 1)
 
 # ----- Delete, undo, redo -----
-(undo | nope):                     edit.undo()
+undo:                              edit.undo()
 redo:                              edit.redo()
 
 del:                               edit.delete()
@@ -81,7 +81,7 @@ drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
 # ----- Save -----
-disc | disk:                       edit.save()
+disk:                              edit.save()
 
 # ----- Find / Replace -----
 find [<user.text>]:                edit.find(text or "")

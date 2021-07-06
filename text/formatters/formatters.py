@@ -69,7 +69,7 @@ def gui(gui: imgui.GUI):
     gui.text("Formatters")
     gui.line()
     for name in sorted(set(formatters_words.keys())):
-        gui.text(f"{name.ljust(15)}{format_text('one two three', name)}")
+        gui.text(f"{name.ljust(15)}{actions.user.format_text('one two three', name)}")
     gui.line()
     if gui.button("Hide"):
         actions.user.formatters_hide()

@@ -57,12 +57,6 @@ class Actions:
         selected = actions.edit.selected_text()
         if not selected:
             return
-        if selected == actions.user.history_get_last_phrase():
-            print("history")
-            print(actions.user.history_get_last_unformatted())
-            actions.edit.right()
-            actions.user.reformat_last(formatters)
-            return
         unformatted = actions.user.unformat_text(selected)
         formatted = actions.user.format_text(unformatted, formatters)
         insert_string(formatted, unformatted)

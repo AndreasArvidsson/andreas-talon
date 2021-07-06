@@ -133,7 +133,7 @@ class UserActions:
 
     # Function statement
     def code_function(access_modifier: str or None, name: str):
-        snip_func(name)
+        snip_func(f"function {name}")
 
     # Variable statement
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
