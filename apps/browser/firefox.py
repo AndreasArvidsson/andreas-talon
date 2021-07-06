@@ -79,14 +79,14 @@ class UserActions:
         key("alt-enter")
 
     # ----- Scroll -----
-    def scrollUp():             key("ctrl-alt-h")
-    def scrollDown():           key("ctrl-alt-j")
-    def scrollLeft():           key("ctrl-alt-k")
-    def scrollRight():          key("ctrl-alt-l")
-    def scrollUpPage():         key("pageup")
-    def scrollDownPage():       key("pagedown")
-    def scrollUpHalfPage():     key("alt-pageup")
-    def scrollDownHalfPage():   key("alt-pagedown")
+    def scroll_up():                key("ctrl-alt-h")
+    def scroll_down():              key("ctrl-alt-j")
+    def scroll_left():              key("ctrl-alt-k")
+    def scroll_right():             key("ctrl-alt-l")
+    def scroll_up_page():           key("pageup")
+    def scroll_down_page():         key("pagedown")
+    def scroll_up_half_page():      key("alt-pageup")
+    def scroll_down_half_page():    key("alt-pagedown")
 
 
 # ----- LINUX -----
