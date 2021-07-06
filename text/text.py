@@ -57,12 +57,32 @@ class Actions:
         selected = actions.edit.selected_text()
         if not selected:
             return
+        selections = selected.split("\n")
+        if len(selections) == 1:
+            reformat_single_selection(selections[0], formatters)
+        else:
+            reformat_multiple_selections(selections, formatters)
+
+
+def reformat_single_selection(selected: str, formatters: str):
+    unformatted = actions.user.unformat_text(selected)
+    formatted = actions.user.format_text(unformatted, formatters)
+    insert_string(formatted, unformatted)
+
+
+def reformat_multiple_selections(selections: [str], formatters: str):
+    actions.user.homophones_hide()
+    formatted_parts = []
+    for selected in selections:
         unformatted = actions.user.unformat_text(selected)
         formatted = actions.user.format_text(unformatted, formatters)
-        insert_string(formatted, unformatted)
+        actions.user.history_add_phrase(formatted, unformatted)
+        formatted_parts.append(formatted)
+    formatted_all = "\n".join(formatted_parts)
+    actions.user.paste_text(formatted_all)
 
 
-def insert_string(text: str, unformatted: str):
-    actions.insert(text)
-    actions.user.history_add_phrase(text, unformatted)
-    actions.user.homophones_last(text)
+def insert_string(formatted: str, unformatted: str):
+    actions.insert(formatted)
+    actions.user.history_add_phrase(formatted, unformatted)
+    actions.user.homophones_last(formatted)

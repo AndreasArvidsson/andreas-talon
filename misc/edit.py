@@ -15,7 +15,7 @@ class MainActions:
             and len(text) > 2
             and re.search(r"[ /-]|\n", text)
             ):
-            paste_text(text)
+            user.paste_text(text)
         else:
             actions.next(text)
 
@@ -359,11 +359,12 @@ class Actions:
     def find_replace_all():
         """Replace all"""
 
+    # ----- Miscellaneous -----:
 
-def paste_text(text: str):
-    """Pastes text and preserves clipboard"""
-    with clip.revert():
-        clip.set_text(text)
-        edit.paste()
-        # sleep here so that clip.revert doesn't revert the clipboard too soon
-        actions.sleep("150ms")
+    def paste_text(text: str):
+        """Pastes text and preserves clipboard"""
+        with clip.revert():
+            clip.set_text(text)
+            edit.paste()
+            # sleep here so that clip.revert doesn't revert the clipboard too soon
+            actions.sleep("150ms")
