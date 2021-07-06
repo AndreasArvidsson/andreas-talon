@@ -4,7 +4,7 @@ tag: user.find
 find [<user.text>]:           edit.find(text or "")
 find all [<user.text>]:       user.find_all(text or "")
 
-find file [<user.text>] [<user.extension>]:
+find doc [<user.text>] [<user.extension>]:
     text = text or ""
     extension = extension or ""
     user.find_file(text + extension)
@@ -17,7 +17,7 @@ pop <user.text>:
     edit.find(text)
     key(enter)
 
-pop file <user.text> [<user.extension>]:
+pop doc <user.text> [<user.extension>]:
     extension = extension or ""
     user.find_file(text + extension)
     sleep(50ms)
