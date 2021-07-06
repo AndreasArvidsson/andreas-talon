@@ -1,3 +1,5 @@
+tag(): user.find
+
 # ----- Navigation -----
 page up:                           edit.page_up()
 page down:                         edit.page_down()
@@ -82,22 +84,6 @@ drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
 # ----- Save -----
 disk:                              edit.save()
-
-# ----- Find / Replace -----
-find [<user.text>]:                edit.find(text or "")
-find all [<user.text>]:            user.find_all(text or "")
-find file [<user.text>]:           user.find_file(text or "")
-find sesh [<user.text>]:           user.find_recent(text or "")
-
-find (previous | prev):            edit.find_previous()
-find next:                         edit.find_next()
-find replace [<user.text>]:        user.find_replace(text or "")
-replace word:                      user.find_replace_word()
-replace all:                       user.find_replace_all()
-
-pop sesh <user.text>:
-    user.find_recent(text)
-    key(enter)
 
 # ----- Brackets -----
 args:
