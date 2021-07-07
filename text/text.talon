@@ -1,5 +1,5 @@
 # Formatted text: "camel hello there" -> helloThere
-<user.formatters> <user.text_and_immune>:
+<user.formatters> <user.text_and_immune>$:
     user.insert_and_format(text_and_immune, formatters)
 <user.formatters> <user.text_and_immune> over:
     user.insert_and_format(text_and_immune, formatters)
