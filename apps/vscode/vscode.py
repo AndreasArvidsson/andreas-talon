@@ -131,6 +131,7 @@ class UserActions:
     def find_file(text: str = None):
         vscode("workbench.action.quickOpen")
         if text:
+            actions.sleep("50ms")
             insert(text)
 
     def find_recent(text: str = None):

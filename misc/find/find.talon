@@ -4,10 +4,9 @@ tag: user.find
 find [<user.text>]:           edit.find(text or "")
 find all [<user.text>]:       user.find_all(text or "")
 
-find doc [<user.text>] [<user.extension>]:
+find dock [<user.text>] [<user.extension>]:
     text = text or ""
     extension = extension or ""
-    user.find_file(text + extension)
     user.find_file(text + extension)
 
 find sesh [<user.text>]:      user.find_recent(text or "")
@@ -17,10 +16,10 @@ pop <user.text>:
     edit.find(text)
     key(enter)
 
-pop doc <user.text> [<user.extension>]:
+pop dock <user.text> [<user.extension>]:
     extension = extension or ""
     user.find_file(text + extension)
-    sleep(50ms)
+    sleep(300ms)
     key(enter)
 
 pop sesh <user.text>:
