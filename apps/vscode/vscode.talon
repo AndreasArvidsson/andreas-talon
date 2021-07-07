@@ -76,7 +76,6 @@ take all these:          user.vscode("editor.action.selectHighlights")
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")
 minimap (show | hide):   user.vscode("editor.action.toggleMinimap")
-show settings:           user.vscode("workbench.action.openGlobalSettings")
 dev tools:               user.vscode("workbench.action.toggleDevTools")
 reload window:           user.vscode("workbench.action.reloadWindow")
 select element:          key(ctrl-shift-c)
