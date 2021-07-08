@@ -25,6 +25,7 @@ focus right:             user.vscode("workbench.action.focusRightGroup")
 split flip:              user.vscode("workbench.action.toggleEditorGroupLayout")
 split clear:             user.vscode("workbench.action.joinTwoGroups")
 split clear all:         user.vscode("workbench.action.editorLayoutSingle")
+cross:                   user.vscode("workbench.action.focusNextGroup")
 
 # Sidebar
 bar explorer:            user.vscode("workbench.view.explorer")
