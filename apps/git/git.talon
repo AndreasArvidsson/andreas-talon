@@ -23,6 +23,7 @@ git reset soft [<user.text>]:   "git reset --soft {text or ''}"
 git reset hard [<user.text>]:   "git reset --hard {text or ''}"
 
 git fetch:                      "git fetch\n"
+git fetch all:                  "git fetch -a\n"
 git fetch [<user.text>]:        "git fetch {text or ''}"
 git fetch upstream:             "git fetch upstream\n"
 
