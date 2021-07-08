@@ -24,7 +24,7 @@ word <user.word>:    user.insert_string(word)
 proud <user.word>:   user.insert_and_format(word, "CAPITALIZE_FIRST_WORD")
 
 # Select last
-select last:         user.history_select_last_phrase()
+take last:           user.history_select_last_phrase()
 
 # Delete last
 chuck last:          user.history_clear_last_phrase()

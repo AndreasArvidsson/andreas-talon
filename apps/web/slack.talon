@@ -10,6 +10,12 @@ panel (show | hide):     key(ctrl-.)
 all unreads:             key(ctrl-shift-a)
 jump to:                 key(ctrl-k)
 direct messages:         key(ctrl-shift-k)
+please [<user.text>]$:
+    key(ctrl-k)
+    sleep(100ms)
+    edit.delete()
+    sleep(100ms)
+    "{text or ''}"
 
 channel prev:            key(alt-up)
 channel next:            key(alt-down)
