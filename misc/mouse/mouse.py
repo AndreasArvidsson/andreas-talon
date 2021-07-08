@@ -13,6 +13,7 @@ ctx.lists["self.mouse_click"] = {
     "mid":     "middle",
     "double":  "double",
     "dub":     "double",
+    "triple":  "triple",
     "touch":   "touch"
 }
 
@@ -53,6 +54,10 @@ class Actions:
         elif action == "middle":
             ctrl.mouse_click(button=2)
         elif action == "double":
+            ctrl.mouse_click(button=0)
+            ctrl.mouse_click(button=0)
+        elif action == "triple":
+            ctrl.mouse_click(button=0)
             ctrl.mouse_click(button=0)
             ctrl.mouse_click(button=0)
 

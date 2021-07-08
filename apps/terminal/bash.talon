@@ -17,10 +17,8 @@ run history <number>:          "!{number}\n"
 run last:                      "!!\n"
 run last <number>:             "!-{number}\n"
 
-# head:                          "head "
 head <number_small>:           "head -{number_small}"
 
-# tail:                          "tail "
 tail <number_small>:           "tail -{number_small}"
 watch talon log:               "tail -f {path.talon_home()}/talon.log\n"
 
@@ -39,7 +37,6 @@ copy:                          "cp "
 less:                          "less "
 sudo:                          "sudo "
 word count:                    "wc "
-# sed:                           "sed "
 change mode:                   "chmod "
 change owner:                  "chown "
 exargs:                        "xargs "
@@ -63,8 +60,9 @@ clear:                         key(ctrl-l)
 revert:                        key(alt-r)
 
 
-
-
+# head:                          "head "
+# tail:                          "tail "
+# sed:                           "sed "
 # set:                           "set "
 # ctrl-
 # find -exec grep \;
@@ -73,4 +71,4 @@ revert:                        key(alt-r)
 # pushd https://linuxhint.com/bash_pushd_command/
 # cat /etc/os-release
 #cat /proc/version
-# fc last command in editor
+# fc last command in editor.

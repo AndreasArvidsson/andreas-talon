@@ -2,9 +2,10 @@ app: windows_terminal
 -
 tag(): terminal
 tag(): user.tabs
+tag(): user.bash
 
 settings():
-    insert_wait = 10
+    insert_wait = 50
 
 split auto:        key(ctrl-alt-d)
 split right:       key(ctrl-alt-right)
