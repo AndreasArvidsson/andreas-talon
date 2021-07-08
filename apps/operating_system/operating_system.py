@@ -13,6 +13,8 @@ class Actions:
 
     def open_settings():
         """Open settings"""
+    def shut_down_os():
+        """Shut down operating system"""
 
 # ----- Windows -----
 
@@ -31,3 +33,6 @@ class UserActionsWin:
         actions.sleep("30ms")
         actions.insert(command)
         key("enter")
+
+    def shut_down_os():
+        key("super-x u")
