@@ -3,9 +3,6 @@ app: vscode
 tag(): user.ide
 tag(): user.scroll
 
-settings():
-    key_wait = 1
-
 # Language features
 suggest param:           user.vscode("editor.action.triggerParameterHints")
 imports organize:        user.vscode("editor.action.organizeImports")
