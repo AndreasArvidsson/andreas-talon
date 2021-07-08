@@ -39,7 +39,7 @@ git commit:
     'git commit -m ""'
     key(left)
 git commit <user.text>$:        'git commit -m "{text}"'
-git commit amend:               "git commit -amend "
+git commit amend:               "git commit --amend "
 
 git diff:                       "git diff\n"
 git diff <user.text>$:          "git diff {text}"
