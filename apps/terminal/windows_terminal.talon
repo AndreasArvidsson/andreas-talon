@@ -4,7 +4,7 @@ tag(): terminal
 tag(): user.tabs
 
 settings():
-    insert_wait = 10
+    insert_wait = 5
 
 split auto:        key(ctrl-alt-d)
 split right:       key(ctrl-alt-right)

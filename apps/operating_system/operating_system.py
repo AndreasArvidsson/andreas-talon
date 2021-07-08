@@ -28,6 +28,6 @@ os: windows
 class UserActionsWin:
     def exec(command: str):
         key("super-r")
-        actions.sleep("10ms")
+        actions.sleep("30ms")
         actions.insert(command)
         key("enter")
