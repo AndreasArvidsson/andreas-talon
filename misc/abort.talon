@@ -1,0 +1,1 @@
+^[<phrase>] cancel$:   app.notify("Aborted command:\n{phrase or ''}")

@@ -1,1 +1,0 @@
-go settings:                user.open_settings()
