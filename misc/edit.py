@@ -15,7 +15,7 @@ class MainActions:
             and len(text) > 2
             and re.search(r"[ /-]|\n", text)
             ):
-            user.paste_text(text)
+            user.paste(text)
         else:
             actions.next(text)
 
@@ -361,7 +361,7 @@ class Actions:
 
     # ----- Miscellaneous -----:
 
-    def paste_text(text: str):
+    def paste(text: str):
         """Pastes text and preserves clipboard"""
         with clip.revert():
             clip.set_text(text)
