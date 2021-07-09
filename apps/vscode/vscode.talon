@@ -28,17 +28,17 @@ split clear all:         user.vscode("workbench.action.editorLayoutSingle")
 cross:                   user.vscode("workbench.action.focusNextGroup")
 
 # Sidebar
+bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
 bar explorer:            user.vscode("workbench.view.explorer")
 bar extensions:          user.vscode("workbench.view.extensions")
 bar outline:             user.vscode("outline.focus")
 bar run:                 user.vscode("workbench.view.debug")
 bar search:              user.vscode("workbench.view.search")
 bar source:              user.vscode("workbench.view.scm")
-bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
 bar file:                user.vscode("workbench.files.action.showActiveFileInExplorer")
 bar results:             key(ctrl-down)
 
-# Panels
+# Panel
 panel (show | hide):     user.vscode("workbench.action.togglePanel")
 panel control:           user.vscode("workbench.panel.repl.view.focus")
 panel output:            user.vscode("workbench.panel.output.focus")
@@ -46,6 +46,11 @@ panel problems:          user.vscode("workbench.panel.markers.view.focus")
 panel terminal:          user.vscode("workbench.action.terminal.focus")
 debug console:           user.vscode("workbench.debug.action.toggleRepl")
 focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
+
+# Hide sidebar and panel
+hide all:
+    user.vscode("workbench.action.closeSidebar")
+    user.vscode("workbench.action.closePanel")
 
 # Files / Folders
 folder add:              user.vscode("workbench.action.addRootFolder")
