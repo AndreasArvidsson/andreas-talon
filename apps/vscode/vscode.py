@@ -68,6 +68,7 @@ class WinActions:
 
 @ctx.action_class("app")
 class AppActions:
+    def window_open():          vscode("workbench.action.newWindow")
     def tab_open():             vscode("workbench.action.files.newUntitledFile")
 
 
