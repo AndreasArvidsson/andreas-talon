@@ -34,7 +34,6 @@ mod = Module()
 class Actions:
     def mouse_show_cursor():
         """Shows the cursor"""
-        print("----------cursor----------")
         show_cursor_helper(True)
 
     def mouse_hide_cursor():
