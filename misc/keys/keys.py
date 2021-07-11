@@ -120,38 +120,38 @@ ctx.lists["self.key_symbol"] = merge(
 )
 
 
-@ mod.capture(rule="{self.key_modifier}+")
+@mod.capture(rule="{self.key_modifier}+")
 def key_modifiers(m) -> str:
     "One or more modifier keys"
     return "-".join(m.key_modifier_list)
 
 
-@ mod.capture(rule="( {self.key_alphabet} | {self.key_number} | {self.key_symbol} "
+@mod.capture(rule="( {self.key_alphabet} | {self.key_number} | {self.key_symbol} "
               "| {self.key_special} | {self.key_arrow} | {self.key_function} )")
 def key_unmodified(m) -> str:
     "A single key with no modifiers"
     return str(m)
 
 
-@ mod.capture(rule="spell {self.key_alphabet}+")
+@mod.capture(rule="spell {self.key_alphabet}+")
 def spell(m) -> str:
     """Spell word phoneticly"""
     return "".join(m.key_alphabet_list)
 
 
-@ mod.capture(rule="({self.key_alphabet} | {self.key_number} | {self.key_symbol})")
+@mod.capture(rule="({self.key_alphabet} | {self.key_number} | {self.key_symbol})")
 def any_alphanumeric_key(m) -> str:
     "any alphanumeric key"
-    return str(m)
+    return str(m).strip()
 
 
-@ mod.capture(rule="{self.key_alphabet}")
+@mod.capture(rule="{self.key_alphabet}")
 def letter(m) -> str:
     """One letter in the alphabet"""
     return str(m)
 
 
-@ mod.capture(rule="{self.key_alphabet}+")
+@mod.capture(rule="{self.key_alphabet}+")
 def letters(m) -> str:
     """One or more letters in the alphabet"""
     return "".join(m.key_alphabet_list)

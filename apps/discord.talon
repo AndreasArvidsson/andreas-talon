@@ -7,10 +7,10 @@ and app.exe: Discord.exe
 mute:               key(ctrl-shift-m)
 deafen:             key(ctrl-shift-d)
 
-server prev:        key(ctrl-alt-up)
+server last:        key(ctrl-alt-up)
 server next:        key(ctrl-alt-down)
 
-channel prev:       key(alt-up)
+channel last:       key(alt-up)
 channel next:       key(alt-down)
 
 focus text:         key(tab)

@@ -27,7 +27,7 @@ pop sesh <user.text>$:
     key(enter)
 
 
-find (previous | prev):       edit.find_previous()
+find last:                    edit.find_previous()
 find next:                    edit.find_next()
 find replace [<user.text>]:   user.find_replace(text or "")
 replace word:                 user.find_replace_word()

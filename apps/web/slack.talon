@@ -17,9 +17,9 @@ please [<user.text>]$:
     sleep(100ms)
     "{text or ''}"
 
-channel prev:            key(alt-up)
+channel last:            key(alt-up)
 channel next:            key(alt-down)
-channel unread prev:     key(alt-shift-up)
+channel unread last:     key(alt-shift-up)
 channel unread [next]:   key(alt-shift-down)
 next unread:             key(alt-shift-down)
 
