@@ -5,10 +5,14 @@ edit = actions.edit
 user = actions.user
 
 ctx = Context()
+ctx_no_terminal = Context()
 mod = Module()
 
+ctx_no_terminal.matches = r"""
+not tag: terminal
+"""
 
-@ctx.action_class("main")
+@ctx_no_terminal.action_class("main")
 class MainActions:
     def insert(text: str or number):
         if (isinstance(text, str)
