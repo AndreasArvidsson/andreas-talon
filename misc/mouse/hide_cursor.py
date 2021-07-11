@@ -1,5 +1,7 @@
-from talon import Module, app
+from talon import Module, actions, app
 import os
+
+app.register("ready", lambda: actions.user.mouse_show_cursor())
 
 default_cursor = {
     "AppStarting": r"%SystemRoot%\Cursors\aero_working.ani",
@@ -32,6 +34,7 @@ mod = Module()
 class Actions:
     def mouse_show_cursor():
         """Shows the cursor"""
+        print("----------cursor----------")
         show_cursor_helper(True)
 
     def mouse_hide_cursor():
