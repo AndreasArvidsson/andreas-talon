@@ -50,7 +50,8 @@ class Actions:
 
     def screenshot_window_clipboard():
         """Takes a screenshot of the active window and saves it to the clipboard"""
-        clipboard_rect(ui.active_window().rect)
+        win = ui.active_window()
+        clipboard_rect(win.rect)
 
 
 def screenshot_rect(rect: ui.Rect, title: str = ""):
@@ -89,6 +90,6 @@ def flash_rect(rect: ui.Rect):
 
 
 def get_screen(screen_number: Optional[int] = None) -> ui.Screen:
-    if screen_number:
-        return actions.user.screens_get_by_number(screen_number)
-    return screen.main_screen()
+    if screen_number == None:
+        return screen.main_screen()
+    return actions.user.screens_get_by_number(screen_number)
