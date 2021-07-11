@@ -12,10 +12,12 @@ git remove:                     "git rm "
 git tag [<user.text>]:          "git tag {text or ''}"
 git merge [<user.text>]:        "git merge {text or ''}"
 git branch [<user.text>]:       "git branch {text or ''}"
-git remote:                     "git remote "
 git clone:                      "git clone "
 git cherry-pick:                "git cherry-pick "
 git rebase:                     "git rebase "
+
+git remote:                     "git remote "
+git remote verbose:             "git remote -v\n"
 
 git reset head:                 "git reset --soft HEAD^"
 git reset [<user.text>]:        "git reset {text or ''}"
