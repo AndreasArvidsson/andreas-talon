@@ -31,6 +31,8 @@ git fetch upstream:             "git fetch upstream\n"
 git fetch prune:                "git fetch --prune origin\n"
 
 git checkout [<user.text>]:     "git checkout {text or ''}"
+git checkout branch [<user.text>]:
+    "git checkout -b {text or ''}"
 git checkout main:              "git checkout main\n"
 git checkout master:            "git checkout master\n"
 git checkout develop:           "git checkout develop\n"
