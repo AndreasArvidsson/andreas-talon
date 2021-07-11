@@ -22,6 +22,7 @@ class AppActions:
     def tab_previous():         key("ctrl-shift-tab")
     def tab_next():             key("ctrl-tab")
 
+
 @ctx.action_class("edit")
 class EditActions:
     def copy():                 key("ctrl-shift-c")
