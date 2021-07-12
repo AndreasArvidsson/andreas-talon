@@ -1,7 +1,7 @@
 tag: user.git
 -
 
-git:                            "git "
+# git:                            "git "
 git verison:                    "git --version\n"
 git init:                       "git init\n"
 git status:                     "git status\n"

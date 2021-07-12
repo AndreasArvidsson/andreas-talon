@@ -71,7 +71,7 @@ class Actions:
         """Get captures as text"""
         return format("captures", registry.captures)
 
-    def dtalon_print_list_problems():
+    def talon_print_list_problems():
         """Search for non alpha keys in meta lists"""
         for n, l in registry.lists.items():
             for ml in l:
