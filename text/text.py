@@ -83,6 +83,6 @@ def reformat_multiple_selections(selections: [str], formatters: str):
 
 
 def insert_string(formatted: str, unformatted: str):
+    actions.user.homophones_hide()
     actions.insert(formatted)
     actions.user.history_add_phrase(formatted, unformatted)
-    actions.user.homophones_last(formatted)
