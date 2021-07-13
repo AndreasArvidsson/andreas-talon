@@ -12,4 +12,4 @@ settings():
     user.command_history_display = 1
 
     # Record speech
-    speech.record_all = 0
+    # speech.record_all = 1
