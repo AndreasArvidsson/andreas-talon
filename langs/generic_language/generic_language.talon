@@ -28,7 +28,7 @@ state comment <user.text>$:
     "{text}"
 state comment:                 user.code_comment()
 state block comment:           user.code_block_comment()
-state print [<user.text>]:
+state (print | log) [<user.text>]:
     text = user.format_text(text or "", "CAPITALIZE_FIRST_WORD")
     user.code_print(text)
 state new line:                "\\n"
