@@ -70,6 +70,7 @@ class WinActions:
 class AppActions:
     def window_open():          vscode("workbench.action.newWindow")
     def tab_open():             vscode("workbench.action.files.newUntitledFile")
+    def preferences():          vscode("workbench.action.openGlobalSettings")
 
 
 @ctx.action_class("code")
@@ -183,9 +184,6 @@ class UserActions:
         vscode("editorScroll", {"to": "up", "by": "halfPage"})
     def scroll_down_half_page():
         vscode("editorScroll", {"to": "down", "by": "halfPage"})
-
-    # ----- Miscellaneous -----
-    def open_settings():        vscode("workbench.action.openGlobalSettings")
 
 
 @ctx_talon.action_class("user")

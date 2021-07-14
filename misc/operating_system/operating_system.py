@@ -1,7 +1,7 @@
 from talon import Context, Module, actions
 import os
-key = actions.key
 
+key = actions.key
 mod = Module()
 
 
@@ -11,10 +11,9 @@ class Actions:
         """Run command"""
         os.system(command)
 
-    def open_settings():
-        """Open settings"""
     def shut_down_os():
         """Shut down operating system"""
+
 
 # ----- Windows -----
 
