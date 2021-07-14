@@ -344,25 +344,6 @@ class Actions:
         for _ in range(n):
             edit.line_swap_down()
 
-    # ----- Find / Replace -----
-
-    def find_file(text: str = None):
-        """Find file"""
-    def find_recent(text: str = None):
-        """Find recent folder/file"""
-    def find_all(text: str = None):
-        """Find all"""
-    def find_replace(text: str = None):
-        """Find and replace"""
-        key("ctrl-h")
-        if text:
-            actions.insert(text)
-
-    def find_replace_word():
-        """Replace word"""
-    def find_replace_all():
-        """Replace all"""
-
     # ----- Miscellaneous -----:
 
     def paste(text: str):

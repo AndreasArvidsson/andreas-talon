@@ -125,7 +125,7 @@ class UserActions:
         vscode("andreas.lineMiddle")
 
     # ----- Find / Replace -----
-    def find_all(text: str = None):
+    def find_everywhere(text: str = None):
         vscode("workbench.action.findInFiles")
         if text:
             insert(text)
@@ -141,8 +141,12 @@ class UserActions:
         if text:
             insert(text)
 
-    def find_replace_word():    key("enter")
-    def find_replace_all():     key("ctrl-alt-enter")
+    def find_toggle_match_by_case():         key("alt-c")
+    def find_toggle_match_by_word():         key("alt-w")
+    def find_toggle_match_by_regex():        key("alt-r")
+    def find_replace_toggle_preserve_case(): key("alt-p")
+    def find_replace_confirm():              key("enter")
+    def find_replace_confirm_all():          key("ctrl-alt-enter")
 
     # ----- Run -----
     def run_program():          vscode("workbench.action.debug.run")
