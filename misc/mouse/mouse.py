@@ -7,14 +7,14 @@ ctx = Context()
 
 mod.list("mouse_click", desc="Available mouse clicks")
 ctx.lists["self.mouse_click"] = {
-    "left":    "left",
-    "right":   "right",
-    "middle":  "middle",
-    "mid":     "middle",
-    "double":  "double",
-    "dub":     "double",
-    "triple":  "triple",
-    "touch":   "touch"
+    "left": "left",
+    "right": "right",
+    "middle": "middle",
+    "mid": "middle",
+    "double": "double",
+    "dub": "double",
+    "triple": "triple",
+    "touch": "touch",
 }
 
 scroll_job = None
@@ -34,8 +34,8 @@ def on_pop(active: bool):
     # Zoom mouse is enabled
     if actions.user.zoom_mouse_enabled():
         actions.user.zoom_mouse_on_pop()
-    # Normal click
-    else:
+    # Normal click when using control mouse
+    elif config.control_mouse:
         ctrl.mouse_click(button=0)
 
 
