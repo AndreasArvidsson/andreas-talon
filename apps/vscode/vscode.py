@@ -108,6 +108,10 @@ class EditActions:
     # ----- Zoom -----
     def zoom_reset():           vscode("workbench.action.zoomReset")
 
+    # ----- Find -----
+    def find_previous():        vscode("editor.action.previousMatchFindAction")
+    def find_next():            vscode("editor.action.nextMatchFindAction")
+
 
 @ctx.action_class("user")
 class UserActions:

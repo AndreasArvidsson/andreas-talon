@@ -83,6 +83,6 @@ dev tools:               user.vscode("workbench.action.toggleDevTools")
 reload window:           user.vscode("workbench.action.reloadWindow")
 select element:          key(ctrl-shift-c)
 
-please [<user.text>]:
+please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")

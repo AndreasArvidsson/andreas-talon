@@ -6,6 +6,9 @@ mod.tag("find")
 
 @mod.action_class
 class Actions:
+    def find_file(text: str = None):
+        """Find file by file name"""
+
     def find_recent(text: str = None):
         """Find recent folder/file"""
 

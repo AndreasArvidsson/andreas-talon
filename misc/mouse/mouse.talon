@@ -5,9 +5,7 @@ mouse drag:                 user.mouse_drag()
 # Scroll
 scroll up [<number>]:       user.mouse_scroll("up", number or 1)
 scroll down [<number>]:     user.mouse_scroll("down", number or 1)
-# TODO
-# mouse up:                   user.mouse_scrolling("up")
-# (mouse down | mouston):     user.mouse_scrolling("down")
+
 climb:                      user.mouse_scrolling("up")
 fall:                       user.mouse_scrolling("down")
 

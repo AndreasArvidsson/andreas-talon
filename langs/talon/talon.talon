@@ -15,8 +15,10 @@ require tag:      "tag: "
 
 state tag:        "tag(): "
 state new line:   "\\n"
-state comment [<user.text>]:
-    text = user.format_text(text or "", "CAPITALIZE_FIRST_WORD")
+
+state comment:    "# "
+state comment <user.text>$:
+    text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     "# {text}"
 
 state key:

@@ -18,6 +18,7 @@ resize down:    key(alt-shift-down)
 resize left:    key(alt-shift-left)
 resize right:   key(alt-shift-right)
 
-please [<user.text>]:
+please:         key(ctrl-shift-p)
+please <user.text>$:
     key(ctrl-shift-p)
-    "{text or ''}"
+    "{text}"

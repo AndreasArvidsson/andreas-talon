@@ -22,14 +22,15 @@ state false:                   user.code_false()
 state break:                   user.code_break()
 state continue:                user.code_continue()
 state return:                  user.code_return()
+state comment:                 user.code_comment()
 state comment <user.text>$:
     user.code_comment()
     text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     "{text}"
-state comment:                 user.code_comment()
 state block comment:           user.code_block_comment()
-state (print | log) [<user.text>]:
-    text = user.format_text(text or "", "CAPITALIZE_FIRST_WORD")
+state print:                   user.code_print("")
+state print <user.text>$:
+    text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     user.code_print(text)
 state new line:                "\\n"
 state {user.code_statement}:   "{code_statement}"
