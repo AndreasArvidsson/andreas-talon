@@ -2,6 +2,7 @@ tag: user.bash
 -
 
 cd:                            "cd "
+cd <user.text>$:               "cd {text}"
 go home:                       "cd ~\n"
 
 list:                          "ls\n"
