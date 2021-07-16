@@ -40,11 +40,12 @@ bar results:             key(ctrl-down)
 
 # Panel
 panel (show | hide):     user.vscode("workbench.action.togglePanel")
+panel (large | small):   user.vscode("workbench.action.toggleMaximizedPanel")
 panel control:           user.vscode("workbench.panel.repl.view.focus")
 panel output:            user.vscode("workbench.panel.output.focus")
 panel problems:          user.vscode("workbench.panel.markers.view.focus")
 panel terminal:          user.vscode("workbench.action.terminal.focus")
-debug console:           user.vscode("workbench.debug.action.toggleRepl")
+panel debug:             user.vscode("workbench.debug.action.toggleRepl")
 focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Hide sidebar and panel
