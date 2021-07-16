@@ -132,6 +132,7 @@ class UserActions:
     def find_everywhere(text: str = None):
         vscode("workbench.action.findInFiles")
         if text:
+            actions.sleep("50ms")
             insert(text)
 
     def find_file(text: str = None):
@@ -143,6 +144,7 @@ class UserActions:
     def find_recent(text: str = None):
         vscode("workbench.action.openRecent")
         if text:
+            actions.sleep("50ms")
             insert(text)
 
     def find_toggle_match_by_case():         key("alt-c")
