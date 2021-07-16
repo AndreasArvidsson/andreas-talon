@@ -19,8 +19,9 @@ git rebase:                  "git rebase "
 git remote:                  "git remote "
 git remote verbose:          "git remote -v\n"
 
-git reset head:              "git reset --soft HEAD^"
 git reset:                   "git reset "
+git reset all:               "git reset .\n"
+git reset head:              "git reset --soft HEAD^"
 git reset soft:              "git reset --soft "
 git reset hard:              "git reset --hard "
 

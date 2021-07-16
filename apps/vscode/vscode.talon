@@ -46,6 +46,9 @@ panel output:            user.vscode("workbench.panel.output.focus")
 panel problems:          user.vscode("workbench.panel.markers.view.focus")
 panel terminal:          user.vscode("workbench.action.terminal.focus")
 panel debug:             user.vscode("workbench.debug.action.toggleRepl")
+panel clear:             user.vscode("workbench.debug.panel.action.clearReplAction")
+
+# Focus editor
 focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Hide sidebar and panel

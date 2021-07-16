@@ -59,7 +59,7 @@ ctx.settings["dictate.word_map"] = word_map_defaults
 simple_default_vocabulary = [
     "admin", "vpn", "dns", "exe", "linux",
     "array", "html", "url", "vscode", "json", "api", "http", "css",
-    "cursorless", "cheat sheet", "user", "backup"
+    "cursorless", "cheat sheet", "user", "backup", "Arvidsson"
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
