@@ -5,17 +5,21 @@ edit = actions.edit
 user = actions.user
 
 ctx = Context()
+ctx_no_terminal = Context()
 mod = Module()
 
+ctx_no_terminal.matches = r"""
+not tag: terminal
+"""
 
-@ctx.action_class("main")
+@ctx_no_terminal.action_class("main")
 class MainActions:
     def insert(text: str or number):
         if (isinstance(text, str)
             and len(text) > 2
             and re.search(r"[ /-]|\n", text)
             ):
-            user.paste_text(text)
+            user.paste(text)
         else:
             actions.next(text)
 
@@ -340,28 +344,9 @@ class Actions:
         for _ in range(n):
             edit.line_swap_down()
 
-    # ----- Find / Replace -----
-
-    def find_file(text: str = None):
-        """Find file"""
-    def find_recent(text: str = None):
-        """Find recent folder/file"""
-    def find_all(text: str = None):
-        """Find all"""
-    def find_replace(text: str = None):
-        """Find and replace"""
-        key("ctrl-h")
-        if text:
-            actions.insert(text)
-
-    def find_replace_word():
-        """Replace word"""
-    def find_replace_all():
-        """Replace all"""
-
     # ----- Miscellaneous -----:
 
-    def paste_text(text: str):
+    def paste(text: str):
         """Pastes text and preserves clipboard"""
         with clip.revert():
             clip.set_text(text)

@@ -15,7 +15,7 @@ arrow function <user.variable_name>:
     "const {name} = () => {{\n\n}}\n"
     key(up:3 end left:6)
 
-convert to arrow: user.arrowify_line()
+convert to arrow:     user.arrowify_line()
 
 state for in loop:
     "for (const i in ) {\n\n}\n"
@@ -31,3 +31,6 @@ method <user.words>:
 state arrow function:
     "() => {\n\n}"
     key(up:2 end left:6)
+
+(op | is) null:       " == null"
+(op | is) not null:   " != null"

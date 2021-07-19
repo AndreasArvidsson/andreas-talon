@@ -13,6 +13,12 @@ tab search <user.words>$:
     key(down)
 
 # Vimium
-hunt:        key(escape ctrl-alt-f)
-hunt new:    key(escape ctrl-alt-F)
-hunt open:   key(escape ctrl-alt-g)
+hunt:
+    user.stop_app()
+    key(escape ctrl-alt-f)
+hunt new:
+    user.stop_app()
+    key(escape ctrl-alt-F)
+hunt open:
+    user.stop_app()
+    key(escape ctrl-alt-g)

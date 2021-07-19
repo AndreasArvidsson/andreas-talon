@@ -44,7 +44,7 @@ def scan_small_numbers(l: List[str]) -> Iterator[Union[str,int]]:
     while l:
         n = l.pop()
         # fuse tens onto digits, eg. "twenty", "one" -> 21
-        if n in tens_map and n != "ten" and l and digits_map.get(l[-1], 0) != 0:
+        if n in tens_map and l and digits_map.get(l[-1], 0) != 0:
             d = l.pop()
             yield numbers_map[n] + numbers_map[d]
         # turn small number terms into corresponding numbers
@@ -56,16 +56,12 @@ def scan_small_numbers(l: List[str]) -> Iterator[Union[str,int]]:
 def parse_scale(scale: str, l: List[Union[str,int]]) -> List[Union[str,int]]:
     """Parses a list of mixed numbers & strings for occurrences of the following
     pattern:
-
         <multiplier> <scale> <remainder>
-
     where <scale> is a scale word like "hundred", "thousand", "million", etc and
     multiplier and remainder are numbers or strings of numbers of the
     appropriate size. For example:
-
         parse_scale("hundred", [1, "hundred", 2]) -> [102]
         parse_scale("thousand", [12, "thousand", 3, 45]) -> [12345]
-
     We assume that all scales of lower magnitude have already been parsed; don't
     call parse_scale("thousand") until you've called parse_scale("hundred").
     """
@@ -111,6 +107,7 @@ def split_list(value, l: list) -> Iterator:
         yield l[start:i]
         start = i+1
     yield l[start:]
+
 
 # ---------- CAPTURES ----------
 alt_digits = "(" + ("|".join(digits_map.keys())) + ")"

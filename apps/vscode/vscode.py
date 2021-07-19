@@ -68,7 +68,9 @@ class WinActions:
 
 @ctx.action_class("app")
 class AppActions:
+    def window_open():          vscode("workbench.action.newWindow")
     def tab_open():             vscode("workbench.action.files.newUntitledFile")
+    def preferences():          vscode("workbench.action.openGlobalSettings")
 
 
 @ctx.action_class("code")
@@ -106,6 +108,10 @@ class EditActions:
     # ----- Zoom -----
     def zoom_reset():           vscode("workbench.action.zoomReset")
 
+    # ----- Find -----
+    def find_previous():        vscode("editor.action.previousMatchFindAction")
+    def find_next():            vscode("editor.action.nextMatchFindAction")
+
 
 @ctx.action_class("user")
 class UserActions:
@@ -123,9 +129,10 @@ class UserActions:
         vscode("andreas.lineMiddle")
 
     # ----- Find / Replace -----
-    def find_all(text: str = None):
+    def find_everywhere(text: str = None):
         vscode("workbench.action.findInFiles")
         if text:
+            actions.sleep("50ms")
             insert(text)
 
     def find_file(text: str = None):
@@ -137,10 +144,15 @@ class UserActions:
     def find_recent(text: str = None):
         vscode("workbench.action.openRecent")
         if text:
+            actions.sleep("50ms")
             insert(text)
 
-    def find_replace_word():    key("enter")
-    def find_replace_all():     key("ctrl-alt-enter")
+    def find_toggle_match_by_case():         key("alt-c")
+    def find_toggle_match_by_word():         key("alt-w")
+    def find_toggle_match_by_regex():        key("alt-r")
+    def find_replace_toggle_preserve_case(): key("alt-p")
+    def find_replace_confirm():              key("enter")
+    def find_replace_confirm_all():          key("ctrl-alt-enter")
 
     # ----- Run -----
     def run_program():          vscode("workbench.action.debug.run")
@@ -182,9 +194,6 @@ class UserActions:
         vscode("editorScroll", {"to": "up", "by": "halfPage"})
     def scroll_down_half_page():
         vscode("editorScroll", {"to": "down", "by": "halfPage"})
-
-    # ----- Miscellaneous -----
-    def open_settings():        vscode("workbench.action.openGlobalSettings")
 
 
 @ctx_talon.action_class("user")

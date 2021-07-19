@@ -1,7 +1,8 @@
 tag: user.bash
 -
 
-cd [<word>]:                   "cd {word or ''}"
+cd:                            "cd "
+cd <user.text>$:               "cd {text}"
 go home:                       "cd ~\n"
 
 list:                          "ls\n"
@@ -12,38 +13,37 @@ list long pipe:                "ls -lah | "
 history:                       "history "
 history tail:                  "history | tail\n"
 history tail <number_small>:   "history | tail -{number_small}\n"
-history grep [<word>]:         "history | grep {word or ''}"
+history grep:                  "history | grep "
 run history <number>:          "!{number}\n"
 run last:                      "!!\n"
 run last <number>:             "!-{number}\n"
 
-# head:                          "head "
 head <number_small>:           "head -{number_small}"
 
-# tail:                          "tail "
 tail <number_small>:           "tail -{number_small}"
 watch talon log:               "tail -f {path.talon_home()}/talon.log\n"
 
 print dir:                     "pwd\n"
 copy dir:                      "pwd | clipboard\n"
 
-tar create [<word>]:           "tar -czvf {word or ''}"
-tar extract [<word>]:          "tar -xzvf {word or ''}"
+tar create:                    "tar -czvf "
+tar extractf:                  "tar -xzvf "
 
-echo [<user.text>]:            "echo {text or ''}"
-grep [<word>]:                 "grep {word or ''}"
-make dir [<word>]:             "mkdir {word or ''}"
+echo:                          "echo "
+echo <user.text>$:             "echo {text}"
+
+grep:                          "grep "
+make dir:                      "mkdir "
 move:                          "mv "
-remove [<word>]:               "rm {word or ''}"
+remove:                        "rm "
 copy:                          "cp "
 less:                          "less "
 sudo:                          "sudo "
 word count:                    "wc "
-# sed:                           "sed "
 change mode:                   "chmod "
 change owner:                  "chown "
 exargs:                        "xargs "
-find [<word>]:                 "find {word or ''}"
+find:                          "find "
 exec:                          "exec "
 cat:                           "cat "
 tar:                           "tar "
@@ -63,8 +63,9 @@ clear:                         key(ctrl-l)
 revert:                        key(alt-r)
 
 
-
-
+# head:                          "head "
+# tail:                          "tail "
+# sed:                           "sed "
 # set:                           "set "
 # ctrl-
 # find -exec grep \;
@@ -73,4 +74,4 @@ revert:                        key(alt-r)
 # pushd https://linuxhint.com/bash_pushd_command/
 # cat /etc/os-release
 #cat /proc/version
-# fc last command in editor
+# fc last command in editor.

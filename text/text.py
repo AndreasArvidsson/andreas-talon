@@ -79,10 +79,10 @@ def reformat_multiple_selections(selections: [str], formatters: str):
         actions.user.history_add_phrase(formatted, unformatted)
         formatted_parts.append(formatted)
     formatted_all = "\n".join(formatted_parts)
-    actions.user.paste_text(formatted_all)
+    actions.user.paste(formatted_all)
 
 
 def insert_string(formatted: str, unformatted: str):
+    actions.user.homophones_hide()
     actions.insert(formatted)
     actions.user.history_add_phrase(formatted, unformatted)
-    actions.user.homophones_last(formatted)

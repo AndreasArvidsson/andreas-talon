@@ -21,6 +21,7 @@ app: windows_terminal
 class AppActions:
     def tab_previous():         key("ctrl-shift-tab")
     def tab_next():             key("ctrl-tab")
+    def preferences():          key("ctrl-,")
 
 @ctx.action_class("edit")
 class EditActions:
@@ -30,5 +31,7 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
-    def open_settings():    key("ctrl-,")
-    def tab_duplicate():    key("ctrl-d")
+    def tab_duplicate():        key("ctrl-d")
+    def tab_final():            
+        actions.user.tab_jump(1)
+        actions.app.tab_previous()

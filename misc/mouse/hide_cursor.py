@@ -1,5 +1,7 @@
-from talon import Module, app
+from talon import Module, actions, app
 import os
+
+app.register("ready", lambda: actions.user.mouse_show_cursor())
 
 default_cursor = {
     "AppStarting": r"%SystemRoot%\Cursors\aero_working.ani",

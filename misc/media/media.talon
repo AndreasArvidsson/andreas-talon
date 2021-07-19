@@ -3,7 +3,7 @@ volume down:            user.volume_down()
 volume mute:            key(mute)
 
 media next:             key(next)
-media prev:             key(prev)
+media last:             key(prev)
 media (play | pause):   key(play_pause)
 media stop:             key(stop)
 

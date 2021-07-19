@@ -25,26 +25,36 @@ focus right:             user.vscode("workbench.action.focusRightGroup")
 split flip:              user.vscode("workbench.action.toggleEditorGroupLayout")
 split clear:             user.vscode("workbench.action.joinTwoGroups")
 split clear all:         user.vscode("workbench.action.editorLayoutSingle")
+cross:                   user.vscode("workbench.action.focusNextGroup")
 
 # Sidebar
+bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
 bar explorer:            user.vscode("workbench.view.explorer")
 bar extensions:          user.vscode("workbench.view.extensions")
 bar outline:             user.vscode("outline.focus")
 bar run:                 user.vscode("workbench.view.debug")
 bar search:              user.vscode("workbench.view.search")
 bar source:              user.vscode("workbench.view.scm")
-bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
 bar file:                user.vscode("workbench.files.action.showActiveFileInExplorer")
-bar results:             key(ctrl-down)
+bar results:             user.vscode("search.action.focusSearchList")
 
-# Panels
+# Panel
 panel (show | hide):     user.vscode("workbench.action.togglePanel")
+panel (large | small):   user.vscode("workbench.action.toggleMaximizedPanel")
 panel control:           user.vscode("workbench.panel.repl.view.focus")
 panel output:            user.vscode("workbench.panel.output.focus")
 panel problems:          user.vscode("workbench.panel.markers.view.focus")
 panel terminal:          user.vscode("workbench.action.terminal.focus")
-debug console:           user.vscode("workbench.debug.action.toggleRepl")
+panel debug:             user.vscode("workbench.debug.action.toggleRepl")
+panel clear:             user.vscode("workbench.debug.panel.action.clearReplAction")
+
+# Focus editor
 focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
+
+# Hide sidebar and panel
+hide all:
+    user.vscode("workbench.action.closeSidebar")
+    user.vscode("workbench.action.closePanel")
 
 # Files / Folders
 folder add:              user.vscode("workbench.action.addRootFolder")
@@ -67,7 +77,7 @@ fold comments:           user.vscode("editor.foldAllBlockComments")
 go back:                 user.vscode("workbench.action.navigateBack")
 go forward:              user.vscode("workbench.action.navigateForward")
 take next:               user.vscode("editor.action.addSelectionToNextFindMatch")
-take prev:               user.vscode("editor.action.addSelectionToPreviousFindMatch")
+take last:               user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:          user.vscode("editor.action.selectHighlights")
 
 # Misc
@@ -77,6 +87,6 @@ dev tools:               user.vscode("workbench.action.toggleDevTools")
 reload window:           user.vscode("workbench.action.reloadWindow")
 select element:          key(ctrl-shift-c)
 
-please [<user.text>]:
+please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")

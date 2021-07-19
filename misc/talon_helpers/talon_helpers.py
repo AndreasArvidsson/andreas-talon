@@ -7,9 +7,6 @@ from itertools import islice
 mod = Module()
 pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
 
-# todo: should this be an action that lives elsewhere??
-
-
 def create_name(text, max_len=20):
     return "_".join(list(islice(pattern.findall(text), max_len))).lower()
 
@@ -64,8 +61,7 @@ class Actions:
 
     def talon_get_actions_long() -> str:
         """Get long actions list as text"""
-        callback = lambda k: f"{k.ljust(40)} {registry.decls.actions[k].desc}"
-        return format("actions", registry.decls.actions, callback)
+        return format("actions", registry.decls.actions, add_desc = True)
 
     def talon_get_modes() -> str:
         """Get modes as text"""
@@ -76,24 +72,40 @@ class Actions:
         return format("captures", registry.captures)
 
     def talon_print_list_problems():
-        """Search for non almpha keys in meta lists"""
+        """Search for non alpha keys in meta lists"""
         for n, l in registry.lists.items():
             for ml in l:
                 for v in ml:
                     if re.search(r"[^a-zA-Z ]", v):
-                        print(f"{n} {v}")
+                        print(f"{n}: {v}")
 
     def talon_get_lists() -> str:
         """Get lists as text"""
         return format("lists", registry.lists)
 
+    def talon_get_core() -> str:
+        """Get core lists and captures as text"""
+        captures = filter_core(registry.decls.captures)
+        actions = filter_core(registry.decls.actions)
+        captures_string = format("captures", captures, add_desc = True)
+        actions_string = format("actions", actions, add_desc = True)
+        return f"{captures_string}\n\n{actions_string}"
 
-def format(title, values, get_line = None) -> str:
+
+def format(title, values, add_desc = False) -> str:
     text = f"-------- {title.upper()} ({len(values)}) ------------\n"
-    if get_line:
-        text += "\n".join(map(get_line, sorted(values)))
-    else:
-        text += "\n".join(sorted(values))
+    for name in sorted(values):
+        text += f"{name}\n"
+        if add_desc:
+            desc = values[name].desc.replace("\n", " ")
+            desc = re.sub(" +", " ", desc)
+            text += f"  {desc}\n"
     text += "\n----------------------------------"
     return text
 
+def filter_core(values: dict) -> dict:
+    result = {}
+    for k in values:
+        if not k.startswith("user."):
+            result[k] = values[k]
+    return result
