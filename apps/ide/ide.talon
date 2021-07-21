@@ -36,7 +36,7 @@ uncomment:                       user.uncomment()
 
 # ----- Run and debug -----
 run program:                     user.run_program()
-debug program:                   user.debug_program()
+debug (program | start):         user.debug_program()
 breakpoint:                      user.debug_breakpoint()
 continue:                        user.debug_continue()
 step over:                       user.debug_step_over()
