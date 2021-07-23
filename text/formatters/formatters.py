@@ -84,6 +84,10 @@ class Actions:
             result = all_formatters[fmtr](result)
         return result
 
+    def formatted_text(text: str, formatters: str) -> str:
+        """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        return actions.user.format_text(text, formatters)
+
     def unformat_text(text: str) -> str:
         """Remove format from text"""
         # Split on delimiters. A delimiter char followed by a blank space is no delimiter.

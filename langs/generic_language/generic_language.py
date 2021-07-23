@@ -11,6 +11,12 @@ mod.list("code_access_modifier", desc="Names of access modifiers")
 mod.list("code_statement", desc="Names of miscellaneous statements")
 
 
+@mod.capture(rule="{user.code_function}")
+def code_functions(m) -> str:
+    """Returns a function name"""
+    return m.code_function
+
+
 @mod.action_class
 class tab_actions:
     # ----- Selection statements -----

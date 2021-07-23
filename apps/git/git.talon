@@ -36,6 +36,8 @@ git fetch prune:             "git fetch --prune origin\n"
 git checkout:                "git checkout "
 git checkout <user.text>$:   "git checkout {text}"
 git checkout branch:         "git checkout -b "
+git checkout branch <user.text>:
+    "git checkout -b {text}"
 git checkout main:           "git checkout main\n"
 git checkout master:         "git checkout master\n"
 git checkout develop:        "git checkout develop\n"

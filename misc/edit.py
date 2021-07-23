@@ -350,6 +350,12 @@ class Actions:
         """Pastes text and preserves clipboard"""
         with clip.revert():
             clip.set_text(text)
+
+            # TODO
+            if clip.text() != text:
+                actions.app.notify("Failed to set clipboard")
+                print(f"Clipboard: '{clip.text()}'")
+
             edit.paste()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("150ms")
