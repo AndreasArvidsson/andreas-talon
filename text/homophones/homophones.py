@@ -53,39 +53,40 @@ def gui(gui: imgui.GUI):
     if gui.button("Hide"):
         actions.user.homophones_hide()
 
+def get_homophones(word):
+    is_upper = word == word.isupper()
+    is_capitalized = word == word.capitalize()
+    word = word.lower()
+
+    if word not in all_homophones:
+        return None
+
+    homophones = all_homophones[word]
+
+    if is_upper or is_capitalized:
+        homophones = homophones[:]
+        for i in range(len(homophones)):
+            if is_upper:
+                homophones[i] = homophones[i].upper()
+            elif is_capitalized:
+                homophones[i] = homophones[i].capitalize()
+
+    return homophones
 
 def update_homophones(word, last):
     global active_word_list, active_word, is_last, pad_left, pad_right
-
     pad_left = word.startswith(" ")
     pad_right = word.endswith(" ")
     word = word.strip()
     active_word = word
-    is_capitalized = word == word.capitalize()
-    is_upper = word.isupper()
-    word = word.lower()
+    active_word_list = get_homophones(word)
 
-    if word not in all_homophones:
+    if not active_word_list:
         if gui.showing:
             actions.user.homophones_hide()
         return False
 
     is_last = last
-    active_word_list = all_homophones[word]
-
-    if active_word_list[0].lower() != word:
-        active_word_list = active_word_list[:]
-        active_word_list.remove(word)
-        active_word_list.insert(0, word)
-
-    if is_capitalized or is_upper:
-        active_word_list = active_word_list[:]
-        for i in range(len(active_word_list)):
-            if is_capitalized:
-                active_word_list[i] = active_word_list[i].capitalize()
-            elif is_upper:
-                active_word_list[i] = active_word_list[i].upper()
-
     actions.mode.enable("user.homophones")
     gui.show()
     return True
@@ -93,6 +94,10 @@ def update_homophones(word, last):
 
 @mod.action_class
 class Actions:
+    def homophones_get(word: str):
+        """Get homophones for the given word"""
+        return get_homophones(word)
+
     def homophones_selected():
         """Show homophones if the given word is a homophone"""
         word = actions.edit.selected_text()
