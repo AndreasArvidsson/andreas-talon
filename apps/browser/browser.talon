@@ -2,6 +2,7 @@ tag: browser
 -
 tag(): user.zoom
 tag(): user.tabs
+tag(): user.find
 
 go address:                     browser.focus_address()
 go home:                        browser.go_home()

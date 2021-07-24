@@ -1,5 +1,3 @@
-tag(): user.find
-
 # ----- Navigation -----
 page up:                           edit.page_up()
 page down:                         edit.page_down()

@@ -2,6 +2,7 @@ tag: user.ide
 -
 tag(): user.zoom
 tag(): user.tabs
+tag(): user.find
 
 # ----- Navigation -----
 declaration go:                  user.declaration_go()
