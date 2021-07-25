@@ -30,6 +30,9 @@ ctx.lists["self.code_statement"] = {
     "import":               "import ",
     "async":                "async ",
     "await":                "await ",
+    "export":               "export ",
+    "function":             "function ",
+    "default":              "default ",
     "spread":               "...",
     "null":                 "null",
     "undefined":            "undefined",
@@ -37,7 +40,10 @@ ctx.lists["self.code_statement"] = {
     "this":                 "this",
     "this dot":             "this.",
     "new":                  "new ",
-    "const":                "const "
+    "const":                "const ",
+    "let":                  "let ",
+    "bool":                 "boolean",
+    "number":               "number"
 }
 
 
