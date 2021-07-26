@@ -12,7 +12,7 @@ ctx.lists["self.mouse_click"] = {
     "middle": "middle",
     "mid": "middle",
     "double": "double",
-    "dub": "dotuble",
+    "dub": "double",
     "triple": "triple",
     "trip": "triple",
     "move": "move",
