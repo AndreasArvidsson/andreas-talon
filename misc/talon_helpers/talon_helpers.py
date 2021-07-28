@@ -3,6 +3,7 @@ from talon_init import VENV_BIN
 import os
 import re
 from itertools import islice
+from pathlib import Path
 
 mod = Module()
 pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")

@@ -34,3 +34,7 @@ state arrow function:
 
 (op | is) null:       " == null"
 (op | is) not null:   " != null"
+
+format string:
+    "``"
+    key(left)
