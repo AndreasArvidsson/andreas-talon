@@ -55,7 +55,7 @@ def gui(gui: imgui.GUI):
 
 
 def get_homophones(word):
-    is_upper = word == word.isupper()
+    is_upper = word.isupper()
     is_capitalized = word == word.capitalize()
     word = word.lower()
 
