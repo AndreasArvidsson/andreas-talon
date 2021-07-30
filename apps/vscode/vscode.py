@@ -75,6 +75,7 @@ class AppActions:
 
 @ctx.action_class("code")
 class CodeActions:
+    def toggle_comment():       vscode("editor.action.commentLine")
     def complete():             vscode("editor.action.triggerSuggest")
 
 

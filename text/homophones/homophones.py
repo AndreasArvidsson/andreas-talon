@@ -96,7 +96,7 @@ def update_homophones(word, last):
 
 @mod.action_class
 class Actions:
-    def homophones_get(word: str):
+    def homophones_get(word: str) -> [str] or None:
         """Get homophones for the given word"""
         word = word.lower()
         if word in all_homophones:
