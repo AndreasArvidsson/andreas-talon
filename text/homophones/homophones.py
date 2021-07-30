@@ -53,6 +53,7 @@ def gui(gui: imgui.GUI):
     if gui.button("Hide"):
         actions.user.homophones_hide()
 
+
 def get_homophones(word):
     is_upper = word == word.isupper()
     is_capitalized = word == word.capitalize()
@@ -72,6 +73,7 @@ def get_homophones(word):
                 homophones[i] = homophones[i].capitalize()
 
     return homophones
+
 
 def update_homophones(word, last):
     global active_word_list, active_word, is_last, pad_left, pad_right
@@ -96,7 +98,10 @@ def update_homophones(word, last):
 class Actions:
     def homophones_get(word: str):
         """Get homophones for the given word"""
-        return get_homophones(word)
+        word = word.lower()
+        if word in all_homophones:
+            return all_homophones[word]
+        return None
 
     def homophones_selected():
         """Show homophones if the given word is a homophone"""

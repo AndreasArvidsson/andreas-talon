@@ -79,6 +79,7 @@ go forward:              user.vscode("workbench.action.navigateForward")
 take next:               user.vscode("editor.action.addSelectionToNextFindMatch")
 take last:               user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:          user.vscode("editor.action.selectHighlights")
+cursor undo:             user.vscode("cursorUndo")
 
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")
