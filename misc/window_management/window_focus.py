@@ -1,4 +1,4 @@
-from talon import Context, Module, app, imgui, ui, fs, actions, speech_system, scope
+from talon import Context, Module, app, imgui, ui, fs, actions, scope
 from talon.grammar import Phrase
 from typing import List
 import os

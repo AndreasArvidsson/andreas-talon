@@ -92,3 +92,5 @@ select element:          key(ctrl-shift-c)
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
+
+cursorless record:       user.vscode("cursorless.recordTestCase")
