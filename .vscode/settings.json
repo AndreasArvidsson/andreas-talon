@@ -3,5 +3,6 @@
     "python.analysis.stubPath": "/Program Files/Talon/Lib/site-packagess",
     "cSpell.words": [
         "mkfifo"
-    ]
+    ],
+    "python.linting.pylintEnabled": true
 }

@@ -32,7 +32,7 @@ talon copy commands:         user.help_copy_all_commands()
 
 talon open log:              menu.open_log()
 talon open repl:             menu.open_repl()
-talon check updates:         menu.check_for_updates()
 talon open home:             menu.open_talon_home()
+talon check updates:         menu.check_for_updates()
 
 talon restart:               user.exec("talon-restart")
