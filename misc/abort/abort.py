@@ -6,7 +6,10 @@ mod = Module()
 
 
 def fn(d):
-    words = d["parsed"]._unmapped
+    try:
+        words = d["parsed"]._unmapped
+    except:
+        return
     if words[-1] == "cancel" and actions.speech.enabled():
         d["parsed"]._sequence = []
         print(d)

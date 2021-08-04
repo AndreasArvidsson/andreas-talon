@@ -19,7 +19,7 @@ ctx.lists["self.code_member_op"] = {
     "dot": "."
 }
 ctx.lists["self.code_function"] = {
-    "forEach", "map", "filter", "reduce",
+    "forEach", "map", "flatMap", "filter", "reduce",
     "sort", "find", "includes", "indexOf",
     "join", "require"
 }

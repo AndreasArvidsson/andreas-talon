@@ -71,14 +71,6 @@ type {user.code_data_type}:    "{code_data_type} "
 # ----- Function call -----
 call {user.code_function}:     user.code_call_function(code_function)
 
-call <user.variable_name>:
-    format = user.code_get_function_format()
-    name = user.format_text(variable_name, format)
-    user.history_add_phrase(name)
-    user.code_call_function(name)
-
 # ----- Member access -----
 {user.code_member_op} {user.code_member}:
     user.code_member_access(code_member_op, code_member)
-{user.code_member_op} <user.variable_name>:
-    user.code_member_access(code_member_op, variable_name)
