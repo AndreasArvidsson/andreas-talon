@@ -19,7 +19,7 @@ class Actions:
         """Volume decrease"""
         key("voldown")
 
-    def change_sound_device(name: str, role: str):
+    def change_sound_device(name: str, role: int):
         """Change sound device. Roles: 0: Console, 1: Multimedia, 2: Communications"""
 
 
@@ -35,13 +35,13 @@ ctx_win.lists["self.playback_device"] = ["Headphones", "Speakers"]
 
 ctx_win.lists["self.microhpone_device"] = {
     "Headphones": "Realtek",
-    "Microphone": "Focusrite",
+    "AKG": "Focusrite",
 }
 
 @ctx_win.action_class("user")
 class UserActionsWin:
-    def change_sound_device(name: str, role: str):
+    def change_sound_device(name: str, role: int):
         program_files = os.environ["ProgramFiles"]
         call(
-            [f"{program_files}/nircmd/nircmd.exe", "setdefaultsounddevice", name, role]
+            [f"{program_files}/nircmd/nircmd.exe", "setdefaultsounddevice", name, f"{role}"]
         )
