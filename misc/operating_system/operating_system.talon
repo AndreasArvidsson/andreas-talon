@@ -1,4 +1,3 @@
-go settings:   app.preferences()
+go settings:        app.preferences()
 
-shut down:     user.shut_down_os()
-
+shut down system:   user.shut_down_os()

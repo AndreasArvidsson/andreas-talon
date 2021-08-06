@@ -7,5 +7,10 @@ media last:             key(prev)
 media (play | pause):   key(play_pause)
 media stop:             key(stop)
 
-playback {user.playback_devices}:
-	user.change_playback_device(playback_devices)
+playback {user.playback_device}:
+    app.notify("Playback device:\n{playback_device}")
+    user.change_sound_device(playback_device, "0")
+
+microphone {user.microhpone_device}:
+    app.notify("Microphone device:\n{microhpone_device}")
+    user.change_sound_device(microhpone_device, "2")

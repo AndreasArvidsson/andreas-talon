@@ -109,7 +109,6 @@ string:
 spam:                              ", "
 colgap:                            ": "
 period:                            ". "
-void:                              " "
 
 push {user.key_symbol}:
     edit.line_end()
