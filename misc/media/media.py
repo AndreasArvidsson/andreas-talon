@@ -20,7 +20,7 @@ class Actions:
         key("voldown")
 
     def change_sound_device(name: str, role: str):
-        """Change sound device"""
+        """Change sound device. Roles: 0: Console, 1: Multimedia, 2: Communications"""
 
 
 # ----- WINDOWS -----
@@ -37,7 +37,6 @@ ctx_win.lists["self.microhpone_device"] = {
     "Headphones": "Realtek",
     "Microphone": "Focusrite",
 }
-
 
 @ctx_win.action_class("user")
 class UserActionsWin:
