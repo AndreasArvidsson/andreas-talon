@@ -63,15 +63,17 @@ class tab_actions:
 
     # ----- Class statement -----
     def code_class(access_modifier: str or None, name: str):
-        """Class statement"""
+        """Class declaration"""
 
     # ----- Constructor statement -----
     def code_constructor(access_modifier: str or None):
-        """Constructor statement"""
+        """Constructor declaration"""
 
     # ----- Function statement -----
     def code_function(access_modifier: str or None, name: str):
-        """Function statement"""
+        """Function declaration"""
+    def code_main_function():
+        """Main function declaration"""
 
     # ----- Variable statement -----
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):

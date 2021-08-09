@@ -129,7 +129,7 @@ class UserActions:
             insert("System.out.println();")
             key("left:2")
 
-    # Class statement
+    # Class declaration
     def code_class(access_modifier: str or None, name: str):
         text = f"class {name} {{}}"
         if access_modifier:
@@ -139,7 +139,7 @@ class UserActions:
         insert(text)
         key("left enter")
 
-    # Constructor statement
+    # Constructor declaration
     def code_constructor(access_modifier: str or None):
         name = actions.user.vscode_get("andreas.constructorName")
         if not name:
@@ -150,12 +150,14 @@ class UserActions:
             name = f"public {name}"
         snip_func(name)
 
-    # Function statement
+    # Function declaration
     def code_function(access_modifier: str or None, name: str):
         name = f"void {name}"
         if access_modifier:
             text = f"{access_modifier} {name}"
         snip_func(name)
+    def code_main_function():
+        snip_func("public static void main", "String[] args")
 
     # Variable declaration
     def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
@@ -183,6 +185,8 @@ class UserActions:
     def code_get_variable_format() -> str: return "CAMEL_CASE"
 
 
-def snip_func(name):
-    insert(f"{name} () {{}}")
-    key("left enter up end left:3")
+def snip_func(name, args = ""):
+    insert(f"{name} ({args}) {{}}")
+    key("left enter")
+    if not args:
+        key("up end left:3")

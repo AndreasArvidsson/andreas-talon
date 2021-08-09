@@ -53,6 +53,8 @@ function [{user.code_access_modifier}] <user.variable_name>:
     user.history_add_phrase(name)
     user.code_function(code_access_modifier or "", name)
 
+function main:                 user.code_main_function()
+
 # ----- Variable statement -----
 var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name>:
     format = user.code_get_variable_format()
