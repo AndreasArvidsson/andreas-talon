@@ -36,7 +36,7 @@ format document:           user.format_document()
 # ----- Comments -----
 # comment:                   user.comment()
 # uncomment:                 user.uncomment()
-# comment:                   code.toggle_comment()
+comment:                   code.toggle_comment()
 
 # ----- Run and debug -----
 run program:               user.run_program()

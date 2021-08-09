@@ -141,7 +141,7 @@ class UserActions:
 
     # Constructor statement
     def code_constructor(access_modifier: str or None):
-        name = get_constructor_name()
+        name = actions.user.vscode_get("andreas.constructorName")
         if not name:
             return
         if access_modifier:
@@ -181,26 +181,6 @@ class UserActions:
     def code_get_class_format() -> str: return "PASCAL_CASE"
     def code_get_function_format() -> str: return "CAMEL_CASE"
     def code_get_variable_format() -> str: return "CAMEL_CASE"
-
-
-def get_constructor_name():
-    """Code constructor"""
-    actions.edit.extend_file_start()
-    text = actions.edit.selected_text()
-    actions.edit.right()
-    index1 = text.rfind("class")
-    if index1 < 0:
-        return
-    index1 += len("class")
-    index2 = text.find("{", index1)
-    if index2 < 0:
-        return
-    name = text[index1: index2]
-    # Strip parameterized type
-    name = re.sub(r"<\w*>", "", name).strip()
-    # Strip implements and extends
-    name = name.split(" ")[0]
-    return name.strip()
 
 
 def snip_func(name):

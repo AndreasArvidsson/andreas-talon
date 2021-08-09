@@ -24,3 +24,7 @@ state comment <user.text>$:
 state key:
     "key()"
     key(left)
+
+state print:
+    "print()"
+    key(left)
