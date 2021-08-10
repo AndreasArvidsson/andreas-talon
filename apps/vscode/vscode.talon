@@ -85,8 +85,17 @@ install extension:       user.vscode("workbench.extensions.action.installVSIX")
 minimap (show | hide):   user.vscode("editor.action.toggleMinimap")
 dev tools:               user.vscode("workbench.action.toggleDevTools")
 reload window:           user.vscode("workbench.action.reloadWindow")
-debug select:            user.vscode("workbench.action.debug.selectandstart")
 select element:          key(ctrl-shift-c)
+
+debug select:            user.vscode("workbench.action.debug.selectandstart")
+debug extension:
+    user.vscode("workbench.action.debug.selectandstart")
+    "run extension"
+    key(enter)
+debug test:
+    user.vscode("workbench.action.debug.selectandstart")
+    "extension tests"
+    key(enter)
 
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")

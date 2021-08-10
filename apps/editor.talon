@@ -75,7 +75,7 @@ copy head:                         user.copy_line_start()
 copy tail:                         user.copy_line_end()
 
 paste it:                          edit.paste()
-dupe line:                         edit.line_clone()
+clone line:                        edit.line_clone()
 
 drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
