@@ -9,9 +9,6 @@ class Actions:
     def find_file(text: str = None):
         """Find file by file name"""
 
-    def find_recent(text: str = None):
-        """Find recent folder/file"""
-
     def find_everywhere(text: str = None):
         """Find in entire project/all files"""
         actions.key("ctrl-shift-f")

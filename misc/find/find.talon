@@ -5,7 +5,6 @@ find [<user.text>]$:          edit.find(text or "")
 find all [<user.text>]$:      user.find_everywhere(text or "")
 replace [<user.text>]$:       user.find_replace(text or "")
 replace all [<user.text>]$:   user.find_replace_everywhere(text or "")
-find sesh [<user.text>]$:     user.find_recent(text or "")
 
 find case:                    user.find_toggle_match_by_case()
 find word:                    user.find_toggle_match_by_word()
@@ -31,8 +30,4 @@ pop dock <user.text> [<user.extension>]$:
     extension = extension or ""
     user.find_file(text + extension)
     sleep(300ms)
-    key(enter)
-
-pop sesh <user.text>$:
-    user.find_recent(text)
     key(enter)

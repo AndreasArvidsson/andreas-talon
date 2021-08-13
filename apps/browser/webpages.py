@@ -15,5 +15,7 @@ ctx.lists["self.webpage"] = {
     "sweclockers":          "https://www.sweclockers.com",
     "goodreads":            "https://www.goodreads.com",
     "gmail":                "https://www.gmail.com",
-    "youtube":              "https://www.youtube.com"
+    "youtube":              "https://www.youtube.com",
+    "facebook":             "https://www.facebook.com",
+    "bitbucket":            "https://bitbucket.org"
 }

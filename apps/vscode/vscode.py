@@ -142,12 +142,6 @@ class UserActions:
             actions.sleep("50ms")
             insert(text)
 
-    def find_recent(text: str = None):
-        vscode("workbench.action.openRecent")
-        if text:
-            actions.sleep("50ms")
-            insert(text)
-
     def find_toggle_match_by_case():         key("alt-c")
     def find_toggle_match_by_word():         key("alt-w")
     def find_toggle_match_by_regex():        key("alt-r")
@@ -218,3 +212,10 @@ class Actions:
         vscode("workbench.action.gotoLine")
         insert(f"{l}:{c}")
         key("enter")
+
+    def vscode_find_recent(text: str = None):
+        """Find recent session, directory or file"""
+        vscode("workbench.action.openRecent")
+        if text:
+            actions.sleep("50ms")
+            insert(text)

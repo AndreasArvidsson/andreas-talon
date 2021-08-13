@@ -1,4 +1,3 @@
-# Descended from https://github.com/dwiel/talon_community/blob/master/misc/dictation.py
 from talon import Module, Context, ui, actions, app, grammar
 from typing import Optional
 import re
@@ -28,19 +27,22 @@ def words(m) -> str:
     """A sequence of words, including user-defined vocabulary and abbreviations."""
     return format_phrase(m)
 
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_punctuation} | <phrase>)+")
+@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {user.key_punctuation} | <phrase>)+")
+# @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_punctuation} | <phrase>)+")
 def text(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
 # Same as text but with all symbols. Used by text navigation.
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_symbol} | <phrase>)+")
-def text_symbol(m) -> str:
-    """Mixed words and symbols, including user-defined vocabulary."""
-    return format_phrase(m)
+# TODO
+# @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_symbol} | <phrase>)+")
+# def text_symbol(m) -> str:
+#     """Mixed words and symbols, including user-defined vocabulary."""
+#     return format_phrase(m)
 
 # Used by dictation mode
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {self.key_punctuation} | <phrase>)+")
+@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+")
+# @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {self.key_punctuation} | <phrase>)+")
 def text_dictation(m) -> str:
     """Mixed words and symbols, auto-spaced & capitalized."""
     text, _state = auto_capitalize(format_phrase(m))

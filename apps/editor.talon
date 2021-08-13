@@ -23,9 +23,10 @@ slapper:                           user.line_insert_down(2)
 indent:                            edit.indent_more()
 dedent:                            edit.indent_less()
 
+# TODO
 # ----- Navigate to specified text/symbol: go right paren
-{user.navigation_action} {user.navigation_direction} to <user.text_symbol>:
-    user.navigation(navigation_action, navigation_direction or "right", text_symbol)
+# {user.navigation_action} {user.navigation_direction} to <user.text_symbol>:
+    # user.navigation(navigation_action, navigation_direction or "right", text_symbol)
 
 # ----- Selection -----
 take all:                          edit.select_all()
