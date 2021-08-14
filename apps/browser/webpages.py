@@ -17,5 +17,6 @@ ctx.lists["self.webpage"] = {
     "gmail":                "https://www.gmail.com",
     "youtube":              "https://www.youtube.com",
     "facebook":             "https://www.facebook.com",
-    "bitbucket":            "https://bitbucket.org"
+    "bitbucket":            "https://bitbucket.org",
+    "audible":              "https://www.audible.co.uk"
 }
