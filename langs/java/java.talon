@@ -1,5 +1,8 @@
-mode: user.java
-mode: user.auto_lang
+mode: command
+and mode: user.java
+
+mode: command
+and mode: user.auto_lang
 and code.language: java
 -
 tag(): user.generic_language

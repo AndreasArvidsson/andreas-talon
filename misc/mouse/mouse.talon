@@ -6,7 +6,7 @@ mouse drag:                 user.mouse_drag()
 scroll up [<number>]:       user.mouse_scroll("up", number or 1)
 scroll down [<number>]:     user.mouse_scroll("down", number or 1)
 
-climb:                      user.mouse_scrolling("up")
+climb | rise:               user.mouse_scrolling("up")
 fall:                       user.mouse_scrolling("down")
 
 mouse speed show:           user.mouse_print_scroll_speed()

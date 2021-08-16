@@ -1,8 +1,15 @@
-mode: user.html
-mode: user.auto_lang
+mode: command
+and mode: user.html
+
+mode: command
+and mode: user.auto_lang
 and code.language: html
-mode: user.javascript
-mode: user.auto_lang
+
+mode: command
+and mode: user.javascript
+
+mode: command
+and mode: user.auto_lang
 and code.language: javascript
 -
 

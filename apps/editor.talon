@@ -63,13 +63,13 @@ chuck tail:                        user.delete_line_end()
 clear line:                        user.clear_line()
 
 # ----- Cut, copy, paste -----
-cut (this | dis):                  edit.cut()
+cut it:                            edit.cut()
 cut word:                          user.cut_word()
 cut line:                          user.cut_line()
 cut head:                          user.cut_line_start()
 cut tail:                          user.cut_line_end()
 
-copy (this | dis):                 edit.copy()
+copy it:                           edit.copy()
 copy word:                         user.copy_word()
 copy line:                         user.copy_line()
 copy head:                         user.copy_line_start()
@@ -85,7 +85,7 @@ drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 disk:                              edit.save()
 
 # ----- Brackets -----
-args:
+round:
     "()"
     key(left)
 index:
@@ -102,7 +102,7 @@ block:
 twin:
     "''"
     key(left)
-string:
+(string | quad):
     '""'
     key(left)
 

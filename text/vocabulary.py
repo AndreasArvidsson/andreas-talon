@@ -77,6 +77,7 @@ simple_default_vocabulary = [
     "cheat sheet",
     "user",
     "backup",
+    "Andreas",
     "Arvidsson",
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.

@@ -8,6 +8,7 @@ ctx.matches = r"""
 mode: user.javascript
 mode: user.auto_lang
 and code.language: javascript
+mode: user.typescript
 mode: user.auto_lang
 and code.language: typescript
 """

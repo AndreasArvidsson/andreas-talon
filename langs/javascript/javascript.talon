@@ -1,7 +1,15 @@
-mode: user.javascript
-mode: user.auto_lang
+mode: command
+and mode: user.javascript
+
+mode: command
+and mode: user.auto_lang
 and code.language: javascript
-mode: user.auto_lang
+
+mode: command
+and mode: user.typescript
+
+mode: command
+and mode: user.auto_lang
 and code.language: typescript
 -
 tag(): user.generic_language
