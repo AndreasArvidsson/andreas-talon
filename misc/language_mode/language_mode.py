@@ -38,7 +38,7 @@ extension_lang_map = {
 }
 
 # Create a mode for each defined language
-for __, lang in extension_lang_map.items():
+for lang in extension_lang_map.values():
     mod.mode(lang)
 
 # Create a mode for the automated language detection. This is active when no lang is forced.
