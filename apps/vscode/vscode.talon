@@ -9,7 +9,14 @@ imports organize:           user.vscode("editor.action.organizeImports")
 problem next:               user.vscode("editor.action.marker.nextInFiles")
 problem last:               user.vscode("editor.action.marker.prevInFiles")
 problem fix:                user.vscode("problems.action.showQuickFixes")
-refactor (this | dis):      user.vscode("editor.action.refactor")
+refactor this:              user.vscode("editor.action.refactor")
+
+ref next:
+    user.vscode("references-view.tree.focus")
+    key(down enter)
+ref last:
+    user.vscode("references-view.tree.focus")
+    key(up enter)
 
 # Split
 split up:                   user.vscode("workbench.action.moveEditorToAboveGroup")

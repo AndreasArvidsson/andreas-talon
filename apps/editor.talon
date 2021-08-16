@@ -63,13 +63,13 @@ chuck tail:                        user.delete_line_end()
 clear line:                        user.clear_line()
 
 # ----- Cut, copy, paste -----
-cut it:                            edit.cut()
+cut that:                          edit.cut()
 cut word:                          user.cut_word()
 cut line:                          user.cut_line()
 cut head:                          user.cut_line_start()
 cut tail:                          user.cut_line_end()
 
-copy it:                           edit.copy()
+copy that:                         edit.copy()
 copy word:                         user.copy_word()
 copy line:                         user.copy_line()
 copy head:                         user.copy_line_start()
