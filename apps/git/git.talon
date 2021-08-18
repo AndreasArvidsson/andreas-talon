@@ -54,7 +54,7 @@ git commit <user.text>$:
     key(left)
 git commit amend:            "git commit --amend "
 
-git diff:                    "git diff\n"
+git diff:                    "git diff "
 git diff <user.text>$:       "git diff {text}"
 
 git pull:                    "git pull\n"

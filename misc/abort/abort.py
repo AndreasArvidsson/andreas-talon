@@ -12,9 +12,9 @@ def fn(d):
         return
     if words[-1] == "cancel" and actions.speech.enabled():
         d["parsed"]._sequence = []
-        print(d)
-        text = " ".join(d["text"][:-1])
-        app.notify(f"Aborted command:\n{text}")
+        text = " ".join(words[:-1])
+        if len(text):
+            app.notify(f"Aborted command:\n{text}")
 
 
 speech_system.register("pre:phrase", fn)
