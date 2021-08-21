@@ -74,7 +74,7 @@ mod.list("key_symbol", desc="All symbols from the keyboard")
 ctx.lists["self.key_symbol"] = merge(
     ctx.lists["self.key_punctuation"],
     {
-        "void":             " ",
+        "space":            " ",
         "dot":              ".",
         "semi":             ";",
         "dash":             "-",

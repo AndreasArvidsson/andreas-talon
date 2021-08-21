@@ -7,20 +7,19 @@ history = []
 display_size = None
 
 
-def parse_phrase(word_list):
-    return " ".join(word.split("\\")[0] for word in word_list)
-
-def on_phrase(j):
+def on_phrase(d):
     global history
     if not actions.speech.enabled():
         return
     try:
-        val = parse_phrase(getattr(j["parsed"], "_unmapped", j["phrase"]))
+        words = d["parsed"]._unmapped
     except:
-        val = parse_phrase(j["phrase"])
-    if val != "":
-        history.append(val)
+        return
+    if words:
+        text = " ".join(words)
+        history.append(text)
         history = history[-setting_size_setting.get() :]
+
 
 speech_system.register("phrase", on_phrase)
 

@@ -5,16 +5,18 @@ from talon import Module, app
 mod = Module()
 
 
-def fn(d):
+def on_phrase(d):
+    if not actions.speech.enabled():
+        return
     try:
         words = d["parsed"]._unmapped
     except:
         return
-    if words[-1] == "cancel" and actions.speech.enabled():
+    if words[-1] == "cancel":
         d["parsed"]._sequence = []
         text = " ".join(words[:-1])
-        if len(text):
+        if text:
             app.notify(f"Aborted command:\n{text}")
 
 
-speech_system.register("pre:phrase", fn)
+speech_system.register("pre:phrase", on_phrase)
