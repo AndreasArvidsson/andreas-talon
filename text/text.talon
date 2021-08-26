@@ -23,6 +23,12 @@ escape words <user.words> over:
 word <user.word>:    user.insert_string(word)
 proud <user.word>:   user.insert_and_format(word, "CAPITALIZE_FIRST_WORD")
 
+# Upper case characters
+ship <user.letters>:
+    user.insert_and_format(letters, "ALL_CAPS")
+ship <user.letters> over:
+    user.insert_and_format(letters, "ALL_CAPS")
+
 # Select last
 take last:           user.history_select_last_phrase()
 
