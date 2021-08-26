@@ -8,7 +8,8 @@ time_last_pop = 0
 def on_pop(active: bool):
     global time_last_pop
     if not actions.speech.enabled():
-        if time.time() - time_last_pop <= 0.3:
+        delta = time.time() - time_last_pop
+        if delta >= 0.1 and delta <= 0.3:
             actions.user.talon_wake()
         time_last_pop = time.time()
 
