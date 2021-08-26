@@ -20,15 +20,19 @@ escape words <user.words> over:
     user.insert_string(words)
 
 # Single word
-word <user.word>:    user.insert_string(word)
-proud <user.word>:   user.insert_and_format(word, "CAPITALIZE_FIRST_WORD")
+{user.word_formatter} <user.word>:
+    user.insert_and_format(word, word_formatter)
+# Single homophone word
+{user.word_formatter} <user.ordinals_small> <user.word>:
+    homophone = user.homophones_get_by_number(word, ordinals_small)
+    user.insert_and_format(homophone, word_formatter)
 
 # Upper case characters
 ship <user.letters> [over]:
     user.insert_and_format(letters, "ALL_CAPS")
 
 # Select last
-take last:           user.history_select_last_phrase()
+take last:    user.history_select_last_phrase()
 
 # Delete last
-chuck last:          user.history_clear_last_phrase()
+chuck last:   user.history_clear_last_phrase()

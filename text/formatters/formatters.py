@@ -12,18 +12,36 @@ formatters_dict = {
     "SINGLE_QUOTED_STRING": lambda text: surround(text, "'"),
     # Splitting formatters
     "REMOVE_FORMATTING": lambda text: format_words(text, split, " ", lower, lower),
-    "CAPITALIZE_ALL_WORDS": lambda text: format_words(text, split, " ", capitalize, capitalize),
+    "CAPITALIZE_ALL_WORDS": lambda text: format_words(
+        text, split, " ", capitalize, capitalize
+    ),
     "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, split, " ", capitalize),
-    "CAMEL_CASE": lambda text: format_words(text, split_no_symbols, "", lower, capitalize),
-    "PASCAL_CASE": lambda text: format_words(text, split_no_symbols, "", capitalize, capitalize),
+    "CAMEL_CASE": lambda text: format_words(
+        text, split_no_symbols, "", lower, capitalize
+    ),
+    "PASCAL_CASE": lambda text: format_words(
+        text, split_no_symbols, "", capitalize, capitalize
+    ),
     "SNAKE_CASE": lambda text: format_words(text, split_no_symbols, "_", lower, lower),
-    "ALL_CAPS_SNAKE_CASE": lambda text: format_words(text, split_no_symbols, "_", upper, upper),
-    "DASH_SEPARATED": lambda text: format_words(text, split_no_symbols, "-", lower, lower),
-    "DOT_SEPARATED": lambda text: format_words(text, split_no_symbols, ".", lower, lower),
-    "SLASH_SEPARATED": lambda text: format_words(text, split_no_symbols, "/", lower, lower),
-    "DOUBLE_UNDERSCORE": lambda text: format_words(text, split_no_symbols, "__", lower, lower),
-    "DOUBLE_COLON_SEPARATED": lambda text: format_words(text, split_no_symbols, "::", lower, lower),
-    "NO_SPACES": lambda text: format_words(text, split_no_symbols, "")
+    "ALL_CAPS_SNAKE_CASE": lambda text: format_words(
+        text, split_no_symbols, "_", upper, upper
+    ),
+    "DASH_SEPARATED": lambda text: format_words(
+        text, split_no_symbols, "-", lower, lower
+    ),
+    "DOT_SEPARATED": lambda text: format_words(
+        text, split_no_symbols, ".", lower, lower
+    ),
+    "SLASH_SEPARATED": lambda text: format_words(
+        text, split_no_symbols, "/", lower, lower
+    ),
+    "DOUBLE_UNDERSCORE": lambda text: format_words(
+        text, split_no_symbols, "__", lower, lower
+    ),
+    "DOUBLE_COLON_SEPARATED": lambda text: format_words(
+        text, split_no_symbols, "::", lower, lower
+    ),
+    "NO_SPACES": lambda text: format_words(text, split_no_symbols, ""),
 }
 
 # This is the mapping from spoken phrases to formatters
@@ -46,7 +64,7 @@ formatters_words = {
     "slasher": formatters_dict["SLASH_SEPARATED"],
     "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
     "packed": formatters_dict["DOUBLE_COLON_SEPARATED"],
-    "smash": formatters_dict["NO_SPACES"]
+    "smash": formatters_dict["NO_SPACES"],
 }
 
 all_formatters = {}
@@ -54,8 +72,12 @@ all_formatters.update(formatters_dict)
 all_formatters.update(formatters_words)
 
 mod = Module()
-mod.list("formatters", desc="list of formatters")
+
+mod.list("formatters", desc="List of formatters")
 ctx.lists["self.formatters"] = formatters_words.keys()
+
+mod.list("word_formatter", desc="List of word formatters")
+ctx.lists["self.word_formatter"] = {"word": "NOOP", "proud": "CAPITALIZE_FIRST_WORD"}
 
 
 @mod.capture(rule="{self.formatters}+")
@@ -116,9 +138,16 @@ def format_words(text, splitter, delimiter, func_first=None, func_rest=None):
     return delimiter.join(result)
 
 
-def capitalize(text): return text.lower().capitalize()
-def lower(text): return text.lower()
-def upper(text): return text.upper()
+def capitalize(text):
+    return text.lower().capitalize()
+
+
+def lower(text):
+    return text.lower()
+
+
+def upper(text):
+    return text.upper()
 
 
 def surround(text, char):

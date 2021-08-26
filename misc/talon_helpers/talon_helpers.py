@@ -77,7 +77,7 @@ class Actions:
         for n, l in registry.lists.items():
             for ml in l:
                 for v in ml:
-                    if re.search(r"[^a-zA-Z ]", v):
+                    if re.search(r"[^a-zA-Z' ]", v):
                         print(f"{n}: {v}")
 
     def talon_get_lists() -> str:
