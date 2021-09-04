@@ -23,3 +23,6 @@ new <user.variable_name>:
     user.history_add_phrase(name)
     "new {name}();"
     key(left:2)
+
+(op | is) null:       " == null"
+(op | is) not null:   " != null"
