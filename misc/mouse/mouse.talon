@@ -1,3 +1,6 @@
+settings():
+    user.scroll_step = 120
+
 # Buttons
 mouse {user.mouse_click}:   user.mouse_click(mouse_click)
 mouse drag:                 user.mouse_drag()
@@ -21,8 +24,7 @@ mouse gaze:                 user.mouse_gaze_scroll()
 ^mouse control mode$:       user.mouse_toggle_control_mouse()
 ^mouse zoom$:               user.mouse_toggle_zoom_mouse()
 
-# Say esc to cancel zoom or scroll
 
 #TODO
-cursor show:                user.mouse_show_cursor()
-cursor hide:                user.mouse_hide_cursor()
+# ^cursor show$:              user.mouse_show_cursor()
+# ^cursor hide$:              user.mouse_hide_cursor()

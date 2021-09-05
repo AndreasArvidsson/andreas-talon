@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, cron, ctrl, noise, ui
+from talon import Context, Module, actions, app, cron, ctrl, noise, ui, settings
 from talon_plugins import eye_mouse
 from talon_plugins.eye_mouse import config, toggle_control
 
@@ -18,11 +18,12 @@ ctx.lists["self.mouse_click"] = {
     "move": "move",
 }
 
+setting_scroll_step = mod.setting("scroll_step", int)
+
 scroll_job = None
 gaze_job = None
 scroll_speed = 100
 scroll_dir = 1
-scroll_step = 120
 mouse_control = False
 zoom_control = False
 
@@ -83,6 +84,7 @@ class Actions:
 
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
+        scroll_step = setting_scroll_step.get()
         amount = scroll_step * times
         if direction == "up":
             amount = -amount
@@ -172,6 +174,7 @@ def stop_scroll():
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
         p = scroll_speed / 100
+        scroll_step = setting_scroll_step.get()
         amount = p * scroll_dir * scroll_step / 20
         actions.mouse_scroll(by_lines=False, y=amount)
 

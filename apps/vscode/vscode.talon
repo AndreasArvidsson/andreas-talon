@@ -3,6 +3,9 @@ app: vscode
 tag(): user.ide
 tag(): user.scroll
 
+settings():
+    user.scroll_step = 240
+
 # Language features
 suggest param:              user.vscode("editor.action.triggerParameterHints")
 imports organize:           user.vscode("editor.action.organizeImports")
