@@ -6,13 +6,13 @@ mouse drag:                 user.mouse_drag()
 scroll up [<number>]:       user.mouse_scroll("up", number or 1)
 scroll down [<number>]:     user.mouse_scroll("down", number or 1)
 
-climb | rise:               user.mouse_scrolling("up")
-fall:                       user.mouse_scrolling("down")
+climb:                      user.mouse_scrolling("up")
+drop:                       user.mouse_scrolling("down")
 
 mouse speed show:           user.mouse_print_scroll_speed()
 mouse speed <number>:       user.mouse_scroll_speed(number)
-mouse speed inc:            user.mouse_scroll_increase()
-mouse speed desc:           user.mouse_scroll_decrease()
+mouse speed up:             user.mouse_scroll_increase()
+mouse speed down:           user.mouse_scroll_decrease()
 
 mouse gaze:                 user.mouse_gaze_scroll()
 

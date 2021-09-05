@@ -16,6 +16,8 @@ class Actions:
         if enabled:
             # Unregistered zoom mouse built in pop event.
             noise.unregister("pop", eye_zoom_mouse.zoom_mouse.on_pop)
+        else:
+            actions.user.zoom_mouse_cancel()
         return enabled
 
     def zoom_mouse_enabled() -> bool:
