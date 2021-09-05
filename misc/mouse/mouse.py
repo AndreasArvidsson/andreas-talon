@@ -154,8 +154,9 @@ class Actions:
         stop_scroll()
         toggle_control(False)
         actions.user.zoom_mouse_toggle(False)
-        if 0 in ctrl.mouse_buttons_down():
-            ctrl.mouse_click(button=0, up=True)
+        # Release all held buttons
+        for button in ctrl.mouse_buttons_down():
+            ctrl.mouse_click(button=button, up=True)
 
 
 def stop_scroll():
