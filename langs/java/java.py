@@ -16,7 +16,7 @@ mode: user.auto_lang
 ctx.lists["self.code_data_type"] = merge(
     {
         "int", "long", "short", "char", "byte", "float", "double", "String",
-        "Map", "List", "Set"
+        "Map", "List", "Set", "Object"
     },
     {
         "bool":             "boolean",

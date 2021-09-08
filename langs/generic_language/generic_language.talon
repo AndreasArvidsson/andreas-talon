@@ -68,7 +68,7 @@ var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name> (
     user.history_add_phrase(name)
     user.code_variable(code_access_modifier or "", code_data_type or "", name, "ASSIGN")
 
-type {user.code_data_type}:    "{code_data_type} "
+type {user.code_data_type}:    "{code_data_type}"
 
 # ----- Function call -----
 call {user.code_function}:     user.code_call_function(code_function)
