@@ -11,5 +11,7 @@ settings():
     # Number of lines to show in command history
     user.command_history_display = 1
 
+    user.cursorless_settings_directory = "andreas/cursorless-settings"
+
     # Record speech
     # speech.record_all = 1

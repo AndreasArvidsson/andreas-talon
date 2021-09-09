@@ -1,0 +1,25 @@
+# Spoken words, Identifier
+arg, argumentOrParameter
+arrow, arrowFunction
+attribute, attribute
+call, functionCall
+class, class
+class name, className
+comment, comment
+element, xmlElement
+end tag, xmlEndTag
+funk, namedFunction
+funk name, functionName
+if state, ifStatement
+item, collectionItem
+key, collectionKey
+list, list
+map, dictionary
+name, name
+regex, regex
+start tag, xmlStartTag
+state, statement
+string, string
+tags, xmlBothTags
+type, type
+value, value
