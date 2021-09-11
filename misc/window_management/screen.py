@@ -81,7 +81,7 @@ def show_screen_number(screen: ui.Screen, number: int):
 
 def show_subtitle_on_screen(screen: ui.Screen, text: str):
     def on_draw(c):
-        # rect = set_subtitle_height_and_get_rect(c, text)
+        rect = set_subtitle_height_and_get_rect(c, text)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
         y = c.y + c.height - round(c.height / 25)
         draw_text(c, text, x, y)
