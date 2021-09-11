@@ -1,8 +1,4 @@
 from talon import actions, speech_system
-from talon import Module, app
-
-
-mod = Module()
 
 
 def on_phrase(d):
@@ -10,13 +6,10 @@ def on_phrase(d):
         return
     try:
         words = d["parsed"]._unmapped
+        if words[-1] == "cancel":
+            d["parsed"]._sequence = []
     except:
-        return
-    if words[-1] == "cancel":
-        d["parsed"]._sequence = []
-        text = " ".join(words[:-1])
-        if text:
-            app.notify(f"Aborted command:\n{text}")
+        pass
 
 
 speech_system.register("pre:phrase", on_phrase)
