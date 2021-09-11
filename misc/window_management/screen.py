@@ -1,10 +1,9 @@
 from talon import Module, actions, ui, cron
 from talon.canvas import Canvas
-
+from talon.skia import Paint as Paint
+from talon.skia.imagefilter import ImageFilter as ImageFilter
 
 mod = Module()
-
-font = "arial"
 subtitle_canvas = []
 
 
@@ -65,7 +64,7 @@ def get_sorted_screens():
 
 def show_screen_number(screen: ui.Screen, number: int):
     def on_draw(c):
-        c.paint.typeface = font
+        c.paint.typeface = "arial"
         # The min(width, height) is to not get gigantic size on portrait screens
         c.paint.textsize = round(min(c.width, c.height) / 2)
         text = f"{number}"
@@ -82,8 +81,7 @@ def show_screen_number(screen: ui.Screen, number: int):
 
 def show_subtitle_on_screen(screen: ui.Screen, text: str):
     def on_draw(c):
-        c.paint.typeface = font
-        rect = set_subtitle_height_and_get_rect(c, text)
+        # rect = set_subtitle_height_and_get_rect(c, text)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
         y = c.y + c.height - round(c.height / 25)
         draw_text(c, text, x, y)
@@ -108,10 +106,16 @@ def set_subtitle_height_and_get_rect(c, text: str):
 
 
 def draw_text(c, text: str, x: int, y: int):
+    filter = ImageFilter.drop_shadow(2, 2, 1, 1, "000000")
+    c.paint.set_imagefilter(filter)
+
     c.paint.style = c.paint.Style.FILL
-    c.paint.color = "fafafa"
+    c.paint.color = "ffffff"
+    # c.paint.color = "fafafa"
     c.draw_text(text, x, y)
 
+    c.paint.set_imagefilter(None)
     c.paint.style = c.paint.Style.STROKE
-    c.paint.color = "000000"
+    c.paint.color = "aaaaaa"
+    # c.paint.color = "a0a0a0"
     c.draw_text(text, x, y)

@@ -76,6 +76,7 @@ ctx.lists["self.key_symbol"] = merge(
     {
         "void":             " ",
         "dot":              ".",
+        "point":            ".",
         "semi":             ";",
         "dash":             "-",
         "downscore":        "_",
