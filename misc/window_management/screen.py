@@ -1,7 +1,11 @@
 from talon import Module, actions, ui, cron
 from talon.canvas import Canvas
 
+
 mod = Module()
+
+font = "arial"
+subtitle_canvas = []
 
 
 @mod.action_class
@@ -32,6 +36,16 @@ class Actions:
         """Get the screen after this one"""
         return get_screen_by_offset(screen, 1)
 
+    def screens_show_subtitle(text: str):
+        """Show subtitle on all screens"""
+        global subtitle_canvas
+        for canvas in subtitle_canvas:
+            canvas.close()
+        subtitle_canvas = []
+        for screen in ui.screens():
+            canvas = show_subtitle_on_screen(screen, text)
+            subtitle_canvas.append(canvas)
+
 
 def get_screen_by_offset(screen: ui.Screen, offset: int) -> ui.Screen:
     screens = get_sorted_screens()
@@ -51,24 +65,53 @@ def get_sorted_screens():
 
 def show_screen_number(screen: ui.Screen, number: int):
     def on_draw(c):
-        c.paint.typeface = "arial"
+        c.paint.typeface = font
         # The min(width, height) is to not get gigantic size on portrait screens
         c.paint.textsize = round(min(c.width, c.height) / 2)
         text = f"{number}"
         rect = c.paint.measure_text(text)[1]
         x = c.x + c.width / 2 - rect.x - rect.width / 2
         y = c.y + c.height / 2 + rect.height / 2
-
-        c.paint.style = c.paint.Style.FILL
-        c.paint.color = "eeeeee"
-        c.draw_text(text, x, y)
-
-        c.paint.style = c.paint.Style.STROKE
-        c.paint.color = "000000"
-        c.draw_text(text, x, y)
-
+        draw_text(c, text, x, y)
         cron.after("3s", canvas.close)
 
     canvas = Canvas.from_rect(screen.rect)
     canvas.register("draw", on_draw)
     canvas.freeze()
+
+
+def show_subtitle_on_screen(screen: ui.Screen, text: str):
+    def on_draw(c):
+        c.paint.typeface = font
+        rect = set_subtitle_height_and_get_rect(c, text)
+        x = c.x + c.width / 2 - rect.x - rect.width / 2
+        y = c.y + c.height - round(c.height / 25)
+        draw_text(c, text, x, y)
+        timeout = max(750, len(text) * 50)
+        cron.after(f"{timeout}ms", canvas.close)
+
+    canvas = Canvas.from_rect(screen.rect)
+    canvas.register("draw", on_draw)
+    canvas.freeze()
+    return canvas
+
+
+def set_subtitle_height_and_get_rect(c, text: str):
+    height_div = 12
+    while True:
+        c.paint.textsize = round(c.height / height_div)
+        rect = c.paint.measure_text(text)[1]
+        if rect.width < c.width:
+            break
+        height_div += 2
+    return rect
+
+
+def draw_text(c, text: str, x: int, y: int):
+    c.paint.style = c.paint.Style.FILL
+    c.paint.color = "fafafa"
+    c.draw_text(text, x, y)
+
+    c.paint.style = c.paint.Style.STROKE
+    c.paint.color = "000000"
+    c.draw_text(text, x, y)

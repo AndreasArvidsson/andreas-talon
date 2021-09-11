@@ -5,7 +5,7 @@ setting_size_setting = mod.setting("command_history_size", int, default=50)
 display_size_setting = mod.setting("command_history_display", int, default=10)
 history = []
 display_size = None
-
+show_subtitles = True
 
 def on_phrase(d):
     global history
@@ -17,6 +17,8 @@ def on_phrase(d):
         return
     if words:
         text = " ".join(words)
+        if show_subtitles:
+            actions.user.screens_show_subtitle(text)
         history.append(text)
         history = history[-setting_size_setting.get() :]
 
@@ -82,3 +84,8 @@ class Actions:
             display_size = 3
         else:
             display_size -= 5
+
+    def toggle_subtitles():
+        """Toggle subtitles"""
+        global show_subtitles
+        show_subtitles = not show_subtitles
