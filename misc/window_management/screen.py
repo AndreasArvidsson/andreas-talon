@@ -83,7 +83,7 @@ def show_subtitle_on_screen(screen: ui.Screen, text: str):
     def on_draw(c):
         rect = set_subtitle_height_and_get_rect(c, text)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
-        y = c.y + c.height - round(c.height / 25)
+        y = c.y + c.height - round(c.height / 20)
         draw_text(c, text, x, y)
         timeout = max(750, len(text) * 50)
         cron.after(f"{timeout}ms", canvas.close)
@@ -95,7 +95,7 @@ def show_subtitle_on_screen(screen: ui.Screen, text: str):
 
 
 def set_subtitle_height_and_get_rect(c, text: str):
-    height_div = 12
+    height_div = 13
     while True:
         c.paint.textsize = round(c.height / height_div)
         rect = c.paint.measure_text(text)[1]
