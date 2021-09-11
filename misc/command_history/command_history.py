@@ -3,9 +3,9 @@ from talon import imgui, Module, speech_system, actions, app
 mod = Module()
 setting_size_setting = mod.setting("command_history_size", int, default=50)
 display_size_setting = mod.setting("command_history_display", int, default=10)
+show_subtitles = mod.setting("subtitles_show", int, default=True).get()
 history = []
 display_size = None
-show_subtitles = True
 
 def on_phrase(d):
     global history
