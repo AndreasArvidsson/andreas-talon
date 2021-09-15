@@ -15,6 +15,7 @@ go private:                     browser.open_private_window()
 
 copy address:
     browser.focus_address()
+    sleep(100ms)
     edit.copy()
 
 bookmark show:                  browser.bookmarks()

@@ -15,7 +15,7 @@ default_digits = "zero one two three four five six seven eight nine ten eleven t
 mod.list("key_alphabet", desc="The spoken phonetic alphabet")
 ctx.lists["self.key_alphabet"] = merge(
     {alphabet[i]: chr(ord("a") + i) for i in range(len(alphabet))},
-    # {"oke": "å", "aerlig": "ä", "oesten": "ö"}
+    {"aalder": "å", "aerlig": "ä", "oesten": "ö"}
 )
 
 mod.list("key_number", desc="All number keys")
@@ -76,6 +76,7 @@ ctx.lists["self.key_symbol"] = merge(
     {
         "void":             " ",
         "dot":              ".",
+        "point":            ".",
         "semi":             ";",
         "dash":             "-",
         "downscore":        "_",

@@ -8,9 +8,13 @@ settings():
     # Max number of contexts display per page in help
     user.help_max_contexts_per_page = 50
 
-    # Number of lines to show in command history
+    # Number of lines to show in command history by default
     user.command_history_display = 1
 
+    # Show subtitles on startup
+    user.subtitles_show = 1
+
+    # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas/cursorless-settings"
 
     # Record speech

@@ -17,6 +17,7 @@ git rebase:                  "git rebase "
 
 git merge:                   "git merge "
 git merge master:            "git merge master"
+git merge main:              "git merge main"
 git merge develop:           "git merge develop"
 
 git remote:                  "git remote "
@@ -38,8 +39,8 @@ git checkout <user.text>$:   "git checkout {text}"
 git checkout branch:         "git checkout -b "
 git checkout branch <user.text>:
     "git checkout -b {text}"
-git checkout main:           "git checkout main\n"
 git checkout master:         "git checkout master\n"
+git checkout main:           "git checkout main\n"
 git checkout develop:        "git checkout develop\n"
 
 git add:                     "git add "
@@ -60,6 +61,7 @@ git diff <user.text>$:       "git diff {text}"
 git pull:                    "git pull\n"
 git pull upstream:           "git pull upstream\n"
 git pull upstream master:    "git pull upstream master\n"
+git pull upstream main:      "git pull upstream main\n"
 
 git push:                    "git push\n"
 git push tags:               "git push --tags\n"
