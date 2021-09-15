@@ -42,7 +42,8 @@ ctx.lists["self.code_statement"] = {
     "this dot":             "this.",
     "new":                  "new ",
     "public":               "public ",
-    "private":              "private "
+    "private":              "private ",
+    "extends":              "extends "
 }
 ctx.lists["self.code_access_modifier"] = {
     "public", "private", "protected"
