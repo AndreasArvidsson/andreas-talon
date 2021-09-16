@@ -4,6 +4,7 @@ from talon.skia import Paint as Paint
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 
 mod = Module()
+subtitles_all_screens_setting = mod.setting("subtitles_all_screens", bool, default=False)
 subtitle_canvas = []
 
 
@@ -41,7 +42,8 @@ class Actions:
         for canvas in subtitle_canvas:
             canvas.close()
         subtitle_canvas = []
-        for screen in ui.screens():
+        screens = ui.screens() if subtitles_all_screens_setting.get() else [ui.main_screen()]
+        for screen in screens:
             canvas = show_subtitle_on_screen(screen, text)
             subtitle_canvas.append(canvas)
 
@@ -66,7 +68,8 @@ def show_screen_number(screen: ui.Screen, number: int):
     def on_draw(c):
         c.paint.typeface = "arial"
         # The min(width, height) is to not get gigantic size on portrait screens
-        c.paint.textsize = round(min(c.width, c.height) / 2)
+        height = min(c.width, c.height)
+        c.paint.textsize = round(height / 2)
         text = f"{number}"
         rect = c.paint.measure_text(text)[1]
         x = c.x + c.width / 2 - rect.x - rect.width / 2
@@ -82,8 +85,10 @@ def show_screen_number(screen: ui.Screen, number: int):
 def show_subtitle_on_screen(screen: ui.Screen, text: str):
     def on_draw(c):
         rect = set_subtitle_height_and_get_rect(c, text)
+        # The min(width, height) is to not get gigantic size on portrait height
+        height = min(c.width, c.height)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
-        y = c.y + c.height - round(c.height / 20)
+        y = c.y + height - round(height / 20)
         draw_text(c, text, x, y)
         timeout = max(750, len(text) * 50)
         cron.after(f"{timeout}ms", canvas.close)
