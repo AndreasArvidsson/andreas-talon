@@ -12,6 +12,14 @@ mode: user.auto_lang
 and code.language: python
 """
 
+ctx.lists["self.code_data_type"] = {
+    "int":      "int",
+    "bool":     "bool",
+    "string":   "str",
+    "dict":     "dict",
+    "list":     "list",
+    "tuple":    "tuple"
+}
 ctx.lists["self.code_access_modifier"] = {
     "global"
 }
@@ -20,14 +28,14 @@ ctx.lists["self.code_member_op"] = {
 }
 ctx.lists["self.code_function"] = {
     "format", "strip", "lstrip", "rstrip", "replace", "split",
-    "len", "type", "range", "list", "dict"
+    "len", "type", "range"
 }
 ctx.lists["self.code_member"] = {
 
 }
 ctx.lists["self.code_statement"] = merge(
     {
-        "self", "None", "dict", "tuple", "list", "zip"
+        "self", "None", "zip"
     },
     {
         "from":             "from ",
@@ -42,7 +50,7 @@ ctx.lists["self.code_statement"] = merge(
 )
 
 
-@ ctx.action_class("user")
+@ctx.action_class("user")
 class UserActions:
     # Assignment operator
     def op_assign():            insert(" = ")
