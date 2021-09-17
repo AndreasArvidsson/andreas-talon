@@ -1,5 +1,6 @@
-from talon import Module, actions, app
+from talon import Module, actions, app, ctrl
 import os
+
 
 app.register("ready", lambda: actions.user.mouse_show_cursor())
 
