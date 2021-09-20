@@ -100,7 +100,7 @@ def show_subtitle_on_screen(screen: ui.Screen, text: str):
 
 
 def set_subtitle_height_and_get_rect(c, text: str):
-    height_div = 13
+    height_div = 14
     while True:
         c.paint.textsize = round(c.height / height_div)
         rect = c.paint.measure_text(text)[1]
