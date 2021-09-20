@@ -104,7 +104,7 @@ def set_subtitle_height_and_get_rect(c, text: str):
     while True:
         c.paint.textsize = round(c.height / height_div)
         rect = c.paint.measure_text(text)[1]
-        if rect.width < c.width:
+        if rect.width < c.width * 0.75:
             break
         height_div += 2
     return rect
@@ -116,11 +116,10 @@ def draw_text(c, text: str, x: int, y: int):
 
     c.paint.style = c.paint.Style.FILL
     c.paint.color = "ffffff"
-    # c.paint.color = "fafafa"
     c.draw_text(text, x, y)
 
+    # Border / outline
     c.paint.set_imagefilter(None)
     c.paint.style = c.paint.Style.STROKE
     c.paint.color = "aaaaaa"
-    # c.paint.color = "a0a0a0"
     c.draw_text(text, x, y)
