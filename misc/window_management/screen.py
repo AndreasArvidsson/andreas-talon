@@ -105,9 +105,8 @@ def set_subtitle_height_and_get_rect(c, text: str):
         c.paint.textsize = round(c.height / height_div)
         rect = c.paint.measure_text(text)[1]
         if rect.width < c.width * 0.75:
-            break
+            return rect
         height_div += 2
-    return rect
 
 
 def draw_text(c, text: str, x: int, y: int):
