@@ -18,5 +18,5 @@ flow down:         user.scroll_down_continuous()
 flow speed show:   user.scroll_speed_show()
 flow speed <number_small>:
     user.scroll_speed(number_small)
-flow speed inc:    user.scroll_speed_increase()
-flow speed desc:   user.scroll_speed_decrease()
+flow speed up:     user.scroll_speed_increase()
+flow speed down:   user.scroll_speed_decrease()
