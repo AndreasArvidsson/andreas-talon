@@ -111,14 +111,14 @@ def set_subtitle_height_and_get_rect(c, text: str):
 
 def draw_text(c, text: str, x: int, y: int):
     filter = ImageFilter.drop_shadow(2, 2, 1, 1, "000000")
-    c.paint.set_imagefilter(filter)
+    c.paint.imagefilter = filter
 
     c.paint.style = c.paint.Style.FILL
     c.paint.color = "ffffff"
     c.draw_text(text, x, y)
 
     # Border / outline
-    c.paint.set_imagefilter(None)
+    c.paint.imagefilter = None
     c.paint.style = c.paint.Style.STROKE
     c.paint.color = "aaaaaa"
     c.draw_text(text, x, y)
