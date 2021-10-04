@@ -84,11 +84,11 @@ def show_screen_number(screen: ui.Screen, number: int):
 
 def show_subtitle_on_screen(screen: ui.Screen, text: str):
     def on_draw(c):
-        rect = set_subtitle_height_and_get_rect(c, text)
         # The min(width, height) is to not get gigantic size on portrait height
         height = min(c.width, c.height)
+        rect = set_subtitle_height_and_get_rect(c, height, text)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
-        y = c.y + height - round(height / 20)
+        y = c.y + c.height - round(height / 20)
         draw_text(c, text, x, y)
         timeout = max(750, len(text) * 50)
         cron.after(f"{timeout}ms", canvas.close)
@@ -99,10 +99,10 @@ def show_subtitle_on_screen(screen: ui.Screen, text: str):
     return canvas
 
 
-def set_subtitle_height_and_get_rect(c, text: str):
+def set_subtitle_height_and_get_rect(c, height: int, text: str):
     height_div = 14
     while True:
-        c.paint.textsize = round(c.height / height_div)
+        c.paint.textsize = round(height / height_div)
         rect = c.paint.measure_text(text)[1]
         if rect.width < c.width * 0.75:
             return rect
