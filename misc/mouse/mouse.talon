@@ -19,11 +19,13 @@ mouse speed down:           user.mouse_scroll_decrease()
 
 mouse gaze:                 user.mouse_gaze_scroll()
 
-# Misc
+# Modes
 ^mouse calibrate$:          user.mouse_calibrate()
 ^mouse control mode$:       user.mouse_toggle_control_mouse()
 ^mouse zoom$:               user.mouse_toggle_zoom_mouse()
 
+# Misc
+mouse center:               user.mouse_center_window()
 
 #TODO
 ^cursor show$:              user.mouse_show_cursor()

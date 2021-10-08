@@ -160,6 +160,11 @@ class Actions:
         for button in ctrl.mouse_buttons_down():
             ctrl.mouse_click(button=button, up=True)
 
+    def mouse_center_window():
+        """move the mouse cursor to the center of the currently active window"""
+        rect = ui.active_window().rect
+        ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
+
 
 def stop_scroll():
     global scroll_job, gaze_job
