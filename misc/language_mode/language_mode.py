@@ -63,7 +63,7 @@ class Actions:
         actions.user.code_clear_language_mode()
         actions.mode.disable("user.auto_lang")
         actions.mode.enable("user.{}".format(language))
-        app.notify("Enabled {} mode".format(language))
+        actions.user.notify("Enabled {} mode".format(language))
 
     def code_clear_language_mode():
         """Clears the active language mode, and re-enables code.language: extension matching"""

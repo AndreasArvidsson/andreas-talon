@@ -1,4 +1,4 @@
-from talon import Module, actions, cron, app
+from talon import Module, actions, cron
 
 mod = Module()
 mod.tag("scroll")
@@ -45,7 +45,7 @@ class Actions:
 
     def scroll_speed_show():
         """Show scroll speed"""
-        app.notify("Scroll speed:\n{}%".format(scroll_speed))
+        actions.user.notify("Scroll speed: {}%".format(scroll_speed))
 
     def scroll_speed(speed: int):
         """Set scroll speed"""

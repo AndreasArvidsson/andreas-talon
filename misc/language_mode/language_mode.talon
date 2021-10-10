@@ -11,4 +11,4 @@
 
 ^clear language mode$:
     user.code_clear_language_mode()
-    app.notify("Cleared language modes")
+    user.notify("Cleared language modes")

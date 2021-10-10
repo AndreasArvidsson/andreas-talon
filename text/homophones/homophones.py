@@ -90,7 +90,7 @@ def get_list(word: str) -> list[str]:
     word_lower = word.lower()
     if word_lower not in all_homophones:
         msg = f"Found no homophones for: {word}"
-        app.notify(msg)
+        actions.user.notify(msg)
         raise ValueError(msg)
     return all_homophones[word_lower]
 
@@ -98,7 +98,7 @@ def get_list(word: str) -> list[str]:
 def get_from_list(list: list[str], number: int) -> str:
     if number < 1 or number > len(list):
         msg = f"Homophones #{number} is out of range (1-{len(list)})"
-        app.notify(msg)
+        actions.user.notify(msg)
         raise ValueError(msg)
     return list[number - 1]
 

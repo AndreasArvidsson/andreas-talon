@@ -18,7 +18,7 @@ def on_phrase(d):
     if words:
         text = " ".join(words)
         if show_subtitles:
-            actions.user.screens_show_subtitle(text)
+            actions.user.subtitle(text)
         history.append(text)
         history = history[-setting_size_setting.get() :]
 

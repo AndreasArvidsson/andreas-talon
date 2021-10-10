@@ -4,8 +4,11 @@ from talon.skia import Paint as Paint
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 
 mod = Module()
-subtitles_all_screens_setting = mod.setting("subtitles_all_screens", bool, default=False)
+subtitles_all_screens_setting = mod.setting(
+    "subtitles_all_screens", bool, default=False
+)
 subtitle_canvas = []
+info_canvas = []
 
 
 @mod.action_class
@@ -36,16 +39,26 @@ class Actions:
         """Get the screen after this one"""
         return get_screen_by_offset(screen, 1)
 
-    def screens_show_subtitle(text: str):
-        """Show subtitle on all screens"""
-        global subtitle_canvas
-        for canvas in subtitle_canvas:
-            canvas.close()
-        subtitle_canvas = []
-        screens = ui.screens() if subtitles_all_screens_setting.get() else [ui.main_screen()]
-        for screen in screens:
-            canvas = show_subtitle_on_screen(screen, text)
-            subtitle_canvas.append(canvas)
+    def subtitle(text: str):
+        """Show subtitle"""
+        show_subtitle(subtitle_canvas, text, info=False)
+
+    def notify(text: str):
+        """Show notification"""
+        show_subtitle(info_canvas, text, info=True)
+
+
+def show_subtitle(canvas_list: list, text: str, info: bool):
+    for canvas in canvas_list:
+        canvas.close()
+    canvas_list.clear()
+    if subtitles_all_screens_setting.get():
+        screens = ui.screens()
+    else:
+        screens = [ui.main_screen()]
+    for screen in screens:
+        canvas = show_subtitle_on_screen(screen, text, info)
+        canvas_list.append(canvas)
 
 
 def get_screen_by_offset(screen: ui.Screen, offset: int) -> ui.Screen:
@@ -82,14 +95,17 @@ def show_screen_number(screen: ui.Screen, number: int):
     canvas.freeze()
 
 
-def show_subtitle_on_screen(screen: ui.Screen, text: str):
+def show_subtitle_on_screen(screen: ui.Screen, text: str, info: bool):
     def on_draw(c):
         # The min(width, height) is to not get gigantic size on portrait height
         height = min(c.width, c.height)
         rect = set_subtitle_height_and_get_rect(c, height, text)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
-        y = c.y + c.height - round(height / 20)
-        draw_text(c, text, x, y)
+        if info:
+            y = c.y + c.height / 2 + rect.height / 2
+        else:
+            y = c.y + c.height - round(height / 20)
+        draw_text(c, text, x, y, info)
         timeout = max(750, len(text) * 50)
         cron.after(f"{timeout}ms", canvas.close)
 
@@ -109,16 +125,17 @@ def set_subtitle_height_and_get_rect(c, height: int, text: str):
         height_div += 2
 
 
-def draw_text(c, text: str, x: int, y: int):
+def draw_text(c, text: str, x: int, y: int, info: bool = False):
     filter = ImageFilter.drop_shadow(2, 2, 1, 1, "000000")
     c.paint.imagefilter = filter
 
     c.paint.style = c.paint.Style.FILL
-    c.paint.color = "ffffff"
+    c.paint.color = "6495ED" if info else "ffffff"
     c.draw_text(text, x, y)
 
-    # Border / outline
-    c.paint.imagefilter = None
-    c.paint.style = c.paint.Style.STROKE
-    c.paint.color = "aaaaaa"
-    c.draw_text(text, x, y)
+    if not info:
+        # Border / outline
+        c.paint.imagefilter = None
+        c.paint.style = c.paint.Style.STROKE
+        c.paint.color = "aaaaaa"
+        c.draw_text(text, x, y)

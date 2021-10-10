@@ -353,7 +353,7 @@ class Actions:
 
             # TODO
             if clip.text() != text:
-                actions.app.notify("Failed to set clipboard")
+                actions.user.notify("Failed to set clipboard")
                 print(f"Clipboard: '{clip.text()}'")
 
             edit.paste()

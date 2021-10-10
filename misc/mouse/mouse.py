@@ -125,7 +125,7 @@ class Actions:
 
     def mouse_print_scroll_speed():
         """Get scroll speed"""
-        app.notify("Mouse scroll speed:\n{}%".format(scroll_speed))
+        actions.user.notify("Mouse scroll speed: {}%".format(scroll_speed))
 
     def mouse_gaze_scroll():
         """Starts gaze scroll"""
