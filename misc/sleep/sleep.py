@@ -7,11 +7,17 @@ time_last_pop = 0
 
 @mod.action_class
 class Actions:
+    def talon_sleep():
+        """Put Talon to sleep"""
+        actions.speech.disable()
+        actions.user.mouse_sleep()
+        actions.user.notify("Talon sleeping")
+
     def talon_wake():
         """Wake Talon from sleep"""
         actions.speech.enable()
         actions.user.mouse_wake()
-        actions.user.notify("Awake")
+        actions.user.notify("Talon awake")
 
     def talon_wake_on_pop():
         """Use pop sound to wake from sleep"""
@@ -20,9 +26,3 @@ class Actions:
         if delta >= 0.1 and delta <= 0.3:
             actions.user.talon_wake()
         time_last_pop = time.time()
-
-    def talon_sleep():
-        """Put Talon to sleep"""
-        actions.speech.disable()
-        actions.user.mouse_sleep()
-        actions.user.notify("Talon sleeping")
