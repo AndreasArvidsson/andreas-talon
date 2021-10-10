@@ -34,6 +34,7 @@ split flip:                 user.vscode("workbench.action.toggleEditorGroupLayou
 split clear:                user.vscode("workbench.action.joinTwoGroups")
 split clear all:            user.vscode("workbench.action.editorLayoutSingle")
 cross:                      user.vscode("workbench.action.focusNextGroup")
+open cross:                 key(ctrl-enter)
 
 # Sidebar
 bar (show | hide):          user.vscode("workbench.action.toggleSidebarVisibility")
