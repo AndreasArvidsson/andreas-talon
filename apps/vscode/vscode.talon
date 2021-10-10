@@ -116,6 +116,7 @@ install extension:          user.vscode("workbench.extensions.action.installVSIX
 minimap (show | hide):      user.vscode("editor.action.toggleMinimap")
 dev tools:                  user.vscode("workbench.action.toggleDevTools")
 reload window:              user.vscode("workbench.action.reloadWindow")
+go settings json:           user.vscode("workbench.action.openSettingsJson")
 select element:             key(ctrl-shift-c)
 
 please [<user.text>]$:
