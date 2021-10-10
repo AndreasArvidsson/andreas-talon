@@ -29,9 +29,11 @@ zoom_control = False
 
 
 def on_pop(active: bool):
-    # Do nothing if speech is disabled
+    # In sleep mode
     if not actions.speech.enabled():
+        actions.user.talon_wake_on_pop()
         return
+
     stop_scroll()
     # Zoom mouse is enabled
     if actions.user.zoom_mouse_enabled():
