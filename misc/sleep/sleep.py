@@ -26,3 +26,10 @@ class Actions:
         if delta >= 0.1 and delta <= 0.3:
             actions.user.talon_wake()
         time_last_pop = time.time()
+
+    def talon_sleep_status():
+        """Notify about Talon sleep status"""
+        if actions.speech.enabled():
+            actions.user.notify("Talon is: awake")
+        else:
+            actions.user.notify("Talon is: sleeping")
