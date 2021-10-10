@@ -8,7 +8,7 @@ settings():
     user.help_max_contexts_per_page = 50
 
     # Number of lines to show in command history by default
-    user.command_history_display = 1
+    user.command_history_display = 3
 
     # Show subtitles on startup
     user.subtitles_show = 1
