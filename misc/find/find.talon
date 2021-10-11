@@ -1,23 +1,23 @@
 tag: user.find
 -
 
-find [<user.text>]$:          edit.find(text or "")
-find all [<user.text>]$:      user.find_everywhere(text or "")
+scout [<user.text>]$:         edit.find(text or "")
+scout all [<user.text>]$:     user.find_everywhere(text or "")
 replace [<user.text>]$:       user.find_replace(text or "")
 replace all [<user.text>]$:   user.find_replace_everywhere(text or "")
 
-find case:                    user.find_toggle_match_by_case()
-find word:                    user.find_toggle_match_by_word()
-find expression:              user.find_toggle_match_by_regex()
+scout case:                   user.find_toggle_match_by_case()
+scout word:                   user.find_toggle_match_by_word()
+scout expression:             user.find_toggle_match_by_regex()
 replace case:                 user.find_replace_toggle_preserve_case()
 
-find last:                    edit.find_previous()
-find next:                    edit.find_next()
+scout last:                   edit.find_previous()
+scout next:                   edit.find_next()
 
 replace confirm:              user.find_replace_confirm()
 replace confirm all:          user.find_replace_confirm_all()
 
-find dock [<user.text>] [<user.extension>]$:
+scout dock [<user.text>] [<user.extension>]$:
     text = text or ""
     extension = extension or ""
     user.find_file(text + extension)

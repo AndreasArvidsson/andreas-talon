@@ -43,7 +43,6 @@ word count:                    "wc "
 change mode:                   "chmod "
 change owner:                  "chown "
 exargs:                        "xargs "
-find:                          "find "
 exec:                          "exec "
 cat:                           "cat "
 diff:                          "diff "
@@ -64,6 +63,7 @@ revert:                        key(alt-r)
 
 # head:                          "head "
 # tail:                          "tail "
+# find:                          "find "
 # sed:                           "sed "
 # set:                           "set "
 # ctrl-
