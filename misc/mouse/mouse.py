@@ -142,11 +142,13 @@ class Actions:
         global mouse_control
         mouse_control = not config.control_mouse
         toggle_control(mouse_control)
+        actions.user.notify(f"Control mouse: {mouse_control}")
 
     def mouse_toggle_zoom_mouse():
         """Toggles zoom mouse"""
         global zoom_control
         zoom_control = actions.user.zoom_mouse_toggle()
+        actions.user.notify(f"Zoom mouse: {zoom_control}")
 
     def mouse_wake():
         """Enable control mouse and zoom mouse to earlier state"""
