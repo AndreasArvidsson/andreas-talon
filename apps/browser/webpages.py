@@ -12,12 +12,13 @@ ctx.lists["self.webpage"] = {
     "avanza":               "https://www.avanza.se",
     "savr":                 "https://www.savr.com",
     "swedbank":             "https://swedbank.se",
-    "sweclockers":          "https://www.sweclockers.com",
+    "sweclockers":          "https://www.sweclockers.com/forum/aktiva",
     "goodreads":            "https://www.goodreads.com",
     "gmail":                "https://www.gmail.com",
     "youtube":              "https://www.youtube.com",
     "facebook":             "https://www.facebook.com",
     "bitbucket":            "https://bitbucket.org",
     "audible":              "https://www.audible.co.uk",
-    "calendar":             "https://calendar.google.com"
+    "calendar":             "https://calendar.google.com",
+    "news":                 "https://www.svt.se"
 }
