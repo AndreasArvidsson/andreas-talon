@@ -9,6 +9,7 @@ Windows Command Processor, Command
 foobar2000, foobar
 Org.gnome.Nautilus, Nautilus
 Gnome-control-center, Control center
+Google Chrome, Chrome
 
 talon.exe,
 ConEmuC64.exe,
@@ -19,6 +20,7 @@ SearchApp.exe,
 TextInputHost.exe,
 LogiOverlay.exe,
 RuntimeBroker.exe,
+Runtime Broker,
 ApplicationFrameHost.exe,
 PerfWatson2.exe,
 ServiceHub.IdentityHost.exe,
@@ -38,3 +40,4 @@ Application Frame Host,
 Talon,
 Console Window Host,
 Windows host process (Rundll32),
+Microsoft WWA Host,

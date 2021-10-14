@@ -25,7 +25,7 @@ overrides = {}
 def parse_name(name):
     if name.lower() in overrides:
         return overrides[name.lower()]
-    # print(name)
+    # print(f"'{name}'")
     if name.endswith(".exe"):
         name = name.rsplit(".", 1)[0]
     if " - " in name:
@@ -57,6 +57,9 @@ def update_overrides(name, flags):
                 res[line[0].lower()] = line[1].strip()
     overrides = res
     update_running()
+
+    # for i in sorted(overrides):
+    #     print(f"{i}: {overrides[i]}")
 
 
 def get_app(name: str) -> ui.App:
