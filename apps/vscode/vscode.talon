@@ -47,8 +47,7 @@ bar source:                  user.vscode("workbench.view.scm")
 bar file:                    user.vscode("workbench.files.action.showActiveFileInExplorer")
 bar results:
     user.vscode("search.action.focusSearchList")
-    key(down)
-
+    key(home)
 
 # Panel
 panel (show | hide):         user.vscode("workbench.action.togglePanel")
@@ -111,7 +110,7 @@ pop sesh <user.text>$:
     user.vscode_find_recent(text)
     key(enter)
 pop sesh last:
-    user.vscode_find_recent("")
+    user.vscode_find_recent("", 1)
     key(enter)
 
 # Misc

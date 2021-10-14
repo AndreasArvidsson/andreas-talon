@@ -15,7 +15,7 @@ ctx.lists["self.webpage"] = {
     "sweclockers":          "https://www.sweclockers.com/forum/aktiva",
     "goodreads":            "https://www.goodreads.com",
     "gmail":                "https://www.gmail.com",
-    "youtube":              "https://www.youtube.com",
+    "youtube":              "https://www.youtube.com/feed/subscriptions",
     "facebook":             "https://www.facebook.com",
     "bitbucket":            "https://bitbucket.org",
     "audible":              "https://www.audible.co.uk",

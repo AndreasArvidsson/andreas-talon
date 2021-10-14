@@ -213,9 +213,10 @@ class Actions:
         insert(f"{l}:{c}")
         key("enter")
 
-    def vscode_find_recent(text: str = None):
+    def vscode_find_recent(text: str = None, sleep: bool = False):
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
-        if text:
+        if text or sleep:
             actions.sleep("50ms")
+        if text:
             insert(text)
