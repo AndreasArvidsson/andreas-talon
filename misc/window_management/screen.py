@@ -107,6 +107,8 @@ def show_subtitle_on_screen(screen: ui.Screen, text: str, info: bool):
             y = c.y + c.height - round(height / 20)
         draw_text(c, text, x, y, info)
         timeout = max(750, len(text) * 50)
+        if info:
+            timeout *= 2
         cron.after(f"{timeout}ms", canvas.close)
 
     canvas = Canvas.from_rect(screen.rect)
