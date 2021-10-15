@@ -1,5 +1,5 @@
 settings():
-    user.scroll_step = 120
+    user.scroll_step = 160
 
 # Buttons
 mouse {user.mouse_click}:   user.mouse_click(mouse_click)
