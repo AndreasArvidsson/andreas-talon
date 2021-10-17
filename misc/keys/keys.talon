@@ -11,6 +11,7 @@
 (enter | okay):              key(enter)
 tab:                         key(tab)
 escape:                      key(escape)
+caps lock:                   key(capslock)
 
 # Modifier(s) + key: "control alpha" or "control win left"
 <user.key_modifiers> <user.key_unmodified>:
