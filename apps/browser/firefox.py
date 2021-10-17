@@ -70,7 +70,6 @@ class UserActions:
             key(f"ctrl-{number}")
 
     def tab_final():    key("ctrl-9")
-    def tab_mute():     key("ctrl-m")
 
     def browser_open(url: str):
         actions.browser.focus_address()

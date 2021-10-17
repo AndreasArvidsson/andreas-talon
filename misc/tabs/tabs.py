@@ -39,6 +39,3 @@ class TabActions:
 
     def tab_duplicate():
         """Duplicate tab"""
-
-    def tab_mute():
-        """Mute current tab"""

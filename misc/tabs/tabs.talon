@@ -19,5 +19,3 @@ tab new:                  app.tab_open()
 tab duplicate:            user.tab_duplicate()
 tab close:                app.tab_close()
 tab (reopen | restore):   app.tab_reopen()
-
-tab mute:                 user.tab_mute()

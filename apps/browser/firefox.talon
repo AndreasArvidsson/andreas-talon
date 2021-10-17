@@ -9,8 +9,10 @@ tab search:
 
 tab search <user.words>$:
     browser.focus_address()
-    insert("% {text}")
+    insert("% {words}")
     key(down)
+
+tab mute:   key(ctrl-m)
 
 # Vimium
 hunt:
