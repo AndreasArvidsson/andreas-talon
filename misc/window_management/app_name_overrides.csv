@@ -1,5 +1,6 @@
 vscodium, Code
 Codium, Code
+Visual Studio Code, Code
 WindowsTerminal.exe, Terminal
 Gnome-terminal, Terminal
 netbeans64.exe, Netbeans
@@ -19,6 +20,8 @@ StartMenuExperienceHost.exe,
 SearchApp.exe,
 TextInputHost.exe,
 LogiOverlay.exe,
+LogiOptions.exe (UNICODE),
+LogiOptionsMgr.exe (UNICODE),
 RuntimeBroker.exe,
 Runtime Broker,
 ApplicationFrameHost.exe,
@@ -41,3 +44,6 @@ Talon,
 Console Window Host,
 Windows host process (Rundll32),
 Microsoft WWA Host,
+Windows Defender SmartScreen,
+Microsoft Windows Subsystem for Linux Background Host,
+NVDisplay.Container.exe,
