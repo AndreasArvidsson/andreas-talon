@@ -4,7 +4,7 @@ tag(): user.ide
 tag(): user.scroll
 
 settings():
-    user.scroll_step = 240
+    user.scroll_step = 300
 
 # Language features
 suggest param:               user.vscode("editor.action.triggerParameterHints")
@@ -68,6 +68,7 @@ hide all:
     user.vscode("workbench.action.closePanel")
 
 # Files / Folders
+folder open:                 user.vscode("workbench.action.files.openFolder")
 folder add:                  user.vscode("workbench.action.addRootFolder")
 folder new:                  user.vscode("explorer.newFolder")
 file open:                   user.vscode("workbench.action.files.openFile")
