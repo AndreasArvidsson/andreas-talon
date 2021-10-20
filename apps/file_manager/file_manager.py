@@ -10,6 +10,20 @@ mod.list("path", desc="List of the users favorite paths")
 
 @mod.action_class
 class Actions:
+    # ----- Path -----
+    def talon_app() -> str:
+        """Get path to talon application"""
+        return actions.path.talon_app()
+    def talon_home() -> str:
+        """Get path to talon home"""
+        return actions.path.talon_home()
+    def talon_user() -> str:
+        """Get path to talon user"""
+        return actions.path.talon_user()
+    def user_home() -> str:
+        """Get path to user home"""
+        return actions.path.user_home()
+
     # ----- Navigation -----
     def file_manager_go_back():
         """File manager go back"""
@@ -56,7 +70,7 @@ def get_linux_paths():
 
 
 def on_ready():
-    user_path = str(actions.path.user_home())
+    user_path = str(actions.user.user_home())
     user_dirs = [
         "Desktop",
         "Documents",
@@ -66,9 +80,9 @@ def on_ready():
     ]
     common_paths = {
         "user":                 user_path,
-        "talon app":            str(actions.path.talon_app()),
-        "talon home":           str(actions.path.talon_home()),
-        "talon user":           str(actions.path.talon_user())
+        "talon app":            str(actions.user.talon_app()),
+        "talon home":           str(actions.user.talon_home()),
+        "talon user":           str(actions.user.talon_user())
     }
     os_paths = {}
     if app.platform == "windows":

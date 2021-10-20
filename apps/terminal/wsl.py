@@ -25,23 +25,17 @@ app: wsl
 ctx.tags = ["terminal", "user.bash"]
 
 
-@ctx.action_class("path")
-class PathActions:
+@ctx.action_class("user")
+class UserActions:
     def talon_app():
         return update_path(actions.next())
-
     def talon_home():
         return update_path(actions.next())
-
     def talon_user():
         return update_path(actions.next())
-
     def user_home():
         return update_path(actions.next())
 
-
-@ctx.action_class("user")
-class UserActions:
     def file_manager_open_directory(path: str):
         if path.startswith("shell:"):
             actions.user.exec(path)

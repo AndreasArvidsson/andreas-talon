@@ -21,7 +21,7 @@ run last <number>:             "!-{number}\n"
 head <number_small>:           "head -{number_small}"
 
 tail <number_small>:           "tail -{number_small}"
-watch talon log:               "tail -f {path.talon_home()}/talon.log\n"
+watch talon log:               "tail -f {user.talon_home()}/talon.log\n"
 
 print dir:                     "pwd\n"
 copy dir:                      "pwd | clipboard\n"
