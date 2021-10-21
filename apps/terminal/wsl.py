@@ -27,13 +27,13 @@ ctx.tags = ["terminal", "user.bash"]
 
 @ctx.action_class("user")
 class UserActions:
-    def talon_app():
+    def talon_app() -> str:
         return update_path(actions.next())
-    def talon_home():
+    def talon_home() -> str:
         return update_path(actions.next())
-    def talon_user():
+    def talon_user() -> str:
         return update_path(actions.next())
-    def user_home():
+    def user_home() -> str:
         return update_path(actions.next())
 
     def file_manager_open_directory(path: str):
@@ -44,7 +44,7 @@ class UserActions:
         actions.next(path)
 
 
-def update_path(path: str):
+def update_path(path: str) -> str:
     path = str(path)
     if path[1] == ":":
         path = f"/mnt/{path[0].lower()}{path[2:]}"
