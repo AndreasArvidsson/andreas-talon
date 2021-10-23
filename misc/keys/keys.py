@@ -6,8 +6,8 @@ ctx = Context()
 mod.tag("keys")
 
 # alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
-# alphabet = "air bat cap drum each fine gust harp ink jane kid look made near odd pit quench ram spy trap urge vest whale plex yank zip".split(
-alphabet = "air bat cap drum each fine gust harp ink jane kid look made near odd pit quench ram soon trap urge vest whale plex yank zip".split(
+# alphabet = "air bat cap drum each fine gust harp ink jane kid look made near odd pit quench ram soon trap urge vest whale plex yank zip".split(
+alphabet = "air bat cap drum each fine gust harp ink jig kid look made near odd pit quench ram soon trap urge vest whale plex yank zip".split(
     " ")
 default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(
     " ")
