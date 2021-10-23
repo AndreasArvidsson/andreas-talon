@@ -1,3 +1,4 @@
+from typing import List
 from talon import Module, actions
 from talon.grammar import Capture
 
@@ -78,7 +79,7 @@ def reformat_single_selection(selected: str, formatters: str):
     insert_string(formatted, unformatted)
 
 
-def reformat_multiple_selections(selections: [str], formatters: str):
+def reformat_multiple_selections(selections: List[str], formatters: str):
     actions.user.homophones_hide()
     formatted_parts = []
     for selected in selections:

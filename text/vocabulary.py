@@ -79,10 +79,13 @@ simple_default_vocabulary = [
     "backup",
     "andreas",
     "arvidsson",
+    "rsi",
+    "pokey",
+    "aegis"
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
-    # "N map": "nmap"
+    "knaus": "knausj"
 }
 default_vocabulary.update({word.lower(): word for word in simple_default_vocabulary})
 
