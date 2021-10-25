@@ -81,7 +81,9 @@ simple_default_vocabulary = [
     "arvidsson",
     "rsi",
     "pokey",
-    "aegis"
+    "aegis",
+    "vimium",
+    "karlstad"
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
