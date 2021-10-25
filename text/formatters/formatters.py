@@ -94,7 +94,7 @@ def gui(gui: imgui.GUI):
         gui.text(f"{name.ljust(15)}{actions.user.format_text('one two three', name)}")
     gui.line()
     if gui.button("Hide"):
-        actions.user.formatters_hide()
+        actions.user.formatters_help_toggle()
 
 
 @mod.action_class

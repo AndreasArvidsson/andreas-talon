@@ -10,10 +10,13 @@ settings():
     # Number of lines to show in command history by default
     user.command_history_display = 3
 
-    # Show subtitles on startup
+    # Show subtitles by default
     user.subtitles_show = 1
     # Show subtitles on all screens
     user.subtitles_all_screens = 1
+
+    # Show debug timing statistics for spoken phrases
+    user.debug_timings = 0
 
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas/cursorless-settings"

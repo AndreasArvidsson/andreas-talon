@@ -2,7 +2,7 @@ app: vscode
 -
 tag(): user.ide
 tag(): user.scroll
-# tag(): user.cursorless_experimental_wrapper_snippets
+tag(): user.cursorless_experimental_wrapper_snippets
 
 settings():
     user.scroll_step = 300
