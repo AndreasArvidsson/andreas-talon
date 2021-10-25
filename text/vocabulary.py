@@ -8,11 +8,7 @@ not mode: user.swedish
 """
 
 
-# Default words that will need to be capitalized (particularly under w2l).
-# NB. These defaults and those later in this file are ONLY used when
-# auto-creating the corresponding settings/*.csv files. Those csv files
-# determine the contents of user.vocabulary and dictate.word_map. Once they
-# exist, the contents of the lists/dictionaries below are irrelevant.
+# Default words that will need to be capitalized.
 capitalize_defaults = [
     "I",
     "I'm",
@@ -83,7 +79,8 @@ simple_default_vocabulary = [
     "pokey",
     "aegis",
     "vimium",
-    "karlstad"
+    "karlstad",
+    "yeah"
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
