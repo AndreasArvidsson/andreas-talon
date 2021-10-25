@@ -17,7 +17,7 @@ and app.exe: explorer.exe
 mod.apps.windows_file_browser = """
 os: windows
 and app.name: /.*/
-and title: /(Save|Open|Browse|Select)/
+and title: /(Save|Open|Browse|Select|Install from)/
 """
 
 ctx = Context()
