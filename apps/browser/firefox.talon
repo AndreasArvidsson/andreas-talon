@@ -6,13 +6,14 @@ tag(): user.scroll
 tab search:
     browser.focus_address()
     insert("% ")
-
 tab search <user.words>$:
     browser.focus_address()
     insert("% {words}")
     key(down)
+tab mute:    key(ctrl-m)
 
-tab mute:   key(ctrl-m)
+tab back:    key(escape ctrl-alt-N)
+tab split:   key(escape ctrl-alt-M)
 
 # Vimium
 hunt:
