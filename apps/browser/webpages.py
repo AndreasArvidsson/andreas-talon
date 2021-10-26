@@ -17,8 +17,20 @@ ctx.lists["self.webpage"] = {
     "gmail":                "https://www.gmail.com",
     "youtube":              "https://www.youtube.com/feed/subscriptions",
     "facebook":             "https://www.facebook.com",
-    "bitbucket":            "https://bitbucket.org",
     "audible":              "https://www.audible.co.uk",
     "calendar":             "https://calendar.google.com",
-    "news":                 "https://www.svt.se"
+    "news":                 "https://www.svt.se",
+
+    # Redpill Linpro & customers
+    "zimbra":               "https://zimbra.redpill-linpro.com",
+    "redmine":              "https://redmine.redpill-linpro.com",
+    "mattermost":           "https://mattermost.redpill-linpro.com",
+    "gitlab":               "https://gitlab.redpill-linpro.com",
+    "redpill info":         "https://info.redpill-linpro.com",
+    "bitbucket":            "https://bitbucket.org",
+    "xledger":              "https://xledger.net",
+    "business manager":     "https://payroll.accountor.se",
+    "patientenkaet":        "https://patientenkat.se",
+    "ppm":                  "https://ppm.vantetider.se",
+    "hassan":               "https://app.vantetider.se/hassan"
 }
