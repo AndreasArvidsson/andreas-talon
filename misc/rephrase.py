@@ -15,14 +15,17 @@ speech_system.register("post:phrase", on_post_phrase)
 class Actions: 
     def rephrase(phrase: Phrase, run_async: bool = False):
         """Re-evaluate and run phrase"""
-        current_phrase = phrase_stack[-1]
-        ts = current_phrase["_ts"]
-        start = phrase.words[0].start - ts
-        end   = phrase.words[-1].end - ts
-        samples = current_phrase["samples"]
-        pstart  = int(start * 16_000)
-        pend    = int(end   * 16_000)
-        samples = samples[pstart:pend]
+        try:
+            current_phrase = phrase_stack[-1]
+            ts = current_phrase["_ts"]
+            start = phrase.words[0].start - ts
+            end   = phrase.words[-1].end - ts
+            samples = current_phrase["samples"]
+            pstart  = int(start * 16_000)
+            pend    = int(end   * 16_000)
+            samples = samples[pstart:pend]
+        except KeyError:
+            return
 
         if run_async:
             cron.after("0ms", lambda: speech_system._on_audio_frame(samples))
