@@ -3,6 +3,7 @@ app: firefox
 tag(): browser
 tag(): user.scroll
 
+# Tabs
 tab search:
     browser.focus_address()
     insert("% ")
@@ -10,13 +11,18 @@ tab search <user.words>$:
     browser.focus_address()
     insert("% {words}")
     key(down)
-tab mute:    key(ctrl-m)
+tab mute:             key(ctrl-m)
+
+# Bitwarden
+bitwarden show:       key(ctrl-shift-y)
+bitwarden fill:       key(ctrl-shift-l)
+bitwarden generate:   key(ctrl-shift-9)
 
 
 # Vimium
 
-tab back:    key(escape ctrl-alt-N)
-tab split:   key(escape ctrl-alt-M)
+tab back:             key(escape ctrl-alt-N)
+tab split:            key(escape ctrl-alt-M)
 
 hunt:
     user.stop_app()
