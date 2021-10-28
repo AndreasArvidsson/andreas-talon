@@ -105,23 +105,24 @@ debug test:
     user.vscode("workbench.action.debug.selectandstart")
     "extension tests"
     key(enter)
+dev tools:                   user.vscode("workbench.action.toggleDevTools")
+select element:              key(ctrl-shift-c)
 
 # Find session
 scout sesh [<user.text>]$:   user.vscode_find_recent(text or "")
 pop sesh <user.text>$:
     user.vscode_find_recent(text)
     key(enter)
-pop sesh last:
+pop sesh:
     user.vscode_find_recent("", 1)
     key(enter)
 
 # Misc
 install extension:           user.vscode("workbench.extensions.action.installVSIX")
 minimap (show | hide):       user.vscode("editor.action.toggleMinimap")
-dev tools:                   user.vscode("workbench.action.toggleDevTools")
 reload window:               user.vscode("workbench.action.reloadWindow")
 go settings json:            user.vscode("workbench.action.openSettingsJson")
-select element:              key(ctrl-shift-c)
+zen mode:                    user.vscode("workbench.action.toggleZenMode")
 
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")

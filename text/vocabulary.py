@@ -84,7 +84,8 @@ simple_default_vocabulary = [
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
-    "knaus": "knausj"
+    "knaus": "knausj",
+    "toby": "tobii"
 }
 default_vocabulary.update({word.lower(): word for word in simple_default_vocabulary})
 

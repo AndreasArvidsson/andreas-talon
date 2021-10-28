@@ -12,10 +12,12 @@ tab search <user.words>$:
     key(down)
 tab mute:    key(ctrl-m)
 
+
+# Vimium
+
 tab back:    key(escape ctrl-alt-N)
 tab split:   key(escape ctrl-alt-M)
 
-# Vimium
 hunt:
     user.stop_app()
     key(escape ctrl-alt-f)
