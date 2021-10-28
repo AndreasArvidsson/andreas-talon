@@ -123,9 +123,9 @@ minimap (show | hide):       user.vscode("editor.action.toggleMinimap")
 reload window:               user.vscode("workbench.action.reloadWindow")
 go settings json:            user.vscode("workbench.action.openSettingsJson")
 zen mode:                    user.vscode("workbench.action.toggleZenMode")
+next:                        user.vscode("jumpToNextSnippetPlaceholder")
+cursorless record:           user.vscode("cursorless.recordTestCase")
 
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
-
-cursorless record:           user.vscode("cursorless.recordTestCase")
