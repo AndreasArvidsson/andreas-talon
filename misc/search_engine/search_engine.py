@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Module
 from urllib.parse import quote_plus
 import webbrowser
 
@@ -17,6 +17,8 @@ class Actions:
 
 
 def is_url(text: str):
-    return (text.startswith("https://")
-            or text.startswith("http://")
-            or text.startswith("www."))
+    return (
+        text.startswith("https://")
+        or text.startswith("http://")
+        or text.startswith("www.")
+    )

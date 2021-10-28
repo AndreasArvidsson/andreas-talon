@@ -1,4 +1,5 @@
-from talon import Context, actions, Module, app
+from talon import Context, actions, Module
+import webbrowser
 key = actions.key
 insert = actions.insert
 edit = actions.edit
@@ -220,3 +221,9 @@ class Actions:
             actions.sleep("50ms")
         if text:
             insert(text)
+
+    def git_open_working_file():
+        """Open current file in in git webpage""" 
+        url = actions.user.vscode_get("andreas.git.getURL")
+        if url:
+            webbrowser.open(url)

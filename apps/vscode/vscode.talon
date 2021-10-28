@@ -76,6 +76,7 @@ file open:                   user.vscode("workbench.action.files.openFile")
 file new:                    user.vscode("explorer.newFile")
 file open folder:            user.vscode("revealFileInOS")
 file copy path:              user.vscode("copyFilePath")
+file open git:               user.git_open_working_file()
 
 # Folding
 fold that:                   user.vscode("editor.fold")
