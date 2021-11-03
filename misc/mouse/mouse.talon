@@ -21,7 +21,7 @@ mouse gaze:                     user.mouse_gaze_scroll()
 
 # Modes
 ^mouse calibrate$:              user.mouse_calibrate()
-^mouse control mode$:           user.mouse_toggle_control_mouse()
+^mouse control$:                user.mouse_toggle_control_mouse()
 ^mouse zoom$:                   user.mouse_toggle_zoom_mouse()
 
 # Misc
