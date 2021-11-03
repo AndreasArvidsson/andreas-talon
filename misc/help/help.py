@@ -166,7 +166,7 @@ def gui_alphabet(gui: imgui.GUI):
         actions.user.help_alphabet_hide()
 
 
-@imgui.open(x=300, y=0)
+@imgui.open(x=main_screen.x, y=main_screen.y)
 def gui_context_help(gui: imgui.GUI):
     global context_command_map
     global current_context_page

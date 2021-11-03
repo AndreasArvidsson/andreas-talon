@@ -1,4 +1,4 @@
-from talon import imgui, Module, speech_system, actions, app
+from talon import imgui, Module, speech_system, actions, ui
 
 mod = Module()
 setting_size_setting = mod.setting("command_history_size", int, default=50)
@@ -30,7 +30,7 @@ def on_phrase(d):
 speech_system.register("phrase", on_phrase)
 
 
-@imgui.open(y=0)
+@imgui.open(y=ui.main_screen().y)
 def gui(gui: imgui.GUI):
     for line in history[-display_size:]:
         gui.text(line)

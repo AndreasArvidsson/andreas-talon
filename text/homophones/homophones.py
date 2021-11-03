@@ -16,7 +16,7 @@ homophones_file = os.path.join(cwd, "homophones.csv")
 main_screen = ui.main_screen()
 
 
-@imgui.open(x=0, y=main_screen.y)
+@imgui.open(x=main_screen.x, y=main_screen.y)
 def gui(gui: imgui.GUI):
     gui.text("Homophones")
     gui.line()

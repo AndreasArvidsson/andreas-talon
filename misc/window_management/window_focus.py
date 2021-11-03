@@ -1,4 +1,4 @@
-from talon import Context, Module, app, imgui, ui, fs, actions, scope
+from talon import Context, Module, app, imgui, ui, fs, actions
 from talon.grammar import Phrase
 from typing import List
 import os
@@ -158,7 +158,7 @@ class Actions:
             actions.sleep("50ms")
 
 
-@imgui.open(x=0)
+@imgui.open(x=ui.main_screen().x)
 def gui(gui: imgui.GUI):
     gui.text("Focus")
     gui.line()
