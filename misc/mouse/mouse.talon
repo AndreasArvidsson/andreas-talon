@@ -12,10 +12,10 @@ scroll down [<number_small>]:   user.mouse_scroll("down", number_small or 1)
 climb:                          user.mouse_scrolling("up")
 drop:                           user.mouse_scrolling("down")
 
-mouse speed show:               user.mouse_print_scroll_speed()
-mouse speed <number_small>:     user.mouse_scroll_speed(number_small)
-mouse speed up:                 user.mouse_scroll_increase()
-mouse speed down:               user.mouse_scroll_decrease()
+mouse speed show:               user.mouse_scroll_speed_notify()
+mouse speed <number_small>:     user.mouse_scroll_speed_set(number_small)
+mouse speed up:                 user.mouse_scroll_speed_increase()
+mouse speed down:               user.mouse_scroll_speed_decrease()
 
 mouse gaze:                     user.mouse_gaze_scroll()
 

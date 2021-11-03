@@ -103,28 +103,28 @@ class Actions:
             scroll_continuous_helper()
             scroll_job = cron.interval("30ms", scroll_continuous_helper)
 
-    def mouse_scroll_speed(speed: int):
+    def mouse_scroll_speed_set(speed: int):
         """Set scroll speed"""
         if speed > 50:
             speed = 50
         global scroll_speed
         scroll_speed = speed * 10
-        actions.user.mouse_print_scroll_speed()
+        actions.user.mouse_scroll_speed_notify()
 
-    def mouse_scroll_increase():
+    def mouse_scroll_speed_increase():
         """Increase scroll speed"""
         global scroll_speed
         scroll_speed = scroll_speed + 20
-        actions.user.mouse_print_scroll_speed()
+        actions.user.mouse_scroll_speed_notify()
 
-    def mouse_scroll_decrease():
+    def mouse_scroll_speed_decrease():
         """Decrease scroll speed"""
         global scroll_speed
         scroll_speed = scroll_speed - 20
-        actions.user.mouse_print_scroll_speed()
+        actions.user.mouse_scroll_speed_notify()
 
-    def mouse_print_scroll_speed():
-        """Get scroll speed"""
+    def mouse_scroll_speed_notify():
+        """Notify scroll speed"""
         actions.user.notify("Mouse scroll speed: {}%".format(scroll_speed))
 
     def mouse_gaze_scroll():
