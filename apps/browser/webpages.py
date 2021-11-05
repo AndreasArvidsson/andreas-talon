@@ -20,7 +20,8 @@ ctx.lists["self.webpage"] = {
     "audible":              "https://www.audible.co.uk",
     "calendar":             "https://calendar.google.com",
     "news":                 "https://www.svt.se",
-    "dropbox":               "https://www.dropbox.com",
+    "dropbox":              "https://www.dropbox.com",
+    "imdb":                 "https://www.imdb.com",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
