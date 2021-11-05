@@ -68,12 +68,10 @@ class Actions:
     def mouse_stop():
         """Stops mouse action"""
         # Close zoomed in view
-        if not actions.user.zoom_mouse_idle():
-            actions.user.zoom_mouse_cancel()
+        if stop_zoom():
             return True
         # Stop scroll
-        if scroll_job or gaze_job:
-            stop_scroll()
+        if stop_scroll():
             return True
         return False
 
@@ -86,6 +84,7 @@ class Actions:
 
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
+        stop_zoom()
         scroll_step = setting_scroll_step.get()
         amount = scroll_step * times
         if direction == "up":
@@ -95,6 +94,7 @@ class Actions:
     def mouse_scrolling(direction: str):
         """Starts scrolling continuously"""
         global scroll_job, scroll_dir
+        stop_zoom()
         if direction == "up":
             scroll_dir = -1
         else:
@@ -170,14 +170,23 @@ class Actions:
         ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
 
 
+def stop_zoom():
+    if not actions.user.zoom_mouse_idle():
+        actions.user.zoom_mouse_cancel()
+        return True
+    return False
+
+
 def stop_scroll():
     global scroll_job, gaze_job
+    return_value = scroll_job or gaze_job
     if scroll_job:
         cron.cancel(scroll_job)
         scroll_job = None
     if gaze_job:
         cron.cancel(gaze_job)
         gaze_job = None
+    return return_value
 
 
 def scroll_continuous_helper():
