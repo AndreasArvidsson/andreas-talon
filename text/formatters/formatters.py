@@ -15,7 +15,9 @@ formatters_dict = {
     "CAPITALIZE_ALL_WORDS": lambda text: format_words(
         text, split, " ", capitalize, capitalize
     ),
-    "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, split, " ", capitalize),
+    "CAPITALIZE_FIRST_WORD": lambda text: format_words(
+        text, split, " ", capitalize, lower
+    ),
     "CAMEL_CASE": lambda text: format_words(
         text, split_no_symbols, "", lower, capitalize
     ),
