@@ -49,16 +49,14 @@ formatters_dict = {
 }
 
 # This is the mapping from spoken phrases to formatters
-formatters_words = {
-    "say": formatters_dict["NOOP"],
+formatters_code = {
     "upper": formatters_dict["ALL_CAPS"],
     "lower": formatters_dict["ALL_LOWERCASE"],
     "string": formatters_dict["DOUBLE_QUOTED_STRING"],
     "twin": formatters_dict["SINGLE_QUOTED_STRING"],
     # Splitting formatters
-    "unformat": formatters_dict["REMOVE_FORMATTING"],
     "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
-    "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"],
+    "unformat": formatters_dict["REMOVE_FORMATTING"],
     "camel": formatters_dict["CAMEL_CASE"],
     "pascal": formatters_dict["PASCAL_CASE"],
     "snake": formatters_dict["SNAKE_CASE"],
@@ -71,29 +69,46 @@ formatters_words = {
     "smash": formatters_dict["NO_SPACES"],
 }
 
-all_formatters = {}
-all_formatters.update(formatters_dict)
-all_formatters.update(formatters_words)
+formatters_prose = {
+    "say": formatters_dict["NOOP"],
+    "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"]
+}
+
+phrase_formatters = {**formatters_code, **formatters_prose}
+all_formatters = {**formatters_dict, **phrase_formatters}
+
+mod.list("formatter_code", desc="List of code formatters")
+ctx.lists["self.formatter_code"] = formatters_code.keys()
+
+mod.list("formatter_prose", desc="List of prose formatters")
+ctx.lists["self.formatter_prose"] = {
+    **{key: key for key in formatters_prose.keys()},
+    "string sentence": "string,sentence",
+    "twin sentence": "twin,sentence"
+}
 
 
-mod.list("formatters", desc="List of phrase formatters")
-ctx.lists["self.formatters"] = formatters_words.keys()
-
-mod.list("word_formatter", desc="List of word formatters")
-ctx.lists["self.word_formatter"] = {"word": "NOOP", "proud": "CAPITALIZE_FIRST_WORD"}
+mod.list("formatter_word", desc="List of word formatters")
+ctx.lists["self.formatter_word"] = {"word": "NOOP", "proud": "CAPITALIZE_FIRST_WORD"}
 
 
-@mod.capture(rule="{self.formatters}+")
+@mod.capture(rule="{self.formatter_code}+")
+def formatters_code(m) -> str:
+    "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
+    return ",".join(m.formatter_code_list)
+
+
+@mod.capture(rule="({self.formatter_code} | {self.formatter_prose})+")
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
-    return ",".join(m.formatters_list)
+    return ",".join(m)
 
 
 @imgui.open()
 def gui(gui: imgui.GUI):
     gui.text("Formatters")
     gui.line()
-    for name in sorted(set(formatters_words.keys())):
+    for name in sorted(set(phrase_formatters.keys())):
         gui.text(f"{name.ljust(15)}{actions.user.format_text('one two three', name)}")
     gui.line()
     if gui.button("Hide"):
@@ -104,10 +119,9 @@ def gui(gui: imgui.GUI):
 class Actions:
     def format_text(text: str, formatters: str) -> str:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        result = text
-        for fmtr in formatters.split(","):
-            result = all_formatters[fmtr](result)
-        return result
+        for fmtr in reversed(formatters.split(",")):
+            text = all_formatters[fmtr](text)
+        return text
 
     def formatted_text(text: str, formatters: str) -> str:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
@@ -118,7 +132,7 @@ class Actions:
         # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
         result = re.sub(r"[-_.:/](?!\s)+", " ", text)
         # Split camel case. Including numbers
-        result = actions.user.de_camel(text)
+        result = actions.user.de_camel(result)
         # Delimiter/camel case successfully split. Lower case to restore "original" text.
         if text != result:
             result = result.lower()

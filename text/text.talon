@@ -1,8 +1,14 @@
-# Formatted text: "camel hello there" -> helloThere
-<user.formatters> <user.text_and_immune>$:
-    user.insert_and_format(text_and_immune, formatters)
-<user.formatters> <user.text_and_immune> over:
-    user.insert_and_format(text_and_immune, formatters)
+# Formatted code phrase: "camel hello there" -> helloThere
+<user.formatters_code> <user.text>:
+    user.insert_and_format(text, formatters_code)
+<user.formatters_code> <user.text> over:
+    user.insert_and_format(text, formatters_code)
+
+# Formatted prose phrase: "sentence hello there" -> Hello there
+{user.formatter_prose} <user.text>$:
+    user.insert_and_format(text, formatter_prose)
+{user.formatter_prose} <user.text> over:
+    user.insert_and_format(text, formatter_prose)
 
 # Reformat
 <user.formatters> (this | dis):
@@ -20,12 +26,12 @@ escape words <user.words> over:
     user.insert_string(words)
 
 # Single word
-{user.word_formatter} <user.word>:
-    user.insert_and_format(word, word_formatter)
+{user.formatter_word} <user.word>:
+    user.insert_and_format(word, formatter_word)
 # Single homophone word
-{user.word_formatter} <user.ordinals_small> <user.word>:
+{user.formatter_word} <user.ordinals_small> <user.word>:
     homophone = user.homophones_get_by_number(word, ordinals_small)
-    user.insert_and_format(homophone, word_formatter)
+    user.insert_and_format(homophone, formatter_word)
 
 # Upper case characters
 ship <user.letters> [over]:

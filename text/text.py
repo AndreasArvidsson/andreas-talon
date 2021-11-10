@@ -1,33 +1,7 @@
 from typing import List
 from talon import Module, actions
-from talon.grammar import Capture
 
 mod = Module()
-
-
-@mod.capture(rule="<user.text> (<user.text> | <user.formatter_immune>)*")
-def text_and_immune(m) -> str:
-    "Capture text and immune symbols and turn into a phrase"
-    text = ""
-    for chunk in m:
-        if isinstance(chunk, ImmuneString):
-            text += chunk.string + " "
-        else:
-            text += chunk
-    return text
-
-
-class ImmuneString(object):
-    """Wrapper that makes a string immune from formatting."""
-
-    def __init__(self, string):
-        self.string = string
-
-
-@mod.capture(rule="{user.key_punctuation}")
-def formatter_immune(m) -> ImmuneString:
-    """Text that can be interspersed into a formatter, e.g. characters. It will be inserted directly, without being formatted."""
-    return ImmuneString(str(m))
 
 
 @mod.action_class
@@ -41,7 +15,7 @@ class Actions:
         formatted = actions.user.format_text(text, formatters)
         insert_string(formatted, text)
 
-    def reformat_last(formatters: str) -> str:
+    def reformat_last(formatters: str):
         """Clears and reformats last formatted phrase"""
         last_phrase = actions.user.history_get_last_phrase()
         if not last_phrase:
@@ -53,7 +27,7 @@ class Actions:
         else:
             actions.user.insert_and_format(last_phrase, formatters)
 
-    def reformat_selection(formatters: str) -> str:
+    def reformat_selection(formatters: str):
         """Reformats the current selection."""
         selected = actions.edit.selected_text()
         if not selected:
@@ -65,7 +39,7 @@ class Actions:
             reformat_multiple_selections(selections, formatters)
 
     def reformat_text(text: str, formatters: str) -> str:
-        """Reformat the text."""
+        """Reformat the text. Used by Cursorless"""
         lines = text.split("\n")
         for i in range(len(lines)):
             unformatted = actions.user.unformat_text(lines[i])
