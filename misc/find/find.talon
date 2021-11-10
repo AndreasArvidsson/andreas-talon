@@ -2,6 +2,9 @@ tag: user.find
 -
 
 scout [<user.text>]$:         edit.find(text or "")
+scout hide:
+    edit.find("")
+    key(escape)
 scout all [<user.text>]$:     user.find_everywhere(text or "")
 replace [<user.text>]$:       user.find_replace(text or "")
 replace all [<user.text>]$:   user.find_replace_everywhere(text or "")
