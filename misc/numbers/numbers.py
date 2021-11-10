@@ -120,15 +120,6 @@ def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
     return parse_number(list(m))
 
-# TODO
-# @mod.capture(rule=f"{number_word}+ (and {number_word}+)*")
-# def number_dd_string(m) -> str:
-#     """Parses a double digit number phrase, returning that number as a string."""
-#     result = parse_number(list(m))
-#     if len(result) == 1:
-#         return str(m)
-#     return result
-
 @ctx.capture("number", rule="<user.number_string>")
 def number(m) -> int:
     """Parses a number phrase, returning it as an integer."""
@@ -141,12 +132,6 @@ def number_small(m): return int(parse_number(list(m)))
 def number_prefix(m) -> str:
     """Parses a prefixed number phrase, returning that number as a string."""
     return m.number_string
-
-# TODO
-# @mod.capture(rule="<user.number_prefix> | <user.number_dd_string>")
-# def number_auto(m) -> str:
-#     """Parses a number phrase using prefix or double digit logic, returning that number as a string."""
-#     return str(m)
 
 @mod.capture(rule=f"{'|'.join(digits[1:])}")
 def digit(m) -> int:

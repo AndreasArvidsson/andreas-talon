@@ -6,9 +6,6 @@ import numbers
 mod = Module()
 ctx = Context()
 
-mod.list("vocabulary", desc="additional vocabulary words")
-ctx.lists["self.vocabulary"] = {}
-
 setting_context_sensitive_dictation = mod.setting(
     "context_sensitive_dictation",
     type=bool,
@@ -22,27 +19,18 @@ def word(m) -> str:
     return str(m)
 
 # Used to escape numbers and symbols
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <phrase>)+")
+@mod.capture(rule="({self.vocabulary} | <phrase>)+")
 def words(m) -> str:
-    """A sequence of words, including user-defined vocabulary and abbreviations."""
+    """A sequence of words, including user-defined vocabulary."""
     return format_phrase(m)
 
 @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {user.key_punctuation} | <phrase>)+")
-# @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_punctuation} | <phrase>)+")
 def text(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
-# Same as text but with all symbols. Used by text navigation.
-# TODO
-# @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_symbol} | <phrase>)+")
-# def text_symbol(m) -> str:
-#     """Mixed words and symbols, including user-defined vocabulary."""
-#     return format_phrase(m)
-
 # Used by dictation mode
 @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+")
-# @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {self.key_punctuation} | <phrase>)+")
 def text_dictation(m) -> str:
     """Mixed words and symbols, auto-spaced & capitalized."""
     text, _state = auto_capitalize(format_phrase(m))
