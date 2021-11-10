@@ -49,42 +49,33 @@ formatters_dict = {
 }
 
 # This is the mapping from spoken phrases to formatters
-formatters_code = {
-    "upper": formatters_dict["ALL_CAPS"],
-    "lower": formatters_dict["ALL_LOWERCASE"],
-    "string": formatters_dict["DOUBLE_QUOTED_STRING"],
-    "twin": formatters_dict["SINGLE_QUOTED_STRING"],
-    # Splitting formatters
-    "title": formatters_dict["CAPITALIZE_ALL_WORDS"],
-    "unformat": formatters_dict["REMOVE_FORMATTING"],
-    "camel": formatters_dict["CAMEL_CASE"],
-    "pascal": formatters_dict["PASCAL_CASE"],
-    "snake": formatters_dict["SNAKE_CASE"],
-    "constant": formatters_dict["ALL_CAPS_SNAKE_CASE"],
-    "kebab": formatters_dict["DASH_SEPARATED"],
-    "dotted": formatters_dict["DOT_SEPARATED"],
-    "slasher": formatters_dict["SLASH_SEPARATED"],
-    "dunder": formatters_dict["DOUBLE_UNDERSCORE"],
-    "packed": formatters_dict["DOUBLE_COLON_SEPARATED"],
-    "smash": formatters_dict["NO_SPACES"],
-}
-
-formatters_prose = {
-    "say": formatters_dict["NOOP"],
-    "sentence": formatters_dict["CAPITALIZE_FIRST_WORD"]
-}
-
-phrase_formatters = {**formatters_code, **formatters_prose}
-all_formatters = {**formatters_dict, **phrase_formatters}
-
 mod.list("formatter_code", desc="List of code formatters")
-ctx.lists["self.formatter_code"] = formatters_code.keys()
+ctx.lists["self.formatter_code"] = {
+    "upper": "ALL_CAPS",
+    "lower": "ALL_LOWERCASE",
+    "string": "DOUBLE_QUOTED_STRING",
+    "twin": "SINGLE_QUOTED_STRING",
+    # Splitting formatters
+    "title": "CAPITALIZE_ALL_WORDS",
+    "unformat": "REMOVE_FORMATTING",
+    "camel": "CAMEL_CASE",
+    "pascal": "PASCAL_CASE",
+    "snake": "SNAKE_CASE",
+    "constant": "ALL_CAPS_SNAKE_CASE",
+    "kebab": "DASH_SEPARATED",
+    "dotted": "DOT_SEPARATED",
+    "slasher": "SLASH_SEPARATED",
+    "dunder": "DOUBLE_UNDERSCORE",
+    "packed": "DOUBLE_COLON_SEPARATED",
+    "smash": "NO_SPACES"
+}
 
 mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
-    **{key: key for key in formatters_prose.keys()},
-    "string sentence": "string,sentence",
-    "twin sentence": "twin,sentence"
+    "say": "NOOP",
+    "sentence": "CAPITALIZE_FIRST_WORD",
+    "string sentence": "DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
+    "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD"
 }
 
 
@@ -108,7 +99,8 @@ def formatters(m) -> str:
 def gui(gui: imgui.GUI):
     gui.text("Formatters")
     gui.line()
-    for name in sorted(set(phrase_formatters.keys())):
+    formatters = {**formatters_code, **formatters_prose}.keys()
+    for name in sorted(set(formatters)):
         gui.text(f"{name.ljust(15)}{actions.user.format_text('one two three', name)}")
     gui.line()
     if gui.button("Hide"):
@@ -120,7 +112,7 @@ class Actions:
     def format_text(text: str, formatters: str) -> str:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
         for fmtr in reversed(formatters.split(",")):
-            text = all_formatters[fmtr](text)
+            text = formatters_dict[fmtr](text)
         return text
 
     def formatted_text(text: str, formatters: str) -> str:
@@ -129,6 +121,8 @@ class Actions:
 
     def unformat_text(text: str) -> str:
         """Remove format from text"""
+        # Remove quotes  
+        text = de_string(text)
         # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
         result = re.sub(r"[-_.:/](?!\s)+", " ", text)
         # Split camel case. Including numbers
@@ -169,33 +163,36 @@ def format_words(text, splitter, delimiter, func_first=None, func_rest=None):
     return delimiter.join(result)
 
 
-def capitalize(text):
+def capitalize(text: str) -> str:
     return text.lower().capitalize()
 
 
-def lower(text):
+def lower(text: str) -> str:
     return text.lower()
 
 
-def upper(text):
+def upper(text: str) -> str:
     return text.upper()
 
 
-def surround(text, char):
-    if text[0] == "'" or text[0] == '"':
-        text = text[1:]
-    length = len(text)
-    if text[-1] == "'" or text[-1] == '"':
-        text = text[:-1]
-    return char + text + char
+def surround(text: str, char: str) -> str:
+    return char + de_string(text) + char
 
 
-def split(text):
+def split(text: str) -> str:
     return text.split()
 
 
-def split_no_symbols(text):
+def split_no_symbols(text: str) -> str:
     return re.sub(r"[^a-zA-Z0-9 ]+", "", text).split()
+
+
+def de_string(text: str) -> str:
+    if text[0] == "'" or text[0] == '"':
+        text = text[1:]
+    if text[-1] == "'" or text[-1] == '"':
+        text = text[:-1]
+    return text
 
 
 # Test unformat_text
