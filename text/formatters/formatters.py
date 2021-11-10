@@ -15,9 +15,7 @@ formatters_dict = {
     "CAPITALIZE_ALL_WORDS": lambda text: format_words(
         text, split, " ", capitalize, capitalize
     ),
-    "CAPITALIZE_FIRST_WORD": lambda text: format_words(
-        text, split, " ", capitalize, lower
-    ),
+    "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, split, " ", capitalize),
     "CAMEL_CASE": lambda text: format_words(
         text, split_no_symbols, "", lower, capitalize
     ),
@@ -115,9 +113,21 @@ class Actions:
     def unformat_text(text: str) -> str:
         """Remove format from text"""
         # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
-        text = re.sub(r"[-_.:/](?!\s)+", " ", text)
+        result = re.sub(r"[-_.:/](?!\s)+", " ", text)
         # Split camel case. Including numbers
-        return actions.user.de_camel(text)
+        result = actions.user.de_camel(text)
+        # Delimiter/camel case successfully split. Lower case to restore "original" text.
+        if text != result:
+            result = result.lower()
+        return result
+
+    def de_camel(text: str) -> str:
+        """Replacing camelCase boundaries with blank space"""
+        return re.sub(
+            r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])",
+            " ",
+            text,
+        )
 
     def formatters_help_toggle():
         """Toggle list all formatters gui"""
