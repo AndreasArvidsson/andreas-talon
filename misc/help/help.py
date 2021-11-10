@@ -151,9 +151,7 @@ def get_pages(item_line_counts: List[int]) -> List[int]:
     return pages
 
 
-main_screen = ui.main_screen()
-
-@imgui.open(x=main_screen.width-100, w=100)
+@imgui.open()
 def gui_alphabet(gui: imgui.GUI):
     global alphabet
     gui.text("Alphabet")
@@ -164,6 +162,9 @@ def gui_alphabet(gui: imgui.GUI):
     gui.line()
     if gui.button("hide"):
         actions.user.help_alphabet_hide()
+
+
+main_screen = ui.main_screen()
 
 
 @imgui.open(x=main_screen.x, y=main_screen.y)
