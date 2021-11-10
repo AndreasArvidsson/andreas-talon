@@ -351,7 +351,7 @@ class Actions:
         with clip.revert():
             clip.set_text(text)
 
-            # TODO
+            # TODO debug clipboard
             if clip.text() != text:
                 actions.user.notify("Failed to set clipboard")
                 print(f"Clipboard: '{clip.text()}'")

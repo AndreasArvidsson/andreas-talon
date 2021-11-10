@@ -1,29 +1,11 @@
-"""Tools for voice-driven window management.
-
-Originally from dweil/talon_community - modified for newapi by jcaw.
-
-"""
-
-# TODO: Map keyboard shortcuts to this manager once Talon has key hooks on all
-#   platforms
-
 import time
 from operator import xor
 from typing import Optional
-
 from talon import ui, Module, Context, actions
 
 
 def _set_window_pos(window, x, y, width, height):
     """Helper to set the window position."""
-    # TODO: Special case for full screen move - use os-native maximize, rather
-    #   than setting the position?
-
-    # 2020/10/01: While the upstream Talon implementation for MS Windows is
-    #   settling, this may be buggy on full screen windows. Aegis doesn't want a
-    #   hacky solution merged, so for now just repeat the command.
-    #
-    # TODO: Audit once upstream Talon is bug-free on MS Windows
     window.rect = ui.Rect(round(x), round(y), round(width), round(height))
 
 
@@ -72,10 +54,6 @@ def _move_to_screen(
     # Retain the same proportional position on the new screen.
     dest = dest_screen.visible_rect
     src = src_screen.visible_rect
-    # TODO: Test this on different-sized screens
-    #
-    # TODO: Is this the best behaviour for moving to a vertical screen? Probably
-    #   not.
     proportional_width = dest.width / src.width
     proportional_height = dest.height / src.height
     _set_window_pos(

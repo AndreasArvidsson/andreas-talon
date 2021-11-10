@@ -359,8 +359,8 @@ def update_active_contexts_cache(active_contexts):
     cached_active_contexts_list = active_contexts
 
 
-# example usage todo: make a list definable in .talon
-# overrides = {"generic browser" : "broswer"}
+# example usage: make a list definable in .talon
+# overrides = {"generic browser" : "browser"}
 overrides = {
     # "history open": "history"
 }
