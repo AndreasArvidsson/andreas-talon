@@ -3,13 +3,15 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.slack = """
-tag: browser
-and title: /Slack/
+mod.apps.skype = """
+os: windows
+and app.name: Skype
+os: windows
+and app.exe: Skype.exe
 """
 
 ctx.matches = r"""
-app: slack
+app: skype
 """
 
 @ctx.action_class("edit")
