@@ -7,9 +7,9 @@ ctx = Context()
 
 mod.mode("help_formatters", "Mode for showing the formatter help gui")
 
-
 formatters_dict = {
     "NOOP": lambda text: text,
+    "TRAILING_PADDING": lambda text: f"{text} ",
     "ALL_CAPS": lambda text: text.upper(),
     "ALL_LOWERCASE": lambda text: text.lower(),
     "DOUBLE_QUOTED_STRING": lambda text: surround(text, '"'),
@@ -80,7 +80,12 @@ ctx.lists["self.formatter_prose"] = {
 
 
 mod.list("formatter_word", desc="List of word formatters")
-ctx.lists["self.formatter_word"] = {"word": "NOOP", "proud": "CAPITALIZE_FIRST_WORD"}
+ctx.lists["self.formatter_word"] = {
+    "word": "NOOP",
+    "walk": "TRAILING_PADDING",
+    "proud": "CAPITALIZE_FIRST_WORD",
+    "jump": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD"
+}
 
 
 @mod.capture(rule="{self.formatter_code}+")
@@ -121,7 +126,7 @@ class Actions:
 
     def unformat_text(text: str) -> str:
         """Remove format from text"""
-        # Remove quotes  
+        # Remove quotes
         text = de_string(text)
         # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
         result = re.sub(r"[-_.:/](?!\s)+", " ", text)
