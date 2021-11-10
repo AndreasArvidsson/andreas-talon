@@ -2,7 +2,11 @@ from talon import Module, Context, actions, imgui
 import logging
 import re
 
+mod = Module()
 ctx = Context()
+
+mod.mode("help_formatters", "Mode for showing the formatter help gui")
+
 
 formatters_dict = {
     "NOOP": lambda text: text,
@@ -71,9 +75,8 @@ all_formatters = {}
 all_formatters.update(formatters_dict)
 all_formatters.update(formatters_words)
 
-mod = Module()
 
-mod.list("formatters", desc="List of formatters")
+mod.list("formatters", desc="List of phrase formatters")
 ctx.lists["self.formatters"] = formatters_words.keys()
 
 mod.list("word_formatter", desc="List of word formatters")
@@ -132,9 +135,11 @@ class Actions:
     def formatters_help_toggle():
         """Toggle list all formatters gui"""
         if gui.showing:
+            actions.mode.disable("user.help_formatters")
             gui.hide()
         else:
             gui.show()
+            actions.mode.enable("user.help_formatters")
 
 
 def format_words(text, splitter, delimiter, func_first=None, func_rest=None):
