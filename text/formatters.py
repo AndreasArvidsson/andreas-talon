@@ -82,9 +82,9 @@ ctx.lists["self.formatter_prose"] = {
 mod.list("formatter_word", desc="List of word formatters")
 ctx.lists["self.formatter_word"] = {
     "word": "NOOP",
-    "walk": "TRAILING_PADDING",
+    "trot": "TRAILING_PADDING",
     "proud": "CAPITALIZE_FIRST_WORD",
-    "jump": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD"
+    "leap": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD"
 }
 
 
