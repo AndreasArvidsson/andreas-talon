@@ -46,7 +46,7 @@ ctx.lists["self.code_tag"] = tag_names
 tags = []
 
 @mod.action_class
-class user_actions:
+class UserActions:
     def code_push_tag_name(name: str):
         """Push tag name"""
         tags.append(name)

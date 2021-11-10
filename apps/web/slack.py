@@ -13,6 +13,6 @@ app: slack
 """
 
 @ctx.action_class("edit")
-class user_actions:
+class EditActions:
     def line_insert_down():
         actions.key("end ctrl-enter")
