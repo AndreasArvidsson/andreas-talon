@@ -52,7 +52,7 @@ def update_overrides(name, flags):
     res = {}
     with open(override_file_path, "r") as f:
         for line in f:
-            line = line.split(",")
+            line = line.rsplit(",", 1)
             if len(line) == 2:
                 res[line[0].lower()] = line[1].strip()
     overrides = res
