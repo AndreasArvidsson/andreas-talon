@@ -90,7 +90,7 @@ ctx.lists["self.formatter_word"] = {
 
 @mod.capture(rule="{self.formatter_code}+")
 def formatters_code(m) -> str:
-    "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
+    "Returns a comma-separated string of formatters e.g. 'DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD'"
     return ",".join(m.formatter_code_list)
 
 
