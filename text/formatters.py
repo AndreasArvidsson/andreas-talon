@@ -67,7 +67,7 @@ ctx.lists["self.formatter_code"] = {
     "slasher": "SLASH_SEPARATED",
     "dunder": "DOUBLE_UNDERSCORE",
     "packed": "DOUBLE_COLON_SEPARATED",
-    "smash": "NO_SPACES"
+    "smash": "NO_SPACES",
 }
 
 mod.list("formatter_prose", desc="List of prose formatters")
@@ -75,7 +75,7 @@ ctx.lists["self.formatter_prose"] = {
     "say": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     "string sentence": "DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
-    "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD"
+    "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
 }
 
 
@@ -84,7 +84,7 @@ ctx.lists["self.formatter_word"] = {
     "word": "NOOP",
     "trot": "TRAILING_PADDING",
     "proud": "CAPITALIZE_FIRST_WORD",
-    "leap": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD"
+    "leap": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD",
 }
 
 
@@ -104,9 +104,12 @@ def formatters(m) -> str:
 def gui(gui: imgui.GUI):
     gui.text("Formatters")
     gui.line()
-    formatters = {**formatters_code, **formatters_prose}.keys()
+    formatters = {
+        **ctx.lists["self.formatter_code"],
+        **ctx.lists["self.formatter_prose"],
+    }
     for name in sorted(set(formatters)):
-        gui.text(f"{name.ljust(15)}{actions.user.format_text('one two three', name)}")
+        gui.text(f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}")
     gui.line()
     if gui.button("Hide"):
         actions.user.formatters_help_toggle()

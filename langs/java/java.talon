@@ -13,8 +13,8 @@ state arrow function:
     "() -> {\n\n}"
     key(up:2 end left:6)
 
-new {user.code_data_types}:
-    "new {code_data_types}();"
+new {user.code_data_type}:
+    "new {code_data_type}();"
     key(left:2)
 
 new <user.variable_name>:
