@@ -161,7 +161,7 @@ def gui_alphabet(gui: imgui.GUI):
         gui.text(f"{val}:  {key}")
     gui.line()
     if gui.button("hide"):
-        actions.user.help_alphabet_hide()
+        actions.user.alphabet_help_toggle()
 
 
 main_screen = ui.main_screen()
@@ -601,18 +601,14 @@ class Actions:
                 result += "--------------------\n"
         clip.set_text(result)
 
-    def help_show_alphabet_toggle():
+    def alphabet_help_toggle():
         """Toggle hep alphabet gui"""
         if gui_alphabet.showing:
-            actions.user.help_alphabet_hide()
+            actions.mode.disable("user.help_alphabet")
+            gui_alphabet.hide()
         else:
             actions.mode.enable("user.help_alphabet")
             gui_alphabet.show()
-
-    def help_alphabet_hide():
-        """Hide alphabet gui"""
-        actions.mode.disable("user.help_alphabet")
-        gui_alphabet.hide()
 
 
 def commands_updated(_):

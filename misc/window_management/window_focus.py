@@ -129,7 +129,7 @@ class Actions:
         if index > -1 and index < len(names):
             actions.user.focus_name(names[index])
 
-    def focus_toggle():
+    def focus_help_toggle():
         """Shows/hides all running applications"""
         if gui.showing:
             actions.user.focus_hide()

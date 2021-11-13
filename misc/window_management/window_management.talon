@@ -1,5 +1,3 @@
-focus (help | show):                user.focus_toggle()
-
 focus {user.running_application}:
     user.focus_name(running_application)
 
