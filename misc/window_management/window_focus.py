@@ -74,16 +74,17 @@ def get_app(name: str) -> ui.App:
 
 
 def cycle_windows(app: ui.App, diff: int):
-    windows = filter(lambda w: not w.hidden, app.windows())
+    windows = list(filter(lambda w: not w.hidden and w.title != "", app.windows()))
     windows = sorted(windows, key=lambda w: w.id)
-    if len(windows) == 0:
-        return
-    i = actions.user.cycle(
-        windows.index(ui.active_window()) + diff,
-        0,
-        len(windows) - 1
-    )
-    actions.user.focus_window(windows[i])
+    current = windows.index(ui.active_window())
+    max = len(windows) - 1
+    i = actions.user.cycle(current + diff, 0, max)
+    while i != current:
+        try:
+            actions.user.focus_window(windows[i])
+            break
+        except:
+            i = actions.user.cycle(i + diff, 0, max)
 
 
 def focus_name(name: str):
@@ -174,8 +175,8 @@ def gui(gui: imgui.GUI):
 def on_ready():
     update_overrides(override_file_path, None)
     fs.watch(overrides_directory, update_overrides)
-    ui.register("app_launch", lambda e: update_running())
-    ui.register("app_close", lambda e: update_running())
+    ui.register("app_launch", lambda _: update_running())
+    ui.register("app_close", lambda _: update_running())
 
 
 app.register("ready", on_ready)
