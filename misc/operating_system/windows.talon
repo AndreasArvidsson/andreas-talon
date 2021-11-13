@@ -3,7 +3,7 @@ os: windows
 
 task view:                  key(super-tab)
 task manager:               key(ctrl-shift-escape)
-windows:                    key("ctrl-alt-tab")
+switcher:                   key(ctrl-alt-tab)
 show desktop:               key(super-d)
 
 start menu:                 key(super)
