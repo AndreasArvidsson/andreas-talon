@@ -1,4 +1,4 @@
-from talon import Module, actions, noise, ctrl, scope
+from talon import Module, actions, noise, ctrl
 from talon_plugins import eye_zoom_mouse
 
 mod = Module()
