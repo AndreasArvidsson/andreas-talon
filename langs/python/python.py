@@ -45,7 +45,9 @@ ctx.lists["self.code_statement"] = merge(
         "self dot":         "self.",
         "string":           "str",
         "regexp":           "re",
-        "def":              "def "
+        "def":              "def ",
+        "try":              "try:",
+        "except":           "except:"
     }
 )
 
