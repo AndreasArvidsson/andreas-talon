@@ -46,9 +46,8 @@ bar debug:                   user.vscode("workbench.view.debug")
 bar search:                  user.vscode("workbench.view.search")
 bar source:                  user.vscode("workbench.view.scm")
 bar file:                    user.vscode("workbench.files.action.showActiveFileInExplorer")
-bar results:
-    user.vscode("search.action.focusSearchList")
-    key(home)
+search last:                 user.vscode("search.action.focusPreviousSearchResult")
+search next:                 user.vscode("search.action.focusNextSearchResult")
 
 # Panel
 panel (show | hide):         user.vscode("workbench.action.togglePanel")
