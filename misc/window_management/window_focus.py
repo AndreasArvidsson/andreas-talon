@@ -75,7 +75,6 @@ def get_app(name: str) -> ui.App:
 
 def cycle_windows(app: ui.App, diff: int):
     windows = list(filter(lambda w: not w.hidden and w.title != "", app.windows()))
-    windows = sorted(windows, key=lambda w: w.id)
     current = windows.index(ui.active_window())
     max = len(windows) - 1
     i = actions.user.cycle(current + diff, 0, max)
@@ -152,6 +151,7 @@ class Actions:
     def focus_window(window: ui.Window):
         """Focus window and wait until finished"""
         window.focus()
+
         t1 = time.monotonic()
         while ui.active_window() != window:
             if time.monotonic() - t1 > 1:
