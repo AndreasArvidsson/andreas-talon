@@ -8,13 +8,17 @@ sidebar (show | hide):   key(ctrl-shift-d)
 panel (show | hide):     key(ctrl-.)
 
 all unreads:             key(ctrl-shift-a)
-jump to:                 key(ctrl-k)
 direct messages:         key(ctrl-shift-k)
 go threads:
     key(ctrl-k)
     "Threads"
     sleep(300ms)
     key(enter)
+
+jump to [<user.text>]:
+    key(ctrl-k)
+    sleep(100ms)
+    "{text or ''}"
 
 please [<user.text>]$:
     key(ctrl-k)
