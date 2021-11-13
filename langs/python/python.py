@@ -14,6 +14,7 @@ and code.language: python
 
 ctx.lists["self.code_data_type"] = {
     "int":      "int",
+    "float":    "float",
     "bool":     "bool",
     "string":   "str",
     "dict":     "dict",

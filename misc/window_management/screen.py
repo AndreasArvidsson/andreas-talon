@@ -30,14 +30,6 @@ class Actions:
             )
         return screens[screen_number - 1]
 
-    def screens_get_previous(screen: ui.Screen) -> ui.Screen:
-        """Get the screen before this one"""
-        return get_screen_by_offset(screen, -1)
-
-    def screens_get_next(screen: ui.Screen) -> ui.Screen:
-        """Get the screen after this one"""
-        return get_screen_by_offset(screen, 1)
-
     def subtitle(text: str):
         """Show subtitle"""
         show_subtitle(subtitle_canvas, text, info=False)
@@ -58,12 +50,6 @@ def show_subtitle(canvas_list: list, text: str, info: bool):
     for screen in screens:
         canvas = show_subtitle_on_screen(screen, text, info)
         canvas_list.append(canvas)
-
-
-def get_screen_by_offset(screen: ui.Screen, offset: int) -> ui.Screen:
-    screens = ui.screens()
-    index = (screens.index(screen) + offset) % len(screens)
-    return screens[index]
 
 
 def show_screen_number(screen: ui.Screen, number: int):

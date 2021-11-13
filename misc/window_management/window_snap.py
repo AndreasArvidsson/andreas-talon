@@ -1,100 +1,26 @@
-import time
-from operator import xor
 from typing import Optional
+from dataclasses import dataclass
 from talon import ui, Module, Context, actions
 
-
-def _set_window_pos(window, x, y, width, height):
-    """Helper to set the window position."""
-    window.rect = ui.Rect(round(x), round(y), round(width), round(height))
-
-
-def _bring_forward(window):
-    current_window = ui.active_window()
-    try:
-        window.focus()
-        current_window.focus()
-    except Exception as e:
-        # We don't want to block if this fails.
-        print(f"Couldn't bring window to front: {e}")
-
-
-def _get_app_window(app_name: str) -> ui.Window:
-    return actions.self.get_running_app(app_name).active_window
-
-
-def _move_to_screen(
-    window, offset: Optional[int] = None, screen_number: Optional[int] = None
-):
-    """Move a window to a different screen.
-
-    Provide one of `offset` or `screen_number` to specify a target screen.
-
-    Provide `window` to move a specific window, otherwise the current window is
-    moved.
-
-    """
-    assert (
-        screen_number or offset and not (screen_number and offset)
-    ), "Provide exactly one of `screen_number` or `offset`."
-
-    src_screen = window.screen
-
-    if offset:
-        if offset < 0:
-            dest_screen = actions.user.screens_get_previous(src_screen)
-        else:
-            dest_screen = actions.user.screens_get_next(src_screen)
-    else:
-        dest_screen = actions.user.screens_get_by_number(screen_number)
-
-    if src_screen == dest_screen:
-        return
-
-    # Retain the same proportional position on the new screen.
-    dest = dest_screen.visible_rect
-    src = src_screen.visible_rect
-    proportional_width = dest.width / src.width
-    proportional_height = dest.height / src.height
-    _set_window_pos(
-        window,
-        x=dest.left + (window.rect.left - src.left) * proportional_width,
-        y=dest.top + (window.rect.top - src.top) * proportional_height,
-        width=window.rect.width * proportional_width,
-        height=window.rect.height * proportional_height,
-    )
-
-
-def _snap_window_helper(window, pos):
-    screen = window.screen.visible_rect
-
-    _set_window_pos(
-        window,
-        x=screen.x + (screen.width * pos.left),
-        y=screen.y + (screen.height * pos.top),
-        width=screen.width * (pos.right - pos.left),
-        height=screen.height * (pos.bottom - pos.top),
-    )
-
-
-class RelativeScreenPos(object):
-    """Represents a window position as a fraction of the screen."""
-
-    def __init__(self, left, top, right, bottom):
-        self.left = left
-        self.top = top
-        self.bottom = bottom
-        self.right = right
-
-
 mod = Module()
+ctx = Context()
 mod.list(
-    "window_snap_positions",
+    "window_snap_position",
     "Predefined window positions for the current window. See `RelativeScreenPos`.",
 )
 
 
-_snap_positions = {
+@dataclass
+class RelativeScreenPos:
+    """Represents a window position as a fraction of the screen."""
+
+    left: float
+    top: float
+    right: float
+    bottom: float
+
+
+snap_positions = {
     # Halves
     # .---.---.     .-------.
     # |   |   |  &  |-------|
@@ -111,7 +37,7 @@ _snap_positions = {
     "left third": RelativeScreenPos(0, 0, 1 / 3, 1),
     "right third": RelativeScreenPos(2 / 3, 0, 1, 1),
     "left two thirds": RelativeScreenPos(0, 0, 2 / 3, 1),
-    "right two thirds": RelativeScreenPos(1 / 3, 0, 1, 1,),
+    "right two thirds": RelativeScreenPos(1 / 3, 0, 1, 1),
     # Quarters
     # .---.---.
     # |---|---|
@@ -140,34 +66,82 @@ _snap_positions = {
     "fullscreen": RelativeScreenPos(0, 0, 1, 1),
 }
 
+ctx.lists["user.window_snap_position"] = snap_positions.keys()
 
-@mod.capture(rule="{user.window_snap_positions}")
+
+@mod.capture(rule="{user.window_snap_position}")
 def window_snap_position(m) -> RelativeScreenPos:
-    return _snap_positions[m.window_snap_positions]
-
-
-ctx = Context()
-ctx.lists["user.window_snap_positions"] = _snap_positions.keys()
+    return snap_positions[m.window_snap_position]
 
 
 @mod.action_class
 class Actions:
-    def snap_window(pos: RelativeScreenPos) -> None:
+    def snap_window(pos: RelativeScreenPos):
         """Move the active window to a specific position on-screen.
-
         See `RelativeScreenPos` for the structure of this position.
-
         """
-        _snap_window_helper(ui.active_window(), pos)
+        window = ui.active_window()
+        screen = window.screen.visible_rect
+        set_window_pos(
+            window,
+            x=screen.x + (screen.width * pos.left),
+            y=screen.y + (screen.height * pos.top),
+            width=screen.width * (pos.right - pos.left),
+            height=screen.height * (pos.bottom - pos.top),
+        )
 
-    def move_window_next_screen() -> None:
-        """Move the active window to a specific screen."""
-        _move_to_screen(ui.active_window(), offset=1)
-
-    def move_window_previous_screen() -> None:
+    def move_window_previous_screen():
         """Move the active window to the previous screen."""
-        _move_to_screen(ui.active_window(), offset=-1)
+        move_to_screen(ui.active_window(), offset=-1)
 
-    def move_window_to_screen(screen_number: int) -> None:
+    def move_window_next_screen():
+        """Move the active window to a specific screen."""
+        move_to_screen(ui.active_window(), offset=1)
+
+    def move_window_to_screen(screen_number: int):
         """Move the active window leftward by one."""
-        _move_to_screen(ui.active_window(), screen_number=screen_number)
+        move_to_screen(ui.active_window(), screen_number=screen_number)
+
+
+def set_window_pos(window: ui.Window, x, y, width, height):
+    """Helper to set the window position."""
+    window.rect = ui.Rect(round(x), round(y), round(width), round(height))
+
+
+def move_to_screen(
+    window: ui.Window, offset: Optional[int] = None, screen_number: Optional[int] = None
+):
+    """Move a window to a different screen.
+    Provide one of `offset` or `screen_number` to specify a target screen.
+    Provide `window` to move a specific window, otherwise the current window is
+    moved.
+    """
+    assert (
+        screen_number or offset and not (screen_number and offset)
+    ), "Provide exactly one of `screen_number` or `offset`."
+
+    src_screen = window.screen
+
+    if offset:
+        screens = ui.screens()
+        index = (screens.index(src_screen) + offset) % len(screens)
+        dest_screen = screens[index]
+    else:
+        dest_screen = actions.user.screens_get_by_number(screen_number)
+
+    if src_screen == dest_screen:
+        return
+
+    # Retain the same proportional position on the new screen.
+    dest = dest_screen.visible_rect
+    src = src_screen.visible_rect
+    proportional_width = dest.width / src.width
+    proportional_height = dest.height / src.height
+
+    set_window_pos(
+        window,
+        x=dest.left + (window.rect.left - src.left) * proportional_width,
+        y=dest.top + (window.rect.top - src.top) * proportional_height,
+        width=window.rect.width * proportional_width,
+        height=window.rect.height * proportional_height,
+    )
