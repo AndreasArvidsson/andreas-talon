@@ -1,5 +1,5 @@
 tag: browser
-and title: / - YouTube/
+and title: /YouTube| - YouTube$/
 -
 
 fullscreen:        key(f)
