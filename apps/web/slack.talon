@@ -9,17 +9,20 @@ panel (show | hide):     key(ctrl-.)
 
 all unreads:             key(ctrl-shift-a)
 direct messages:         key(ctrl-shift-k)
-go threads:
+
+scout channel [<user.text>]:
+    key(ctrl-k)
+    "{text or ''}"
+pop channel <user.text>:
+    key(ctrl-k)
+    "{text}"
+    sleep(400ms)
+    key(enter)
+pop threads:
     key(ctrl-k)
     "Threads"
-    sleep(300ms)
+    sleep(400ms)
     key(enter)
-
-jump to [<user.text>]:
-    key(ctrl-k)
-    sleep(100ms)
-    "{text or ''}"
-
 please [<user.text>]$:
     key(ctrl-k)
     sleep(100ms)
