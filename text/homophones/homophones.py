@@ -41,7 +41,9 @@ class Actions:
 
     def homophones_get_by_number(word: str, number: int) -> str:
         """Get homophone for the given word and number"""
-        list = get_list(word)
+        list = get_list(word).copy()
+        list.remove(word)
+        list.insert(0, word)
         return get_from_list(list, number)
 
     def homophones_selected():
