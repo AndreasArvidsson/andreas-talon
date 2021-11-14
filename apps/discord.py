@@ -23,6 +23,9 @@ class EditActions:
         actions.sleep("100ms")
         actions.edit.delete()
 
+    def line_insert_down():
+        actions.key("end shift-enter")
+
 
 @ctx.action_class("user")
 class UserActions:
