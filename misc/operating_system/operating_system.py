@@ -1,8 +1,12 @@
 from talon import Context, Module, actions
 import os
 
-key = actions.key
+
 mod = Module()
+mod.list("launch_command", desc="List of applications to launch")
+
+ctx = Context()
+ctx.lists["self.launch_command"] = {}
 
 
 @mod.action_class
@@ -24,14 +28,24 @@ ctx_win.matches = r"""
 os: windows
 """
 
+ctx_win.lists["self.launch_command"] = {
+    "control panel": "control",
+    "sound settings": "control mmsys.cpl sounds",
+    "settings": "ms-settings:",
+    "paint": "mspaint",
+    "notepad": "notepad",
+    "explorer": "explorer",
+    "code": "code",
+}
+
 
 @ctx_win.action_class("user")
 class UserActionsWin:
     def exec(command: str):
-        key("super-r")
+        actions.key("super-r")
         actions.sleep("30ms")
         actions.insert(command)
-        key("enter")
+        actions.key("enter")
 
     def shut_down_os():
-        key("super-x u")
+        actions.key("super-x u")

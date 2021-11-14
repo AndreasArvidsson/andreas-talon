@@ -54,6 +54,7 @@ class Actions:
 def get_windows_paths():
     return {
         "recycle bin":          "shell:RecycleBinFolder",
+        "applications":         "shell:AppsFolder",
         "root":                 environ["HOMEDRIVE"],
         "app data":             environ["APPDATA"],
         "program files":        environ["PROGRAMFILES"],
