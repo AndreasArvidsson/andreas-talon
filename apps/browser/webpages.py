@@ -22,6 +22,8 @@ ctx.lists["self.webpage"] = {
     "news":                 "https://www.svt.se",
     "dropbox":              "https://www.dropbox.com",
     "imdb":                 "https://www.imdb.com",
+    "kbab":                 "https://kbab.se/mina-sidor",
+    "linkedin":             "https://www.linkedin.com",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
