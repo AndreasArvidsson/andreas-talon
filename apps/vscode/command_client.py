@@ -24,12 +24,17 @@ mod = Module()
 
 ctx = Context()
 mac_ctx = Context()
+linux_ctx = Context()
 
 ctx.matches = r"""
 app: vscode
 """
 mac_ctx.matches = r"""
 os: mac
+app: vscode
+"""
+linux_ctx.matches = r"""
+os: linux
 app: vscode
 """
 
@@ -48,7 +53,6 @@ def run_vscode_command_by_command_palette(command_id: str):
 
 def write_json_exclusive(path: Path, body: Any):
     """Writes jsonified object to file, failing if the file already exists
-
     Args:
         path (Path): The path of the file to write
         body (Any): The object to convert to json and write
@@ -78,11 +82,9 @@ class Request:
 def write_request(request: Request, path: Path):
     """Converts the given request to json and writes it to the file, failing if
     the file already exists unless it is stale in which case it replaces it
-
     Args:
         request (Request): The request to serialize
         path (Path): The path to write to
-
     Raises:
         Exception: If another process has an active request file
     """
@@ -105,12 +107,9 @@ def handle_existing_request_file(path):
     time_difference_ms = abs(modified_time_ms - current_time_ms)
 
     if time_difference_ms < STALE_TIMEOUT_MS:
-        if time_difference_ms < VSCODE_COMMAND_TIMEOUT_SECONDS:
-            raise Exception(
-                "Found recent request file; another Talon process is probably running"
-            )
-        else:
-            raise Exception("Found recent request file; vscode is probably hung")
+        raise Exception(
+            "Found recent request file; another Talon process is probably running"
+        )
     else:
         print("Removing stale request file")
         robust_unlink(path)
@@ -123,16 +122,13 @@ def run_vscode_command(
     return_command_output: bool = False,
 ):
     """Runs a VSCode command, using command server if available
-
     Args:
         command_id (str): The ID of the VSCode command to run
         wait_for_finish (bool, optional): Whether to wait for the command to finish before returning. Defaults to False.
         return_command_output (bool, optional): Whether to return the output of the command. Defaults to False.
-
     Raises:
         Exception: If there is an issue with the file-based communication, or
         VSCode raises an exception
-
     Returns:
         Object: The response from the command, if requested.
     """
@@ -203,7 +199,6 @@ def run_vscode_command(
 
 def get_communication_dir_path():
     """Returns directory that is used by command-server for communication
-
     Returns:
         Path: The path to the communication dir
     """
@@ -220,7 +215,6 @@ def get_communication_dir_path():
 def robust_unlink(path: Path):
     """Unlink the given file if it exists, and if we're on windows and it is
     currently in use, just rename it
-
     Args:
         path (Path): The path to unlink
     """
@@ -244,13 +238,10 @@ def robust_unlink(path: Path):
 def read_json_with_timeout(path: str) -> Any:
     """Repeatedly tries to read a json object from the given path, waiting
     until there is a trailing new line indicating that the write is complete
-
     Args:
         path (str): The path to read from
-
     Raises:
         Exception: If we timeout waiting for a response
-
     Returns:
         Any: The json-decoded contents of the file
     """
@@ -354,10 +345,16 @@ class Actions:
     def trigger_command_server_command_execution():
         """Issue keystroke to trigger command server to execute command that
         was written to the file.  For internal use only"""
-        actions.key("ctrl-shift-alt-p")
+        actions.key("ctrl-shift-f17")
 
 
 @mac_ctx.action_class("user")
 class MacUserActions:
     def trigger_command_server_command_execution():
-        actions.key("cmd-shift-alt-p")
+        actions.key("cmd-shift-f17")
+
+
+@linux_ctx.action_class("user")
+class LinuxUserActions:
+    def trigger_command_server_command_execution():
+        actions.key("ctrl-shift-alt-p")
