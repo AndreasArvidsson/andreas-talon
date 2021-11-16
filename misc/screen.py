@@ -32,14 +32,15 @@ class Actions:
 
     def subtitle(text: str):
         """Show subtitle"""
-        show_text(subtitle_canvas, text, is_subtitle=True)
+        show_text(text, is_subtitle=True)
 
     def notify(text: str):
         """Show notification"""
-        show_text(info_canvas, text, is_subtitle=False)
+        show_text(text, is_subtitle=False)
 
 
-def show_text(canvas_list: list, text: str, is_subtitle: bool):
+def show_text(text: str, is_subtitle: bool):
+    canvas_list = subtitle_canvas if is_subtitle else info_canvas
     for canvas in canvas_list:
         canvas.close()
     canvas_list.clear()
