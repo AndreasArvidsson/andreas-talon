@@ -13,8 +13,6 @@ def on_phrase(d):
     global history
     if not actions.speech.enabled():
         return
-    if debug_timings_setting.get():
-        actions.user.print_phrase_timings(d)
     try:
         words = d["parsed"]._unmapped
     except:
@@ -23,6 +21,9 @@ def on_phrase(d):
         text = " ".join(words)
         if show_subtitles:
             actions.user.subtitle(text)
+        if debug_timings_setting.get():
+            print(text)
+            actions.user.print_phrase_timings(d)
         history.append(text)
         history = history[-setting_size_setting.get() :]
 
