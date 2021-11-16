@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, Context
 from ....andreas.merge import merge
 
 mod = Module()
@@ -13,10 +13,10 @@ default_digits = "zero one two three four five six seven eight nine ten eleven t
     " ")
 
 mod.list("key_alphabet", desc="The spoken phonetic alphabet")
-ctx.lists["self.key_alphabet"] = merge(
-    {alphabet[i]: chr(ord("a") + i) for i in range(len(alphabet))},
-    {"aalder": "å", "aerlig": "ä", "oesten": "ö"}
-)
+ctx.lists["self.key_alphabet"] = {
+    **{alphabet[i]: chr(ord("a") + i) for i in range(len(alphabet))},
+    **{"aalder": "å", "aerlig": "ä", "oesten": "ö"}
+}
 
 mod.list("key_number", desc="All number keys")
 ctx.lists["self.key_number"] = {default_digits[i]: str(i) for i in range(10)}
@@ -71,55 +71,47 @@ ctx.lists["self.key_punctuation"] = {
 
 # Symbols available in command mode, but NOT during dictation.
 mod.list("key_symbol", desc="All symbols from the keyboard")
-ctx.lists["self.key_symbol"] = merge(
-    ctx.lists["self.key_punctuation"],
-    {
-        "void":             " ",
-        "dot":              ".",
-        "semi":             ";",
-        "dash":             "-",
-        "downscore":        "_",
+ctx.lists["self.key_symbol"] = {
+    "void":             " ",
+    "dot":              ".",
+    "comma":            ",",
+    "colon":            ":",
+    "semi":             ";",
+    "dash":             "-",
+    "downscore":        "_",
 
-        "bang":             "!",
-        "hash":             "#",
-        "star":             "*",
-        "dollar":           "$",
-        "percent":          "%",
-        "question":         "?",
-        "amper":            "&",
+    "bang":             "!",
+    "hash":             "#",
+    "star":             "*",
+    "dollar":           "$",
+    "percent":          "%",
+    "question":         "?",
+    "amper":            "&",
+    "at sign":          "@",
 
-        "quote":            '"',
-        "apostrophe":       "'",
-        "back tick":        "` ",
-        "brick":            "` ",
+    "quote":            '"',
+    "apostrophe":       "'",
+    "brick":            "` ",
 
-        "slash":            "/",
-        "backslash":        "\\",
-        "pipe":             "|",
+    "slash":            "/",
+    "backslash":        "\\",
+    "pipe":             "|",
 
-        "paren":            "(",
-        "right paren":      ")",
-        "rearen":           ")",
-        "brace":            "{",
-        "right brace":      "}",
-        "race":             "}",
-        "square":           "[",
-        "right square":     "]",
-        "rare":             "]",
-        "angle":            "<",
-        "right angle":      ">",
-        "rangle":           ">",
+    "paren":            "(",
+    "rearen":           ")",
+    "brace":            "{",
+    "race":             "}",
+    "square":           "[",
+    "rare":             "]",
+    "angle":            "<",
+    "rangle":           ">",
 
-        "caret":            "^ ",
-        "tilde":            "~ ",
-        "plus":             "+",
-        "minus":            "-",
-        "equals":           "="
-    },
-    {
-        "period":           None
-    }
-)
+    "caret":            "^ ",
+    "tilde":            "~ ",
+    "plus":             "+",
+    "minus":            "-",
+    "equals":           "="
+}
 
 
 @mod.capture(rule="{self.key_modifier}+")
