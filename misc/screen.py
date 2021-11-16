@@ -1,4 +1,4 @@
-from talon import Module, actions, ui, cron
+from talon import Module, ui, cron
 from talon.canvas import Canvas
 from talon.skia import Paint as Paint
 from talon.skia.imagefilter import ImageFilter as ImageFilter
@@ -32,14 +32,14 @@ class Actions:
 
     def subtitle(text: str):
         """Show subtitle"""
-        show_subtitle(subtitle_canvas, text, info=False)
+        show_text(subtitle_canvas, text, is_subtitle=True)
 
     def notify(text: str):
         """Show notification"""
-        show_subtitle(info_canvas, text, info=True)
+        show_text(info_canvas, text, is_subtitle=False)
 
 
-def show_subtitle(canvas_list: list, text: str, info: bool):
+def show_text(canvas_list: list, text: str, is_subtitle: bool):
     for canvas in canvas_list:
         canvas.close()
     canvas_list.clear()
@@ -48,7 +48,7 @@ def show_subtitle(canvas_list: list, text: str, info: bool):
     else:
         screens = [ui.main_screen()]
     for screen in screens:
-        canvas = show_subtitle_on_screen(screen, text, info)
+        canvas = show_text_on_screen(screen, text, is_subtitle)
         canvas_list.append(canvas)
 
 
@@ -70,19 +70,21 @@ def show_screen_number(screen: ui.Screen, number: int):
     canvas.freeze()
 
 
-def show_subtitle_on_screen(screen: ui.Screen, text: str, info: bool):
+def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
     def on_draw(c):
         # The min(width, height) is to not get gigantic size on portrait height
         height = min(c.width, c.height)
-        rect = set_subtitle_height_and_get_rect(c, height, text)
+        rect = set_text_size_and_get_rect(c, height, text)
         x = c.x + c.width / 2 - rect.x - rect.width / 2
-        if info:
-            y = c.y + c.height / 2 + rect.height / 2
-        else:
+        if is_subtitle:
             y = c.y + c.height - round(height / 20)
-        draw_text(c, text, x, y, info)
+        # Notification
+        else:
+            y = c.y + c.height / 2 + rect.height / 2
+        draw_text(c, text, x, y, is_subtitle)
         timeout = max(750, len(text) * 50)
-        if info:
+        # Notification
+        if not is_subtitle:
             timeout *= 2
         cron.after(f"{timeout}ms", canvas.close)
 
@@ -92,7 +94,7 @@ def show_subtitle_on_screen(screen: ui.Screen, text: str, info: bool):
     return canvas
 
 
-def set_subtitle_height_and_get_rect(c, height: int, text: str):
+def set_text_size_and_get_rect(c, height: int, text: str):
     height_div = 14
     while True:
         c.paint.textsize = round(height / height_div)
@@ -102,15 +104,15 @@ def set_subtitle_height_and_get_rect(c, height: int, text: str):
         height_div += 2
 
 
-def draw_text(c, text: str, x: int, y: int, info: bool = False):
+def draw_text(c, text: str, x: int, y: int, is_subtitle: bool = True):
     filter = ImageFilter.drop_shadow(2, 2, 1, 1, "000000")
     c.paint.imagefilter = filter
 
     c.paint.style = c.paint.Style.FILL
-    c.paint.color = "6495ED" if info else "ffffff"
+    c.paint.color = "ffffff" if is_subtitle else "6495ED"
     c.draw_text(text, x, y)
 
-    if not info:
+    if is_subtitle:
         # Border / outline
         c.paint.imagefilter = None
         c.paint.style = c.paint.Style.STROKE
