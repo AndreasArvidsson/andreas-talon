@@ -8,7 +8,7 @@ subtitles_all_screens_setting = mod.setting(
     "subtitles_all_screens", bool, default=False
 )
 subtitle_canvas = []
-info_canvas = []
+notify_canvas = []
 
 
 @mod.action_class
@@ -40,7 +40,7 @@ class Actions:
 
 
 def show_text(text: str, is_subtitle: bool):
-    canvas_list = subtitle_canvas if is_subtitle else info_canvas
+    canvas_list = subtitle_canvas if is_subtitle else notify_canvas
     for canvas in canvas_list:
         canvas.close()
     canvas_list.clear()
@@ -79,12 +79,12 @@ def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
         x = c.x + c.width / 2 - rect.x - rect.width / 2
         if is_subtitle:
             y = c.y + c.height - round(height / 20)
-        # Notification
+        # Notify
         else:
             y = c.y + c.height / 2 + rect.height / 2
         draw_text(c, text, x, y, is_subtitle)
         timeout = max(750, len(text) * 50)
-        # Notification
+        # Notify
         if not is_subtitle:
             timeout *= 2
         cron.after(f"{timeout}ms", canvas.close)
