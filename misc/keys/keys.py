@@ -46,8 +46,7 @@ ctx.lists["self.key_modifier"] = {
     "alt":          "alt",
     "control":      "ctrl",
     "shift":        "shift",
-    "super":        "super",
-    "win":          "super"
+    "super":        "super"
 }
 
 # Symbols you want available BOTH in dictation and command mode.
