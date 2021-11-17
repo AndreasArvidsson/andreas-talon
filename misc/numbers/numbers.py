@@ -1,4 +1,4 @@
-from talon import Context, Module, actions
+from talon import Context, Module
 from typing import List, Optional, Union, Iterator
 
 mod = Module()
