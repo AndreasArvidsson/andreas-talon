@@ -80,7 +80,8 @@ simple_default_vocabulary = [
     "aegis",
     "vimium",
     "karlstad",
-    "yeah"
+    "yeah",
+    "usb"
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
