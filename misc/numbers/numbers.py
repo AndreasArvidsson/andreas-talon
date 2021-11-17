@@ -56,12 +56,16 @@ def scan_small_numbers(l: List[str]) -> Iterator[Union[str,int]]:
 def parse_scale(scale: str, l: List[Union[str,int]]) -> List[Union[str,int]]:
     """Parses a list of mixed numbers & strings for occurrences of the following
     pattern:
+
         <multiplier> <scale> <remainder>
+
     where <scale> is a scale word like "hundred", "thousand", "million", etc and
     multiplier and remainder are numbers or strings of numbers of the
     appropriate size. For example:
+
         parse_scale("hundred", [1, "hundred", 2]) -> [102]
         parse_scale("thousand", [12, "thousand", 3, 45]) -> [12345]
+
     We assume that all scales of lower magnitude have already been parsed; don't
     call parse_scale("thousand") until you've called parse_scale("hundred").
     """
@@ -109,13 +113,53 @@ def split_list(value, l: list) -> Iterator:
     yield l[start:]
 
 
+# # ---------- TESTS (uncomment to run) ----------
+# def test_number(expected, string):
+#     print('testing:', string)
+#     l = list(scan_small_numbers(string.split()))
+#     print("  scan --->", l)
+#     for scale in scales:
+#         old = l
+#         l = parse_scale(scale, l)
+#         if scale in old: print("  parse -->", l)
+#         else: assert old == l, "parse_scale should do nothing if the scale does not occur in the list"
+#     result = "".join(str(n) for n in l)
+#     assert result == parse_number(string.split())
+#     assert str(expected) == result, f"parsing {string!r}, expected {expected}, got {result}"
+
+# test_number(105000, "one hundred and five thousand")
+# test_number(1000000, "one thousand thousand")
+# test_number(1501000, "one million five hundred one thousand")
+# test_number(1501106, "one million five hundred and one thousand one hundred and six")
+# test_number(123, "one two three")
+# test_number(123, "one twenty three")
+# test_number(104, "ten four") # borderline, but valid in some dialects
+# test_number(1066, "ten sixty six") # a common way of saying years
+# test_number(1906, "nineteen oh six") # year
+# test_number(2001, "twenty oh one") # year
+# test_number(2020, "twenty twenty")
+# test_number(1001, "one thousand one")
+# test_number(1010, "one thousand ten")
+# test_number(123456, "one hundred and twenty three thousand and four hundred and fifty six")
+# test_number(123456, "one twenty three thousand four fifty six")
+
+# ## failing (and somewhat debatable) tests from old numbers.py
+# #test_number(10000011, "one million one one")
+# #test_number(100001010, "one million ten ten")
+# #test_number(1050006000, "one hundred thousand and five thousand and six thousand")
+
+
 # ---------- CAPTURES ----------
 alt_digits = "(" + ("|".join(digits_map.keys())) + ")"
 alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
 alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
+# don't allow numbers to start with scale words like "hundred", "thousand", etc
+leading_words = numbers_map.keys() - scales_map.keys()
+leading_words -= {'oh', 'o'} # comment out to enable bare/initial "oh"
+number_word_leading = f"({'|'.join(leading_words)})"
 
-@mod.capture(rule=f"{number_word}+ (and {number_word}+)*")
+@mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
     return parse_number(list(m))
@@ -126,7 +170,8 @@ def number(m) -> int:
     return int(m.number_string)
 
 @ctx.capture("number_small", rule=f"({alt_digits} | {alt_teens} | {alt_tens} [{alt_digits}])")
-def number_small(m): return int(parse_number(list(m)))
+def number_small(m): 
+    return int(parse_number(list(m)))
 
 @mod.capture(rule="(numb | number) <user.number_string>")
 def number_prefix(m) -> str:
