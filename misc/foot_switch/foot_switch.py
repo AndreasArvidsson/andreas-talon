@@ -13,7 +13,7 @@ class Actions:
     def foot_switch_key(key: int) -> bool:
         """Is foot switch pressed"""
         is_down = not pressed[key]
-        pressed[key] = not pressed[key]
+        pressed[key] = is_down
 
         if is_down:
             timestamps[key] = time.perf_counter()
