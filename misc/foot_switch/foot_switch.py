@@ -80,7 +80,6 @@ class Actions:
     def foot_switch_right_down():
         """Foot switch button right:down"""
         actions.core.repeat_command(1)
-        # actions.user.go_forward()
 
     def foot_switch_right_up():
         """Foot switch button right:up"""

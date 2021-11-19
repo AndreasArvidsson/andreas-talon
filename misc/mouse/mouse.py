@@ -51,6 +51,9 @@ class Actions:
     def mouse_click(action: str):
         """Click mouse button"""
         stop_scroll()
+        if not actions.user.zoom_mouse_idle():
+            actions.user.zoom_mouse_click(action)
+            return
         if action == "left":
             ctrl.mouse_click(button=0)
         elif action == "right":
