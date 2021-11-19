@@ -12,7 +12,9 @@ timestamps = [0, 0, 0, 0]
 class Actions:
     def foot_switch_key(key: int) -> bool:
         """Is foot switch pressed"""
-        is_down = not is_pressed(key)
+        is_down = not pressed[key]
+        pressed[key] = not pressed[key]
+
         if is_down:
             timestamps[key] = time.perf_counter()
         else:
@@ -76,13 +78,6 @@ class Actions:
         # print("right:up")
 
 
-def is_pressed(key: int) -> bool:
-    """Is foot switch pressed"""
-    result = pressed[key]
-    pressed[key] = not pressed[key]
-    return result
-
-
 # Browser
 ctx_browser = Context()
 ctx_browser.matches = r"""
@@ -119,3 +114,37 @@ class AvActions:
 
     def foot_switch_right_up():
         actions.user.mute()
+
+
+# Mouse zoom mode
+ctx_zoom = Context()
+ctx_zoom.matches = r"""
+mode: user.zoom_mouse
+"""
+
+
+@ctx_zoom.action_class("user")
+class ZoomActions:
+    def foot_switch_top_down():
+        actions.user.zoom_mouse_click("triple")
+
+    def foot_switch_top_up():
+        return
+
+    def foot_switch_center_down():
+        actions.user.zoom_mouse_click("middle")
+
+    def foot_switch_center_up():
+        return
+
+    def foot_switch_left_down():
+        actions.user.zoom_mouse_click("double")
+
+    def foot_switch_left_up():
+        return
+
+    def foot_switch_right_down():
+        actions.user.zoom_mouse_click("right")
+
+    def foot_switch_right_up():
+        return
