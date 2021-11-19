@@ -148,3 +148,25 @@ class ZoomActions:
 
     def foot_switch_right_up():
         return
+
+
+# Vscode
+ctx_vscode = Context()
+ctx_vscode.matches = r"""
+app: vscode
+"""
+
+
+@ctx_vscode.action_class("user")
+class VscodeActions:
+    def foot_switch_left_down():
+        actions.user.vscode("workbench.action.navigateBack")
+
+    def foot_switch_left_up():
+        return
+
+    def foot_switch_right_down():
+        actions.user.vscode("workbench.action.navigateForward")
+
+    def foot_switch_right_up():
+        return
