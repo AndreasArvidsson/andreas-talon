@@ -1,5 +1,9 @@
 # Formatted code phrase: "camel hello there" -> helloThere
-<user.formatters_code> <user.text> [over]:
+<user.formatters_code> <user.text>:
+    user.insert_and_format(text, formatters_code)
+<user.formatters_code> <user.text> over:
+        user.insert_and_format(text, formatters_code)
+stric <user.formatters_code> <user.text>$:
     user.insert_and_format(text, formatters_code)
 
 # Formatted prose phrase: "sentence hello there" -> Hello there

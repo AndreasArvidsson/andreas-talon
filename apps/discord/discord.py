@@ -33,3 +33,6 @@ class UserActions:
         actions.user.select_word_right()
         actions.sleep("100ms")
         actions.edit.delete()
+
+    def mute():
+        actions.key("ctrl-shift-m")

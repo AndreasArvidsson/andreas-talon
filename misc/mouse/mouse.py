@@ -91,13 +91,18 @@ class Actions:
         actions.mouse_scroll(y=amount)
 
     def mouse_scrolling(direction: str):
-        """Starts scrolling continuously"""
+        """Toggle scrolling continuously"""
         global scroll_job, scroll_dir
         stop_zoom()
         if direction == "up":
-            scroll_dir = -1
+            new_scroll_dir = -1
         else:
-            scroll_dir = 1
+            new_scroll_dir = 1
+        # Issuing a scroll in the same direction as existing aborts it. 
+        if scroll_job != None and scroll_dir == new_scroll_dir:
+            stop_scroll()
+            return
+        scroll_dir = new_scroll_dir
         if scroll_job is None:
             scroll_continuous_helper()
             scroll_job = cron.interval("30ms", scroll_continuous_helper)

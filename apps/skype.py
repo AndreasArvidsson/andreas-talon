@@ -14,7 +14,16 @@ ctx.matches = r"""
 app: skype
 """
 
+ctx.tags = ["user.av"]
+
+
 @ctx.action_class("edit")
 class EditActions:
     def line_insert_down():
         actions.key("end ctrl-enter")
+
+
+@ctx.action_class("user")
+class UserActions:
+    def mute():
+        actions.key("ctrl-m")

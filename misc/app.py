@@ -1,14 +1,17 @@
 from talon import Context, Module, actions
-key = actions.key
 
-ctx = Context()
+
 mod = Module()
+ctx = Context()
 
 
 @ctx.action_class("app")
 class AppActionsWin:
-    def window_open():       key("ctrl-n")
-    def window_close():      key("alt-f4")
+    def window_open():
+        actions.key("ctrl-n")
+
+    def window_close():
+        actions.key("alt-f4")
 
 
 @mod.action_class
@@ -20,3 +23,6 @@ class Actions:
         if actions.user.scroll_stop():
             return
         actions.key("escape:3")
+
+    def mute():
+        """Mute conversation"""

@@ -1,5 +1,4 @@
 from talon import Module, Context, actions, imgui
-import logging
 import re
 
 mod = Module()

@@ -1,10 +1,8 @@
-os: windows
-and app.name: Discord
-os: windows
-and app.exe: Discord.exe
+app: discord
 -
+tag(): user.av
 
-mute:               key(ctrl-shift-m)
+mute:               user.mute()
 deafen:             key(ctrl-shift-d)
 
 server last:        key(ctrl-alt-up)

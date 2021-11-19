@@ -24,6 +24,8 @@ ctx.lists["self.webpage"] = {
     "imdb":                 "https://www.imdb.com",
     "kbab":                 "https://kbab.se/mina-sidor",
     "linkedin":             "https://www.linkedin.com",
+    "prisjakt":             "https://classic.prisjakt.nu",
+    "pricerunner":          "https://www.pricerunner.se",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
