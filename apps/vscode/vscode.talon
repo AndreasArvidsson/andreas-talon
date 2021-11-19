@@ -87,8 +87,8 @@ unfold all:                  user.vscode("editor.unfoldAll")
 fold comments:               user.vscode("editor.foldAllBlockComments")
 
 # Navigation
-go back:                     user.vscode("workbench.action.navigateBack")
-go forward:                  user.vscode("workbench.action.navigateForward")
+go back:                     user.go_back()
+go forward:                  user.go_forward()
 take next:                   user.vscode("editor.action.addSelectionToNextFindMatch")
 take last:                   user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:              user.vscode("editor.action.selectHighlights")

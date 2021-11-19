@@ -14,12 +14,12 @@ tag: user.bash
 
 @ctx.action_class("user")
 class UserActions:
-    def file_manager_go_back():         insert("cd $OLDPWD\n")
-    def file_manager_go_forward():      insert("cd $OLDPWD\n")
+    def go_back():                      insert("cd $OLDPWD\n")
+    def go_forward():                   insert("cd $OLDPWD\n")
     def file_manager_go_parent():       user.file_manager_open_directory("..")
     def file_manager_focus_address():   actions.skip()
     def file_manager_copy_address():    insert("pwd | clipboard\n")
-        
+
     def file_manager_open_directory(path: str):
         path = path.replace(" ", "\\ ")
         insert(f"cd {path}")

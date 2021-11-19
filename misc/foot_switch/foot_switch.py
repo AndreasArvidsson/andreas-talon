@@ -12,9 +12,6 @@ timestamps = [0, 0, 0, 0]
 class Actions:
     def foot_switch_key(key: int) -> bool:
         """Is foot switch pressed"""
-        if not actions.speech.enabled():
-            return
-
         is_down = not pressed[key]
         pressed[key] = not pressed[key]
 
@@ -46,60 +43,34 @@ class Actions:
 
     def foot_switch_top_down():
         """Foot switch button top:down"""
-        # print("top:down")
         actions.user.mouse_scrolling("up")
 
     def foot_switch_top_up():
         """Foot switch button top:up"""
-        # print("top:up")
         actions.user.mouse_stop()
 
     def foot_switch_center_down():
         """Foot switch button center:down"""
-        # print("center:down")
         actions.user.mouse_scrolling("down")
 
     def foot_switch_center_up():
         """Foot switch button center:up"""
-        # print("center:up")
         actions.user.mouse_stop()
 
     def foot_switch_left_down():
         """Foot switch button left:down"""
-        # print("left:down")
+        actions.user.go_back()
 
     def foot_switch_left_up():
         """Foot switch button left:up"""
-        # print("left:up")
-
-    def foot_switch_right_down():
-        """Foot switch button right:down"""
-        # print("right:down")
-
-    def foot_switch_right_up():
-        """Foot switch button right:up"""
-        # print("right:up")
-
-
-# Browser
-ctx_browser = Context()
-ctx_browser.matches = r"""
-tag: browser
-"""
-
-
-@ctx_browser.action_class("user")
-class BrowserActions:
-    def foot_switch_left_down():
-        actions.browser.go_back()
-
-    def foot_switch_left_up():
         return
 
     def foot_switch_right_down():
-        actions.browser.go_forward()
+        """Foot switch button right:down"""
+        actions.user.go_forward()
 
     def foot_switch_right_up():
+        """Foot switch button right:up"""
         return
 
 
@@ -148,28 +119,6 @@ class ZoomActions:
 
     def foot_switch_right_down():
         actions.user.zoom_mouse_click("right")
-
-    def foot_switch_right_up():
-        return
-
-
-# Vscode
-ctx_vscode = Context()
-ctx_vscode.matches = r"""
-app: vscode
-"""
-
-
-@ctx_vscode.action_class("user")
-class VscodeActions:
-    def foot_switch_left_down():
-        actions.user.vscode("workbench.action.navigateBack")
-
-    def foot_switch_left_up():
-        return
-
-    def foot_switch_right_down():
-        actions.user.vscode("workbench.action.navigateForward")
 
     def foot_switch_right_up():
         return

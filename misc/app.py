@@ -26,3 +26,9 @@ class Actions:
 
     def mute():
         """Mute conversation"""
+
+    def go_back():
+        """Navigate back"""
+
+    def go_forward():
+        """Navigate forward"""

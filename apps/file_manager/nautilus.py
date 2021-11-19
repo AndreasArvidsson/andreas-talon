@@ -21,8 +21,8 @@ ctx.tags = ["user.file_manager", "user.tabs"]
 class UserActions:
     def tab_jump(number: int):          key(f"ctrl-{number}")
     
-    def file_manager_go_back():         key("alt-left")
-    def file_manager_go_forward():      key("alt-right")
+    def go_back():                      key("alt-left")
+    def go_forward():                   key("alt-right")
     def file_manager_go_parent():       key("alt-up")
     def file_manager_focus_address():   key("ctrl-l")
     def file_manager_show_properties(): key("ctrl-i")

@@ -124,6 +124,8 @@ class UserActions:
     def definition_split():     vscode("editor.action.revealDefinitionAside")
     def references_go():        vscode("editor.action.goToReferences")
     def references_peek():      vscode("editor.action.referenceSearch.trigger")
+    def go_back():              vscode("workbench.action.navigateBack")
+    def go_forward():           vscode("workbench.action.navigateForward")
 
     def line_middle(n: int = None):
         if n:

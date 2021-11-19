@@ -1,6 +1,21 @@
-from talon import Module
+from talon import Module, Context, actions
 
 mod = Module()
+ctx = Context()
+
+ctx.matches = r"""
+tag: browser
+"""
+
+
+@ctx.action_class("user")
+class UserActions:
+    def go_back():
+        actions.browser.go_back()
+
+    def go_forward():
+        actions.browser.go_forward()
+
 
 @mod.action_class
 class Actions:

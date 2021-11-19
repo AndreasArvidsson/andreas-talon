@@ -29,8 +29,8 @@ app: windows_file_browser
 
 @ctx.action_class("user")
 class UserActions:
-    def file_manager_go_back():         key("alt-left")
-    def file_manager_go_forward():      key("alt-right")
+    def go_back():                      key("alt-left")
+    def go_forward():                   key("alt-right")
     def file_manager_go_parent():       key("alt-up")
     def file_manager_focus_address():   key("alt-d")
     def file_manager_copy_address():

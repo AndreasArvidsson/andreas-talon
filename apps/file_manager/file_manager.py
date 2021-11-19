@@ -25,10 +25,6 @@ class Actions:
         return actions.path.user_home()
 
     # ----- Navigation -----
-    def file_manager_go_back():
-        """File manager go back"""
-    def file_manager_go_forward():
-        """File manager go forward"""
     def file_manager_go_parent():
         """File manager go parent"""
     def file_manager_focus_address():
