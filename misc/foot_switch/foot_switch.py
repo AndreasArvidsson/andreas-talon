@@ -63,13 +63,16 @@ class Actions:
 
     def foot_switch_left_up():
         """Foot switch button left:up"""
+        return ""
 
     def foot_switch_right_down():
         """Foot switch button right:down"""
         actions.user.go_forward()
+        # actions.core.repeat_command(1)
 
     def foot_switch_right_up():
         """Foot switch button right:up"""
+        return ""
 
 
 # Video / Audio conferencing
