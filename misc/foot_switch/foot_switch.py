@@ -6,6 +6,7 @@ mod.tag("av")
 
 pressed = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
+scroll_reversed = False
 
 
 @mod.action_class
@@ -41,9 +42,17 @@ class Actions:
             elif is_hold:
                 actions.user.foot_switch_right_up()
 
+    def foot_switch_scroll_reversed():
+        """ "Reverse scroll direction on foot switch"""
+        global scroll_reversed
+        scroll_reversed = not scroll_reversed
+
     def foot_switch_top_down():
         """Foot switch button top:down"""
-        actions.user.mouse_scrolling("up")
+        if scroll_reversed:
+            actions.user.mouse_scrolling("down")
+        else:
+            actions.user.mouse_scrolling("up")
 
     def foot_switch_top_up():
         """Foot switch button top:up"""
@@ -51,7 +60,10 @@ class Actions:
 
     def foot_switch_center_down():
         """Foot switch button center:down"""
-        actions.user.mouse_scrolling("down")
+        if scroll_reversed:
+            actions.user.mouse_scrolling("up")
+        else:
+            actions.user.mouse_scrolling("down")
 
     def foot_switch_center_up():
         """Foot switch button center:up"""
