@@ -38,6 +38,7 @@ class Actions:
         """Click mouse button with zoom mouse"""
         global next_action
         next_action = action
+        actions.user.notify(action)
 
     def zoom_mouse_on_pop():
         """Zoom mouse on pop event"""

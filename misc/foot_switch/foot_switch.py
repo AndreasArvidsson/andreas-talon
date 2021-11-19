@@ -63,7 +63,6 @@ class Actions:
 
     def foot_switch_left_up():
         """Foot switch button left:up"""
-        return
 
     def foot_switch_right_down():
         """Foot switch button right:down"""
@@ -71,7 +70,6 @@ class Actions:
 
     def foot_switch_right_up():
         """Foot switch button right:up"""
-        return
 
 
 # Video / Audio conferencing
@@ -102,23 +100,11 @@ class ZoomActions:
     def foot_switch_top_down():
         actions.user.zoom_mouse_click("triple")
 
-    def foot_switch_top_up():
-        return
-
     def foot_switch_center_down():
         actions.user.zoom_mouse_click("middle")
-
-    def foot_switch_center_up():
-        return
 
     def foot_switch_left_down():
         actions.user.zoom_mouse_click("double")
 
-    def foot_switch_left_up():
-        return
-
     def foot_switch_right_down():
         actions.user.zoom_mouse_click("right")
-
-    def foot_switch_right_up():
-        return
