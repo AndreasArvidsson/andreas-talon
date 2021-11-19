@@ -12,6 +12,9 @@ timestamps = [0, 0, 0, 0]
 class Actions:
     def foot_switch_key(key: int) -> bool:
         """Is foot switch pressed"""
+        if not actions.speech.enabled():
+            return
+
         is_down = not pressed[key]
         pressed[key] = not pressed[key]
 
