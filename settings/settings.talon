@@ -21,5 +21,8 @@ settings():
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas/cursorless-settings"
 
+    # Mouse scroll step
+    user.scroll_step = 200
+
     # Record speech
     # speech.record_all = 1

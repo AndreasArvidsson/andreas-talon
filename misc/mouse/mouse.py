@@ -85,8 +85,7 @@ class Actions:
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
         stop_zoom()
-        scroll_step = setting_scroll_step.get()
-        amount = scroll_step * times
+        amount = get_scroll_step() * times
         if direction == "up":
             amount = -amount
         actions.mouse_scroll(y=amount)
@@ -170,6 +169,12 @@ class Actions:
         ctrl.mouse_move(rect.left + (rect.width / 2), rect.top + (rect.height / 2))
 
 
+def get_scroll_step():
+    if app.platform == "linux":
+        return setting_scroll_step.get() * 0.1
+    return setting_scroll_step.get()
+
+
 def stop_zoom():
     if not actions.user.zoom_mouse_idle():
         actions.user.zoom_mouse_cancel()
@@ -192,8 +197,7 @@ def stop_scroll():
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
         p = scroll_speed / 100
-        scroll_step = setting_scroll_step.get()
-        amount = p * scroll_dir * scroll_step / 20
+        amount = p * scroll_dir * get_scroll_step() / 20
         actions.mouse_scroll(by_lines=False, y=amount)
 
 
