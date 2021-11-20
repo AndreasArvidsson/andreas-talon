@@ -1,12 +1,11 @@
-from talon import Context, actions, ui, Module, app, clip, registry, scope
-from talon_init import VENV_BIN
+from talon import actions, Module, app, clip, registry, scope
 import os
 import re
 from itertools import islice
-from pathlib import Path
 
 mod = Module()
 pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
+
 
 def create_name(text, max_len=20):
     return "_".join(list(islice(pattern.findall(text), max_len))).lower()
@@ -43,12 +42,13 @@ class Actions:
                 app.platform, actions.app.bundle()
             )
         elif app.platform == "windows":
-            result = "os: windows\nand app.name: {}\nos: windows\nand app.exe: {}\n".format(
-                friendly_name, executable
+            result = (
+                "os: windows\nand app.name: {}\nos: windows\nand app.exe: {}\n".format(
+                    friendly_name, executable
+                )
             )
         else:
-            result = "os: {}\nand app.name: {}\n".format(
-                app.platform, friendly_name)
+            result = "os: {}\nand app.name: {}\n".format(app.platform, friendly_name)
 
         clip.set_text(result)
 
@@ -62,7 +62,12 @@ class Actions:
 
     def talon_get_actions_long() -> str:
         """Get long actions list as text"""
-        return format("actions", registry.decls.actions, add_desc = True)
+        return format("actions", registry.decls.actions, add_desc=True)
+
+    def talon_get_actions_search(text: str) -> str:
+        """Get list of actions from search parameter"""
+        actions = filter_search(registry.decls.actions, text)
+        return format("actions", actions, add_desc=True)
 
     def talon_get_modes() -> str:
         """Get modes as text"""
@@ -88,15 +93,18 @@ class Actions:
         """Get core lists and captures as text"""
         captures = filter_core(registry.decls.captures)
         actions = filter_core(registry.decls.actions)
-        captures_string = format("captures", captures, add_desc = True)
-        actions_string = format("actions", actions, add_desc = True)
+        captures_string = format("captures", captures, add_desc=True)
+        actions_string = format("actions", actions, add_desc=True)
         return f"{captures_string}\n\n{actions_string}"
 
 
-def format(title, values, add_desc = False) -> str:
+def format(title, values, add_desc=False) -> str:
     text = f"-------- {title.upper()} ({len(values)}) ------------\n"
     for name in sorted(values):
-        text += f"{name}\n"
+        text += f"{name}"
+        if add_desc:
+            text += "()"
+        text += "\n"
         if add_desc:
             desc = values[name].desc.replace("\n", " ")
             desc = re.sub(" +", " ", desc)
@@ -104,9 +112,18 @@ def format(title, values, add_desc = False) -> str:
     text += "\n----------------------------------"
     return text
 
+
 def filter_core(values: dict) -> dict:
     result = {}
     for k in values:
         if not k.startswith("user."):
+            result[k] = values[k]
+    return result
+
+
+def filter_search(values: dict, text: str) -> dict:
+    result = {}
+    for k in values:
+        if text in k:
             result[k] = values[k]
     return result
