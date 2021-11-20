@@ -46,7 +46,7 @@ class Actions:
             elif is_hold:
                 actions.user.foot_switch_right_up()
 
-    def foot_switch_scroll_reversed():
+    def foot_switch_scroll_reverse():
         """Reverse scroll direction using foot switch"""
         global scroll_reversed
         scroll_reversed = not scroll_reversed
