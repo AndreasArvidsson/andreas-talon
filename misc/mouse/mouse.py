@@ -18,7 +18,7 @@ ctx.lists["self.mouse_click"] = {
     "move": "move",
 }
 
-setting_scroll_step = mod.setting("scroll_step", int)
+setting_scroll_step = mod.setting("scroll_step", type=int, default=120)
 
 scroll_job = None
 gaze_job = None
