@@ -67,6 +67,8 @@ class BrowserActions:
 class AppActions:
     def tab_detach():
         key("escape ctrl-alt-M")
+    def preferences():
+        actions.user.browser_open("about:preferences")
 
 
 @ctx.action_class("user")

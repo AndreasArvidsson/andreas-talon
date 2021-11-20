@@ -1,4 +1,4 @@
-go settings:        app.preferences()
+open settings:      app.preferences()
 
 system shutdown:    user.system_shutdown()
 system restart:     user.system_restart()
