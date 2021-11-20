@@ -21,22 +21,26 @@ class Actions:
         else:
             is_hold = time.perf_counter() - timestamps[key] > 0.5
 
+        # Top
         if key == 0:
             if is_down:
                 actions.user.foot_switch_top_down()
             elif is_hold:
                 actions.user.foot_switch_top_up()
-        if key == 1:
+        # Center
+        elif key == 1:
             if is_down:
                 actions.user.foot_switch_center_down()
             elif is_hold:
                 actions.user.foot_switch_center_up()
-        if key == 2:
+        # Left
+        elif key == 2:
             if is_down:
                 actions.user.foot_switch_left_down()
             elif is_hold:
                 actions.user.foot_switch_left_up()
-        if key == 3:
+        # Right
+        elif key == 3:
             if is_down:
                 actions.user.foot_switch_right_down()
             elif is_hold:
@@ -122,3 +126,15 @@ class ZoomActions:
 
     def foot_switch_right_down():
         actions.user.zoom_mouse_click("right")
+
+    def foot_switch_top_up():
+        return ""
+
+    def foot_switch_center_up():
+        return ""
+
+    def foot_switch_left_up():
+        return ""
+
+    def foot_switch_right_up():
+        return ""
