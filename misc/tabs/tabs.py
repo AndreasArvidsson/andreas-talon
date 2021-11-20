@@ -39,3 +39,6 @@ class TabActions:
 
     def tab_duplicate():
         """Duplicate tab"""
+
+    def tab_back():
+        """Jump to last used tab"""

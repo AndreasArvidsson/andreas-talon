@@ -166,6 +166,7 @@ class UserActions:
 
     # ----- Tabs -----
     def quick_fix():            vscode("editor.action.quickFix")
+    def tab_back():             vscode("workbench.action.openPreviousRecentlyUsedEditor")
     def tab_final():            key("alt-0")
 
     def tab_jump(number: int):

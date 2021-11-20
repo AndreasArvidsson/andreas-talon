@@ -21,8 +21,7 @@ bitwarden generate:   key(ctrl-shift-9)
 
 # Vimium
 
-tab back:             key(escape ctrl-alt-N)
-tab split:            key(escape ctrl-alt-M)
+tab split:            app.tab_detach()
 
 hunt:
     user.stop_app()

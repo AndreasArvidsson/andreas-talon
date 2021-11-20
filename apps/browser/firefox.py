@@ -63,6 +63,12 @@ class BrowserActions:
         key("enter")
 
 
+@ctx.action_class("app")
+class AppActions:
+    def tab_detach():
+        key("escape ctrl-alt-M")
+
+
 @ctx.action_class("user")
 class UserActions:
     def tab_jump(number: int):
@@ -70,6 +76,7 @@ class UserActions:
             key(f"ctrl-{number}")
 
     def tab_final():    key("ctrl-9")
+    def tab_back():     key("escape ctrl-alt-N")
 
     def browser_open(url: str):
         actions.browser.focus_address()
