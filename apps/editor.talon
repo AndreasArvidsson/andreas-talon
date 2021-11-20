@@ -121,3 +121,8 @@ push {user.key_symbol}:
     edit.line_insert_down()
 
 stop:                              user.stop_app()
+
+pick <number_small>:
+    edit.down()
+    repeat(number_small-2)
+    key(enter)
