@@ -12,7 +12,7 @@ scroll_reversed = False
 @mod.action_class
 class Actions:
     def foot_switch_key(key: int) -> bool:
-        """Is foot switch pressed"""
+        """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
         is_down = not pressed[key]
         pressed[key] = is_down
 
@@ -43,7 +43,7 @@ class Actions:
                 actions.user.foot_switch_right_up()
 
     def foot_switch_scroll_reversed():
-        """ "Reverse scroll direction on foot switch"""
+        """Reverse scroll direction using foot switch"""
         global scroll_reversed
         scroll_reversed = not scroll_reversed
 
@@ -86,7 +86,7 @@ class Actions:
         return ""
 
 
-# Video / Audio conferencing
+# Audio / Video conferencing
 ctx_av = Context()
 ctx_av.matches = r"""
 tag: user.av
