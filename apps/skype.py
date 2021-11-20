@@ -25,5 +25,5 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
-    def mute():
+    def mute_microphone():
         actions.key("ctrl-m")

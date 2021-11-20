@@ -2,7 +2,6 @@ app: discord
 -
 tag(): user.av
 
-mute:               user.mute()
 deafen:             key(ctrl-shift-d)
 
 server last:        key(ctrl-alt-up)

@@ -12,8 +12,10 @@ ctx.matches = r"""
 app: jitsi
 """
 
+ctx.tags = ["user.av"]
+
 
 @ctx.action_class("user")
 class UserActions:
-    def mute():
+    def mute_microphone():
         actions.key("m")

@@ -34,5 +34,5 @@ class UserActions:
         actions.sleep("100ms")
         actions.edit.delete()
 
-    def mute():
+    def mute_microphone():
         actions.key("ctrl-shift-m")

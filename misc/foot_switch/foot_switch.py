@@ -100,10 +100,10 @@ tag: user.av
 @ctx_av.action_class("user")
 class AvActions:
     def foot_switch_right_down():
-        actions.user.mute()
+        actions.user.mute_microphone()
 
     def foot_switch_right_up():
-        actions.user.mute()
+        actions.user.mute_microphone()
 
 
 # Mouse zoom mode

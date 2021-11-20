@@ -24,8 +24,8 @@ class Actions:
             return
         actions.key("escape:3")
 
-    def mute():
-        """Mute conversation"""
+    def mute_microphone():
+        """Mute microphone"""
 
     def go_back():
         """Navigate back"""
