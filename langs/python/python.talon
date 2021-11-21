@@ -9,7 +9,7 @@ tag(): user.generic_language
 
 # ----- Python additional -----
 
-is in:   " in "
+(op | is) in:   " in "
 
 format string:
     'f""'

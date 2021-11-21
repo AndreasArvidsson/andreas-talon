@@ -85,31 +85,6 @@ clone line:                        edit.line_clone()
 drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
-# ----- Matching delimiter pairs -----
-round:
-    "()"
-    key(left)
-index:
-    "[]"
-    key(left)
-diamond:
-    "<>"
-    key(left)
-block:
-    "{}"
-    key(left)
-twin:
-    "''"
-    key(left)
-(string | quad):
-    '""'
-    key(left)
-
-# ----- Delimiters with trailing space -----
-spam:                              ", "
-colgap:                            ": "
-period:                            ". "
-
 # ----- Misc -----
 stop:                              user.stop_app()
 disk:                              edit.save()
