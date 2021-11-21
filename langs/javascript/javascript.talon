@@ -6,14 +6,11 @@ and mode: user.auto_lang
 and code.language: javascript
 
 mode: command
-and mode: user.typescript
-
-mode: command
-and mode: user.auto_lang
-and code.language: typescript
+and tag: user.javascript
 -
 tag(): user.generic_language
 tag(): user.comments
+tag(): user.html
 
 # ----- JavaScript additional -----
 

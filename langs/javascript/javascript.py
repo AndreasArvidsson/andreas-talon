@@ -2,8 +2,9 @@ from talon import Module, Context, actions
 key = actions.key
 insert = actions.insert
 mod = Module()
-ctx = Context()
+mod.tag("javascript")
 
+ctx = Context()
 ctx.matches = r"""
 mode: command
 and mode: user.javascript
@@ -13,11 +14,7 @@ and mode: user.auto_lang
 and code.language: javascript
 
 mode: command
-and mode: user.typescript
-
-mode: command
-and mode: user.auto_lang
-and code.language: typescript
+and tag: user.javascript
 """
 
 ctx.lists["self.code_data_type"] = {

@@ -8,7 +8,6 @@ and code.language: talon
 tag(): user.operators
 tag(): user.comments
 
-
 # Context requirements
 require win:     "os: windows\n"
 require mac:     "os: mac\n"

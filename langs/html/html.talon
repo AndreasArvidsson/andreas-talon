@@ -6,11 +6,7 @@ and mode: user.auto_lang
 and code.language: html
 
 mode: command
-and mode: user.javascript
-
-mode: command
-and mode: user.auto_lang
-and code.language: javascript
+and tag: user.html
 -
 
 block tag {user.code_tag}:
@@ -36,5 +32,5 @@ attr <user.text>:
     ' {text}=""'
     key(left)
 
-make doctype:                    "<!DOCTYPE html>\n"
-make blank:                      "&nbsp;"
+make doctype:                     "<!DOCTYPE html>\n"
+make blank:                       "&nbsp;"
