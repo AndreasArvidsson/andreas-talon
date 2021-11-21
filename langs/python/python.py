@@ -81,6 +81,8 @@ class UserActions:
     def op_less_or_eq():        insert(" <= ")
     def op_greater_or_eq():     insert(" >= ")
     def op_not():               insert("not ")
+    def op_equal_null():        insert(" is None")
+    def op_not_equal_null():    insert(" is not None")
     # Logical operators
     def op_and():               insert(" and ")
     def op_or():                insert(" or ")

@@ -1,6 +1,5 @@
 tag: user.generic_language
 -
-tag(): user.operators
 
 # ----- Selection statements -----
 make if:                      user.code_if()
@@ -48,7 +47,7 @@ function [{user.code_access_modifier}] <user.variable_name>:
     user.history_add_phrase(name)
     user.code_function(code_access_modifier or "", name)
 
-function main:                 user.code_main_function()
+function main:                user.code_main_function()
 
 # ----- Variable statement -----
 var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name>:
@@ -63,10 +62,10 @@ var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name> (
     user.history_add_phrase(name)
     user.code_variable(code_access_modifier or "", code_data_type or "", name, "ASSIGN")
 
-type {user.code_data_type}:    "{code_data_type}"
+type {user.code_data_type}:   "{code_data_type}"
 
 # ----- Function call -----
-call {user.code_function}:     user.code_call_function(code_function)
+call {user.code_function}:    user.code_call_function(code_function)
 
 # ----- Member access -----
 {user.code_member_op} {user.code_member}:

@@ -6,6 +6,7 @@ and mode: user.auto_lang
 and code.language: java
 -
 tag(): user.generic_language
+tag(): user.operators
 tag(): user.comments
 
 # ----- Java additional -----
@@ -24,6 +25,3 @@ new <user.variable_name>:
     user.history_add_phrase(name)
     "new {name}();"
     key(left:2)
-
-(op | is) null:       " == null"
-(op | is) not null:   " != null"

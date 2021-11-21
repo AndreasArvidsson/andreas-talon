@@ -8,6 +8,13 @@ and code.language: talon
 tag(): user.operators
 tag(): user.comments
 
+# Generic
+make new line:   "\\n"
+
+make print:
+    "print()"
+    key(left)
+
 # Context requirements
 require win:     "os: windows\n"
 require mac:     "os: mac\n"
@@ -17,12 +24,7 @@ require app:     "app: "
 require tag:     "tag: "
 
 make tag:        "tag(): "
-make new line:   "\\n"
 
 make key:
     "key()"
-    key(left)
-
-make print:
-    "print()"
     key(left)

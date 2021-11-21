@@ -8,9 +8,10 @@ and code.language: javascript
 mode: command
 and tag: user.javascript
 -
-tag(): user.generic_language
-tag(): user.comments
 tag(): user.html
+tag(): user.generic_language
+tag(): user.operators
+tag(): user.comments
 
 # ----- JavaScript additional -----
 
@@ -21,7 +22,7 @@ arrow function <user.variable_name>:
     "const {name} = () => {{\n\n}}\n"
     key(up:3 end left:6)
 
-convert to arrow:     user.arrowify_line()
+convert to arrow:   user.arrowify_line()
 
 make for in loop:
     "for (const i in ) {\n\n}\n"
@@ -37,9 +38,6 @@ method <user.variable_name>:
 make arrow function:
     "() => {\n\n}"
     key(up:2 end left:6)
-
-(op | is) null:       " == null"
-(op | is) not null:   " != null"
 
 format string:
     "``"

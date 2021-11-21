@@ -48,6 +48,10 @@ class Actions:
         """Boolean is greater or equal operator"""
     def op_not():
         """Boolean not operator"""
+    def op_equal_null():
+        """Boolean equal null operator"""
+    def op_not_equal_null():
+        """Boolean not equal null operator"""
 
     # ----- Logical operators -----
     def op_and():

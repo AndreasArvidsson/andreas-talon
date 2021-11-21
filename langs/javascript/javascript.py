@@ -68,9 +68,7 @@ class UserActions:
     def op_mod():               insert(" % ")
     def op_mod_assign():        insert(" %= ")
     def op_exp():               insert(" ** ")
-    # Boolean operators
-    def op_and():               insert(" && ")
-    def op_or():                insert(" || ")
+    # Comparison operators
     def op_equal():             insert(" === ")
     def op_not_equal():         insert(" !== ")
     def op_less():              insert(" < ")
@@ -78,6 +76,11 @@ class UserActions:
     def op_less_or_eq():        insert(" <= ")
     def op_greater_or_eq():     insert(" >= ")
     def op_not():               insert("!")
+    def op_equal_null():        insert(" == null")
+    def op_not_equal_null():    insert(" != null")
+    # Logical operators
+    def op_and():               insert(" && ")
+    def op_or():                insert(" || ")
 
     # Comments
     def comments_insert(text: str = ""):
