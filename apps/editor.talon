@@ -85,10 +85,7 @@ clone line:                        edit.line_clone()
 drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
-# ----- Save -----
-disk:                              edit.save()
-
-# ----- Brackets -----
+# ----- Matching delimiter pairs -----
 round:
     "()"
     key(left)
@@ -101,8 +98,6 @@ diamond:
 block:
     "{}"
     key(left)
-
-# ----- Quotes -----
 twin:
     "''"
     key(left)
@@ -110,17 +105,19 @@ twin:
     '""'
     key(left)
 
-# ----- Misc -----
+# ----- Delimiters with trailing space -----
 spam:                              ", "
 colgap:                            ": "
 period:                            ". "
+
+# ----- Misc -----
+stop:                              user.stop_app()
+disk:                              edit.save()
 
 push {user.key_symbol}:
     edit.line_end()
     "{key_symbol}"
     edit.line_insert_down()
-
-stop:                              user.stop_app()
 
 pick <number_small>:
     edit.down()
