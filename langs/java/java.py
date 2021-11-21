@@ -1,3 +1,4 @@
+from typing import List
 from talon import Module, Context, actions
 from ....andreas.merge import merge
 
@@ -16,6 +17,26 @@ and mode: user.auto_lang
 and code.language: java
 """
 
+access_modifiers = { x:x for x in ["public", "private", "protected"] }
+abstract = { "abstract": "abstract" }
+final = { "final": "final" }
+static = { "static": "static" }
+ctx.lists["self.code_class_modifier"] = {
+    **access_modifiers,
+    **abstract,
+    **final
+}
+ctx.lists["self.code_function_modifier"] = { 
+    **access_modifiers,
+    **abstract,
+    **final,
+    **static
+}
+ctx.lists["self.code_variable_modifier"] = { 
+    **access_modifiers,
+    **final,
+    **static
+}
 ctx.lists["self.code_data_type"] = merge(
     {
         "int", "long", "short", "char", "byte", "float", "double", "String",
@@ -28,14 +49,8 @@ ctx.lists["self.code_data_type"] = merge(
         "hash map":         "HashMap"
     }
 )
-ctx.lists["self.code_member_op"] = {
-    "dot": "."
-}
 ctx.lists["self.code_function"] = {
     "to string":    "toString"
-}
-ctx.lists["self.code_member"] = {
-    "length"
 }
 ctx.lists["self.code_statement"] = {
     "import":               "import ",
@@ -44,12 +59,7 @@ ctx.lists["self.code_statement"] = {
     "this":                 "this",
     "this dot":             "this.",
     "new":                  "new ",
-    "public":               "public ",
-    "private":              "private ",
     "extends":              "extends "
-}
-ctx.lists["self.code_access_modifier"] = {
-    "public", "private", "protected"
 }
 
 
@@ -143,42 +153,42 @@ class UserActions:
         key("left")
 
     # Class declaration
-    def code_class(access_modifier: str or None, name: str):
+    def code_class(name: str, modifiers: List[str]):
         text = f"class {name} {{}}"
-        if access_modifier:
-            text = f"{access_modifier} {text}"
+        if modifiers:
+            text = f"{' '.join(modifiers)} {text}"
         else:
             text = f"public {text}"
         insert(text)
         key("left enter")
 
     # Constructor declaration
-    def code_constructor(access_modifier: str or None):
+    def code_constructor(modifiers: List[str]):
         name = actions.user.vscode_get("andreas.constructorName")
         if not name:
             return
-        if access_modifier:
-            name = f"{access_modifier} {name}"
+        if modifiers:
+            text = f"{' '.join(modifiers)} {name}"
         else:
-            name = f"public {name}"
-        snip_func(name)
+            text = f"public {name}"
+        snip_func(text)
 
     # Function declaration
-    def code_function(access_modifier: str or None, name: str):
-        name = f"void {name}"
-        if access_modifier:
-            text = f"{access_modifier} {name}"
-        snip_func(name)
-    def code_main_function():
+    def code_function(name: str, modifiers: List[str]):
+        text = f"void {name}"
+        if modifiers:
+            text = f"{' '.join(modifiers)} {text}"
+        snip_func(text)
+    def code_function_main():
         snip_func("public static void main", "String[] args")
 
     # Variable declaration
-    def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
+    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
         text = name
         if data_type:
             text = f"{data_type} {text}"
-        if access_modifier:
-            text = f"{access_modifier} {text}"
+        if modifiers:
+            text = f"{' '.join(modifiers)} {text}"
         if assign:
             text = text + " = "
         insert(text)
@@ -187,10 +197,6 @@ class UserActions:
     def code_call_function(name: str):
         insert(f"{name}()")
         key("left")
-
-    # Member access
-    def code_member_access(operator: str, name: str):
-        insert(f"{operator}{name}")
 
     # Formatting getters
     def code_get_class_format() -> str: return "PASCAL_CASE"

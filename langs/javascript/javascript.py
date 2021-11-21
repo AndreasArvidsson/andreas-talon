@@ -1,6 +1,8 @@
+from typing import List
 from talon import Module, Context, actions
 key = actions.key
 insert = actions.insert
+
 mod = Module()
 mod.tag("javascript")
 
@@ -17,19 +19,21 @@ mode: command
 and tag: user.javascript
 """
 
-ctx.lists["self.code_data_type"] = {
-    "let", "const"
+ctx.lists["self.code_class_modifier"] = {}
+ctx.lists["self.code_function_modifier"] = {}
+ctx.lists["self.code_variable_modifier"] = {
+    "const", "let"
 }
-ctx.lists["self.code_member_op"] = {
-    "dot": "."
+ctx.lists["self.code_data_type"] = {
+    "bool":     "boolean",
+    "number":   "number",
+    "string":   "string",
+    "any":      "any"
 }
 ctx.lists["self.code_function"] = {
     "forEach", "map", "flatMap", "filter", "reduce",
     "sort", "find", "includes", "indexOf",
     "join", "require"
-}
-ctx.lists["self.code_member"] = {
-    "length"
 }
 ctx.lists["self.code_statement"] = {
     "import":               "import ",
@@ -44,11 +48,7 @@ ctx.lists["self.code_statement"] = {
     "arrow":                " => ",
     "this":                 "this",
     "this dot":             "this.",
-    "new":                  "new ",
-    "const":                "const ",
-    "let":                  "let ",
-    "bool":                 "boolean",
-    "number":               "number"
+    "new":                  "new "
 }
 
 
@@ -142,24 +142,28 @@ class UserActions:
         key("left")
 
     # Class statement
-    def code_class(access_modifier: str or None, name: str):
+    def code_class(name: str, modifiers: List[str]):
         insert(f"class {name} {{}}")
         key("left enter")
 
     # Constructor statement
-    def code_constructor(access_modifier: str):
+    def code_constructor(modifiers: List[str]):
         snip_func("constructor")
 
     # Function statement
-    def code_function(access_modifier: str or None, name: str):
+    def code_function(name: str, modifiers: List[str]):
         snip_func(f"function {name}")
 
     # Variable statement
-    def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
+    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
+        text = name
+        print(text)
+        print(modifiers)
+        print(data_type)
+        if modifiers:
+            text = f"{' '.join(modifiers)} {text}"
         if data_type:
-            text = f"{data_type} {name}"
-        else:
-            text = name
+            text = f"{text}: {data_type}"
         if assign:
             text = text + " = "
         insert(text)
@@ -168,10 +172,6 @@ class UserActions:
     def code_call_function(name: str):
         insert(f"{name}()")
         key("left")
-
-    # Member access
-    def code_member_access(operator: str, name: str):
-        insert(f"{operator}{name}")
 
     # Formatting getters
     def code_get_class_format() -> str: return "PASCAL_CASE"

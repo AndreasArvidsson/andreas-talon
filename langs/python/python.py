@@ -1,3 +1,4 @@
+from typing import List
 from talon import Module, Context, actions
 from ....andreas.merge import merge
 
@@ -15,44 +16,48 @@ and mode: user.auto_lang
 and code.language: python
 """
 
+access_modifiers = {
+    "public":       "",
+    "protected":    "_",
+    "private":      "__"
+}
+ctx.lists["self.code_class_modifier"] = {}
+ctx.lists["self.code_function_modifier"] = access_modifiers
+ctx.lists["self.code_variable_modifier"] = {
+    **access_modifiers,
+    "global": "global"
+}
 ctx.lists["self.code_data_type"] = {
     "int":      "int",
     "float":    "float",
     "bool":     "bool",
     "string":   "str",
     "dict":     "dict",
+    "set":      "set",
     "list":     "list",
-    "tuple":    "tuple"
-}
-ctx.lists["self.code_access_modifier"] = {
-    "global"
-}
-ctx.lists["self.code_member_op"] = {
-    "dot": "."
+    "tuple":    "tuple",
+    "range":    "range"
 }
 ctx.lists["self.code_function"] = {
     "format", "strip", "lstrip", "rstrip", "replace", "split",
     "len", "type", "range"
 }
-ctx.lists["self.code_member"] = {
-
-}
 ctx.lists["self.code_statement"] = merge(
     {
-        "self", "None", "zip"
+        "None",
     },
     {
         "from":             "from ",
         "import":           "import ",
         "lambda":           "lambda ",
         "arrow":            " -> ",
-        "self dot":         "self.",
-        "string":           "str",
         "regexp":           "re",
         "def":              "def ",
+        "class":            "class ",
         "try":              "try:",
         "except":           "except:",
-        "global":           "global "
+        "self":             "self",
+        "self dot":         "self.",
     }
 )
 
@@ -136,26 +141,27 @@ class UserActions:
         key("left")
 
     # Class statement
-    def code_class(access_modifier: str or None, name: str):
-        insert("class {}:".format(name))
+    def code_class(name: str, modifiers: List[str]):
+        insert(f"class {name}:")
         actions.edit.line_insert_down()
 
     # Constructor statement
-    def code_constructor(access_modifier: str):
+    def code_constructor(modifiers: List[str]):
         insert("def __init__(self):")
         key("left:2")
 
     # Function statement
-    def code_function(access_modifier: str or None, name: str):
-        insert(f"def {name}():")
+    def code_function(name: str, modifiers: List[str]):
+        insert(f"def {''.join(modifiers)}{name}():")
         key("left:2")
 
     # Variable statement
-    def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
+    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
+        text = name
+        if modifiers:
+            text = f"{' '.join(modifiers)} {text}"
         if data_type:
-            text = f"{data_type} {name}"
-        else:
-            text = name
+            text = f"{text}: {data_type}"
         if assign:
             text = text + " = "
         insert(text)
@@ -164,10 +170,6 @@ class UserActions:
     def code_call_function(name: str):
         insert(f"{name}()")
         key("left")
-
-    # Member access
-    def code_member_access(operator: str, name: str):
-        insert(f"{operator}{name}")
 
     # Formatting getters
     def code_get_class_format() -> str: return "PASCAL_CASE"

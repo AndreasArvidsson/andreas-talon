@@ -19,6 +19,10 @@ tab duplicate:            user.tab_duplicate()
 tab (reopen | restore):   app.tab_reopen()
 
 tab close:                app.tab_close()
+tab final close:
+    user.tab_final()
+    sleep(50ms)
+    app.tab_close()
 tab <user.digit> close:
     user.tab_jump(digit)
     sleep(50ms)

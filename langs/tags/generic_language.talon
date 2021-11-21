@@ -21,7 +21,8 @@ make false:                   user.code_false()
 make break:                   user.code_break()
 make continue:                user.code_continue()
 make return:                  user.code_return()
-make {user.code_statement}:   "{code_statement}"
+make {user.code_statement}:
+    "{code_statement}"
 
 make print:                   user.code_print("")
 make print <user.text>$:
@@ -31,43 +32,26 @@ make print <user.text>$:
 format string:                user.code_format_string()
 
 # ----- Class statement -----
-class [{user.code_access_modifier}] <user.variable_name>:
-    format = user.code_get_class_format()
-    name = user.format_text(variable_name, format)
-    user.history_add_phrase(name)
-    user.code_class(code_access_modifier or "", name)
+{user.code_class_modifier}* class <user.variable_name>:
+    user.code_class_wrapper(variable_name, code_class_modifier_list or "")
 
 # ----- Constructor statement -----
-constructor [{user.code_access_modifier}]:
-    user.code_constructor(code_access_modifier or "")
+{user.code_function_modifier}* constructor:
+    user.code_constructor_wrapper(code_function_modifier_list or "")
 
 # ----- Function statement -----
-function [{user.code_access_modifier}] <user.variable_name>:
-    format = user.code_get_function_format()
-    name = user.format_text(variable_name, format)
-    user.history_add_phrase(name)
-    user.code_function(code_access_modifier or "", name)
+{user.code_function_modifier}* function <user.variable_name>:
+    user.code_function_wrapper(variable_name, code_function_modifier_list or "")
 
-function main:                user.code_main_function()
+function main:                user.code_function_main()
 
-# ----- Variable statement -----
-var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name>:
-    format = user.code_get_variable_format()
-    name = user.format_text(variable_name, format)
-    user.history_add_phrase(name)
-    user.code_variable(code_access_modifier or "", code_data_type or "", name, "")
-
-var [{user.code_access_modifier}] [{user.code_data_type}] <user.variable_name> (equals | equal):
-    format = user.code_get_variable_format()
-    name = user.format_text(variable_name, format)
-    user.history_add_phrase(name)
-    user.code_variable(code_access_modifier or "", code_data_type or "", name, "ASSIGN")
+# # ----- Variable statement -----
+({user.code_variable_modifier}* {user.code_data_type} | {user.code_variable_modifier}+) <user.variable_name>:
+    user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 0, code_data_type or "")
+({user.code_variable_modifier}* {user.code_data_type} | {user.code_variable_modifier}+) <user.variable_name> equals:
+    user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 1, code_data_type or "")
 
 type {user.code_data_type}:   "{code_data_type}"
 
 # ----- Function call -----
 call {user.code_function}:    user.code_call_function(code_function)
-
-# ----- Member access -----
-{user.code_member_op} {user.code_member}:
-    user.code_member_access(code_member_op, code_member)

@@ -1,13 +1,14 @@
+from typing import List, Union
 from talon import Module, actions
 
 mod = Module()
 mod.tag("generic_language")
 
-mod.list("code_member_op", desc="Operators to access members")
-mod.list("code_function", desc="Names of functions")
-mod.list("code_member", desc="Names of member")
+mod.list("code_class_modifier", desc="Class modifiers")
+mod.list("code_function_modifier", desc="Function modifiers")
+mod.list("code_variable_modifier", desc="Variable modifiers")
 mod.list("code_data_type", desc="Names of data types")
-mod.list("code_access_modifier", desc="Names of access modifiers")
+mod.list("code_function", desc="Names of functions")
 mod.list("code_statement", desc="Names of miscellaneous statements")
 
 
@@ -60,30 +61,47 @@ class tab_actions:
         """Format string statement"""
 
     # ----- Class statement -----
-    def code_class(access_modifier: str or None, name: str):
+    def code_class_wrapper(name: str, modifiers: Union[List[str], str]):
+        """Class declaration wrapper"""
+        format = actions.user.code_get_class_format()
+        name = actions.user.format_text(name, format)
+        actions.user.history_add_phrase(name)
+        actions.user.code_class(name, modifiers or [])
+    def code_class(name: str, modifiers: List[str]):
         """Class declaration"""
 
     # ----- Constructor statement -----
-    def code_constructor(access_modifier: str or None):
+    def code_constructor_wrapper(modifiers: Union[List[str], str]):
+        """Constructor declaration wrapper"""
+        actions.user.code_constructor(modifiers or [])
+    def code_constructor(modifiers: List[str]):
         """Constructor declaration"""
 
     # ----- Function statement -----
-    def code_function(access_modifier: str or None, name: str):
+    def code_function_wrapper(name: str, modifiers: Union[List[str], str]):
+        """Function declaration wrapper"""
+        format = actions.user.code_get_function_format()
+        name = actions.user.format_text(name, format)
+        actions.user.history_add_phrase(name)
+        actions.user.code_function(name, modifiers or [])
+    def code_function(name: str, modifiers: List[str]):
         """Function declaration"""
-    def code_main_function():
+    def code_function_main():
         """Main function declaration"""
 
     # ----- Variable statement -----
-    def code_variable(access_modifier: str or None, data_type: str or None, name: str, assign: str or None):
+    def code_variable_wrapper(name: str, modifiers: Union[List[str], str], assign: int, data_type: str = None):
+        """Variable statement wrapper"""
+        format = actions.user.code_get_variable_format()
+        name = actions.user.format_text(name, format)
+        actions.user.history_add_phrase(name)
+        actions.user.code_variable(name, modifiers or [], bool(assign), data_type)
+    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
         """Variable statement"""
 
     # ----- Function call -----
     def code_call_function(name: str):
         """Function call"""
-
-    # ----- Member access -----
-    def code_member_access(operator: str, name: str):
-        """Code member access"""
 
     # ----- Formatting getters -----
     def code_get_class_format() -> str:

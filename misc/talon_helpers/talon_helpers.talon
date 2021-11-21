@@ -1,11 +1,9 @@
 talon print context:
     name = app.name()
-    executable =  app.executable()
-    bundle = app.bundle()
+    executable = app.executable()
     title = win.title()
     print("Name: {name}")
     print("Executable: {executable}")
-    print("Bundle: {bundle}")
     print("Title: {title}")
 
 talon print title:                 print(win.title())
