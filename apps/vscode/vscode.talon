@@ -5,7 +5,7 @@ tag(): user.scroll
 tag(): user.cursorless_experimental_snippets
 
 settings():
-    user.scroll_step = 300
+    user.scroll_step = 400
 
 # Language features
 suggest param:               user.vscode("editor.action.triggerParameterHints")
