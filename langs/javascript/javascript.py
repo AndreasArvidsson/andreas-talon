@@ -137,6 +137,10 @@ class UserActions:
             insert("console.log();")
             key("left:2")
 
+    def code_format_string():
+        insert("``")
+        key("left")
+
     # Class statement
     def code_class(access_modifier: str or None, name: str):
         insert(f"class {name} {{}}")

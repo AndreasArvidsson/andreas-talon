@@ -21,13 +21,14 @@ make false:                   user.code_false()
 make break:                   user.code_break()
 make continue:                user.code_continue()
 make return:                  user.code_return()
+make {user.code_statement}:   "{code_statement}"
 
 make print:                   user.code_print("")
 make print <user.text>$:
     text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     user.code_print(text)
-make new line:                "\\n"
-make {user.code_statement}:   "{code_statement}"
+
+format string:                user.code_format_string()
 
 # ----- Class statement -----
 class [{user.code_access_modifier}] <user.variable_name>:

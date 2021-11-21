@@ -9,8 +9,6 @@ tag(): user.operators
 tag(): user.comments
 
 # Generic
-make new line:   "\\n"
-
 make print:
     "print()"
     key(left)

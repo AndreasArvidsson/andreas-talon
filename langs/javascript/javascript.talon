@@ -38,7 +38,3 @@ method <user.variable_name>:
 make arrow function:
     "() => {\n\n}"
     key(up:2 end left:6)
-
-format string:
-    "``"
-    key(left)

@@ -56,10 +56,8 @@ class tab_actions:
         """return statement"""
     def code_print(text: str = None):
         """Print statement"""
-    def code_comment():
-        """Inline comment"""
-    def code_block_comment():
-        """Block comment"""
+    def code_format_string():
+        """Format string statement"""
 
     # ----- Class statement -----
     def code_class(access_modifier: str or None, name: str):

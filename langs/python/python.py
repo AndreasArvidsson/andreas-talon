@@ -131,6 +131,10 @@ class UserActions:
             insert("print()")
             key("left")
 
+    def code_format_string():
+        insert('f""')
+        key("left")
+
     # Class statement
     def code_class(access_modifier: str or None, name: str):
         insert("class {}:".format(name))

@@ -8,6 +8,7 @@ and code.language: html
 mode: command
 and tag: user.html
 -
+tag(): user.comments
 
 block tag {user.code_tag}:
     "<{code_tag}>\n\n</{code_tag}>"

@@ -51,7 +51,7 @@ ctx.lists["self.code_tag"] = tag_names
 tags = []
 
 @mod.action_class
-class UserActions:
+class Actions:
     def code_push_tag_name(name: str):
         """Push tag name"""
         tags.append(name)
@@ -62,3 +62,13 @@ class UserActions:
             return
         name = tags.pop()
         actions.insert(f"</{name}>" )
+
+@ctx.action_class("user")
+class UserActions:
+    # Comments
+    def comments_insert(text: str = ""):
+        actions.insert(f"<!-- {text} -->")
+        actions.key("left:4")
+
+    def comments_insert_block(text: str = ""):
+        actions.user.comments_insert(text)

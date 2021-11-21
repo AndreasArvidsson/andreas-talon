@@ -138,6 +138,10 @@ class UserActions:
             insert("System.out.println();")
             key("left:2")
 
+    def code_format_string():
+        insert("String.format()")
+        key("left")
+
     # Class declaration
     def code_class(access_modifier: str or None, name: str):
         text = f"class {name} {{}}"

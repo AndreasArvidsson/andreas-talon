@@ -12,7 +12,3 @@ tag(): user.comments
 # ----- Python additional -----
 
 (op | is) in:   " in "
-
-format string:
-    'f""'
-    key(left)
