@@ -1,5 +1,6 @@
 from typing import List
 from talon import Module, Context, actions
+from ....andreas.merge import merge
 key = actions.key
 insert = actions.insert
 
@@ -35,21 +36,23 @@ ctx.lists["self.code_function"] = {
     "sort", "find", "includes", "indexOf",
     "join", "require"
 }
-ctx.lists["self.code_statement"] = {
-    "import":               "import ",
-    "async":                "async ",
-    "await":                "await ",
-    "export":               "export ",
-    "function":             "function ",
-    "default":              "default ",
-    "spread":               "...",
-    "null":                 "null",
-    "undefined":            "undefined",
-    "arrow":                " => ",
-    "this":                 "this",
-    "this dot":             "this.",
-    "new":                  "new "
-}
+ctx.lists["self.code_statement"] = merge(
+    {
+        "null", "undefined", "this"
+    },
+    {
+        "import":               "import ",
+        "async":                "async ",
+        "await":                "await ",
+        "export":               "export ",
+        "function":             "function ",
+        "default":              "default ",
+        "spread":               "...",
+        "arrow":                " => ",
+        "this dot":             "this.",
+        "new":                  "new "
+    }
+)
 
 
 @ctx.action_class("user")
@@ -174,9 +177,9 @@ class UserActions:
         key("left")
 
     # Formatting getters
-    def code_get_class_format() -> str: return "PASCAL_CASE"
-    def code_get_function_format() -> str: return "CAMEL_CASE"
-    def code_get_variable_format() -> str: return "CAMEL_CASE"
+    def code_get_class_format() -> str:     return "PASCAL_CASE"
+    def code_get_function_format() -> str:  return "CAMEL_CASE"
+    def code_get_variable_format() -> str:  return "CAMEL_CASE"
 
 
 @mod.action_class

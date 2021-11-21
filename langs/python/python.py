@@ -44,20 +44,18 @@ ctx.lists["self.code_function"] = {
 }
 ctx.lists["self.code_statement"] = merge(
     {
-        "None",
+        "None", "self"
     },
     {
         "from":             "from ",
         "import":           "import ",
         "lambda":           "lambda ",
         "arrow":            " -> ",
-        "regexp":           "re",
+        "regex":            "re",
         "def":              "def ",
         "class":            "class ",
         "try":              "try:",
         "except":           "except:",
-        "self":             "self",
-        "self dot":         "self.",
     }
 )
 
@@ -172,6 +170,6 @@ class UserActions:
         key("left")
 
     # Formatting getters
-    def code_get_class_format() -> str: return "PASCAL_CASE"
-    def code_get_function_format() -> str: return "SNAKE_CASE"
-    def code_get_variable_format() -> str: return "SNAKE_CASE"
+    def code_get_class_format() -> str:     return "PASCAL_CASE"
+    def code_get_function_format() -> str:  return "SNAKE_CASE"
+    def code_get_variable_format() -> str:  return "SNAKE_CASE"

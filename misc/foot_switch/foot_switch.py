@@ -19,7 +19,7 @@ class Actions:
         if is_down:
             timestamps[key] = time.perf_counter()
         else:
-            is_hold = time.perf_counter() - timestamps[key] > 0.5
+            is_hold = time.perf_counter() - timestamps[key] > 0.25
 
         # Top
         if key == 0:

@@ -45,12 +45,13 @@ format string:                user.code_format_string()
 
 function main:                user.code_function_main()
 
-# # ----- Variable statement -----
+# ----- Variable statement -----
 ({user.code_variable_modifier}* {user.code_data_type} | {user.code_variable_modifier}+) <user.variable_name>:
     user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 0, code_data_type or "")
 ({user.code_variable_modifier}* {user.code_data_type} | {user.code_variable_modifier}+) <user.variable_name> equals:
     user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 1, code_data_type or "")
 
+# ----- Insert data type -----
 type {user.code_data_type}:   "{code_data_type}"
 
 # ----- Function call -----

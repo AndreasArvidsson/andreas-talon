@@ -50,17 +50,20 @@ ctx.lists["self.code_data_type"] = merge(
     }
 )
 ctx.lists["self.code_function"] = {
-    "to string":    "toString"
+    "toString"
 }
-ctx.lists["self.code_statement"] = {
-    "import":               "import ",
-    "null":                 "null",
-    "arrow":                " -> ",
-    "this":                 "this",
-    "this dot":             "this.",
-    "new":                  "new ",
-    "extends":              "extends "
-}
+ctx.lists["self.code_statement"] = merge(
+    {
+        "null", "this"
+    },
+    {
+        "import":               "import ",
+        "arrow":                " -> ",
+        "this dot":             "this.",
+        "new":                  "new ",
+        "extends":              "extends "
+    }
+)
 
 
 @ctx.action_class("user")
@@ -199,9 +202,9 @@ class UserActions:
         key("left")
 
     # Formatting getters
-    def code_get_class_format() -> str: return "PASCAL_CASE"
-    def code_get_function_format() -> str: return "CAMEL_CASE"
-    def code_get_variable_format() -> str: return "CAMEL_CASE"
+    def code_get_class_format() -> str:     return "PASCAL_CASE"
+    def code_get_function_format() -> str:  return "CAMEL_CASE"
+    def code_get_variable_format() -> str:  return "CAMEL_CASE"
 
 
 def snip_func(name, args = ""):
