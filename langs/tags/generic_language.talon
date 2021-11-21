@@ -35,20 +35,20 @@ format string:                user.code_format_string()
 {user.code_class_modifier}* class <user.variable_name>:
     user.code_class_wrapper(variable_name, code_class_modifier_list or "")
 
-# ----- Constructor statement -----
-{user.code_function_modifier}* constructor:
-    user.code_constructor_wrapper(code_function_modifier_list or "")
-
 # ----- Function statement -----
 {user.code_function_modifier}* function <user.variable_name>:
     user.code_function_wrapper(variable_name, code_function_modifier_list or "")
 
 function main:                user.code_function_main()
 
+# ----- Constructor statement -----
+{user.code_function_modifier}* function constructor:
+    user.code_constructor_wrapper(code_function_modifier_list or "")
+
 # ----- Variable statement -----
-({user.code_variable_modifier}* {user.code_data_type} | {user.code_variable_modifier}+) <user.variable_name>:
+var {user.code_variable_modifier}* [{user.code_data_type}] <user.variable_name>:
     user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 0, code_data_type or "")
-({user.code_variable_modifier}* {user.code_data_type} | {user.code_variable_modifier}+) <user.variable_name> equals:
+var {user.code_variable_modifier}* [{user.code_data_type}] <user.variable_name> equals:
     user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 1, code_data_type or "")
 
 # ----- Insert data type -----
