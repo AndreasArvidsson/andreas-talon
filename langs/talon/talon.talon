@@ -6,28 +6,24 @@ and mode: user.auto_lang
 and code.language: talon
 -
 tag(): user.operators
+tag(): user.comments
 
 
 # Context requirements
-require win:      "os: windows\n"
-require mac:      "os: mac\n"
-require linux:    "os: linux\n"
-require title:    "title: "
-require app:      "app: "
-require tag:      "tag: "
+require win:     "os: windows\n"
+require mac:     "os: mac\n"
+require linux:   "os: linux\n"
+require title:   "title: "
+require app:     "app: "
+require tag:     "tag: "
 
-state tag:        "tag(): "
-state new line:   "\\n"
+make tag:        "tag(): "
+make new line:   "\\n"
 
-state comment:    "# "
-state comment <user.text>$:
-    text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
-    "# {text}"
-
-state key:
+make key:
     "key()"
     key(left)
 
-state print:
+make print:
     "print()"
     key(left)

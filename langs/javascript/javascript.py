@@ -5,11 +5,18 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-mode: user.javascript
-mode: user.auto_lang
+mode: command
+and mode: user.javascript
+
+mode: command
+and mode: user.auto_lang
 and code.language: javascript
-mode: user.typescript
-mode: user.auto_lang
+
+mode: command
+and mode: user.typescript
+
+mode: command
+and mode: user.auto_lang
 and code.language: typescript
 """
 
@@ -52,7 +59,6 @@ ctx.lists["self.code_statement"] = {
 class UserActions:
     # Assignment operator
     def op_assign():            insert(" = ")
-
     # Math operators
     def op_sub():               insert(" - ")
     def op_sub_assign():        insert(" -= ")
@@ -65,7 +71,6 @@ class UserActions:
     def op_mod():               insert(" % ")
     def op_mod_assign():        insert(" %= ")
     def op_exp():               insert(" ** ")
-
     # Boolean operators
     def op_and():               insert(" && ")
     def op_or():                insert(" || ")
@@ -76,6 +81,14 @@ class UserActions:
     def op_less_or_eq():        insert(" <= ")
     def op_greater_or_eq():     insert(" >= ")
     def op_not():               insert("!")
+
+    # Comments
+    def comments_insert(text: str = ""):
+        insert(f"// {text}")
+
+    def comments_insert_block(text: str = ""):
+        insert(f"/* {text} */")
+        key("left:3")
 
     # Selection statements
     def code_if():
@@ -116,11 +129,6 @@ class UserActions:
     def code_false():           insert("false")
     def code_continue():        insert("continue;")
     def code_return():          insert("return")
-    def code_comment():         insert("// ")
-
-    def code_block_comment():
-        insert("/*\n\n*/")
-        key("up")
 
     def code_print(text: str = None):
         if text:

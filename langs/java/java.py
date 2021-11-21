@@ -1,5 +1,4 @@
 from talon import Module, Context, actions
-import re
 from ....andreas.merge import merge
 
 insert = actions.insert
@@ -9,8 +8,12 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-mode: user.java
-mode: user.auto_lang
+mode: command
+and mode: user.java
+
+mode: command
+and mode: user.auto_lang
+and code.language: java
 """
 
 ctx.lists["self.code_data_type"] = merge(
@@ -50,11 +53,10 @@ ctx.lists["self.code_access_modifier"] = {
 }
 
 
-@ ctx.action_class("user")
+@ctx.action_class("user")
 class UserActions:
     # Assignment operator
     def op_assign():            insert(" = ")
-
     # Math operators
     def op_sub():               insert(" - ")
     def op_sub_assign():        insert(" -= ")
@@ -67,7 +69,6 @@ class UserActions:
     def op_mod():               insert(" % ")
     def op_mod_assign():        insert(" %= ")
     def op_exp():               actions.skip()
-
     # Boolean operators
     def op_and():               insert(" && ")
     def op_or():                insert(" || ")
@@ -78,6 +79,14 @@ class UserActions:
     def op_less_or_eq():        insert(" <= ")
     def op_greater_or_eq():     insert(" >= ")
     def op_not():               insert("!")
+
+    # Comments
+    def comments_insert(text: str = ""):
+        insert(f"// {text}")
+
+    def comments_insert_block(text: str = ""):
+        insert(f"/* {text} */")
+        key("left:3")
 
     # Selection statements
     def code_if():
@@ -118,11 +127,6 @@ class UserActions:
     def code_false(): insert("false")
     def code_continue(): insert("continue;")
     def code_return(): insert("return")
-    def code_comment(): insert("// ")
-
-    def code_block_comment():
-        insert("/**/")
-        key("left:2 enter:2 up")
 
     def code_print(text: str = None):
         if text:

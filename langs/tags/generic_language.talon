@@ -3,37 +3,32 @@ tag: user.generic_language
 tag(): user.operators
 
 # ----- Selection statements -----
-state if:                      user.code_if()
-state elif:                    user.code_elif()
-state else:                    user.code_else()
-state switch:                  user.code_switch()
-state case:                    user.code_case()
-state default:                 user.code_default()
+make if:                      user.code_if()
+make elif:                    user.code_elif()
+make else:                    user.code_else()
+make switch:                  user.code_switch()
+make case:                    user.code_case()
+make default:                 user.code_default()
 
 # ----- Iteration statements -----
-state for loop:                user.code_for()
-state while loop:              user.code_while()
-state do while [loop]:         user.code_do_while()
-state foreach [loop]:          user.code_foreach()
+make for loop:                user.code_for()
+make while loop:              user.code_while()
+make do while [loop]:         user.code_do_while()
+make foreach [loop]:          user.code_foreach()
 
 # ----- Miscellaneous statements -----
-state true:                    user.code_true()
-state false:                   user.code_false()
-state break:                   user.code_break()
-state continue:                user.code_continue()
-state return:                  user.code_return()
-state comment:                 user.code_comment()
-state comment <user.text>$:
-    user.code_comment()
-    text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
-    "{text}"
-state block comment:           user.code_block_comment()
-state print:                   user.code_print("")
-state print <user.text>$:
+make true:                    user.code_true()
+make false:                   user.code_false()
+make break:                   user.code_break()
+make continue:                user.code_continue()
+make return:                  user.code_return()
+
+make print:                   user.code_print("")
+make print <user.text>$:
     text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     user.code_print(text)
-state new line:                "\\n"
-state {user.code_statement}:   "{code_statement}"
+make new line:                "\\n"
+make {user.code_statement}:   "{code_statement}"
 
 # ----- Class statement -----
 class [{user.code_access_modifier}] <user.variable_name>:

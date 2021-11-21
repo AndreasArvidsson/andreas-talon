@@ -36,5 +36,5 @@ attr <user.text>:
     ' {text}=""'
     key(left)
 
-state doctype:                    "<!DOCTYPE html>\n"
-state blank:                      "&nbsp;"
+make doctype:                    "<!DOCTYPE html>\n"
+make blank:                      "&nbsp;"

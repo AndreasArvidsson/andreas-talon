@@ -6,10 +6,11 @@ and mode: user.auto_lang
 and code.language: java
 -
 tag(): user.generic_language
+tag(): user.comments
 
 # ----- Java additional -----
 
-state arrow function:
+make arrow function:
     "() -> {\n\n}"
     key(up:2 end left:6)
 

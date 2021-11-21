@@ -13,6 +13,7 @@ and mode: user.auto_lang
 and code.language: typescript
 -
 tag(): user.generic_language
+tag(): user.comments
 
 # ----- JavaScript additional -----
 
@@ -25,7 +26,7 @@ arrow function <user.variable_name>:
 
 convert to arrow:     user.arrowify_line()
 
-state for in loop:
+make for in loop:
     "for (const i in ) {\n\n}\n"
     key(up:3 end left:3)
 
@@ -36,7 +37,7 @@ method <user.variable_name>:
     "{name}() {{\n\n}}\n"
     key("up:3 end left:3")
 
-state arrow function:
+make arrow function:
     "() => {\n\n}"
     key(up:2 end left:6)
 

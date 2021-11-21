@@ -7,8 +7,11 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-mode: user.python
-mode: user.auto_lang
+mode: command
+and mode: user.python
+
+mode: command
+and mode: user.auto_lang
 and code.language: python
 """
 
@@ -58,7 +61,6 @@ ctx.lists["self.code_statement"] = merge(
 class UserActions:
     # Assignment operator
     def op_assign():            insert(" = ")
-
     # Math operators
     def op_sub():               insert(" - ")
     def op_sub_assign():        insert(" -= ")
@@ -71,7 +73,6 @@ class UserActions:
     def op_mod():               insert(" % ")
     def op_mod_assign():        insert(" %= ")
     def op_exp():               insert(" ** ")
-
     # Comparison operators
     def op_equal():             insert(" == ")
     def op_not_equal():         insert(" != ")
@@ -80,10 +81,17 @@ class UserActions:
     def op_less_or_eq():        insert(" <= ")
     def op_greater_or_eq():     insert(" >= ")
     def op_not():               insert("not ")
-
     # Logical operators
     def op_and():               insert(" and ")
     def op_or():                insert(" or ")
+
+    # Comments
+    def comments_insert(text: str = ""):
+        insert(f"# {text}")
+
+    def comments_insert_block(text: str = ""):
+        insert(f"\"\"\"{text}\"\"\"")
+        key("left:3")
 
     # Selection statements
     def code_if():      insert("if ")
@@ -113,11 +121,6 @@ class UserActions:
     def code_false(): insert("False")
     def code_continue(): insert("continue")
     def code_return(): insert("return")
-    def code_comment(): insert("# ")
-
-    def code_block_comment():
-        insert('""""""')
-        key("left:3")
 
     def code_print(text: str = None):
         if text:

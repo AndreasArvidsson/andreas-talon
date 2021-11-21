@@ -5,8 +5,11 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-mode: user.talon
-mode: user.auto_lang
+mode: command
+and mode: user.talon
+
+mode: command
+and mode: user.auto_lang
 and code.language: talon
 """
 
@@ -14,7 +17,6 @@ and code.language: talon
 class UserActions:
     # Assignment operator
     def op_assign():            insert(" = ")
-
     # Math operators
     def op_sub():               insert(" - ")
     def op_sub_assign():        insert(" -= ")
@@ -27,7 +29,6 @@ class UserActions:
     def op_mod():               insert(" % ")
     def op_mod_assign():        insert(" %= ")
     def op_exp():               insert(" ** ")
-
     # Boolean operators
     def op_and():               insert("and ")
     def op_or():                insert(" or ")
@@ -38,3 +39,7 @@ class UserActions:
     def op_less_or_eq():        insert(" <= ")
     def op_greater_or_eq():     insert(" >= ")
     def op_not():               insert("not ")
+
+    # Comments
+    def comments_insert(text: str = ""):
+        actions.insert(f"# {text}")
