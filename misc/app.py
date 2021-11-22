@@ -32,3 +32,9 @@ class Actions:
 
     def go_forward():
         """Navigate forward"""
+
+    def pick_item(index: int):
+        """Pick list item by index"""
+        for _ in range(index):
+            actions.edit.down()
+        actions.key("enter")

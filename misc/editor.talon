@@ -94,7 +94,4 @@ push {user.key_symbol}:
     "{key_symbol}"
     edit.line_insert_down()
 
-pick <number_small>:
-    edit.down()
-    repeat(number_small - 2)
-    key(enter)
+pick <number_small>:               user.pick_item(number_small - 1)
