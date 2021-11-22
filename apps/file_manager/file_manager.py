@@ -73,6 +73,7 @@ def on_ready():
         "Documents",
         "Downloads",
         "Pictures",
+        "Videos",
         "Dropbox"
     ]
     common_paths = {
