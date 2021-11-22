@@ -205,8 +205,10 @@ def stop_scroll():
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
         p = scroll_speed / 100
-        amount = int(p * scroll_dir * get_scroll_step() / 20)
-        actions.mouse_scroll(by_lines=False, y=amount)
+        amount = int(p * get_scroll_step() / 20)
+        amount = max(amount, 1)
+        # print(get_scroll_step())
+        actions.mouse_scroll(by_lines=False, y=amount * scroll_dir)
 
 
 def scroll_gaze_helper():
