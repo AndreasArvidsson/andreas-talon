@@ -6,3 +6,5 @@ tag(): user.maven
 tag(): user.npm
 
 vscode package:   "vsce package\n"
+vscode install extension:
+    "code --install-extension "
