@@ -6,7 +6,7 @@ mod = Module()
 phrase_stack = []
 
 def on_pre_phrase(d):  phrase_stack.append(d)
-def on_post_phrase(d): phrase_stack.pop()
+def on_post_phrase(_): phrase_stack.pop()
 
 speech_system.register("pre:phrase", on_pre_phrase)
 speech_system.register("post:phrase", on_post_phrase)

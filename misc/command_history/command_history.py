@@ -7,7 +7,7 @@ debug_timings_setting = mod.setting("debug_timings", bool, default=False)
 show_subtitles = mod.setting("subtitles_show", bool, default=True).get()
 history = []
 display_size = None
-
+sleep_word = "drowse"
 
 def on_phrase(d):
     global history
@@ -19,6 +19,9 @@ def on_phrase(d):
         return
     if words:
         text = " ".join(words)
+        index = text.find(sleep_word)
+        if index > -1:
+            text = text[:index+len(sleep_word)]
         if show_subtitles:
             actions.user.subtitle(text)
         if debug_timings_setting.get():

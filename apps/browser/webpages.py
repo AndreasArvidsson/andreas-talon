@@ -35,7 +35,7 @@ ctx.lists["self.webpage"] = {
     "redpill info":         "https://info.redpill-linpro.com",
     "bitbucket":            "https://bitbucket.org",
     "xledger":              "https://xledger.net",
-    "business manager":     "https://payroll.accountor.se",
+    "hogia business":       "https://payroll.accountor.se",
     "patientenkaet":        "https://patientenkat.se",
     "ppm":                  "https://ppm.vantetider.se",
     "hassan":               "https://app.vantetider.se/hassan"

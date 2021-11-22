@@ -40,7 +40,7 @@ ctx.lists["self.code_data_type"] = {
 }
 ctx.lists["self.code_function"] = {
     "format", "strip", "lstrip", "rstrip", "replace", "split",
-    "len", "type", "range"
+    "len", "type", "range", "find"
 }
 ctx.lists["self.code_statement"] = merge(
     {
