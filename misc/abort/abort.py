@@ -1,15 +1,15 @@
-from talon import actions, speech_system
+from talon import Module
+
+abort_word = "cancel"
+
+mod = Module()
 
 
-def on_phrase(d):
-    if not actions.speech.enabled():
-        return
-    try:
-        words = d["parsed"]._unmapped
-        if words[-1] == "cancel":
-            d["parsed"]._sequence = []
-    except:
-        pass
-
-
-speech_system.register("pre:phrase", on_phrase)
+@mod.action_class
+class Actions:
+    def abort_phrase(phrase: dict, words: list[str]) -> tuple[bool, str]:
+        """Abort current spoken phrase"""
+        if words[-1] == abort_word:
+            phrase["parsed"]._sequence = []
+            return True, f"... {abort_word}"
+        return False, " ".join(words)

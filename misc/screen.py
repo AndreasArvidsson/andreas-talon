@@ -4,6 +4,7 @@ from talon.skia import Paint as Paint
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 
 mod = Module()
+show_subtitles = mod.setting("subtitles_show", bool, default=True).get()
 subtitles_all_screens_setting = mod.setting(
     "subtitles_all_screens", bool, default=False
 )
@@ -30,9 +31,15 @@ class Actions:
             )
         return screens[screen_number - 1]
 
+    def toggle_subtitles():
+        """Toggle subtitles"""
+        global show_subtitles
+        show_subtitles = not show_subtitles
+
     def subtitle(text: str):
         """Show subtitle"""
-        show_text(text, is_subtitle=True)
+        if show_subtitles:
+            show_text(text, is_subtitle=True)
 
     def notify(text: str):
         """Show notification"""

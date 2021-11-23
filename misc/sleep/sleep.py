@@ -1,8 +1,9 @@
-from talon import Module, actions, noise
+from talon import Module, actions
 import time
 
 mod = Module()
 time_last_pop = 0
+sleep_word = "drowse"
 
 
 @mod.action_class
@@ -33,3 +34,11 @@ class Actions:
             actions.user.notify("Talon is: awake")
         else:
             actions.user.notify("Talon is: sleeping")
+
+    def talon_sleep_update_phrase(words: list[str]) -> tuple[bool, str]:
+        """Update spoke in words in case of sleep command"""
+        if sleep_word in words:
+            index = words.index(sleep_word)
+            text = f"{' '.join(words[:index+1])} ..."
+            return True, text
+        return False, " ".join(words)
