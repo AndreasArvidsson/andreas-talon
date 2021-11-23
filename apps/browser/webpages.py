@@ -26,6 +26,7 @@ ctx.lists["self.webpage"] = {
     "linkedin":             "https://www.linkedin.com",
     "prisjakt":             "https://classic.prisjakt.nu",
     "pricerunner":          "https://www.pricerunner.se",
+    "kivra":                "https://www.kivra.se",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
