@@ -1,4 +1,3 @@
-from typing import List
 from talon import Module, Context, actions
 from ....andreas.merge import merge
 key = actions.key
@@ -145,20 +144,20 @@ class UserActions:
         key("left")
 
     # Class statement
-    def code_class(name: str, modifiers: List[str]):
+    def code_class(name: str, modifiers: list[str]):
         insert(f"class {name} {{}}")
         key("left enter")
 
     # Constructor statement
-    def code_constructor(modifiers: List[str]):
+    def code_constructor(modifiers: list[str]):
         snip_func("constructor")
 
     # Function statement
-    def code_function(name: str, modifiers: List[str]):
+    def code_function(name: str, modifiers: list[str]):
         snip_func(f"function {name}")
 
     # Variable statement
-    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
+    def code_variable(name: str, modifiers: list[str], assign: bool, data_type: str = None):
         text = name
         print(text)
         print(modifiers)

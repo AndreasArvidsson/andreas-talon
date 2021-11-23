@@ -1,4 +1,3 @@
-from typing import List
 from talon import Module, Context, actions
 from ....andreas.merge import merge
 
@@ -28,10 +27,11 @@ ctx.lists["self.code_variable_modifier"] = {
     "global": "global"
 }
 ctx.lists["self.code_data_type"] = {
+    "string":   "str",
     "int":      "int",
     "float":    "float",
+    "complex":  "complex",
     "bool":     "bool",
-    "string":   "str",
     "dict":     "dict",
     "set":      "set",
     "list":     "list",
@@ -138,22 +138,22 @@ class UserActions:
         key("left")
 
     # Class statement
-    def code_class(name: str, modifiers: List[str]):
+    def code_class(name: str, modifiers: list[str]):
         insert(f"class {name}:")
         actions.edit.line_insert_down()
 
     # Constructor statement
-    def code_constructor(modifiers: List[str]):
+    def code_constructor(modifiers: list[str]):
         insert("def __init__(self):")
         key("left:2")
 
     # Function statement
-    def code_function(name: str, modifiers: List[str]):
+    def code_function(name: str, modifiers: list[str]):
         insert(f"def {''.join(modifiers)}{name}():")
         key("left:2")
 
     # Variable statement
-    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
+    def code_variable(name: str, modifiers: list[str], assign: bool, data_type: str = None):
         text = name
         if modifiers:
             text = f"{' '.join(modifiers)} {text}"

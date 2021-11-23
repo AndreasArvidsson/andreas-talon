@@ -1,7 +1,6 @@
-from talon import Module, Context, ui, actions, app, grammar
+from talon import Module, Context, ui, actions, grammar
 from typing import Optional
 import re
-import numbers
 
 mod = Module()
 ctx = Context()

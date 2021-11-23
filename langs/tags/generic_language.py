@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import Union
 from talon import Module, actions
 
 mod = Module()
@@ -61,42 +61,42 @@ class tab_actions:
         """Format string statement"""
 
     # ----- Class statement -----
-    def code_class_wrapper(name: str, modifiers: Union[List[str], str]):
+    def code_class_wrapper(name: str, modifiers: Union[list[str], str]):
         """Class declaration wrapper"""
         format = actions.user.code_get_class_format()
         name = actions.user.format_text(name, format)
         actions.user.history_add_phrase(name)
         actions.user.code_class(name, modifiers or [])
-    def code_class(name: str, modifiers: List[str]):
+    def code_class(name: str, modifiers: list[str]):
         """Class declaration"""
 
     # ----- Constructor statement -----
-    def code_constructor_wrapper(modifiers: Union[List[str], str]):
+    def code_constructor_wrapper(modifiers: Union[list[str], str]):
         """Constructor declaration wrapper"""
         actions.user.code_constructor(modifiers or [])
-    def code_constructor(modifiers: List[str]):
+    def code_constructor(modifiers: list[str]):
         """Constructor declaration"""
 
     # ----- Function statement -----
-    def code_function_wrapper(name: str, modifiers: Union[List[str], str]):
+    def code_function_wrapper(name: str, modifiers: Union[list[str], str]):
         """Function declaration wrapper"""
         format = actions.user.code_get_function_format()
         name = actions.user.format_text(name, format)
         actions.user.history_add_phrase(name)
         actions.user.code_function(name, modifiers or [])
-    def code_function(name: str, modifiers: List[str]):
+    def code_function(name: str, modifiers: list[str]):
         """Function declaration"""
     def code_function_main():
         """Main function declaration"""
 
     # ----- Variable statement -----
-    def code_variable_wrapper(name: str, modifiers: Union[List[str], str], assign: int, data_type: str = None):
+    def code_variable_wrapper(name: str, modifiers: Union[list[str], str], assign: int, data_type: str = None):
         """Variable statement wrapper"""
         format = actions.user.code_get_variable_format()
         name = actions.user.format_text(name, format)
         actions.user.history_add_phrase(name)
         actions.user.code_variable(name, modifiers or [], bool(assign), data_type)
-    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
+    def code_variable(name: str, modifiers: list[str], assign: bool, data_type: str = None):
         """Variable statement"""
 
     # ----- Function call -----

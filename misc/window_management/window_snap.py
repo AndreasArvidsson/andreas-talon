@@ -1,4 +1,3 @@
-from typing import Optional
 from dataclasses import dataclass
 from talon import ui, Module, Context, actions
 
@@ -108,9 +107,7 @@ def set_window_pos(window: ui.Window, x, y, width, height):
     window.rect = ui.Rect(round(x), round(y), round(width), round(height))
 
 
-def move_to_screen(
-    window: ui.Window, offset: Optional[int] = None, screen_number: Optional[int] = None
-):
+def move_to_screen(window: ui.Window, offset: int = None, screen_number: int = None):
     """Move a window to a different screen.
     Provide one of `offset` or `screen_number` to specify a target screen.
     Provide `window` to move a specific window, otherwise the current window is

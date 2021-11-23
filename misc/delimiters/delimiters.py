@@ -1,4 +1,3 @@
-from typing import List
 from talon import Module, Context, actions
 
 mod = Module()
@@ -25,19 +24,19 @@ ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
 
 
 @mod.capture(rule="{user.delimiter_pair}")
-def delimiter_pair(m) -> List[str]:
+def delimiter_pair(m) -> list[str]:
     return matching_pairs[m.delimiter_pair]
 
 
 @mod.action_class
 class Actions:
-    def delimiters_pair_insert(pair: List[str]):
+    def delimiters_pair_insert(pair: list[str]):
         """Insert matching pair delimiters"""
         actions.insert(pair[0] + pair[1])
         for _ in pair[1]:
             actions.edit.left()
 
-    def delimiters_pair_wrap_selection(pair: List[str]):
+    def delimiters_pair_wrap_selection(pair: list[str]):
         """Wrap selection with matching pair delimiters"""
         selection = actions.edit.selected_text()
         actions.insert(f"{pair[0]}{selection}{pair[1]}")

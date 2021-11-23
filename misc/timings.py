@@ -1,4 +1,5 @@
 from talon import Module
+from talon.grammar import Phrase
 
 mod = Module()
 debug_timings_setting = mod.setting("debug_timings", bool, default=False)
@@ -6,7 +7,7 @@ debug_timings_setting = mod.setting("debug_timings", bool, default=False)
 
 @mod.action_class
 class Actions:
-    def print_phrase_timings(phrase: dict, text: str):
+    def print_phrase_timings(phrase: Phrase, text: str):
         """Print phrase timings"""
         if not debug_timings_setting.get():
             return

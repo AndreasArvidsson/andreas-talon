@@ -1,6 +1,5 @@
 from talon import Context, Module, app, imgui, ui, fs, actions
 from talon.grammar import Phrase
-from typing import List
 import os
 import re
 import time
@@ -118,7 +117,7 @@ class Actions:
             actions.sleep("200ms")
             actions.user.rephrase(phrase)
 
-    def focus_names(names: List[str], phrases: List[Phrase]):
+    def focus_names(names: list[str], phrases: list[Phrase]):
         """Focus applications by name"""
         for n, p in zip(names, phrases):
             actions.user.focus_name(n, p)

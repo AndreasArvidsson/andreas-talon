@@ -1,10 +1,8 @@
 from collections import defaultdict
 import itertools
 import math
-from typing import Dict, List, Iterable, Set, Tuple
-
+from typing import Iterable, Tuple
 from talon import Module, Context, actions, imgui, Module, registry, ui, app, clip
-from talon.grammar import Phrase
 
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
@@ -29,7 +27,7 @@ ctx = Context()
 context_command_map = {}
 
 # rule word -> Set[(context name, rule)]
-rule_word_map: Dict[str, Set[Tuple[str, str]]] = defaultdict(set)
+rule_word_map: dict[str, set[Tuple[str, str]]] = defaultdict(set)
 search_phrase = None
 
 # context name -> actual context
@@ -119,7 +117,7 @@ def get_command_line_count(command: Tuple[str, str]) -> int:
         return lines + 1
 
 
-def get_pages(item_line_counts: List[int]) -> List[int]:
+def get_pages(item_line_counts: list[int]) -> list[int]:
     """Given some set of indivisible items with given line counts,
     return the page number each item should appear on.
 
@@ -299,7 +297,7 @@ def draw_search_commands(gui: imgui.GUI):
             gui.spacer()
 
 
-def get_search_commands(phrase: str) -> Dict[str, Tuple[str, str]]:
+def get_search_commands(phrase: str) -> dict[str, Tuple[str, str]]:
     global rule_word_map
     tokens = search_phrase.split(" ")
 

@@ -1,6 +1,5 @@
 from talon import Module, screen, ui, cron, app, actions, clip
 from talon.canvas import Canvas
-from typing import Optional
 from datetime import datetime
 import os
 
@@ -22,7 +21,7 @@ screenshot_folder = mod.setting(
 
 @mod.action_class
 class Actions:
-    def screenshot(screen_number: Optional[int] = None):
+    def screenshot(screen_number: int = None):
         """Takes a screenshot of the entire screen and saves it to the pictures folder.
         Optional screen number can be given to use screen other than main."""
         screen = get_screen(screen_number)
@@ -42,7 +41,7 @@ class Actions:
         elif app.platform == "linux":
             actions.key("shift-printscr")
 
-    def screenshot_clipboard(screen_number: Optional[int] = None):
+    def screenshot_clipboard(screen_number: int = None):
         """Takes a screenshot of the entire screen and saves it to the clipboard.
         Optional screen number can be given to use screen other than main."""
         screen = get_screen(screen_number)
@@ -89,7 +88,7 @@ def flash_rect(rect: ui.Rect):
     canvas.freeze()
 
 
-def get_screen(screen_number: Optional[int] = None) -> ui.Screen:
+def get_screen(screen_number: int = None) -> ui.Screen:
     if screen_number == None:
         return screen.main_screen()
     return actions.user.screens_get_by_number(screen_number)

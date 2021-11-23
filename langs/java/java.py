@@ -1,4 +1,3 @@
-from typing import List
 from talon import Module, Context, actions
 from ....andreas.merge import merge
 
@@ -156,7 +155,7 @@ class UserActions:
         key("left")
 
     # Class declaration
-    def code_class(name: str, modifiers: List[str]):
+    def code_class(name: str, modifiers: list[str]):
         text = f"class {name} {{}}"
         if modifiers:
             text = f"{' '.join(modifiers)} {text}"
@@ -166,7 +165,7 @@ class UserActions:
         key("left enter")
 
     # Constructor declaration
-    def code_constructor(modifiers: List[str]):
+    def code_constructor(modifiers: list[str]):
         name = actions.user.vscode_get("andreas.constructorName")
         if not name:
             return
@@ -177,7 +176,7 @@ class UserActions:
         snip_func(text)
 
     # Function declaration
-    def code_function(name: str, modifiers: List[str]):
+    def code_function(name: str, modifiers: list[str]):
         text = f"void {name}"
         if modifiers:
             text = f"{' '.join(modifiers)} {text}"
@@ -186,7 +185,7 @@ class UserActions:
         snip_func("public static void main", "String[] args")
 
     # Variable declaration
-    def code_variable(name: str, modifiers: List[str], assign: bool, data_type: str = None):
+    def code_variable(name: str, modifiers: list[str], assign: bool, data_type: str = None):
         text = name
         if data_type:
             text = f"{data_type} {text}"
