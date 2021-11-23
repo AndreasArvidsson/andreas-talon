@@ -27,6 +27,7 @@ ctx.lists["self.webpage"] = {
     "prisjakt":             "https://classic.prisjakt.nu",
     "pricerunner":          "https://www.pricerunner.se",
     "kivra":                "https://www.kivra.se",
+    "karlstad buss":       "https://www.karlstadsbuss.se",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
