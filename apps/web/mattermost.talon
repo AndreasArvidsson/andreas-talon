@@ -11,3 +11,6 @@ channel next:          key(alt-down)
 channel unread last:   key(alt-shift-up)
 channel unread next:   key(alt-shift-down)
 next unread:           key(alt-shift-down)
+
+make meet:             "/meet\n"
+make meet external:    "/meet-external\n"
