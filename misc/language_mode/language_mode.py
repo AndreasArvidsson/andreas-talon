@@ -50,9 +50,9 @@ app.register("ready", lambda: actions.user.code_clear_language_mode())
 
 @ctx.action_class("code")
 class code_actions:
-    def language():
+    def language() -> str:
         file_extension = actions.win.file_ext()
-        if file_extension and file_extension in extension_lang_map:
+        if file_extension in extension_lang_map:
             return extension_lang_map[file_extension]
         return ""
 
