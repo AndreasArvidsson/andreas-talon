@@ -46,6 +46,11 @@ class Actions:
             elif is_hold:
                 actions.user.foot_switch_right_up()
 
+    def foot_switch_reset():
+        """Reset foot switch state"""
+        global pressed
+        pressed = [False, False, False, False]
+
     def foot_switch_scroll_reverse():
         """Reverse scroll direction using foot switch"""
         global scroll_reversed
