@@ -7,5 +7,6 @@ mode: dictation
 # Switch to command mode and insert a phrase
 (command mode | over) [<phrase>]$:   user.command_mode(phrase or "")
 
-# Insert the actual word "over"
-word over:                           auto_insert("over")
+# Insert the actual words
+escape over:                         auto_insert("over")
+escape command mode:                 auto_insert("command mode")
