@@ -7,11 +7,11 @@ system lock:        key(super-l)
 
 show desktop:       key(super-d)
 
-open app {user.launch_command}:
+open {user.launch_command}:
     user.exec(launch_command)
 
 open path {user.path}:
     user.exec(path)
 
-browser open {user.webpage}:
+open browser {user.webpage}:
     user.browser_focus_open(webpage)
