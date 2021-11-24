@@ -45,8 +45,6 @@ class BrowserActions:
 
     def focus_address():        key("ctrl-l")
     def go_blank():             key("ctrl-n")
-    def go_back():              key("alt-left")
-    def go_forward():           key("alt-right")
     def go_home():              key("alt-home")
     def open_private_window():  key("ctrl-shift-p")
     def reload():               key("ctrl-r")

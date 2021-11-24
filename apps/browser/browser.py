@@ -8,6 +8,15 @@ tag: browser
 """
 
 
+@ctx.action_class("browser")
+class BrowserActions:
+    def go_back():
+        actions.key("alt-left")
+
+    def go_forward():
+        actions.key("alt-right")
+
+
 @ctx.action_class("user")
 class UserActions:
     def go_back():
