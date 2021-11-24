@@ -1,6 +1,7 @@
 app: discord
 -
 tag(): user.av
+tag(): user.navigation
 
 deafen:             key(ctrl-shift-d)
 

@@ -3,11 +3,10 @@ tag: browser
 tag(): user.zoom
 tag(): user.tabs
 tag(): user.find
+tag(): user.navigation
 
 go address:                     browser.focus_address()
 go home:                        browser.go_home()
-go back:                        browser.go_back()
-go forward:                     browser.go_forward()
 go {user.webpage}:              browser.go(webpage)
 open {user.webpage}:            user.browser_open(webpage)
 

@@ -3,6 +3,7 @@ app: vscode
 tag(): user.ide
 tag(): user.scroll
 tag(): user.cursorless_experimental_snippets
+tag(): user.navigation
 
 settings():
     user.scroll_step = 400
@@ -87,8 +88,6 @@ unfold all:                  user.vscode("editor.unfoldAll")
 fold comments:               user.vscode("editor.foldAllBlockComments")
 
 # Navigation
-go back:                     user.go_back()
-go forward:                  user.go_forward()
 take next:                   user.vscode("editor.action.addSelectionToNextFindMatch")
 take last:                   user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:              user.vscode("editor.action.selectHighlights")

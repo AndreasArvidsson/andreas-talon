@@ -1,9 +1,9 @@
 tag: user.file_manager
 -
+tag(): user.navigation
+
 
 # ----- Navigation -----
-go back:                   user.go_back()
-go forward:                user.go_forward()
 go up:                     user.file_manager_go_parent()
 go address:                user.file_manager_focus_address()
 go {user.path}:            user.file_manager_open_directory(path)
