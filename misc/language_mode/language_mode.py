@@ -44,7 +44,7 @@ for lang in extension_lang_map.values():
 # Create a mode for the automated language detection. This is active when no lang is forced.
 mod.mode("auto_lang")
 
-# Auto lang is eanabled by default
+# Auto lang is enabled by default
 app.register("ready", lambda: actions.user.code_clear_language_mode())
 
 

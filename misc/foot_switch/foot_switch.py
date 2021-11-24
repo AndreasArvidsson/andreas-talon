@@ -7,7 +7,7 @@ mod.tag("av")
 pressed = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
-
+hold_timeout = 0.25
 
 @mod.action_class
 class Actions:
@@ -19,7 +19,7 @@ class Actions:
         if is_down:
             timestamps[key] = time.perf_counter()
         else:
-            is_hold = time.perf_counter() - timestamps[key] > 0.25
+            is_hold = time.perf_counter() - timestamps[key] > hold_timeout
 
         # Top
         if key == 0:
