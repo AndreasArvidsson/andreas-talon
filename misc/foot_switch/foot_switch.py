@@ -49,6 +49,7 @@ class Actions:
     def foot_switch_reset():
         """Reset foot switch state"""
         global pressed
+        print(pressed)
         pressed = [False, False, False, False]
 
     def foot_switch_scroll_reverse():
