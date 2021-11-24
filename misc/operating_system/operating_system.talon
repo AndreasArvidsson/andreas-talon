@@ -14,5 +14,4 @@ path open {user.path}:
     user.exec(path)
 
 browser open {user.webpage}:
-    user.focus_name("Firefox")
-    user.browser_open(webpage)
+    user.browser_focus_open(webpage)

@@ -82,7 +82,7 @@ class UserActions:
 
     def browser_open(url: str):
         actions.browser.focus_address()
-        actions.sleep("100ms")
+        actions.sleep("50ms")
         actions.insert(url)
         key("alt-enter")
 

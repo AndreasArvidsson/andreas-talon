@@ -21,3 +21,8 @@ class UserActions:
 class Actions:
     def browser_open(url: str):
         """Open url in browser"""
+
+    def browser_focus_open(url: str):
+        """Focus browser and open url"""
+        actions.user.focus_name("Firefox")
+        actions.user.browser_open(url)
