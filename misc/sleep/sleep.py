@@ -39,6 +39,8 @@ class Actions:
         """Update spoke in words in case of sleep command"""
         if sleep_word in words:
             index = words.index(sleep_word)
-            text = f"{' '.join(words[:index+1])} ..."
+            text = " ".join(words[:index+1])
+            if index < len(words) - 1:
+                text += " ..."
             return True, text
         return False, " ".join(words)
