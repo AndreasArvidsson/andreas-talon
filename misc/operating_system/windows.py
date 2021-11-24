@@ -10,6 +10,7 @@ ctx.lists["self.launch_command"] = {
     "control panel": "control",
     "sound settings": "control mmsys.cpl sounds",
     "settings": "ms-settings:",
+    "services": "services.msc",
     "paint": "mspaint",
     "notepad": "notepad",
     "explorer": "explorer",
