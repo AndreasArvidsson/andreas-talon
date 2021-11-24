@@ -16,6 +16,7 @@ ctx.lists["self.mouse_click"] = {
     "triple": "triple",
     "trip": "triple",
     "move": "move",
+    "control": "control",
 }
 
 setting_scroll_step = mod.setting("scroll_step", type=int, default=120)
@@ -67,6 +68,10 @@ class Actions:
             ctrl.mouse_click(button=0)
             ctrl.mouse_click(button=0)
             ctrl.mouse_click(button=0)
+        elif action == "control":
+            actions.key("ctrl:down")
+            ctrl.mouse_click(button=0)
+            actions.key("ctrl:up")
 
     def mouse_stop():
         """Stops mouse action"""
@@ -101,7 +106,7 @@ class Actions:
             new_scroll_dir = -1
         else:
             new_scroll_dir = 1
-        # Issuing a scroll in the same direction as existing aborts it. 
+        # Issuing a scroll in the same direction as existing aborts it.
         if scroll_job != None and scroll_dir == new_scroll_dir:
             stop_scroll()
             return
