@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, cron, ctrl, noise, ui, settings
+from talon import Context, Module, actions, app, cron, ctrl, noise, ui
 from talon_plugins import eye_mouse
 from talon_plugins.eye_mouse import config, toggle_control
 
