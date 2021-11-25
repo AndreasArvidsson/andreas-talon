@@ -1,9 +1,15 @@
-from talon import Module, actions, ui
+from talon import Module, Context, actions, ui
 
 mod = Module()
-mod.mode("draft_editor", "Indicates whether the draft editor has been activated")
+ctx = Context()
+mod.tag("draft_editor_active", "Indicates whether the draft editor has been activated")
+
+ctx.matches = r"""
+app: vscode
+"""
 
 original_window = None
+
 
 @mod.action_class
 class Actions:
@@ -19,7 +25,7 @@ class Actions:
         actions.app.tab_open()
         if selected_text != "":
             actions.user.paste(selected_text)
-        actions.mode.enable("user.draft_editor")
+        ctx.tags = ["user.draft_editor_active"]
 
     def draft_editor_submit():
         """Submit/save draft editor"""
@@ -31,20 +37,15 @@ class Actions:
 
 
 def get_editor_app() -> ui.App:
-    editor_names = {
-        "Visual Studio Code",
-        "Code",
-        "VSCodium",
-        "Codium",
-        "code-oss"
-    }
+    editor_names = {"Visual Studio Code", "Code", "VSCodium", "Codium", "code-oss"}
     for app in ui.apps(background=False):
         if app.name in editor_names:
             return app
     raise RuntimeError("VSCode is not running")
 
+
 def close_editor(submit_draft: bool):
-    actions.mode.disable("user.draft_editor")
+    ctx.tags = []
     actions.edit.select_all()
     selected_text = actions.edit.selected_text()
     actions.edit.delete()

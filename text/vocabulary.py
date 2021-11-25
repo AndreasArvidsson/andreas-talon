@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-not mode: user.swedish
+not tag: user.swedish
 """
 
 

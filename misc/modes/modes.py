@@ -3,18 +3,18 @@ from talon.grammar import Phrase
 from typing import Union
 
 mod = Module()
+mod.tag("swedish")
 
-mod.mode("swedish")
+ctx = Context()
 
 ctx_swedish = Context()
-
 ctx_swedish.matches = r"""
-mode: user.swedish
+tag: user.swedish
 """
 
 ctx_swedish.settings = {
     "speech.engine": "webspeech",
-    "speech.language": "sv_SE"
+    "speech.language": "sv_SE",
 }
 
 
@@ -22,7 +22,7 @@ ctx_swedish.settings = {
 class Actions:
     def command_mode(phrase: Union[Phrase, str] = None):
         """Enter command mode and re-evaluate phrase"""
-        actions.mode.disable("user.swedish")
+        ctx.tags = []
         actions.mode.disable("dictation")
         actions.mode.enable("command")
         if phrase:
@@ -37,5 +37,5 @@ class Actions:
 
     def swedish_mode(phrase: Union[Phrase, str] = None):
         """Enter swedish dictation mode and re-evaluate phrase"""
-        actions.mode.enable("user.swedish")
+        ctx.tags = ["user.swedish"]
         actions.user.dictation_mode(phrase)

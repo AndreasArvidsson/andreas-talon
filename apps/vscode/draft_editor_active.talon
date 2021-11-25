@@ -1,5 +1,4 @@
-mode: user.draft_editor
-app: vscode
+tag: user.draft_editor_active
 -
 
 draft submit:    user.draft_editor_submit()
