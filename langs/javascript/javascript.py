@@ -4,19 +4,13 @@ key = actions.key
 insert = actions.insert
 
 mod = Module()
-mod.tag("javascript")
 
 ctx = Context()
 ctx.matches = r"""
-mode: command
-and mode: user.javascript
+tag: user.javascript
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: javascript
-
-mode: command
-and tag: user.javascript
 """
 
 ctx.lists["self.code_class_modifier"] = {}

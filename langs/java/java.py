@@ -8,11 +8,9 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-mode: command
-and mode: user.java
+tag: user.java
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: java
 """
 

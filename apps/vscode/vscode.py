@@ -37,9 +37,10 @@ app: vscode
 ctx_talon = Context()
 ctx_talon.matches = r"""
 app: vscode
-and mode: user.talon
+and tag: user.talon
+
 app: vscode
-and mode: user.auto_lang
+and tag: user.auto_lang
 and code.language: talon
 """
 

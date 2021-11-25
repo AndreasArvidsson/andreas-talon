@@ -1,19 +1,13 @@
 from talon import Module, Context, actions
 
 mod = Module()
-mod.tag("html")
 
 ctx = Context()
 ctx.matches = r"""
-mode: command
-and mode: user.html
+tag: user.html
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: html
-
-mode: command
-and tag: user.html
 """
 
 tag_names_list = {

@@ -1,8 +1,6 @@
-mode: command
-and mode: user.python
+tag: user.python
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: python
 -
 tag(): user.generic_language

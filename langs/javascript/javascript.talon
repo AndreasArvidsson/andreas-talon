@@ -1,12 +1,7 @@
-mode: command
-and mode: user.javascript
+tag: user.javascript
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: javascript
-
-mode: command
-and tag: user.javascript
 -
 tag(): user.html
 tag(): user.generic_language

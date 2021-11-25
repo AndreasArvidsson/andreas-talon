@@ -7,11 +7,9 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-mode: command
-and mode: user.python
+tag: user.python
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: python
 """
 

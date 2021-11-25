@@ -1,12 +1,7 @@
-mode: command
-and mode: user.html
+tag: user.html
 
-mode: command
-and mode: user.auto_lang
+tag: user.auto_lang
 and code.language: html
-
-mode: command
-and tag: user.html
 -
 tag(): user.comments
 

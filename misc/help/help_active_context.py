@@ -12,13 +12,17 @@ def gui(gui: imgui.GUI):
     gui.line()
     for mode in scope.get("mode"):
         gui.text(mode)
-    gui.line()
     gui.text("")
     gui.text("Tags")
     gui.line()
     for tag in registry.tags:
         gui.text(tag)
+    gui.text("")
+    gui.text("Misc")
     gui.line()
+    gui.text(f"app.name: {actions.app.name()}")
+    gui.text(f"code.language: {actions.code.language()}")
+    gui.text("")
     if gui.button("hide"):
         actions.user.help_active_context_toggle()
 
