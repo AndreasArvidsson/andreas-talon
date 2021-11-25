@@ -1,4 +1,4 @@
-from talon import Context, Module, actions
+from talon import Context, Module, actions, app
 from talon.grammar import Phrase
 from typing import Union
 
@@ -39,3 +39,7 @@ class Actions:
         """Enter swedish dictation mode and re-evaluate phrase"""
         ctx.tags = ["user.swedish"]
         actions.user.dictation_mode(phrase)
+
+
+# Disable face mode
+app.register("ready", lambda: actions.mode.disable("face"))

@@ -1,5 +1,4 @@
 from collections import defaultdict
-import itertools
 import math
 from typing import Iterable, Tuple
 from talon import Module, Context, actions, imgui, Module, registry, ui, app, clip
@@ -7,7 +6,6 @@ from talon import Module, Context, actions, imgui, Module, registry, ui, app, cl
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
 mod.mode("help", "mode for commands that are available only when help is visible")
-mod.mode("help_alphabet", "Mode for showing the alphabet help gui")
 
 setting_help_max_contexts_per_page = mod.setting(
     "help_max_contexts_per_page",
@@ -149,19 +147,6 @@ def get_pages(item_line_counts: list[int]) -> list[int]:
     return pages
 
 
-@imgui.open()
-def gui_alphabet(gui: imgui.GUI):
-    global alphabet
-    gui.text("Alphabet")
-    gui.line()
-    alphabet = registry.lists["user.key_alphabet"][0]
-    for key, val in alphabet.items():
-        gui.text(f"{val}:  {key}")
-    gui.line()
-    if gui.button("hide"):
-        actions.user.alphabet_help_toggle()
-
-
 main_screen = ui.main_screen()
 
 
@@ -271,7 +256,6 @@ def draw_search_commands(gui: imgui.GUI):
 
     title = f"Search: {search_phrase}"
     commands_grouped = get_search_commands(search_phrase)
-    commands_flat = list(itertools.chain.from_iterable(commands_grouped.values()))
 
     sorted_commands_grouped = sorted(
         commands_grouped.items(),
@@ -288,7 +272,6 @@ def draw_search_commands(gui: imgui.GUI):
 
     draw_commands_title(gui, title)
 
-    current_item_index = 1
     for (context, commands), page in zip(sorted_commands_grouped, pages):
         if page == selected_context_page:
             gui.text(format_context_title(context))
@@ -453,7 +436,7 @@ def register_events(register: bool):
 
 @mod.action_class
 class Actions:
-    def help_show_toggle():
+    def help_active_toggle():
         """Display contextual command info"""
         if gui_context_help.showing:
             actions.user.help_hide()
@@ -598,15 +581,6 @@ class Actions:
             if len(names) > 1:
                 result += "--------------------\n"
         clip.set_text(result)
-
-    def alphabet_help_toggle():
-        """Toggle hep alphabet gui"""
-        if gui_alphabet.showing:
-            actions.mode.disable("user.help_alphabet")
-            gui_alphabet.hide()
-        else:
-            actions.mode.enable("user.help_alphabet")
-            gui_alphabet.show()
 
 
 def commands_updated(_):
