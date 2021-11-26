@@ -13,18 +13,24 @@ def gui(gui: imgui.GUI):
     gui.text("")
     gui.text("Modes")
     gui.line()
-    for mode in scope.get("mode"):
+    for mode in sorted(scope.get("mode")):
         gui.text(mode)
     gui.text("")
     gui.text("Tags")
     gui.line()
-    for tag in registry.tags:
+    for tag in sorted(registry.tags):
         gui.text(tag)
     gui.text("")
     gui.text("Misc")
     gui.line()
-    gui.text(f"app.name: {actions.app.name()}")
-    gui.text(f"code.language: {actions.code.language()}")
+    try:
+        gui.text(f"app.name: {actions.app.name()}")
+    except:
+        pass
+    try:
+        gui.text(f"code.language: {actions.code.language()}")
+    except:
+        pass
     gui.text("")
     if gui.button("hide"):
         actions.user.help_active_context_toggle()
