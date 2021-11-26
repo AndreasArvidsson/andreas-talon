@@ -8,9 +8,6 @@ ctx = Context()
 
 ctx.matches = r"""
 tag: user.python
-
-tag: user.auto_lang
-and code.language: python
 """
 
 access_modifiers = {

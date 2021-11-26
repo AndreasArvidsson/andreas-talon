@@ -9,9 +9,6 @@ ctx = Context()
 
 ctx.matches = r"""
 tag: user.java
-
-tag: user.auto_lang
-and code.language: java
 """
 
 access_modifiers = { x:x for x in ["public", "private", "protected"] }
