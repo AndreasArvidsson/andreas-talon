@@ -1,5 +1,5 @@
 from talon import Module, Context, actions
-from ....andreas.merge import merge
+from ...merge import merge
 
 insert = actions.insert
 key = actions.key

@@ -1,6 +1,6 @@
 from talon import app, Module, Context, actions, app
 from os import path, environ
-from ....andreas.merge import merge
+from ...merge import merge
 
 ctx = Context()
 mod = Module()

@@ -1,5 +1,5 @@
 from talon import Module, Context
-from ....andreas.merge import merge
+from ...merge import merge
 
 mod = Module()
 ctx = Context()
