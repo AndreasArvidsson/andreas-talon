@@ -1,7 +1,4 @@
 tag: user.html
-
-tag: user.auto_lang
-and code.language: html
 -
 tag(): user.comments
 

@@ -5,9 +5,6 @@ mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: user.html
-
-tag: user.auto_lang
-and code.language: html
 """
 
 tag_names_list = {

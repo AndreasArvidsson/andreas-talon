@@ -1,7 +1,4 @@
 tag: user.java
-
-tag: user.auto_lang
-and code.language: java
 -
 tag(): user.generic_language
 tag(): user.operators

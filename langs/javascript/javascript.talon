@@ -1,7 +1,4 @@
 tag: user.javascript
-
-tag: user.auto_lang
-and code.language: javascript
 -
 tag(): user.html
 tag(): user.generic_language

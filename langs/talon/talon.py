@@ -6,9 +6,6 @@ ctx = Context()
 
 ctx.matches = r"""
 tag: user.talon
-
-tag: user.auto_lang
-and code.language: talon
 """
 
 @ctx.action_class("user")

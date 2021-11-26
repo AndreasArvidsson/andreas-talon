@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app
+from talon import Context, Module, actions
 
 mod = Module()
 ctx = Context()
@@ -37,9 +37,18 @@ extension_lang_map = {
     ".html": "html",
 }
 
-# Create a mode for each defined language
+# Create a context for each defined language
 for lang in extension_lang_map.values():
     mod.tag(lang)
+    mod.tag(f"{lang}_forced")
+    c = Context()
+    # Context is active if language is forced or auto language matches
+    c.matches = f"""
+    tag: user.{lang}_forced
+    tag: user.auto_lang
+    and code.language: {lang}
+    """
+    c.tags = [f"user.{lang}"]
 
 # Create a mode for the automated language detection. This is active when no lang is forced.
 mod.tag("auto_lang")
@@ -59,7 +68,7 @@ class CodeActions:
 class Actions:
     def code_set_language_mode(language: str):
         """Sets the active language mode, and disables extension matching"""
-        ctx.tags = [f"user.{language}"]
+        ctx.tags = [f"user.{language}_forced"]
         actions.user.notify("Enabled {} mode".format(language))
 
     def code_clear_language_mode():

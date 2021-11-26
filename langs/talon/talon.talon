@@ -1,7 +1,4 @@
 tag: user.talon
-
-tag: user.auto_lang
-and code.language: talon
 -
 tag(): user.operators
 tag(): user.comments

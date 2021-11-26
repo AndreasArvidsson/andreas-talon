@@ -8,9 +8,6 @@ mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: user.javascript
-
-tag: user.auto_lang
-and code.language: javascript
 """
 
 ctx.lists["self.code_class_modifier"] = {}
