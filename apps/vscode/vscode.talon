@@ -16,13 +16,6 @@ problem last:                user.vscode("editor.action.marker.prevInFiles")
 problem fix:                 user.vscode("problems.action.showQuickFixes")
 refactor this:               user.vscode("editor.action.refactor")
 
-ref next:
-    user.vscode("references-view.tree.focus")
-    key(down enter)
-ref last:
-    user.vscode("references-view.tree.focus")
-    key(up enter)
-
 # Split
 split up:                    user.vscode("workbench.action.moveEditorToAboveGroup")
 split down:                  user.vscode("workbench.action.moveEditorToBelowGroup")
@@ -49,6 +42,8 @@ bar source:                  user.vscode("workbench.view.scm")
 bar file:                    user.vscode("workbench.files.action.showActiveFileInExplorer")
 search last:                 user.vscode("search.action.focusPreviousSearchResult")
 search next:                 user.vscode("search.action.focusNextSearchResult")
+ref next:                    user.vscode("references-view.prev")
+ref last:                    user.vscode("references-view.next")
 
 # Panel
 panel (show | hide):         user.vscode("workbench.action.togglePanel")
