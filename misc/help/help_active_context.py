@@ -8,6 +8,9 @@ main_screen = ui.main_screen()
 
 @imgui.open(x=ui.main_screen().x)
 def gui(gui: imgui.GUI):
+    gui.text("Active context")
+    gui.line()
+    gui.text("")
     gui.text("Modes")
     gui.line()
     for mode in scope.get("mode"):
