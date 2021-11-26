@@ -222,8 +222,14 @@ class Actions:
         if text:
             insert(text)
 
-    def git_open_working_file():
-        """Open current file in in git webpage""" 
-        url = actions.user.vscode_get("andreas.git.getURL")
+    def git_open_working_file_url(line_number: int = 0):
+        """Open current file in in git webpage"""
+        url = actions.user.vscode_get("andreas.git.getURL", bool(line_number))
         if url:
-            webbrowser.open(url)
+            actions.user.browser_focus_open(url)
+
+    def git_copy_working_file_url(line_number: int = 0):
+        """Copy current file URL to clipboard"""
+        url = actions.user.vscode_get("andreas.git.getURL", bool(line_number))
+        if url:
+            actions.clip.set_text(url)
