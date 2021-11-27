@@ -9,3 +9,5 @@ skis, backtickQuotes
 index, squareBrackets
 twin, singleQuotes
 void, whitespace
+-escaped round, escapedParentheses
+pair, any
