@@ -15,4 +15,6 @@ snap next [screen]:                 user.move_window_next_screen()
 snap last [screen]:                 user.move_window_previous_screen()
 snap screen <number_small>:         user.move_window_to_screen(number_small)
 
+move center:                        user.move_window_to_screen_center()
+
 screen numbers:                     user.screens_show_numbering()

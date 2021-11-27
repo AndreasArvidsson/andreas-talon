@@ -100,6 +100,19 @@ class Actions:
         """Move the active window leftward by one."""
         move_to_screen(ui.active_window(), screen_number=screen_number)
 
+    def move_window_to_screen_center():
+        """Move the active window to the center of the current screen"""
+        window = ui.active_window()
+        rect = window.rect
+        screen = window.screen.visible_rect
+        set_window_pos(
+            window,
+            x=screen.x + (screen.width / 2 - rect.width / 2),
+            y=screen.y + (screen.height / 2 - rect.height / 2),
+            width=rect.width,
+            height=rect.height,
+        )
+
 
 def set_window_pos(window: ui.Window, x, y, width, height):
     """Helper to set the window position."""
