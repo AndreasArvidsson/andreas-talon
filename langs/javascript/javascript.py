@@ -15,12 +15,7 @@ ctx.lists["self.code_function_modifier"] = {}
 ctx.lists["self.code_variable_modifier"] = {
     "const", "let"
 }
-ctx.lists["self.code_data_type"] = {
-    "bool":     "boolean",
-    "number":   "number",
-    "string":   "string",
-    "any":      "any"
-}
+ctx.lists["self.code_data_type"] = {}
 ctx.lists["self.code_function"] = {
     "forEach", "map", "flatMap", "filter", "reduce",
     "sort", "find", "includes", "indexOf",

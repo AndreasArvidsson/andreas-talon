@@ -1,6 +1,5 @@
 tag: user.javascript
 -
-tag(): user.html
 tag(): user.generic_language
 tag(): user.operators
 tag(): user.comments
