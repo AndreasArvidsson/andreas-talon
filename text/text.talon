@@ -2,7 +2,7 @@
 <user.formatters_code> <user.text>:
     user.insert_and_format(text, formatters_code)
 <user.formatters_code> <user.text> over:
-        user.insert_and_format(text, formatters_code)
+    user.insert_and_format(text, formatters_code)
 stric <user.formatters_code> <user.text>$:
     user.insert_and_format(text, formatters_code)
 
@@ -13,11 +13,14 @@ stric <user.formatters_code> <user.text>$:
     user.insert_and_format(text, formatter_prose)
 
 # Reformat
-<user.formatters> (this | dis):
+<user.formatters> format (this | dis):
     user.reformat_selection(formatters)
-<user.formatters> last:
+<user.formatters> format last:
     user.reformat_last(formatters)
-<user.formatters> word:
+<user.formatters> format line:
+    edit.select_line()
+    user.reformat_selection(formatters)
+<user.formatters> format word:
     edit.select_word()
     user.reformat_selection(formatters)
 

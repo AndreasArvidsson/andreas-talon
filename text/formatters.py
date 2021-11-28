@@ -45,6 +45,7 @@ formatters_dict = {
         text, split_no_symbols, "::", lower, lower
     ),
     "NO_SPACES": lambda text: format_words(text, split_no_symbols, ""),
+    "COMMA_SEPARATED": lambda text: format_words(text, split, ", "),
 }
 
 # This is the mapping from spoken phrases to formatters
@@ -67,6 +68,7 @@ ctx.lists["self.formatter_code"] = {
     "dunder": "DOUBLE_UNDERSCORE",
     "packed": "DOUBLE_COLON_SEPARATED",
     "smash": "NO_SPACES",
+    "list": "COMMA_SEPARATED",
 }
 
 mod.list("formatter_prose", desc="List of prose formatters")
@@ -108,7 +110,9 @@ def gui(gui: imgui.GUI):
         **ctx.lists["self.formatter_prose"],
     }
     for name in sorted(set(formatters)):
-        gui.text(f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}")
+        gui.text(
+            f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}"
+        )
     gui.line()
     if gui.button("Hide"):
         actions.user.formatters_help_toggle()
