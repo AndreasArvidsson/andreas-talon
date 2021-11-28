@@ -1,6 +1,7 @@
 from talon import Context, Module, app, imgui, actions, ui, fs
 from talon import fs
 import os
+import re
 
 # a list of homophones where each line is a comma separated list
 # e.g. where,wear,ware
@@ -23,7 +24,7 @@ def gui(gui: imgui.GUI):
     index = 1
     global active_word_list
     for word in active_word_list:
-        gui.text("Choose {}: {} ".format(index, word))
+        gui.text(f"Choose {index} {word.strip()}")
         index = index + 1
     gui.line()
     if gui.button("Hide"):
@@ -34,7 +35,7 @@ def gui(gui: imgui.GUI):
 class Actions:
     def homophones_get(word: str) -> list[str] or None:
         """Get homophones for the given word"""
-        word = word.lower()
+        word = word.lower().strip()
         if word in all_homophones:
             return all_homophones[word]
         return None
@@ -48,14 +49,12 @@ class Actions:
 
     def homophones_show_selected():
         """Show homophones selection if the selected word is a homophone"""
-        global active_word_list, active_word, pad_left, pad_right
+        global active_word_list, active_word
 
         word = actions.edit.selected_text()
         if not word:
             return
 
-        pad_left = word.startswith(" ")
-        pad_right = word.endswith(" ")
         list = get_list(word)
         active_word = word
         active_word_list = format_list(word, list)
@@ -69,7 +68,7 @@ class Actions:
             return
 
         homophones = get_list(word)
-        index = (homophones.index(word.lower()) + 1) % len(homophones)
+        index = (homophones.index(word.lower().strip()) + 1) % len(homophones)
         homophone = homophones[index]
         new_word = format_homophone(word, homophone)
         actions.insert(new_word)
@@ -89,20 +88,15 @@ class Actions:
             actions.user.homophones_hide()
             return
 
-        if pad_left:
-            word = " " + word
-        if pad_right:
-            word = word + " "
-
         actions.user.history_add_phrase(word)
         actions.insert(word)
         actions.user.homophones_hide()
 
 
 def get_list(word: str) -> list[str]:
-    word_lower = word.lower()
+    word_lower = word.lower().strip()
     if word_lower not in all_homophones:
-        msg = f"Found no homophones for: {word}"
+        msg = f"Found no homophones for: '{word}'"
         actions.user.notify(msg)
         raise ValueError(msg)
     return all_homophones[word_lower]
@@ -124,10 +118,17 @@ def format_list(word: str, list: list[str]) -> list[str]:
 
 
 def format_homophone(word: str, homophone: str):
+    leading_whitespace = re.search(r"^[\s]+", word)
+    trailing_whitespace = re.search(r"[\s]+$", word)
+    word = word.strip()
     if word.isupper():
-        return homophone.upper()
-    if word == word.capitalize():
-        return homophone.capitalize()
+        homophone = homophone.upper()
+    elif word == word.capitalize():
+        homophone = homophone.capitalize()
+    if leading_whitespace:
+        homophone = leading_whitespace.group() + homophone
+    if trailing_whitespace:
+        homophone += trailing_whitespace.group()
     return homophone
 
 
