@@ -1,4 +1,4 @@
-from talon import Context, Module, app, clip, cron, imgui, actions, ui, fs
+from talon import Context, Module, app, imgui, actions, ui, fs
 from talon import fs
 import os
 
@@ -46,8 +46,8 @@ class Actions:
         list.insert(0, word)
         return get_from_list(list, number)
 
-    def homophones_selected():
-        """Show homophones if the selected word is a homophone"""
+    def homophones_show_selected():
+        """Show homophones selection if the selected word is a homophone"""
         global active_word_list, active_word, pad_left, pad_right
 
         word = actions.edit.selected_text()
@@ -56,12 +56,23 @@ class Actions:
 
         pad_left = word.startswith(" ")
         pad_right = word.endswith(" ")
-        word = word.strip()
         list = get_list(word)
         active_word = word
         active_word_list = format_list(word, list)
         actions.mode.enable("user.homophones")
         gui.show()
+
+    def homophones_cycle_selected():
+        """Cycle homophones if the selected word is a homophone"""
+        word = actions.edit.selected_text()
+        if not word:
+            return
+
+        homophones = get_list(word)
+        index = (homophones.index(word.lower()) + 1) % len(homophones)
+        homophone = homophones[index]
+        new_word = format_homophone(word, homophone)
+        actions.insert(new_word)
 
     def homophones_hide():
         """Hides the homophones display"""
@@ -106,18 +117,18 @@ def get_from_list(list: list[str], number: int) -> str:
 
 
 def format_list(word: str, list: list[str]) -> list[str]:
-    is_upper = word.isupper()
-    is_capitalized = word == word.capitalize()
-
-    if is_upper or is_capitalized:
-        list = list[:]
-        for i in range(len(list)):
-            if is_upper:
-                list[i] = list[i].upper()
-            elif is_capitalized:
-                list[i] = list[i].capitalize()
-
+    list = list[:]
+    for i in range(len(list)):
+        list[i] = format_homophone(word, list[i])
     return list
+
+
+def format_homophone(word: str, homophone: str):
+    if word.isupper():
+        return homophone.upper()
+    if word == word.capitalize():
+        return homophone.capitalize()
+    return homophone
 
 
 def read_file(name, flags):
