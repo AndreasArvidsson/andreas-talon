@@ -7,10 +7,12 @@ mod.list(
     "window_snap_position",
     "Predefined window positions for the current window. See `RelativeScreenPos`.",
 )
-mod.list("resize_window_side", "Side of window to use for resizing")
-mod.list("resize_window_direction", "Direction of window to use for resizing")
-ctx.lists["user.resize_window_side"] = {"left", "top", "right", "bottom"}
-ctx.lists["user.resize_window_direction"] = {"in", "out"}
+mod.list("resize_side", "Side of window to use for resizing")
+mod.list("resize_direction", "Direction of window to use for resizing")
+mod.list("resize_offset", "Offset to use for resizing")
+ctx.lists["user.resize_side"] = {"left", "top", "right", "bottom"}
+ctx.lists["user.resize_direction"] = {"in", "out"}
+ctx.lists["user.resize_offset"] = {"small", "medium", "large"}
 
 
 @dataclass
@@ -117,37 +119,43 @@ class Actions:
             height=rect.height,
         )
 
-    def resize_window(resize_window_side: str, resize_window_direction: str):
+    def resize_window(side: str, direction: str, offset: str):
         """Resize the active window"""
         window = ui.active_window()
         screen = window.screen.visible_rect
-        step = 0.1 * min(screen.width, screen.height)
+        screen_size = min(screen.width, screen.height)
+        if offset == "small":
+            step = 0.05 * screen_size
+        elif offset == "medium":
+            step = 0.1 * screen_size
+        elif offset == "large":
+            step = 0.2 * screen_size
         rect = window.rect
         x = rect.x
         y = rect.y
         width = rect.width
         height = rect.height
-        increase = resize_window_direction == "out"
-        if resize_window_side == "left":
+        increase = direction == "out"
+        if side == "left":
             if increase:
                 x -= step
                 width += step
             else:
                 x += step
                 width -= step
-        elif resize_window_side == "top":
+        elif side == "top":
             if increase:
                 y -= step
                 height += step
             else:
                 y += step
                 height -= step
-        elif resize_window_side == "right":
+        elif side == "right":
             if increase:
                 width += step
             else:
                 width -= step
-        elif resize_window_side == "bottom":
+        elif side == "bottom":
             if increase:
                 height += step
             else:
