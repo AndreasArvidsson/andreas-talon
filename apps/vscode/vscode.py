@@ -1,5 +1,5 @@
+from typing import Union
 from talon import Context, actions, Module
-import webbrowser
 key = actions.key
 insert = actions.insert
 edit = actions.edit
@@ -214,7 +214,7 @@ class Actions:
         insert(f"{l}:{c}")
         key("enter")
 
-    def vscode_find_recent(text: str = None, sleep: bool = False):
+    def vscode_find_recent(text: str = None, sleep: Union[bool, int] = False):
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
         if text or sleep:
