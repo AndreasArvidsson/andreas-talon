@@ -1,4 +1,3 @@
-from typing import Union
 from talon import Context, actions, Module
 key = actions.key
 insert = actions.insert
@@ -214,7 +213,7 @@ class Actions:
         insert(f"{l}:{c}")
         key("enter")
 
-    def vscode_find_recent(text: str = None, sleep: Union[bool, int] = False):
+    def vscode_find_recent(text: str = None, sleep: bool = False):
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
         if text or sleep:
@@ -222,13 +221,13 @@ class Actions:
         if text:
             insert(text)
 
-    def git_open_working_file_url(line_number: Union[bool, int] = False):
+    def git_open_working_file_url(line_number: bool = False):
         """Open current file in in git webpage"""
         url = actions.user.vscode_get("andreas.git.getURL", line_number)
         if url:
             actions.user.browser_focus_open(url)
 
-    def git_copy_working_file_url(line_number: Union[bool, int] = False):
+    def git_copy_working_file_url(line_number: bool = False):
         """Copy current file URL to clipboard"""
         url = actions.user.vscode_get("andreas.git.getURL", line_number)
         if url:
