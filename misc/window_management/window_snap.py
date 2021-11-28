@@ -7,6 +7,10 @@ mod.list(
     "window_snap_position",
     "Predefined window positions for the current window. See `RelativeScreenPos`.",
 )
+mod.list("resize_window_side", "Side of window to use for resizing")
+mod.list("resize_window_direction", "Direction of window to use for resizing")
+ctx.lists["user.resize_window_side"] = {"left", "top", "right", "bottom"}
+ctx.lists["user.resize_window_direction"] = {"in", "out"}
 
 
 @dataclass
@@ -93,11 +97,11 @@ class Actions:
         move_to_screen(ui.active_window(), offset=-1)
 
     def move_window_next_screen():
-        """Move the active window to a specific screen."""
+        """Move the active window to the next screen."""
         move_to_screen(ui.active_window(), offset=1)
 
     def move_window_to_screen(screen_number: int):
-        """Move the active window leftward by one."""
+        """Move the active window to a specific screen."""
         move_to_screen(ui.active_window(), screen_number=screen_number)
 
     def move_window_to_screen_center():
@@ -111,6 +115,50 @@ class Actions:
             y=screen.y + (screen.height / 2 - rect.height / 2),
             width=rect.width,
             height=rect.height,
+        )
+
+    def resize_window(resize_window_side: str, resize_window_direction: str):
+        """Resize the active window"""
+        window = ui.active_window()
+        screen = window.screen.visible_rect
+        step = 0.1 * min(screen.width, screen.height)
+        rect = window.rect
+        x = rect.x
+        y = rect.y
+        width = rect.width
+        height = rect.height
+        increase = resize_window_direction == "out"
+        if resize_window_side == "left":
+            if increase:
+                x -= step
+                width += step
+            else:
+                x += step
+                width -= step
+        elif resize_window_side == "top":
+            if increase:
+                y -= step
+                height += step
+            else:
+                y += step
+                height -= step
+        elif resize_window_side == "right":
+            if increase:
+                width += step
+            else:
+                width -= step
+        elif resize_window_side == "bottom":
+            if increase:
+                height += step
+            else:
+                height -= step
+
+        set_window_pos(
+            window,
+            x=max(x, screen.x),
+            y=max(y, screen.y),
+            width=min(width, screen.width),
+            height=min(height, screen.height),
         )
 
 
