@@ -103,12 +103,8 @@ class UserActions:
         key("left:2")
 
     def code_while():
-        insert("while ():")
-        key("left:2")
-
-    def code_do_while():
-        insert("do {\n\n} while ()\n")
-        key("left:2")
+        insert("while :")
+        key("left")
 
     def code_foreach():
         insert("for  in :")
