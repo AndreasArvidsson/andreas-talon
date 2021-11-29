@@ -36,7 +36,7 @@ class Actions:
         """Locate image and mouse left click drag"""
         ok, x, y = actions.user.locate_hover(name)
         if ok:
-            ctrl.mouse_click(button=0, down=True)
+            actions.user.mouse_drag()
         return ok, x, y
 
     def locate_line_move(direction: int):
@@ -46,4 +46,4 @@ class Actions:
             actions.sleep(0.2)
             ctrl.mouse_move(x + 100 * direction, y)
             actions.sleep(0.2)
-            ctrl.mouse_click(button=0, up=True)
+            actions.user.mouse_drag()
