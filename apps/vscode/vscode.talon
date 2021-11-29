@@ -40,10 +40,8 @@ bar debug:                   user.vscode("workbench.view.debug")
 bar search:                  user.vscode("workbench.view.search")
 bar source:                  user.vscode("workbench.view.scm")
 bar file:                    user.vscode("workbench.files.action.showActiveFileInExplorer")
-search last:                 user.vscode("search.action.focusPreviousSearchResult")
-search next:                 user.vscode("search.action.focusNextSearchResult")
-ref next:                    user.vscode("references-view.prev")
-ref last:                    user.vscode("references-view.next")
+ref last:                    user.vscode("references-view.prev")
+ref next:                    user.vscode("references-view.next")
 
 # Panel
 panel (show | hide):         user.vscode("workbench.action.togglePanel")

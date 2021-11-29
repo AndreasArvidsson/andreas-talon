@@ -107,8 +107,8 @@ class EditActions:
     def zoom_reset():           vscode("workbench.action.zoomReset")
 
     # ----- Find -----
-    def find_previous():        vscode("editor.action.previousMatchFindAction")
-    def find_next():            vscode("editor.action.nextMatchFindAction")
+    def find_previous():        key("shift-f4")
+    def find_next():            key("f4")
 
 
 @ctx.action_class("user")
