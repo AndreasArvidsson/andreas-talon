@@ -94,6 +94,9 @@ take last:                       user.vscode("editor.action.addSelectionToPrevio
 take all these:                  user.vscode("editor.action.selectHighlights")
 cursor back:                     user.vscode("cursorUndo")
 cursor forward:                  user.vscode("cursorRedo")
+cursor up:                       user.vscode("editor.action.insertCursorAbove")
+cursor down:                     user.vscode("editor.action.insertCursorBelow")
+cursor lines:                    user.vscode("editor.action.insertCursorAtEndOfEachLineSelected")
 
 # Debug
 debug select:                    user.vscode("workbench.action.debug.selectandstart")
