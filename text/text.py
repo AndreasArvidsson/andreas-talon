@@ -41,13 +41,13 @@ class Actions:
         """Reformat the text. Used by Cursorless"""
         lines = text.split("\n")
         for i in range(len(lines)):
-            unformatted = actions.user.unformat_text(lines[i])
+            unformatted = actions.user.unformat_text(lines[i], formatters)
             lines[i] = actions.user.format_text(unformatted, formatters)
         return "\n".join(lines)
 
 
 def reformat_single_selection(selected: str, formatters: str):
-    unformatted = actions.user.unformat_text(selected)
+    unformatted = actions.user.unformat_text(selected, formatters)
     formatted = actions.user.format_text(unformatted, formatters)
     insert_string(formatted, unformatted)
 
@@ -56,7 +56,7 @@ def reformat_multiple_selections(selections: list[str], formatters: str):
     actions.user.homophones_hide()
     formatted_parts = []
     for selected in selections:
-        unformatted = actions.user.unformat_text(selected)
+        unformatted = actions.user.unformat_text(selected, formatters)
         formatted = actions.user.format_text(unformatted, formatters)
         actions.user.history_add_phrase(formatted, unformatted)
         formatted_parts.append(formatted)

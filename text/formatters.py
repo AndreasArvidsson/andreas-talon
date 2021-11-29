@@ -48,6 +48,10 @@ formatters_dict = {
     "COMMA_SEPARATED": lambda text: format_words(text, split, ", "),
 }
 
+formatters_no_unformat = {
+    "COMMA_SEPARATED",
+}
+
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", desc="List of code formatters")
 ctx.lists["self.formatter_code"] = {
@@ -68,7 +72,6 @@ ctx.lists["self.formatter_code"] = {
     "dunder": "DOUBLE_UNDERSCORE",
     "packed": "DOUBLE_COLON_SEPARATED",
     "smash": "NO_SPACES",
-    "list": "COMMA_SEPARATED",
 }
 
 mod.list("formatter_prose", desc="List of prose formatters")
@@ -88,6 +91,13 @@ ctx.lists["self.formatter_word"] = {
     "leap": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD",
 }
 
+mod.list(
+    "formatter_hidden", desc="List of hidden formatters. Are only used for reformat"
+)
+ctx.lists["self.formatter_hidden"] = {
+    "list": "COMMA_SEPARATED",
+}
+
 
 @mod.capture(rule="{self.formatter_code}+")
 def formatters_code(m) -> str:
@@ -95,7 +105,9 @@ def formatters_code(m) -> str:
     return ",".join(m.formatter_code_list)
 
 
-@mod.capture(rule="({self.formatter_code} | {self.formatter_prose})+")
+@mod.capture(
+    rule="({self.formatter_code} | {self.formatter_prose} | {self.formatter_hidden})+"
+)
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m)
@@ -130,8 +142,11 @@ class Actions:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
         return actions.user.format_text(text, formatters)
 
-    def unformat_text(text: str) -> str:
+    def unformat_text(text: str, formatters: str = None) -> str:
         """Remove format from text"""
+        # Some formatters don't use unformat before
+        if formatters in formatters_no_unformat:
+            return text
         # Remove quotes
         text = de_string(text)
         # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
