@@ -52,7 +52,7 @@ class Actions:
         if move_cursor():
             # Left mouse button is held down: end drag
             if 0 in ctrl.mouse_buttons_down():
-                ctrl.mouse_click(button=0, up=True)
+                actions.user.mouse_drag()
             # Has an action to perform
             elif next_action:
                 actions.user.mouse_click(next_action)

@@ -124,3 +124,10 @@ cursorless record:           user.vscode("cursorless.recordTestCase")
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
+
+# Experimental locate api
+locate button:               user.locate_hover("button.png")
+grab line left:              user.locate_drag("line_vertical.png")
+grab line down:              user.locate_drag("line_horizontal.png")
+move line left:              user.locate_line_move(-1)
+move line right:             user.locate_line_move(1)

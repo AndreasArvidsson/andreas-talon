@@ -87,8 +87,10 @@ class Actions:
         """Press and hold/release button 0 depending on state for dragging"""
         if 0 in ctrl.mouse_buttons_down():
             ctrl.mouse_click(button=0, up=True)
+            actions.user.notify("Mouse drag: False")
         else:
             ctrl.mouse_click(button=0, down=True)
+            actions.user.notify("Mouse drag: True")
 
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
