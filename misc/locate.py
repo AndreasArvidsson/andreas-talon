@@ -8,12 +8,12 @@ mod = Module()
 @mod.action_class
 class Actions:
     def locate_hover(name: str, filter_cb: callable = None) -> tuple[bool, int, int]:
-        """Hover image"""
+        """Locate image and hover"""
         path = f"{actions.path.talon_user()}/andreas/images/{name}"
         rect = ui.active_window().rect
         t1 = time.perf_counter()
         locations = locate(path, rect=rect, threshold=0.99)
-        print(f"{time.perf_counter() - t1:0.3}s")
+        print(f"locate: {time.perf_counter() - t1:0.3}s")
 
         if filter_cb:
             locations = list(filter(filter_cb, locations))

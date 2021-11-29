@@ -345,3 +345,7 @@ class Actions:
             ctrl.mouse_move(x, y)
             actions.sleep(0.1)
             ctrl.mouse_click(button=0, up=True)
+
+    def vscode_grab_line(panel: dict):
+        """Grab vscode sideboard/panel line to resize"""
+        actions.user.locate_drag(panel["filename"])
