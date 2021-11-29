@@ -9,10 +9,10 @@ mod.list(
 )
 mod.list("resize_side", "Side of window to use for resizing")
 mod.list("resize_direction", "Direction of window to use for resizing")
-mod.list("resize_offset", "Offset to use for resizing")
+mod.list("resize_size", "Offset to use for resizing")
 ctx.lists["user.resize_side"] = {"left", "top", "right", "bottom"}
 ctx.lists["user.resize_direction"] = {"in", "out"}
-ctx.lists["user.resize_offset"] = {"small", "medium", "large"}
+ctx.lists["user.resize_size"] = {"small", "medium", "large"}
 
 
 @dataclass

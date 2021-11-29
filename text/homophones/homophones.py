@@ -96,7 +96,7 @@ class Actions:
 def get_list(word: str) -> list[str]:
     word_lower = word.lower().strip()
     if word_lower not in all_homophones:
-        msg = f"Found no homophones for: '{word}'"
+        msg = f"Found no homophones for: {word.strip()}"
         actions.user.notify(msg)
         raise ValueError(msg)
     return all_homophones[word_lower]
