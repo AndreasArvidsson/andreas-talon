@@ -335,7 +335,6 @@ def reset():
 
 
 def update_active_contexts_cache(active_contexts):
-    # print("update_active_contexts_cache")
     global cached_active_contexts_list
     cached_active_contexts_list = active_contexts
 
@@ -361,7 +360,6 @@ def refresh_context_command_map(enabled_only=False):
     show_enabled_contexts_only = enabled_only
     cached_window_title = ui.active_window().title
     active_contexts = registry.active_contexts()
-    # print(str(active_contexts))
     update_active_contexts_cache(active_contexts)
 
     context_command_map = {}
@@ -381,19 +379,13 @@ def refresh_context_command_map(enabled_only=False):
         if short_name in overrides:
             short_name = overrides[short_name]
 
-        # print("short name: " + short_name)
-
         if enabled_only and context in active_contexts or not enabled_only:
             context_command_map[context_name] = {}
             for command_alias, val in context.commands.items():
-                # print(str(val))
                 if command_alias in registry.commands:
-                    # print(str(val.rule.rule) + ": " + val.target.code)
                     context_command_map[context_name][
                         str(val.rule.rule)
                     ] = val.target.code
-            # print(short_name)
-            # print("length: " + str(len(context_command_map[context_name])))
             if len(context_command_map[context_name]) == 0:
                 context_command_map.pop(context_name)
             else:
@@ -403,7 +395,6 @@ def refresh_context_command_map(enabled_only=False):
     refresh_rule_word_map(context_command_map)
 
     ctx.lists["self.help_contexts"] = cached_short_context_names
-    # print(str(ctx.lists["self.help_contexts"]))
     sorted_context_map_keys = sorted(cached_short_context_names)
 
 

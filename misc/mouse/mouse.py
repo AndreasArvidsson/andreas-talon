@@ -212,7 +212,6 @@ def scroll_continuous_helper():
         p = scroll_speed / 100
         amount = int(p * get_scroll_step() / 20)
         amount = max(amount, 1)
-        # print(get_scroll_step())
         actions.mouse_scroll(by_lines=False, y=amount * scroll_dir)
 
 

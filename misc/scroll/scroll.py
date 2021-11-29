@@ -80,7 +80,6 @@ def start_scroll_interval():
         cron.cancel(scroll_job)
     scroll_continuous_helper()
     time = round(10000 / scroll_speed)
-    print(time)
     scroll_job = cron.interval(f"{time}ms", scroll_continuous_helper)
 
 def scroll_continuous_helper():

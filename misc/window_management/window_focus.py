@@ -24,7 +24,6 @@ overrides = {}
 def parse_name(name):
     if name.lower() in overrides:
         return overrides[name.lower()]
-    # print(f"'{name}'")
     if name.endswith(".exe"):
         name = name.rsplit(".", 1)[0]
     if " - " in name:

@@ -145,9 +145,6 @@ class UserActions:
     # Variable statement
     def code_variable(name: str, modifiers: list[str], assign: bool, data_type: str = None):
         text = name
-        print(text)
-        print(modifiers)
-        print(data_type)
         if modifiers:
             text = f"{' '.join(modifiers)} {text}"
         if data_type:
