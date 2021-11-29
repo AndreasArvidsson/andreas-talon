@@ -325,7 +325,7 @@ class Actions:
             actions.clip.set_text(url)
 
     def vscode_resize_panel(panel: dict, size: str):
-        """Resize vscode panel"""
+        """Resize vscode sidebar/panel"""
         actions.user.mouse_center_window()
         actions.sleep(0.2)
         ok, x, y = actions.user.locate_drag(panel["filename"])
