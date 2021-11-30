@@ -61,7 +61,7 @@ def reformat_multiple_selections(selections: list[str], formatters: str):
         actions.user.history_add_phrase(formatted, unformatted)
         formatted_parts.append(formatted)
     formatted_all = "\n".join(formatted_parts)
-    actions.user.paste(formatted_all)
+    actions.insert(formatted_all)
 
 
 def insert_string(formatted: str, unformatted: str):

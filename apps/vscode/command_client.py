@@ -44,11 +44,11 @@ class NotSet:
         return "<argument not set>"
 
 
-def run_vscode_command_by_command_palette(command_id: str):
-    """Execute command via command palette. Preserves the clipboard."""
-    actions.user.command_palette()
-    actions.user.paste(command_id)
-    actions.key("enter")
+# def run_vscode_command_by_command_palette(command_id: str):
+#     """Execute command via command palette. Preserves the clipboard."""
+#     actions.user.command_palette()
+#     actions.user.paste(command_id)
+#     actions.key("enter")
 
 
 def write_json_exclusive(path: Path, body: Any):
@@ -142,7 +142,7 @@ def run_vscode_command(
         if args or return_command_output:
             raise Exception("Must use command-server extension for advanced commands")
         print("Communication dir not found; falling back to command palette")
-        run_vscode_command_by_command_palette(command_id)
+        # run_vscode_command_by_command_palette(command_id)
         return
 
     request_path = communication_dir_path / "request.json"

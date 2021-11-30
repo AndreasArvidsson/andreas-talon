@@ -14,14 +14,13 @@ not tag: terminal
 
 @ctx_no_terminal.action_class("main")
 class MainActions:
-    def insert(text: str or number):
-        if (isinstance(text, str)
-            and len(text) > 2
-            and re.search(r"[ /-]|\n", text)
-            ):
-            user.paste(text)
-        else:
-            actions.next(text)
+    def insert(text: str):
+        if not text:
+            return
+        if len(text) > 2 and re.search(r"[ /-]|\n", text):
+            if paste_text(text):
+                return
+        actions.next(text)
 
 
 @ctx.action_class("edit")
@@ -344,18 +343,18 @@ class Actions:
         for _ in range(n):
             edit.line_swap_down()
 
-    # ----- Miscellaneous -----:
 
-    def paste(text: str):
-        """Pastes text and preserves clipboard"""
-        with clip.revert():
-            clip.set_text(text)
+def paste_text(text: str):
+    """Pastes text and preserves clipboard"""
+    with clip.revert():
+        clip.set_text(text)
 
-            # TODO debug clipboard
-            if clip.text() != text:
-                actions.user.notify("Failed to set clipboard")
-                print(f"Clipboard: '{clip.text()}'")
+        if clip.text() != text:
+            actions.user.notify("Failed to set clipboard")
+            print(f"Clipboard: '{clip.text()}'")
+            return False
 
-            edit.paste()
-            # sleep here so that clip.revert doesn't revert the clipboard too soon
-            actions.sleep("150ms")
+        edit.paste()
+        # sleep here so that clip.revert doesn't revert the clipboard too soon
+        actions.sleep("150ms")
+    return True

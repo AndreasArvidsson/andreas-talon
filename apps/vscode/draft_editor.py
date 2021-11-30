@@ -23,8 +23,8 @@ class Actions:
         # Wait for context to change.
         actions.sleep("100ms")
         actions.app.tab_open()
-        if selected_text != "":
-            actions.user.paste(selected_text)
+        if selected_text:
+            actions.insert(selected_text)
         ctx.tags = ["user.draft_editor_active"]
 
     def draft_editor_submit():
@@ -52,4 +52,4 @@ def close_editor(submit_draft: bool):
     actions.app.tab_close()
     actions.user.focus_window(original_window)
     if submit_draft:
-        actions.user.paste(selected_text)
+        actions.insert(selected_text)
