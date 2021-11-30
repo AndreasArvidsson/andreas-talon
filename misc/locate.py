@@ -15,7 +15,7 @@ class Actions:
         locations = locate(path, rect=rect)
 
         if locations:
-            print(f"located {name}: {time.perf_counter() - t1:0.3}s")
+            print(f"Located {name}: {time.perf_counter() - t1:0.3}s")
         else:
             print(f"Couldn't locate: {name}")
             return False, 0, 0
