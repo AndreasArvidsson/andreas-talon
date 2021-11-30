@@ -23,6 +23,12 @@ make continue:                user.code_continue()
 make return:                  user.code_return()
 make {user.code_statement}:
     "{code_statement}"
+make {user.code_class_modifier}:
+    "{code_class_modifier}"
+make {user.code_function_modifier}:
+    "{code_function_modifier}"
+make {user.code_variable_modifier}:
+    "{code_variable_modifier}"
 
 make print:                   user.code_print("")
 make print <user.text>$:
