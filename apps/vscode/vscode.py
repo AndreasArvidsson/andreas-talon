@@ -34,11 +34,13 @@ tag: user.talon
 mod.list("vscode_panel", desc="Available panels for resizing in vscode")
 panels = {
     "bar": {
-        "filename": "line_vertical.png",
+        "filename": "vscode_bar_ellipses.png",
+        "position": "right",
         "xDirection": True,
     },
     "panel": {
-        "filename": "line_horizontal.png",
+        "filename": "vscode_panel_terminal.png",
+        "position": "top",
         "xDirection": False,
     },
 }
@@ -328,7 +330,7 @@ class Actions:
         """Resize vscode sidebar/panel"""
         actions.user.mouse_center_window()
         actions.sleep(0.2)
-        ok, x, y = actions.user.locate_drag(panel["filename"])
+        ok, x, y = actions.user.locate_drag(panel["filename"], panel["position"])
         if ok:
             if size == "small":
                 ratio = 0.2
@@ -348,4 +350,4 @@ class Actions:
 
     def vscode_grab_line(panel: dict):
         """Grab vscode sideboard/panel line to resize"""
-        actions.user.locate_drag(panel["filename"])
+        actions.user.locate_drag(panel["filename"], panel["position"])
