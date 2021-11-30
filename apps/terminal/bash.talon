@@ -39,6 +39,8 @@ remove:                        "rm "
 copy:                          "cp "
 less:                          "less "
 sudo:                          "sudo "
+apt install:                   "apt install "
+apt update:                    "apt update\n"
 word count:                    "wc "
 change mode:                   "chmod "
 change owner:                  "chown "
@@ -51,6 +53,7 @@ clipboard:                     "clipboard"
 translate:                     "tr "
 vim:                           "vim "
 curl:                          "curl "
+yarn:                          "yarn "
 dev null:                      "/dev/null"
 print exit code:               "echo $?\n"
 pipe:                          " | "
@@ -59,7 +62,6 @@ op or:                         " || "
 terminate:                     key(ctrl-c)
 clear:                         key(ctrl-l)
 revert:                        key(alt-r)
-
 
 # head:                          "head "
 # tail:                          "tail "
