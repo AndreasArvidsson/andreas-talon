@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Module, Context, actions
 from ...merge import merge
 
 mod = Module()
@@ -91,7 +91,7 @@ ctx.lists["self.key_symbol"] = {
 
     "quote":            '"',
     "apostrophe":       "'",
-    "brick":            "` ",
+    "brick":            "`",
 
     "slash":            "/",
     "backslash":        "\\",
@@ -106,12 +106,14 @@ ctx.lists["self.key_symbol"] = {
     "angle":            "<",
     "rangle":           ">",
 
-    "caret":            "^ ",
-    "tilde":            "~ ",
+    "caret":            "^",
+    "tilde":            "~",
     "plus":             "+",
     "minus":            "-",
     "equals":           "="
 }
+
+requires_space = {"`", "^", "~"}
 
 
 @mod.capture(rule="{self.key_modifier}+")
@@ -149,3 +151,11 @@ def letter(m) -> str:
 def letters(m) -> str:
     """One or more letters in the alphabet"""
     return "".join(m.key_alphabet_list)
+
+
+@ctx.action_class("main")
+class MainActions:
+    def key(key: str):
+        actions.next(key)
+        if key in requires_space:
+            actions.next(" ")

@@ -18,7 +18,7 @@ matching_pairs = {
     "curly":    ["{", "}"],
     "twin":     ["'", "'"],
     "quad":     ['"', '"'],
-    "skis":     ['` ', '` '],
+    "skis":     ['`', '`'],
 }
 matching_pairs["string"] = matching_pairs["quad"]
 ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
@@ -33,8 +33,7 @@ def delimiter_pair(m) -> list[str]:
 class Actions:
     def delimiters_pair_insert(pair: list[str]):
         """Insert matching pair delimiters"""
-        actions.insert(pair[0])
-        actions.insert(pair[1])
+        actions.insert(pair[0] + pair[1])
         actions.edit.left()
 
     def delimiters_pair_wrap_selection(pair: list[str]):
