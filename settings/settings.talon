@@ -22,7 +22,7 @@ settings():
     user.cursorless_settings_directory = "andreas/cursorless-settings"
 
     # Mouse scroll step
-    user.scroll_step = 300
+    user.scroll_step = 500
 
     # Record speech
     # speech.record_all = 1
