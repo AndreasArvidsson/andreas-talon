@@ -3,15 +3,15 @@ bottom, scrollToBottom
 breakpoint, toggleLineBreakpoint
 bring, replaceWithTarget
 call, callAsFunction
-cut, cutToClipboard
 center, scrollToCenter
 chuck, remove
 clear, clearAndSetSelection
-clone, insertCopyAfter
 clone up, insertCopyBefore
+clone, insertCopyAfter
 comment, toggleLineComment
 copy, copyToClipboard
 crown, scrollToTop
+cut, cutToClipboard
 dedent, outdentLine
 define, revealDefinition
 drink, editNewLineBefore
@@ -20,6 +20,7 @@ extract, extractVariable
 float, insertEmptyLineAfter
 fold, foldRegion
 format, applyFormatter
+give, deselect
 hover, showHover
 indent, indentLine
 inspect, showDebugHover
@@ -34,8 +35,8 @@ quick fix, showQuickFix
 reference, showReferences
 rename, rename
 reverse, reverseTargets
-scout, findInDocument
 scout all, findInWorkspace
+scout, findInDocument
 sort, sortTargets
 swap, swapTargets
 take, setSelection
