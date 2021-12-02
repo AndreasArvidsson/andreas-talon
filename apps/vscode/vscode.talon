@@ -123,7 +123,7 @@ pop sesh:
 # Misc
 install extension:               user.vscode("workbench.extensions.action.installVSIX")
 minimap (show | hide):           user.vscode("editor.action.toggleMinimap")
-reload window:                   user.vscode("workbench.action.reloadWindow")
+window reload:                   user.vscode("workbench.action.reloadWindow")
 open settings json:              user.vscode("workbench.action.openSettingsJson")
 zen mode:                        user.vscode("workbench.action.toggleZenMode")
 next:                            user.vscode("jumpToNextSnippetPlaceholder")
