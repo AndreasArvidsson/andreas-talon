@@ -1,4 +1,4 @@
-from talon import Context, actions, Module, app
+from talon import Context, actions, Module
 key = actions.key
 insert = actions.insert
 skip = actions.skip
