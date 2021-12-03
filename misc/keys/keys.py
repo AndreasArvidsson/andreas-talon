@@ -153,7 +153,14 @@ def letters(m) -> str:
     return "".join(m.key_alphabet_list)
 
 
-@ctx.action_class("main")
+# Window specific context
+
+ctx_win = Context()
+ctx_win.matches = r"""
+os: windows
+"""
+
+@ctx_win.action_class("main")
 class MainActions:
     def key(key: str):
         actions.next(key)
