@@ -7,44 +7,24 @@ mod.tag("av")
 pressed = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
-hold_timeout = 0.25
+hold_timeout = 0.2
+
 
 @mod.action_class
 class Actions:
-    def foot_switch_key(key: int) -> bool:
+    def foot_switch_key(key: int):
         """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
         is_down = not pressed[key]
         pressed[key] = is_down
+        is_held = time.perf_counter() - timestamps[key] > hold_timeout
+        timestamps[key] = time.perf_counter()
 
+        # Initial downpress
         if is_down:
-            timestamps[key] = time.perf_counter()
-        else:
-            is_hold = time.perf_counter() - timestamps[key] > hold_timeout
-
-        # Top
-        if key == 0:
-            if is_down:
-                actions.user.foot_switch_top_down()
-            elif is_hold:
-                actions.user.foot_switch_top_up()
-        # Center
-        elif key == 1:
-            if is_down:
-                actions.user.foot_switch_center_down()
-            elif is_hold:
-                actions.user.foot_switch_center_up()
-        # Left
-        elif key == 2:
-            if is_down:
-                actions.user.foot_switch_left_down()
-            elif is_hold:
-                actions.user.foot_switch_left_up()
-        # Right
-        elif key == 3:
-            if is_down:
-                actions.user.foot_switch_right_down()
-            elif is_hold:
-                actions.user.foot_switch_right_up()
+            call_down(key)
+        # Button was held and is now released
+        elif is_held:
+            call_up(key)
 
     def foot_switch_reset():
         """Reset foot switch state"""
@@ -144,3 +124,33 @@ class ZoomActions:
 
     def foot_switch_right_up():
         return ""
+
+
+def call_down(key: int):
+    # Top
+    if key == 0:
+        actions.user.foot_switch_top_down()
+    # Center
+    elif key == 1:
+        actions.user.foot_switch_center_down()
+    # Left
+    elif key == 2:
+        actions.user.foot_switch_left_down()
+    # Right
+    elif key == 3:
+        actions.user.foot_switch_right_down()
+
+
+def call_up(key: int):
+    # Top
+    if key == 0:
+        actions.user.foot_switch_top_up()
+    # Center
+    elif key == 1:
+        actions.user.foot_switch_center_up()
+    # Left
+    elif key == 2:
+        actions.user.foot_switch_left_up()
+    # Right
+    elif key == 3:
+        actions.user.foot_switch_right_up()
