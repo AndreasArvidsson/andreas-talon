@@ -28,10 +28,10 @@ class UserActionsWin:
         actions.key("enter")
 
     def system_shutdown():
-        shutdown("s")
+        shutdown("s /t 0")
 
     def system_restart():
-        shutdown("r")
+        shutdown("r /t 0")
 
     def system_hibernate():
         shutdown("h")
