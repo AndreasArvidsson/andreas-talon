@@ -17,7 +17,7 @@ class MainActions:
     def insert(text: str):
         if not text:
             return
-        if len(text) > 2 and re.search(r"[ /-]|\n", text):
+        if isinstance(text, str) and len(text) > 2 and re.search(r"[ /-]|\n", text):
             if paste_text(text):
                 return
         actions.next(text)

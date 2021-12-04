@@ -142,24 +142,6 @@ class EditActions:
 @ctx.action_class("user")
 class UserActions:
     # ----- Navigation -----
-    def declaration_go():
-        vscode("editor.action.goToReferences")
-
-    def definition_go():
-        vscode("editor.action.revealDefinition")
-
-    def definition_peek():
-        vscode("editor.action.peekDefinition")
-
-    def definition_split():
-        vscode("editor.action.revealDefinitionAside")
-
-    def references_go():
-        vscode("editor.action.goToReferences")
-
-    def references_peek():
-        vscode("editor.action.referenceSearch.trigger")
-
     def go_back():
         vscode("workbench.action.navigateBack")
 
@@ -202,41 +184,7 @@ class UserActions:
     def find_replace_confirm_all():
         key("ctrl-alt-enter")
 
-    # ----- Run -----
-    def run_program():
-        vscode("workbench.action.debug.run")
-
-    def debug_program():
-        vscode("workbench.action.debug.start")
-
-    def debug_breakpoint():
-        vscode("editor.debug.action.toggleBreakpoint")
-
-    def debug_continue():
-        vscode("workbench.action.debug.continue")
-
-    def debug_step_over():
-        vscode("workbench.action.debug.stepOver")
-
-    def debug_step_into():
-        vscode("workbench.action.debug.stepInto")
-
-    def debug_step_out():
-        vscode("workbench.action.debug.stepOut")
-
-    def debug_restart():
-        vscode("workbench.action.debug.restart")
-
-    def debug_pause():
-        vscode("workbench.action.debug.pause")
-
-    def debug_stop():
-        vscode("workbench.action.debug.stop")
-
     # ----- Tabs -----
-    def quick_fix():
-        vscode("editor.action.quickFix")
-
     def tab_back():
         vscode("workbench.action.openPreviousRecentlyUsedEditor")
 
@@ -246,20 +194,6 @@ class UserActions:
     def tab_jump(number: int):
         if number < 10:
             key(f"alt-{number}")
-
-    # ----- Format -----
-    def format_document():
-        vscode("editor.action.formatDocument")
-
-    def format_selection():
-        vscode("editor.action.formatSelection")
-
-    # ----- Comments -----
-    def comment():
-        vscode("editor.action.addCommentLine")
-
-    def uncomment():
-        vscode("editor.action.removeCommentLine")
 
     # ----- Scroll -----
     def scroll_up():
@@ -287,9 +221,6 @@ class TalonUserActions:
     def format_document():
         vscode("andreas.formatDocument")
 
-    def format_selection():
-        actions.skip()
-
 
 @ctx_talon.action_class("edit")
 class TalonEditActions:
@@ -305,6 +236,10 @@ class Actions:
         vscode("workbench.action.gotoLine")
         insert(f"{l}:{c}")
         key("enter")
+
+    def format_document():
+        """Format document"""
+        vscode("editor.action.formatDocument")
 
     def vscode_find_recent(text: str = None, sleep: bool = False):
         """Find recent session, directory or file"""

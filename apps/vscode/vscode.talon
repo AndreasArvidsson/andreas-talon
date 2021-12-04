@@ -1,14 +1,19 @@
 app: vscode
 -
-tag(): user.ide
 tag(): user.scroll
-tag(): user.cursorless_experimental_snippets
 tag(): user.navigation
+tag(): user.zoom
+tag(): user.tabs
+tag(): user.find
+tag(): user.cursorless_experimental_snippets
 
 settings():
     user.scroll_step = 600
 
 # Language features
+comment:                         code.toggle_comment()
+suggest:                         code.complete()
+format document:                 user.format_document()
 suggest param:                   user.vscode("editor.action.triggerParameterHints")
 imports organize:                user.vscode("editor.action.organizeImports")
 problem next:                    user.vscode("editor.action.marker.nextInFiles")
@@ -89,6 +94,7 @@ unfold all:                      user.vscode("editor.unfoldAll")
 fold comments:                   user.vscode("editor.foldAllBlockComments")
 
 # Navigation
+go line <number>:                edit.jump_line(number)
 take next:                       user.vscode("editor.action.addSelectionToNextFindMatch")
 take last:                       user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:                  user.vscode("editor.action.selectHighlights")
@@ -99,6 +105,17 @@ cursor down:                     user.vscode("editor.action.insertCursorBelow")
 cursor lines:                    user.vscode("editor.action.insertCursorAtEndOfEachLineSelected")
 
 # Debug
+run program:                     vscode("workbench.action.debug.run")
+debug (program | start):         vscode("workbench.action.debug.start")
+breakpoint:                      vscode("editor.debug.action.toggleBreakpoint")
+continue:                        vscode("workbench.action.debug.continue")
+step over:                       vscode("workbench.action.debug.stepOver")
+step into:                       vscode("workbench.action.debug.stepInto")
+step out:                        vscode("workbench.action.debug.stepOut")
+debug restart:                   vscode("workbench.action.debug.restart")
+debug pause:                     vscode("workbench.action.debug.stop")
+debug stop:                      vscode("workbench.action.debug.pause")
+
 debug select:                    user.vscode("workbench.action.debug.selectandstart")
 debug extension:
     user.vscode("workbench.action.debug.selectandstart")
