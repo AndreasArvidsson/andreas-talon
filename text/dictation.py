@@ -23,15 +23,14 @@ def words(m) -> str:
     """A sequence of words, including user-defined vocabulary."""
     return format_phrase(m)
 
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {user.key_punctuation} | <phrase>)+")
+@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <phrase>)+")
 def text(m) -> str:
-    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
+    """Sequence of words, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
-# Used by dictation mode
 @mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+")
-def text_dictation(m) -> str:
-    """Mixed words and symbols, auto-spaced & capitalized."""
+def prose(m) -> str:
+    """Mixed words and punctuation, including user-defined vocabulary, abbreviations and spelling, auto-spaced & capitalized."""
     text, _state = auto_capitalize(format_phrase(m))
     return text
 
@@ -53,16 +52,10 @@ def format_phrase(m):
 def capture_to_words(m):
     words = []
     for item in m:
-        if type(item) == int:
-            words.append(str(item))
-        elif item == " ":
-            words.append(item)
-        else:
-            words.extend(
-                actions.dictate.replace_words(actions.dictate.parse_words(item))
-                if isinstance(item, grammar.vm.Phrase) else
-                item.split(" ")
-            )
+        words.extend(
+            actions.dictate.replace_words(actions.dictate.parse_words(item))
+            if isinstance(item, grammar.vm.Phrase) else
+            item.split(" "))
     return words
 
 # There must be a simpler way to do this, but I don't see it right now.
@@ -81,13 +74,12 @@ no_space_before = re.compile(r"""
   | ['"] (?: $ | [\s)\]}\-'".,!?;:/] )
   )""", re.VERBOSE)
 
+def omit_space_before(text: str) -> bool:
+    return not text or no_space_before.search(text)
+def omit_space_after(text: str) -> bool:
+    return not text or no_space_after.search(text)
 def needs_space_between(before: str, after: str) -> bool:
-    return (before and after
-            and not no_space_after.search(before)
-            and not no_space_before.search(after))
-    # return (before != "" and after != ""
-    #         and before[-1] not in no_space_after
-    #         and after[0] not in no_space_before)
+    return not (omit_space_after(before) or omit_space_before(after))
 
 # # TESTS, uncomment to enable
 # assert needs_space_between("a", "break")
@@ -122,12 +114,10 @@ def needs_space_between(before: str, after: str) -> bool:
 def auto_capitalize(text, state = None):
     """
     Auto-capitalizes text. `state` argument means:
-
     - None: Don't capitalize initial word.
     - "sentence start": Capitalize initial word.
     - "after newline": Don't capitalize initial word, but we're after a newline.
       Used for double-newline detection.
-
     Returns (capitalized text, updated state).
     """
     output = ""
@@ -194,19 +184,18 @@ class Actions:
 
     def dictation_insert(text: str) -> str:
         """Inserts dictated text, formatted appropriately."""
-        # do_the_dance = whether we should try to be context-sensitive. Since
-        # whitespace is not affected by formatter state, if text.isspace() is
-        # True we don't need context-sensitivity.
-        do_the_dance = (setting_context_sensitive_dictation.get()
-                        and not text.isspace())
-        if do_the_dance:
+        context_sensitive = setting_context_sensitive_dictation.get()
+        # Omit peeking left if we don't need left space or capitalization.
+        if (context_sensitive
+            and not (omit_space_before(text)
+                     and auto_capitalize(text, "sentence start")[0] == text)):
             dictation_formatter.update_context(
                 actions.user.dictation_peek_left(clobber=True))
         text = dictation_formatter.format(text)
         actions.user.history_add_phrase(text)
         actions.insert(text)
         # Add a space after cursor if necessary.
-        if not do_the_dance or not text or no_space_after.search(text):
+        if not context_sensitive or omit_space_after(text):
             return
         char = actions.user.dictation_peek_right()
         if char is not None and needs_space_between(text, char):
@@ -220,7 +209,6 @@ class Actions:
         dictation_peek_left() may return None to indicate no information. (Note
         that returning the empty string "" indicates there is nothing before
         cursor, ie. we are at the beginning of the document.)
-
         If there is currently a selection, dictation_peek_left() must leave it
         unchanged unless `clobber` is true, in which case it may clobber it.
         """
