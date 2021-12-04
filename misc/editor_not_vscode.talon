@@ -35,3 +35,8 @@ post file:               edit.file_end()
 (chuck | clear) file:    user.delete_all()
 copy file:               user.copy_all()
 cut file:                user.cut_all()
+
+
+# ----- Navigate to specified text/symbol: go right paren
+{user.navigation_action} {user.navigation_direction} to <user.any_alphanumeric_key>:
+    user.navigation(navigation_action, navigation_direction, any_alphanumeric_key)
