@@ -26,9 +26,27 @@ class EditActions:
         # Search for start of paragraph
         actions.edit.extend_paragraph_start()
         actions.edit.left()
-
         # Extend to end of paragraph
         actions.edit.extend_paragraph_end()
+
+    def delete_paragraph():
+        actions.edit.select_paragraph()
+        actions.edit.delete()
+        actions.edit.delete()
+        actions.edit.delete_line()
+
+
+@mod.action_class
+class Actions:
+    def cut_paragraph():
+        """Cut paragraph under the cursor"""
+        actions.edit.select_paragraph()
+        actions.edit.cut()
+
+    def copy_paragraph():
+        """Copy paragraph under the cursor"""
+        actions.edit.select_paragraph()
+        actions.edit.copy()
 
 
 def is_line_empty():

@@ -1,5 +1,5 @@
 import re
-from talon import ctrl, ui, Module, Context, actions, clip
+from talon import Module, Context, actions
 
 ctx = Context()
 mod = Module()

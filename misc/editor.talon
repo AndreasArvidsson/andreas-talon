@@ -30,7 +30,6 @@ dedent:                            edit.indent_less()
 # ----- Selection -----
 take all:                          edit.select_all()
 take none:                         edit.select_none()
-take line:                         edit.select_line()
 take word:                         edit.select_word()
 
 extend top:                        edit.extend_file_start()
@@ -50,43 +49,23 @@ extend righter [<number_small>]:   user.extend_word_right(number_small or 1)
 undo:                              edit.undo()
 redo:                              edit.redo()
 
-del:                               edit.delete()
+dell:                              edit.delete()
 drill:                             user.delete_right()
 
-remove:                            edit.delete_word()
-wipe:                              user.delete_word_right()
-
-chuck line:                        edit.delete_line()
-chuck head:                        user.delete_line_start()
-chuck tail:                        user.delete_line_end()
-clear line:                        user.clear_line()
+chuck:                             edit.delete_word()
+remove:                            user.delete_word_right()
 
 # ----- Cut, copy, paste -----
 cut (this | dis):                  edit.cut()
 cut word:                          user.cut_word()
-cut line:                          user.cut_line()
-cut head:                          user.cut_line_start()
-cut tail:                          user.cut_line_end()
 
 copy (this | dis):                 edit.copy()
 copy word:                         user.copy_word()
-copy line:                         user.copy_line()
-copy head:                         user.copy_line_start()
-copy tail:                         user.copy_line_end()
 
 paste it:                          edit.paste()
-clone line:                        edit.line_clone()
 
 drag up [<number_small>]:          user.line_swap_up(number_small or 1)
 drag down [<number_small>]:        user.line_swap_down(number_small or 1)
 
 # ----- Misc -----
-stop:                              user.stop_app()
 disk:                              edit.save()
-
-push {user.key_symbol}:
-    edit.line_end()
-    "{key_symbol}"
-    edit.line_insert_down()
-
-pick <number_small>:               user.pick_item(number_small - 1)

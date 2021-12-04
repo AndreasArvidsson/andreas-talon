@@ -202,7 +202,7 @@ class Actions:
         if n:
             edit.jump_line(n)
         edit.select_line()
-        text = edit.selected_text()
+        text = edit.selected_text().strip()
         edit.right()
         for _ in range(round(len(text) / 2)):
             edit.left()
@@ -247,6 +247,18 @@ class Actions:
         """Select word to the right"""
         key("ctrl-right ctrl-shift-left")
 
+    def select_line_start():
+        """Select start of line"""
+        if edit.selected_text():
+            edit.left()
+        edit.extend_line_start()
+    
+    def select_line_end():
+        """Select end of line"""
+        if edit.selected_text():
+            edit.right()
+        edit.extend_line_end()
+
     # ----- Delete, undo, redo -----
     def delete_right():
         """Delete character to the right"""
@@ -254,7 +266,7 @@ class Actions:
 
     def delete_word_right():
         """Delete word to the right"""
-        actions.user.select_word_right()
+        user.select_word_right()
         edit.delete()
 
     def delete_line(n: int = None):
@@ -350,7 +362,7 @@ def paste_text(text: str):
         clip.set_text(text)
 
         if clip.text() != text:
-            actions.user.notify("Failed to set clipboard")
+            user.notify("Failed to set clipboard")
             print(f"Clipboard: '{clip.text()}'")
             return False
 

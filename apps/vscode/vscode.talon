@@ -85,8 +85,8 @@ git open line:                   user.git_open_working_file_url(1)
 git copy line:                   user.git_copy_working_file_url(1)
 
 # Folding
-fold that:                       user.vscode("editor.fold")
-unfold that:                     user.vscode("editor.unfold")
+fold (this | dis):               user.vscode("editor.fold")
+unfold (this | dis):             user.vscode("editor.unfold")
 fold recursive:                  user.vscode("editor.foldAllMarkerRegions")
 unfold recursive:                user.vscode("editor.unfoldRecursively")
 fold all:                        user.vscode("editor.foldAll")
@@ -115,7 +115,6 @@ step out:                        vscode("workbench.action.debug.stepOut")
 debug restart:                   vscode("workbench.action.debug.restart")
 debug pause:                     vscode("workbench.action.debug.stop")
 debug stop:                      vscode("workbench.action.debug.pause")
-
 debug select:                    user.vscode("workbench.action.debug.selectandstart")
 debug extension:
     user.vscode("workbench.action.debug.selectandstart")
@@ -139,10 +138,8 @@ pop sesh:
 
 # Misc
 install extension:               user.vscode("workbench.extensions.action.installVSIX")
-minimap (show | hide):           user.vscode("editor.action.toggleMinimap")
 window reload:                   user.vscode("workbench.action.reloadWindow")
 open settings json:              user.vscode("workbench.action.openSettingsJson")
-zen mode:                        user.vscode("workbench.action.toggleZenMode")
 next:                            user.vscode("jumpToNextSnippetPlaceholder")
 cursorless record:               user.vscode("cursorless.recordTestCase")
 

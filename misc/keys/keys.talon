@@ -24,3 +24,9 @@ tab symbol:                  "\\t"
 
 # All un/non modifier keys: [a-z], [0-9], [F1-F12], arrow, symbols
 key <user.key_unmodified>:   key(key_unmodified)
+
+# Add symbol at end of line and then insert line below
+push {user.key_symbol}:
+    edit.line_end()
+    "{key_symbol}"
+    edit.line_insert_down()
