@@ -103,6 +103,8 @@ cursor forward:                  user.vscode("cursorRedo")
 cursor up:                       user.vscode("editor.action.insertCursorAbove")
 cursor down:                     user.vscode("editor.action.insertCursorBelow")
 cursor lines:                    user.vscode("editor.action.insertCursorAtEndOfEachLineSelected")
+cursor expand:                   user.vscode("editor.action.smartSelect.expand")
+cursor shrink:                   user.vscode("editor.action.smartSelect.shrink")
 
 # Debug
 run program:                     user.vscode("workbench.action.debug.run")
