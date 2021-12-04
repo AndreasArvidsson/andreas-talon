@@ -136,11 +136,20 @@ pop sesh:
     user.vscode_find_recent("", 1)
     key(enter)
 
+# Find a symbol
+scout symbol [<user.text>]$:
+    user.vscode("workbench.action.gotoSymbol")
+    "{text}"
+scout all symbol [<user.text>]$:
+    user.vscode("workbench.action.showAllSymbols")
+    "{text}"
+
 # Misc
 install extension:               user.vscode("workbench.extensions.action.installVSIX")
 window reload:                   user.vscode("workbench.action.reloadWindow")
 open settings json:              user.vscode("workbench.action.openSettingsJson")
 next:                            user.vscode("jumpToNextSnippetPlaceholder")
+trim trailing:                   user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:               user.vscode("cursorless.recordTestCase")
 
 please [<user.text>]$:

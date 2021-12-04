@@ -264,6 +264,11 @@ class Actions:
         """Delete character to the right"""
         key("delete")
 
+    def delete_all():
+        """Deletes all text in the current document"""
+        edit.select_all()
+        edit.delete()
+
     def delete_word_right():
         """Delete word to the right"""
         user.select_word_right()
@@ -292,6 +297,11 @@ class Actions:
         key("end shift-home space backspace")
 
     # ----- Copy, cut, paste -----
+    def cut_all():
+        """Cuts all text in the current document"""
+        edit.select_all()
+        edit.cut()
+
     def cut_word():
         """Cut word under cursor"""
         edit.select_word()
@@ -314,6 +324,12 @@ class Actions:
         """Cut end of line"""
         edit.extend_line_end()
         edit.cut()
+
+    def copy_all():
+        """Copy all text in the current document"""
+        edit.select_all()
+        edit.copy()
+        edit.select_none()
 
     def copy_word():
         """Copy word under cursor"""
