@@ -23,6 +23,9 @@ class EditActions:
         actions.sleep("100ms")
         actions.edit.delete()
 
+    def line_insert_up():
+        actions.key("home shift-enter up")
+
     def line_insert_down():
         actions.key("end shift-enter")
 

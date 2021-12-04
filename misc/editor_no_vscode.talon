@@ -8,6 +8,9 @@ copy line:               user.copy_line()
 cut line:                user.cut_line()
 clone line:              edit.line_clone()
 
+drink (line | this):     edit.line_insert_up()
+pour (line | this):      edit.line_insert_down()
+
 take head:               user.select_line_start()
 take tail:               user.select_line_end()
 (chuck | clear) head:    user.delete_line_start()
