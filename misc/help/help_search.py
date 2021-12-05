@@ -25,6 +25,7 @@ def gui_actions(gui: imgui.GUI):
     actions = filter(lambda a: search_text in a, registry.decls.actions.keys())
     for value in sorted(actions):
         gui.text(value)
+    gui.spacer()
 
 
 def gui_commands(gui: imgui.GUI):
