@@ -51,9 +51,6 @@ redo:                     edit.redo()
 dell:                     edit.delete()
 drill:                    user.delete_right()
 
-chuck:                    edit.delete_word()
-remove:                   user.delete_word_right()
-
 # ----- Cut, copy, paste -----
 cut (this | dis):         edit.cut()
 copy (this | dis):        edit.copy()
@@ -64,6 +61,10 @@ take word:                edit.select_word()
 cut word:                 user.cut_word()
 copy word:                user.copy_word()
 paste to word:            user.paste_word()
+(chuck | clear) word:     edit.delete_word()
+
+remove:                   user.delete_word_left()
+wipe:                     user.delete_word_right()
 
 # ----- Misc -----
 drag up:                  edit.line_swap_up()

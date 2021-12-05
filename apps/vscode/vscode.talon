@@ -95,7 +95,6 @@ fold comments:                   user.vscode("editor.foldAllBlockComments")
 
 # Navigation
 go line <number>:                edit.jump_line(number)
-take next:                       user.vscode("editor.action.addSelectionToNextFindMatch")
 take last:                       user.vscode("editor.action.addSelectionToPreviousFindMatch")
 take all these:                  user.vscode("editor.action.selectHighlights")
 cursor back:                     user.vscode("cursorUndo")

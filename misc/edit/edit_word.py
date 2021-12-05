@@ -17,7 +17,7 @@ class EditActions:
         key("ctrl-right")
 
     def select_word():
-        key("ctrl-left ctrl-shift-right")
+        user.select_word_left()
 
     def extend_word_left():
         key("ctrl-shift-left")
@@ -32,6 +32,10 @@ class EditActions:
 
 @mod.action_class
 class Actions:
+    def select_word_left():
+        """Select word to the left"""
+        key("ctrl-left ctrl-shift-right")
+
     def select_word_right():
         """Select word to the right"""
         key("ctrl-right ctrl-shift-left")
@@ -50,6 +54,11 @@ class Actions:
         """Paste to word under cursor"""
         edit.select_word()
         edit.paste()
+
+    def delete_word_left():
+        """Delete word to the left"""
+        user.select_word_left()
+        edit.delete()
 
     def delete_word_right():
         """Delete word to the right"""

@@ -88,6 +88,14 @@ class EditActions:
     def select_none():
         key("escape")
 
+    # ----- Word -----
+    def select_word():
+        vscode("editor.action.addSelectionToNextFindMatch")
+
+    def delete_word():
+        empty_selection()
+        actions.next()
+
     # ----- Line commands -----
     def line_swap_up():
         vscode("editor.action.moveLinesUpAction")
@@ -214,6 +222,19 @@ class UserActions:
     def scroll_down_half_page():
         vscode("editorScroll", {"to": "down", "by": "halfPage"})
 
+    # ----- Word -----
+    def cut_word():
+        empty_selection()
+        actions.next()
+
+    def copy_word():
+        empty_selection()
+        actions.next()
+
+    def paste_word():
+        empty_selection()
+        actions.next()
+
 
 @ctx_talon.action_class("user")
 class TalonUserActions:
@@ -286,3 +307,9 @@ class Actions:
     def vscode_grab_line(panel: dict):
         """Grab vscode sideboard/panel line to resize"""
         actions.user.locate_drag(panel["filename"], panel["position"])
+
+
+def empty_selection():
+    print(f"'{edit.selected_text()}'")
+    # if edit.selected_text():
+        # edit.right()
