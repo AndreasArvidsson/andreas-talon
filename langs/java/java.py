@@ -11,25 +11,31 @@ ctx.matches = r"""
 tag: user.java
 """
 
-access_modifiers = { x:x for x in ["public", "private", "protected"] }
-abstract = { "abstract": "abstract" }
-final = { "final": "final" }
-static = { "static": "static" }
+access_modifiers = { "public", "private", "protected" }
+abstract = { "abstract" }
+final = { "final" }
+static = { "static" }
+all_keywords = {
+    *access_modifiers,
+    *abstract,
+    *final,
+    *static,
+}
 ctx.lists["self.code_class_modifier"] = {
-    **access_modifiers,
-    **abstract,
-    **final
+    *access_modifiers,
+    *abstract,
+    *final
 }
 ctx.lists["self.code_function_modifier"] = { 
-    **access_modifiers,
-    **abstract,
-    **final,
-    **static
+    *access_modifiers,
+    *abstract,
+    *final,
+    *static
 }
 ctx.lists["self.code_variable_modifier"] = { 
-    **access_modifiers,
-    **final,
-    **static
+    *access_modifiers,
+    *final,
+    *static
 }
 ctx.lists["self.code_data_type"] = merge(
     {
@@ -47,6 +53,7 @@ ctx.lists["self.code_function"] = {
     "toString"
 }
 ctx.lists["self.code_statement"] = merge(
+    {k: f"{k} " for k in all_keywords},
     {
         "null", "this"
     },
@@ -55,10 +62,11 @@ ctx.lists["self.code_statement"] = merge(
         "arrow":                " -> ",
         "this dot":             "this.",
         "new":                  "new ",
-        "extends":              "extends "
+        "extends":              "extends ",
+        "implements":           "implements ",
     }
 )
-
+print(ctx.lists["self.code_statement"])
 
 @ctx.action_class("user")
 class UserActions:

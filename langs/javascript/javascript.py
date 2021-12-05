@@ -34,8 +34,9 @@ ctx.lists["self.code_statement"] = merge(
         "default":              "default ",
         "spread":               "...",
         "arrow":                " => ",
-        "this dot":             "this.",
-        "new":                  "new "
+        "new":                  "new ",
+        "const":                "const ",
+        "let":                  "let ",
     }
 )
 

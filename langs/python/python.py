@@ -39,7 +39,7 @@ ctx.lists["self.code_function"] = {
 }
 ctx.lists["self.code_statement"] = merge(
     {
-        "None", "self", "lambda"
+        "None", "self"
     },
     {
         "from":             "from ",
@@ -50,6 +50,8 @@ ctx.lists["self.code_statement"] = merge(
         "class":            "class ",
         "try":              "try:",
         "except":           "except:",
+        "lambda":           "lambda:",
+        "global":           "global ",
     }
 )
 
