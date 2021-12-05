@@ -23,6 +23,12 @@ pop threads:
     "Threads"
     sleep(400ms)
     key(enter)
+pop drafts:
+    key(ctrl-k)
+    "Drafts"
+    sleep(400ms)
+    key(enter)
+
 please [<user.text>]$:
     key(ctrl-k)
     sleep(100ms)
