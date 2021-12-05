@@ -5,5 +5,8 @@ tag(): user.git
 tag(): user.maven
 tag(): user.npm
 
-vscode package:
+vscode install:
     "vsce package -o bundle.vsix && code --install-extension bundle.vsix\n"
+
+vscode package:
+    "vsce package\n"
