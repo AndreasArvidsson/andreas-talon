@@ -146,6 +146,9 @@ class EditActions:
     def find_next():
         key("f4")
 
+    # ----- Miscellaneous -----
+    def selected_text() -> str:
+        return actions.user.vscode_get("andreas.getSelectedText")
 
 @ctx.action_class("user")
 class UserActions:
@@ -310,6 +313,5 @@ class Actions:
 
 
 def empty_selection():
-    print(f"'{edit.selected_text()}'")
-    # if edit.selected_text():
-        # edit.right()
+    if edit.selected_text():
+        edit.right()
