@@ -51,6 +51,12 @@ class Actions:
         """Copy paragraph under the cursor"""
         edit.select_paragraph()
         edit.copy()
+        edit.select_none()
+
+    def paste_paragraph():
+        """Paste to paragraph under the cursor"""
+        edit.select_paragraph()
+        edit.paste()
 
 
 def is_line_empty():

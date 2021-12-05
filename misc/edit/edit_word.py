@@ -45,6 +45,11 @@ class Actions:
         """Copy word under cursor"""
         edit.select_word()
         edit.copy()
+    
+    def paste_word():
+        """Paste to word under cursor"""
+        edit.select_word()
+        edit.paste()
 
     def delete_word_right():
         """Delete word to the right"""

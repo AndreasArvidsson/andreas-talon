@@ -39,6 +39,11 @@ class Actions:
         edit.copy()
         edit.select_none()
 
+    def paste_all():
+        """Paste to the current document"""
+        edit.select_all()
+        edit.paste()
+
     def delete_all():
         """Delete all text in the current document"""
         edit.select_all()

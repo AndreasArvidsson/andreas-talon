@@ -30,7 +30,6 @@ dedent:                   edit.indent_less()
 # ----- Selection -----
 take all:                 edit.select_all()
 take none:                edit.select_none()
-take word:                edit.select_word()
 
 extend top:               edit.extend_file_start()
 extend bottom:            edit.extend_file_end()
@@ -57,15 +56,16 @@ remove:                   user.delete_word_right()
 
 # ----- Cut, copy, paste -----
 cut (this | dis):         edit.cut()
-cut word:                 user.cut_word()
-
 copy (this | dis):        edit.copy()
-copy word:                user.copy_word()
-
 paste it:                 edit.paste()
 
-drag up:                  edit.line_swap_up()
-drag down:                edit.line_swap_down()
+# ----- Word -----
+take word:                edit.select_word()
+cut word:                 user.cut_word()
+copy word:                user.copy_word()
+paste to word:            user.paste_word()
 
 # ----- Misc -----
+drag up:                  edit.line_swap_up()
+drag down:                edit.line_swap_down()
 disk:                     edit.save()

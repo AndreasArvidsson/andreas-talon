@@ -101,6 +101,14 @@ class Actions:
             edit.jump_line(n)
         edit.select_line()
         edit.copy()
+        edit.select_none()
+
+    def paste_line(n: int = None):
+        """Paste to line <n> or current"""
+        if n:
+            edit.jump_line(n)
+        edit.select_line()
+        edit.paste()
 
     def clone_line(n: int = None):
         """Clone line <n> or current"""
