@@ -10,17 +10,17 @@ main_screen = ui.main_screen()
 def gui(gui: imgui.GUI):
     gui.text("Active context")
     gui.line()
-    gui.text("")
+    gui.spacer()
     gui.text("Modes")
     gui.line()
     for mode in sorted(scope.get("mode")):
         gui.text(mode)
-    gui.text("")
+    gui.spacer()
     gui.text("Tags")
     gui.line()
     for tag in sorted(registry.tags):
         gui.text(tag)
-    gui.text("")
+    gui.spacer()
     gui.text("Misc")
     gui.line()
     try:
@@ -31,8 +31,8 @@ def gui(gui: imgui.GUI):
         gui.text(f"code.language: {actions.code.language()}")
     except:
         pass
-    gui.text("")
-    if gui.button("hide"):
+    gui.spacer()
+    if gui.button("Hide"):
         actions.user.help_active_context_toggle()
 
 

@@ -21,7 +21,7 @@ def gui(gui: imgui.GUI):
         if len(text) > 25:
             text = text[:25] + "..."
         gui.text(f"{index} {text}")
-    gui.line()
+    gui.spacer()
     if gui.button("Clear"):
         actions.user.history_clear()
     if gui.button("Hide"):

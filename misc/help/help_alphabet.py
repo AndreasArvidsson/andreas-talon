@@ -14,8 +14,8 @@ def gui(gui: imgui.GUI):
     alphabet = registry.lists["user.key_alphabet"][0]
     for key, val in alphabet.items():
         gui.text(f"{val}:  {key}")
-    gui.line()
-    if gui.button("hide"):
+    gui.spacer()
+    if gui.button("Hide"):
         actions.user.help_alphabet_toggle()
 
 

@@ -40,8 +40,5 @@ escape words <user.words> over:
 ship <user.letters> [over]:
     user.insert_and_format(letters, "ALL_CAPS")
 
-# Select last
-take last:    user.history_select_last_phrase()
-
 # Delete last
 chuck last:   user.history_clear_last_phrase()

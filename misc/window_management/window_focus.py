@@ -168,7 +168,7 @@ def gui(gui: imgui.GUI):
     for name in ctx.lists["self.running_application"]:
         gui.text(f"Focus {index}: {name}")
         index += 1
-    gui.line()
+    gui.spacer()
     if gui.button("Hide"):
         actions.user.focus_hide()
 

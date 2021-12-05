@@ -125,7 +125,7 @@ def gui(gui: imgui.GUI):
         gui.text(
             f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}"
         )
-    gui.line()
+    gui.spacer()
     if gui.button("Hide"):
         actions.user.formatters_help_toggle()
 

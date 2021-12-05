@@ -26,7 +26,7 @@ def gui(gui: imgui.GUI):
     for word in active_word_list:
         gui.text(f"Choose {index} {word.strip()}")
         index = index + 1
-    gui.line()
+    gui.spacer()
     if gui.button("Hide"):
         actions.user.homophones_hide()
 

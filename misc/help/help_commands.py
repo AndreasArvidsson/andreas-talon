@@ -5,7 +5,7 @@ from talon import Module, Context, actions, imgui, Module, registry, ui, app, cl
 
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
-mod.mode("help", "mode for commands that are available only when help is visible")
+mod.mode("help_commands", "mode for commands that are available only when help is visible")
 
 setting_help_max_contexts_per_page = mod.setting(
     "help_max_contexts_per_page",
@@ -436,7 +436,7 @@ class Actions:
             refresh_context_command_map(enabled_only=True)
             gui_context_help.show()
             register_events(True)
-            actions.mode.enable("user.help")
+            actions.mode.enable("user.help_commands")
 
     def help_search(phrase: str):
         """Display command info for search phrase"""
@@ -447,7 +447,7 @@ class Actions:
         refresh_context_command_map()
         gui_context_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        actions.mode.enable("user.help_commands")
 
     def help_context(m: str):
         """Display command info for specified context"""
@@ -464,7 +464,7 @@ class Actions:
         selected_context = m
         gui_context_help.show()
         register_events(True)
-        actions.mode.enable("user.help")
+        actions.mode.enable("user.help_commands")
 
     def help_next():
         """Navigates to next page"""
@@ -551,7 +551,7 @@ class Actions:
         gui_context_help.hide()
         refresh_context_command_map()
         register_events(False)
-        actions.mode.disable("user.help")
+        actions.mode.disable("user.help_commands")
 
     def help_copy_all_commands():
         """Copy all commands to clipboard"""
