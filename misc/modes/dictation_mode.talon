@@ -2,11 +2,16 @@ mode: dictation
 -
 
 # Freely dictate text
-<user.prose>:                        auto_insert(prose)
+<user.prose>:          auto_insert(prose)
+
+new line:
+    edit.line_insert_down()
+    user.dictation_format_reset()
 
 # Switch to command mode and insert a phrase
-(command mode | over) [<phrase>]$:   user.command_mode(phrase or "")
+(command mode | over) [<phrase>]$:
+    user.command_mode(phrase or "")
 
 # Insert the actual words
-escape over:                         auto_insert("over")
-escape command mode:                 auto_insert("command mode")
+escape command mode:   auto_insert("command mode")
+escape over:           auto_insert("over")

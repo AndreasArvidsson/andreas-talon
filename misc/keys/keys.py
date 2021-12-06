@@ -55,7 +55,6 @@ ctx.lists["self.key_punctuation"] = {
     "comma":            ",",
     "period":           ".",
     "semicolon":        ";",
-    "new line":         "\n",
     "colon":            ":",
     "forward slash":    "/",
     "question mark":    "?",
