@@ -23,6 +23,9 @@ class Actions:
     def user_home() -> str:
         """Get path to user home"""
         return actions.path.user_home()
+    def update_path(path: str):
+        """Update given path"""
+        return path
 
     # ----- Navigation -----
     def file_manager_go_parent():
