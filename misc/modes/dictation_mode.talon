@@ -2,7 +2,7 @@ mode: dictation
 -
 
 # Freely dictate text
-<user.prose>:          auto_insert(prose)
+<user.prose>:   auto_insert(prose)
 
 new line:
     edit.line_insert_down()
@@ -13,5 +13,7 @@ new line:
     user.command_mode(phrase or "")
 
 # Insert the actual words
-escape command mode:   auto_insert("command mode")
-escape over:           auto_insert("over")
+escape words <user.words>$:
+    auto_insert(words)
+escape words <user.words> over:
+    auto_insert(words)
