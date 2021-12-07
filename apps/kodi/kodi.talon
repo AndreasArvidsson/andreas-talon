@@ -2,7 +2,7 @@ os: windows
 and app.exe: kodi.exe
 -
 
-back:             key(backspace)
+[go] back:        user.go_back()
 full screen:      key(alt-enter)
 
 menu:             key(m)
