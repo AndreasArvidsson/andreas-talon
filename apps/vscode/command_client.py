@@ -7,7 +7,7 @@ from tempfile import gettempdir
 from typing import Any, List
 from uuid import uuid4
 
-from talon import Context, Module, actions
+from talon import Context, Module, actions, speech_system
 
 # How old a request file needs to be before we declare it stale and are willing
 # to remove it
@@ -20,8 +20,13 @@ VSCODE_COMMAND_TIMEOUT_SECONDS = 3.0
 # long to sleep the first time
 MINIMUM_SLEEP_TIME_SECONDS = 0.0005
 
+# Indicates whether a pre-phrase signal was emitted during the course of the
+# current phrase 
+did_emit_pre_phrase_signal = False
+
 mod = Module()
 
+global_ctx = Context()
 ctx = Context()
 mac_ctx = Context()
 linux_ctx = Context()
@@ -53,6 +58,7 @@ class NotSet:
 
 def write_json_exclusive(path: Path, body: Any):
     """Writes jsonified object to file, failing if the file already exists
+
     Args:
         path (Path): The path of the file to write
         body (Any): The object to convert to json and write
@@ -82,9 +88,11 @@ class Request:
 def write_request(request: Request, path: Path):
     """Converts the given request to json and writes it to the file, failing if
     the file already exists unless it is stale in which case it replaces it
+
     Args:
         request (Request): The request to serialize
         path (Path): The path to write to
+
     Raises:
         Exception: If another process has an active request file
     """
@@ -122,13 +130,16 @@ def run_vscode_command(
     return_command_output: bool = False,
 ):
     """Runs a VSCode command, using command server if available
+
     Args:
         command_id (str): The ID of the VSCode command to run
         wait_for_finish (bool, optional): Whether to wait for the command to finish before returning. Defaults to False.
         return_command_output (bool, optional): Whether to return the output of the command. Defaults to False.
+
     Raises:
         Exception: If there is an issue with the file-based communication, or
         VSCode raises an exception
+
     Returns:
         Object: The response from the command, if requested.
     """
@@ -199,6 +210,7 @@ def run_vscode_command(
 
 def get_communication_dir_path():
     """Returns directory that is used by command-server for communication
+
     Returns:
         Path: The path to the communication dir
     """
@@ -215,6 +227,7 @@ def get_communication_dir_path():
 def robust_unlink(path: Path):
     """Unlink the given file if it exists, and if we're on windows and it is
     currently in use, just rename it
+
     Args:
         path (Path): The path to unlink
     """
@@ -238,10 +251,13 @@ def robust_unlink(path: Path):
 def read_json_with_timeout(path: str) -> Any:
     """Repeatedly tries to read a json object from the given path, waiting
     until there is a trailing new line indicating that the write is complete
+
     Args:
         path (str): The path to read from
+
     Raises:
         Exception: If we timeout waiting for a response
+
     Returns:
         Any: The json-decoded contents of the file
     """
@@ -347,6 +363,14 @@ class Actions:
         was written to the file.  For internal use only"""
         actions.key("ctrl-shift-f17")
 
+    def emit_pre_phrase_signal():
+        """Touches a file to indicate that a phrase is about to begin execution"""
+        pass
+
+    def did_emit_pre_phrase_signal() -> bool:
+        """Indicates whether the pre-phrase signal was emitted at the start of this phrase"""
+        return did_emit_pre_phrase_signal
+
 
 @mac_ctx.action_class("user")
 class MacUserActions:
@@ -358,3 +382,63 @@ class MacUserActions:
 class LinuxUserActions:
     def trigger_command_server_command_execution():
         actions.key("ctrl-shift-alt-p")
+
+
+@global_ctx.action_class("user")
+class GlobalUserActions:
+    def emit_pre_phrase_signal():
+        # NB: We explicitly define a noop version of this action in the global
+        # context here so that it doesn't do anything before phrases if you're not
+        # in vscode.
+        pass
+
+
+@ctx.action_class("user")
+class UserActions:
+    def emit_pre_phrase_signal():
+        get_signal_path("prePhrase").touch()
+
+
+class MissingCommunicationDir(Exception):
+    pass
+
+
+def get_signal_path(name: str) -> Path:
+    """
+    Get the path to a signal in the signal subdirectory.
+
+    Args:
+        name (str): The name of the signal
+
+    Returns:
+        Path: The signal path
+    """
+    communication_dir_path = get_communication_dir_path()
+
+    if not communication_dir_path.exists():
+        raise MissingCommunicationDir()
+
+    signal_dir = communication_dir_path / "signals"
+    signal_dir.mkdir(parents=True, exist_ok=True)
+
+    return signal_dir / name
+
+
+def pre_phrase(_: Any):
+    try:
+        global did_emit_pre_phrase_signal
+
+        actions.user.emit_pre_phrase_signal()
+
+        did_emit_pre_phrase_signal = True
+    except MissingCommunicationDir:
+        pass
+
+
+def post_phrase(_: Any):
+    global did_emit_pre_phrase_signal
+    did_emit_pre_phrase_signal = False
+
+
+speech_system.register("pre:phrase", pre_phrase)
+speech_system.register("post:phrase", post_phrase)
