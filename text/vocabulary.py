@@ -45,7 +45,8 @@ capitalize_defaults = [
 
 # Default words that need to be remapped.
 word_map_defaults = {
-    # "some": "sum"
+    "organization": "organisation",
+    "organizations": "organisations",
 }
 word_map_defaults.update({word.lower(): word for word in capitalize_defaults})
 
@@ -82,13 +83,10 @@ simple_default_vocabulary = [
     "karlstad",
     "yeah",
     "usb",
-    "highcharts"
+    "highcharts",
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
-default_vocabulary = {
-    "knaus": "knausj",
-    "toby": "tobii"
-}
+default_vocabulary = {"knaus": "knausj", "toby": "tobii"}
 default_vocabulary.update({word.lower(): word for word in simple_default_vocabulary})
 
 # "user.vocabulary" is used to explicitly add words/phrases that Talon doesn't

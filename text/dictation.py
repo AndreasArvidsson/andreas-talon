@@ -15,7 +15,8 @@ setting_context_sensitive_dictation = mod.setting(
 @mod.capture(rule="({self.vocabulary} | <word>)")
 def word(m) -> str:
     """A single word, including user-defined vocabulary."""
-    return str(m)
+    words = capture_to_words(m)
+    return words[0]
 
 # Used to escape numbers and symbols
 @mod.capture(rule="({self.vocabulary} | <phrase>)+")
