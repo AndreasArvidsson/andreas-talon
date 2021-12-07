@@ -66,7 +66,6 @@ ctx.lists["self.code_statement"] = merge(
         "implements":           "implements ",
     }
 )
-print(ctx.lists["self.code_statement"])
 
 @ctx.action_class("user")
 class UserActions:
