@@ -86,6 +86,9 @@ class EditActions:
     def paste():
         key("ctrl-v")
 
+    def paste_match_style():
+        key("ctrl-shift-v")
+
     # ----- Indent -----
     def indent_less():
         key("home delete")

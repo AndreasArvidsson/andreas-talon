@@ -55,6 +55,7 @@ drill:                    user.delete_right()
 cut (this | dis):         edit.cut()
 copy (this | dis):        edit.copy()
 paste it:                 edit.paste()
+paste special:            edit.paste_match_style()
 
 # ----- Word -----
 take word:                edit.select_word()
