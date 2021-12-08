@@ -4,3 +4,4 @@ inside, interiorOnly
 head, extendThroughStartOf
 just, identity
 tail, extendThroughEndOf
+slice, verticalRange
