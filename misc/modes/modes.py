@@ -30,6 +30,7 @@ class Actions:
 
     def dictation_mode(phrase: Union[Phrase, str] = None):
         """Enter dictation mode and re-evaluate phrase"""
+        actions.user.dictation_format_reset()
         actions.mode.disable("command")
         actions.mode.enable("dictation")
         if phrase:
