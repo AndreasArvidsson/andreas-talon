@@ -13,13 +13,16 @@ ctx.lists["self.extension"] = {
     "vim":            "vim",
     "see":            "c",
     "see sharp":      "cs",
+    "see plus plus":  "cpp",
     "exe":            "exe",
     "bin":            "bin",
     "jason":          "json",
     "jay son":        "json",
+    "java":           "java",
     "java script":    "js",
     "type script":    "ts",
-    "text":           "txt"
+    "text":           "txt",
+    "lua":            "lua"
 }
 
 @mod.capture(rule="dot {user.extension}")
