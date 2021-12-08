@@ -36,9 +36,12 @@ escape words <user.words> over:
     homophone = user.homophones_get_by_number(word, ordinals_small)
     user.insert_and_format(homophone, formatter_word)
 
+# Abbreviated word: breif application -> app
+<user.abbreviation>:   "{abbreviation}"
+
 # Upper case characters
 ship <user.letters> [over]:
     user.insert_and_format(letters, "ALL_CAPS")
 
 # Delete last
-chuck last:   user.history_clear_last_phrase()
+chuck last:            user.history_clear_last_phrase()

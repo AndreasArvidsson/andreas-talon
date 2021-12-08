@@ -223,6 +223,7 @@ ctx.lists["user.abbreviation"] = {
     "web": "www",
     "what the fuck": "wtf",
     "window": "win",
+    "hertz": "Hz",
 }
 
 @mod.capture(rule="brief {self.abbreviation}")
