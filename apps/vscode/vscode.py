@@ -70,6 +70,12 @@ class AppActions:
     def tab_open():
         vscode("workbench.action.files.newUntitledFile")
 
+    def tab_previous():
+        vscode("workbench.action.previousEditorInGroup")
+
+    def tab_next():
+        vscode("workbench.action.nextEditorInGroup")
+
     def preferences():
         vscode("workbench.action.openGlobalSettings")
 
@@ -150,6 +156,7 @@ class EditActions:
     def selected_text() -> str:
         return actions.user.vscode_get("andreas.getSelectedText")
 
+
 @ctx.action_class("user")
 class UserActions:
     # ----- Navigation -----
@@ -200,11 +207,10 @@ class UserActions:
         vscode("workbench.action.openPreviousRecentlyUsedEditor")
 
     def tab_final():
-        key("alt-0")
+        vscode("workbench.action.lastEditorInGroup")
 
     def tab_jump(number: int):
-        if number < 10:
-            key(f"alt-{number}")
+        vscode("workbench.action.openEditorAtIndex", number - 1)
 
     # ----- Scroll -----
     def scroll_up():
