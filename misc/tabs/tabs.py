@@ -25,6 +25,12 @@ class TabActions:
         """Jumps to the specified tab"""
         key(f"ctrl-{number}")
 
+    def tab_jump_from_back(number: int):
+        """Jumps to the specified tab counted from the back"""
+        actions.user.tab_final()
+        for _ in range(number-1):
+            actions.app.tab_previous()
+
     def tab_final():
         """Jumps to the final tab"""
         key("ctrl-0")

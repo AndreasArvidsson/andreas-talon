@@ -10,6 +10,7 @@ tab next <number_small>:
     app.tab_next()
     repeat(number_small - 1)
 tab <user.digit>:         user.tab_jump(digit)
+tab minus <user.digit>:   user.tab_jump_from_back(digit)
 tab final:                user.tab_final()
 tab back:                 user.tab_back()
 tab left:                 user.tab_move_left()
