@@ -54,6 +54,7 @@ class Actions:
 
 
 def screenshot_rect(rect: ui.Rect, title: str = ""):
+    actions.user.clear_subtitles()
     flash_rect(rect)
     img = screen.capture_rect(rect)
     path = get_screenshot_path(title)
@@ -61,6 +62,7 @@ def screenshot_rect(rect: ui.Rect, title: str = ""):
 
 
 def clipboard_rect(rect: ui.Rect):
+    actions.user.clear_subtitles()
     flash_rect(rect)
     img = screen.capture_rect(rect)
     clip.set_image(img)

@@ -1,4 +1,4 @@
-from talon import Module, ui, cron
+from talon import Module, ui, cron, actions
 from talon.canvas import Canvas
 from talon.skia import Paint as Paint
 from talon.skia.imagefilter import ImageFilter as ImageFilter
@@ -45,12 +45,16 @@ class Actions:
         """Show notification"""
         show_text(text, is_subtitle=False)
 
+    def clear_subtitles():
+        """Clear all current subtitles"""
+        if show_subtitles:
+            clear_subtitles(subtitle_canvas)
+            clear_subtitles(notify_canvas)
+
 
 def show_text(text: str, is_subtitle: bool):
     canvas_list = subtitle_canvas if is_subtitle else notify_canvas
-    for canvas in canvas_list:
-        canvas.close()
-    canvas_list.clear()
+    clear_subtitles(canvas_list)
     if subtitles_all_screens_setting.get():
         screens = ui.screens()
     else:
@@ -126,3 +130,9 @@ def draw_text(c, text: str, x: int, y: int, is_subtitle: bool = True):
         c.paint.style = c.paint.Style.STROKE
         c.paint.color = "aaaaaa"
         c.draw_text(text, x, y)
+
+
+def clear_subtitles(canvas_list: list[Canvas]):
+    for canvas in canvas_list:
+        canvas.close()
+    canvas_list.clear()

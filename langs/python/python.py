@@ -51,7 +51,7 @@ ctx.lists["self.code_statement"] = merge(
         "class":            "class ",
         "try":              "try:",
         "except":           "except:",
-        "lambda":           "lambda:",
+        "lambda":           "lambda: ",
         "global":           "global ",
     }
 )
