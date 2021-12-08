@@ -78,6 +78,7 @@ ctx.lists["self.key_symbol"] = {
     "semi":             ";",
     "dash":             "-",
     "downscore":        "_",
+    "score":            "_",
 
     "bang":             "!",
     "hash":             "#",
