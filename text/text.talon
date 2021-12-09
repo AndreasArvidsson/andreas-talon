@@ -37,11 +37,16 @@ escape words <user.words> over:
     user.insert_and_format(homophone, formatter_word)
 
 # Abbreviated word: breif application -> app
-<user.abbreviation>:   "{abbreviation}"
+<user.abbreviation>:       "{abbreviation}"
+
+# Easy access to specific Swedish words
+swe {user.swedish_word}:   "{swedish_word}"
+{user.formatter_word} swe {user.swedish_word}:
+    user.insert_and_format(swedish_word, formatter_word)
 
 # Upper case characters
 ship <user.letters> [over]:
     user.insert_and_format(letters, "ALL_CAPS")
 
 # Delete last
-chuck last:            user.history_clear_last_phrase()
+chuck last:                user.history_clear_last_phrase()
