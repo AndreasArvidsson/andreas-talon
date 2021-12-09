@@ -14,9 +14,11 @@ hold_timeout = 0.2
 class Actions:
     def foot_switch_key(key: int):
         """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
+        global pressed
         is_down = not pressed[key]
-        pressed[key] = is_down
         is_held = time.perf_counter() - timestamps[key] > hold_timeout
+        pressed = [False, False, False, False]
+        pressed[key] = is_down
         timestamps[key] = time.perf_counter()
 
         # Initial downpress
