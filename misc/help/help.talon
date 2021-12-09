@@ -6,6 +6,6 @@
 ^help <user.text> actions$:            user.help_search_actions(text)
 
 ^help alphabet$:                       user.help_alphabet_toggle()
-^help active context$:                 user.help_active_context_toggle()
+^help scope$:                          user.help_scope_toggle()
 ^help (format|formatters)$:            user.formatters_help_toggle()
 ^help focus$:                          user.focus_help_toggle()
