@@ -9,9 +9,10 @@ os: windows
 ctx.lists["self.launch_command"] = {
     "control panel": "control",
     "sound settings": "control mmsys.cpl sounds",
-    "settings": "ms-settings:",
+    "system settings": "ms-settings:",
     "taskbar settings": "ms-settings:taskbar",
     "services": "services.msc",
+    "device manager": "devmgmt.msc",
     "paint": "mspaint",
     "notepad": "notepad",
     "explorer": "explorer",
