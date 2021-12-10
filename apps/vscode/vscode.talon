@@ -157,7 +157,7 @@ please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
 
-take <user.cursorless_target> <number_small> times:
+take <user.cursorless_target> <user.repeater_phrase>:
     user.cursorless_simple_action("setSelection", cursorless_target)
     edit.select_word()
-    repeat(number_small - 2)
+    repeat(repeater_phrase - 1)
