@@ -9,6 +9,7 @@ ctx.lists["self.delimiters_spaced"] = {
     "col gap":  ":",
     "col gup":  ":",
     "period":   ".",
+    "bullet":   "*",
 }
 
 mod.list("delimiter_pair", desc="List of matching pair delimiters")
