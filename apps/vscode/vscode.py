@@ -291,6 +291,12 @@ class Actions:
         if url:
             actions.clip.set_text(url)
 
+    def vscode_take_word(cursorless_target: dict, repeats: int):
+        """Take word with number of repeats"""
+        actions.user.cursorless_simple_action("setSelection", cursorless_target)
+        for _ in range(repeats):
+            actions.edit.select_word()
+
     def vscode_resize_panel(panel: dict, size: str):
         """Resize vscode sidebar/panel"""
         actions.user.mouse_center_window()

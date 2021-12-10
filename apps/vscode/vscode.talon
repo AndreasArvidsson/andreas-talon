@@ -154,14 +154,9 @@ next:                            user.vscode("jumpToNextSnippetPlaceholder")
 trim trailing:                   user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:               user.vscode("cursorless.recordTestCase")
 
+increment:                       user.vscode("andreas.increment")
+decrement:                       user.vscode("andreas.decrement")
+
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     "{user.text or ''}"
-
-take <user.cursorless_target> <user.repeater_phrase>:
-    user.cursorless_simple_action("setSelection", cursorless_target)
-    edit.select_word()
-    repeat(repeater_phrase - 1)
-
-increment:                       user.vscode("andreas.increment")
-decrement:                       user.vscode("andreas.decrement")
