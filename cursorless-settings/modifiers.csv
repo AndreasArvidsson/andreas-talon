@@ -1,6 +1,6 @@
 Spoken form, Cursorless identifier
 bounds, excludeInterior
-inside, interiorOnly
+core, interiorOnly
 head, extendThroughStartOf
 just, identity
 tail, extendThroughEndOf
