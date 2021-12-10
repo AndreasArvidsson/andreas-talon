@@ -155,7 +155,7 @@ cursorless record:               user.vscode("cursorless.recordTestCase")
 
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
-    insert(user.text or "")
+    "{user.text or ''}"
 
 take <user.cursorless_target> <user.repeater_phrase>:
     user.cursorless_simple_action("setSelection", cursorless_target)
