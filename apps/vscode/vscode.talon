@@ -70,6 +70,7 @@ focus editor:                    user.vscode("workbench.action.focusActiveEditor
 hide all:
     user.vscode("workbench.action.closeSidebar")
     user.vscode("workbench.action.closePanel")
+    user.vscode("closeFindWidget")
 
 # Files / Folders
 folder open:                     user.vscode("workbench.action.files.openFolder")
