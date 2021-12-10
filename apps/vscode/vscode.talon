@@ -156,3 +156,8 @@ cursorless record:               user.vscode("cursorless.recordTestCase")
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     insert(user.text or "")
+
+take <user.cursorless_target> <number_small> times:
+    user.cursorless_simple_action("setSelection", cursorless_target)
+    edit.select_word()
+    repeat(number_small - 2)
