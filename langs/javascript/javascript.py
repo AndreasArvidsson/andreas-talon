@@ -21,7 +21,7 @@ ctx.lists["self.code_function"] = {
     "sort", "find", "includes", "indexOf",
     "join", "require"
 }
-ctx.lists["self.code_statement"] = merge(
+javascript_statements = merge(
     {
         "null", "undefined", "this"
     },
@@ -43,6 +43,7 @@ ctx.lists["self.code_statement"] = merge(
         "let":                  "let ",
     }
 )
+ctx.lists["self.code_statement"] = javascript_statements
 
 
 @ctx.action_class("user")
