@@ -3,6 +3,9 @@ app: vscode
 
 # Actions around take word
 
+take <user.cursorless_target> <user.repeater_phrase>:
+    user.vscode_take_word(cursorless_target, repeater_phrase)
+
 pre <user.cursorless_target> <user.repeater_phrase>:
     user.vscode_take_word(cursorless_target, repeater_phrase)
     edit.left()
@@ -10,9 +13,6 @@ pre <user.cursorless_target> <user.repeater_phrase>:
 post <user.cursorless_target> <user.repeater_phrase>:
     user.vscode_take_word(cursorless_target, repeater_phrase)
     edit.right()
-
-take <user.cursorless_target> <user.repeater_phrase>:
-    user.vscode_take_word(cursorless_target, repeater_phrase)
 
 cut <user.cursorless_target> <user.repeater_phrase>:
     user.vscode_take_word(cursorless_target, repeater_phrase)
