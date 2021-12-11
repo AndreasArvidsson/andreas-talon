@@ -71,3 +71,7 @@ wipe:                     user.delete_word_right()
 drag up:                  edit.line_swap_up()
 drag down:                edit.line_swap_down()
 disk:                     edit.save()
+
+# ----- Text insertions -----
+make to do:               "TODO"
+arrow:                    user.insert_arrow()

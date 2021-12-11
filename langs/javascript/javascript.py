@@ -37,7 +37,6 @@ javascript_statements = merge(
         "function":             "function ",
         "default":              "default ",
         "spread":               "...",
-        "arrow":                " => ",
         "new":                  "new ",
         "const":                "const ",
         "let":                  "let ",

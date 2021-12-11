@@ -32,3 +32,7 @@ class Actions:
         for _ in range(index):
             actions.edit.down()
         actions.key("enter")
+
+    def insert_arrow():
+        """Insert arrow symbol"""
+        actions.insert(" => ")

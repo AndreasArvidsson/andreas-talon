@@ -59,8 +59,6 @@ ctx.lists["self.code_statement"] = merge(
     },
     {
         "import":               "import ",
-        "arrow":                " -> ",
-        "this dot":             "this.",
         "new":                  "new ",
         "extends":              "extends ",
         "implements":           "implements ",
@@ -144,6 +142,7 @@ class UserActions:
     def code_false(): insert("false")
     def code_continue(): insert("continue;")
     def code_return(): insert("return")
+    def insert_arrow(): insert(" -> ")
 
     def code_print(text: str = None):
         if text:
