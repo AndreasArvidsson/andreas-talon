@@ -17,6 +17,8 @@ require app:     "app: "
 require tag:     "tag: "
 
 make tag:        "tag(): "
+make true:       "1"
+make false:      "0"
 
 make key:
     "key()"
