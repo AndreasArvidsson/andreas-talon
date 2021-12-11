@@ -11,7 +11,7 @@ strict <user.formatters_code> <user.text>$:
     user.insert_and_format(prose, formatter_prose)
 
 # Reformat
-<user.formatters> format (this | dis):
+<user.formatters> format this:
     user.reformat_selection(formatters)
 <user.formatters> format last:
     user.reformat_last(formatters)
