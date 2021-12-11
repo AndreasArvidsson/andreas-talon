@@ -22,7 +22,7 @@ ctx.lists["self.webpage"] = {
     "news":                 "https://www.svt.se",
     "dropbox":              "https://www.dropbox.com",
     "imdb":                 "https://www.imdb.com",
-    "kbab":                 "https://kbab.se/mina-sidor",
+    "kbab":                 "https://minasidor.kbab.se",
     "linkedin":             "https://www.linkedin.com",
     "prisjakt":             "https://classic.prisjakt.nu",
     "pricerunner":          "https://www.pricerunner.se",
