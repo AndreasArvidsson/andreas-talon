@@ -43,4 +43,4 @@ take, setSelection
 type deaf, revealTypeDefinition
 unfold, unfoldRegion
 wrap, wrapWithPairedDelimiter
-swap, rewrap
+switch, rewrap
