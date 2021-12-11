@@ -74,10 +74,9 @@ ctx.lists["self.key_symbol"] = {
     "void":             " ",
     "dot":              ".",
     "comma":            ",",
-    "colon":            ":",
+    "stack":            ":",
     "semi":             ";",
     "dash":             "-",
-    "downscore":        "_",
     "score":            "_",
 
     "bang":             "!",
