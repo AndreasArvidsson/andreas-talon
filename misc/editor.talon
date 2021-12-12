@@ -52,8 +52,8 @@ dell:                     edit.delete()
 drill:                    user.delete_right()
 
 # ----- Cut, copy, paste -----
-cut this:                 edit.cut()
-copy this:                edit.copy()
+cut (this | dis):         edit.cut()
+copy (this | dis):        edit.copy()
 paste it:                 edit.paste()
 paste special:            edit.paste_match_style()
 

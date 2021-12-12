@@ -1,7 +1,7 @@
-phones show this:
+phones show (this | dis):
     user.homophones_show_selected()
 
-phones this:
+phones (this | dis):
     user.homophones_cycle_selected()
 
 phones last:

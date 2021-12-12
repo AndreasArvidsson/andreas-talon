@@ -19,7 +19,7 @@ imports organize:                user.vscode("editor.action.organizeImports")
 problem next:                    user.vscode("editor.action.marker.nextInFiles")
 problem last:                    user.vscode("editor.action.marker.prevInFiles")
 problem fix:                     user.vscode("problems.action.showQuickFixes")
-refactor this:                   user.vscode("editor.action.refactor")
+refactor (this | dis):           user.vscode("editor.action.refactor")
 
 # Split
 split up:                        user.vscode("workbench.action.moveEditorToAboveGroup")
@@ -86,8 +86,8 @@ git open line:                   user.git_open_working_file_url(1)
 git copy line:                   user.git_copy_working_file_url(1)
 
 # Folding
-fold this:                       user.vscode("editor.fold")
-unfold this:                     user.vscode("editor.unfold")
+fold (this | dis):               user.vscode("editor.fold")
+unfold (this | dis):             user.vscode("editor.unfold")
 fold recursive:                  user.vscode("editor.foldAllMarkerRegions")
 unfold recursive:                user.vscode("editor.unfoldRecursively")
 fold all:                        user.vscode("editor.foldAll")

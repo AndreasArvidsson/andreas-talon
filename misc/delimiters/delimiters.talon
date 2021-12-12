@@ -2,7 +2,7 @@
 <user.delimiter_pair>:      user.delimiters_pair_insert(delimiter_pair)
 
 # Wrap selection with delimiter pair
-<user.delimiter_pair> this:
+<user.delimiter_pair> (this | dis):
     user.delimiters_pair_wrap_selection(delimiter_pair)
 
 <user.delimiter_pair> last:

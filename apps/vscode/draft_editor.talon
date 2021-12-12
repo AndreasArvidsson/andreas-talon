@@ -1,7 +1,7 @@
 not app: vscode
 -
 
-draft this:
+draft (this | dis):
     user.draft_editor_open()
 
 draft all:
