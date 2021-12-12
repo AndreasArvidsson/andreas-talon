@@ -1,4 +1,4 @@
-from talon import Context, actions, Module, ui, ctrl
+from talon import Module, Context, actions, ui, ctrl
 
 key = actions.key
 insert = actions.insert

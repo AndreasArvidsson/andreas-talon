@@ -150,9 +150,11 @@ scout all symbol [<user.text>]$:
 install extension:               user.vscode("workbench.extensions.action.installVSIX")
 window reload:                   user.vscode("workbench.action.reloadWindow")
 open settings json:              user.vscode("workbench.action.openSettingsJson")
-next:                            user.vscode("jumpToNextSnippetPlaceholder")
 trim trailing:                   user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:               user.vscode("cursorless.recordTestCase")
+
+snip last:                       user.vscode("jumpToPrevSnippetPlaceholder")
+[snip] next:                     user.vscode("jumpToNextSnippetPlaceholder")
 
 increment:                       user.vscode("andreas.increment")
 decrement:                       user.vscode("andreas.decrement")
