@@ -43,6 +43,7 @@ git checkout branch <user.text>:
 git checkout master:        "git checkout master\n"
 git checkout main:          "git checkout main\n"
 git checkout develop:       "git checkout develop\n"
+git checkout last:          "git checkout -\n"
 
 git add:                    "git add "
 git add all:                "git add .\n"
