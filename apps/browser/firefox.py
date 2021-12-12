@@ -34,7 +34,7 @@ class BrowserActions:
     def submit_form():      key("enter")
     def bookmark():         key("ctrl-d")
     def bookmark_tabs():    key("ctrl-shift-d")
-    def bookmarks():        key("ctrl-shift-b")
+    def bookmarks():        key("ctrl-shift-O")
 
     def bookmarks_bar():
         key("alt-v")
