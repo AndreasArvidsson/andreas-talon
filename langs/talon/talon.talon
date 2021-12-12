@@ -5,8 +5,7 @@ tag(): user.comments
 
 # Generic
 make print:
-    "print()"
-    key(left)
+    user.insert_snippet("print($0)")
 
 # Context requirements
 require win:     "os: windows\n"
@@ -21,5 +20,4 @@ make true:       "1"
 make false:      "0"
 
 make key:
-    "key()"
-    key(left)
+    user.insert_snippet("key($0)")

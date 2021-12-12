@@ -58,8 +58,7 @@ class Actions:
 class UserActions:
     # Comments
     def comments_insert(text: str = ""):
-        actions.insert(f"<!-- {text} -->")
-        actions.key("left:4")
+        actions.user.insert_snippet(f"<!-- {text}$0 -->")
 
     def comments_insert_block(text: str = ""):
         actions.user.comments_insert(text)
