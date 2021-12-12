@@ -24,6 +24,8 @@ class Actions:
             line = re.sub(r"\$\{\d+:(.*?)\}", r"\1", line)
             # Remove tab stops
             line = re.sub(r"\$\d+", "", line)
+            # Some IM services will send the message on a tab
+            line = re.sub(r"[\t]+", "    ", line)
             actions.insert(line)
 
 
