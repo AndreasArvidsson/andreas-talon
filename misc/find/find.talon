@@ -1,10 +1,12 @@
 tag: user.find
 -
 
+scout clipboard:              user.find_clipboard()
 scout [<user.text>]$:         edit.find(text or "")
 scout hide:
     edit.find("")
     key(escape)
+scout all clipboard:          user.find_everywhere_clipboard()
 scout all [<user.text>]$:     user.find_everywhere(text or "")
 replace [<user.text>]$:       user.find_replace(text or "")
 replace all [<user.text>]$:   user.find_replace_everywhere(text or "")
