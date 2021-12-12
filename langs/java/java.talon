@@ -6,9 +6,6 @@ tag(): user.comments
 
 # ----- Java additional -----
 
-make arrow function:
-    user.insert_snippet("() -> {\n\t$0\n}")
-
 new {user.code_data_type}:
     user.insert_snippet("new {code_data_type}($0);")
 

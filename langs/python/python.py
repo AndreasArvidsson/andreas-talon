@@ -44,7 +44,7 @@ ctx.lists["self.code_function"] = {
     "dir",
     "isinstance",
 }
-ctx.lists["self.code_statement"] = merge(
+ctx.lists["self.code_insert"] = merge(
     {"None", "self"},
     {
         "from": "from ",
@@ -58,6 +58,7 @@ ctx.lists["self.code_statement"] = merge(
         "global": "global ",
     },
 )
+ctx.lists["self.code_snippet"] = {}
 
 
 @ctx.action_class("user")
@@ -170,8 +171,6 @@ class UserActions:
             """while $1:
                 \t$0"""
         )
-
-
 
     # Miscellaneous statements
     def code_break():

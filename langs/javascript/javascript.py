@@ -28,7 +28,7 @@ ctx.lists["self.code_function"] = {
     "join",
     "require",
 }
-javascript_statements = merge(
+javascript_inserts = merge(
     {"null", "undefined", "this"},
     {
         "import": "import ",
@@ -47,7 +47,15 @@ javascript_statements = merge(
         "let": "let ",
     },
 )
-ctx.lists["self.code_statement"] = javascript_statements
+ctx.lists["self.code_insert"] = javascript_inserts
+ctx.lists["self.code_snippet"] = {
+    "for in loop": """for (const $1 in $2) {{
+        \t$0
+    }}""",
+    "arrow function": """($1) => {
+        \t$0
+    }""",
+}
 
 
 @ctx.action_class("user")
@@ -220,6 +228,9 @@ class UserActions:
     # Function statement
     def code_function(name: str, modifiers: list[str]):
         snip_func(f"function {name}")
+
+    def code_method(name: str, modifiers: list[str]):
+        snip_func(f"{name}")
 
     # Variable statement
     def code_variable(

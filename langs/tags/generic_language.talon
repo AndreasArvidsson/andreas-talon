@@ -21,8 +21,10 @@ make false:                   user.code_false()
 make break:                   user.code_break()
 make continue:                user.code_continue()
 make return:                  user.code_return()
-make {user.code_statement}:
-    "{code_statement}"
+
+# ----- Insert language specific text and snippets -----
+make {user.code_insert}:      "{code_insert}"
+make {user.code_snippet}:     user.insert_snippet("{code_snippet}")
 
 make print:                   user.code_print("")
 make print <user.text>$:
@@ -38,6 +40,8 @@ format string:                user.code_format_string()
 # ----- Function statement -----
 {user.code_function_modifier}* function <user.variable_name>:
     user.code_function_wrapper(variable_name, code_function_modifier_list or "")
+{user.code_function_modifier}* method <user.variable_name>:
+    user.code_method_wrapper(variable_name, code_function_modifier_list or "")
 
 function main:                user.code_function_main()
 

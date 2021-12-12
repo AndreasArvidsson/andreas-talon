@@ -52,7 +52,7 @@ ctx.lists["self.code_data_type"] = merge(
     },
 )
 ctx.lists["self.code_function"] = {"toString"}
-ctx.lists["self.code_statement"] = merge(
+ctx.lists["self.code_insert"] = merge(
     {k: f"{k} " for k in all_keywords},
     {"null", "this"},
     {
@@ -62,6 +62,11 @@ ctx.lists["self.code_statement"] = merge(
         "implements": "implements ",
     },
 )
+ctx.lists["self.code_snippet"] = {
+    "arrow function": """() -> {
+        \t$0
+    }""",
+}
 
 
 @ctx.action_class("user")

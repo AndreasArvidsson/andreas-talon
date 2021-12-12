@@ -1,5 +1,5 @@
 from talon import Module, Context
-from .javascript import javascript_statements
+from .javascript import javascript_inserts
 
 mod = Module()
 
@@ -15,8 +15,8 @@ ctx.lists["self.code_data_type"] = {
     "any": "any",
 }
 
-ctx.lists["self.code_statement"] = {
-    **javascript_statements,
+ctx.lists["self.code_insert"] = {
+    **javascript_inserts,
     **{
         "public": "public ",
         "private": "private ",
