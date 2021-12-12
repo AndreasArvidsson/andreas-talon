@@ -34,4 +34,5 @@ class Actions:
     def browser_focus_open(url: str):
         """Focus browser and open url"""
         actions.user.focus_name("Firefox")
+        actions.sleep("50ms")
         actions.user.browser_open(url)
