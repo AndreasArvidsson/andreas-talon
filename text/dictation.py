@@ -35,7 +35,7 @@ def prose(m) -> str:
     text, _state = auto_capitalize(format_phrase(m))
     return text
 
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <phrase> | <number>)+")
+@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <phrase> | <user.number_string>)+")
 def variable_name(m) -> str:
     """Acceptable variable names."""
     return format_phrase(m)
