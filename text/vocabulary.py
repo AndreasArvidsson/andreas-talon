@@ -91,6 +91,7 @@ simple_default_vocabulary = [
 default_vocabulary = {
     "knaus": "knausj",
     "toby": "tobii",
+    "curse less": "cursorless"
 }
 default_vocabulary.update({word.lower(): word for word in simple_default_vocabulary})
 
