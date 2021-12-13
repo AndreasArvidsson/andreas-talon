@@ -152,6 +152,7 @@ window reload:                   user.vscode("workbench.action.reloadWindow")
 open settings json:              user.vscode("workbench.action.openSettingsJson")
 trim trailing:                   user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:               user.vscode("cursorless.recordTestCase")
+inspect scope:                   user.vscode("editor.action.inspectTMScopes")
 
 snip last:                       user.vscode("jumpToPrevSnippetPlaceholder")
 [snip] next:                     user.vscode("jumpToNextSnippetPlaceholder")
