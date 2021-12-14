@@ -186,7 +186,7 @@ class UserActions:
         insert("continue")
 
     def code_return():
-        insert("return")
+        insert("return ")
 
     def insert_arrow():
         insert(" -> ")
