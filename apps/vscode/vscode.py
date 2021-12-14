@@ -136,11 +136,6 @@ class EditActions:
     def indent_less():
         vscode("editor.action.outdentLines")
 
-    # ----- Save -----
-    def save():
-        actions.user.stop_app()
-        actions.next()
-
     # ----- Zoom -----
     def zoom_reset():
         vscode("workbench.action.zoomReset")
