@@ -52,8 +52,6 @@ ctx.lists["self.code_insert"] = merge(
         "regex": "re",
         "def": "def ",
         "class": "class ",
-        "try": "try:",
-        "except": "except:",
         "lambda": "lambda: ",
         "global": "global ",
     },
@@ -152,6 +150,26 @@ class UserActions:
 
     def code_else():
         insert("else:")
+
+    def code_try():
+        insert_snippet(
+            """try:
+                \t$0"""
+        )
+
+    def code_catch():
+        insert_snippet(
+            """except:
+                \t$0"""
+        )
+
+    def code_try_catch():
+        insert_snippet(
+            """try:
+                \t$1
+            except:
+                \t$0"""
+        )
 
     # Iteration statements
     def code_for():

@@ -8,10 +8,13 @@ make else:                    user.code_else()
 make switch:                  user.code_switch()
 make case:                    user.code_case()
 make default:                 user.code_default()
+make try:                     user.code_try()
+make catch:                   user.code_catch()
+make try catch:               user.code_try_catch()
 
 # ----- Iteration statements -----
-make for loop:                user.code_for()
-make while loop:              user.code_while()
+make for [loop]:              user.code_for()
+make while [loop]:            user.code_while()
 make do while [loop]:         user.code_do_while()
 make foreach [loop]:          user.code_foreach()
 
@@ -22,16 +25,16 @@ make break:                   user.code_break()
 make continue:                user.code_continue()
 make return:                  user.code_return()
 
-# ----- Insert language specific text and snippets -----
-make {user.code_insert}:      "{code_insert}"
-make {user.code_snippet}:     user.insert_snippet("{code_snippet}")
-
+# ----- Print statements -----
 make print:                   user.code_print("")
 make print <user.text>$:
     text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     user.code_print(text)
-
 format string:                user.code_format_string()
+
+# ----- Insert language specific text and snippets -----
+make {user.code_insert}:      "{code_insert}"
+make {user.code_snippet}:     user.insert_snippet("{code_snippet}")
 
 # ----- Class statement -----
 {user.code_class_modifier}* class <user.variable_name>:

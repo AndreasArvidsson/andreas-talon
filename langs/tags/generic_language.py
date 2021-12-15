@@ -35,10 +35,19 @@ class tab_actions:
         """Switch statement"""
 
     def code_case():
-        """case statement"""
+        """Case statement"""
 
     def code_default():
         """Switch default statement"""
+
+    def code_try():
+        """Try statement"""
+
+    def code_catch():
+        """Catch statement"""
+
+    def code_try_catch():
+        """Try catch statement"""
 
     # ----- Iteration statements -----
     def code_for():
@@ -69,6 +78,7 @@ class tab_actions:
     def code_return():
         """return statement"""
 
+    # ----- Print statements -----
     def code_print(text: str = None):
         """Print statement"""
 
