@@ -161,9 +161,6 @@ change language <user.text>:
 snip last:                       user.vscode("jumpToPrevSnippetPlaceholder")
 [snip] next:                     user.vscode("jumpToNextSnippetPlaceholder")
 
-increment:                       user.vscode("andreas.increment")
-decrement:                       user.vscode("andreas.decrement")
-
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     "{user.text or ''}"
