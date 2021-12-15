@@ -75,3 +75,7 @@ disk:                     edit.save()
 # ----- Text insertions -----
 make to do:               "TODO"
 arrow:                    user.insert_arrow()
+
+# ----- Cursorless duplication -----
+# This are here because their implementation is useful in vscode input dialogs
+clear line:               user.clear_line()

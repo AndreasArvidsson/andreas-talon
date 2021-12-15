@@ -8,7 +8,6 @@ cut line:                user.cut_line()
 copy line:               user.copy_line()
 paste to line:           user.paste_line()
 chuck line:              edit.delete_line()
-clear line:              user.clear_line()
 
 clone line:              edit.line_clone()
 drink (line | this):     edit.line_insert_up()
