@@ -154,6 +154,9 @@ open settings json:              user.vscode("workbench.action.openSettingsJson"
 trim trailing:                   user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:               user.vscode("cursorless.recordTestCase")
 inspect scope:                   user.vscode("editor.action.inspectTMScopes")
+change language <user.text>:
+    user.vscode("workbench.action.editor.changeLanguageMode")
+    "{text}"
 
 snip last:                       user.vscode("jumpToPrevSnippetPlaceholder")
 [snip] next:                     user.vscode("jumpToNextSnippetPlaceholder")
