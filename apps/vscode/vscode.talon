@@ -147,10 +147,16 @@ scout all symbol [<user.text>]$:
     user.vscode("workbench.action.showAllSymbols")
     "{text}"
 
+# Settings
+open settings json:
+    user.vscode("workbench.action.openSettingsJson")
+open settings <user.text>:
+    app.preferences()
+    "{text}"
+
 # Misc
 install extension:               user.vscode("workbench.extensions.action.installVSIX")
 window reload:                   user.vscode("workbench.action.reloadWindow")
-open settings json:              user.vscode("workbench.action.openSettingsJson")
 trim trailing:                   user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:               user.vscode("cursorless.recordTestCase")
 inspect scope:                   user.vscode("editor.action.inspectTMScopes")
