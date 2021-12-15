@@ -116,16 +116,16 @@ class ZoomActions:
         actions.user.zoom_mouse_click("right")
 
     def foot_switch_top_up():
-        return ""
+        pass
 
     def foot_switch_center_up():
-        return ""
+        pass
 
     def foot_switch_left_up():
-        return ""
+        pass
 
     def foot_switch_right_up():
-        return ""
+        pass
 
 
 def call_down(key: int):
