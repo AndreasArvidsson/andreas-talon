@@ -5,13 +5,13 @@ tag(): user.navigation
 tag(): user.zoom
 tag(): user.tabs
 tag(): user.find
+tag(): user.comment
 tag(): user.cursorless_experimental_snippets
 
 settings():
     user.scroll_step = 600
 
 # Language features
-comment:                         code.toggle_comment()
 suggest:                         code.complete()
 format document:                 user.format_document()
 suggest param:                   user.vscode("editor.action.triggerParameterHints")
