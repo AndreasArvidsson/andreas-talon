@@ -87,6 +87,7 @@ simple_default_vocabulary = [
     "csv",
     "chuck",
     "any",
+    "tree sitter",
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
