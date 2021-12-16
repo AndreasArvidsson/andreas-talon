@@ -2,6 +2,6 @@ Spoken form, Cursorless identifier
 bounds, excludeInterior
 core, interiorOnly
 head, extendThroughStartOf
-just, identity
 tail, extendThroughEndOf
 slice, verticalRange
+just, toRawSelection
