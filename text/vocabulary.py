@@ -86,6 +86,7 @@ simple_default_vocabulary = [
     "highcharts",
     "csv",
     "chuck",
+    "any",
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
