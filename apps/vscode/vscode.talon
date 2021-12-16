@@ -154,6 +154,7 @@ open settings json:
     user.vscode("workbench.action.openSettingsJson")
 open settings <user.text>:
     app.preferences()
+    sleep(0.1)
     "{text}"
 
 # Misc
