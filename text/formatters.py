@@ -18,7 +18,9 @@ formatters_dict = {
     "CAPITALIZE_ALL_WORDS": lambda text: format_words(
         text, " ", capitalize, capitalize
     ),
-    "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, " ", capitalize),
+    "CAPITALIZE_FIRST_WORD": lambda text: format_words(
+        text, " ", capitalize, reset_symbol=False
+    ),
     "CAMEL_CASE": lambda text: format_words(text, "", lower, capitalize),
     "PASCAL_CASE": lambda text: format_words(text, "", capitalize, capitalize),
     "SNAKE_CASE": lambda text: format_words(text, "_", lower, lower),
@@ -157,22 +159,26 @@ class Actions:
             actions.mode.enable("user.help_formatters")
 
 
-def format_words(text, delimiter, format_first=None, format_rest=None):
+def format_words(
+    text, delimiter, format_first=None, format_rest=None, reset_symbol=True
+):
     words = re.split(r"(\W+)", text)
     groups = []
     group = []
     first = True
 
     for word in words:
-        word = word.strip()
-        if not word:
+        if not word.strip():
             continue
         # Word is symbol/s
         if bool(re.match(r"\W+", word)):
             groups.append(delimiter.join(group))
+            # If true this is a symbol in a code formatter with multiple groups
+            if reset_symbol:
+                word = word.strip()
+                first = True
             groups.append(word)
             group = []
-            first = True
             continue
         elif first:
             first = False
@@ -227,3 +233,7 @@ def de_string(text: str) -> str:
 # for key, value in tests.items():
 #     text = actions.user.unformat_text(value)
 #     print(f"{key.ljust(15)}{value.ljust(35)}{text}")
+
+# Test formatters
+# for f in formatters_dict.keys():
+    # print(f"{f.ljust(25)} {formatters_dict[f]('hallo there! what are you doing?')}")
