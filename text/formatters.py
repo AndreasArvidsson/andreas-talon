@@ -7,6 +7,7 @@ ctx = Context()
 mod.mode("help_formatters", "Mode for showing the formatter help gui")
 
 formatters_dict = {
+    # Simple formatters
     "NOOP": lambda text: text,
     "TRAILING_PADDING": lambda text: f"{text} ",
     "ALL_CAPS": lambda text: text.upper(),
@@ -14,25 +15,24 @@ formatters_dict = {
     "DOUBLE_QUOTED_STRING": lambda text: surround(text, '"'),
     "SINGLE_QUOTED_STRING": lambda text: surround(text, "'"),
     # Splitting formatters
-    "REMOVE_FORMATTING": lambda text: format_words(text, " ", lower, lower),
-    "CAPITALIZE_ALL_WORDS": lambda text: format_words(
-        text, " ", capitalize, capitalize
-    ),
-    "CAPITALIZE_FIRST_WORD": lambda text: format_words(
-        text, " ", capitalize, reset_symbol=False
-    ),
-    "CAMEL_CASE": lambda text: format_words(text, "", lower, capitalize),
-    "PASCAL_CASE": lambda text: format_words(text, "", capitalize, capitalize),
-    "SNAKE_CASE": lambda text: format_words(text, "_", lower, lower),
-    "ALL_CAPS_SNAKE_CASE": lambda text: format_words(text, "_", upper, upper),
-    "DASH_SEPARATED": lambda text: format_words(text, "-", lower, lower),
-    "DOT_SEPARATED": lambda text: format_words(text, ".", lower, lower),
-    "SLASH_SEPARATED": lambda text: format_words(text, "/", lower, lower),
-    "DOUBLE_UNDERSCORE": lambda text: format_words(text, "__", lower, lower),
-    "DOUBLE_COLON_SEPARATED": lambda text: format_words(text, "::", lower, lower),
-    "NO_SPACES": lambda text: format_words(text, ""),
-    "COMMA_SEPARATED": lambda text: format_words(text, ", "),
+    "CAPITALIZE_ALL_WORDS": lambda text: first_and_rest(text, capitalize, capitalize),
+    "CAPITALIZE_FIRST_WORD": lambda text: first_and_rest(text, capitalize),
+    # Delimited formatters
+    "CAMEL_CASE": lambda text: format_delim(text, "", lower, capitalize),
+    "PASCAL_CASE": lambda text: format_delim(text, "", capitalize, capitalize),
+    "SNAKE_CASE": lambda text: format_delim(text, "_", lower, lower),
+    "ALL_CAPS_SNAKE_CASE": lambda text: format_delim(text, "_", upper, upper),
+    "DASH_SEPARATED": lambda text: format_delim(text, "-", lower, lower),
+    "DOT_SEPARATED": lambda text: format_delim(text, ".", lower, lower),
+    "SLASH_SEPARATED": lambda text: format_delim(text, "/", lower, lower),
+    "DOUBLE_UNDERSCORE": lambda text: format_delim(text, "__", lower, lower),
+    "DOUBLE_COLON_SEPARATED": lambda text: format_delim(text, "::", lower, lower),
+    "NO_SPACES": lambda text: format_delim(text, ""),
+    # Re formatters
+    "REMOVE_FORMATTING": lambda text: first_and_rest(text, lower, lower),
+    "COMMA_SEPARATED": lambda text: ", ".join(text.split()),
 }
+
 
 formatters_no_unformat = {
     "COMMA_SEPARATED",
@@ -47,7 +47,6 @@ ctx.lists["self.formatter_code"] = {
     "twin": "SINGLE_QUOTED_STRING",
     # Splitting formatters
     "title": "CAPITALIZE_ALL_WORDS",
-    "unformat": "REMOVE_FORMATTING",
     "camel": "CAMEL_CASE",
     "pascal": "PASCAL_CASE",
     "snake": "SNAKE_CASE",
@@ -82,6 +81,7 @@ mod.list(
 )
 ctx.lists["self.formatter_hidden"] = {
     "list": "COMMA_SEPARATED",
+    "un": "REMOVE_FORMATTING",
 }
 
 
@@ -166,10 +166,16 @@ class Actions:
             actions.mode.enable("user.help_formatters")
 
 
-def format_words(
-    text, delimiter, format_first=None, format_rest=None, reset_symbol=True
+def format_delim(
+    text,
+    delimiter,
+    format_first=None,
+    format_rest=None,
 ):
-    words = re.split(r"(\W+)", text)
+    # Strip apostrophes and quotes
+    text = re.sub(r"['`\"]+", "", text)
+    # Split on anything that is not alpha-num
+    words = re.split(r"([^a-zA-Z0-9]+)", text)
     groups = []
     group = []
     first = True
@@ -177,13 +183,14 @@ def format_words(
     for word in words:
         if not word.strip():
             continue
-        # Word is symbol/s
-        if bool(re.match(r"\W+", word)):
+        # Word is number
+        if bool(re.match(r"\d+", word)):
+            first = True
+        # Word is symbol
+        elif bool(re.match(r"[^a-zA-Z]+", word)):
             groups.append(delimiter.join(group))
-            # If true this is a symbol in a code formatter with multiple groups
-            if reset_symbol:
-                word = word.strip()
-                first = True
+            word = word.strip()
+            first = True
             groups.append(word)
             group = []
             continue
@@ -197,6 +204,17 @@ def format_words(
 
     groups.append(delimiter.join(group))
     return "".join(groups)
+
+
+def first_and_rest(text, format_first=None, format_rest=None):
+    words = text.split()
+    for i in range(len(words)):
+        if i == 0:
+            if format_first:
+                words[i] = format_first(words[i])
+        elif format_rest:
+            words[i] = format_rest(words[i])
+    return " ".join(words)
 
 
 def capitalize(text: str) -> str:
@@ -221,26 +239,3 @@ def de_string(text: str) -> str:
     if text[-1] == "'" or text[-1] == '"':
         text = text[:-1]
     return text
-
-
-# Test unformat_text
-# tests = {
-#     "say": "hello, I'm ip address 2!",
-#     "sentence": "Hello, I'm ip address 2!",
-#     "allcaps": "HELLO, I'M IP ADDRESS 2!",
-#     "camel": "helloThereIPAddressA2a2",
-#     "Pascal": "HelloThereIPAddressA2a2",
-#     "snake": "hello_there_ip_address_2",
-#     "kebab": "hello-there-ip-address-2",
-#     "packed": "hello::there::ip::address::2",
-#     "dotted": "hello.there.ip.address.2",
-#     "slasher": "hello/there/ip/address/2",
-#     "dunder": "hello__there__ip_address__2"
-# }
-# for key, value in tests.items():
-#     text = actions.user.unformat_text(value)
-#     print(f"{key.ljust(15)}{value.ljust(35)}{text}")
-
-# Test formatters
-# for f in formatters_dict.keys():
-# print(f"{f.ljust(25)} {formatters_dict[f]('hallo there! what are you doing?')}")
