@@ -40,5 +40,6 @@ ctx.lists["self.webpage"] = {
     "hogia business":       "https://payroll.accountor.se",
     "patientenkaet":        "https://patientenkat.se",
     "ppm":                  "https://ppm.vantetider.se",
-    "hassan":               "https://app.vantetider.se/hassan"
+    "hassan":               "https://app.vantetider.se/hassan",
+    "wildly tunnel":        "http://localhost:10190",
 }
