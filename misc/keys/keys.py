@@ -124,7 +124,9 @@ def key_modifiers(m) -> str:
               "| {self.key_special} | {self.key_arrow} | {self.key_function} )")
 def key_unmodified(m) -> str:
     "A single key with no modifiers"
-    return str(m)
+    if m[0] == " ":
+        return "space"
+    return m[0]
 
 
 @mod.capture(rule="spell {self.letter}+")
