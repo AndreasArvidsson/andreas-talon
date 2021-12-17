@@ -55,6 +55,7 @@ snap_positions = {
     # .--.--.--.
     # |--|--|--|
     # '--'--'--'
+    "top left small": RelativeScreenPos(0, 0, 1 / 3, 0.5),
     "top right small": RelativeScreenPos(2 / 3, 0, 1, 0.5),
     "top left large": RelativeScreenPos(0, 0, 2 / 3, 0.5),
     "top right large": RelativeScreenPos(1 / 3, 0, 1, 0.5),
