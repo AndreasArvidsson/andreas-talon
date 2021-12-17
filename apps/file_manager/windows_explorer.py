@@ -1,4 +1,5 @@
 from talon import Context, Module, actions
+
 key = actions.key
 insert = actions.insert
 
@@ -28,10 +29,18 @@ app: windows_file_browser
 
 @ctx.action_class("user")
 class UserActions:
-    def go_back():                      key("alt-left")
-    def go_forward():                   key("alt-right")
-    def file_manager_go_parent():       key("alt-up")
-    def file_manager_focus_address():   key("alt-d")
+    def go_back():
+        key("alt-left")
+
+    def go_forward():
+        key("alt-right")
+
+    def file_manager_go_parent():
+        key("alt-up")
+
+    def file_manager_focus_address():
+        key("alt-d")
+
     def file_manager_copy_address():
         actions.user.file_manager_focus_address()
         actions.edit.copy()
@@ -48,14 +57,23 @@ class UserActions:
         key("ctrl-shift-n")
         if name:
             insert(name)
+
     def file_manager_new_file(name: str = None):
         key("shift-f10 w t")
         if name:
             insert(name)
 
     # ----- Miscellaneous -----
-    def file_manager_show_properties():     key("alt-enter")
+    def file_manager_show_properties():
+        key("alt-enter")
+
     def file_manager_terminal_here():
         key("ctrl-l")
         insert("cmd.exe")
         key("enter")
+
+    def pick_item(index: int):
+        if index == 0:
+            key("down up enter")
+        else:
+            actions.next(index)
