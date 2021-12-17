@@ -37,13 +37,13 @@ make {user.code_insert}:      "{code_insert}"
 make {user.code_snippet}:     user.insert_snippet("{code_snippet}")
 
 # ----- Class statement -----
-{user.code_class_modifier}* class <user.variable_name>:
+{user.code_class_modifier}* class <user.variable_name>$:
     user.code_class_wrapper(variable_name, code_class_modifier_list or "")
 
 # ----- Function statement -----
-{user.code_function_modifier}* function <user.variable_name>:
+{user.code_function_modifier}* function <user.variable_name>$:
     user.code_function_wrapper(variable_name, code_function_modifier_list or "")
-{user.code_function_modifier}* method <user.variable_name>:
+{user.code_function_modifier}* method <user.variable_name>$:
     user.code_method_wrapper(variable_name, code_function_modifier_list or "")
 
 function main:                user.code_function_main()
