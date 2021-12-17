@@ -77,3 +77,18 @@ class UserActions:
             key("down up enter")
         else:
             actions.next(index)
+
+
+@mod.action_class
+class Actions:
+    def select_up():
+        """Move selection up"""
+        key("ctrl-up")
+
+    def select_down():
+        """Move selection down"""
+        key("ctrl-down")
+
+    def select_toggle():
+        """Toggle selection"""
+        key("ctrl-space")
