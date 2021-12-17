@@ -9,8 +9,8 @@ tag(): user.comments
 
 convert to arrow:   user.arrowify_line()
 
-make arrow function <user.variable_name>:
+make arrow function <user.text>:
     format = user.code_get_function_format()
-    name = user.format_text(variable_name, format)
+    name = user.format_text(text, format)
     user.history_add_phrase(name)
     user.insert_snippet("const {name} = ($1) => {{\n$0\n}}")

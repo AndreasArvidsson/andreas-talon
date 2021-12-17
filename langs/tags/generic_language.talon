@@ -37,14 +37,14 @@ make {user.code_insert}:      "{code_insert}"
 make {user.code_snippet}:     user.insert_snippet("{code_snippet}")
 
 # ----- Class statement -----
-{user.code_class_modifier}* class <user.variable_name>$:
-    user.code_class_wrapper(variable_name, code_class_modifier_list or "")
+{user.code_class_modifier}* class <user.text>$:
+    user.code_class_wrapper(text, code_class_modifier_list or "")
 
 # ----- Function statement -----
-{user.code_function_modifier}* function <user.variable_name>$:
-    user.code_function_wrapper(variable_name, code_function_modifier_list or "")
-{user.code_function_modifier}* method <user.variable_name>$:
-    user.code_method_wrapper(variable_name, code_function_modifier_list or "")
+{user.code_function_modifier}* function <user.text>$:
+    user.code_function_wrapper(text, code_function_modifier_list or "")
+{user.code_function_modifier}* method <user.text>$:
+    user.code_method_wrapper(text, code_function_modifier_list or "")
 
 function main:                user.code_function_main()
 
@@ -53,10 +53,10 @@ function main:                user.code_function_main()
     user.code_constructor_wrapper(code_function_modifier_list or "")
 
 # ----- Variable statement -----
-var {user.code_variable_modifier}* [{user.code_data_type}] <user.variable_name>:
-    user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 0, code_data_type or "")
-var {user.code_variable_modifier}* [{user.code_data_type}] <user.variable_name> equals:
-    user.code_variable_wrapper(variable_name, code_variable_modifier_list or "", 1, code_data_type or "")
+var {user.code_variable_modifier}* [{user.code_data_type}] <user.text>:
+    user.code_variable_wrapper(text, code_variable_modifier_list or "", 0, code_data_type or "")
+var {user.code_variable_modifier}* [{user.code_data_type}] <user.text> equals:
+    user.code_variable_wrapper(text, code_variable_modifier_list or "", 1, code_data_type or "")
 
 # ----- Insert data type -----
 type {user.code_data_type}:   "{code_data_type}"

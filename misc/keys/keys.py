@@ -53,8 +53,10 @@ mod.list("key_punctuation", desc="Symbols for inserting punctuation into text")
 ctx.lists["self.key_punctuation"] = {
     "comma":            ",",
     "period":           ".",
+    "dot":              ".",
     "semicolon":        ";",
-    "colon":            ":",
+    # "colon":            ":",
+    "stack":            ":",
     "forward slash":    "/",
     "question mark":    "?",
     "exclamation mark": "!",

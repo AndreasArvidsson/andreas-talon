@@ -14,38 +14,22 @@ formatters_dict = {
     "DOUBLE_QUOTED_STRING": lambda text: surround(text, '"'),
     "SINGLE_QUOTED_STRING": lambda text: surround(text, "'"),
     # Splitting formatters
-    "REMOVE_FORMATTING": lambda text: format_words(text, split, " ", lower, lower),
+    "REMOVE_FORMATTING": lambda text: format_words(text, " ", lower, lower),
     "CAPITALIZE_ALL_WORDS": lambda text: format_words(
-        text, split, " ", capitalize, capitalize
+        text, " ", capitalize, capitalize
     ),
-    "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, split, " ", capitalize),
-    "CAMEL_CASE": lambda text: format_words(
-        text, split_no_symbols, "", lower, capitalize
-    ),
-    "PASCAL_CASE": lambda text: format_words(
-        text, split_no_symbols, "", capitalize, capitalize
-    ),
-    "SNAKE_CASE": lambda text: format_words(text, split_no_symbols, "_", lower, lower),
-    "ALL_CAPS_SNAKE_CASE": lambda text: format_words(
-        text, split_no_symbols, "_", upper, upper
-    ),
-    "DASH_SEPARATED": lambda text: format_words(
-        text, split_no_symbols, "-", lower, lower
-    ),
-    "DOT_SEPARATED": lambda text: format_words(
-        text, split_no_symbols, ".", lower, lower
-    ),
-    "SLASH_SEPARATED": lambda text: format_words(
-        text, split_no_symbols, "/", lower, lower
-    ),
-    "DOUBLE_UNDERSCORE": lambda text: format_words(
-        text, split_no_symbols, "__", lower, lower
-    ),
-    "DOUBLE_COLON_SEPARATED": lambda text: format_words(
-        text, split_no_symbols, "::", lower, lower
-    ),
-    "NO_SPACES": lambda text: format_words(text, split_no_symbols, ""),
-    "COMMA_SEPARATED": lambda text: format_words(text, split, ", "),
+    "CAPITALIZE_FIRST_WORD": lambda text: format_words(text, " ", capitalize),
+    "CAMEL_CASE": lambda text: format_words(text, "", lower, capitalize),
+    "PASCAL_CASE": lambda text: format_words(text, "", capitalize, capitalize),
+    "SNAKE_CASE": lambda text: format_words(text, "_", lower, lower),
+    "ALL_CAPS_SNAKE_CASE": lambda text: format_words(text, "_", upper, upper),
+    "DASH_SEPARATED": lambda text: format_words(text, "-", lower, lower),
+    "DOT_SEPARATED": lambda text: format_words(text, ".", lower, lower),
+    "SLASH_SEPARATED": lambda text: format_words(text, "/", lower, lower),
+    "DOUBLE_UNDERSCORE": lambda text: format_words(text, "__", lower, lower),
+    "DOUBLE_COLON_SEPARATED": lambda text: format_words(text, "::", lower, lower),
+    "NO_SPACES": lambda text: format_words(text, ""),
+    "COMMA_SEPARATED": lambda text: format_words(text, ", "),
 }
 
 formatters_no_unformat = {
@@ -134,13 +118,10 @@ def gui(gui: imgui.GUI):
 class Actions:
     def format_text(text: str, formatters: str) -> str:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        print(text)
         for fmtr in reversed(formatters.split(",")):
             text = formatters_dict[fmtr](text)
         return text
-
-    def formatted_text(text: str, formatters: str) -> str:
-        """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        return actions.user.format_text(text, formatters)
 
     def unformat_text(text: str, formatters: str = None) -> str:
         """Remove format from text"""
@@ -176,17 +157,33 @@ class Actions:
             actions.mode.enable("user.help_formatters")
 
 
-def format_words(text, splitter, delimiter, func_first=None, func_rest=None):
-    words = splitter(text)
-    result = []
-    for i, word in enumerate(words):
-        if i == 0:
-            if func_first:
-                word = func_first(word)
-        elif func_rest:
-            word = func_rest(word)
-        result.append(word)
-    return delimiter.join(result)
+def format_words(text, delimiter, format_first=None, format_rest=None):
+    words = re.split(r"(\W+)", text)
+    groups = []
+    group = []
+    first = True
+
+    for word in words:
+        word = word.strip()
+        if not word:
+            continue
+        # Word is symbol/s
+        if bool(re.match(r"\W+", word)):
+            groups.append(delimiter.join(group))
+            groups.append(word)
+            group = []
+            first = True
+            continue
+        elif first:
+            first = False
+            if format_first:
+                word = format_first(word)
+        elif format_rest:
+            word = format_rest(word)
+        group.append(word)
+
+    groups.append(delimiter.join(group))
+    return "".join(groups)
 
 
 def capitalize(text: str) -> str:
@@ -203,14 +200,6 @@ def upper(text: str) -> str:
 
 def surround(text: str, char: str) -> str:
     return char + de_string(text) + char
-
-
-def split(text: str) -> str:
-    return text.split()
-
-
-def split_no_symbols(text: str) -> str:
-    return re.sub(r"[^a-zA-Z0-9 ]+", "", text).split()
 
 
 def de_string(text: str) -> str:

@@ -24,21 +24,19 @@ def words(m) -> str:
     """A sequence of words, including user-defined vocabulary."""
     return format_phrase(m)
 
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <phrase>)+")
+text_rule = "({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+"
+
+@mod.capture(rule=text_rule)
 def text(m) -> str:
-    """Sequence of words, including user-defined vocabulary, abbreviations and spelling."""
+    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+")
+@mod.capture(rule=text_rule)
 def prose(m) -> str:
-    """Mixed words and punctuation, including user-defined vocabulary, abbreviations and spelling, auto-spaced & capitalized."""
+    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
     text, _state = auto_capitalize(format_phrase(m))
     return text
 
-@mod.capture(rule="({self.vocabulary} | <user.abbreviation> | <phrase> | <user.number_string>)+")
-def variable_name(m) -> str:
-    """Acceptable variable names."""
-    return format_phrase(m)
 
 # ---------- FORMATTING ---------- #
 def format_phrase(m):
