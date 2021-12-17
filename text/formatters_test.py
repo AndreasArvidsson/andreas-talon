@@ -1,7 +1,7 @@
 from talon import actions
 
 input_raw = "why? and it's nice!"
-input_raw_numbers = "why? and it's nice 123!"
+input_raw_numbers = "why? and it's nice 123.0!"
 
 fixtures_format = [
     # Simple formatters
@@ -26,8 +26,8 @@ fixtures_format = [
     ["DOUBLE_COLON_SEPARATED", input_raw, "why?and::its::nice!"],
     ["NO_SPACES", input_raw, "why?anditsnice!"],
     # More tests with special characters
-    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "why?andItsNice123!"],
-    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why?and_its_nice_123!"],
+    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "why?andItsNice123.0!"],
+    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why?and_its_nice_123.0!"],
 ]
 
 input_snake = "hello_there.my_ip_address_2_x_3"
