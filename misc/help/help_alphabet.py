@@ -11,7 +11,7 @@ main_screen = ui.main_screen()
 def gui(gui: imgui.GUI):
     gui.text("Alphabet")
     gui.line()
-    alphabet = registry.lists["user.key_alphabet"][0]
+    alphabet = registry.lists["user.letter"][0]
     for key, val in alphabet.items():
         gui.text(f"{val}:  {key}")
     gui.spacer()

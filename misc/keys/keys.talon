@@ -1,5 +1,5 @@
 # Letters [A-Z]
-{user.key_alphabet}:         key(key_alphabet)
+{user.letter}:               key(letter)
 
 # Symbol keys: !, %, _
 {user.key_symbol}:           key(key_symbol)

@@ -6,14 +6,13 @@ ctx = Context()
 mod.tag("keys")
 
 # alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
-# alphabet = "air bat cap drum each fine gust harp ink jane kid look made near odd pit quench ram soon trap urge vest whale plex yank zip".split(
 alphabet = "air batt cap drum each fine gust harp ink jig kid look made near ox pit quench ram soon trap urge vest whale plex yank zip".split(
     " ")
 default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(
     " ")
 
-mod.list("key_alphabet", desc="The spoken phonetic alphabet")
-ctx.lists["self.key_alphabet"] = {
+mod.list("letter", desc="The spoken phonetic alphabet")
+ctx.lists["self.letter"] = {
     **{alphabet[i]: chr(ord("a") + i) for i in range(len(alphabet))},
     **{"aalder": "å", "aerlig": "ä", "oesten": "ö"}
 }
@@ -121,35 +120,35 @@ def key_modifiers(m) -> str:
     return "-".join(m.key_modifier_list)
 
 
-@mod.capture(rule="( {self.key_alphabet} | {self.key_number} | {self.key_symbol} "
+@mod.capture(rule="( {self.letter} | {self.key_number} | {self.key_symbol} "
               "| {self.key_special} | {self.key_arrow} | {self.key_function} )")
 def key_unmodified(m) -> str:
     "A single key with no modifiers"
     return str(m)
 
 
-@mod.capture(rule="spell {self.key_alphabet}+")
+@mod.capture(rule="spell {self.letter}+")
 def spell(m) -> str:
     """Spell word phoneticly"""
-    return "".join(m.key_alphabet_list)
+    return "".join(m.letter_list)
 
 
-@mod.capture(rule="({self.key_alphabet} | {self.key_number} | {self.key_symbol})")
+@mod.capture(rule="({self.letter} | {self.key_number} | {self.key_symbol})")
 def any_alphanumeric_key(m) -> str:
     "any alphanumeric key"
     return str(m)
 
 
-@mod.capture(rule="{self.key_alphabet}")
+@mod.capture(rule="{self.letter}")
 def letter(m) -> str:
     """One letter in the alphabet"""
     return str(m)
 
 
-@mod.capture(rule="{self.key_alphabet}+")
+@mod.capture(rule="{self.letter}+")
 def letters(m) -> str:
     """One or more letters in the alphabet"""
-    return "".join(m.key_alphabet_list)
+    return "".join(m.letter_list)
 
 
 # Window specific context
