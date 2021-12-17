@@ -120,10 +120,17 @@ def gui(gui: imgui.GUI):
 class Actions:
     def format_text(text: str, formatters: str) -> str:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        print(text)
         for fmtr in reversed(formatters.split(",")):
             text = formatters_dict[fmtr](text)
         return text
+
+    def reformat_text(text: str, formatters: str) -> str:
+        """Reformat the text. Used by Cursorless"""
+        lines = text.split("\n")
+        for i in range(len(lines)):
+            unformatted = actions.user.unformat_text(lines[i], formatters)
+            lines[i] = actions.user.format_text(unformatted, formatters)
+        return "\n".join(lines)
 
     def unformat_text(text: str, formatters: str = None) -> str:
         """Remove format from text"""
@@ -236,4 +243,4 @@ def de_string(text: str) -> str:
 
 # Test formatters
 # for f in formatters_dict.keys():
-    # print(f"{f.ljust(25)} {formatters_dict[f]('hallo there! what are you doing?')}")
+# print(f"{f.ljust(25)} {formatters_dict[f]('hallo there! what are you doing?')}")
