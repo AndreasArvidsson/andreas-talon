@@ -54,19 +54,11 @@ ctx.lists["self.key_punctuation"] = {
     "comma":            ",",
     "period":           ".",
     "dot":              ".",
-    "semicolon":        ";",
-    # "colon":            ":",
+    "colon":            ":",
     "stack":            ":",
     "forward slash":    "/",
     "question mark":    "?",
     "exclamation mark": "!",
-    "dollar sign":      "$",
-    "asterisk":         "*",
-    "hash sign":        "#",
-    "number sign":      "#",
-    "percent sign":     "%",
-    "at sign":          "@",
-    "ampersand":        "&"
 }
 
 # Symbols available in command mode, but NOT during dictation.
