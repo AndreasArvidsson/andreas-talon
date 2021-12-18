@@ -1,12 +1,21 @@
-from talon import Module, actions
+from talon import Module, actions, app
 from typing import Any
+from .formatters_test import test_formatters
+
+
+def run_tests():
+    test_formatters()
+
+
+# app.register("ready", run_tests)
+
 
 mod = Module()
 
 
 @mod.action_class
 class Actions:
-    def start_test(suite_name: str, fixtures: list, callback: callable):
+    def test_run_suite(suite_name: str, fixtures: list, callback: callable):
         """Start a new test suite"""
         print("")
         print(f"---- START | {suite_name} | {len(fixtures)}")

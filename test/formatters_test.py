@@ -51,12 +51,13 @@ def test(fixture, callback):
     actions.user.assert_equals(expected, found)
 
 
-# actions.user.start_test(
-#     "format", fixtures_format, lambda f: test(f, actions.user.format_text)
-# )
-# actions.user.start_test(
-#     "reformat", fixtures_reformat, lambda f: test(f, actions.user.reformat_text)
-# )
+def test_formatters():
+    actions.user.test_run_suite(
+        "format", fixtures_format, lambda f: test(f, actions.user.format_text)
+    )
+    actions.user.test_run_suite(
+        "reformat", fixtures_reformat, lambda f: test(f, actions.user.reformat_text)
+    )
 
 
 # # Test unformat_text
