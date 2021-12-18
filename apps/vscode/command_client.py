@@ -294,6 +294,24 @@ class Actions:
     #     to command palette."""
     #     run_vscode_command(command_id)
 
+    def vscode(
+        command_id: str,
+        arg1: Any = NotSet,
+        arg2: Any = NotSet,
+        arg3: Any = NotSet,
+        arg4: Any = NotSet,
+        arg5: Any = NotSet,
+    ):
+        """Execute command via vscode command server."""
+        run_vscode_command(
+            command_id,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+        )
+
     def vscode_and_wait(command_id: str):
         """Execute command via vscode command server, if available, and wait
         for command to finish.  If command server not available, uses command
@@ -301,8 +319,7 @@ class Actions:
         finish."""
         run_vscode_command(command_id, wait_for_finish=True)
 
-    # def vscode_with_plugin(
-    def vscode(
+    def vscode_with_plugin(
         command_id: str,
         arg1: Any = NotSet,
         arg2: Any = NotSet,
