@@ -1,6 +1,6 @@
 {
-    "python.formatting.provider": "black",
+    "python.pythonPath": "c:\\Program Files\\Talon\\python.exe",
     "python.analysis.stubPath": "C:\\Program Files\\Talon\\Lib\\site-packages",
+    "python.formatting.provider": "black",
     "python.linting.pylintEnabled": true,
-    "python.pythonPath": "C:\\Users\\andre\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
 }
