@@ -17,7 +17,7 @@ class Actions:
             try:
                 callback(fixture)
                 succeeded += 1
-                print(f"OK   | {test_name}")
+                print(f" OK  | {test_name}")
             except AssertionError as ex:
                 failed += 1
                 print(f"FAIL | {test_name}")
