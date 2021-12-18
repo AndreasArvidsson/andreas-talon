@@ -9,10 +9,11 @@ media stop:             key(stop)
 
 playback {user.playback_device}:
     user.notify("Playback device: {playback_device}")
-    user.change_sound_device(playback_device, 1)
-    user.change_sound_device(playback_device, 2)
+    user.change_sound_device(playback_device)
 
 microphone {user.microhpone_device}:
     user.notify("Microphone device: {microhpone_device}")
-    user.change_sound_device(microhpone_device, 1)
-    user.change_sound_device(microhpone_device, 2)
+    user.change_sound_device(microhpone_device)
+
+use {user.playback_microphone_pair}:
+    user.change_sound_device_pair(playback_microphone_pair)
