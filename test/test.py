@@ -4,6 +4,7 @@ from .formatters_test import test_formatters
 
 
 def run_tests():
+    print("")
     test_formatters()
 
 
@@ -17,7 +18,6 @@ mod = Module()
 class Actions:
     def test_run_suite(suite_name: str, fixtures: list, callback: callable):
         """Start a new test suite"""
-        print("")
         print(f"---- START | {suite_name} | {len(fixtures)}")
         succeeded = 0
         failed = 0
@@ -31,7 +31,7 @@ class Actions:
                 failed += 1
                 print(f"FAIL | {test_name}")
                 print(ex)
-        print(f"---- END | {suite_name} | succeeded: {succeeded} | failed: {failed}")
+        print(f"---- END | {suite_name} | succeeded: {succeeded} | failed: {failed}\n")
         if failed:
             actions.app.notify(f"{failed} tests failed")
 
