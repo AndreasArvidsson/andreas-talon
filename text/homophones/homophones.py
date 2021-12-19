@@ -88,7 +88,6 @@ class Actions:
             actions.user.homophones_hide()
             return
 
-        actions.user.history_add_phrase(word)
         actions.insert(word)
         actions.user.homophones_hide()
 

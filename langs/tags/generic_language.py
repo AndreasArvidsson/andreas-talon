@@ -90,7 +90,6 @@ class tab_actions:
         """Class declaration wrapper"""
         format = actions.user.code_get_class_format()
         name = actions.user.format_text(name, format)
-        actions.user.history_add_phrase(name)
         actions.user.code_class(name, modifiers or [])
 
     def code_class(name: str, modifiers: list[str]):
@@ -132,7 +131,6 @@ class tab_actions:
         """Variable statement wrapper"""
         format = actions.user.code_get_variable_format()
         name = actions.user.format_text(name, format)
-        actions.user.history_add_phrase(name)
         actions.user.code_variable(name, modifiers or [], bool(assign), data_type)
 
     def code_variable(
@@ -158,5 +156,4 @@ class tab_actions:
 def parse_function_name(name: str) -> str:
     format = actions.user.code_get_function_format()
     name = actions.user.format_text(name, format)
-    actions.user.history_add_phrase(name)
     return name

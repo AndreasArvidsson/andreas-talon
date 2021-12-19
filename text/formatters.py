@@ -118,6 +118,11 @@ def gui(gui: imgui.GUI):
 
 @mod.action_class
 class Actions:
+    def insert_formatted(text: str, formatters: str):
+        """Inserts a text formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        formatted = actions.user.format_text(text, formatters)
+        actions.insert(formatted)
+
     def format_text(text: str, formatters: str) -> str:
         """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
         for fmtr in reversed(formatters.split(",")):
@@ -131,6 +136,13 @@ class Actions:
             unformatted = actions.user.unformat_text(lines[i], formatters)
             lines[i] = actions.user.format_text(unformatted, formatters)
         return "\n".join(lines)
+
+    def reformat_selection(formatters: str):
+        """Reformats the current selection."""
+        selected = actions.edit.selected_text()
+        if not selected:
+            return
+        actions.insert(selected, formatters)
 
     def unformat_text(text: str, formatters: str = None) -> str:
         """Remove format from text"""

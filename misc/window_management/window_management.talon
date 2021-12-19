@@ -11,8 +11,8 @@ window next:                        app.window_next()
 window back:                        key("alt-tab")
 
 snap <user.window_snap_position>:   user.snap_window(window_snap_position)
-snap next [screen]:                 user.move_window_next_screen()
-snap last [screen]:                 user.move_window_previous_screen()
+snap next screen:                   user.move_window_next_screen()
+snap last screen:                   user.move_window_previous_screen()
 snap screen <number_small>:         user.move_window_to_screen(number_small)
 
 move center:                        user.move_window_to_screen_center()

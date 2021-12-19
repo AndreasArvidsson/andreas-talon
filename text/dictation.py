@@ -191,7 +191,6 @@ class Actions:
             dictation_formatter.update_context(
                 actions.user.dictation_peek_left(clobber=True))
         text = dictation_formatter.format(text)
-        actions.user.history_add_phrase(text)
         actions.insert(text)
         # Add a space after cursor if necessary.
         if not context_sensitive or omit_space_after(text):
