@@ -57,5 +57,8 @@ paste to file:           user.paste_all()
 phones this:             user.homophones_cycle_selected()
 
 # Wrap selection with delimiter pair
-<user.delimiter_pair> wrap this:
-    user.delimiters_pair_wrap_selection(delimiter_pair)
+{user.delimiter_pair_wrap} wrap this:
+    user.delimiters_pair_wrap_selection(delimiter_pair_wrap)
+{user.delimiter_pair_wrap} wrap line:
+    edit.select_line()
+    user.delimiters_pair_wrap_selection(delimiter_pair_wrap)

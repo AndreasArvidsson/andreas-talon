@@ -18,28 +18,38 @@ matching_pairs = {
     "diamond":  ["<", ">"],
     "curly":    ["{", "}"],
     "twin":     ["'", "'"],
-    "quad":     ['"', '"'],
+    "string":   ['"', '"'],
     "skis":     ['`', '`'],
 }
-matching_pairs["string"] = matching_pairs["quad"]
 ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
 
+matching_pairs_wrap = {
+    "quad":     ['"', '"'],
+    "square":   ["[", "]"],
+    "angle":    ["<", ">"],
+    "void":     [" ", " "],
+}
 
-@mod.capture(rule="{user.delimiter_pair}")
-def delimiter_pair(m) -> list[str]:
-    return matching_pairs[m.delimiter_pair]
+matching_pairs_all = {
+    **matching_pairs,
+    **matching_pairs_wrap,
+}
+
+mod.list("delimiter_pair_wrap", desc="List of matching pair delimiters use specifically for wrapping")
+ctx.lists["self.delimiter_pair_wrap"] = matching_pairs_all.keys()
 
 
 @mod.action_class
 class Actions:
-    def delimiters_pair_insert(pair: list[str]):
+    def delimiters_pair_insert(pair_name: str):
         """Insert matching pair delimiters"""
-        actions.insert(pair[0] + pair[1])
+        pair = matching_pairs_all[pair_name]
+        actions.insert(f"{pair[0]}{pair[1]}")
         actions.edit.left()
 
-    def delimiters_pair_wrap_selection(pair: list[str]):
+    def delimiters_pair_wrap_selection(pair_name: str):
         """Wrap selection with matching pair delimiters"""
-        selection = actions.edit.selected_text()
-        actions.insert(pair[0])
-        actions.insert(selection)
-        actions.insert(pair[1])
+        selected = actions.edit.selected_text()
+        if selected:
+            pair = matching_pairs_all[pair_name]
+            actions.insert(f"{pair[0]}{selected}{pair[1]}")
