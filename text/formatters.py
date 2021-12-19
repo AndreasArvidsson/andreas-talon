@@ -12,8 +12,8 @@ formatters_dict = {
     "TRAILING_PADDING": lambda text: f"{text} ",
     "ALL_CAPS": lambda text: text.upper(),
     "ALL_LOWERCASE": lambda text: text.lower(),
-    "DOUBLE_QUOTED_STRING": lambda text: surround(text, '"'),
-    "SINGLE_QUOTED_STRING": lambda text: surround(text, "'"),
+    "DOUBLE_QUOTED_STRING": lambda text: f'"{text}"',
+    "SINGLE_QUOTED_STRING": lambda text: f"'{text}'",
     # Splitting formatters
     "CAPITALIZE_ALL_WORDS": lambda text: first_and_rest(text, capitalize, capitalize),
     "CAPITALIZE_FIRST_WORD": lambda text: first_and_rest(text, capitalize),
@@ -142,7 +142,8 @@ class Actions:
         selected = actions.edit.selected_text()
         if not selected:
             return
-        actions.insert(selected, formatters)
+        formatted = actions.user.reformat_text(selected, formatters)
+        actions.insert(formatted)
 
     def unformat_text(text: str, formatters: str = None) -> str:
         """Remove format from text"""
@@ -239,10 +240,6 @@ def lower(text: str) -> str:
 
 def upper(text: str) -> str:
     return text.upper()
-
-
-def surround(text: str, char: str) -> str:
-    return char + de_string(text) + char
 
 
 def de_string(text: str) -> str:
