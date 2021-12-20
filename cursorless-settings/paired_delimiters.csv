@@ -1,6 +1,6 @@
 Spoken form, Cursorless identifier
 curly, curlyBrackets
-diamond, angleBrackets
+diamond | angle, angleBrackets
 string | quad, doubleQuotes
 round, parentheses
 skis, backtickQuotes
