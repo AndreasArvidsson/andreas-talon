@@ -44,8 +44,7 @@ class Actions:
     def delimiters_pair_insert(pair_name: str):
         """Insert matching pair delimiters"""
         pair = matching_pairs_all[pair_name]
-        actions.insert(f"{pair[0]}{pair[1]}")
-        actions.edit.left()
+        actions.user.insert_snippet(f"{pair[0]}$0{pair[1]}")
 
     def delimiters_pair_wrap_selection(pair_name: str):
         """Wrap selection with matching pair delimiters"""
