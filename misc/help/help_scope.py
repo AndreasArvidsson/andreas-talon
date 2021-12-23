@@ -31,7 +31,7 @@ def gui(gui: imgui.GUI):
             print_value(gui, key, value, ignore)
     gui.spacer()
     if gui.button("Hide"):
-        actions.user.help_active_context_toggle()
+        actions.user.help_scope_toggle()
 
 
 def print_value(gui: imgui.GUI, path: str, value, ignore: set[str] = {}):
