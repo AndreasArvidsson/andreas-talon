@@ -43,7 +43,4 @@ class UserActions:
             insert(name)
 
     def pick_item(index: int):
-        if index == 0:
-            key("down up enter")
-        else:
-            actions.next(index)
+            actions.next(index + 1)
