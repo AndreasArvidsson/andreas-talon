@@ -1,10 +1,12 @@
 os: windows
 -
 
+show desktop:               key(super-d)
+switcher:                   key(ctrl-alt-tab)
+
 open task manager:          key(ctrl-shift-escape)
 
 task view:                  key(super-tab)
-switcher:                   key(ctrl-alt-tab)
 start menu:                 key(super)
 context menu:               key(super-x)
 
