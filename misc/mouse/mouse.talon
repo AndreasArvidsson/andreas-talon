@@ -23,6 +23,9 @@ mouse gaze:                     user.mouse_gaze_scroll()
 
 # Misc
 mouse center:                   user.mouse_center_window()
+mouse center click:
+    user.mouse_center_window()
+    mouse_click(0)
 
 #TODO cursor
 ^cursor show$:                  user.mouse_show_cursor()
