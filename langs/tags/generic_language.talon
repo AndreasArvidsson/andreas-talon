@@ -60,6 +60,10 @@ var {user.code_variable_modifier}* [{user.code_data_type}] <user.text> equals:
 
 # ----- Insert data type -----
 type {user.code_data_type}:   "{code_data_type}"
+is type {user.code_data_type}:
+    user.code_insert_type_annotation(code_data_type)
+returns type {user.code_data_type}:
+    user.code_insert_return_type(code_data_type)
 
 # ----- Function call -----
 call {user.code_function}:    user.code_call_function(code_function)

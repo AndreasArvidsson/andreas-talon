@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Module, Context, actions
 from .javascript import javascript_inserts
 
 mod = Module()
@@ -23,3 +23,12 @@ ctx.lists["self.code_insert"] = {
         "protected": "protected ",
     },
 }
+
+@ctx.action_class("user")
+class UserActions:
+    # Insert types
+    def code_insert_type_annotation(type: str):
+        actions.insert(f": {type}")
+
+    def code_insert_return_type(type: str):
+        actions.insert(f" => {type}")

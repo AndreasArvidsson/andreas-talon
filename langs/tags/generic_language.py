@@ -142,6 +142,13 @@ class tab_actions:
     def code_call_function(name: str):
         """Function call"""
 
+    # ----- Insert types -----
+    def code_insert_type_annotation(type: str):
+        """Insert type annotation"""
+
+    def code_insert_return_type(type: str):
+        """Insert return type"""
+
     # ----- Formatting getters -----
     def code_get_class_format() -> str:
         """Get variable format"""

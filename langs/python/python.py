@@ -256,6 +256,13 @@ class UserActions:
     def code_call_function(name: str):
         insert_snippet(f"{name}($0)")
 
+    # Insert types
+    def code_insert_type_annotation(type: str):
+        actions.insert(f": {type}")
+
+    def code_insert_return_type(type: str):
+        actions.insert(f" -> {type}")
+
     # Formatting getters
     def code_get_class_format() -> str:
         return "PASCAL_CASE"
