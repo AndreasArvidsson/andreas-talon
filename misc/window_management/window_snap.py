@@ -114,8 +114,8 @@ class Actions:
         screen = window.screen.visible_rect
         set_window_pos(
             window,
-            x=screen.x + (screen.width / 2 - rect.width / 2),
-            y=screen.y + (screen.height / 2 - rect.height / 2),
+            x=screen.center.x - rect.width / 2,
+            y=screen.center.y - rect.height / 2,
             width=rect.width,
             height=rect.height,
         )

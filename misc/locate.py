@@ -22,8 +22,8 @@ class Actions:
 
         location = locations[0]
         # Default to center
-        x = location.x + location.width / 2
-        y = location.y + location.height / 2
+        x = location.center.x
+        y = location.center.y
         if position == "left":
             x = location.left
         elif position == "top":
