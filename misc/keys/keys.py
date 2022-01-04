@@ -5,12 +5,11 @@ mod = Module()
 ctx = Context()
 mod.tag("keys")
 
+# fmt: off
+
 # alphabet = "air bat cap drum each fine gust harp sit jury crunch look made near odd pit quench red sun trap urge vest whale plex yank zip".split(" ")
-# alphabet = "air batt cap drum each fine gust harp ink jig kid look made near ox pit quench ram soon trap urge vest whale plex yank zip".split(
-alphabet = "air batt cap drum each fine gust harp ink jig kid look made near ox pit quench ram soon trap urn vest whale plex yank zip".split(
-    " ")
-default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(
-    " ")
+alphabet = "air batt cap drum each fine gust harp ink jig kid look made near ox pit quench ram soon trap urn vest whale plex yank zip".split(" ")
+default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(" ")
 
 mod.list("letter", desc="The spoken phonetic alphabet")
 ctx.lists["self.letter"] = {
@@ -31,13 +30,20 @@ ctx.lists["self.key_arrow"] = {"up", "down", "left", "right"}
 mod.list("key_special", desc="All special keys")
 ctx.lists["self.key_special"] = merge(
     {
-        "enter", "tab", "delete", "backspace",
-        "home", "end", "insert", "escape", "menu"
+        "enter",
+        "tab",
+        "delete",
+        "backspace",
+        "home",
+        "end",
+        "insert",
+        "escape",
+        "menu",
     },
     {
         "page up":      "pageup",
         "page down":    "pagedown",
-        "print screen": "printscr"
+        "print screen": "printscr",
     }
 )
 
@@ -46,7 +52,7 @@ ctx.lists["self.key_modifier"] = {
     "alt":          "alt",
     "control":      "ctrl",
     "shift":        "shift",
-    "super":        "super"
+    "super":        "super",
 }
 
 # Symbols you want available BOTH in dictation and command mode.
@@ -102,10 +108,16 @@ ctx.lists["self.key_symbol"] = {
     "tilde":            "~",
     "plus":             "+",
     "minus":            "-",
-    "equals":           "="
+    "equals":           "=",
 }
 
-requires_space = {"`", "^", "~"}
+requires_space = {
+    "`",
+    "^",
+    "~",
+}
+
+# fmt: on
 
 
 @mod.capture(rule="{self.key_modifier}+")
@@ -114,8 +126,9 @@ def key_modifiers(m) -> str:
     return "-".join(m.key_modifier_list)
 
 
-@mod.capture(rule="( {self.letter} | {self.key_number} | {self.key_symbol} "
-              "| {self.key_special} | {self.key_arrow} | {self.key_function} )")
+@mod.capture(
+    rule="{self.letter} | {self.key_number} | {self.key_symbol} | {self.key_special} | {self.key_arrow} | {self.key_function}"
+)
 def key_unmodified(m) -> str:
     "A single key with no modifiers"
     if m[0] == " ":
@@ -129,7 +142,7 @@ def spell(m) -> str:
     return "".join(m.letter_list)
 
 
-@mod.capture(rule="({self.letter} | {self.key_number} | {self.key_symbol})")
+@mod.capture(rule="{self.letter} | {self.key_number} | {self.key_symbol}")
 def any_alphanumeric_key(m) -> str:
     "any alphanumeric key"
     return str(m)
@@ -153,6 +166,7 @@ ctx_win = Context()
 ctx_win.matches = r"""
 os: windows
 """
+
 
 @ctx_win.action_class("main")
 class MainActions:
