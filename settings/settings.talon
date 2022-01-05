@@ -24,5 +24,8 @@ settings():
     # Mouse scroll step
     user.scroll_step = 500
 
+    # Speech timeout
+    speech.timeout = 0.300
+
     # Record speech
     # speech.record_all = 1
