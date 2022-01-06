@@ -109,7 +109,8 @@ cursor lines:            user.vscode("editor.action.insertCursorAtEndOfEachLineS
 cursor expand:           user.vscode("editor.action.smartSelect.expand")
 cursor shrink:           user.vscode("editor.action.smartSelect.shrink")
 
-# Debug
+# Debug and run
+build program:           user.vscode("workbench.action.tasks.build")
 run program:             user.vscode("workbench.action.debug.run")
 debug start:             user.vscode("workbench.action.debug.start")
 breakpoint:              user.vscode("editor.debug.action.toggleBreakpoint")
