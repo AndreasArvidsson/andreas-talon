@@ -12,30 +12,38 @@ setting_context_sensitive_dictation = mod.setting(
     desc="Look at surrounding text to improve auto-capitalization/spacing in dictation mode. By default, this works by selecting that text & copying it to the clipboard, so it may be slow or fail in some applications.",
 )
 
-@mod.capture(rule="({self.vocabulary} | <word>)")
+
+@mod.capture(rule="({user.vocabulary} | <word>)")
 def word(m) -> str:
     """A single word, including user-defined vocabulary."""
     words = capture_to_words(m)
     return words[0]
 
+
 # Used to escape numbers and symbols
-@mod.capture(rule="({self.vocabulary} | <phrase>)+")
+@mod.capture(rule="({user.vocabulary} | <phrase>)+")
 def words(m) -> str:
     """A sequence of words, including user-defined vocabulary."""
     return format_phrase(m)
 
-text_rule = "({self.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {self.key_punctuation} | <phrase>)+"
+
+text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {user.key_punctuation} | <phrase>)+"
+
 
 @mod.capture(rule=text_rule)
 def text(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
+
 @mod.capture(rule=text_rule)
 def prose(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
     text, _state = auto_capitalize(format_phrase(m))
     return text
+
+
+# fmt: off
 
 
 # ---------- FORMATTING ---------- #
