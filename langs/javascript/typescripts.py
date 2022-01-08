@@ -21,8 +21,10 @@ ctx.lists["self.code_insert"] = {
         "public": "public ",
         "private": "private ",
         "protected": "protected ",
+        "interface": "interface ",
     },
 }
+
 
 @ctx.action_class("user")
 class UserActions:

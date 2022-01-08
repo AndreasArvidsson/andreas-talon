@@ -45,6 +45,8 @@ javascript_inserts = merge(
         "new": "new ",
         "const": "const ",
         "let": "let ",
+        "throw": "throw ",
+        "static": "static ",
     },
 )
 ctx.lists["self.code_insert"] = javascript_inserts
