@@ -62,10 +62,10 @@ def vscode_panel(m) -> dict:
 @ctx.action_class("win")
 class WinActions:
     def filename():
-        parts = actions.win.title().split(" - ")
-        result = parts[1] if parts[0] == "[Extension Development Host]" else parts[0]
-        if "." in result:
-            return result
+        title = actions.win.title()
+        i = title.rindex(".")
+        if i > -1:
+            return title[i:].split(" ")[0]
         return ""
 
 
@@ -263,6 +263,20 @@ class TalonEditActions:
     def save():
         actions.user.format_document()
         actions.next()
+
+
+# @ctx_notebook.action_class("main")
+# class NotebookMainActions:
+#     def insert(text: str):
+#         if not text:
+#             return
+#         if text.endswith("\n"):
+#             print(f"'{text}'")
+#             print(f"'{text[0:-1]}'")
+#             actions.next(text[0:-1])
+#             vscode("notebook.cell.executeAndInsertBelow")
+#         else:
+#             actions.next(text)
 
 
 @ctx_notebook.action_class("user")
