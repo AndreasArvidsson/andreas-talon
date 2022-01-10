@@ -22,7 +22,7 @@ unfold every output:   user.vscode("notebook.cell.expandAllCellOutputs")
 drink cell:
     user.vscode("notebook.cell.insertCodeCellAboveAndFocusContainer")
     user.vscode("notebook.cell.edit")
-poor cell:
+pour cell:
     user.vscode("notebook.cell.insertCodeCellBelowAndFocusContainer")
     user.vscode("notebook.cell.edit")
 
