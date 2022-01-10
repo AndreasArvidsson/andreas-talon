@@ -16,6 +16,11 @@ and app.name: mintty.exe
 os: windows
 and app.exe: mintty.exe
 """
+mod.apps.git_bash = """
+os: windows
+app: vscode
+win.file_ext: .bashbook
+"""
 
 ctx = Context()
 ctx.matches = """

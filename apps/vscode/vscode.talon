@@ -130,7 +130,10 @@ debug test:
     user.vscode("workbench.action.debug.selectandstart")
     "extension tests"
     key(enter)
-dev tools:               user.vscode("workbench.action.toggleDevTools")
+run task [<user.text>]:
+    user.vscode("workbench.action.tasks.runTask")
+    "{text or ''}"
+dev tools:               ucompiledser.vscode("workbench.action.toggleDevTools")
 select element:          key(ctrl-shift-c)
 
 # Find session
