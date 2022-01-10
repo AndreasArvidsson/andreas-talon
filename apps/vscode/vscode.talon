@@ -12,9 +12,9 @@ settings():
     user.scroll_step = 600
 
 # Language features
-suggest:                 code.complete()
+jest:                    code.complete()
+jest param:              user.vscode("editor.action.triggerParameterHints")
 format document:         user.format_document()
-suggest param:           user.vscode("editor.action.triggerParameterHints")
 imports organize:        user.vscode("editor.action.organizeImports")
 problem next:            user.vscode("editor.action.marker.nextInFiles")
 problem last:            user.vscode("editor.action.marker.prevInFiles")

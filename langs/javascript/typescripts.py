@@ -13,6 +13,7 @@ ctx.lists["self.code_data_type"] = {
     "number": "number",
     "string": "string",
     "any": "any",
+    "void": "void",
 }
 
 ctx.lists["self.code_insert"] = {

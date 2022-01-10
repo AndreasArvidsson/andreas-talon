@@ -35,6 +35,7 @@ extension_lang_map = {
     ".vim": "vimscript",
     ".vimrc": "vimscript",
     ".html": "html",
+    ".bashbook": "bash",
 }
 
 # Create a context for each defined language

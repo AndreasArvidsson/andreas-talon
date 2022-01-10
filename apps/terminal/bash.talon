@@ -1,5 +1,6 @@
 tag: user.bash
 -
+tag(): terminal
 
 cd:                            "cd "
 cd <user.text>$:               "cd {text}"

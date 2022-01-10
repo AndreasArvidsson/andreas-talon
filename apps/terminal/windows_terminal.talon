@@ -1,6 +1,5 @@
 app: windows_terminal
 -
-tag(): terminal
 tag(): user.tabs
 tag(): user.bash
 

@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+
 key = actions.key
 insert = actions.insert
 user = actions.user
@@ -21,7 +22,8 @@ ctx.matches = """
 app: git_bash
 """
 
-ctx.tags = ["terminal", "user.bash"]
+ctx.tags = ["user.bash"]
+
 
 @ctx.action_class("user")
 class UserActions:
