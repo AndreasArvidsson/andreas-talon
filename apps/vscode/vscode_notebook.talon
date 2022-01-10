@@ -3,7 +3,7 @@ tag: user.vscode_notebook
 
 render markdown:       user.vscode("notebook.renderAllMarkdownCells")
 
-run stay:              user.vscode("notebook.cell.executeAndFocusContainer")
+run cell:              user.vscode("notebook.cell.executeAndFocusContainer")
 run new:               user.vscode("notebook.cell.executeAndInsertBelow")
 run down:              user.vscode("notebook.cell.executeAndSelectBelow")
 
@@ -18,6 +18,13 @@ fold output:           user.vscode("notebook.cell.collapseCellOutput")
 unfold output:         user.vscode("notebook.cell.expandCellOutput")
 fold every output:     user.vscode("notebook.cell.collapseAllCellOutputs")
 unfold every output:   user.vscode("notebook.cell.expandAllCellOutputs")
+
+drink cell:
+    user.vscode("notebook.cell.insertCodeCellAboveAndFocusContainer")
+    user.vscode("notebook.cell.edit")
+poor cell:
+    user.vscode("notebook.cell.insertCodeCellBelowAndFocusContainer")
+    user.vscode("notebook.cell.edit")
 
 clone cell:
     user.vscode("notebook.cell.copyDown")
