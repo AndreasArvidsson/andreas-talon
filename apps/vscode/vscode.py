@@ -6,6 +6,7 @@ edit = actions.edit
 vscode = actions.user.vscode
 
 mod = Module()
+mod.tag("vscode_notebook")
 
 mod.apps.vscode = """
 os: linux
@@ -28,6 +29,12 @@ ctx_talon = Context()
 ctx_talon.matches = r"""
 app: vscode
 tag: user.talon
+"""
+
+ctx_notebook = Context()
+ctx_notebook.matches = r"""
+app: vscode
+tag: user.vscode_notebook
 """
 
 
@@ -258,6 +265,23 @@ class TalonEditActions:
         actions.next()
 
 
+@ctx_notebook.action_class("user")
+class NotebookUserActions:
+    def change_language(language: str = ""):
+        if language:
+            actions.insert(language)
+
+
+@ctx_notebook.action_class("edit")
+class NotebookEditActions:
+    # ----- Line commands -----
+    def line_swap_up():
+        vscode("notebook.cell.moveUp")
+
+    def line_swap_down():
+        vscode("notebook.cell.moveDown")
+
+
 @mod.action_class
 class Actions:
     def jump_line_character(l: int, c: int):
@@ -321,6 +345,12 @@ class Actions:
     def vscode_grab_line(panel: dict):
         """Grab vscode sideboard/panel line to resize"""
         actions.user.locate_drag(panel["filename"], panel["position"])
+
+    def change_language(language: str = ""):
+        """Change language mode"""
+        vscode("workbench.action.editor.changeLanguageMode")
+        if language:
+            actions.insert(language)
 
 
 def empty_selection():

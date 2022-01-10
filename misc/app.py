@@ -22,7 +22,7 @@ class Actions:
             return
         if actions.user.scroll_stop():
             return
-        actions.key("escape:3")
+        actions.key("escape")
 
     def mute_microphone():
         """Mute microphone"""
