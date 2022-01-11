@@ -59,3 +59,7 @@ fold output:           user.vscode("notebook.cell.collapseCellOutput")
 unfold output:         user.vscode("notebook.cell.expandCellOutput")
 fold every output:     user.vscode("notebook.cell.collapseAllCellOutputs")
 unfold every output:   user.vscode("notebook.cell.expandAllCellOutputs")
+
+# Cursorless
+run cell <user.cursorless_target>:
+    user.cursorless_vscode_command("notebook.cell.executeAndFocusContainer", cursorless_target)
