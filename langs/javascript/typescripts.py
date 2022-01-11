@@ -22,8 +22,9 @@ ctx.lists["self.code_insert"] = {
         "public": "public ",
         "private": "private ",
         "protected": "protected ",
-        "interface": "interface ",
         "readonly": "readonly ",
+        "interface": "interface ",
+        "type": "type ",
     },
 }
 

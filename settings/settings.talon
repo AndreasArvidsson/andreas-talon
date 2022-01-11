@@ -25,7 +25,7 @@ settings():
     user.scroll_step = 500
 
     # Speech timeout
-    speech.timeout = 0.300
+    speech.timeout = 0.400
 
     # Record speech
     # speech.record_all = 1
