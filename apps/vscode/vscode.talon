@@ -133,7 +133,7 @@ debug test:
 run task [<user.text>]:
     user.vscode("workbench.action.tasks.runTask")
     "{text or ''}"
-dev tools:               ucompiledser.vscode("workbench.action.toggleDevTools")
+dev tools:               user.vscode("workbench.action.toggleDevTools")
 select element:          key(ctrl-shift-c)
 
 # Find session
