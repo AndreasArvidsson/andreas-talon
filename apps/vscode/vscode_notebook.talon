@@ -19,7 +19,7 @@ center cell:           user.vscode("notebook.centerActiveCell")
 # Conversion
 cell is code:          user.vscode("notebook.cell.changeToCode")
 cell is mark:          user.vscode("notebook.cell.changeToMarkdown")
-cell  show numbers:    user.vscode("notebook.cell.toggleLineNumbers")
+cell show numbers:     user.vscode("notebook.cell.toggleLineNumbers")
 
 # Navigation
 cell top:              user.vscode("notebook.focusTop")
