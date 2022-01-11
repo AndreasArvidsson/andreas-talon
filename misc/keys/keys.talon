@@ -15,7 +15,7 @@ caps lock:                   key(capslock)
 num lock:                    key(numlock)
 
 # Special symbols
-new line symbol:             "\\n"
+new line [symbol]:           "\\n"
 tab symbol:                  "\\t"
 
 # Modifier(s) + key: "control alpha" or "control win left"
