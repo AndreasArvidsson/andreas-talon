@@ -102,9 +102,9 @@ class UserActions:
     # Miscellaneous statements
     def code_print(text: str = None):
         if text:
-            insert(f'console.log("{text}");')
+            insert(f'console.log("{text}")')
         else:
-            insert_snippet("console.log($0);")
+            insert_snippet("console.log($0)")
 
     def code_format_string():
         insert_snippet("`$0`")
