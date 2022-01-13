@@ -130,6 +130,10 @@ debug test:
     user.vscode("workbench.action.debug.selectandstart")
     "extension tests"
     key(enter)
+run task compile:
+    user.vscode("workbench.action.tasks.runTask")
+    "compile"
+    key(enter)
 run task [<user.text>]:
     user.vscode("workbench.action.tasks.runTask")
     "{text or ''}"
