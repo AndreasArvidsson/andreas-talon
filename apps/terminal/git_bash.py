@@ -32,12 +32,30 @@ ctx.tags = ["user.bash"]
 
 @ctx.action_class("user")
 class UserActions:
+    def talon_app() -> str:
+        print("Hello")
+        return update_path(actions.next())
+
+    def talon_home() -> str:
+        return update_path(actions.next())
+
+    def talon_user() -> str:
+        return update_path(actions.next())
+
+    def user_home() -> str:
+        return update_path(actions.next())
+
     def file_manager_open_directory(path: str):
         if path.startswith("shell:"):
             actions.insert("start " + path)
             actions.key("enter")
             return
-        if path[1] == ":":
-            path = f"/{path[0]}{path[2:]}"
-        path = path.replace("\\", "/")
+        path = update_path(path)
         actions.next(path)
+
+
+def update_path(path: str) -> str:
+    path = str(path)
+    if path[1] == ":":
+        path = f"/{path[0]}{path[2:]}"
+    return path.replace("\\", "/")
