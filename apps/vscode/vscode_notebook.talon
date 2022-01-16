@@ -4,9 +4,8 @@ tag: user.vscode_notebook
 render every cell0:    user.vscode("notebook.renderAllMarkdownCells")
 
 # Execution
-run cell:              user.vscode("notebook.cell.executeAndFocusContainer")
+run cell:              user.vscode("notebook.cell.execute")
 run new:               user.vscode("notebook.cell.executeAndInsertBelow")
-run down:              user.vscode("notebook.cell.executeAndSelectBelow")
 stop cell:             user.vscode("notebook.cell.cancelExecution")
 
 # Edit
