@@ -63,10 +63,9 @@ def vscode_panel(m) -> dict:
 class WinActions:
     def filename():
         title = actions.win.title()
-        if title:
+        if "." in title:
             i = title.rindex(".")
-            if i > -1:
-                return title[i:].split(" ")[0]
+            return title[i:].split(" ")[0]
         return ""
 
 
