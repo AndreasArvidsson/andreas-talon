@@ -246,10 +246,6 @@ class UserActions:
         empty_selection()
         actions.next()
 
-    # ----- Paired delimiters -----
-    def delimiters_pair_insert(left: str, right: str):
-        actions.user.insert_snippet(f"{left}$0{right}")
-
 
 @ctx_talon.action_class("user")
 class TalonUserActions:
