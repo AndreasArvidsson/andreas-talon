@@ -39,11 +39,14 @@ ctx.lists["self.key_special"] = merge(
         "insert",
         "escape",
         "menu",
+        "escape",
     },
     {
         "page up":      "pageup",
         "page down":    "pagedown",
         "print screen": "printscr",
+        "caps lock":    "capslock",
+        "num lock":     "numlock",
     }
 )
 
@@ -133,6 +136,12 @@ def key_unmodified(m) -> str:
     "A single key with no modifiers"
     if m[0] == " ":
         return "space"
+    return m[0]
+
+
+@mod.capture(rule="{self.key_modifier} | <self.key_unmodified>")
+def key_any(m) -> str:
+    "A single key"
     return m[0]
 
 
