@@ -31,3 +31,4 @@ type, type
 value, value
 word, word
 condition, condition
+paint, nonWhitespaceSequence
