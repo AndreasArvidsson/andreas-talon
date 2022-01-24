@@ -51,6 +51,7 @@ javascript_inserts = merge(
 )
 ctx.lists["self.code_insert"] = javascript_inserts
 ctx.lists["self.code_snippet"] = {
+    "item": "$1: $0,",
     "for in loop": """for (const $1 in $2) {
         \t$0
     }""",

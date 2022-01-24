@@ -56,7 +56,9 @@ ctx.lists["self.code_insert"] = merge(
         "global": "global ",
     },
 )
-ctx.lists["self.code_snippet"] = {}
+ctx.lists["self.code_snippet"] = {
+    "item": '"$1": $0,',
+}
 
 
 @ctx.action_class("user")
