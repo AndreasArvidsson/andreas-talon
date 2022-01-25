@@ -32,7 +32,7 @@ focus left:              user.vscode("workbench.action.focusLeftGroup")
 focus right:             user.vscode("workbench.action.focusRightGroup")
 split flip:              user.vscode("workbench.action.toggleEditorGroupLayout")
 split clear:             user.vscode("workbench.action.joinTwoGroups")
-split clear all:         user.vscode("workbench.action.editorLayoutSingle")
+split solo:              user.vscode("workbench.action.editorLayoutSingle")
 cross:                   user.vscode("workbench.action.focusNextGroup")
 open cross:              key(ctrl-enter)
 
