@@ -41,6 +41,13 @@ class Actions:
         ctx.tags = ["user.swedish"]
         actions.user.dictation_mode(phrase)
 
+    def mixed_mode(phrase: Union[Phrase, str] = None):
+        """Enter mixed mode and re-evaluate phrase"""
+        actions.user.dictation_format_reset()
+        actions.mode.enable("dictation")
+        if phrase:
+            actions.user.rephrase(phrase, run_async=True)
+
 
 # Disable face mode
 app.register("ready", lambda: actions.mode.disable("face"))

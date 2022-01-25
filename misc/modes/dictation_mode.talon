@@ -1,4 +1,5 @@
 mode: dictation
+experiment: anchor-file
 -
 
 # Freely dictate text
