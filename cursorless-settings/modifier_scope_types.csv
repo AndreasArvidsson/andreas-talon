@@ -4,7 +4,7 @@ attribute, attribute
 block, paragraph
 call, functionCall
 cell, notebookCell
-char, character
+char | chars, character
 class, class
 class name, className
 comment, comment
@@ -29,6 +29,6 @@ tags, xmlBothTags
 token, token
 type, type
 value, value
-word, word
+word | words, word
 condition, condition
 paint, nonWhitespaceSequence
