@@ -1,4 +1,5 @@
-from talon import Module, Context, actions, ui, ctrl
+from talon import Module, Context, actions, ui, ctrl, clip
+import json
 
 key = actions.key
 insert = actions.insert
@@ -153,10 +154,6 @@ class EditActions:
 
     def find_next():
         key("f4")
-
-    # ----- Miscellaneous -----
-    def selected_text() -> str:
-        return actions.user.vscode_get("andreas.getSelectedText")
 
 
 @ctx.action_class("user")
@@ -361,6 +358,16 @@ class Actions:
         vscode("workbench.action.editor.changeLanguageMode")
         if language:
             actions.insert(language)
+
+    def copy_command_id():
+        """Copy the command id of the focused menu item"""
+        actions.key("tab:2 enter")
+        actions.sleep("500ms")
+        json_text = actions.edit.selected_text()
+        print(json_text)
+        command_id = json.loads(json_text)["command"]
+        actions.app.tab_close()
+        clip.set_text(command_id)
 
 
 def empty_selection():

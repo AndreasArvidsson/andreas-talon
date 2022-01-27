@@ -182,3 +182,5 @@ change language [<user.text>]:
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     "{user.text or ''}"
+
+copy command id:         user.copy_command_id()
