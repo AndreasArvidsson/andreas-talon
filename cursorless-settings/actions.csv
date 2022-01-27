@@ -44,3 +44,4 @@ type deaf, revealTypeDefinition
 unfold, unfoldRegion
 wrap, wrapWithPairedDelimiter
 switch, rewrap
+-shuffle, randomizeTargets
