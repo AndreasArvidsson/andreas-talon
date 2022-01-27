@@ -94,6 +94,7 @@ default_vocabulary = {
     "knaus": "knausj",
     "toby": "tobii",
     "curse less": "cursorless",
+    "visual code": "vscode",
 }
 default_vocabulary.update({word.lower(): word for word in simple_default_vocabulary})
 
