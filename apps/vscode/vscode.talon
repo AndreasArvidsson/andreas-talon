@@ -172,6 +172,7 @@ window reload:           user.vscode("workbench.action.reloadWindow")
 trim trailing:           user.vscode("editor.action.trimTrailingWhitespace")
 cursorless record:       user.vscode("cursorless.recordTestCase")
 inspect scope:           user.vscode("editor.action.inspectTMScopes")
+copy command id:         user.copy_command_id()
 
 snip last:               user.vscode("jumpToPrevSnippetPlaceholder")
 [snip] next:             user.vscode("jumpToNextSnippetPlaceholder")
@@ -182,5 +183,3 @@ change language [<user.text>]:
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     "{user.text or ''}"
-
-copy command id:         user.copy_command_id()
