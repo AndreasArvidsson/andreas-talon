@@ -166,6 +166,10 @@ open settings <user.text>:
     sleep(0.1)
     "{text}"
 
+# CSV
+align columns:           user.vscode("rainbow-csv.Align")
+shrink columns:          user.vscode("rainbow-csv.Shrink")
+
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")
 window reload:           user.vscode("workbench.action.reloadWindow")
