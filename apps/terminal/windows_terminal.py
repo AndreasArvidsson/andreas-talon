@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+
 key = actions.key
 insert = actions.insert
 ctx = Context()
@@ -19,19 +20,31 @@ app: windows_terminal
 
 @ctx.action_class("app")
 class AppActions:
-    def tab_previous():         key("ctrl-shift-tab")
-    def tab_next():             key("ctrl-tab")
-    def preferences():          key("ctrl-,")
+    def tab_previous():
+        key("ctrl-shift-tab")
+
+    def tab_next():
+        key("ctrl-tab")
+
+    def preferences():
+        key("ctrl-,")
+
 
 @ctx.action_class("edit")
 class EditActions:
-    def copy():                 key("ctrl-shift-c")
-    def paste():                key("ctrl-shift-v")
+    def copy():
+        key("ctrl-shift-c")
+        actions.user.clipboard_manager_update()
+
+    def paste():
+        key("ctrl-shift-v")
 
 
 @ctx.action_class("user")
 class UserActions:
-    def tab_duplicate():        key("ctrl-d")
-    def tab_final():            
+    def tab_duplicate():
+        key("ctrl-d")
+
+    def tab_final():
         actions.user.tab_jump(1)
         actions.app.tab_previous()

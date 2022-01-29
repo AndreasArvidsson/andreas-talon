@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+
 key = actions.key
 insert = actions.insert
 user = actions.user
@@ -17,16 +18,27 @@ app: gnome_terminal
 
 ctx.tags = ["terminal", "user.bash", "user.tabs"]
 
+
 @ctx.action_class("app")
 class AppActions:
-    def window_open():      key("ctrl-shift-n")
-    def tab_open():         key("ctrl-shift-t")
-    def tab_close():        key("ctrl-shift-w")
+    def window_open():
+        key("ctrl-shift-n")
+
+    def tab_open():
+        key("ctrl-shift-t")
+
+    def tab_close():
+        key("ctrl-shift-w")
+
 
 @ctx.action_class("edit")
 class EditActions:
-    def copy():             key("ctrl-shift-c")
-    def paste():            key("ctrl-shift-v")
+    def copy():
+        key("ctrl-shift-c")
+        actions.user.clipboard_manager_update()
+
+    def paste():
+        key("ctrl-shift-v")
 
 
 @ctx.action_class("user")

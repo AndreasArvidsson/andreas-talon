@@ -9,7 +9,7 @@ clear, clearAndSetSelection
 clone up, insertCopyBefore
 clone, insertCopyAfter
 comment, toggleLineComment
-copy, copyToClipboard
+-copy, copyToClipboard
 crown, scrollToTop
 cut, cutToClipboard
 dedent, outdentLine

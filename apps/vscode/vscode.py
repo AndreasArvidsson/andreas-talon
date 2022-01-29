@@ -364,10 +364,10 @@ class Actions:
         actions.key("tab:2 enter")
         actions.sleep("500ms")
         json_text = actions.edit.selected_text()
-        print(json_text)
         command_id = json.loads(json_text)["command"]
         actions.app.tab_close()
         clip.set_text(command_id)
+        actions.user.clipboard_manager_update()
 
 
 def empty_selection():

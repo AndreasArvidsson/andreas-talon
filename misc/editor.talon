@@ -79,4 +79,8 @@ arrow:                    user.insert_arrow()
 # ----- Cursorless duplication -----
 # This are here because their implementation is useful in vscode input dialogs
 take line:                edit.select_line()
+cut line:                 user.cut_line()
+copy line:                user.copy_line()
+paste to line:            user.paste_line()
+chuck line:               edit.delete_line()
 clear line:               user.clear_line()

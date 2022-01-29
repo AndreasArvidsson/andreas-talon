@@ -171,11 +171,16 @@ open settings <user.text>:
 align columns:           user.vscode("rainbow-csv.Align")
 shrink columns:          user.vscode("rainbow-csv.Shrink")
 
+# Cursorless
+cursorless record:       user.vscode("cursorless.recordTestCase")
+copy <user.cursorless_target>:
+    user.cursorless_command("copyToClipboard", cursorless_target)
+    user.clipboard_manager_update()
+
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")
 window reload:           user.vscode("workbench.action.reloadWindow")
 trim trailing:           user.vscode("editor.action.trimTrailingWhitespace")
-cursorless record:       user.vscode("cursorless.recordTestCase")
 inspect scope:           user.vscode("editor.action.inspectTMScopes")
 copy command id:         user.copy_command_id()
 

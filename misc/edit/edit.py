@@ -82,6 +82,7 @@ class EditActions:
 
     def copy():
         key("ctrl-c")
+        actions.user.clipboard_manager_update()
 
     def paste():
         key("ctrl-v")
@@ -121,6 +122,7 @@ class EditActions:
     # ----- Miscellaneous -----
     def selected_text() -> str:
         with clip.capture() as s:
+            actions.user.clipboard_manager_ignore_next()
             edit.copy()
         try:
             return s.get()
