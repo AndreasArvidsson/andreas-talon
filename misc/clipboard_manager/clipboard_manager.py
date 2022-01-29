@@ -1,10 +1,7 @@
-from talon import Module, Context, actions, ui, imgui, clip
+from talon import Module, actions, ui, imgui, clip
 
 mod = Module()
-ctx = Context()
-
 mod.mode("clipboard_manager", "Indicates that the clipboard manager is visible")
-ctx.matches = "mode: user.clipboard_manager"
 
 clip_history = []
 max_rows = 20
@@ -26,16 +23,6 @@ def gui(gui: imgui.GUI):
     gui.spacer()
     if gui.button("Hide"):
         actions.user.clipboard_manager_toggle()
-
-
-@ctx.action_class("edit")
-class EditActions:
-    def paste():
-        number = len(clip_history)
-        actions.user.clipboard_manager_paste([number])
-
-    def paste_match_style():
-        actions.paste()
 
 
 @mod.action_class
