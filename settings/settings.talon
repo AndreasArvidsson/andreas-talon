@@ -27,5 +27,9 @@ settings():
     # Speech timeout
     speech.timeout = 0.400
 
+    # Clipboard manager settings
+    user.clipboard_manager_max_rows = 20
+    user.clipboard_manager_max_cols = 60
+
     # Record speech
     # speech.record_all = 1

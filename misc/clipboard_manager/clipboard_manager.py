@@ -3,14 +3,25 @@ from talon import Module, actions, ui, imgui, clip
 mod = Module()
 mod.mode("clipboard_manager", "Indicates that the clipboard manager is visible")
 
+setting_clipboard_manager_max_rows = mod.setting(
+    "clipboard_manager_max_rows",
+    type=int,
+    default=20,
+)
+setting_clipboard_manager_max_cols = mod.setting(
+    "clipboard_manager_max_cols",
+    type=int,
+    default=50,
+)
+
 clip_history = []
-max_rows = 20
-max_cols = 40
 ignore_next = False
 
 
 @imgui.open()
 def gui(gui: imgui.GUI):
+    max_rows = setting_clipboard_manager_max_rows.get()
+    max_cols = setting_clipboard_manager_max_cols.get()
     gui.text(f"Clipboard ({len(clip_history)} / {max_rows})")
     gui.line()
 
@@ -109,5 +120,6 @@ def validate_number(number: range):
 
 def shrink():
     global clip_history
+    max_rows = setting_clipboard_manager_max_rows.get()
     if len(clip_history) > max_rows:
-        clip_history = clip_history[1:]
+        clip_history = clip_history[-max_rows:]
