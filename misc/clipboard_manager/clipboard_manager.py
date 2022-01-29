@@ -42,15 +42,12 @@ class Actions:
         if ignore_next:
             ignore_next = False
             return
-
         text = clip.text()
         if text:
             if text in clip_history:
                 clip_history.remove(text)
             clip_history.append(text)
-
-        if len(clip_history) > max_rows:
-            clip_history = clip_history[1:]
+        shrink()
 
     def clipboard_manager_ignore_next():
         """Ignore next copy for clipboard manager"""
@@ -66,6 +63,21 @@ class Actions:
                 clip_history.pop(number - 1)
         else:
             clip_history = []
+
+    def clipboard_manager_split(numbers: list[int]):
+        """Split clipboard content on new line to add new items to clipboard manager history"""
+        global clip_history
+        for number in numbers:
+            validate_number(number)
+        new_history = []
+        for i, text in enumerate(clip_history):
+            if i + 1 in numbers:
+                for line in text.split("\n"):
+                    new_history.append(line.strip())
+            else:
+                new_history.append(text)
+        clip_history = new_history
+        shrink()
 
     def clipboard_manager_paste(numbers: list[int]):
         """Paste from clipboard manager"""
@@ -83,3 +95,9 @@ def validate_number(number: range):
         msg = f"Clipboard manager #{number} is out of range (1-{len(clip_history)})"
         actions.user.notify(msg)
         raise ValueError(msg)
+
+
+def shrink():
+    global clip_history
+    if len(clip_history) > max_rows:
+        clip_history = clip_history[1:]

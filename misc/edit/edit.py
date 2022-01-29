@@ -79,6 +79,7 @@ class EditActions:
     # ----- Cut, Copy, Paste -----
     def cut():
         key("ctrl-x")
+        actions.user.clipboard_manager_update()
 
     def copy():
         key("ctrl-c")
