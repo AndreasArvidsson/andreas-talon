@@ -176,6 +176,9 @@ cursorless record:       user.vscode("cursorless.recordTestCase")
 copy <user.cursorless_target>:
     user.cursorless_command("copyToClipboard", cursorless_target)
     user.clipboard_manager_update()
+cut <user.cursorless_target>:
+    user.cursorless_command("cutToClipboard", cursorless_target)
+    user.clipboard_manager_update()
 
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")

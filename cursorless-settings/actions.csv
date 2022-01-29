@@ -9,9 +9,7 @@ clear, clearAndSetSelection
 clone up, insertCopyBefore
 clone, insertCopyAfter
 comment, toggleLineComment
--copy, copyToClipboard
 crown, scrollToTop
-cut, cutToClipboard
 dedent, outdentLine
 define, revealDefinition
 drink, editNewLineBefore
@@ -39,9 +37,12 @@ scout all for, findInWorkspace
 scout for, findInDocument
 sort, sortTargets
 swap, swapTargets
+switch, rewrap
 take, setSelection
 type deaf, revealTypeDefinition
 unfold, unfoldRegion
 wrap, wrapWithPairedDelimiter
-switch, rewrap
+
 -shuffle, randomizeTargets
+-copy, copyToClipboard
+-cut, cutToClipboard
