@@ -51,7 +51,7 @@ class Actions:
             if text in clip_history:
                 clip_history.remove(text)
             clip_history.append(text)
-        shrink()
+            shrink()
 
     def clipboard_manager_ignore_next():
         """Ignore next copy for clipboard manager"""
@@ -80,7 +80,9 @@ class Actions:
         for i, text in enumerate(clip_history):
             if i + 1 in numbers:
                 for line in text.split("\n"):
-                    new_history.append(line.strip())
+                    line = line.strip()
+                    if line:
+                        new_history.append(line)
             else:
                 new_history.append(text)
         clip_history = new_history
