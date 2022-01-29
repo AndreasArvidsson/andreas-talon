@@ -22,7 +22,7 @@ def gui(gui: imgui.GUI):
 
     gui.spacer()
     if gui.button("Hide"):
-        actions.user.clipboard_manager_toggle()
+        actions.user.clipboard_manager_hide()
 
 
 @mod.action_class
@@ -30,11 +30,15 @@ class Actions:
     def clipboard_manager_toggle():
         """Toggle clipboard manager"""
         if gui.showing:
-            actions.mode.disable("user.clipboard_manager")
-            gui.hide()
+            actions.user.clipboard_manager_hide()
         else:
             actions.mode.enable("user.clipboard_manager")
             gui.show()
+
+    def clipboard_manager_hide():
+        """Hide clipboard manager"""
+        actions.mode.disable("user.clipboard_manager")
+        gui.hide()
 
     def clipboard_manager_update():
         """Read current clipboard and add to manager"""
@@ -57,12 +61,15 @@ class Actions:
     def clipboard_manager_remove(numbers: list[int] = None):
         """Remove clipboard manager history"""
         global clip_history
+        # Remove selected history
         if numbers:
             for number in reversed(sorted(numbers)):
                 validate_number(number)
                 clip_history.pop(number - 1)
+        # Remove entire history
         else:
             clip_history = []
+            actions.user.clipboard_manager_hide()
 
     def clipboard_manager_split(numbers: list[int]):
         """Split clipboard content on new line to add new items to clipboard manager history"""
@@ -86,6 +93,7 @@ class Actions:
             validate_number(number)
             contents.append(clip_history[number - 1])
         text = "\n".join(contents)
+        actions.user.clipboard_manager_hide()
         if text:
             actions.insert(text)
 
