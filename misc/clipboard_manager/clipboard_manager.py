@@ -121,7 +121,7 @@ class Actions:
         clip_history = new_history
         shrink()
 
-    def clipboard_manager_paste(numbers: list[int]):
+    def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
         texts = []
         images = []
@@ -136,7 +136,10 @@ class Actions:
         if texts:
             text = "\n".join(texts)
             clip.set_text(text)
-            actions.edit.paste()
+            if match_style:
+                actions.edit.paste_match_style()
+            else:
+                actions.edit.paste()
         for image in images:
             clip.set_image(image)
             actions.edit.paste()
