@@ -1,4 +1,13 @@
 from talon import Module, actions, ui, imgui, clip
+from talon.skia.image import Image
+from dataclasses import dataclass
+
+
+@dataclass
+class ClipItem:
+    text: str
+    image: Image
+
 
 mod = Module()
 mod.mode("clipboard_manager", "Indicates that the clipboard manager is visible")
@@ -25,11 +34,14 @@ def gui(gui: imgui.GUI):
     gui.text(f"Clipboard ({len(clip_history)} / {max_rows})")
     gui.line()
 
-    for i, content in enumerate(clip_history):
-        content = content.replace("\n", "\\n")
-        if len(content) > max_cols + 4:
-            content = content[:max_cols] + " ..."
-        gui.text(f"{i+1}: {content}")
+    for i, item in enumerate(clip_history):
+        if item.image:
+            text = f"Image(width={item.image.width}, height={item.image.height})"
+        else:
+            text = item.text.replace("\n", "\\n")
+            if len(text) > max_cols + 4:
+                text = text[:max_cols] + " ..."
+        gui.text(f"{i+1}: {text}")
 
     gui.spacer()
     if gui.button("Hide"):
@@ -57,11 +69,21 @@ class Actions:
         if ignore_next:
             ignore_next = False
             return
+
         text = clip.text()
         if text:
-            if text in clip_history:
-                clip_history.remove(text)
-            clip_history.append(text)
+            # Remove duplicates
+            indexes = [i for i, item in enumerate(clip_history) if item.text == text]
+            if indexes:
+                clip_history.pop(indexes[0])
+
+        try:
+            image = clip.image()
+        except:
+            image = None
+
+        if text or image:
+            clip_history.append(ClipItem(text, image))
             shrink()
 
     def clipboard_manager_ignore_next():
@@ -88,27 +110,36 @@ class Actions:
         for number in numbers:
             validate_number(number)
         new_history = []
-        for i, text in enumerate(clip_history):
-            if i + 1 in numbers:
-                for line in text.split("\n"):
+        for i, item in enumerate(clip_history):
+            if i + 1 in numbers and item.text:
+                for line in item.text.split("\n"):
                     line = line.strip()
                     if line:
-                        new_history.append(line)
+                        new_history.append(ClipItem(line, None))
             else:
-                new_history.append(text)
+                new_history.append(item)
         clip_history = new_history
         shrink()
 
     def clipboard_manager_paste(numbers: list[int]):
         """Paste from clipboard manager"""
-        contents = []
+        texts = []
+        images = []
         for number in numbers:
             validate_number(number)
-            contents.append(clip_history[number - 1])
-        text = "\n".join(contents)
+            item = clip_history[number - 1]
+            if item.image:
+                images.append(item.image)
+            else:
+                texts.append(item.text)
         actions.user.clipboard_manager_hide()
-        if text:
-            actions.insert(text)
+        if texts:
+            text = "\n".join(texts)
+            clip.set_text(text)
+            actions.edit.paste()
+        for image in images:
+            clip.set_image(image)
+            actions.edit.paste()
 
 
 def validate_number(number: range):

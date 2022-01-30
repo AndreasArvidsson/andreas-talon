@@ -20,7 +20,6 @@ bitwarden generate:   key(ctrl-shift-9)
 
 
 # Vimium
-
 tab split:            app.tab_detach()
 
 hunt:
@@ -32,3 +31,10 @@ hunt new:
 hunt open:
     user.stop_app()
     key(escape ctrl-alt-g)
+
+# Miscellaneous
+copy image:
+    mouse_click(1)
+    sleep(0.1)
+    key(y)
+    user.clipboard_manager_update()
