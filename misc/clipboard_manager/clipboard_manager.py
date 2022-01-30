@@ -23,8 +23,8 @@ setting_clipboard_manager_max_cols = mod.setting(
     default=50,
 )
 
-clip_history = []
-ignore_next = False
+clip_history: list[ClipItem] = []
+ignore_next: bool = False
 
 
 @imgui.open()
