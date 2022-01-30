@@ -37,4 +37,5 @@ copy image:
     mouse_click(1)
     sleep(0.1)
     key(y)
+    sleep(0.1)
     user.clipboard_manager_update()
