@@ -74,10 +74,10 @@ class UserActions:
 
     # Comparison operators
     def op_equal():
-        insert(" === ")
+        insert(" == ")
 
     def op_not_equal():
-        insert(" !== ")
+        insert(" != ")
 
     # Logical operators
     def op_and():
