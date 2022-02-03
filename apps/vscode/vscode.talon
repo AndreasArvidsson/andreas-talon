@@ -185,6 +185,7 @@ install extension:       user.vscode("workbench.extensions.action.installVSIX")
 window reload:           user.vscode("workbench.action.reloadWindow")
 trim trailing:           user.vscode("editor.action.trimTrailingWhitespace")
 inspect scope:           user.vscode("editor.action.inspectTMScopes")
+open link:               user.vscode("editor.action.openLink")
 copy command id:         user.copy_command_id()
 
 snip last:               user.vscode("jumpToPrevSnippetPlaceholder")
