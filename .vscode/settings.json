@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "c:\\Program Files\\Talon\\python.exe",
+    "python.defaultInterpreterPath": "c:\\Program Files\\Talon\\python.exe",
     "python.analysis.stubPath": "C:\\Program Files\\Talon\\Lib\\site-packages",
     "python.formatting.provider": "black",
     "python.linting.pylintEnabled": true,
