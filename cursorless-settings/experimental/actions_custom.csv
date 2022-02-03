@@ -1,5 +1,5 @@
 Spoken form, VSCode command
 increment, andreas.increment
 decrement, andreas.decrement
-
+open link, editor.action.openLink
 run cell, notebook.cell.executeAndFocusContainer
