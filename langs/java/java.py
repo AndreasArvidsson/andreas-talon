@@ -68,6 +68,9 @@ ctx.lists["self.code_snippet"] = {
     "arrow function": """() -> {
         \t$0
     }""",
+    "finally": """finally {
+        \t$0
+    }""",
 }
 
 
