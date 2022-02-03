@@ -71,11 +71,6 @@ class Actions:
             return
 
         text = clip.text()
-        if text:
-            # Remove duplicates
-            indexes = [i for i, item in enumerate(clip_history) if item.text == text]
-            if indexes:
-                clip_history.pop(indexes[0])
 
         try:
             image = clip.image()
@@ -83,7 +78,7 @@ class Actions:
             image = None
 
         if text or image:
-            clip_history.append(ClipItem(text, image))
+            append(clip_history, ClipItem(text, image))
             shrink()
 
     def clipboard_manager_ignore_next():
@@ -115,26 +110,30 @@ class Actions:
                 for line in item.text.split("\n"):
                     line = line.strip()
                     if line:
-                        new_history.append(ClipItem(line, None))
+                        append(new_history, ClipItem(line, None))
             else:
-                new_history.append(item)
+                append(new_history, item)
         clip_history = new_history
         shrink()
 
+    def clipboard_manager_copy(numbers: list[int]):
+        """Copy from clipboard manager"""
+        text, images = get_content(numbers)
+        actions.user.clipboard_manager_hide()
+        if text and images:
+            error("Can't copy text and images at once")
+        elif len(images) > 1:
+            error("Can't copy multiple images at once")
+        elif text:
+            clip.set_text(text)
+        elif images:
+            clip.set_image(images[0])
+
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
-        texts = []
-        images = []
-        for number in numbers:
-            validate_number(number)
-            item = clip_history[number - 1]
-            if item.image:
-                images.append(item.image)
-            else:
-                texts.append(item.text)
+        text, images = get_content(numbers)
         actions.user.clipboard_manager_hide()
-        if texts:
-            text = "\n".join(texts)
+        if text:
             clip.set_text(text)
             if match_style:
                 actions.edit.paste_match_style()
@@ -145,11 +144,32 @@ class Actions:
             actions.edit.paste()
 
 
+def append(history: list[ClipItem], item: ClipItem):
+    if item.text:
+        # Remove duplicates
+        indexes = [i for i, item2 in enumerate(history) if item.text == item2.text]
+        if indexes:
+            history.pop(indexes[0])
+    history.append(item)
+
+
+def get_content(numbers: list[int]):
+    texts = []
+    images = []
+    for number in numbers:
+        validate_number(number)
+        item = clip_history[number - 1]
+        if item.image:
+            images.append(item.image)
+        else:
+            texts.append(item.text)
+    text = "\n".join(texts)
+    return text, images
+
+
 def validate_number(number: range):
     if number < 1 or number > len(clip_history):
-        msg = f"Clipboard manager #{number} is out of range (1-{len(clip_history)})"
-        actions.user.notify(msg)
-        raise ValueError(msg)
+        error(f"Clipboard manager #{number} is out of range (1-{len(clip_history)})")
 
 
 def shrink():
@@ -157,3 +177,8 @@ def shrink():
     max_rows = setting_clipboard_manager_max_rows.get()
     if len(clip_history) > max_rows:
         clip_history = clip_history[-max_rows:]
+
+
+def error(msg: str):
+    actions.user.notify(msg)
+    raise ValueError(msg)
