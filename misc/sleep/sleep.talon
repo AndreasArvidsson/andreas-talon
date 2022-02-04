@@ -1,7 +1,9 @@
 mode: command
 mode: dictation
 -
+settings():
+    user.sleep_word = "drowse"
 
-^talon sleep$:        user.talon_sleep()
 drowse [<phrase>]$:   user.talon_sleep()
+^talon sleep$:        user.talon_sleep()
 ^talon status$:       user.talon_sleep_status()
