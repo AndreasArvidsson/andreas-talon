@@ -67,6 +67,13 @@ class UserActions:
     def op_exp():
         insert(" ** ")
 
+    # Comparison operators
+    def op_equal():
+        insert(" === ")
+
+    def op_not_equal():
+        insert(" !== ")
+
     # Selection statements
     def code_catch():
         insert_snippet(
