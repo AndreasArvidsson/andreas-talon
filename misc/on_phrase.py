@@ -5,10 +5,7 @@ def on_phrase(d):
     if not actions.speech.enabled():
         return
 
-    try:
-        words = d.get("text")
-    except:
-        return
+    words = d.get("text")
     if not words:
         return
 
