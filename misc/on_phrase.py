@@ -6,7 +6,7 @@ def on_phrase(d):
         return
 
     try:
-        words = d["parsed"]._unmapped
+        words = d.get("text")
     except:
         return
     if not words:
