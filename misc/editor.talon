@@ -18,8 +18,8 @@ down [<number_small>]:    user.down(number_small or 1)
 left [<number_small>]:    user.left(number_small or 1)
 right [<number_small>]:   user.right(number_small or 1)
 
-lefter:                   edit.word_left()
-righter:                  edit.word_right()
+before:                   edit.word_left()
+after:                    edit.word_right()
 
 slap:                     edit.line_insert_down()
 slapper:                  user.line_insert_down_twice()
@@ -41,8 +41,8 @@ extend down:              edit.extend_down()
 extend left:              edit.extend_left()
 extend right:             edit.extend_right()
 
-extend lefter:            edit.extend_word_left()
-extend righter:           edit.extend_word_right()
+extend before:            edit.extend_word_left()
+extend after:             edit.extend_word_right()
 
 # ----- Delete, undo, redo -----
 undo:                     edit.undo()
