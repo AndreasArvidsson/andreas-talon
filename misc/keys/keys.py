@@ -74,6 +74,7 @@ ctx.lists["self.key_punctuation"] = {
 mod.list("key_symbol", desc="All symbols from the keyboard")
 ctx.lists["self.key_symbol"] = {
     "space":            " ",
+    "void":             " ",
     "dot":              ".",
     "comma":            ",",
     "stack":            ":",
@@ -114,13 +115,13 @@ ctx.lists["self.key_symbol"] = {
     "rangle":           ">",
 }
 
+# fmt: on
+
 requires_space = {
     "`",
     "^",
     "~",
 }
-
-# fmt: on
 
 
 @mod.capture(rule="{self.key_modifier}+")
