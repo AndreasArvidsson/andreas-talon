@@ -97,6 +97,7 @@ ctx.lists["self.key_symbol"] = {
 
     "single":           "'",
     "double":           '"',
+    "quote":            '"',
     "brick":            "`",
 
     "slash":            "/",

@@ -3,6 +3,8 @@ from talon import Module, Context, actions
 mod = Module()
 ctx = Context()
 
+# fmt: off
+
 mod.list("delimiters_spaced", desc="List of delimiters with trailing white space")
 ctx.lists["self.delimiters_spaced"] = {
     "spam":     ",",
@@ -18,6 +20,7 @@ matching_pairs = {
     "diamond":  ["<", ">"],
     "curly":    ["{", "}"],
     "twin":     ["'", "'"],
+    "quad":     ['"', '"'],
     "string":   ['"', '"'],
     "skis":     ['`', '`'],
 }
@@ -30,12 +33,17 @@ matching_pairs_wrap = {
     "void":     [" ", " "],
 }
 
+# fmt: on
+
 matching_pairs_all = {
     **matching_pairs,
     **matching_pairs_wrap,
 }
 
-mod.list("delimiter_pair_wrap", desc="List of matching pair delimiters use specifically for wrapping")
+mod.list(
+    "delimiter_pair_wrap",
+    desc="List of matching pair delimiters use specifically for wrapping",
+)
 ctx.lists["self.delimiter_pair_wrap"] = matching_pairs_all.keys()
 
 
@@ -46,7 +54,7 @@ class Actions:
         pair = matching_pairs_all[pair_name]
         actions.user.delimiters_pair_insert(pair[0], pair[1])
 
-    def delimiters_pair_insert(left: str, right:str):
+    def delimiters_pair_insert(left: str, right: str):
         """Insert matching pair delimiters"""
         actions.insert(f"{left}{right}")
         actions.edit.left()
