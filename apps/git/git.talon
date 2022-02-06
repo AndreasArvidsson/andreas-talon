@@ -1,11 +1,11 @@
 tag: user.git
 -
 
-# git:                            "git "
 git verison:                "git --version\n"
 git init:                   "git init\n"
 git status:                 "git status\n"
-git log:                    "git log\n"
+git log:                    "git log --graph --color=always --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'\n"
+git log original:           "git log\n"
 git reflog:                 "git reflog\n"
 git clean:                  "git clean "
 git remove:                 "git rm "
