@@ -73,14 +73,19 @@ ctx.lists["self.key_punctuation"] = {
 # Symbols available in command mode, but NOT during dictation.
 mod.list("key_symbol", desc="All symbols from the keyboard")
 ctx.lists["self.key_symbol"] = {
-    "void":             " ",
+    "space":            " ",
     "dot":              ".",
     "comma":            ",",
     "stack":            ":",
     "semi":             ";",
-    "dash":             "-",
     "score":            "_",
+    "dash":             "-",
 
+    "minus":            "-",
+    "plus":             "+",
+    "equal":            "=",
+    "caret":            "^",
+    "tilde":            "~",
     "bang":             "!",
     "hash":             "#",
     "star":             "*",
@@ -90,28 +95,22 @@ ctx.lists["self.key_symbol"] = {
     "amper":            "&",
     "at sign":          "@",
 
-    "quote":            '"',
-    "apostrophe":       "'",
+    "single":           "'",
+    "double":           '"',
     "brick":            "`",
 
     "slash":            "/",
-    "backslash":        "\\",
     "pipe":             "|",
+    "pike":             "\\",
 
     "paren":            "(",
-    "rearen":           ")",
+    "raren":            ")",
     "brace":            "{",
     "race":             "}",
     "square":           "[",
     "rare":             "]",
     "angle":            "<",
     "rangle":           ">",
-
-    "caret":            "^",
-    "tilde":            "~",
-    "plus":             "+",
-    "minus":            "-",
-    "equals":           "=",
 }
 
 requires_space = {

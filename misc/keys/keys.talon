@@ -10,6 +10,7 @@
 # Special keys.
 (enter | okay):         key(enter)
 tab:                    key(tab)
+void:                   key(" ")
 
 # Special symbols
 new line [symbol]:      "\\n"
