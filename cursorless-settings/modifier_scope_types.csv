@@ -32,3 +32,4 @@ value, value
 word | words, word
 condition, condition
 paint, nonWhitespaceSequence
+link, url
