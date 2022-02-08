@@ -10,25 +10,8 @@ not tag: user.swedish
 
 # Default words that will need to be capitalized.
 capitalize_defaults = [
-    "I",
-    "I'm",
-    "I've",
-    "I'll",
-    "I'd",
-    "Monday",
-    "Mondays",
-    "Tuesday",
-    "Tuesdays",
-    "Wednesday",
-    "Wednesdays",
-    "Thursday",
-    "Thursdays",
-    "Friday",
-    "Fridays",
-    "Saturday",
-    "Saturdays",
-    "Sunday",
-    "Sundays",
+    # NB. the lexicon now capitalizes January/February by default, but not the
+    # others below. Not sure why.
     "January",
     "February",
     # March omitted because it's a regular word too
@@ -36,7 +19,7 @@ capitalize_defaults = [
     # May omitted because it's a regular word too
     "June",
     "July",
-    "August",
+    "August",  # technically also an adjective but the month is far more common
     "September",
     "October",
     "November",
