@@ -5,7 +5,7 @@ mod = Module()
 
 mod.apps.teams = """
 tag: browser
-and title: /| Microsoft Teams/
+and title: /\\| Microsoft Teams/
 """
 
 ctx.matches = """
