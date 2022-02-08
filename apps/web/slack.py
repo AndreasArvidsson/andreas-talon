@@ -8,7 +8,7 @@ tag: browser
 and title: /Slack/
 """
 
-ctx.matches = r"""
+ctx.matches = """
 app: slack
 """
 
