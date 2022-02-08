@@ -13,7 +13,7 @@ setting_context_sensitive_dictation = mod.setting(
 )
 
 
-@mod.capture(rule="({user.vocabulary} | <word>)")
+@mod.capture(rule="{user.vocabulary} | <word>")
 def word(m) -> str:
     """A single word, including user-defined vocabulary."""
     words = capture_to_words(m)
@@ -61,8 +61,8 @@ def capture_to_words(m):
     for item in m:
         words.extend(
             actions.dictate.replace_words(actions.dictate.parse_words(item))
-            if isinstance(item, grammar.vm.Phrase) else
-            item.split(" "))
+            if isinstance(item, grammar.vm.Phrase)
+            else [item])
     return actions.user.lower_swedish_words(words)
 
 # There must be a simpler way to do this, but I don't see it right now.
