@@ -30,6 +30,7 @@ capitalize_defaults = [
 word_map_defaults = {
     "organization": "organisation",
     "organizations": "organisations",
+    "dis": "this",
 }
 word_map_defaults.update({word.lower(): word for word in capitalize_defaults})
 
