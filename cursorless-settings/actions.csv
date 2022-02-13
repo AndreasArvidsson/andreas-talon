@@ -11,13 +11,14 @@ clone, insertCopyAfter
 comment, toggleLineComment
 crown, scrollToTop
 dedent, outdentLine
-define, revealDefinition
 drink, editNewLineBefore
 drop, insertEmptyLineBefore
 extract, extractVariable
 float, insertEmptyLineAfter
 fold, foldRegion
 format, applyFormatter
+follow, followLink
+follow type, revealTypeDefinition
 give, deselect
 hover, showHover
 indent, indentLine
@@ -39,10 +40,10 @@ sort, sortTargets
 swap, swapTargets
 switch, rewrap
 take, setSelection
-type deaf, revealTypeDefinition
 unfold, unfoldRegion
 wrap, wrapWithPairedDelimiter
 
 -copy, copyToClipboard
 -cut, cutToClipboard
 -shuffle, randomizeTargets
+-define, revealDefinition
