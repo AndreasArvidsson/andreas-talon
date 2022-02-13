@@ -16,17 +16,34 @@ class Actions:
     def insert_snippet(snippet: Union[str, list[str]]):
         """Inserts a snippet"""
         lines = split_snippet(snippet)
-        for i in range(len(lines)):
-            if i > 0:
-                actions.edit.line_insert_down()
-            line = lines[i]
+        found_stop = False
+        for i, line in enumerate(lines):
+            # Some IM services will send the message on a tab
+            line = re.sub(r"\t+", "    ", line)
+
+            if found_stop != "$1":
+                if "$1" in line:
+                    found_stop = "$1"
+                    stop_row = i
+                    stop_col = line.index("$1")
+                elif "$0" in line:
+                    found_stop = "$0"
+                    stop_row = i
+                    stop_col = line.index("$0")
+
             # Replace placeholders with default text
             line = re.sub(r"\$\{\d+:(.*?)\}", r"\1", line)
             # Remove tab stops
             line = re.sub(r"\$\d+", "", line)
-            # Some IM services will send the message on a tab
-            line = re.sub(r"[\t]+", "    ", line)
+
+            if i > 0:
+                actions.edit.line_insert_down()
             actions.insert(line)
+
+        if found_stop:
+            actions.user.up(len(lines) - stop_row - 1)
+            actions.edit.line_start()
+            actions.user.right(stop_col)
 
 
 @ctx_vscode.action_class("user")
