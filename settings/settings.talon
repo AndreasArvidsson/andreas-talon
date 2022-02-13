@@ -32,4 +32,4 @@ settings():
     user.clipboard_manager_max_cols = 60
 
     # Record speech
-    # speech.record_all = 1
+    speech.record_all = 0

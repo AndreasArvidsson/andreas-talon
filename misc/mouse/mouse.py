@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, cron, ctrl, noise, ui
+from talon import Context, Module, actions, app, cron, ctrl, ui
 from talon_plugins import eye_mouse
 from talon_plugins.eye_mouse import config, toggle_control
 
@@ -29,26 +29,18 @@ mouse_control = False
 zoom_control = False
 
 
-def on_pop(active: bool):
-    # In sleep mode
-    if not actions.speech.enabled():
-        actions.user.talon_wake_on_pop()
-        return
-
-    stop_scroll()
-    # Zoom mouse is enabled
-    if actions.user.zoom_mouse_enabled():
-        actions.user.zoom_mouse_on_pop()
-    # Normal click when using control mouse
-    elif config.control_mouse:
-        ctrl.mouse_click(button=0)
-
-
-noise.register("pop", on_pop)
-
-
 @mod.action_class
 class Actions:
+    def mouse_on_pop():
+        """Mouse on pop handler"""
+        stop_scroll()
+        # Zoom mouse is enabled
+        if actions.user.zoom_mouse_enabled():
+            actions.user.zoom_mouse_on_pop()
+        # Normal click when using control mouse
+        elif config.control_mouse:
+            ctrl.mouse_click(button=0)
+
     def mouse_click(action: str):
         """Click mouse button"""
         stop_scroll()
