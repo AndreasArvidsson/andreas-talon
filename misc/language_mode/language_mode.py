@@ -5,6 +5,7 @@ ctx = Context()
 
 extension_lang_map = {
     ".asm": "assembly",
+    ".bashbook": "bash",
     ".bat": "batch",
     ".c": "c",
     ".cmake": "cmake",
@@ -14,10 +15,11 @@ extension_lang_map = {
     ".go": "go",
     ".h": "c",
     ".hpp": "cplusplus",
+    ".html": "html",
     ".java": "java",
     ".js": "javascript",
-    ".jsx": "javascriptreact",
     ".json": "json",
+    ".jsx": "javascriptreact",
     ".lua": "lua",
     ".md": "markdown",
     ".pl": "perl",
@@ -34,8 +36,6 @@ extension_lang_map = {
     ".vba": "vba",
     ".vim": "vimscript",
     ".vimrc": "vimscript",
-    ".html": "html",
-    ".bashbook": "bash",
 }
 
 # Create a context for each defined language
