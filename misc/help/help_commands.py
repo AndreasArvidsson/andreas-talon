@@ -1,11 +1,13 @@
 from collections import defaultdict
 import math
 from typing import Iterable, Tuple
-from talon import Module, Context, actions, imgui, Module, registry, ui, app, clip
+from talon import Module, Context, actions, imgui, Module, registry, ui, app
 
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
-mod.mode("help_commands", "mode for commands that are available only when help is visible")
+mod.mode(
+    "help_commands", "mode for commands that are available only when help is visible"
+)
 
 setting_help_max_contexts_per_page = mod.setting(
     "help_max_contexts_per_page",
@@ -571,7 +573,7 @@ class Actions:
                 result += f"{command.ljust(40)} {name}\n"
             if len(names) > 1:
                 result += "--------------------\n"
-        clip.set_text(result)
+        actions.clip.set_text(result)
 
 
 def commands_updated(_):

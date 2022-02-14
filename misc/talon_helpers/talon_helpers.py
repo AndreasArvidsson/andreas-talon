@@ -1,4 +1,4 @@
-from talon import actions, Module, app, clip, registry, scope
+from talon import actions, Module, app, registry, scope
 import os
 import re
 from itertools import islice
@@ -31,7 +31,7 @@ class Actions:
                 app_name, app.platform, friendly_name
             )
 
-        clip.set_text(result)
+        actions.clip.set_text(result)
 
     def talon_add_context_clipboard():
         """Adds os-specific context info to the clipboard for the focused app for .talon files"""
@@ -50,7 +50,7 @@ class Actions:
         else:
             result = "os: {}\nand app.name: {}\n".format(app.platform, friendly_name)
 
-        clip.set_text(result)
+        actions.clip.set_text(result)
 
     def talon_get_tags() -> str:
         """Get tags as text"""

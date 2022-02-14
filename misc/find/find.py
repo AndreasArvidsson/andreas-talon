@@ -1,4 +1,4 @@
-from talon import Module, actions, clip
+from talon import Module, actions
 
 mod = Module()
 mod.tag("find")
@@ -11,7 +11,7 @@ class Actions:
 
     def find_clipboard():
         """Find clipboard content in file"""
-        actions.edit.find(clip.text())
+        actions.edit.find(actions.clip.text())
 
     def find_everywhere(text: str = None):
         """Find in entire project/all files"""
@@ -21,7 +21,7 @@ class Actions:
 
     def find_everywhere_clipboard():
         """Find clipboard in entire project/all files"""
-        actions.user.find_everywhere(clip.text())
+        actions.user.find_everywhere(actions.clip.text())
 
     def find_replace(text: str = None):
         """Find and replace in current file/editor"""

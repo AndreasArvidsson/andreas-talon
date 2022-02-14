@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, ui, ctrl, clip
+from talon import Module, Context, actions, ui, ctrl
 import json
 
 key = actions.key
@@ -366,8 +366,7 @@ class Actions:
         json_text = actions.edit.selected_text()
         command_id = json.loads(json_text)["command"]
         actions.app.tab_close()
-        clip.set_text(command_id)
-        actions.user.clipboard_manager_update()
+        actions.clip.set_text(command_id)
 
 
 def empty_selection():

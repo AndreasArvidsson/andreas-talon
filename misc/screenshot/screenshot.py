@@ -1,4 +1,4 @@
-from talon import Module, screen, ui, cron, app, actions, clip
+from talon import Module, screen, ui, cron, app, actions
 from talon.canvas import Canvas
 from datetime import datetime
 import os
@@ -65,7 +65,7 @@ def clipboard_rect(rect: ui.Rect):
     actions.user.clear_subtitles()
     flash_rect(rect)
     img = screen.capture_rect(rect)
-    clip.set_image(img)
+    actions.clip.set_image(img)
 
 
 def get_screenshot_path(title: str = ""):

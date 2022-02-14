@@ -1,4 +1,4 @@
-from talon import Module, actions, ui, imgui, clip
+from talon import Module, Context, actions, imgui, clip
 from talon.skia.image import Image
 from dataclasses import dataclass
 
@@ -10,7 +10,9 @@ class ClipItem:
 
 
 mod = Module()
+ctx = Context()
 mod.mode("clipboard_manager", "Indicates that the clipboard manager is visible")
+
 
 setting_clipboard_manager_max_rows = mod.setting(
     "clipboard_manager_max_rows",
@@ -48,6 +50,17 @@ def gui(gui: imgui.GUI):
         actions.user.clipboard_manager_hide()
 
 
+@ctx.action_class("clip")
+class ClipActions:
+    def set_text(text: str):
+        clip.set_text(text)
+        actions.user.clipboard_manager_update()
+
+    def set_image(image: Image):
+        clip.set_image(image)
+        actions.user.clipboard_manager_update()
+
+
 @mod.action_class
 class Actions:
     def clipboard_manager_toggle():
@@ -62,6 +75,11 @@ class Actions:
         """Hide clipboard manager"""
         actions.mode.disable("user.clipboard_manager")
         gui.hide()
+
+    def clipboard_manager_set_text(text: str):
+        """Set text to clipboard and update manager"""
+        clip.set_text(text)
+        actions.user.clipboard_manager_update()
 
     def clipboard_manager_update():
         """Read current clipboard and add to manager"""
