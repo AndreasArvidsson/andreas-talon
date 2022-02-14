@@ -97,7 +97,7 @@ class AvActions:
 # Mouse zoom mode
 ctx_zoom = Context()
 ctx_zoom.matches = r"""
-mode: user.zoom_mouse
+tag: user.zoom_mouse
 """
 
 

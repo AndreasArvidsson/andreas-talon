@@ -1,10 +1,14 @@
-from talon import Module, actions, noise, ctrl
+from talon import Module, Context, actions, noise, ctrl
 from talon_plugins import eye_zoom_mouse
 
 mod = Module()
-mod.mode("zoom_mouse")
+ctx = Context()
+
+mod.tag("zoom_mouse", "Indicates that zoom mouse is zoomed in")
+
 
 next_action = None
+
 
 @mod.action_class
 class Actions:
@@ -44,7 +48,7 @@ class Actions:
         """Zoom mouse on pop event"""
         global next_action
         # In idle about to enter zoom
-        if (eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE):
+        if eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE:
             enter_zoom()
             return
         # Already in zoom about to click
@@ -61,15 +65,18 @@ class Actions:
                 ctrl.mouse_click(button=0)
         next_action = None
 
+
 def enter_zoom():
     actions.user.mouse_hide_cursor()
-    actions.mode.enable("user.zoom_mouse")
+    ctx.tags = ["user.zoom_mouse"]
     eye_zoom_mouse.zoom_mouse.on_pop(True)
+
 
 def cancel_zoom():
     eye_zoom_mouse.zoom_mouse.cancel()
-    actions.mode.disable("user.zoom_mouse")
+    ctx.tags = []
     actions.user.mouse_show_cursor()
+
 
 def move_cursor():
     dot, origin = eye_zoom_mouse.zoom_mouse.get_pos()
