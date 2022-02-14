@@ -74,6 +74,8 @@ disk:                     edit.save()
 
 # ----- Text insertions -----
 make to do:               "TODO"
+bullet:                   "* "
+checkbox:                 "* [ ] "
 arrow:                    user.insert_arrow()
 
 # ----- Cursorless duplication -----

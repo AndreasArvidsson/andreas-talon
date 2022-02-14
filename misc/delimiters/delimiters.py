@@ -10,7 +10,6 @@ ctx.lists["self.delimiters_spaced"] = {
     "spam":     ",",
     "stacker":  ":",
     "period":   ".",
-    "bullet":   "*",
 }
 
 mod.list("delimiter_pair", desc="List of matching pair delimiters")
