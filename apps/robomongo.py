@@ -14,7 +14,25 @@ ctx.matches = r"""
 app: robomongo
 """
 
-ctx.tags = ["user.comment"]
+ctx.tags = ["user.comment", "user.tabs"]
+
+
+@ctx.action_class("app")
+class AppActions:
+    def tab_previous():
+        actions.key("ctrl-shift-tab")
+
+    def tab_next():
+        actions.key("ctrl-tab")
+
+    def tab_reopen():
+        actions.skip()
+
+
+@ctx.action_class("user")
+class UserActions:
+    def tab_duplicate():
+        actions.key("ctrl-shift-t")
 
 
 @ctx.action_class("code")
