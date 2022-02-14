@@ -5,3 +5,4 @@ this, currentSelection
 down, lineNumberRelativeDown
 row, lineNumberModulo100
 up, lineNumberRelativeUp
+nothing, nothing

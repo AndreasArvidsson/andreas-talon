@@ -42,6 +42,7 @@ switch, rewrap
 take, setSelection
 unfold, unfoldRegion
 wrap, wrapWithPairedDelimiter
+highlight, highlight
 
 -copy, copyToClipboard
 -cut, cutToClipboard
