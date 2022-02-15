@@ -49,4 +49,6 @@ os: windows
 @ctx_win.action_class("app")
 class AppActionsWin:
     def window_hide():
-        actions.key("super-down")
+        actions.key("alt-space")
+        actions.sleep("50ms")
+        actions.key("n")
