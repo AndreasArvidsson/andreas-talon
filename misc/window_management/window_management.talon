@@ -6,6 +6,7 @@ focus {user.running_application}:
 
 window new:                         app.window_open()
 window close:                       app.window_close()
+window hide:                        app.window_hide()
 window last:                        app.window_previous()
 window next:                        app.window_next()
 window back:                        key("alt-tab")

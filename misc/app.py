@@ -6,7 +6,7 @@ ctx = Context()
 
 
 @ctx.action_class("app")
-class AppActionsWin:
+class AppActions:
     def window_open():
         actions.key("ctrl-n")
 
@@ -36,3 +36,17 @@ class Actions:
     def insert_arrow():
         """Insert arrow symbol"""
         actions.insert(" => ")
+
+
+# ----- WINDOWS -----
+
+ctx_win = Context()
+ctx_win.matches = r"""
+os: windows
+"""
+
+
+@ctx_win.action_class("app")
+class AppActionsWin:
+    def window_hide():
+        actions.key("super-down")
