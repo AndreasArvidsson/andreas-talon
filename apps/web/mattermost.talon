@@ -1,7 +1,7 @@
 app: mattermost
 -
 
-edit last:             key(p)
+edit last:             key(up)
 
 jump to:               key(ctrl-k)
 direct messages:       key(ctrl-shift-k)
