@@ -43,6 +43,7 @@ ctx.lists["self.code_function"] = {
     "filter",
     "dir",
     "isinstance",
+    "enumerate",
 }
 ctx.lists["self.code_insert"] = merge(
     {"None", "self"},
