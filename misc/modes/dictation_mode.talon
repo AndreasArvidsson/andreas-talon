@@ -1,9 +1,16 @@
 mode: dictation
+language: en_US
+language: sv_SE
 experiment: anchor-file
 -
 
 # Freely dictate text
-<user.prose>:   auto_insert(prose)
+<user.prose>:                     "{prose}"
+
+# Insert the actual words
+# Only words, no symbols or numbers
+escape words <user.words>$:       "{words}"
+escape words <user.words> over:   "{words}"
 
 new line:
     edit.line_insert_down()
@@ -12,9 +19,3 @@ new line:
 # Switch to command mode and insert a phrase
 (command mode | over) [<phrase>]$:
     user.command_mode(phrase or "")
-
-# Insert the actual words
-escape words <user.words>$:
-    auto_insert(words)
-escape words <user.words> over:
-    auto_insert(words)

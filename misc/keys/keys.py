@@ -3,7 +3,11 @@ from ...merge import merge
 
 mod = Module()
 ctx = Context()
-mod.tag("keys")
+ctx.matches = r"""
+language: en_US
+language: sv_SE
+"""
+
 
 # fmt: off
 

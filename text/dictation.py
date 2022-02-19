@@ -3,7 +3,13 @@ from typing import Optional
 import re
 
 mod = Module()
+
 ctx = Context()
+ctx.matches = r"""
+language: en_US
+language: sv_SE
+"""
+
 
 setting_context_sensitive_dictation = mod.setting(
     "context_sensitive_dictation",
@@ -12,35 +18,70 @@ setting_context_sensitive_dictation = mod.setting(
     desc="Look at surrounding text to improve auto-capitalization/spacing in dictation mode. By default, this works by selecting that text & copying it to the clipboard, so it may be slow or fail in some applications.",
 )
 
+# ----- Captures used in both command and dictation mode -----
 
-@mod.capture(rule="{user.vocabulary} | <word>")
-def word(m) -> str:
+
+@mod.capture
+def word() -> str:
     """A single word, including user-defined vocabulary."""
+
+
+@ctx.capture("user.word", rule="{user.vocabulary} | <word>")
+def word(m) -> str:
     words = capture_to_words(m)
     return words[0]
 
 
 # Used to escape numbers and symbols
-@mod.capture(rule="({user.vocabulary} | <phrase>)+")
-def words(m) -> str:
+@mod.capture
+def words() -> str:
     """A sequence of words, including user-defined vocabulary."""
+
+
+@ctx.capture("user.words", rule="({user.vocabulary} | <phrase>)+")
+def words(m) -> str:
     return format_phrase(m)
 
 
 text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {user.key_punctuation} | <phrase>)+"
 
 
-@mod.capture(rule=text_rule)
-def text(m) -> str:
+@mod.capture
+def text() -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
+
+
+@ctx.capture("user.text", rule=text_rule)
+def text(m) -> str:
     return format_phrase(m)
 
 
-@mod.capture(rule=text_rule)
-def prose(m) -> str:
+@mod.capture
+def prose() -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
+
+
+@ctx.capture("user.prose", rule=text_rule)
+def prose(m) -> str:
     text, _state = auto_capitalize(format_phrase(m))
     return text
+
+
+# ----- Dictation mode only -----
+
+ctx_citation = Context()
+ctx_citation.matches = r"""
+mode: dictation
+language: en_US
+language: sv_SE
+"""
+
+
+@ctx_citation.action_class("main")
+class main_action:
+    def auto_insert(text):
+        print("Out to insert")
+        actions.user.dictation_insert(text)
 
 
 # fmt: off
@@ -278,13 +319,3 @@ class Actions:
         after = actions.edit.selected_text()
         if after: actions.edit.left()
         return after
-
-# Use the dictation formatter in dictation mode.
-dictation_ctx = Context()
-dictation_ctx.matches = r"""
-mode: dictation
-"""
-
-@dictation_ctx.action_class("main")
-class main_action:
-    def auto_insert(text): actions.user.dictation_insert(text)

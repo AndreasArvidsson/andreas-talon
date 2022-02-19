@@ -3,10 +3,6 @@ from talon import Context, Module
 mod = Module()
 ctx = Context()
 
-ctx.matches = r"""
-not tag: user.swedish
-"""
-
 
 # Default words that will need to be capitalized.
 capitalize_defaults = [
