@@ -7,6 +7,8 @@ ctx.matches = r"""
 tag: browser
 """
 
+browser_name = "Firefox"
+
 
 @ctx.action_class("browser")
 class BrowserActions:
@@ -33,6 +35,7 @@ class Actions:
 
     def browser_focus_open(url: str):
         """Focus browser and open url"""
-        actions.user.focus_name("Firefox")
-        actions.sleep("50ms")
+        if actions.app.name() != browser_name:
+            actions.user.focus_name(browser_name)
+            actions.sleep("50ms")
         actions.user.browser_open(url)
