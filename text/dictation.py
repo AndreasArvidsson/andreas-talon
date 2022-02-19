@@ -80,7 +80,6 @@ language: sv_SE
 @ctx_citation.action_class("main")
 class main_action:
     def auto_insert(text):
-        print("Out to insert")
         actions.user.dictation_insert(text)
 
 
