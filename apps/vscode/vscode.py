@@ -297,6 +297,10 @@ class Actions:
         insert(f"{l}:{c}")
         key("enter")
 
+    def save_without_formatting():
+        """Save current document without formatting"""
+        vscode("workbench.action.files.saveWithoutFormatting")
+
     def format_document():
         """Format document"""
         vscode("editor.action.formatDocument")
