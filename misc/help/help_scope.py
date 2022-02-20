@@ -3,7 +3,11 @@ from talon import Module, actions, imgui, Module, scope, ui
 mod = Module()
 mod.mode("help_scope", "Mode for showing the scope help gui")
 
-main_screen = ui.main_screen()
+setting_max_length = mod.setting(
+    "help_scope_max_length",
+    type=int,
+    default=50,
+)
 
 
 @imgui.open(x=ui.main_screen().x)
@@ -23,7 +27,7 @@ def gui(gui: imgui.GUI):
     gui.spacer()
     gui.text("Misc")
     gui.line()
-    ignore = {"main", "mode", "tag", "exe_path", "class"}
+    ignore = {"main", "mode", "tag"}
     keys = {*scope.data.keys(), *scope.data["main"].keys()}
     for key in sorted(keys):
         if key not in ignore:
@@ -46,7 +50,9 @@ def print_value(gui: imgui.GUI, path: str, value, ignore: set[str] = {}):
 
 def format_value(value):
     if isinstance(value, list) or isinstance(value, set):
-        return ", ".join(sorted(value))
+        value = ", ".join(sorted(value))
+    if isinstance(value, str) and len(value) > setting_max_length.get() + 4:
+        return f"{value[:setting_max_length.get()]} ..."
     return value
 
 
