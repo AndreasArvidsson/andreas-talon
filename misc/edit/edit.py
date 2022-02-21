@@ -126,7 +126,7 @@ class EditActions:
             actions.user.clipboard_manager_ignore_next()
             edit.copy()
         try:
-            return s.get()
+            return s.text()
         except clip.NoChange:
             return ""
 
