@@ -4,7 +4,7 @@ attribute, attribute
 block, paragraph
 call, functionCall
 cell, notebookCell
-char | chars, character
+car | cars, character
 class, class
 class name, className
 comment, comment
