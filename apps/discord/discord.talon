@@ -11,6 +11,7 @@ server next:        key(ctrl-alt-down)
 channel last:       key(alt-up)
 channel next:       key(alt-down)
 
+edit last:          key(up)
 focus text:         key(tab)
 go oldest unread:   key(shift-pageup)
 go audio channel:   key(alt-left)
