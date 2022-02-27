@@ -5,6 +5,8 @@ ctx = Context()
 
 mod.list("webpage", desc="List of webpages")
 
+# fmt: off
+
 ctx.lists["self.webpage"] = {
     "github":               "https://github.com",
     "talon slack":          "https://talonvoice.slack.com",
@@ -27,7 +29,8 @@ ctx.lists["self.webpage"] = {
     "prisjakt":             "https://classic.prisjakt.nu",
     "pricerunner":          "https://www.pricerunner.se",
     "kivra":                "https://www.kivra.se",
-    "karlstad buss":       "https://www.karlstadsbuss.se",
+    "karlstad buss":        "https://www.karlstadsbuss.se",
+    "nine gag":             "https://9gag.com",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
