@@ -29,13 +29,13 @@ ctx.lists["self.extension"] = {
     "exe":            "exe",
     "bin":            "bin",
     "jason":          "json",
-    "jay son":        "json",
     "java":           "java",
     "java script":    "js",
     "type script":    "ts",
     "text":           "txt",
     "lua":            "lua",
     "csv":            "csv",
+    "xml":            "xml",
 }
 
 mod.list("domain", desc="List of top level domains")
