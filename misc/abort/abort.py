@@ -1,5 +1,4 @@
 from talon import Module
-from talon.grammar import Phrase
 
 mod = Module()
 setting = mod.setting("abort_word", type=str)
