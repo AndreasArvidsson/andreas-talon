@@ -30,3 +30,14 @@ mouse center click:
 #TODO cursor
 ^cursor show$:                  user.mouse_show_cursor()
 # ^cursor hide$:                  user.mouse_hide_cursor()
+
+mouse print position:
+    print("{mouse_x()}, {mouse_y()}")
+
+# remove role:
+#     mouse_move(1764, 695)
+#     mouse_click()
+#     sleep(0.6)
+#     mouse_move(1341, 430)
+#     mouse_click()
+#     sleep(0.6)

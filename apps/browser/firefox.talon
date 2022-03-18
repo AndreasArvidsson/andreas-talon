@@ -11,16 +11,18 @@ tab search <user.text>$:
     browser.focus_address()
     "% {text}"
     key(down)
-tab mute:             key(ctrl-m)
+tab mute:    key(ctrl-m)
 
 # Bitwarden
-bitwarden show:       key(ctrl-shift-y)
-bitwarden fill:       key(ctrl-shift-l)
-bitwarden generate:   key(ctrl-shift-9)
-
+(bitwarden | bit warden) show:
+    key(ctrl-shift-y)
+(bitwarden | bit warden) fill:
+    key(ctrl-shift-l)
+(bitwarden | bit warden) generate:
+    key(ctrl-shift-9)
 
 # Vimium
-tab split:            app.tab_detach()
+tab split:   app.tab_detach()
 
 hunt:
     user.stop_app()
@@ -37,5 +39,11 @@ copy image:
     mouse_click(1)
     sleep(0.1)
     key(y)
+    sleep(0.1)
+    user.clipboard_manager_update()
+copy video:
+    mouse_click(1)
+    sleep(0.1)
+    key(o:2 enter)
     sleep(0.1)
     user.clipboard_manager_update()
