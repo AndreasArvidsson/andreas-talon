@@ -16,9 +16,9 @@ tab mute:    key(ctrl-m)
 # Bitwarden
 (bitwarden | bit warden) show:
     key(ctrl-shift-y)
-(bitwarden | bit warden) fill:
+login fill:
     key(ctrl-shift-l)
-(bitwarden | bit warden) generate:
+password generate:
     key(ctrl-shift-9)
 
 # Vimium
