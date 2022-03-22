@@ -3,13 +3,11 @@ from talon import Context, Module, actions
 ctx = Context()
 mod = Module()
 
-mod.apps.teams = """
-tag: browser
-and title: /Microsoft Teams/
-"""
-
+# Teams meeting
 ctx.matches = """
-app: teams
+os: windows
+app.name: Microsoft Edge
+title: /Microsoft Teams/
 """
 
 ctx.tags = ["user.av"]
