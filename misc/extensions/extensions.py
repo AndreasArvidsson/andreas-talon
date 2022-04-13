@@ -36,6 +36,7 @@ ctx.lists["self.extension"] = {
     "lua":            "lua",
     "csv":            "csv",
     "xml":            "xml",
+    "html":           "html",
 }
 
 mod.list("domain", desc="List of top level domains")
