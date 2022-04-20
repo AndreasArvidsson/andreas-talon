@@ -97,6 +97,7 @@ ctx.lists["self.key_symbol"] = {
     "dollar":           "$",
     "percent":          "%",
     "question":         "?",
+    "question mark":    "?",
     "amper":            "&",
     "at sign":          "@",
 
