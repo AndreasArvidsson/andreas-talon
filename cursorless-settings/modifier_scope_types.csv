@@ -33,3 +33,13 @@ word | words, word
 condition, condition
 paint, nonWhitespaceSequence
 link, url
+
+# 2022-04-21 07:57:52 - New entries automatically added by cursorless
+-five section, sectionLevelFive
+-four section, sectionLevelFour
+-one section, sectionLevelOne
+-six section, sectionLevelSix
+-three section, sectionLevelThree
+-two section, sectionLevelTwo
+section, section
+selector, selector

@@ -70,6 +70,7 @@ simple_default_vocabulary = [
     "tree sitter",
     "num",
     "quarkus",
+    "keycloak",
 ]
 # Defaults for different pronounciations of words that need to be added to Talon's vocabulary.
 default_vocabulary = {
