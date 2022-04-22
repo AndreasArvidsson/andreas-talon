@@ -26,7 +26,7 @@ gaze_job = None
 scroll_speed = 100
 scroll_dir = 1
 mouse_control = False
-zoom_control = False
+zoom_control = True
 
 
 @mod.action_class
@@ -232,3 +232,6 @@ def scroll_gaze_helper():
         midpoint = rect.y + rect.height / 2
         amount = int(((y - midpoint) / (rect.height / 10)) ** 3)
         actions.mouse_scroll(by_lines=False, y=amount)
+
+
+app.register("ready", lambda: actions.user.mouse_wake())

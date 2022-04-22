@@ -33,7 +33,6 @@ ctx.tags = ["user.bash"]
 @ctx.action_class("user")
 class UserActions:
     def talon_app() -> str:
-        print("Hello")
         return update_path(actions.next())
 
     def talon_home() -> str:
