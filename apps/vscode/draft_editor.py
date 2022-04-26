@@ -9,6 +9,7 @@ app: vscode
 """
 
 original_window = None
+last_draft = None
 
 
 @mod.action_class
@@ -35,6 +36,11 @@ class Actions:
         """Discard draft editor"""
         close_editor(submit_draft=False)
 
+    def draft_editor_paste_last():
+        """Paste last submitted draft"""
+        if last_draft:
+            actions.insert(last_draft)
+
 
 def get_editor_app() -> ui.App:
     editor_names = {"Visual Studio Code", "Code", "VSCodium", "Codium", "code-oss"}
@@ -45,6 +51,7 @@ def get_editor_app() -> ui.App:
 
 
 def close_editor(submit_draft: bool):
+    global last_draft
     ctx.tags = []
     actions.edit.select_all()
     selected_text = actions.edit.selected_text()
@@ -53,3 +60,4 @@ def close_editor(submit_draft: bool):
     actions.user.focus_window(original_window)
     if submit_draft:
         actions.insert(selected_text)
+        last_draft = selected_text
