@@ -17,7 +17,13 @@ class EditActions:
         key("ctrl-right")
 
     def select_word():
-        user.select_word_left()
+        edit.right()
+        edit.word_left()
+        edit.extend_word_right()
+        text = edit.selected_text()
+        text_trim = text.rstrip()
+        for _ in range(len(text) - len(text_trim)):
+            edit.extend_left()
 
     def extend_word_left():
         key("ctrl-shift-left")
@@ -49,7 +55,7 @@ class Actions:
         """Copy word under cursor"""
         edit.select_word()
         edit.copy()
-    
+
     def paste_word():
         """Paste to word under cursor"""
         edit.select_word()
