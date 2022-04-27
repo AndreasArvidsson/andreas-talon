@@ -328,8 +328,12 @@ class Actions:
     def vscode_take_word(cursorless_target: dict, repeats: int):
         """Take word on cursorless target with number of repeats"""
         actions.user.cursorless_command("setSelection", cursorless_target)
+        # Select number of next instances
         for _ in range(repeats):
             actions.edit.select_word()
+        # Select all instances
+        if repeats < 0:
+            vscode("editor.action.selectHighlights")
 
     def vscode_resize_panel(panel: dict, size: str):
         """Resize vscode sidebar/panel"""
