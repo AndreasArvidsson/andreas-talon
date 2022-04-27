@@ -1,9 +1,15 @@
-from talon import actions, Module, app, registry, scope
+from talon import Module, Context, actions, app, registry, scope, ui
 import os
 import re
 from itertools import islice
 
 mod = Module()
+
+ctx_win = Context()
+ctx_win.matches = r"""
+os: windows
+"""
+
 pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
 
 
@@ -96,6 +102,17 @@ class Actions:
         captures_string = format("captures", captures, add_desc=True)
         actions_string = format("actions", actions, add_desc=True)
         return f"{captures_string}\n\n{actions_string}"
+
+    def talon_restart():
+        """Quit and relaunch the Talon app"""
+
+
+@ctx_win.action_class("user")
+class WinUserActions:
+    def talon_restart():
+        talon_app = ui.apps(pid=os.getpid())[0]
+        os.startfile(talon_app.exe)
+        talon_app.quit()
 
 
 def format(title, values, add_desc=False) -> str:

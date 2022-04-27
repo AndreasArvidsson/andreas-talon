@@ -35,4 +35,4 @@ talon open repl:                   menu.open_repl()
 talon open home:                   menu.open_talon_home()
 talon check updates:               menu.check_for_updates()
 
-talon restart:                     user.exec("talon-restart")
+talon restart:                     user.talon_restart()
