@@ -40,11 +40,13 @@ class EditActions:
 class Actions:
     def select_word_left():
         """Select word to the left"""
-        key("ctrl-left ctrl-shift-right")
+        edit.word_left()
+        edit.extend_word_right()
 
     def select_word_right():
         """Select word to the right"""
-        key("ctrl-right ctrl-shift-left")
+        edit.word_right()
+        edit.extend_word_left()
 
     def cut_word():
         """Cut word under cursor"""
