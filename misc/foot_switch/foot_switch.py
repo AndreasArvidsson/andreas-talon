@@ -1,9 +1,11 @@
 import time
 from talon import Module, Context, actions
+from threading import Lock
 
 mod = Module()
 mod.tag("av")
 
+mutex = Lock()
 pressed = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
@@ -15,18 +17,24 @@ class Actions:
     def foot_switch_key(key: int):
         """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
         global pressed
-        is_down = not pressed[key]
-        is_held = time.perf_counter() - timestamps[key] > hold_timeout
-        pressed = [False, False, False, False]
-        pressed[key] = is_down
-        timestamps[key] = time.perf_counter()
+        mutex.acquire()
 
-        # Initial downpress
-        if is_down:
-            call_down(key)
-        # Button was held and is now released
-        elif is_held:
-            call_up(key)
+        try:
+            is_down = not pressed[key]
+            is_held = time.perf_counter() - timestamps[key] > hold_timeout
+            pressed = [False, False, False, False]
+            pressed[key] = is_down
+            timestamps[key] = time.perf_counter()
+
+            # Initial downpress
+            if is_down:
+                call_down(key)
+            # Button was held and is now released
+            elif is_held:
+                call_up(key)
+
+        finally:
+            mutex.release()
 
     def foot_switch_reset():
         """Reset foot switch state"""
