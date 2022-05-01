@@ -20,6 +20,7 @@ mouse gaze:                     user.mouse_gaze_scroll()
 ^mouse calibrate$:              user.mouse_calibrate()
 ^mouse control$:                user.mouse_toggle_control_mouse()
 ^mouse zoom$:                   user.mouse_toggle_zoom_mouse()
+^mouse experimental$:           experimental.fusion1_toggle()
 
 # Misc
 mouse center:                   user.mouse_center_window()
