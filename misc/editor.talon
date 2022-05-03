@@ -73,7 +73,7 @@ drag down:                edit.line_swap_down()
 disk:                     edit.save()
 
 # ----- Text insertions -----
-make to do:               "TODO"
+make to do:               "TODO "
 bullet:                   "* "
 checkbox:                 "* [ ] "
 arrow:                    user.insert_arrow()
