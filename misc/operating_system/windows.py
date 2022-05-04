@@ -42,3 +42,4 @@ def shutdown(flag: str):
     actions.key("super-r")
     actions.sleep("30ms")
     actions.insert(f"shutdown /{flag}")
+    actions.key("enter")
