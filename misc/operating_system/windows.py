@@ -36,10 +36,10 @@ class UserActionsWin:
 
     def system_hibernate():
         shutdown("h")
+        actions.key("enter")
 
 
 def shutdown(flag: str):
     actions.key("super-r")
     actions.sleep("30ms")
     actions.insert(f"shutdown /{flag}")
-    actions.key("enter")
