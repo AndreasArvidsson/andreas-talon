@@ -78,6 +78,7 @@ default_vocabulary = {
     "toby": "tobii",
     "curse less": "cursorless",
     "visual code": "vscode",
+    "arvid son": "arvidsson",
 }
 default_vocabulary.update({word.lower(): word for word in simple_default_vocabulary})
 
