@@ -1,11 +1,14 @@
 mode: user.clipboard_manager
 -
 
-clip hide:     user.clipboard_manager_toggle()
+clip hide | clippy:
+    user.clipboard_manager_toggle()
 
-clip update:   user.clipboard_manager_update()
+clip update:
+    user.clipboard_manager_update()
 
-clip clear:    user.clipboard_manager_remove()
+clip clear:
+    user.clipboard_manager_remove()
 
 clip chuck <number_small> [and <number_small>]*:
     user.clipboard_manager_remove(number_small_list)
