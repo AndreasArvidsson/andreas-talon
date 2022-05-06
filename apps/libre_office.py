@@ -14,6 +14,8 @@ ctx.matches = r"""
 app: libre_office
 """
 
+ctx.tags = ["user.find"]
+
 ctx.settings = {
     "user.scroll_step": 10
 }
