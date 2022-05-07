@@ -33,7 +33,9 @@ zoom_control = True
 class Actions:
     def mouse_on_pop():
         """Mouse on pop handler"""
-        stop_scroll()
+        if stop_scroll():
+            # Make sure scrolling has stopped so that click doesn't miss
+            actions.sleep("50ms")
         # Zoom mouse is enabled
         if actions.user.zoom_mouse_enabled():
             actions.user.zoom_mouse_on_pop()
