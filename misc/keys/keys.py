@@ -25,8 +25,7 @@ mod.list("key_number", desc="All number keys")
 ctx.lists["self.key_number"] = {default_digits[i]: str(i) for i in range(10)}
 
 mod.list("key_function", desc="All function keys")
-ctx.lists["self.key_function"] = {
-    f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)}
+ctx.lists["self.key_function"] = {f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)}
 
 mod.list("key_arrow", desc="All arrow keys")
 ctx.lists["self.key_arrow"] = {"up", "down", "left", "right"}

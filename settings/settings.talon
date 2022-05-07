@@ -16,7 +16,7 @@ settings():
     user.help_scope_max_length = 80
 
     # Number of lines to show in command history by default
-    user.command_history_display = 5
+    user.command_history_display = 2
 
     # Show subtitles by default
     user.subtitles_show = 1
