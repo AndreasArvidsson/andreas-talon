@@ -18,7 +18,7 @@ default_digits = "zero one two three four five six seven eight nine ten eleven t
 mod.list("letter", desc="The spoken phonetic alphabet")
 ctx.lists["self.letter"] = {
     **{alphabet[i]: chr(ord("a") + i) for i in range(len(alphabet))},
-    **{"onyx": "å", "adder": "ä", "earl": "ö"},
+    **{"onyx": "å", "adder": "ä", "early": "ö"},
 }
 
 mod.list("key_number", desc="All number keys")
