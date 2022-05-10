@@ -113,8 +113,7 @@ class UserActions:
     def code_case():
         insert_snippet(
             """case $1:
-                \t$0
-                \tbreak;"""
+                \t$0"""
         )
 
     def code_default():
