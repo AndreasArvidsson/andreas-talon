@@ -5,6 +5,8 @@ clip show | clippy:
 
 pick <number_small>:
     user.pick_item(number_small - 1)
+pick to:
+    user.pick_item(1)
 pick <user.word>:
     "{word}"
     key(enter)
