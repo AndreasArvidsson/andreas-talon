@@ -4,6 +4,7 @@ from talon import Module, Context, actions
 mod = Module()
 mod.tag("av")
 
+pressed = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
 hold_timeout = 0.2
@@ -11,10 +12,12 @@ hold_timeout = 0.2
 
 @mod.action_class
 class Actions:
-    def foot_switch_key(key: int, is_down: bool):
+    def foot_switch_key(key: int):
         """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
+        pressed[key] = not pressed[key]
+
         # Initial downpress
-        if is_down:
+        if pressed[key]:
             timestamps[key] = time.perf_counter()
             call_down(key)
         # Button was held and is now released
