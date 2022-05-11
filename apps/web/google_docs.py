@@ -13,6 +13,7 @@ and title: /Links - Google Docs/
 class EditActions:
     def paste():
         actions.next()
-        actions.sleep(0.1)
+        actions.sleep(0.2)
         actions.edit.line_insert_down()
         actions.edit.line_insert_down()
+        actions.user.tab_back()
