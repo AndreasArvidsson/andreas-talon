@@ -10,6 +10,8 @@ mod.tag("c_common")
 
 ctx.matches = r"""
 tag: user.c_common
+tag: user.c_common
+and tag: user.html # Solve conflict when using react typescript
 """
 
 

@@ -5,7 +5,6 @@ tag(): user.navigation
 tag(): user.zoom
 tag(): user.tabs
 tag(): user.find
-tag(): user.comment
 tag(): user.cursorless_experimental_snippets
 
 settings():
@@ -20,6 +19,7 @@ problem next:            user.vscode("editor.action.marker.nextInFiles")
 problem last:            user.vscode("editor.action.marker.prevInFiles")
 problem fix:             user.vscode("problems.action.showQuickFixes")
 refactor this:           user.vscode("editor.action.refactor")
+comment:                 code.toggle_comment()
 
 # Split
 split up:                user.vscode("workbench.action.moveEditorToAboveGroup")
