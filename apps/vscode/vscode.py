@@ -309,7 +309,7 @@ class Actions:
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
         if text or sleep:
-            actions.sleep("50ms")
+            actions.sleep(0.1)
         if text:
             insert(text)
 
