@@ -236,4 +236,4 @@ def scroll_gaze_helper():
         actions.mouse_scroll(by_lines=False, y=amount)
 
 
-app.register("ready", lambda: actions.user.mouse_wake())
+app.register("launch", lambda: actions.user.mouse_wake())
