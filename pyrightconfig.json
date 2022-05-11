@@ -1,0 +1,4 @@
+{
+    "reportMissingModuleSource": false,
+    "reportUnusedImport": "warning"
+}
