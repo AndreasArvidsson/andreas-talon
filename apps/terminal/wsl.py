@@ -29,10 +29,13 @@ ctx.tags = ["terminal", "user.bash"]
 class UserActions:
     def talon_app() -> str:
         return update_path(actions.next())
+
     def talon_home() -> str:
         return update_path(actions.next())
+
     def talon_user() -> str:
         return update_path(actions.next())
+
     def user_home() -> str:
         return update_path(actions.next())
 
