@@ -159,6 +159,16 @@ class Actions:
                 raise RuntimeError(f"Can't focus window: {window.title}")
             actions.sleep("50ms")
 
+    def swap_window_position(name: str):
+        """Swap window position with application by name"""
+        app = get_app(name)
+        activeWindow = ui.active_window()
+        appWindow = app.windows()[0]
+        if activeWindow != appWindow:
+            activeRect = activeWindow.rect
+            activeWindow.rect = appWindow.rect
+            appWindow.rect = activeRect
+
 
 @imgui.open(x=ui.main_screen().x)
 def gui(gui: imgui.GUI):

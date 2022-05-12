@@ -4,6 +4,9 @@ focus {user.running_application}:
 (focus {user.running_application} <phrase>)+$:
     user.focus_names(running_application_list, phrase_list)
 
+swap {user.running_application}:
+    user.swap_window_position(running_application)
+
 window new:                         app.window_open()
 window close:                       app.window_close()
 window hide:                        app.window_hide()
