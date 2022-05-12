@@ -113,7 +113,7 @@ class Actions:
         focus_name(name)
         actions.user.focus_hide()
         if phrase:
-            actions.sleep("200ms")
+            actions.sleep("300ms")
             actions.user.rephrase(phrase)
 
     def focus_names(names: list[str], phrases: list[Phrase]):
