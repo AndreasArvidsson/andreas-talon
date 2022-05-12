@@ -211,6 +211,9 @@ class UserActions:
     def tab_jump(number: int):
         vscode("workbench.action.openEditorAtIndex", number - 1)
 
+    def tab_jump_from_back(number: int):
+        vscode("andreas.openEditorAtIndex", -number)
+
     # ----- Scroll -----
     def scroll_up():
         key("ctrl-up")
