@@ -43,7 +43,7 @@ open cross:              key(ctrl-enter)
 
 # Sidebar
 bar (show | hide):       user.vscode("workbench.action.toggleSidebarVisibility")
-bar explorer:            user.vscode("workbench.view.explorer")
+bar explore:             user.vscode("workbench.view.explorer")
 bar extensions:          user.vscode("workbench.view.extensions")
 bar outline:             user.vscode("outline.focus")
 bar debug:               user.vscode("workbench.view.debug")
@@ -190,6 +190,7 @@ window reload:           user.vscode("workbench.action.reloadWindow")
 trim trailing:           user.vscode("editor.action.trimTrailingWhitespace")
 inspect scope:           user.vscode("editor.action.inspectTMScopes")
 disk raw:                user.save_without_formatting()
+disk all:                user.vscode("workbench.action.files.saveFiles")
 copy command id:         user.copy_command_id()
 
 snip last:               user.vscode("jumpToPrevSnippetPlaceholder")
