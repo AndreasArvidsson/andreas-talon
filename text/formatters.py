@@ -29,12 +29,15 @@ formatters_dict = {
     "DOUBLE_COLON_SEPARATED": lambda text: format_delim(text, "::", lower, lower),
     "NO_SPACES": lambda text: format_delim(text, ""),
     # Re formatters
-    "REMOVE_FORMATTING": lambda text: first_and_rest(text, lower, lower),
+    "REMOVE_FORMATTING": lambda text: text.lower(),
     "COMMA_SEPARATED": lambda text: ", ".join(text.split()),
 }
 
-
 formatters_no_unformat = {
+    "ALL_CAPS",
+    "ALL_LOWERCASE",
+    "DOUBLE_QUOTED_STRING",
+    "SINGLE_QUOTED_STRING",
     "COMMA_SEPARATED",
 }
 
