@@ -6,6 +6,8 @@ mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: user.typescript
+# Make javascript have precedence c common
+mode: all
 """
 
 ctx.lists["self.code_data_type"] = {
