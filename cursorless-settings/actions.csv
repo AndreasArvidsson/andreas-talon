@@ -15,7 +15,7 @@ drink, editNewLineBefore
 drop, insertEmptyLineBefore
 extract, extractVariable
 float, insertEmptyLineAfter
-fold, foldRegion
+folding, foldRegion
 format, applyFormatter
 follow, followLink
 follow type, revealTypeDefinition

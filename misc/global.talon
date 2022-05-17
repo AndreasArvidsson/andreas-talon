@@ -11,8 +11,3 @@ pick <user.word>:
 pick <user.letters>:
     "{letters}"
     key(enter)
-
-^cursorless use release$:
-    user.cursorless_use_release()
-^cursorless use develop$:
-    user.cursorless_use_develop()

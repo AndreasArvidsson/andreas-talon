@@ -379,6 +379,13 @@ class Actions:
         actions.app.tab_close()
         actions.clip.set_text(command_id)
 
+    def vscode_add_missing_imports():
+        """Add all missing imports"""
+        vscode(
+            "editor.action.sourceAction",
+            {"kind": "source.addMissingImports", "apply": "first"},
+        )
+
 
 def empty_selection():
     if edit.selected_text():

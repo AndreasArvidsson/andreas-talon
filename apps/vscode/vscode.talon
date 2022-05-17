@@ -15,6 +15,7 @@ jest:                    code.complete()
 jest param:              user.vscode("editor.action.triggerParameterHints")
 format document:         user.format_document()
 imports organize:        user.vscode("editor.action.organizeImports")
+imports add:             user.vscode_add_missing_imports()
 problem next:            user.vscode("editor.action.marker.nextInFiles")
 problem last:            user.vscode("editor.action.marker.prevInFiles")
 problem fix:             user.vscode("problems.action.showQuickFixes")
@@ -177,7 +178,12 @@ align columns:           user.vscode("rainbow-csv.Align")
 shrink columns:          user.vscode("rainbow-csv.Shrink")
 
 # Cursorless
-cursorless record:       user.vscode("cursorless.recordTestCase")
+^cursorless use release$:
+    user.cursorless_use_release()
+^cursorless use develop$:
+    user.cursorless_use_develop()
+^cursorless record$:
+    user.vscode("cursorless.recordTestCase")
 copy <user.cursorless_target>:
     user.cursorless_command("copyToClipboard", cursorless_target)
     user.clipboard_manager_update()
