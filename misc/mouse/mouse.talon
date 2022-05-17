@@ -35,6 +35,9 @@ mouse center click:
 mouse print position:
     print("{mouse_x()}, {mouse_y()}")
 
+mouse copy position:
+    clip.set_text("{mouse_x()}, {mouse_y()}")
+
 # remove role:
 #     mouse_move(1764, 695)
 #     mouse_click()

@@ -138,6 +138,7 @@ debug test:
 run task compile:
     user.vscode("workbench.action.tasks.runTask")
     "compile"
+    sleep(0.2)
     key(enter)
 run task [<user.text>]:
     user.vscode("workbench.action.tasks.runTask")

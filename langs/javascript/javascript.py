@@ -33,6 +33,7 @@ ctx.lists["self.code_function"] = {
 javascript_inserts = merge(
     {"null", "undefined", "this"},
     {
+        "from": "from ",
         "import": "import ",
         "export": "export ",
         "export default": "export default ",

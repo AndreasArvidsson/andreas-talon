@@ -2,7 +2,7 @@ from talon import noise, actions
 
 
 def on_pop(active: bool):
-    # In command mode
+    # Talon is awake
     if actions.speech.enabled():
         actions.user.mouse_on_pop()
     # In sleep mode
