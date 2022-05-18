@@ -79,6 +79,7 @@ ctx.lists["self.key_symbol"] = {
     "space":            " ",
     "void":             " ",
     "dot":              ".",
+    "point":            ".",
     "comma":            ",",
     "stack":            ":",
     "semi":             ";",
