@@ -1,13 +1,12 @@
 tag: user.find
 -
 
-scout for clipboard:          user.find_clipboard()
+scout for clip:               edit.find(clip.text())
 scout [<user.text>]$:         edit.find(text or "")
-scout hide:
-    edit.find("")
-    key(escape)
-scout all for clipboard:      user.find_everywhere_clipboard()
+
+scout all for clip:           user.find_everywhere(clip.text())
 scout all [<user.text>]$:     user.find_everywhere(text or "")
+
 replace [<user.text>]$:       user.find_replace(text or "")
 replace all [<user.text>]$:   user.find_replace_everywhere(text or "")
 
@@ -19,9 +18,14 @@ replace case:                 user.find_replace_toggle_preserve_case()
 scout last:                   edit.find_previous()
 scout next:                   edit.find_next()
 
+scout hide:
+    edit.find("")
+    key(escape)
+
 replace confirm:              user.find_replace_confirm()
 replace confirm all:          user.find_replace_confirm_all()
 
+scout file for clip:          user.find_file(clip.text())
 scout file [<user.text>] [<user.extension>]$:
     text = text or ""
     extension = extension or ""
