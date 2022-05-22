@@ -1,4 +1,4 @@
 tag: user.typescriptreact
 -
 tag(): user.typescript
-tag(): user.html
+tag(): user.javascriptreact

@@ -39,6 +39,7 @@ javascript_inserts = merge(
         "export default": "export default ",
         "default": "default ",
         "extends": "extends ",
+        "abstract": "abstract ",
         "implements": "implements ",
         "async": "async ",
         "await": "await ",
