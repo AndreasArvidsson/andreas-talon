@@ -14,13 +14,21 @@ settings():
 jest:                    code.complete()
 jest param:              user.vscode("editor.action.triggerParameterHints")
 format document:         user.format_document()
-imports organize:        user.vscode("editor.action.organizeImports")
-imports add:             user.vscode_add_missing_imports()
+refactor this:           user.vscode("editor.action.refactor")
+comment:                 code.toggle_comment()
+
+# Problems
 problem next:            user.vscode("editor.action.marker.nextInFiles")
 problem last:            user.vscode("editor.action.marker.prevInFiles")
 problem fix:             user.vscode("problems.action.showQuickFixes")
-refactor this:           user.vscode("editor.action.refactor")
-comment:                 code.toggle_comment()
+
+# Imports
+imports organize:        user.vscode("editor.action.organizeImports")
+imports add:             user.vscode_add_missing_imports()
+imports fix:
+    user.vscode_add_missing_imports()
+    sleep(0.1)
+    user.vscode("editor.action.organizeImports")
 
 # Split
 split up:                user.vscode("workbench.action.moveEditorToAboveGroup")
