@@ -95,6 +95,9 @@ class UserActions:
     def comments_insert_block(text: str = ""):
         insert_snippet(f"/* {text}$0 */")
 
+    def comments_insert_docstring(text: str = ""):
+        insert_snippet(f"/** {text}$0 */")
+
     # Selection statements
     def code_if():
         snip_func("if")

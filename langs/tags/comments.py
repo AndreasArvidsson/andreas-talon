@@ -12,3 +12,6 @@ class Actions:
 
     def comments_insert_block(text: str = ""):
         """Insert block comment"""
+
+    def comments_insert_docstring(text: str = ""):
+        """Insert documentation string/comment"""

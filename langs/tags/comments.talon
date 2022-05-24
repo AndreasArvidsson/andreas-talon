@@ -12,3 +12,5 @@ make block comment:   user.comments_insert_block()
 make block comment <user.text>$:
     text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
     user.comments_insert_block(text)
+
+make dock string:     user.comments_insert_docstring()
