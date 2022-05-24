@@ -136,7 +136,7 @@ class Actions:
 
     def clipboard_manager_copy(numbers: list[int]):
         """Copy from clipboard manager"""
-        text, images = get_content(numbers)
+        items, text, images = get_content(numbers)
         actions.user.clipboard_manager_hide()
         if text and images:
             error("Can't copy text and images at once")
@@ -146,10 +146,11 @@ class Actions:
             clip.set_text(text)
         elif images:
             clip.set_image(images[0])
+        move_last(items)
 
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
-        text, images = get_content(numbers)
+        items, text, images = get_content(numbers)
         actions.user.clipboard_manager_hide()
         if text:
             clip.set_text(text)
@@ -160,6 +161,13 @@ class Actions:
         for image in images:
             clip.set_image(image)
             actions.edit.paste()
+        move_last(items)
+
+
+def move_last(items: list[ClipItem]):
+    for item in items:
+        clip_history.remove(item)
+        clip_history.insert(0, item)
 
 
 def append(history: list[ClipItem], item: ClipItem):
@@ -168,21 +176,23 @@ def append(history: list[ClipItem], item: ClipItem):
         indexes = [i for i, item2 in enumerate(history) if item.text == item2.text]
         if indexes:
             history.pop(indexes[0])
-    history.append(item)
+    history.insert(0, item)
 
 
 def get_content(numbers: list[int]):
+    items = []
     texts = []
     images = []
     for number in numbers:
         validate_number(number)
         item = clip_history[number - 1]
+        items.append(item)
         if item.image:
             images.append(item.image)
         else:
             texts.append(item.text)
     text = "\n".join(texts)
-    return text, images
+    return items, text, images
 
 
 def validate_number(number: range):
