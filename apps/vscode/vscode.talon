@@ -7,7 +7,7 @@ tag(): user.tabs
 tag(): user.find
 tag(): user.cursorless_experimental_snippets
 
-settings():
+settings(): 
     user.scroll_step = 600
 
 # Language features
