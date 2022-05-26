@@ -7,7 +7,7 @@ tag(): user.npm
 tag(): user.yarn
 
 vscode install:
-    "vsce package -o bundle.vsix && code --install-extension bundle.vsix\n"
+    "vsce package -o bundle.vsix && code --install-extension bundle.vsix --force\n"
 
 vscode package:
     "vsce package\n"
