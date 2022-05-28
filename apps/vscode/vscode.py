@@ -99,6 +99,10 @@ class CodeActions:
 
 @ctx.action_class("edit")
 class EditActions:
+    def save():
+        vscode("hideSuggestWidget")
+        actions.next()
+
     def select_none():
         key("escape")
 
@@ -302,6 +306,7 @@ class Actions:
 
     def save_without_formatting():
         """Save current document without formatting"""
+        vscode("hideSuggestWidget")
         vscode("workbench.action.files.saveWithoutFormatting")
 
     def format_document():
