@@ -7,7 +7,7 @@ tag(): user.tabs
 tag(): user.find
 tag(): user.cursorless_experimental_snippets
 
-settings(): 
+settings():
     user.scroll_step = 600
 
 # Language features
@@ -192,6 +192,8 @@ shrink columns:          user.vscode("rainbow-csv.Shrink")
     user.cursorless_use_develop()
 ^cursorless record$:
     user.vscode("cursorless.recordTestCase")
+^cursorless highlight record$:
+    user.cursorless_record_highlight_test()
 copy <user.cursorless_target>:
     user.cursorless_command("copyToClipboard", cursorless_target)
     user.clipboard_manager_update()

@@ -386,6 +386,10 @@ class Actions:
             {"kind": "source.addMissingImports", "apply": "first"},
         )
 
+    def cursorless_record_highlight_test():
+        """Run cursorless record highlight test"""
+        vscode("cursorless.recordTestCase", {"isDecorationsTest": True})
+
 
 def empty_selection():
     if edit.selected_text():
