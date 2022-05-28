@@ -51,6 +51,8 @@ javascript_inserts = merge(
         "let": "let ",
         "throw": "throw ",
         "static": "static ",
+        "get": "get ",
+        "set": "set ",
     },
 )
 ctx.lists["self.code_insert"] = javascript_inserts
@@ -62,6 +64,9 @@ ctx.lists["self.code_snippet"] = {
     "arrow function": """($1) => {
         \t$0
     }""",
+    "self calling arrow function": """(() => {
+        \t$0
+    })();""",
 }
 
 
