@@ -200,7 +200,7 @@ copy <user.cursorless_target>:
 cut <user.cursorless_target>:
     user.cursorless_command("cutToClipboard", cursorless_target)
     user.clipboard_manager_update()
-break <user.cursorless_target>:
+break line <user.cursorless_target>:
     user.cursorless_command("setSelectionBefore", cursorless_target)
     key("enter")
 

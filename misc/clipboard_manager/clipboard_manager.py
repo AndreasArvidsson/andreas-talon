@@ -204,7 +204,7 @@ def shrink():
     global clip_history
     max_rows = setting_clipboard_manager_max_rows.get()
     if len(clip_history) > max_rows:
-        clip_history = clip_history[-max_rows:]
+        clip_history = clip_history[:max_rows]
 
 
 def error(msg: str):
