@@ -103,7 +103,9 @@ def capture_to_words(m):
             actions.dictate.replace_words(actions.dictate.parse_words(item))
             if isinstance(item, grammar.vm.Phrase)
             else [item])
-    return actions.user.lower_swedish_words(words)
+    words = actions.user.homophones_replace_words(words)
+    words = actions.user.lower_swedish_words(words)
+    return words
 
 # There must be a simpler way to do this, but I don't see it right now.
 no_space_after = re.compile(r"""

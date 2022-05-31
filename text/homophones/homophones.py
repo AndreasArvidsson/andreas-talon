@@ -2,6 +2,7 @@ from talon import Context, Module, app, imgui, actions, ui, fs
 from talon import fs
 import os
 import re
+import time
 
 # a list of homophones where each line is a comma separated list
 # e.g. where,wear,ware
@@ -15,6 +16,7 @@ mod.mode("homophones")
 cwd = os.path.dirname(os.path.realpath(__file__))
 homophones_file = os.path.join(cwd, "homophones.csv")
 main_screen = ui.main_screen()
+homophones_last_used = {}
 
 
 @imgui.open(x=main_screen.x, y=main_screen.y)
@@ -31,21 +33,29 @@ def gui(gui: imgui.GUI):
         actions.user.homophones_hide()
 
 
+def update_used(word: str):
+    homophones = get_list(word)
+    for homophone in homophones:
+        homophones_last_used[homophone] = {"word": word, "time": time.time()}
+
+
 @mod.action_class
 class Actions:
-    def homophones_get(word: str) -> list[str] or None:
-        """Get homophones for the given word"""
-        word = word.lower().strip()
-        if word in all_homophones:
-            return all_homophones[word]
-        return None
+    def homophones_get(word: str) -> list[str]:
+        """Get homophones for the given word. Used by the phones action in cursorless"""
+        homophones = get_list(word)
+        # Since this is only used by cursorless we can assume that the next word will be used
+        update_used(get_next(word, homophones))
+        return homophones
 
     def homophones_get_by_number(word: str, number: int) -> str:
         """Get homophone for the given word and number"""
         list = get_list(word).copy()
         list.remove(word)
         list.insert(0, word)
-        return get_from_list(list, number)
+        homophone = get_from_list(list, number)
+        update_used(homophone)
+        return homophone
 
     def homophones_show_selected():
         """Show homophones selection if the selected word is a homophone"""
@@ -68,8 +78,8 @@ class Actions:
             return
 
         homophones = get_list(word)
-        index = (homophones.index(word.lower().strip()) + 1) % len(homophones)
-        homophone = homophones[index]
+        homophone = get_next(word, homophones)
+        update_used(homophone)
         new_word = format_homophone(word, homophone)
         actions.insert(new_word)
 
@@ -80,19 +90,31 @@ class Actions:
 
     def homophones_select(number: int) -> str:
         """Selects the alternative by number"""
-        global active_word, pad_left, pad_right
+        homophone = get_from_list(active_word_list, number)
 
-        word = get_from_list(active_word_list, number)
+        if active_word != homophone:
+            update_used(homophone)
+            actions.insert(homophone)
 
-        if active_word == word:
-            actions.user.homophones_hide()
-            return
-
-        actions.insert(word)
         actions.user.homophones_hide()
 
+    def homophones_replace_words(words: list[str]) -> list[str]:
+        """Replace words with recently chosen homophones"""
+        for i, word in enumerate(words):
+            if word in homophones_last_used:
+                used = homophones_last_used[word]
+                # Reuse homophones used the last five minutes
+                if time.time() - used["time"] < 5 * 60:
+                    words[i] = used["word"]
+        return words
 
-def get_list(word: str) -> list[str]:
+
+def get_next(word: str, homophones: list[str]):
+    index = (homophones.index(word.lower().strip()) + 1) % len(homophones)
+    return homophones[index]
+
+
+def get_list(word: str):
     word_lower = word.lower().strip()
     if word_lower not in all_homophones:
         msg = f"Found no homophones for: {word.strip()}"

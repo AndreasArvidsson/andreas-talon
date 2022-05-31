@@ -6,7 +6,7 @@ round, parentheses
 skis, backtickQuotes
 index | square, squareBrackets
 twin, singleQuotes
-void, whitespace
+void | space, whitespace
 pair, any
 -escaped quad, escapedDoubleQuotes
 -escaped twin, escapedSingleQuotes
