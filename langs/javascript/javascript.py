@@ -64,7 +64,7 @@ ctx.lists["self.code_snippet"] = {
     "arrow function": """($1) => {
         \t$0
     }""",
-    "self calling arrow function": """(() => {
+    "self calling function": """(() => {
         \t$0
     })();""",
 }
