@@ -207,7 +207,7 @@ class UserActions:
 
     # ----- Tabs -----
     def tab_back():
-        vscode("workbench.action.openPreviousRecentlyUsedEditor")
+        vscode("workbench.action.openPreviousRecentlyUsedEditorInGroup")
 
     def tab_final():
         vscode("workbench.action.lastEditorInGroup")
