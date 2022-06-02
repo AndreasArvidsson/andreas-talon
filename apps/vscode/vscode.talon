@@ -103,8 +103,6 @@ file copy path:          user.vscode("copyFilePath")
 pop file:                user.vscode("workbench.action.openPreviousRecentlyUsedEditorInGroup")
 git open file:           user.git_open_working_file_url()
 git copy file:           user.git_copy_working_file_url()
-git open line:           user.git_open_working_file_url(1)
-git copy line:           user.git_copy_working_file_url(1)
 
 # Folding
 fold this:               user.vscode("editor.fold")
@@ -209,6 +207,12 @@ cut <user.cursorless_target>:
 break line <user.cursorless_target>:
     user.cursorless_command("setSelectionBefore", cursorless_target)
     key("enter")
+git open <user.cursorless_target>:
+    user.cursorless_command("setSelection", cursorless_target)
+    user.git_open_working_file_url(1)
+git copy <user.cursorless_target>:
+    user.cursorless_command("setSelection", cursorless_target)
+    user.git_copy_working_file_url(1)
 
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")
