@@ -82,9 +82,6 @@ panel clear:             user.vscode("workbench.debug.panel.action.clearReplActi
 <user.vscode_panel> snap {user.resize_size}:
     user.vscode_resize_panel(vscode_panel, resize_size)
 
-# Focus editor
-focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
-
 # Hide sidebar and panel
 hide all:
     user.vscode("workbench.action.closeSidebar")
@@ -129,6 +126,7 @@ cursor expand:           user.vscode("editor.action.smartSelect.expand")
 cursor shrink:           user.vscode("editor.action.smartSelect.shrink")
 pop back:                user.vscode("workbench.action.openPreviousRecentlyUsedEditor")
 pop forward:             user.vscode("workbench.action.openNextRecentlyUsedEditor")
+focus editor:            user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Debug and run
 build program:           user.vscode("workbench.action.tasks.build")
@@ -219,6 +217,9 @@ git open <user.cursorless_target>:
 git copy <user.cursorless_target>:
     user.cursorless_command("setSelection", cursorless_target)
     user.git_copy_working_file_url(1)
+paste <number_small> [and <number_small>]* <user.cursorless_positional_target>:
+    user.clipboard_manager_copy(number_small_list)
+    user.cursorless_command("pasteFromClipboard", cursorless_positional_target)
 
 # Misc
 install extension:       user.vscode("workbench.extensions.action.installVSIX")

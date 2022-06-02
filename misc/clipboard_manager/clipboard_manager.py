@@ -27,13 +27,15 @@ setting_clipboard_manager_max_cols = mod.setting(
 
 clip_history: list[ClipItem] = []
 ignore_next: bool = False
+sticky: bool = False
 
 
 @imgui.open()
 def gui(gui: imgui.GUI):
     max_rows = setting_clipboard_manager_max_rows.get()
     max_cols = setting_clipboard_manager_max_cols.get()
-    gui.text(f"Clipboard ({len(clip_history)} / {max_rows})")
+    sticky_text = " - STICKY" if sticky else ""
+    gui.text(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
     gui.line()
 
     for i, item in enumerate(clip_history):
@@ -70,6 +72,11 @@ class Actions:
         else:
             actions.mode.enable("user.clipboard_manager")
             gui.show()
+
+    def clipboard_manager_toggle_sticky():
+        """Toggle if the clipboard managers should be sticky"""
+        global sticky
+        sticky = not sticky
 
     def clipboard_manager_hide():
         """Hide clipboard manager"""
@@ -115,7 +122,7 @@ class Actions:
         # Remove entire history
         else:
             clip_history = []
-            actions.user.clipboard_manager_hide()
+            hide_if_not_sticky()
 
     def clipboard_manager_split(numbers: list[int]):
         """Split clipboard content on new line to add new items to clipboard manager history"""
@@ -137,7 +144,6 @@ class Actions:
     def clipboard_manager_copy(numbers: list[int]):
         """Copy from clipboard manager"""
         items, text, images = get_content(numbers)
-        actions.user.clipboard_manager_hide()
         if text and images:
             error("Can't copy text and images at once")
         elif len(images) > 1:
@@ -147,11 +153,11 @@ class Actions:
         elif images:
             clip.set_image(images[0])
         move_last(items)
+        hide_if_not_sticky()
 
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
         items, text, images = get_content(numbers)
-        actions.user.clipboard_manager_hide()
         if text:
             clip.set_text(text)
             if match_style:
@@ -162,6 +168,12 @@ class Actions:
             clip.set_image(image)
             actions.edit.paste()
         move_last(items)
+        hide_if_not_sticky()
+
+
+def hide_if_not_sticky():
+    if not sticky:
+        actions.user.clipboard_manager_hide()
 
 
 def move_last(items: list[ClipItem]):
