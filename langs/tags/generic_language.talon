@@ -62,6 +62,10 @@ var {user.code_variable_modifier}* [{user.code_data_type}] <user.text> equals:
 type {user.code_data_type}:   "{code_data_type}"
 is type {user.code_data_type}:
     user.code_insert_type_annotation(code_data_type)
+is type <user.text>:
+    format = user.code_get_class_format()
+    data_type = user.format_text(text, format)
+    user.code_insert_type_annotation(data_type)
 returns type {user.code_data_type}:
     user.code_insert_return_type(code_data_type)
 

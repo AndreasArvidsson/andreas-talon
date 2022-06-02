@@ -53,6 +53,7 @@ javascript_inserts = merge(
         "static": "static ",
         "get": "get ",
         "set": "set ",
+        "nullish": " ?? ",
     },
 )
 ctx.lists["self.code_insert"] = javascript_inserts
@@ -67,6 +68,8 @@ ctx.lists["self.code_snippet"] = {
     "self calling function": """(() => {
         \t$0
     })();""",
+    "error": "throw Error($0)",
+    "tertiary": "$1 ? $2 : $0",
 }
 
 

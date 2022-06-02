@@ -12,6 +12,9 @@ settings():
 
 # Language features
 jest:                    code.complete()
+jest first:
+    code.complete()
+    key(tab)
 jest param:              user.vscode("editor.action.triggerParameterHints")
 format document:         user.format_document()
 refactor this:           user.vscode("editor.action.refactor")
@@ -172,6 +175,9 @@ scout symbol [<user.text>]$:
 scout all symbol [<user.text>]$:
     user.vscode("workbench.action.showAllSymbols")
     "{text}"
+
+# Find miscellaneous
+scout again:             user.vscode("rerunSearchEditorSearch")
 
 # Settings
 open settings json:
