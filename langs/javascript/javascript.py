@@ -57,15 +57,21 @@ javascript_inserts = merge(
     },
 )
 ctx.lists["self.code_insert"] = javascript_inserts
+
+for_in_loop = """for (const $1 in $2) {
+    \t$0
+}"""
+arrow_function = """($1) => {
+    \t$0
+}"""
+
 ctx.lists["self.code_snippet"] = {
     "item": "$1: $0,",
-    "for in loop": """for (const $1 in $2) {
-        \t$0
-    }""",
-    "arrow function": """($1) => {
-        \t$0
-    }""",
-    "self calling function": """(() => {
+    "for in loop": for_in_loop,
+    "for in": for_in_loop,
+    "arrow function": arrow_function,
+    "lambda": arrow_function,
+    "self calling": """(() => {
         \t$0
     })();""",
     "error": "throw Error($0)",

@@ -13,8 +13,8 @@ make catch:                   user.code_catch()
 make try catch:               user.code_try_catch()
 
 # ----- Iteration statements -----
-make for loop:                user.code_for()
-make while loop:              user.code_while()
+make for [loop]:              user.code_for()
+make while [loop]:            user.code_while()
 make do while [loop]:         user.code_do_while()
 make foreach [loop]:          user.code_foreach()
 
