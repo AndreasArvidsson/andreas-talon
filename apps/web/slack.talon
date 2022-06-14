@@ -7,7 +7,7 @@ edit:                    key(e)
 sidebar (show | hide):   key(ctrl-shift-d)
 panel (show | hide):     key(ctrl-.)
 
-all unreads:             key(ctrl-shift-a)
+go unreads:              key(ctrl-shift-a)
 direct messages:         key(ctrl-shift-k)
 
 scout channel [<user.text>]:
@@ -18,12 +18,12 @@ pop channel <user.text>:
     "{text}"
     sleep(400ms)
     key(enter)
-pop threads:
+go threads:
     key(ctrl-k)
     "Threads"
     sleep(400ms)
     key(enter)
-pop drafts:
+go drafts:
     key(ctrl-k)
     "Drafts"
     sleep(400ms)
