@@ -33,5 +33,5 @@ edit last:                   key(ctrl-up)
 edit:                        key(e)
 
 format code:                 key(ctrl-shift-c)
-format code block:           key(ctrl-alt-shift-c)
+format [code] block:         key(ctrl-alt-shift-c)
 format quote:                key(ctrl-shift-9)
