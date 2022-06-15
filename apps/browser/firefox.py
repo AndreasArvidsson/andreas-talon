@@ -56,7 +56,7 @@ class BrowserActions:
     def toggle_dev_tools():     key("ctrl-shift-i")
     def go(url: str):
         actions.browser.focus_address()
-        actions.sleep("50ms")
+        actions.sleep(0.05)
         actions.insert(url)
         key("enter")
 
@@ -67,6 +67,14 @@ class AppActions:
         key("escape ctrl-alt-M")
     def preferences():
         actions.user.browser_open("about:preferences")
+
+@ctx.action_class("edit")
+class EditActions:
+    def find(text: str = None):
+        key("ctrl-f")
+        if text:
+            actions.sleep(0.05)
+            actions.insert(text)
 
 
 @ctx.action_class("user")
@@ -80,7 +88,7 @@ class UserActions:
 
     def browser_open(url: str):
         actions.browser.focus_address()
-        actions.sleep("50ms")
+        actions.sleep(0.05)
         actions.insert(url)
         key("alt-enter")
 
