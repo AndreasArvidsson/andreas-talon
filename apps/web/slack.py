@@ -1,4 +1,4 @@
-from talon import Context, actions, Module
+from talon import Context, Module, actions
 
 ctx = Context()
 mod = Module()
@@ -20,3 +20,13 @@ class EditActions:
 
     def line_insert_down():
         actions.key("end ctrl-enter")
+
+
+@mod.action_class
+class UserActions:
+    def slack_open_search_result(search: str):
+        """Opens the given search result on slack"""
+        actions.key("ctrl-k")
+        actions.insert(search)
+        actions.sleep(0.4)
+        actions.key("enter")
