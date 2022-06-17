@@ -14,7 +14,7 @@ ctx.matches = r"""
 app: robomongo
 """
 
-ctx.tags = ["user.comment", "user.tabs"]
+ctx.tags = ["user.comments", "user.tabs"]
 
 
 @ctx.action_class("app")

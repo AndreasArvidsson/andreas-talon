@@ -5,6 +5,7 @@ tag(): user.navigation
 tag(): user.zoom
 tag(): user.tabs
 tag(): user.find
+tag(): user.comments
 tag(): user.cursorless_experimental_snippets
 
 settings():
@@ -18,7 +19,6 @@ jest first:
 jest param:              user.vscode("editor.action.triggerParameterHints")
 format document:         user.format_document()
 refactor this:           user.vscode("editor.action.refactor")
-comment:                 code.toggle_comment()
 
 # Problems
 problem next:            user.vscode("editor.action.marker.nextInFiles")

@@ -1,6 +1,7 @@
 tag: user.comments
 -
 
+comment:              code.toggle_comment()
 make comment:         user.comments_insert()
 
 make comment <user.text>$:
