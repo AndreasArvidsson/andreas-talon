@@ -96,8 +96,15 @@ file open:               user.vscode("workbench.action.files.openFile")
 file new:                user.vscode("explorer.newFile")
 file open folder:        user.vscode("revealFileInOS")
 file reveal:             user.vscode("workbench.files.action.showActiveFileInExplorer")
-file copy path:          user.vscode("copyFilePath")
-file copy relative:      user.vscode("copyRelativeFilePath")
+file copy path:
+    user.vscode("copyFilePath")
+    user.clipboard_manager_update()
+file copy relative:
+    user.vscode("copyRelativeFilePath")
+    user.clipboard_manager_update()
+file copy name:
+    user.vscode("fileutils.copyFileName")
+    user.clipboard_manager_update()
 file clone:              user.vscode("fileutils.duplicateFile")
 file rename:             user.vscode("fileutils.renameFile")
 file remove:             user.vscode("fileutils.removeFile")
