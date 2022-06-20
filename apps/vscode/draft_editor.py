@@ -59,5 +59,5 @@ def close_editor(submit_draft: bool):
     actions.app.tab_close()
     actions.user.focus_window(original_window)
     if submit_draft:
-        actions.insert(selected_text)
         last_draft = selected_text
+        actions.insert(selected_text)
