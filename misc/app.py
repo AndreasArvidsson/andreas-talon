@@ -52,3 +52,19 @@ class AppActionsWin:
         actions.key("alt-space")
         actions.sleep("50ms")
         actions.key("n")
+
+
+# ----- LINUX -----
+
+ctx_linux = Context()
+ctx_linux.matches = r"""
+os: linux
+"""
+
+
+@ctx_linux.action_class("app")
+class AppActionsLinux:
+    def window_hide():
+        actions.key("alt-space")
+        actions.sleep("200ms")
+        actions.key("space")
