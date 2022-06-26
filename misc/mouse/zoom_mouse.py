@@ -16,6 +16,7 @@ class Actions:
         """Toggle zoom mouse"""
         if enabled == None:
             enabled = not eye_zoom_mouse.zoom_mouse.enabled
+        enabled = enabled and eye_zoom_mouse.tracker is not None
         eye_zoom_mouse.toggle_zoom_mouse(enabled)
         if enabled:
             # Unregistered zoom mouse built in pop event.
