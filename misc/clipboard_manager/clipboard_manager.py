@@ -130,9 +130,9 @@ class Actions:
         for number in numbers:
             validate_number(number)
         new_history = []
-        for i, item in enumerate(clip_history):
+        for i, item in reversed(list(enumerate(clip_history))):
             if i + 1 in numbers and item.text:
-                for line in item.text.split("\n"):
+                for line in reversed(item.text.split("\n")):
                     line = line.strip()
                     if line:
                         append(new_history, ClipItem(line, None))
