@@ -9,7 +9,7 @@ tag(): user.comments
 tag(): user.cursorless_experimental_snippets
 
 settings():
-    user.scroll_step = 600
+    user.scroll_step = 0.025
 
 # Language features
 jest:                    code.complete()

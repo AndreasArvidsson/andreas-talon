@@ -27,7 +27,7 @@ settings():
     user.debug_timings = 0
 
     # Mouse scroll step
-    user.scroll_step = 500
+    user.scroll_step = 0.02
 
     # Clipboard manager settings
     user.clipboard_manager_max_rows = 25

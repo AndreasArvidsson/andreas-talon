@@ -19,7 +19,7 @@ ctx.lists["self.mouse_click"] = {
     "control": "control",
 }
 
-setting_scroll_step = mod.setting("scroll_step", type=int, default=120)
+setting_scroll_step = mod.setting("scroll_step", type=float, default=0.02)
 
 scroll_job = None
 gaze_job = None
@@ -89,10 +89,10 @@ class Actions:
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
         stop_zoom()
-        amount = get_scroll_step() * times
+        amount = times
         if direction == "up":
             amount = -amount
-        actions.mouse_scroll(y=amount)
+        actions.mouse_scroll(by_lines=True, y=amount)
 
     def mouse_scrolling(direction: str):
         """Toggle scrolling continuously"""
@@ -178,12 +178,6 @@ class Actions:
         ctrl.mouse_move(rect.center.x, rect.center.y)
 
 
-def get_scroll_step():
-    if app.platform == "linux":
-        return setting_scroll_step.get() * 0.1
-    return setting_scroll_step.get()
-
-
 def stop_zoom():
     if not actions.user.zoom_mouse_idle():
         actions.user.zoom_mouse_cancel()
@@ -205,8 +199,12 @@ def stop_scroll():
 
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
+        x, y = ctrl.mouse_pos()
+        screen = get_screen_for_cursor(x, y)
+        if screen is None:
+            return
         p = scroll_speed / 100
-        amount = int(p * get_scroll_step() / 20)
+        amount = int(p * screen.rect.height * setting_scroll_step.get())
         amount = max(amount, 1)
         actions.mouse_scroll(by_lines=False, y=amount * scroll_dir)
 
@@ -214,26 +212,32 @@ def scroll_continuous_helper():
 def scroll_gaze_helper():
     if actions.user.zoom_mouse_idle():
         x, y = ctrl.mouse_pos()
-
-        # the rect for the window containing the mouse
-        rect = None
-
-        # on windows, check the active_window first since ui.windows() is not z-ordered
-        if app.platform == "windows" and ui.active_window().rect.contains(x, y):
-            rect = ui.active_window().rect
-        else:
-            windows = ui.windows()
-            for w in windows:
-                if w.rect.contains(x, y):
-                    rect = w.rect
-                    break
-
-        if rect is None:
+        window = get_window_for_cursor(x, y)
+        if window is None:
             return
-
+        rect = window.rect
         midpoint = rect.y + rect.height / 2
         amount = int(((y - midpoint) / (rect.height / 10)) ** 3)
         actions.mouse_scroll(by_lines=False, y=amount)
+
+
+def get_screen_for_cursor(x: float, y: float):
+    for screen in ui.screens():
+        if screen.rect.contains(x, y):
+            return screen
+    return None
+
+
+def get_window_for_cursor(x: float, y: float):
+    # on windows, check the active_window first since ui.windows() is not z-ordered
+    if app.platform == "windows" and ui.active_window().rect.contains(x, y):
+        return ui.active_window()
+
+    for window in ui.windows():
+        if window.rect.contains(x, y):
+            return window
+
+    return None
 
 
 app.register("launch", lambda: actions.user.mouse_wake())
