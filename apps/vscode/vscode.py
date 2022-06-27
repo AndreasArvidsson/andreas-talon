@@ -395,6 +395,19 @@ class Actions:
         """Run cursorless record highlight test"""
         vscode("cursorless.recordTestCase", {"isDecorationsTest": True})
 
+    def find_sibling_file():
+        """Find sibling file based on file name"""
+        full_name = actions.user.vscode_get("andreas.getFileName")
+        index = full_name.rfind(".")
+        if index < 0:
+            return
+        short_name = full_name[:index]
+        extension = full_name[index+1:]
+        sibling_extension = actions.user.get_extension_sibling(extension)
+        if not sibling_extension:
+            return
+        sibling_full_name = f"{short_name}.{sibling_extension}"
+        actions.user.find_file(sibling_full_name)
 
 def empty_selection():
     if edit.selected_text():

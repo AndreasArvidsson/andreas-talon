@@ -103,12 +103,16 @@ file copy relative:
     user.vscode("copyRelativeFilePath")
     user.clipboard_manager_update()
 file copy name:
-    user.vscode("fileutils.copyFileName")
-    user.clipboard_manager_update()
+    name = user.vscode_get("andreas.getFileName")
+    clip.set_text(name)
 file clone:              user.vscode("fileutils.duplicateFile")
 file rename:             user.vscode("fileutils.renameFile")
 file remove:             user.vscode("fileutils.removeFile")
 file move:               user.vscode("fileutils.moveFile")
+pop sibling:
+    user.find_sibling_file()
+    sleep(100ms)
+    key(enter)
 git open file:           user.git_open_working_file_url()
 git copy file:           user.git_copy_working_file_url()
 

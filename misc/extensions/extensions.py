@@ -46,3 +46,25 @@ ctx.lists["self.domain"] = {
     "org":            "org",
     "sweden":         "se",
 }
+
+extension_siblings = {
+    "talon":        "py",
+    "py":           "talon",
+    "c":            "h",
+    "cpp":          "h",
+    "h":            "c",
+    "tsx":          "ts",
+    "jsx":          "js",
+    "ts":           "tsx",
+    "js":           "jsx",
+}
+
+# fmt: on
+
+@mod.action_class
+class UserActions:
+    def get_extension_sibling(extension: str) -> str:
+        """Get matching sibling for extension"""
+        if extension in extension_siblings:
+            return extension_siblings[extension]
+        return None
