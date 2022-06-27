@@ -16,7 +16,7 @@ make try catch:               user.code_try_catch()
 make for [loop]:              user.code_for()
 make while [loop]:            user.code_while()
 make do while [loop]:         user.code_do_while()
-make foreach [loop]:          user.code_foreach()
+make for each [loop]:         user.code_foreach()
 
 # ----- Miscellaneous statements -----
 make true:                    user.code_true()
