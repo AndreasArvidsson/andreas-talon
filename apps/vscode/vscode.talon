@@ -111,7 +111,7 @@ file remove:             user.vscode("fileutils.removeFile")
 file move:               user.vscode("fileutils.moveFile")
 pop sibling:
     user.find_sibling_file()
-    sleep(100ms)
+    sleep(150ms)
     key(enter)
 git open file:           user.git_open_working_file_url()
 git copy file:           user.git_copy_working_file_url()
