@@ -10,14 +10,12 @@ mod = Module()
 mod.tag("vscode_notebook")
 
 mod.apps.vscode = """
-os: linux
-and app.name: Code
-"""
-mod.apps.vscode = """
 os: windows
 and app.name: Visual Studio Code
 os: windows
 and app.exe: Code.exe
+os: linux
+and app.name: Code
 """
 
 
