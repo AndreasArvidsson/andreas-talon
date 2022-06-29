@@ -148,7 +148,7 @@ class Actions:
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
         global mouse_control
-        mouse_control = not config.control_mouse
+        mouse_control = not config.control_mouse and eye_mouse.tracker is not None
         toggle_control(mouse_control)
         actions.user.notify(f"Control mouse: {mouse_control}")
 
