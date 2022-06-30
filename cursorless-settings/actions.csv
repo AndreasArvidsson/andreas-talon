@@ -48,3 +48,4 @@ highlight, highlight
 -cut, cutToClipboard
 -shuffle, randomizeTargets
 -define, revealDefinition
+-snippet, insertSnippet

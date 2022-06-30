@@ -5,3 +5,4 @@ if else, ifElseStatement.consequence
 try, tryCatchStatement.body
 
 -link, link.text
+-funk, functionDeclaration.body
