@@ -160,6 +160,10 @@ debug test:
     user.vscode("workbench.action.debug.selectandstart")
     "extension tests"
     key(enter)
+debug subset:
+    user.vscode("workbench.action.debug.selectandstart")
+    "run test subset"
+    key(enter)
 run task compile:
     user.vscode("workbench.action.tasks.runTask")
     "compile"
