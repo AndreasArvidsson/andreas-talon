@@ -17,9 +17,8 @@ git cherry pick:            "git cherry-pick "
 git rebase:                 "git rebase "
 
 git merge:                  "git merge "
-git merge master:           "git merge master"
-git merge main:             "git merge main"
-git merge develop:          "git merge develop"
+git merge {user.git_branch}:
+    "git merge {git_branch}"
 
 git remote:                 "git remote "
 git remote verbose:         "git remote -v\n"
@@ -36,13 +35,12 @@ git fetch upstream:         "git fetch upstream\n"
 git fetch prune:            "git fetch --prune origin\n"
 
 git checkout:               "git checkout "
+git checkout {user.git_branch}:
+    "git checkout {git_branch}\n"
 git checkout <user.text>:   "git checkout {text}"
 git checkout branch:        "git checkout -b "
 git checkout branch <user.text>:
     "git checkout -b {text}"
-git checkout master:        "git checkout master\n"
-git checkout main:          "git checkout main\n"
-git checkout develop:       "git checkout develop\n"
 git checkout last:          "git checkout -\n"
 
 git add:                    "git add "

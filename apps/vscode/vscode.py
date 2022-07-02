@@ -331,6 +331,12 @@ class Actions:
         if url:
             actions.clip.set_text(url)
 
+    def git_find_branch(text: str = None):
+        """Fined git branch"""
+        vscode("git.checkout")
+        if text:
+            insert(text)
+
     def vscode_take_word(cursorless_target: dict, repeats: int):
         """Take word on cursorless target with number of repeats"""
         actions.user.cursorless_command("setSelection", cursorless_target)

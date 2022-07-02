@@ -185,6 +185,12 @@ pop sesh:
     user.vscode_find_recent("", 1)
     key(enter)
 
+# Find git branch
+scout branch [{user.git_branch}]:
+    user.git_find_branch(git_branch or "")
+scout branch [<user.text>]:
+    user.git_find_branch(text or "")
+
 # Find a symbol
 scout symbol [<user.text>]$:
     user.vscode("workbench.action.gotoSymbol")

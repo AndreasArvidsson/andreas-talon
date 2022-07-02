@@ -1,7 +1,16 @@
-from talon import Module, actions
+from talon import Module, Context, actions
 
 mod = Module()
+ctx = Context()
 mod.tag("git")
+
+mod.list("git_branch", desc="List of common git branches")
+ctx.lists["user.git_branch"] = {
+    "master",
+    "main",
+    "develop",
+}
+
 
 @mod.action_class
 class Action:
