@@ -24,13 +24,13 @@ password generate:
 # Vimium
 tab split:   app.tab_detach()
 
-hunt:
+hunting:
     user.stop_app()
     key(escape ctrl-alt-f)
-hunt new:
+hunting new:
     user.stop_app()
     key(escape ctrl-alt-F)
-hunt open:
+hunting open:
     user.stop_app()
     key(escape ctrl-alt-g)
 
