@@ -49,21 +49,20 @@ def text(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
-
-@mod.capture(rule=text_rule)
-def prose(m) -> str:
-    """Same as <user.text>, but auto-spaced & capitalized."""
-    text, _state = auto_capitalize(format_phrase(m))
-    return text
-
-
 @mod.capture(rule=text_rule.replace("{user.key_punctuation}", "{user.key_punctuation_code}"))
 def text_code(m) -> str:
     """Same as <user.text>, but with fewer punctuations"""
     return format_phrase(m)
 
+@mod.capture
+def prose() -> str:
+    """Same as <user.text>, but auto-spaced & capitalized."""
 
-
+# The prose capture needs to be defined on the context to work with Swedish dictation.
+@ctx.capture("user.prose", rule=text_rule)
+def prose(m) -> str:
+    text, _state = auto_capitalize(format_phrase(m))
+    return text
 
 # ----- Dictation mode only -----
 
