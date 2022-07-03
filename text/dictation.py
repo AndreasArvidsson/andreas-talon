@@ -43,7 +43,13 @@ def words(m) -> str:
     return format_phrase(m)
 
 
-text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_prefix> | {user.key_punctuation} | <phrase>)+"
+@mod.capture(rule="{self.letter} {self.letter}+")
+def spell(m) -> str:
+    """Spell word phoneticly"""
+    return "".join(m.letter_list)
+
+
+text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_punctuation} | <phrase>)+"
 
 
 @mod.capture

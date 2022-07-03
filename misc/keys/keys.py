@@ -150,12 +150,6 @@ def key_any(m) -> str:
     return m[0]
 
 
-@mod.capture(rule="spell {self.letter}+")
-def spell(m) -> str:
-    """Spell word phoneticly"""
-    return "".join(m.letter_list)
-
-
 @mod.capture(rule="{self.letter} | {self.key_number} | {self.key_symbol}")
 def any_alphanumeric_key(m) -> str:
     "any alphanumeric key"

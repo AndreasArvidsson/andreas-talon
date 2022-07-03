@@ -15,6 +15,7 @@ ctx.lists["self.code_data_type"] = {
     "number": "number",
     "string": "string",
     "any": "any",
+    "unknown": "unknown",
     "void": "void",
     "null": "null",
     "undefined": "undefined",
