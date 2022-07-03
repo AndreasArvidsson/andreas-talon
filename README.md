@@ -11,7 +11,7 @@ This is a list of features that I have implemented that I think is of more inter
 1. **RePhrase** - Reevaluate spoken phrase after Talon context change. Can for example be used to change to another application/window and execute commands to that window in the same utterance. `"focus firefox tab new"`
    - [window_management.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/misc/window_management/window_management.talon#L1-L5)
    - [window_focus.py](https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/misc/window_management/window_focus.py#L111-L117)
-   - [rephrase.py](<https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/(misc)/rephrase.py>)
+   - [rephrase.py](https://github.com/AndreasArvidsson/andreas-talon/blob/4e1dca1ffabf1e119281265fad0c0229ab38b697/misc/rephrase.py)
 1. **Custom subtitles** - User customizable subtitles for Talon
    - [on_phrase.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/on_phrase.py)
    - [screen.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/screen.py#L39-L42)
