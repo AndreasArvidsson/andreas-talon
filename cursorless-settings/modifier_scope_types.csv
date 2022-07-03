@@ -35,6 +35,7 @@ paint, nonWhitespaceSequence
 location, url
 callee, functionCallee
 selector, selector
+section, section
 
 -five section, sectionLevelFive
 -four section, sectionLevelFour
@@ -42,4 +43,3 @@ selector, selector
 -six section, sectionLevelSix
 -three section, sectionLevelThree
 -two section, sectionLevelTwo
--section, section
