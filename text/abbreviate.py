@@ -1,10 +1,10 @@
 from talon import Context, Module
 
 mod = Module()
+ctx = Context()
 mod.list("abbreviation", desc="Common abbreviation")
 
-ctx = Context()
-ctx.lists["user.abbreviation"] = {
+abbreviations = {
     "address": "addr",
     "administrator": "admin",
     "administrators": "admins",
@@ -225,6 +225,12 @@ ctx.lists["user.abbreviation"] = {
     "window": "win",
     "hertz": "Hz",
 }
+
+ctx.lists["user.abbreviation"] = {
+    **abbreviations,
+    **{v: v for v in abbreviations.values()},
+}
+
 
 @mod.capture(rule="brief {self.abbreviation}")
 def abbreviation(m) -> str:

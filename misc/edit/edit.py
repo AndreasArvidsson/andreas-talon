@@ -122,11 +122,11 @@ class EditActions:
 
     # ----- Miscellaneous -----
     def selected_text() -> str:
-        with clip.capture() as s:
+        with clip.capture() as c:
             actions.user.clipboard_manager_ignore_next()
             edit.copy()
         try:
-            return s.text()
+            return c.text()
         except clip.NoChange:
             return ""
 
@@ -165,7 +165,6 @@ def paste_text(text: str):
 
         if clip.text() != text:
             user.notify("Failed to set clipboard")
-            print(f"Clipboard: '{clip.text()}'")
             return False
 
         edit.paste()
