@@ -76,7 +76,6 @@ ctx.lists["self.key_punctuation"] = {
 # Symbols available in command mode, but NOT during dictation.
 mod.list("key_symbol", desc="All symbols from the keyboard")
 ctx.lists["self.key_symbol"] = {
-    "space":            " ",
     "void":             " ",
     "dot":              ".",
     "point":            ".",

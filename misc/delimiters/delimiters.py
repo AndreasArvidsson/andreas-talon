@@ -5,13 +5,6 @@ ctx = Context()
 
 # fmt: off
 
-mod.list("delimiters_spaced", desc="List of delimiters with trailing white space")
-ctx.lists["self.delimiters_spaced"] = {
-    "spam":     ",",
-    "stacker":  ":",
-    "period":   ".",
-}
-
 mod.list("delimiter_pair", desc="List of matching pair delimiters")
 matching_pairs = {
     "round":    ["(", ")"],

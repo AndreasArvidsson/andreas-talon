@@ -76,6 +76,10 @@ disk:                     edit.save()
 make to do:               "TODO "
 bullet:                   "* "
 checkbox:                 "* [ ] "
+spam:                     ", "
+stacker:                  ": "
+period:                   ". "
+dasher:                   " - "
 arrow:                    user.insert_arrow()
 
 # ----- Cursorless duplication -----
