@@ -73,6 +73,12 @@ ctx.lists["self.key_punctuation"] = {
     "exclamation mark": "!",
 }
 
+# Symbols you want available ONLY in code formatters.
+mod.list("key_punctuation_code", desc="Symbols for inserting punctuation into code formatters")
+ctx.lists["self.key_punctuation_code"] = {
+    "dot":           ".",
+}
+
 # Symbols available in command mode, but NOT during dictation.
 mod.list("key_symbol", desc="All symbols from the keyboard")
 ctx.lists["self.key_symbol"] = {

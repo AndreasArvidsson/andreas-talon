@@ -21,25 +21,17 @@ setting_context_sensitive_dictation = mod.setting(
 # ----- Captures used in both command and dictation mode -----
 
 
-@mod.capture
-def word() -> str:
-    """A single word, including user-defined vocabulary."""
-
-
-@ctx.capture("user.word", rule="{user.vocabulary} | <word>")
+@mod.capture(rule="{user.vocabulary} | <word>")
 def word(m) -> str:
+    """A single word, including user-defined vocabulary."""
     words = capture_to_words(m)
     return words[0]
 
 
 # Used to escape numbers and symbols
-@mod.capture
-def words() -> str:
-    """A sequence of words, including user-defined vocabulary."""
-
-
-@ctx.capture("user.words", rule="({user.vocabulary} | <phrase>)+")
+@mod.capture(rule="({user.vocabulary} | <phrase>)+")
 def words(m) -> str:
+    """A sequence of words, including user-defined vocabulary."""
     return format_phrase(m)
 
 
@@ -52,25 +44,25 @@ def spell(m) -> str:
 text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_punctuation} | <phrase>)+"
 
 
-@mod.capture
-def text() -> str:
-    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
-
-
-@ctx.capture("user.text", rule=text_rule)
+@mod.capture(rule=text_rule)
 def text(m) -> str:
+    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
 
-@mod.capture
-def prose() -> str:
-    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
-
-
-@ctx.capture("user.prose", rule=text_rule)
+@mod.capture(rule=text_rule)
 def prose(m) -> str:
+    """Same as <user.text>, but auto-spaced & capitalized."""
     text, _state = auto_capitalize(format_phrase(m))
     return text
+
+
+@mod.capture(rule=text_rule.replace("{user.key_punctuation}", "{user.key_punctuation_code}"))
+def text_code(m) -> str:
+    """Same as <user.text>, but with fewer punctuations"""
+    return format_phrase(m)
+
+
 
 
 # ----- Dictation mode only -----

@@ -1,8 +1,8 @@
 # Formatted code phrase: "camel hello there" -> helloThere
-<user.formatters_code> <user.text> [over]:
-    user.insert_formatted(text, formatters_code)
-strict <user.formatters_code> <user.text>$:
-    user.insert_formatted(text, formatters_code)
+<user.formatters_code> <user.text_code> [over]:
+    user.insert_formatted(text_code, formatters_code)
+strict <user.formatters_code> <user.text_code>$:
+    user.insert_formatted(text_code, formatters_code)
 
 # Formatted prose phrase: "sentence hello there" -> Hello there
 {user.formatter_prose} <user.prose>$:
@@ -11,8 +11,8 @@ strict <user.formatters_code> <user.text>$:
     user.insert_formatted(prose, formatter_prose)
 
 # Only words, no symbols or numbers
-escape words <user.words>$:       "{words}"
-escape words <user.words> over:   "{words}"
+escape words <user.words>$: "{words}"
+escape words <user.words> over: "{words}"
 
 # Single word
 {user.formatter_word} <user.word>:
@@ -23,10 +23,10 @@ escape words <user.words> over:   "{words}"
     user.insert_formatted(homophone, formatter_word)
 
 # Abbreviated word: breif application -> app
-<user.abbreviation>:              "{abbreviation}"
+<user.abbreviation>:        "{abbreviation}"
 
 # Easy access to specific Swedish phrases
-swe {user.swedish_phrase}:        "{swedish_phrase}"
+swe {user.swedish_phrase}:  "{swedish_phrase}"
 {user.formatter_word} swe {user.swedish_phrase}:
     user.insert_formatted(swedish_phrase, formatter_word)
 

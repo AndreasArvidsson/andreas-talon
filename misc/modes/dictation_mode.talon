@@ -5,17 +5,17 @@ experiment: anchor-file
 -
 
 # Freely dictate text
-<user.prose>:                     "{prose}"
+<user.prose>:               "{prose}"
 
 # Insert the actual words
 # Only words, no symbols or numbers
-escape words <user.words>$:       "{words}"
-escape words <user.words> over:   "{words}"
+escape <user.words>$:       "{words}"
+escape <user.words> over:   "{words}"
 
-new line:
+new line: 
     edit.line_insert_down()
     user.dictation_format_reset()
 
 # Switch to command mode and insert a phrase
-(command mode | over) [<phrase>]$:
+(command mode | over) [<phrase>]$: 
     user.command_mode(phrase or "")
