@@ -24,6 +24,7 @@ make false:                   user.code_false()
 make break:                   user.code_break()
 make continue:                user.code_continue()
 make return:                  user.code_return()
+make link:                    user.code_link()
 
 # ----- Print statements -----
 make print:                   user.code_print("")
