@@ -3,5 +3,6 @@ increment, andreas.increment
 decrement, andreas.decrement
 run cell, notebook.cell.executeAndFocusContainer
 git revert, git.revertSelectedRanges
-git stage, git.stageSelectedRanges
+git add, git.stageSelectedRanges
+git reset, git.unstageSelectedRanges
 join, editor.action.joinLines

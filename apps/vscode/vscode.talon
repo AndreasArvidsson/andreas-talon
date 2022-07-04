@@ -119,8 +119,12 @@ git open file:              user.git_open_working_file_url()
 git copy file:              user.git_copy_working_file_url()
 git changes:                user.vscode("git.openChange")
 git changed files:          user.vscode("git.openAllChanges")
+git add all:                user.vscode("git.stageAll")
+git reset all:              user.vscode("git.unstageAll")
 git push:                   user.vscode("git.push")
 git push tags:              user.vscode("git.pushTags")
+git checkout {user.git_branch}: user.git_find_branch(git_branch)
+git checkout [<user.text>]: user.git_find_branch(text or "")
 git commit [<user.text>]:
     user.vscode("git.commit")
     "{text or ''}"
@@ -193,12 +197,6 @@ pop sesh <user.text>$:
 pop sesh:
     user.vscode_find_recent("", 1)
     key(enter)
-
-# Find git branch
-scout branch [{user.git_branch}]:
-    user.git_find_branch(git_branch or "")
-scout branch [<user.text>]:
-    user.git_find_branch(text or "")
 
 # Find a symbol
 scout symbol [<user.text>]$:
