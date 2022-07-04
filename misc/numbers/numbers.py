@@ -160,10 +160,23 @@ leading_words = numbers_map.keys() - scales_map.keys()
 leading_words -= {'oh', 'o'} # comment out to enable bare/initial "oh"
 number_word_leading = f"({'|'.join(leading_words)})"
 
+# Only allow numbers above nine by themself
+leading_words_dd = {*teens_map.keys(),  *tens_map.keys()}
+number_word_dd = f"({'|'.join(leading_words_dd)})"
+
 
 @mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
+    return parse_number(list(m))
+
+
+@mod.capture(rule=(
+    f"{number_word_dd} | "
+    f"{number_word_leading} ([and] {number_word})+"
+))
+def number_dd(m) -> str:
+    """Parses a double digit, or more, number phrase, returning that number as a string."""
     return parse_number(list(m))
 
 
@@ -197,12 +210,3 @@ def number_prefix(m) -> str:
 def digit(m) -> int:
     """Parses a (non zero) digit phrase, returning it as an integer"""
     return digits_map[str(m)]
-
-
-@mod.capture(rule=f"{'|'.join(digits)} | <user.number_string>")
-def number_auto(m) -> str:
-    """Parses a number phrase using double digit logic, returning that number as a string."""
-    try:
-        return m.number_string
-    except AttributeError:
-        return m[0]

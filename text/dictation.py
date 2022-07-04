@@ -41,7 +41,7 @@ def spell(m) -> str:
     return "".join(m.letter_list)
 
 
-text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_auto> | {user.key_punctuation} | <phrase>)+"
+text_rule = "({user.vocabulary} | <user.abbreviation> | <user.spell> | <user.number_dd> | {user.key_punctuation} | <phrase>)+"
 
 
 @mod.capture(rule=text_rule)
