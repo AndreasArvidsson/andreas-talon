@@ -31,7 +31,8 @@ type, type
 value, value
 word | words, word
 condition, condition
-paint, nonWhitespaceSequence
+long paint, nonWhitespaceSequence
+paint, boundedNonWhitespaceSequence
 location, url
 callee, functionCallee
 selector, selector
