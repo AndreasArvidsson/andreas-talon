@@ -25,6 +25,15 @@ class RelativeScreenPos:
     bottom: float
 
 
+@dataclass
+class WindowState:
+
+    old_rect: ui.Rect
+    new_rect: ui.Rect
+
+window_states = {}
+
+
 snap_positions = {
     # Halves
     # .---.---.     .-------.
@@ -172,10 +181,22 @@ class Actions:
             height=min(height, screen.height),
         )
 
+    def move_window_revert():
+        """Revert window position"""
+        window = ui.active_window()
+        if window.id in window_states:
+            state = window_states[window.id]
+            if state:
+                window.rect = state.old_rect
+                window_states[window.id] = WindowState(state.new_rect, state.old_rect)
+
 
 def set_window_pos(window: ui.Window, x, y, width, height):
     """Helper to set the window position."""
-    window.rect = ui.Rect(round(x), round(y), round(width), round(height))
+    old_rect = window.rect
+    new_rect = ui.Rect(round(x), round(y), round(width), round(height))
+    window.rect = new_rect
+    window_states[window.id] = WindowState(old_rect, new_rect)
 
 
 def move_to_screen(window: ui.Window, offset: int = None, screen_number: int = None):

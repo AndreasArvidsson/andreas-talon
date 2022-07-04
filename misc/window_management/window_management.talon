@@ -7,20 +7,22 @@ focus {user.running_application}:
 swap {user.running_application}:
     user.swap_window_position(running_application)
 
-window new:                         app.window_open()
-window close:                       app.window_close()
-window hide:                        app.window_hide()
-window last:                        app.window_previous()
-window next:                        app.window_next()
-window back:                        key("alt-tab")
+window new:                 app.window_open()
+window close:               app.window_close()
+window hide:                app.window_hide()
+window last:                app.window_previous()
+window next:                app.window_next()
+window back:                key("alt-tab")
 
-snap <user.window_snap_position>:   user.snap_window(window_snap_position)
-snap next screen:                   user.move_window_next_screen()
-snap last screen:                   user.move_window_previous_screen()
-snap screen <number_small>:         user.move_window_to_screen(number_small)
+snap <user.window_snap_position>: user.snap_window(window_snap_position)
+snap next screen:           user.move_window_next_screen()
+snap last screen:           user.move_window_previous_screen()
+snap screen <number_small>: user.move_window_to_screen(number_small)
 
-move center:                        user.move_window_to_screen_center()
+move center:                user.move_window_to_screen_center()
 move {user.resize_side} {user.resize_direction} [{user.resize_size}]:
     user.resize_window(resize_side, resize_direction, resize_size or "medium")
 
-screen numbers:                     user.screens_show_numbering()
+(snap | move) revert:       user.move_window_revert()
+
+screen numbers:             user.screens_show_numbering()

@@ -48,7 +48,9 @@ This is a list of features that I have implemented that I think is of more inter
 1. **VSCode auto formatter for Talonscript** - Automatically format Talonscript files using VSCode extension.
    - [vscode.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/11cd0cebefacd60bea51b58ebe5e7b2cf4d54b06/apps/vscode/vscode.talon#L20)
    - [vscode.py](https://github.com/AndreasArvidsson/andreas-talon/blob/11cd0cebefacd60bea51b58ebe5e7b2cf4d54b06/apps/vscode/vscode.py#L255-L256)
-   - [formatDocument.ts](https://github.com/AndreasArvidsson/andreas-vscode/blob/27d7bb90b47ebaa0e1dcbe614b5df75eab3985c5/src/formatDocument.ts)
+   - [formatDocument.ts](https://github.com/AndreasArvidsson/andreas-vscode/blob/cf1122bc2225192cacb12c07d74d1d3c8a2571e4/src/formatDocument.ts)
+1. **VSCode language definition for Talon actions** - Jump from Talonscript action invocation to Python definition using VSCode extension.
+   - [registerLanguageDefinitions.ts](https://github.com/AndreasArvidsson/andreas-vscode/blob/cf1122bc2225192cacb12c07d74d1d3c8a2571e4/src/registerLanguageDefinitions.ts)
 1. **Foot switch support** - Add support for scrolling, navigating and more
    - [foot_switch.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/foot_switch/foot_switch.talon)
    - [foot_switch.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/foot_switch/foot_switch.py)
