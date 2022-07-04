@@ -2,3 +2,6 @@ Spoken form, VSCode command
 increment, andreas.increment
 decrement, andreas.decrement
 run cell, notebook.cell.executeAndFocusContainer
+git revert, git.revertSelectedRanges
+git stage, git.stageSelectedRanges
+join, editor.action.joinLines
