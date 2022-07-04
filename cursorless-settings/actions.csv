@@ -49,3 +49,4 @@ highlight, highlight
 -shuffle, randomizeTargets
 -define, revealDefinition
 -snippet, insertSnippet
+-snippet make, generateSnippet
