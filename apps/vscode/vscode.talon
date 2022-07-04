@@ -127,7 +127,8 @@ git checkout {user.git_branch}: user.git_find_branch(git_branch)
 git checkout [<user.text>]: user.git_find_branch(text or "")
 git commit [<user.text>]:
     user.vscode("git.commit")
-    "{text or ''}"
+    text = user.format_text(text or "", "CAPITALIZE_FIRST_WORD")
+    "{text}"
 
 # Folding
 fold this:                  user.vscode("editor.fold")
