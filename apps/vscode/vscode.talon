@@ -119,7 +119,11 @@ git open file:              user.git_open_working_file_url()
 git copy file:              user.git_copy_working_file_url()
 git changes:                user.vscode("git.openChange")
 git changed files:          user.vscode("git.openAllChanges")
-git commit:                 user.vscode("git.commit")
+git push:                   user.vscode("git.push")
+git push tags:              user.vscode("git.pushTags")
+git commit [<user.text>]:
+    user.vscode("git.commit")
+    "{text or ''}"
 
 # Folding
 fold this:                  user.vscode("editor.fold")
