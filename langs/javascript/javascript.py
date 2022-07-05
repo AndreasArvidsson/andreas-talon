@@ -95,7 +95,7 @@ class UserActions:
     # Selection statements
     def code_catch():
         insert_snippet(
-            """catch(ex) {
+            """catch(error) {
                 \t$0
             }"""
         )
@@ -105,7 +105,7 @@ class UserActions:
             """try {
                 \t$1
             }
-            catch(ex) {
+            catch(error) {
                 \t$0
             }"""
         )
