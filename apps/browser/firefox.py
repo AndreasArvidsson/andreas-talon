@@ -46,6 +46,7 @@ ctx.lists["user.rango_without_target_action"] = {
     "hunt": "toggleHints",
     "hunt refresh": "refreshHints",
     "hover nothing": "unhoverAll",
+    "tab clone": "cloneCurrentTab",
 }
 
 @ctx.action_class("browser")
