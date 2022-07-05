@@ -12,12 +12,6 @@ open {user.webpage}:        user.browser_open(webpage)
 
 go private:                 browser.open_private_window()
 
-copy address:
-    browser.focus_address()
-    sleep(100ms)
-    edit.copy()
-    key(escape)
-
 bookmark show:              browser.bookmarks()
 bookmark bar:               browser.bookmarks_bar()
 bookmark it:                browser.bookmark()

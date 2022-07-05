@@ -21,6 +21,32 @@ ctx.matches = r"""
 app: firefox
 """
 
+mod.list("rango_with_target_action", desc="List of Rango actions used WITH a target")
+mod.list("rango_without_target_action", desc="List of Rango actions used WITHOUT a target")
+
+ctx.lists["user.rango_with_target_action"] = {
+    "click": "clickElement",
+    "open": "openInNewTab",
+    "stash": "openInBackgroundTab",
+    "show": "showLink",
+    "hover": "hoverElement",
+    "copy": "copyLink",
+    "copy mark": "copyMarkdownLink",
+    "copy text": "copyElementTextContent",  
+    "crown": "scrollElementToTop",
+    "bottom": "scrollElementToBottom",
+    "center": "scrollElementToCenter",
+    "upper": "scrollUpAtElement",
+    "downer": "scrollDownAtElement",
+}
+
+ctx.lists["user.rango_without_target_action"] = {
+    "rango single": "includeSingleLetterHints",
+    "rango double": "excludeSingleLetterHints",
+    "hunt": "toggleHints",
+    "hunt refresh": "refreshHints",
+    "hover nothing": "unhoverAll",
+}
 
 @ctx.action_class("browser")
 class BrowserActions:
@@ -63,10 +89,13 @@ class BrowserActions:
 
 @ctx.action_class("app")
 class AppActions:
-    def tab_detach():
-        key("escape ctrl-alt-M")
     def preferences():
         actions.user.browser_open("about:preferences")
+
+    # ----- Vimium -----
+    def tab_detach():
+        key("escape ctrl-alt-M")
+
 
 @ctx.action_class("edit")
 class EditActions:
@@ -84,7 +113,6 @@ class UserActions:
             key(f"ctrl-{number}")
 
     def tab_final():    key("ctrl-9")
-    def tab_back():     key("escape ctrl-alt-N")
 
     def browser_open(url: str):
         actions.browser.focus_address()
@@ -92,15 +120,24 @@ class UserActions:
         actions.insert(url)
         key("alt-enter")
 
-    # ----- Scroll -----
-    def scroll_up():                key("ctrl-alt-h")
-    def scroll_down():              key("ctrl-alt-j")
+    # ----- Vimium -----
+    def tab_back():     key("escape ctrl-alt-N")
     def scroll_left():              key("ctrl-alt-k")
     def scroll_right():             key("ctrl-alt-l")
-    def scroll_up_page():           key("pageup")
-    def scroll_down_page():         key("pagedown")
-    def scroll_up_half_page():      key("alt-pageup")
-    def scroll_down_half_page():    key("alt-pagedown")
+
+    # ----- Rango -----
+    def scroll_up():
+        actions.user.rango_command_without_target("scrollUpPage", 0.1)
+    def scroll_down():
+        actions.user.rango_command_without_target("scrollDownPage", 0.1)
+    def scroll_up_half_page():      
+        actions.user.rango_command_without_target("scrollUpPage", 0.45)
+    def scroll_down_half_page():    
+        actions.user.rango_command_without_target("scrollDownPage", 0.45)
+    def scroll_up_page():           
+        actions.user.rango_command_without_target("scrollUpPage", 0.9)
+    def scroll_down_page():         
+        actions.user.rango_command_without_target("scrollDownPage", 0.9)
 
 
 # ----- LINUX -----
