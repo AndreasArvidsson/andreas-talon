@@ -47,6 +47,8 @@ ctx.lists["user.rango_without_target_action"] = {
     "hunt refresh": "refreshHints",
     "hover nothing": "unhoverAll",
     "tab clone": "cloneCurrentTab",
+    "upper again": "scrollUpAtElement",
+    "downer again": "scrollDownAtElement",
 }
 
 @ctx.action_class("browser")
