@@ -9,8 +9,8 @@ small right:                user.scroll_right()
 half up:                    user.scroll_up_half_page()
 half down:                  user.scroll_down_half_page()
 
-(full up) | upper:          user.scroll_up_page()
-(full down) | downer:       user.scroll_down_page()
+full up | upper:            user.scroll_up_page()
+full down | downer:         user.scroll_down_page()
 
 flow up:                    user.scroll_up_continuous()
 flow down:                  user.scroll_down_continuous()
