@@ -1,6 +1,5 @@
 from talon import Context, Module, actions, app, cron, ctrl, ui
 from talon_plugins import eye_mouse
-from talon_plugins.eye_mouse import config, toggle_control
 
 mod = Module()
 ctx = Context()
@@ -37,10 +36,10 @@ class Actions:
             # Make sure scrolling has stopped so that click doesn't miss
             actions.sleep("50ms")
         # Zoom mouse is enabled
-        if actions.user.zoom_mouse_enabled():
+        if actions.tracking.control_zoom_enabled():
             actions.user.zoom_mouse_on_pop()
         # Normal click when using control mouse
-        elif config.control_mouse:
+        elif actions.tracking.control_enabled():
             ctrl.mouse_click(button=0)
 
     def mouse_click(action: str):
@@ -141,15 +140,14 @@ class Actions:
         stop_scroll()
         gaze_job = cron.interval("60ms", scroll_gaze_helper)
 
-    def mouse_calibrate():
-        """Start calibration"""
-        eye_mouse.calib_start()
-
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
         global mouse_control
-        mouse_control = not config.control_mouse and eye_mouse.tracker is not None
-        toggle_control(mouse_control)
+        mouse_control = (
+            not actions.tracking.control_enabled() and eye_mouse.tracker is not None
+        )
+        actions.tracking.control_toggle(mouse_control)
+        # actions.tracking.control_debug_toggle(mouse_control)
         actions.user.notify(f"Control mouse: {mouse_control}")
 
     def mouse_toggle_zoom_mouse():
@@ -160,13 +158,13 @@ class Actions:
 
     def mouse_wake():
         """Enable control mouse and zoom mouse to earlier state"""
-        toggle_control(mouse_control)
+        actions.tracking.toggle_control(mouse_control)
         actions.user.zoom_mouse_toggle(zoom_control)
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse and scroll"""
         stop_scroll()
-        toggle_control(False)
+        actions.tracking.toggle_control(False)
         actions.user.zoom_mouse_toggle(False)
         # Release all held buttons
         for button in ctrl.mouse_buttons_down():
