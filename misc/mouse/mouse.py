@@ -158,13 +158,13 @@ class Actions:
 
     def mouse_wake():
         """Enable control mouse and zoom mouse to earlier state"""
-        actions.tracking.toggle_control(mouse_control)
+        actions.tracking.control_toggle(mouse_control)
         actions.user.zoom_mouse_toggle(zoom_control)
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse and scroll"""
         stop_scroll()
-        actions.tracking.toggle_control(False)
+        actions.tracking.control_toggle(False)
         actions.user.zoom_mouse_toggle(False)
         # Release all held buttons
         for button in ctrl.mouse_buttons_down():
