@@ -42,12 +42,12 @@ ctx_win.lists["self.playback_device"] = [
 
 ctx_win.lists["self.microhpone_device"] = {
     "Headphones": "Headphones_mic",
-    "AKG": "Focusrite",
+    "DPA": "Focusrite",
 }
 
 playback_microphone_pair = {
     "Headphones": ["Headphones", "Headphones_mic"],
-    "AKG": ["Speakers", "Focusrite"],
+    "DPA": ["Speakers", "Focusrite"],
 }
 ctx_win.lists["self.playback_microphone_pair"] = playback_microphone_pair.keys()
 
