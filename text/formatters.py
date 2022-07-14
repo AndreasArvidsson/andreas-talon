@@ -224,12 +224,11 @@ def format_delim(
 
 def first_and_rest(text, format_first=None, format_rest=None):
     words = text.split()
-    for i in range(len(words)):
+    for i, word in enumerate(words):
         if i == 0:
-            if format_first:
-                words[i] = format_first(words[i])
+            if format_first: words[i] = format_first(word)
         elif format_rest:
-            words[i] = format_rest(words[i])
+            words[i] = format_rest(word)
     return " ".join(words)
 
 
@@ -246,8 +245,4 @@ def upper(text: str) -> str:
 
 
 def de_string(text: str) -> str:
-    if text[0] == "'" or text[0] == '"':
-        text = text[1:]
-    if text[-1] == "'" or text[-1] == '"':
-        text = text[:-1]
-    return text
+    return text.strip('"').strip("'")
