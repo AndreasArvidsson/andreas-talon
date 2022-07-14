@@ -226,7 +226,8 @@ def first_and_rest(text, format_first=None, format_rest=None):
     words = text.split()
     for i, word in enumerate(words):
         if i == 0:
-            if format_first: words[i] = format_first(word)
+            if format_first:
+                words[i] = format_first(word)
         elif format_rest:
             words[i] = format_rest(word)
     return " ".join(words)
