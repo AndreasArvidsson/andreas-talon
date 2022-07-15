@@ -52,12 +52,20 @@ def get_editor_app() -> ui.App:
 
 def close_editor(submit_draft: bool):
     global last_draft
-    ctx.tags = []
     actions.edit.select_all()
     selected_text = actions.edit.selected_text()
+
+    if "PLACEHOLDER" in selected_text:
+        actions.edit.select_none()
+        actions.user.notify("Placeholder text found")
+        return
+
+    ctx.tags = []
     actions.edit.delete()
     actions.app.tab_close()
     actions.user.focus_window(original_window)
     if submit_draft:
         last_draft = selected_text
         actions.insert(selected_text)
+    else:
+        last_draft = None

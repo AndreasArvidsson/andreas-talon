@@ -41,6 +41,12 @@ def spell(m) -> str:
     return "".join(m.letter_list)
 
 
+@mod.capture(rule="blah")
+def placeholder(m) -> str:
+    """Placeholder word"""
+    return "PLACEHOLDER"
+
+
 text_rule_parts = [
     "{user.vocabulary}",
     "{user.key_punctuation}",
@@ -51,7 +57,20 @@ text_rule_parts = [
     "<phrase>",
 ]
 
+prose_rule_parts = [
+    "{user.vocabulary}",
+    "{user.key_punctuation}",
+    "<user.abbreviation>",
+    "<user.spell>",
+    "<user.number_dd>",
+    "<user.number_prefix>",
+    "<user.placeholder>",
+    "<phrase>",
+]
+
 text_rule = f"({'|'.join(text_rule_parts)})+"
+code_rule = text_rule.replace("{user.key_punctuation}", "{user.key_punctuation_code}")
+prose_role = f"({'|'.join(prose_rule_parts)})+"
 
 
 @mod.capture(rule=text_rule)
@@ -59,20 +78,24 @@ def text(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
     return format_phrase(m)
 
-@mod.capture(rule=text_rule.replace("{user.key_punctuation}", "{user.key_punctuation_code}"))
+
+@mod.capture(rule=code_rule)
 def text_code(m) -> str:
     """Same as <user.text>, but with fewer punctuations"""
     return format_phrase(m)
+
 
 @mod.capture
 def prose() -> str:
     """Same as <user.text>, but auto-spaced & capitalized."""
 
+
 # The prose capture needs to be defined on the context to work with Swedish dictation.
-@ctx.capture("user.prose", rule=text_rule)
+@ctx.capture("user.prose", rule=prose_role)
 def prose(m) -> str:
     text, _state = auto_capitalize(format_phrase(m))
     return text
+
 
 # ----- Dictation mode only -----
 
