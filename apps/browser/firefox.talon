@@ -61,13 +61,13 @@ hint weight {user.rango_hint_weights}:
 # Miscellaneous
 copy image:
     mouse_click(1)
-    sleep(0.1)
+    sleep(100ms)
     key(y)
-    sleep(0.1)
+    sleep(100ms)
     user.clipboard_manager_update()
 copy video:
     mouse_click(1)
-    sleep(0.1)
+    sleep(100ms)
     key(o:2 enter)
-    sleep(0.1)
+    sleep(100ms)
     user.clipboard_manager_update()

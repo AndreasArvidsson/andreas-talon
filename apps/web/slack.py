@@ -28,5 +28,5 @@ class UserActions:
         """Opens the given search result on slack"""
         actions.key("ctrl-k")
         actions.insert(search)
-        actions.sleep(0.4)
+        actions.sleep("400ms")
         actions.key("enter")

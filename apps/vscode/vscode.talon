@@ -30,7 +30,7 @@ imports organize:           user.vscode("editor.action.organizeImports")
 imports add:                user.vscode_add_missing_imports()
 imports fix:
     user.vscode_add_missing_imports()
-    sleep(0.1)
+    sleep(100ms)
     user.vscode("editor.action.organizeImports")
 
 # Split
@@ -182,7 +182,7 @@ debug subset:
 run task compile:
     user.vscode("workbench.action.tasks.runTask")
     "compile"
-    sleep(0.2)
+    sleep(200ms)
     key(enter)
 run task [<user.text>]:
     user.vscode("workbench.action.tasks.runTask")
@@ -216,7 +216,7 @@ open settings json:
     user.vscode("workbench.action.openSettingsJson")
 open settings <user.text>:
     app.preferences()
-    sleep(0.2)
+    sleep(200ms)
     "{text}"
 
 # CSV

@@ -315,7 +315,7 @@ class Actions:
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
         if text or sleep:
-            actions.sleep(0.1)
+            actions.sleep("100ms")
         if text:
             insert(text)
 
@@ -350,7 +350,7 @@ class Actions:
     def vscode_resize_panel(panel: dict, size: str):
         """Resize vscode sidebar/panel"""
         actions.user.mouse_center_window()
-        actions.sleep(0.2)
+        actions.sleep("200ms")
         ok, x, y = actions.user.locate_drag(panel["filename"], panel["position"])
         if ok:
             if size == "small":
@@ -366,7 +366,7 @@ class Actions:
             else:
                 y = window.rect.y + window.rect.height - screen_size * ratio
             ctrl.mouse_move(x, y)
-            actions.sleep(0.1)
+            actions.sleep("100ms")
             ctrl.mouse_click(button=0, up=True)
 
     def vscode_grab_line(panel: dict):
@@ -406,12 +406,13 @@ class Actions:
         if index < 0:
             return
         short_name = full_name[:index]
-        extension = full_name[index+1:]
+        extension = full_name[index + 1 :]
         sibling_extension = actions.user.get_extension_sibling(extension)
         if not sibling_extension:
             return
         sibling_full_name = f"{short_name}.{sibling_extension}"
         actions.user.find_file(sibling_full_name)
+
 
 def empty_selection():
     if edit.selected_text():
