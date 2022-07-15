@@ -2,6 +2,7 @@ from talon import Module, Context, actions, app, registry, scope, ui
 import os
 import re
 from itertools import islice
+from typing import Any
 
 mod = Module()
 
@@ -105,6 +106,24 @@ class Actions:
 
     def talon_restart():
         """Quit and relaunch the Talon app"""
+
+    def to_dict(
+        arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
+    ) -> dict:
+        """Create dict"""
+        args = actions.user.to_list(arg1, arg2, arg3, arg4)
+        if len(args) % 2 != 0:
+            raise RuntimeError("Can't create dictionary: Uneven number of arguments")
+        result = {}
+        for i in range(0, len(args), 2):
+            result[args[i]] = args[i + 1]
+        return result
+
+    def to_list(
+        arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
+    ) -> list:
+        """Create list"""
+        return [x for x in [arg1, arg2, arg3, arg4] if x]
 
 
 @ctx_win.action_class("user")

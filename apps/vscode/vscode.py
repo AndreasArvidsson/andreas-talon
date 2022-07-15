@@ -395,10 +395,6 @@ class Actions:
             {"kind": "source.addMissingImports", "apply": "first"},
         )
 
-    def cursorless_record_highlight_test():
-        """Run cursorless record highlight test"""
-        vscode("cursorless.recordTestCase", {"isDecorationsTest": True})
-
     def find_sibling_file():
         """Find sibling file based on file name"""
         full_name = actions.user.vscode_get("andreas.getFileName")

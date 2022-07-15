@@ -230,8 +230,17 @@ shrink columns:             user.vscode("rainbow-csv.Shrink")
     user.cursorless_use_develop()
 ^cursorless record$:
     user.vscode("cursorless.recordTestCase")
-^cursorless highlight record$:
-    user.cursorless_record_highlight_test()
+^cursorless record highlight$:
+    argument = user.to_dict("isDecorationsTest", 1)
+    user.vscode("cursorless.recordTestCase", argument)
+^cursorless record error$:
+    argument = user.to_dict("recordErrors", 1)
+    user.vscode("cursorless.recordTestCase", argument)
+^cursorless record pause$:
+    user.vscode("cursorless.pauseRecording")
+^cursorless record resume$:
+    user.vscode("cursorless.resumeRecording")
+
 copy <user.cursorless_target>:
     user.cursorless_command("copyToClipboard", cursorless_target)
     user.clipboard_manager_update()
