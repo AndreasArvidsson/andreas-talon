@@ -29,6 +29,9 @@ settings():
     # Mouse scroll step
     user.scroll_step = 0.02
 
+    # Clean up command history
+    user.command_history_ttl = 10
+
     # Clipboard manager settings
     user.clipboard_manager_max_rows = 25
     user.clipboard_manager_max_cols = 60

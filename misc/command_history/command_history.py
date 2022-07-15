@@ -1,16 +1,24 @@
-from talon import imgui, Module, ui
+from talon import Module, cron, imgui, ui
+from dataclasses import dataclass
 
 mod = Module()
 setting_size_setting = mod.setting("command_history_size", int, default=50)
 display_size_setting = mod.setting("command_history_display", int, default=10)
+ttl_setting = mod.setting("command_history_ttl", float, default=0)
 history = []
 display_size = None
 
 
+# Wrapping in a data class is a simple solution to get a unique identifier for each string even if they are identical
+@dataclass
+class HistoryEntry:
+    command: str
+
+
 @imgui.open(y=ui.main_screen().y)
 def gui(gui: imgui.GUI):
-    for line in history[-display_size:]:
-        gui.text(line)
+    for entry in history[-display_size:]:
+        gui.text(entry.command)
 
 
 @mod.action_class
@@ -18,8 +26,13 @@ class Actions:
     def command_history_append(command: str):
         """Append command to history"""
         global history
-        history.append(command)
+        entry = HistoryEntry(command)
+        history.append(entry)
         history = history[-setting_size_setting.get() :]
+        ttl = ttl_setting.get()
+        if ttl > 0:
+            print(f"{int(ttl*1000)}ms")
+            cron.after(f"{int(ttl*1000)}ms", lambda: ttl_cleanup_entry(entry))
 
     def command_history_toggle():
         """Toggles viewing the history"""
@@ -72,3 +85,8 @@ class Actions:
             display_size = 3
         else:
             display_size -= 5
+
+
+def ttl_cleanup_entry(entry: HistoryEntry):
+    if entry in history:
+        history.remove(entry)
