@@ -36,7 +36,6 @@ class AppActions:
         key("ctrl-,")
 
 
-
 @ctx.action_class("edit")
 class EditActions:
     def copy():

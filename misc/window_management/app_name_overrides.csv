@@ -15,6 +15,7 @@ robo3t, Robomongo
 Robo 3T, MongoDB management tool, Robomongo
 qbittorrent.exe, Bit Torrent
 Kodi, Kodi
+Application Frame Host, Netflix
 
 talon.exe,
 ConEmuC64.exe,
@@ -43,7 +44,6 @@ Host Process for Windows Services,
 Windows Shell Experience Host,
 Logi Overlay,
 Search application,
-Application Frame Host,
 Talon,
 Console Window Host,
 Windows host process (Rundll32),
