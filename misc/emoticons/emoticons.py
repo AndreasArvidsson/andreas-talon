@@ -7,10 +7,11 @@ mod.list("emoticon", desc="List of emoticons")
 
 ctx.lists["self.emoticon"] = {
     "smile": ":)",
-    "wink": ";)",
-    "sad": ":(",
-    "unsure": ":/",
     "grin": ":D",
-    "gasp": ":o",
+    "wink": ";)",
     "tongue": ":p",
+    "unsure": ":/",
+    "gasp": ":o",
+    "sad": ":(",
+    "crying": ":'(",
 }
