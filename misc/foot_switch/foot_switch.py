@@ -16,10 +16,10 @@ class Actions:
         """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
         global pressed
         is_pressed = not pressed[key]
-        is_held = time.perf_counter() - timestamps[key] > hold_timeout
+        is_held = time.monotonic() - timestamps[key] > hold_timeout
         pressed = [False, False, False, False]
         pressed[key] = is_pressed
-        timestamps[key] = time.perf_counter()
+        timestamps[key] = time.monotonic()
 
         # Initial downpress
         if is_pressed:

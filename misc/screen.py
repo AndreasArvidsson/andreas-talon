@@ -1,4 +1,4 @@
-from talon import Module, ui, cron, actions
+from talon import Module, ui, cron
 from talon.canvas import Canvas
 from talon.skia import Paint as Paint
 from talon.skia.imagefilter import ImageFilter as ImageFilter

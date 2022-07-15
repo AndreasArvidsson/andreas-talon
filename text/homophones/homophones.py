@@ -36,7 +36,7 @@ def gui(gui: imgui.GUI):
 def update_used(word: str):
     homophones = get_list(word)
     for homophone in homophones:
-        homophones_last_used[homophone] = {"word": word, "time": time.time()}
+        homophones_last_used[homophone] = {"word": word, "time": time.monotonic()}
 
 
 @mod.action_class
@@ -104,7 +104,7 @@ class Actions:
             if word in homophones_last_used:
                 used = homophones_last_used[word]
                 # Reuse homophones used the last five minutes
-                if time.time() - used["time"] < 5 * 60:
+                if time.monotonic() - used["time"] < 5 * 60:
                     words[i] = used["word"]
         return words
 

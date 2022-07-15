@@ -23,10 +23,10 @@ class Actions:
     def talon_wake_on_pop():
         """Use pop sound to wake from sleep"""
         global time_last_pop
-        delta = time.time() - time_last_pop
+        delta = time.monotonic() - time_last_pop
         if delta >= 0.1 and delta <= 0.3:
             actions.user.talon_wake()
-        time_last_pop = time.time()
+        time_last_pop = time.monotonic()
 
     def talon_sleep_status():
         """Notify about Talon sleep status"""
