@@ -2,7 +2,7 @@ from talon import Module, cron, imgui, ui
 from dataclasses import dataclass
 
 mod = Module()
-setting_size_setting = mod.setting("command_history_size", int, default=50)
+size_setting = mod.setting("command_history_size", int, default=50)
 display_size_setting = mod.setting("command_history_display", int, default=10)
 ttl_setting = mod.setting("command_history_ttl", float, default=0)
 history = []
@@ -15,7 +15,7 @@ class HistoryEntry:
     command: str
 
 
-@imgui.open(y=ui.main_screen().y)
+@imgui.open(x=ui.main_screen().x, y=ui.main_screen().y)
 def gui(gui: imgui.GUI):
     for entry in history[-display_size:]:
         gui.text(entry.command)
@@ -28,10 +28,9 @@ class Actions:
         global history
         entry = HistoryEntry(command)
         history.append(entry)
-        history = history[-setting_size_setting.get() :]
+        history = history[-size_setting.get() :]
         ttl = ttl_setting.get()
         if ttl > 0:
-            print(f"{int(ttl*1000)}ms")
             cron.after(f"{int(ttl*1000)}ms", lambda: ttl_cleanup_entry(entry))
 
     def command_history_toggle():
