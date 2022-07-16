@@ -59,7 +59,9 @@ This is a list of features that I have implemented that I think is of more inter
 
 - [Talon Voice](https://talonvoice.com) - The software that makes it all happen
 - [Andreas VSCode Talon extension](https://github.com/AndreasArvidsson/vscode-talon-extension) - My own VSCode extension that adds multiple features for using VSCode with Talon
-- [Command server](https://marketplace.visualstudio.com/items?itemName=pokey.command-server) - VSCode command API/RPC server
-- [Command client](https://github.com/AndreasArvidsson/talon-vscode-command-client) - VSCode command API/RPC client
+- [Command client](https://github.com/AndreasArvidsson/talon-vscode-command-client) - Command RPC client Talon side
+- [Command server](https://marketplace.visualstudio.com/items?itemName=pokey.command-server) - Command RPC extension VSCode side
+- [Rango Talon](https://github.com/AndreasArvidsson/rango-talon) - Rango Talon side
+- [Rango extension](https://addons.mozilla.org/en-US/firefox/addon/rango) - Rango extension browser side
 - [nircmd](https://www.nirsoft.net/utils/nircmd.html) - Change playback device on windows
 - [clipboard-cli](https://www.npmjs.com/package/clipboard-cli) - CLI copy/paste
