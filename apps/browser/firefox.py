@@ -118,11 +118,6 @@ class BrowserActions:
     def toggle_dev_tools():
         key("ctrl-shift-i")
 
-    def go(url: str):
-        actions.browser.focus_address()
-        actions.sleep("50ms")
-        actions.insert(url)
-        key("enter")
 
 
 @ctx.action_class("app")
