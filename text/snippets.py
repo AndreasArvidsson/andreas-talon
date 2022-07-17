@@ -60,6 +60,5 @@ def split_snippet(snippet: Union[str, list[str]]) -> list[str]:
         return snippet
     lines = snippet.split("\n")
     # Clean leading whitespaces in case this was a multiline string
-    for i in range(len(lines)):
-        lines[i] = lines[i].lstrip(" ")
+    lines = [line.lstrip() for line in lines]
     return lines
