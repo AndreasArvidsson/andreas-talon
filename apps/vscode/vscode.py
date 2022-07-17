@@ -321,13 +321,13 @@ class Actions:
 
     def git_open_working_file_url(line_number: bool = False):
         """Open current file in in git webpage"""
-        url = actions.user.vscode_get("andreas.git.getURL", line_number)
+        url = actions.user.vscode_get("andreas.getGitURL", line_number)
         if url:
             actions.user.browser_focus_open(url)
 
     def git_copy_working_file_url(line_number: bool = False):
         """Copy current file URL to clipboard"""
-        url = actions.user.vscode_get("andreas.git.getURL", line_number)
+        url = actions.user.vscode_get("andreas.getGitURL", line_number)
         if url:
             actions.clip.set_text(url)
 

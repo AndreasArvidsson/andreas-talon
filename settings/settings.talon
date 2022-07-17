@@ -28,7 +28,7 @@ settings():
 
     # Command history
     user.command_history_display = 5
-    user.command_history_ttl = 30
+    user.command_history_ttl = 15
 
     # Clipboard manager
     user.clipboard_manager_max_rows = 25

@@ -137,7 +137,7 @@ class UserActions:
 
     # Constructor declaration
     def code_constructor(modifiers: list[str]):
-        name = actions.user.vscode_get("andreas.getConstructorName")
+        name = actions.user.vscode_get("andreas.getClassName")
         if not name:
             return
         if modifiers:
