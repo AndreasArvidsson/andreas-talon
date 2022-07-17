@@ -59,6 +59,5 @@ def split_snippet(snippet: Union[str, list[str]]) -> list[str]:
     if isinstance(snippet, list):
         return snippet
     lines = snippet.split("\n")
-    # Clean leading whitespaces in case this was a multiline string
-    lines = [line.lstrip() for line in lines]
-    return lines
+    # Clean leading whitespaces(not tabs) in case this was a multiline string
+    return [line.lstrip(" ") for line in lines]
