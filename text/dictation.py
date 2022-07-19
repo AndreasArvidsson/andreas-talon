@@ -25,7 +25,7 @@ setting_context_sensitive_dictation = mod.setting(
 def word(m) -> str:
     """A single word, including user-defined vocabulary."""
     words = capture_to_words(m)
-    return words[0]
+    return words[0].replace(" ", "")
 
 
 # Used to escape numbers and symbols
