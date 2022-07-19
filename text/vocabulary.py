@@ -3,6 +3,9 @@ from talon import Context, Module
 mod = Module()
 ctx = Context()
 
+ctx.matches = r"""
+language: en_US
+"""
 
 # Default words that will need to be capitalized.
 capitalize_defaults = [
