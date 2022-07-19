@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, app
+from talon import Module, Context, actions
 
 key = actions.key
 ctx = Context()
@@ -117,7 +117,6 @@ class BrowserActions:
 
     def toggle_dev_tools():
         key("ctrl-shift-i")
-
 
 
 @ctx.action_class("app")
