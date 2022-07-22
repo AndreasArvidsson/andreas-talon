@@ -32,6 +32,7 @@ word_map_defaults = {
     "dis": "this",
     "de": "the",
     "classname": "class name",
+    "marino": "merino",
 }
 word_map_defaults.update({word.lower(): word for word in capitalize_defaults})
 
