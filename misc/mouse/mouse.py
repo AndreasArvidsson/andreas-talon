@@ -147,7 +147,6 @@ class Actions:
             not actions.tracking.control_enabled() and eye_mouse.tracker is not None
         )
         actions.tracking.control_toggle(mouse_control)
-        # actions.tracking.control_debug_toggle(mouse_control)
         actions.user.notify(f"Control mouse: {mouse_control}")
 
     def mouse_toggle_zoom_mouse():

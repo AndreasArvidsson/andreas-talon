@@ -31,6 +31,7 @@ ctx.lists["self.webpage"] = {
     "kivra":                "https://www.kivra.se",
     "karlstad buss":        "https://www.karlstadsbuss.se",
     "nine gag":             "https://9gag.com",
+    "cursorless":           "https://cursorless.org",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",

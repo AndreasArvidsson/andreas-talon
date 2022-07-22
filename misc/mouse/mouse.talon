@@ -20,6 +20,7 @@ mouse gaze:                 user.mouse_gaze_scroll()
 ^mouse calibrate$:          tracking.calibrate()
 ^mouse control$:            user.mouse_toggle_control_mouse()
 ^mouse zoom$:               user.mouse_toggle_zoom_mouse()
+^mouse debug$:              tracking.control_debug_toggle()
 
 # Misc
 mouse center:               user.mouse_center_window()
@@ -29,7 +30,7 @@ mouse center click:
 
 #TODO cursor
 ^cursor show$:              user.mouse_show_cursor()
-# ^cursor hide$:                  user.mouse_hide_cursor()
+^cursor hide$:              user.mouse_hide_cursor()
 
 mouse print position:
     print("{mouse_x()}, {mouse_y()}")
