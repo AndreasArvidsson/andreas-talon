@@ -19,7 +19,7 @@ class Actions:
         global original_window
         original_window = ui.active_window()
         editor_app = get_editor_app()
-        selected_text = actions.edit.selected_text()
+        selected_text = get_text()
         actions.user.focus_app(editor_app)
         # Wait for context to change.
         actions.sleep("100ms")
@@ -70,3 +70,11 @@ def close_editor(submit_draft: bool):
         actions.insert(selected_text)
     else:
         last_draft = None
+
+
+def get_text() -> str:
+    mime = actions.user.selected_mime()
+    mime_text = actions.user.slack_mime_to_markdown(mime)
+    if mime_text:
+        return mime_text
+    return mime.text

@@ -1,4 +1,5 @@
 from talon import Context, Module, actions, clip
+from talon.clip import MimeData
 import re
 
 key = actions.key
@@ -156,6 +157,16 @@ class Actions:
     def delete_right():
         """Delete character to the right"""
         key("delete")
+
+    def selected_mime() -> MimeData:
+        """Return current selected mime"""
+        with clip.capture() as c:
+            actions.user.clipboard_manager_ignore_next()
+            edit.copy()
+        try:
+            return c.mime()
+        except clip.NoChange:
+            return None
 
 
 def paste_text(text: str):
