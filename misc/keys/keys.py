@@ -45,6 +45,7 @@ ctx.lists["self.key_special"] = merge(
         "escape",
     },
     {
+        "deli":         "delete",
         "page up":      "pageup",
         "page down":    "pagedown",
         "print screen": "printscr",
