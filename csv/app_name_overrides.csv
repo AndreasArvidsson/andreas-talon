@@ -1,4 +1,7 @@
 Application name, Spoken form
+
+# Add spoken forms to these applications
+
 vscodium, Code
 Codium, Code
 Visual Studio Code, Code
@@ -17,6 +20,9 @@ robo3t, Robomongo
 qbittorrent.exe, Bit Torrent
 Kodi, Kodi
 Application Frame Host, Netflix
+
+
+# Exclude these applications
 
 talon.exe,
 ConEmuC64.exe,

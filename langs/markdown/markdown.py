@@ -1,6 +1,5 @@
-from talon import Module, Context, actions
+from talon import Context, actions
 
-mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
@@ -8,6 +7,7 @@ tag: user.markdown
 """
 
 ctx.tags = ["user.generic_language"]
+
 
 @ctx.action_class("user")
 class UserActions:
