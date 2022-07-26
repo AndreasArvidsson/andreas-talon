@@ -1,3 +1,4 @@
+Application name, Spoken form
 vscodium, Code
 Codium, Code
 Visual Studio Code, Code
@@ -12,7 +13,7 @@ Org.gnome.Nautilus, Nautilus
 Gnome-control-center, Settings
 Google Chrome, Chrome
 robo3t, Robomongo
-Robo 3T, MongoDB management tool, Robomongo
+"Robo 3T, MongoDB management tool", Robomongo
 qbittorrent.exe, Bit Torrent
 Kodi, Kodi
 Application Frame Host, Netflix

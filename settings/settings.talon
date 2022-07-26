@@ -9,6 +9,8 @@ settings():
 
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas/cursorless-settings"
+    # Location to store csv files
+    user.csv_directory = "andreas/csv"
 
     # Mouse scroll step
     user.scroll_step = 0.02

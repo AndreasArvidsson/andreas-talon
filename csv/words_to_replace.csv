@@ -1,0 +1,30 @@
+Original, Replacement (If different)
+
+# Default words that will need to be capitalized.
+# NB. the lexicon now capitalizes January/February by default. but not the others below. Not sure why.
+
+January
+February
+# March omitted because it's a regular word too
+April
+# May omitted because it's a regular word too
+June
+July
+# Technically also an adjective but the month is far more common
+August
+September
+October
+November
+December
+
+
+# Default words that need to be remapped.
+
+organization, organisation
+organizations, organisations
+dis, this
+de, the
+classname, class name
+marino, merino
+I tracker, eye tracker
+wicky, wiki

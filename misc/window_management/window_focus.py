@@ -1,14 +1,8 @@
-from talon import Context, Module, app, imgui, ui, fs, actions
+from talon import Context, Module, app, imgui, ui, actions
 from talon.grammar import Phrase
-import os
 import re
 import time
 
-# Construct at startup a list of overides for application names (similar to how homophone list is managed)
-cwd = os.path.dirname(os.path.realpath(__file__))
-overrides_directory = cwd
-override_file_name = "app_name_overrides.csv"
-override_file_path = os.path.join(overrides_directory, override_file_name)
 
 mod = Module()
 ctx = Context()
@@ -42,18 +36,10 @@ def update_running():
     ctx.lists["self.running_application"] = running
 
 
-def update_overrides(name, flags):
+def update_overrides(csv_dict: dict):
     """Updates the overrides list"""
     global overrides
-    if name != override_file_path:
-        return
-    res = {}
-    with open(override_file_path, "r") as f:
-        for line in f:
-            line = line.rsplit(",", 1)
-            if len(line) == 2:
-                res[line[0].lower()] = line[1].strip()
-    overrides = res
+    overrides = {k: v for k, v in csv_dict.items()}
     update_running()
 
     # for i in sorted(overrides):
@@ -184,8 +170,7 @@ def gui(gui: imgui.GUI):
 
 
 def on_ready():
-    update_overrides(override_file_path, None)
-    fs.watch(overrides_directory, update_overrides)
+    actions.user.watch_csv_as_dict("app_name_overrides.csv", update_overrides)
     ui.register("app_launch", lambda _: update_running())
     ui.register("app_close", lambda _: update_running())
 
