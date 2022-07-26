@@ -33,6 +33,8 @@ word_map_defaults = {
     "de": "the",
     "classname": "class name",
     "marino": "merino",
+    "I tracker": "eye tracker",
+    "wicky": "wiki",
 }
 word_map_defaults.update({word.lower(): word for word in capitalize_defaults})
 
