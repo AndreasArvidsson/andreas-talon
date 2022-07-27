@@ -142,29 +142,39 @@ class Actions:
 
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
-        global mouse_control
+        global mouse_control, zoom_control
         mouse_control = (
             not actions.tracking.control_enabled() and eye_mouse.tracker is not None
         )
+        if mouse_control:
+            zoom_control = False
+            actions.tracking.control_zoom_toggle(False)
         actions.tracking.control_toggle(mouse_control)
         actions.user.notify(f"Control mouse: {mouse_control}")
 
     def mouse_toggle_zoom_mouse():
         """Toggles zoom mouse"""
-        global zoom_control
-        zoom_control = actions.user.zoom_mouse_toggle()
+        global mouse_control, zoom_control
+        zoom_control = (
+            not actions.tracking.control_zoom_enabled()
+            and eye_mouse.tracker is not None
+        )
+        if zoom_control:
+            mouse_control = False
+            actions.tracking.control_toggle(False)
+        actions.tracking.control_zoom_toggle(zoom_control)
         actions.user.notify(f"Zoom mouse: {zoom_control}")
 
     def mouse_wake():
         """Enable control mouse and zoom mouse to earlier state"""
         actions.tracking.control_toggle(mouse_control)
-        actions.user.zoom_mouse_toggle(zoom_control)
+        actions.tracking.control_zoom_toggle(zoom_control)
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse and scroll"""
         stop_scroll()
         actions.tracking.control_toggle(False)
-        actions.user.zoom_mouse_toggle(False)
+        actions.tracking.control_zoom_toggle(False)
         # Release all held buttons
         for button in ctrl.mouse_buttons_down():
             ctrl.mouse_click(button=button, up=True)

@@ -1,5 +1,5 @@
 from talon import Module, Context, actions, noise, ctrl
-from talon_plugins import eye_mouse, eye_zoom_mouse
+from talon_plugins import eye_zoom_mouse
 
 mod = Module()
 ctx = Context()
@@ -10,21 +10,19 @@ mod.tag("zoom_mouse", "Indicates that zoom mouse is zoomed in")
 next_action = None
 
 
-@mod.action_class
-class Actions:
-    def zoom_mouse_toggle(enabled: bool = None) -> bool:
-        """Toggle zoom mouse"""
-        if enabled == None:
-            enabled = not actions.tracking.control_zoom_enabled()
-        enabled = enabled and eye_mouse.tracker is not None
-        actions.tracking.control_zoom_toggle(enabled)
-        if enabled:
+@ctx.action_class("tracking")
+class TrackingActions:
+    def control_zoom_toggle(state: bool):
+        actions.next(state)
+        if state:
             # Unregistered zoom mouse built in pop event.
             noise.unregister("pop", eye_zoom_mouse.zoom_mouse.on_pop)
         else:
             actions.user.zoom_mouse_cancel()
-        return enabled
 
+
+@mod.action_class
+class Actions:
     def zoom_mouse_idle() -> bool:
         """Returns true if zoom mouse is idle"""
         return eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE
