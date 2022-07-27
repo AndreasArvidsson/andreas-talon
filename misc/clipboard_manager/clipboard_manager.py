@@ -94,7 +94,7 @@ class Actions:
 
         mime = clip.mime()
 
-        if mime.text:
+        if mime and mime.text:
             append(clip_history, ClipItem(mime.text, mime))
             shrink()
 

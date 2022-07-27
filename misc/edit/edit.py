@@ -21,7 +21,7 @@ class MainActions:
         if not text:
             return
         if isinstance(text, str) and len(text) > 2 and re.search(r"[ /-]|\n", text):
-            if paste_text(text):
+            if actions.user.paste_text(text):
                 return
         actions.next(text)
 
@@ -158,7 +158,7 @@ class Actions:
         """Delete character to the right"""
         key("delete")
 
-    def selected_mime() -> MimeData:
+    def selected_mime() -> MimeData or None:
         """Return current selected mime"""
         with clip.capture() as c:
             actions.user.clipboard_manager_ignore_next()
@@ -168,17 +168,25 @@ class Actions:
         except clip.NoChange:
             return None
 
+    def paste_mime(mime: MimeData):
+        """Pastes mime data and preserves clipboard"""
+        with clip.revert():
+            clip.set_mime(mime)
 
-def paste_text(text: str):
-    """Pastes text and preserves clipboard"""
-    with clip.revert():
-        clip.set_text(text)
+            edit.paste()
+            # sleep here so that clip.revert doesn't revert the clipboard too soon
+            actions.sleep("150ms")
 
-        if clip.text() != text:
-            user.notify("Failed to set clipboard")
-            return False
+    def paste_text(text: str) -> bool:
+        """Pastes text and preserves clipboard"""
+        with clip.revert():
+            clip.set_text(text)
 
-        edit.paste()
-        # sleep here so that clip.revert doesn't revert the clipboard too soon
-        actions.sleep("150ms")
-    return True
+            if clip.text() != text:
+                user.notify("Failed to set clipboard")
+                return False
+
+            edit.paste()
+            # sleep here so that clip.revert doesn't revert the clipboard too soon
+            actions.sleep("150ms")
+        return True

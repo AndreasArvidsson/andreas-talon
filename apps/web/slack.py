@@ -41,7 +41,7 @@ class UserActions:
             try:
                 # For some reason the last character is not compatible with json encoding
                 data_str = mime[slack_format].decode("utf-16")[:-1]
-                print(data_str)
+                # print(data_str)
                 data = json.loads(data_str)
                 return json_to_markdown(data)
             except Exception as e:

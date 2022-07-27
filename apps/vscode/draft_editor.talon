@@ -3,7 +3,7 @@ not app: vscode
 
 draft (this | dis):
     user.draft_editor_open()
-draft all:
+draft (all | file):
     edit.select_all()
     user.draft_editor_open()
 draft line:
