@@ -1,12 +1,13 @@
 from talon import Module, Context, actions, imgui, clip
 from talon.skia.image import Image
+from talon.clip import MimeData
 from dataclasses import dataclass
 
 
 @dataclass
 class ClipItem:
     text: str
-    image: Image
+    mime: MimeData
 
 
 mod = Module()
@@ -39,9 +40,10 @@ def gui(gui: imgui.GUI):
     gui.line()
 
     for i, item in enumerate(clip_history):
-        if item.image:
-            text = f"Image(width={item.image.width}, height={item.image.height})"
-        else:
+        try:
+            image = item.mime.image
+            text = f"Image(width={image.width}, height={image.height})"
+        except:
             text = item.text.replace("\n", "\\n")
             if len(text) > max_cols + 4:
                 text = text[:max_cols] + " ..."
@@ -83,11 +85,6 @@ class Actions:
         actions.mode.disable("user.clipboard_manager")
         gui.hide()
 
-    def clipboard_manager_set_text(text: str):
-        """Set text to clipboard and update manager"""
-        clip.set_text(text)
-        actions.user.clipboard_manager_update()
-
     def clipboard_manager_update():
         """Read current clipboard and add to manager"""
         global clip_history, ignore_next
@@ -95,15 +92,10 @@ class Actions:
             ignore_next = False
             return
 
-        text = clip.text()
+        mime = clip.mime()
 
-        try:
-            image = clip.image()
-        except:
-            image = None
-
-        if text or image:
-            append(clip_history, ClipItem(text, image))
+        if mime.text:
+            append(clip_history, ClipItem(mime.text, mime))
             shrink()
 
     def clipboard_manager_ignore_next():
@@ -143,32 +135,24 @@ class Actions:
 
     def clipboard_manager_copy(numbers: list[int]):
         """Copy from clipboard manager"""
-        items, text, images = get_content(numbers)
-        if text and images:
-            error("Can't copy text and images at once")
-        elif len(images) > 1:
-            error("Can't copy multiple images at once")
-        elif text:
-            clip.set_text(text)
-        elif images:
-            clip.set_image(images[0])
+        items = get_items(numbers)
+
+        if len(items) == 1 and items[0].mime:
+            clip.set_mime(items[0].mime)
+        else:
+            texts = [i.text for i in items]
+            clip.set_text("\n".join(texts))
+
         move_last(items)
         hide_if_not_sticky()
 
     def clipboard_manager_paste(numbers: list[int], match_style: bool = False):
         """Paste from clipboard manager"""
-        items, text, images = get_content(numbers)
-        if text:
-            clip.set_text(text)
-            if match_style:
-                actions.edit.paste_match_style()
-            else:
-                actions.edit.paste()
-        for image in images:
-            clip.set_image(image)
+        actions.user.clipboard_manager_copy(numbers)
+        if match_style:
+            actions.edit.paste_match_style()
+        else:
             actions.edit.paste()
-        move_last(items)
-        hide_if_not_sticky()
 
 
 def hide_if_not_sticky():
@@ -191,20 +175,12 @@ def append(history: list[ClipItem], item: ClipItem):
     history.insert(0, item)
 
 
-def get_content(numbers: list[int]):
+def get_items(numbers: list[int]):
     items = []
-    texts = []
-    images = []
     for number in numbers:
         validate_number(number)
-        item = clip_history[number - 1]
-        items.append(item)
-        if item.image:
-            images.append(item.image)
-        else:
-            texts.append(item.text)
-    text = "\n".join(texts)
-    return items, text, images
+        items.append(clip_history[number - 1])
+    return items
 
 
 def validate_number(number: range):
