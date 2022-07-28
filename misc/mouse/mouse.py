@@ -165,6 +165,15 @@ class Actions:
         actions.tracking.control_zoom_toggle(zoom_control)
         actions.user.notify(f"Zoom mouse: {zoom_control}")
 
+    def mouse_turn_off():
+        """Disables control mouse and zoom mouse"""
+        global mouse_control, zoom_control
+        mouse_control = False
+        zoom_control = False
+        actions.tracking.control_toggle(False)
+        actions.tracking.control_zoom_toggle(False)
+        actions.user.notify("Mouse off")
+
     def mouse_wake():
         """Enable control mouse and zoom mouse to earlier state"""
         actions.tracking.control_toggle(mouse_control)

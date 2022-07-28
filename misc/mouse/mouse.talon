@@ -21,6 +21,7 @@ mouse gaze:                 user.mouse_gaze_scroll()
 ^mouse control$:            user.mouse_toggle_control_mouse()
 ^mouse zoom$:               user.mouse_toggle_zoom_mouse()
 ^mouse debug$:              tracking.control_debug_toggle()
+^mouse off$:                user.mouse_turn_off()
 
 # Misc
 mouse center:               user.mouse_center_window()
