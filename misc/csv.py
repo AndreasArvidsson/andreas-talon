@@ -1,9 +1,14 @@
 from talon import Module, actions, fs
-from typing import Callable
+from typing import Callable, Tuple
 from pathlib import Path
 import csv
 
 mod = Module()
+
+RowType = list[str]
+ListType = list[RowType]
+DictType = dict[str, str]
+TupleType = Tuple[ListType, RowType]
 
 csv_directory_setting = mod.setting(
     "csv_directory", type=str, default="", desc="The directory to look for csv files"
@@ -12,35 +17,32 @@ csv_directory_setting = mod.setting(
 
 @mod.action_class
 class Actions:
-    def watch_csv_as_list(path: str, callback: Callable[[list], None]):
+    def watch_csv_as_list(path: str, callback: Callable[[ListType, RowType], None]):
         """Watch csv file for changes. Present content as list"""
         full_path = get_full_path(path)
 
         def on_watch(path: str, flags):
             if full_path.match(path):
-                csv_list = read_csv_file(full_path)
-                callback(csv_list)
+                callback(*read_csv_file(full_path))
 
         fs.watch(str(full_path.parent), on_watch)
 
         if full_path.is_file():
-            csv_list = read_csv_file(full_path)
-            callback(csv_list)
+            callback(*read_csv_file(full_path))
 
-    def watch_csv_as_dict(path: str, callback: Callable[[dict], None]):
+    def watch_csv_as_dict(path: str, callback: Callable[[DictType], None]):
         """Watch csv file for changes. Present content as dict"""
 
-        def on_watch(csv_list: list):
-            csv_dict = list_to_dict(path, csv_list)
+        def on_watch(values: ListType, headers: RowType):
+            csv_dict = list_to_dict(path, values)
             callback(csv_dict)
 
         actions.user.watch_csv_as_list(path, on_watch)
 
 
-def list_to_dict(path: str, csv_list: list) -> dict:
+def list_to_dict(path: str, values: ListType) -> DictType:
     result = {}
-    # Exclude header row
-    for row in csv_list[1:]:
+    for row in values:
         key = row[0].lower()
         if len(row) == 1:
             result[key] = row[0]
@@ -53,7 +55,8 @@ def list_to_dict(path: str, csv_list: list) -> dict:
     return result
 
 
-def read_csv_file(path: Path) -> list:
+def read_csv_file(path: Path) -> TupleType:
+    """Read csv file and return tuple with values and headers"""
     result = []
     with open(path, "r") as csv_file:
         csvReader = csv.reader(csv_file)
@@ -62,7 +65,14 @@ def read_csv_file(path: Path) -> list:
             if len(row) == 0 or row[0].lstrip().startswith("#"):
                 continue
             result.append([x.strip() for x in row])
-    return result
+    return parse_headers(result)
+
+
+def parse_headers(csv_list: ListType) -> TupleType:
+    """Separate csv list into values and headers"""
+    if len(csv_list) > 1 and len(csv_list[1]) == 1 and csv_list[1][0] == "-":
+        return csv_list[2:], csv_list[0]
+    return csv_list, []
 
 
 def get_full_path(path: str) -> Path:
