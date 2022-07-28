@@ -1,5 +1,6 @@
-from talon import Module, cron, imgui, ui
+from talon import Module, imgui, ui
 from dataclasses import dataclass
+import time
 
 mod = Module()
 size_setting = mod.setting("command_history_size", int, default=50)
@@ -7,18 +8,25 @@ display_size_setting = mod.setting("command_history_display", int, default=10)
 ttl_setting = mod.setting("command_history_ttl", float, default=0)
 history = []
 display_size = None
+# If true ttl(time to live) is used to auto hide older history entries
+use_ttl = True
 
 
 # Wrapping in a data class is a simple solution to get a unique identifier for each string even if they are identical
 @dataclass
 class HistoryEntry:
     command: str
+    ttl: int
 
 
 @imgui.open(x=ui.main_screen().x, y=ui.main_screen().y)
 def gui(gui: imgui.GUI):
+    t = time.monotonic()
+    # Hide entries outside of display size
     for entry in history[-display_size:]:
-        gui.text(entry.command)
+        # If ttl is disabled or time hasn't passed yet: show command.
+        if not use_ttl or entry.ttl >= t:
+            gui.text(entry.command)
 
 
 @mod.action_class
@@ -26,12 +34,10 @@ class Actions:
     def command_history_append(command: str):
         """Append command to history"""
         global history
-        entry = HistoryEntry(command)
+        ttl = time.monotonic() + ttl_setting.get()
+        entry = HistoryEntry(command, ttl)
         history.append(entry)
         history = history[-size_setting.get() :]
-        ttl = ttl_setting.get()
-        if ttl > 0:
-            cron.after(f"{int(ttl*1000)}ms", lambda: ttl_cleanup_entry(entry))
 
     def command_history_toggle():
         """Toggles viewing the history"""
@@ -42,6 +48,13 @@ class Actions:
             gui.hide()
         else:
             gui.show()
+
+    def command_history_toggle_ttl(enabled: bool = None):
+        """Toggle if command history should use TTL"""
+        global use_ttl
+        if enabled == None:
+            enabled = not use_ttl
+        use_ttl = enabled
 
     def command_history_clear():
         """Clear the history"""
@@ -84,8 +97,3 @@ class Actions:
             display_size = 3
         else:
             display_size -= 5
-
-
-def ttl_cleanup_entry(entry: HistoryEntry):
-    if entry in history:
-        history.remove(entry)
