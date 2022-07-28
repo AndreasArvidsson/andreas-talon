@@ -52,7 +52,7 @@ text_rule_parts = [
     "{user.key_punctuation}",
     "<user.abbreviation>",
     "<user.spell>",
-    "<user.number_dd>",
+    # "<user.number_dd>",
     "<user.number_prefix>",
     "<phrase>",
 ]
@@ -62,7 +62,7 @@ prose_rule_parts = [
     "{user.key_punctuation}",
     "<user.abbreviation>",
     "<user.spell>",
-    "<user.number_dd>",
+    # "<user.number_dd>",
     "<user.number_prefix>",
     "<user.placeholder>",
     "<phrase>",
