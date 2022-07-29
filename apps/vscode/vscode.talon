@@ -116,8 +116,8 @@ pop sibling:
     key(enter)
 
 # Git
-git open file:              user.git_open_working_file_url()
-git copy file:              user.git_copy_working_file_url()
+git open file:              user.git_open_remote_file_url()
+git copy file:              user.git_copy_remote_file_url()
 git changes:                user.vscode("git.openChange")
 git changed files:          user.vscode("git.openAllChanges")
 git add all:                user.vscode("git.stageAll")
@@ -253,10 +253,15 @@ break line <user.cursorless_target>:
     key("enter")
 git open <user.cursorless_target>:
     user.cursorless_command("setSelection", cursorless_target)
-    user.git_open_working_file_url(1)
+    user.git_open_remote_file_url(1)
 git copy <user.cursorless_target>:
     user.cursorless_command("setSelection", cursorless_target)
-    user.git_copy_working_file_url(1)
+    user.git_copy_remote_file_url(1)
+git copy mark [down] <user.cursorless_target>:
+    user.cursorless_command("setSelection", cursorless_target)
+    user.git_copy_markdown_remote_file_url(0)
+git copy mark [down] <user.cursorless_primitive_target> [as <user.cursorless_primitive_target>]:
+    user.git_copy_markdown_remote_file_url(cursorless_primitive_target_list)
 paste <number_small> [and <number_small>]* <user.cursorless_positional_target>:
     user.clipboard_manager_copy(number_small_list)
     user.cursorless_command("pasteFromClipboard", cursorless_positional_target)

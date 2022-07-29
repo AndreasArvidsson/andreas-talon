@@ -319,17 +319,39 @@ class Actions:
         if text:
             insert(text)
 
-    def git_open_working_file_url(line_number: bool = False):
-        """Open current file in in git webpage"""
+    def git_open_remote_file_url(line_number: bool = False):
+        """Open remote git file in browser"""
         url = actions.user.vscode_get("andreas.getGitURL", line_number)
         if url:
             actions.user.browser_focus_open(url)
 
-    def git_copy_working_file_url(line_number: bool = False):
-        """Copy current file URL to clipboard"""
+    def git_copy_remote_file_url(line_number: bool = False):
+        """Copy remote git file URL to clipboard"""
         url = actions.user.vscode_get("andreas.getGitURL", line_number)
         if url:
             actions.clip.set_text(url)
+
+    def git_copy_markdown_remote_file_url(targets: list[dict]):
+        """Copy remote git file URL to clipboard as markdown link"""
+        line_number = False
+        # The second target is optional and is used for getting the text
+        if len(targets) == 2:
+            texts = actions.user.cursorless_single_target_command_get(
+                "getText", targets[1]
+            )
+            text = "".join(texts)
+            line_number = True
+
+        # The first target is the source of the git url
+        actions.user.cursorless_command("setSelection", targets[0])
+
+        # If the second target is omitted used the selected text
+        if len(targets) == 1:
+            text = actions.edit.selected_text()
+
+        url = actions.user.vscode_get("andreas.getGitURL", line_number)
+        if url and text:
+            actions.clip.set_text(f"[`{text}`]({url})")
 
     def git_find_branch(text: str = None):
         """Fined git branch"""
