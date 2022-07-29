@@ -1,12 +1,12 @@
 Spoken form, Cursorless identifier
 curly, curlyBrackets
-diamond | angle, angleBrackets
-string | quad, doubleQuotes
+diamond, angleBrackets
+quad | string, doubleQuotes
 round, parentheses
 skis, backtickQuotes
-index | square, squareBrackets
+index, squareBrackets
 twin, singleQuotes
-void | space, whitespace
+void, whitespace
 pair, any
 -escaped quad, escapedDoubleQuotes
 -escaped twin, escapedSingleQuotes
