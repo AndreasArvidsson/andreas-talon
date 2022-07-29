@@ -30,11 +30,18 @@ class Actions:
         if full_path.is_file():
             callback(*read_csv_file(full_path))
 
-    def watch_csv_as_dict(path: str, callback: Callable[[DictType], None]):
+    def watch_csv_as_dict(
+        path: str,
+        callback: Callable[[dict], None],
+        values_as_list: bool = False,
+    ):
         """Watch csv file for changes. Present content as dict"""
 
         def on_watch(values: ListType, headers: RowType):
-            csv_dict = list_to_dict(path, values)
+            if values_as_list:
+                csv_dict = list_to_dict_of_lists(path, values)
+            else:
+                csv_dict = list_to_dict(path, values)
             callback(csv_dict)
 
         actions.user.watch_csv_as_list(path, on_watch)
@@ -52,6 +59,14 @@ def list_to_dict(path: str, values: ListType) -> DictType:
             raise ValueError(
                 f"Can't create dict from csv '{path}' with row length {len(row)}"
             )
+    return result
+
+
+def list_to_dict_of_lists(path: str, values: ListType) -> dict[str, RowType]:
+    result = {}
+    for row in values:
+        key = row[0].lower()
+        result[key] = row[1:]
     return result
 
 

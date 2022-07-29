@@ -224,48 +224,6 @@ open settings <user.text>:
 align columns:              user.vscode("rainbow-csv.Align")
 shrink columns:             user.vscode("rainbow-csv.Shrink")
 
-# Cursorless
-^cursorless use release$:
-    user.cursorless_use_release()
-^cursorless use develop$:
-    user.cursorless_use_develop()
-^cursorless record$:
-    user.vscode("cursorless.recordTestCase")
-^cursorless record highlight$:
-    argument = user.to_dict("isDecorationsTest", 1)
-    user.vscode("cursorless.recordTestCase", argument)
-^cursorless record error$:
-    argument = user.to_dict("recordErrors", 1)
-    user.vscode("cursorless.recordTestCase", argument)
-^cursorless record pause$:
-    user.vscode("cursorless.pauseRecording")
-^cursorless record resume$:
-    user.vscode("cursorless.resumeRecording")
-
-copy <user.cursorless_target>:
-    user.cursorless_command("copyToClipboard", cursorless_target)
-    user.clipboard_manager_update()
-cut <user.cursorless_target>:
-    user.cursorless_command("cutToClipboard", cursorless_target)
-    user.clipboard_manager_update()
-break line <user.cursorless_target>:
-    user.cursorless_command("setSelectionBefore", cursorless_target)
-    key("enter")
-git open <user.cursorless_target>:
-    user.cursorless_command("setSelection", cursorless_target)
-    user.git_open_remote_file_url(1)
-git copy <user.cursorless_target>:
-    user.cursorless_command("setSelection", cursorless_target)
-    user.git_copy_remote_file_url(1)
-git copy mark [down] <user.cursorless_target>:
-    user.cursorless_command("setSelection", cursorless_target)
-    user.git_copy_markdown_remote_file_url(0)
-git copy mark [down] <user.cursorless_primitive_target> [as <user.cursorless_primitive_target>]:
-    user.git_copy_markdown_remote_file_url(cursorless_primitive_target_list)
-paste <number_small> [and <number_small>]* <user.cursorless_positional_target>:
-    user.clipboard_manager_copy(number_small_list)
-    user.cursorless_command("pasteFromClipboard", cursorless_positional_target)
-
 # Misc
 install extension:          user.vscode("workbench.extensions.action.installVSIX")
 window reload:              user.vscode("workbench.action.reloadWindow")
