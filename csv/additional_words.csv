@@ -3,49 +3,53 @@ Spoken Form, Word(s) (If Different)
 
 # Words that should be added to Talon's vocabulary.
 
+# Portmanteaus containing commands
+backup
+markdown
+
+# Names
+andreas
+arvidsson
+pokey
+aegis
+knausj
+karlstad
+cursorless
+vscode
+linux
+vimium
+highcharts
+tree sitter
+quarkus
+keycloak
+rango
+talon
+
+# Abbreviations
 admin
+util
+num
+csv
+usb
+rsi
+html
+url
 vpn
 dns
 exe
-linux
-array
-html
-url
-vscode
-json
 api
 http
 css
-cursorless
+json
+
+# Misc words
 cheat sheet
-user
-backup
-andreas
-arvidsson
-rsi
-pokey
-aegis
-vimium
-karlstad
 yeah
-usb
-highcharts
-csv
-chuck
-any
-tree sitter
-num
-quarkus
-keycloak
-util
-rango
-talon
-pause
-markdown
+
 
 # Different pronounciations of words that need to be added to Talon's vocabulary.
 
-knaus, knausj
+knaus j, knausj
 toby, tobii
 curse less, cursorless
 visual code, vscode
