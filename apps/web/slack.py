@@ -64,7 +64,9 @@ def json_to_markdown(data: dict) -> str:
             if attributes.get("blockquote"):
                 insert = insert.replace("\n", "  \n")
             elif attributes.get("list"):
-                insert = format_list_block(insert, attributes)
+                insert, current_block = format_list_block(
+                    insert, attributes, current_block
+                )
             result += insert
             continue
 
@@ -93,14 +95,16 @@ def apply_block_attributes(line: str, attributes: dict, current_block: str):
             current_block = "code-block"
             line = f"```\n{line}"
     elif attributes.get("blockquote"):
-        current_block = "blockquote"
         line = f"> {line}"
+        if current_block != "blockquote":
+            current_block = "blockquote"
+            line = f"\n{line}"
     elif attributes.get("list"):
-        if line == "\n" and current_block != "list":
+        if line == "\n" and current_block != attributes.get("list"):
             line = line + line + format_list_line("", attributes["list"])
         else:
             line = format_list_line(line, attributes["list"])
-        current_block = "list"
+        current_block = attributes["list"]
     else:
         if current_block == "code-block":
             line = f"```\n{line}"
@@ -110,14 +114,17 @@ def apply_block_attributes(line: str, attributes: dict, current_block: str):
     return line, current_block
 
 
-def format_list_block(insert: str, attributes: dict) -> str:
+def format_list_block(insert: str, attributes: dict, current_block: str) -> str:
     lines = insert.splitlines(True)
     type = attributes["list"]
+
     for i in range(len(lines)):
         # The first line is already formatted in the previous lookahead
-        if i > 0:
+        if i > 0 or current_block != type:
             lines[i] = format_list_line(lines[i], type)
-    return "".join(lines)
+            if i == 0:
+                lines[i] = f"\n{lines[i]}"
+    return "".join(lines), type
 
 
 def format_list_line(line: str, type: str) -> str:
