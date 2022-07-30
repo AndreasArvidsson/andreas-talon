@@ -107,11 +107,11 @@ class Actions:
     def talon_restart():
         """Quit and relaunch the Talon app"""
 
-    def to_dict(
+    def as_dict(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
     ) -> dict:
         """Create dict"""
-        args = actions.user.to_list(arg1, arg2, arg3, arg4)
+        args = actions.user.as_list(arg1, arg2, arg3, arg4)
         if len(args) % 2 != 0:
             raise RuntimeError("Can't create dictionary: Uneven number of arguments")
         result = {}
@@ -119,7 +119,7 @@ class Actions:
             result[args[i]] = args[i + 1]
         return result
 
-    def to_list(
+    def as_list(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
     ) -> list:
         """Create list"""

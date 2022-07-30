@@ -9,10 +9,10 @@ app: vscode
 ^cursorless record$:
     user.vscode("cursorless.recordTestCase")
 ^cursorless record highlight$:
-    argument = user.to_dict("isDecorationsTest", 1)
+    argument = user.as_dict("isDecorationsTest", 1)
     user.vscode("cursorless.recordTestCase", argument)
 ^cursorless record error$:
-    argument = user.to_dict("recordErrors", 1)
+    argument = user.as_dict("recordErrors", 1)
     user.vscode("cursorless.recordTestCase", argument)
 ^cursorless record pause$:
     user.vscode("cursorless.pauseRecording")
@@ -71,5 +71,5 @@ break line <user.cursorless_target>:
     key("enter")
 
 {user.key_symbol} wrap <user.cursorless_target>:
-    delimiters = user.to_list(key_symbol, key_symbol)
+    delimiters = user.as_list(key_symbol, key_symbol)
     user.cursorless_single_target_command_with_arg_list("wrapWithPairedDelimiter", cursorless_target, delimiters)
