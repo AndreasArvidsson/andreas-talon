@@ -74,17 +74,19 @@ def read_csv_file(path: Path) -> TupleType:
     """Read csv file and return tuple with values and headers"""
     result = []
     with open(path, "r") as csv_file:
-        csvReader = csv.reader(csv_file)
-        for row in csvReader:
-            # Remove leading or trailing whitespaces for each cell
-            row = [x.strip() for x in row]
+        # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
+        csv_reader = csv.reader(csv_file, skipinitialspace=True)
+        for row in csv_reader:
+            # Remove trailing whitespaces for each cell
+            row = [x.rstrip() for x in row]
             # Exclude empty or comment rows
             if (
-                len(row) > 0
-                and (len(row) != 1 or row[0] != "")
-                and not row[0].startswith("#")
+                len(row) == 0
+                or (len(row) == 1 and row[0] == "")
+                or row[0].startswith("#")
             ):
-                result.append(row)
+                continue
+            result.append(row)
     return parse_headers(result)
 
 
