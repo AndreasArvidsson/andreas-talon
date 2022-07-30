@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app, cron, ctrl, ui
+from talon import Context, Module, actions, app, cron, ctrl, ui, storage
 from talon_plugins import eye_mouse
 
 mod = Module()
@@ -24,8 +24,6 @@ scroll_job = None
 gaze_job = None
 scroll_speed = 100
 scroll_dir = 1
-mouse_control = False
-zoom_control = True
 
 
 @mod.action_class
@@ -142,42 +140,43 @@ class Actions:
 
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
-        global mouse_control, zoom_control
-        mouse_control = (
+        tracking_control = (
             not actions.tracking.control_enabled() and eye_mouse.tracker is not None
         )
-        if mouse_control:
-            zoom_control = False
+        storage.set("tracking_control", tracking_control)
+        if tracking_control:
+            storage.set("tracking_zoom", False)
             actions.tracking.control_zoom_toggle(False)
-        actions.tracking.control_toggle(mouse_control)
-        actions.user.notify(f"Control mouse: {mouse_control}")
+        actions.tracking.control_toggle(tracking_control)
+        actions.user.notify(f"Control mouse: {tracking_control}")
 
     def mouse_toggle_zoom_mouse():
         """Toggles zoom mouse"""
-        global mouse_control, zoom_control
-        zoom_control = (
+        tracking_zoom = (
             not actions.tracking.control_zoom_enabled()
             and eye_mouse.tracker is not None
         )
-        if zoom_control:
-            mouse_control = False
+        storage.set("tracking_zoom", tracking_zoom)
+        if tracking_zoom:
+            storage.set("tracking_control", False)
             actions.tracking.control_toggle(False)
-        actions.tracking.control_zoom_toggle(zoom_control)
-        actions.user.notify(f"Zoom mouse: {zoom_control}")
+        actions.tracking.control_zoom_toggle(tracking_zoom)
+        actions.user.notify(f"Zoom mouse: {tracking_zoom}")
 
     def mouse_turn_off():
         """Disables control mouse and zoom mouse"""
-        global mouse_control, zoom_control
-        mouse_control = False
-        zoom_control = False
+        storage.set("tracking_control", False)
+        storage.set("tracking_zoom", False)
         actions.tracking.control_toggle(False)
         actions.tracking.control_zoom_toggle(False)
         actions.user.notify("Mouse off")
 
     def mouse_wake():
         """Enable control mouse and zoom mouse to earlier state"""
-        actions.tracking.control_toggle(mouse_control)
-        actions.tracking.control_zoom_toggle(zoom_control)
+        tracking_control = storage.get("tracking_control", False)
+        tracking_zoom = storage.get("tracking_zoom", False)
+        actions.tracking.control_toggle(tracking_control)
+        actions.tracking.control_zoom_toggle(tracking_zoom)
 
     def mouse_sleep():
         """Disables control mouse, zoom mouse and scroll"""
