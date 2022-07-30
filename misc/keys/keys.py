@@ -106,6 +106,7 @@ ctx.lists["self.key_symbol"] = {
     "question mark":    "?",
     "amper":            "&",
     "at sign":          "@",
+    "sterling":         "£",
 
     "single":           "'",
     "double":           '"',
