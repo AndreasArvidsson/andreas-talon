@@ -1,5 +1,5 @@
 tag: browser
-and title: /YouTube| - YouTube$/
+title: /YouTube| - YouTube$/
 -
 
 speed down:                 key(shift-,)

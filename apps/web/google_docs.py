@@ -5,7 +5,7 @@ mod = Module()
 
 ctx.matches = """
 tag: browser
-and title: /Links - Google Docs/
+title: /Links - Google Docs/
 """
 
 
