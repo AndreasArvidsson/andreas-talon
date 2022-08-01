@@ -1,6 +1,4 @@
-from talon import Context, Module, app, imgui, actions, ui, fs
-from talon import fs
-import os
+from talon import Context, Module, app, imgui, actions, ui
 import re
 import time
 
@@ -13,8 +11,6 @@ ctx = Context()
 mod = Module()
 mod.mode("homophones")
 
-cwd = os.path.dirname(os.path.realpath(__file__))
-homophones_file = os.path.join(cwd, "homophones.csv")
 main_screen = ui.main_screen()
 homophones_last_used = {}
 
@@ -153,26 +149,18 @@ def format_homophone(word: str, homophone: str):
     return homophone
 
 
-def read_file(name, flags):
+def homophones_update(values: list[list[str]], headers: list[str]):
     global all_homophones
-    if name != homophones_file:
-        return
-
-    phones = {}
-    with open(homophones_file, "r") as f:
-        for line in f:
-            words = line.rstrip().split(",")
-            for word in words:
-                word = word.lower()
-                old_words = phones.get(word, [])
-                phones[word] = sorted(set(old_words + words))
-
-    all_homophones = phones
+    homophones = {}
+    for row in values:
+        words = sorted(row)
+        for word in words:
+            homophones[word.lower()] = words
+    all_homophones = homophones
 
 
 def on_ready():
-    read_file(homophones_file, None)
-    fs.watch(cwd, read_file)
+    actions.user.watch_csv_as_list("homophones", homophones_update)
 
 
 app.register("ready", on_ready)
