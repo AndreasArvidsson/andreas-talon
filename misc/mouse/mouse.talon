@@ -1,6 +1,6 @@
 # Click
 click {user.mouse_click}:   user.mouse_click(mouse_click)
-mouse drag:                 user.mouse_drag()
+dragging:                   user.mouse_drag()
 click center:
     user.mouse_center_window()
     mouse_click(0)

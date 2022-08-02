@@ -14,7 +14,6 @@ ctx.lists["self.mouse_click"] = {
     "dub": "double",
     "triple": "triple",
     "trip": "triple",
-    "move": "move",
     "control": "control",
 }
 

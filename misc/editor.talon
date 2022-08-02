@@ -11,7 +11,7 @@ go bottom:
 
 head:                       edit.line_start()
 tail:                       edit.line_end()
-middle:                     user.line_middle()
+center:                     user.line_middle()
 
 up [<number_small>]:        user.up(number_small or 1)
 down [<number_small>]:      user.down(number_small or 1)
