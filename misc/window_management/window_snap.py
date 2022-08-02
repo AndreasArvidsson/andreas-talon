@@ -31,6 +31,7 @@ class WindowState:
     old_rect: ui.Rect
     new_rect: ui.Rect
 
+
 window_states = {}
 
 

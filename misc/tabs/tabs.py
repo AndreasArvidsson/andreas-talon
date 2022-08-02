@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+
 key = actions.key
 
 mod = Module()
@@ -12,11 +13,20 @@ tag: user.tabs
 
 @ctx.action_class("app")
 class AppActions:
-    def tab_previous():     key("ctrl-pageup")
-    def tab_next():         key("ctrl-pagedown")
-    def tab_open():         key("ctrl-t")
-    def tab_close():        key("ctrl-w")
-    def tab_reopen():       key("ctrl-shift-t")
+    def tab_previous():
+        key("ctrl-pageup")
+
+    def tab_next():
+        key("ctrl-pagedown")
+
+    def tab_open():
+        key("ctrl-t")
+
+    def tab_close():
+        key("ctrl-w")
+
+    def tab_reopen():
+        key("ctrl-shift-t")
 
 
 @mod.action_class
@@ -28,7 +38,7 @@ class TabActions:
     def tab_jump_from_back(number: int):
         """Jumps to the specified tab counted from the back"""
         actions.user.tab_final()
-        for _ in range(number-1):
+        for _ in range(number - 1):
             actions.app.tab_previous()
 
     def tab_final():

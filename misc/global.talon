@@ -1,5 +1,5 @@
-then:   skip()
-stop:   user.stop_app()
+then:                       skip()
+stop:                       user.stop_app()
 
 pick <number_small>:
     user.pick_item(number_small - 1)

@@ -1,2 +1,2 @@
-<user.extension>:   "{extension}"
-<user.domain>:      "{domain}"
+<user.extension>:           "{extension}"
+<user.domain>:              "{domain}"

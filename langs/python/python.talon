@@ -6,4 +6,4 @@ tag(): user.comments
 
 # ----- Python additional -----
 
-(op | is) in:   " in "
+(op | is) in:               " in "

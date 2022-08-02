@@ -5,10 +5,10 @@ ctx = Context()
 mod = Module()
 
 mod.list("navigation_action", desc="Action to perform")
-ctx.lists["self.navigation_action"] = { "go", "select" }
+ctx.lists["self.navigation_action"] = {"go", "select"}
 
 mod.list("navigation_direction", desc="Direction to perform the action")
-ctx.lists["self.navigation_direction"] = { "up", "down", "left", "right" }
+ctx.lists["self.navigation_direction"] = {"up", "down", "left", "right"}
 
 
 @mod.action_class
@@ -58,7 +58,9 @@ class Actions:
         if action == "go":
             handle_go(direction, before_or_after, num_lines, m.start(), m.end(), length)
         elif action == "select":
-            handle_select(direction, before_or_after, num_lines, m.start(), m.end(), length)
+            handle_select(
+                direction, before_or_after, num_lines, m.start(), m.end(), length
+            )
 
 
 def search_line(direction: str, target: str, text: str, length: int):
@@ -74,6 +76,7 @@ def search_line(direction: str, target: str, text: str, length: int):
         if m.end() == length and len(matches) > 1:
             m = matches[len(matches) - 2]
     return m
+
 
 def handle_go(direction, before_or_after, num_lines, start, end, length):
     if num_lines:
@@ -91,6 +94,7 @@ def handle_go(direction, before_or_after, num_lines, start, end, length):
         else:
             go_left(length - end)
 
+
 def handle_select(direction, before_or_after, num_lines, start, end, length):
     if num_lines:
         select_lines(direction, num_lines)
@@ -107,6 +111,7 @@ def handle_select(direction, before_or_after, num_lines, start, end, length):
         else:
             extend_left(length - end)
 
+
 def get_text_up():
     actions.edit.up()
     actions.edit.line_end()
@@ -114,6 +119,7 @@ def get_text_up():
     text = actions.edit.selected_text()
     actions.edit.right()
     return text
+
 
 def get_text_down():
     actions.edit.down()
@@ -123,17 +129,20 @@ def get_text_down():
     actions.edit.left()
     return text
 
+
 def get_text_left():
     actions.edit.extend_line_start()
     text = actions.edit.selected_text()
     actions.edit.right()
     return text
 
+
 def get_text_right():
     actions.edit.extend_line_end()
     text = actions.edit.selected_text()
     actions.edit.left()
     return text
+
 
 def go_lines(direction: str, count: int):
     if direction == "up":
@@ -143,6 +152,7 @@ def go_lines(direction: str, count: int):
         for _ in range(count):
             actions.edit.down()
 
+
 def select_lines(direction: str, count: int):
     if direction == "up":
         for _ in range(count):
@@ -151,17 +161,21 @@ def select_lines(direction: str, count: int):
         for _ in range(count):
             actions.edit.extend_down()
 
+
 def go_left(i):
     for j in range(0, i):
         actions.edit.left()
+
 
 def go_right(i):
     for j in range(0, i):
         actions.edit.right()
 
+
 def extend_left(i):
     for j in range(0, i):
         actions.edit.extend_left()
+
 
 def extend_right(i):
     for j in range(0, i):

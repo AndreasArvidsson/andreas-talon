@@ -1,5 +1,5 @@
 os: linux
 -
 
-switcher:       key(super)
-show desktop:   key(super-ctrl-d)
+switcher:                   key(super)
+show desktop:               key(super-ctrl-d)

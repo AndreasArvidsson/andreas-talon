@@ -8,17 +8,36 @@ tag: user.html
 """
 
 tag_names_list = {
-    "html", "head", "body", "header", "footer", "main", "aside",
-    "div", "span", "table", "template", "script", "nav",
-    "button", "input", "textarea", "select", "option", "form",
-    "label", "Link", "hr"
+    "html",
+    "head",
+    "body",
+    "header",
+    "footer",
+    "main",
+    "aside",
+    "div",
+    "span",
+    "table",
+    "template",
+    "script",
+    "nav",
+    "button",
+    "input",
+    "textarea",
+    "select",
+    "option",
+    "form",
+    "label",
+    "Link",
+    "hr",
 }
 
+# fmt: off
 tag_names = {
     "anchor":           "a",
     "table headers":    "thead",
     "table body":       "tbody",
-    "table foot":   "   tfoot",
+    "table foot":       "tfoot",
     "table row":        "tr",
     "table head":       "th",
     "table cell":       "td",
@@ -34,12 +53,14 @@ tag_names = {
     "head six":         "h6",
     "break":            "br"
 }
+# fmt: on
 tag_names.update(dict(zip(tag_names_list, tag_names_list)))
 
 mod.list("code_tag", desc="Predefined tag names")
 ctx.lists["self.code_tag"] = tag_names
 
 tags = []
+
 
 @mod.action_class
 class Actions:
@@ -52,7 +73,8 @@ class Actions:
         if len(tags) < 1:
             return
         name = tags.pop()
-        actions.insert(f"</{name}>" )
+        actions.insert(f"</{name}>")
+
 
 @ctx.action_class("user")
 class UserActions:

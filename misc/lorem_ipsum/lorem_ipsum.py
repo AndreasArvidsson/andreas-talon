@@ -2,15 +2,17 @@ from talon import Module, actions
 
 mod = Module()
 
+
 @mod.action_class
 class Actions:
     def lorem_ipsum(num_words: int):
         """Inserts a lorem ipsum"""
         res = words[:num_words]
-        if not res[len(res)-1].endswith("."):
-            res[len(res)-1] = res[len(res)-1] + "."
+        if not res[len(res) - 1].endswith("."):
+            res[len(res) - 1] = res[len(res) - 1] + "."
         res = " ".join(res)
         actions.insert(res)
+
 
 lorem_ipsum = """Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna nunc id cursus metus. Luctus venenatis lectus magna fringilla urna porttitor rhoncus. Tellus elementum sagittis vitae et leo duis. Diam vulputate ut pharetra sit amet aliquam id diam maecenas. Amet consectetur adipiscing elit ut aliquam. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Maecenas ultricies mi eget mauris pharetra et. Quam vulputate dignissim suspendisse in est ante. Diam phasellus vestibulum lorem sed.
 

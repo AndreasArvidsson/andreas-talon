@@ -61,6 +61,7 @@ extension_siblings = {
 
 # fmt: on
 
+
 @mod.action_class
 class UserActions:
     def get_extension_sibling(extension: str) -> str:

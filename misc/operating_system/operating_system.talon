@@ -1,11 +1,11 @@
-open settings:       app.preferences()
+open settings:              app.preferences()
 
-^system shutdown$:   user.system_shutdown()
-^system restart$:    user.system_restart()
+^system shutdown$:          user.system_shutdown()
+^system restart$:           user.system_restart()
 ^system hibernate$:
     user.talon_sleep()
     user.system_hibernate()
-^system lock$:       key(super-l)
+^system lock$:              key(super-l)
 
 open {user.launch_command}:
     user.exec(launch_command)

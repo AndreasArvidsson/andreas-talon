@@ -2,5 +2,5 @@ tag: user.json
 -
 tag(): user.comments
 
-make true:    "true"
-make false:   "false"
+make true:                  "true"
+make false:                 "false"

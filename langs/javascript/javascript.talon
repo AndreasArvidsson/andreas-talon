@@ -7,7 +7,7 @@ tag(): user.comments
 
 # ----- JavaScript additional -----
 
-convert to arrow:   user.arrowify_line()
+convert to arrow:           user.arrowify_line()
 
 make arrow function <user.text>:
     format = user.code_get_function_format()

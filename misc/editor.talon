@@ -1,6 +1,6 @@
 # ----- Navigation -----
-page up:                  edit.page_up()
-page down:                edit.page_down()
+page up:                    edit.page_up()
+page down:                  edit.page_down()
 
 go top:
     user.stop_app()
@@ -9,84 +9,84 @@ go bottom:
     user.stop_app()
     edit.file_end()
 
-head:                     edit.line_start()
-tail:                     edit.line_end()
-middle:                   user.line_middle()
+head:                       edit.line_start()
+tail:                       edit.line_end()
+middle:                     user.line_middle()
 
-up [<number_small>]:      user.up(number_small or 1)
-down [<number_small>]:    user.down(number_small or 1)
-left [<number_small>]:    user.left(number_small or 1)
-right [<number_small>]:   user.right(number_small or 1)
+up [<number_small>]:        user.up(number_small or 1)
+down [<number_small>]:      user.down(number_small or 1)
+left [<number_small>]:      user.left(number_small or 1)
+right [<number_small>]:     user.right(number_small or 1)
 
-before:                   edit.word_left()
-after:                    edit.word_right()
+before:                     edit.word_left()
+after:                      edit.word_right()
 
-slap:                     edit.line_insert_down()
-slapper:                  user.line_insert_down_twice()
+slap:                       edit.line_insert_down()
+slapper:                    user.line_insert_down_twice()
 
-indent:                   edit.indent_more()
-dedent:                   edit.indent_less()
+indent:                     edit.indent_more()
+dedent:                     edit.indent_less()
 
 # ----- Selection -----
-take all:                 edit.select_all()
-take none:                edit.select_none()
+take all:                   edit.select_all()
+take none:                  edit.select_none()
 
-extend top:               edit.extend_file_start()
-extend bottom:            edit.extend_file_end()
-extend head:              edit.extend_line_start()
-extend tail:              edit.extend_line_end()
+extend top:                 edit.extend_file_start()
+extend bottom:              edit.extend_file_end()
+extend head:                edit.extend_line_start()
+extend tail:                edit.extend_line_end()
 
-extend up:                edit.extend_up()
-extend down:              edit.extend_down()
-extend left:              edit.extend_left()
-extend right:             edit.extend_right()
+extend up:                  edit.extend_up()
+extend down:                edit.extend_down()
+extend left:                edit.extend_left()
+extend right:               edit.extend_right()
 
-extend before:            edit.extend_word_left()
-extend after:             edit.extend_word_right()
+extend before:              edit.extend_word_left()
+extend after:               edit.extend_word_right()
 
 # ----- Delete, undo, redo -----
-undo:                     edit.undo()
-redo:                     edit.redo()
+undo:                       edit.undo()
+redo:                       edit.redo()
 
-deli:                     edit.delete()
-drill:                    user.delete_right()
+deli:                       edit.delete()
+drill:                      user.delete_right()
 
 # ----- Cut, copy, paste -----
-cut (this | dis):         edit.cut()
-copy (this | dis):        edit.copy()
-paste it:                 edit.paste()
-paste special:            edit.paste_match_style()
+cut (this | dis):           edit.cut()
+copy (this | dis):          edit.copy()
+paste it:                   edit.paste()
+paste special:              edit.paste_match_style()
 
 # ----- Word -----
-take word:                edit.select_word()
-cut word:                 user.cut_word()
-copy word:                user.copy_word()
-paste to word:            user.paste_word()
-(chuck | clear) word:     edit.delete_word()
+take word:                  edit.select_word()
+cut word:                   user.cut_word()
+copy word:                  user.copy_word()
+paste to word:              user.paste_word()
+(chuck | clear) word:       edit.delete_word()
 
-remove:                   user.delete_word_left()
-wipe:                     user.delete_word_right()
+remove:                     user.delete_word_left()
+wipe:                       user.delete_word_right()
 
 # ----- Misc -----
-drag up:                  edit.line_swap_up()
-drag down:                edit.line_swap_down()
-disk:                     edit.save()
+drag up:                    edit.line_swap_up()
+drag down:                  edit.line_swap_down()
+disk:                       edit.save()
 
 # ----- Text insertions -----
-make to do:               "TODO "
-bullet:                   "* "
-checkbox:                 "* [ ] "
-spam:                     ", "
-stacker:                  ": "
-period:                   ". "
-dasher:                   " - "
-arrow:                    user.insert_arrow()
+make to do:                 "TODO "
+bullet:                     "* "
+checkbox:                   "* [ ] "
+spam:                       ", "
+stacker:                    ": "
+period:                     ". "
+dasher:                     " - "
+arrow:                      user.insert_arrow()
 
 # ----- Cursorless duplication -----
 # This are here because their implementation is useful in vscode input dialogs
-take line:                edit.select_line()
-cut line:                 user.cut_line()
-copy line:                user.copy_line()
-paste to line:            user.paste_line()
-chuck line:               edit.delete_line()
-clear line:               user.clear_line()
+take line:                  edit.select_line()
+cut line:                   user.cut_line()
+copy line:                  user.copy_line()
+paste to line:              user.paste_line()
+chuck line:                 edit.delete_line()
+clear line:                 user.clear_line()

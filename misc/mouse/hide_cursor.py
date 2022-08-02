@@ -30,6 +30,7 @@ hidden_cursor = os.path.join(
 
 mod = Module()
 
+
 @mod.action_class
 class Actions:
     def mouse_show_cursor():
@@ -39,6 +40,7 @@ class Actions:
     def mouse_hide_cursor():
         """Hides the cursor"""
         show_cursor_helper(False)
+
 
 def show_cursor_helper(show):
     """Show/hide the cursor"""

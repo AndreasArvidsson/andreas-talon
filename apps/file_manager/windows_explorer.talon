@@ -3,9 +3,9 @@ app: windows_file_browser
 -
 tag(): user.file_manager
 
-go up:     user.select_up()
-go down:   user.select_down()
-select:    user.select_toggle()
+go up:                      user.select_up()
+go down:                    user.select_down()
+select:                     user.select_toggle()
 
 scout [<user.text>]$:
     edit.find(text or "")

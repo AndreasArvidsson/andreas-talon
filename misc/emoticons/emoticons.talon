@@ -1,1 +1,1 @@
-face {user.emoticon}:   " {emoticon}"
+face {user.emoticon}:       " {emoticon}"
