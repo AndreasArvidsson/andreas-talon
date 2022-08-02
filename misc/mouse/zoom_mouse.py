@@ -44,7 +44,7 @@ class Actions:
         global next_action
 
         # In idle about to enter zoom
-        if eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE:
+        if actions.user.zoom_mouse_idle():
             enter_zoom()
             return
 
