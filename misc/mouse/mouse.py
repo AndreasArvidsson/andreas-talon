@@ -15,6 +15,7 @@ ctx.lists["self.mouse_click"] = {
     "triple": "triple",
     "trip": "triple",
     "control": "control",
+    "troll": "control",
 }
 
 setting_scroll_step = mod.setting("scroll_step", type=float, default=0.02)
@@ -47,8 +48,7 @@ class Actions:
         stop_scroll()
         if not actions.user.zoom_mouse_idle():
             actions.user.zoom_mouse_click(action)
-            return
-        if action == "left":
+        elif action == "left":
             ctrl.mouse_click(button=0)
         elif action == "right":
             ctrl.mouse_click(button=1)
