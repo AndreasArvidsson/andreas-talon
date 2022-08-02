@@ -42,22 +42,21 @@ class Actions:
     def zoom_mouse_on_pop():
         """Zoom mouse on pop event"""
         global next_action
+
         # In idle about to enter zoom
         if eye_zoom_mouse.zoom_mouse.state == eye_zoom_mouse.STATE_IDLE:
             enter_zoom()
             return
+
         # Already in zoom about to click
         cancel_zoom()
         if move_cursor():
-            # Left mouse button is held down: end drag
-            if 0 in ctrl.mouse_buttons_down():
-                actions.user.mouse_drag()
             # Has an action to perform
-            elif next_action:
+            if next_action:
                 actions.user.mouse_click(next_action)
             # Normal left click
             else:
-                ctrl.mouse_click(button=0)
+                actions.user.mouse_click("left")
         next_action = None
 
 

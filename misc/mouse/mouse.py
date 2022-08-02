@@ -33,8 +33,11 @@ class Actions:
         if stop_scroll():
             # Make sure scrolling has stopped so that click doesn't miss
             actions.sleep("50ms")
+        # Left mouse button is held down: end drag
+        if 0 in ctrl.mouse_buttons_down():
+            actions.user.mouse_drag()
         # Zoom mouse is enabled
-        if actions.tracking.control_zoom_enabled():
+        elif actions.tracking.control_zoom_enabled():
             actions.user.zoom_mouse_on_pop()
         # Normal click when using control mouse
         elif actions.tracking.control_enabled():
