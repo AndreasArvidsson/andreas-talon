@@ -24,12 +24,6 @@ ctx.matches = r"""
 app: vscode
 """
 
-ctx_talon = Context()
-ctx_talon.matches = r"""
-app: vscode
-tag: user.talon
-"""
-
 ctx_notebook = Context()
 ctx_notebook.matches = r"""
 app: vscode
@@ -246,20 +240,6 @@ class UserActions:
 
     def paste_word():
         empty_selection()
-        actions.next()
-
-
-@ctx_talon.action_class("user")
-class TalonUserActions:
-    # ----- Format -----
-    def format_document():
-        vscode("andreas.formatDocument")
-
-
-@ctx_talon.action_class("edit")
-class TalonEditActions:
-    def save():
-        actions.user.format_document()
         actions.next()
 
 
