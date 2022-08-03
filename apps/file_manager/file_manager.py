@@ -93,6 +93,7 @@ def on_ready():
         "talon app": str(actions.path.talon_app()),
         "talon home": str(actions.path.talon_home()),
         "talon user": str(actions.path.talon_user()),
+        "talon recordings": path.join(str(actions.path.talon_home()), "recordings"),
     }
     os_paths = {}
     if app.platform == "windows":
