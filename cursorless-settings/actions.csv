@@ -47,6 +47,7 @@ highlight, highlight
 -copy, copyToClipboard
 -cut, cutToClipboard
 -shuffle, randomizeTargets
+# `revealDefinition` is already part of `followLink`
 -define, revealDefinition
 -snippet, insertSnippet
 -snippet make, generateSnippet
