@@ -46,7 +46,7 @@ git copy mark [down] <user.cursorless_primitive_target> [as <user.cursorless_pri
 # Actions around take word
 take <user.cursorless_target> <user.repeater_phrase_all>:
     user.vscode_take_word(cursorless_target, repeater_phrase_all)
-<user.cursorless_target> <user.repeater_phrase_all>:
+pre <user.cursorless_target> <user.repeater_phrase_all>:
     user.vscode_take_word(cursorless_target, repeater_phrase_all)
     edit.left()
 post <user.cursorless_target> <user.repeater_phrase_all>:
