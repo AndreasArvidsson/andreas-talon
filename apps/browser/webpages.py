@@ -46,4 +46,5 @@ ctx.lists["self.webpage"] = {
     "ppm":                  "https://ppm.vantetider.se",
     "hassan":               "https://app.vantetider.se/hassan",
     "wildly tunnel":        "http://localhost:10190",
+    "teams":                "https://teams.microsoft.com",
 }
