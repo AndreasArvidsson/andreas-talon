@@ -11,3 +11,6 @@ vscode install:
 
 vscode package:
     "vsce package\n"
+
+talon user updates:
+    "node {user.talon_user()}/andreas/update.js\n"
