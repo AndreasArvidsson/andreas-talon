@@ -6,4 +6,6 @@ settings():
     user.subtitles_all_screens = 0
 
     # Increase imgui size
-    imgui.scale = 1.4
+    imgui.scale = 1.3
+
+    user.scroll_step = 0.01
