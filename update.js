@@ -5,7 +5,7 @@ const childProcess = require("child_process");
 function getUserPath() {
   const parentDir = path.dirname(__dirname);
   const pathParts = parentDir.split(path.sep);
-  if (pathParts.at(-1) !== "user" || pathParts.at(-2) !== "talon") {
+  if (pathParts.at(-1) !== "user" || !pathParts.at(-2).endsWith("talon")) {
     throw Error(`Can't find talon user directory from path: ${__dirname}`);
   }
   return parentDir;

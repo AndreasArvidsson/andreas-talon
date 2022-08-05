@@ -24,6 +24,8 @@ quarkus
 keycloak
 rango
 talon
+redpill
+linpro
 
 # Abbreviations
 admin
