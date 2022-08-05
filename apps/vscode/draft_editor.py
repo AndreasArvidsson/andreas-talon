@@ -80,7 +80,7 @@ def close_editor_and_focus_back():
 def use_preview_to_get_mime_data() -> MimeData or None:
     """Open markdown preview and copy to get html mime data"""
     actions.user.vscode("markdown.showPreview")
-    actions.sleep("50ms")
+    actions.sleep("75ms")
     actions.user.vscode("workbench.action.focusActiveEditorGroup")
     actions.sleep("50ms")
     actions.edit.select_all()
