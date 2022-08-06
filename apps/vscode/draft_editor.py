@@ -33,7 +33,7 @@ class Actions:
     def draft_editor_submit():
         """Submit/save draft editor"""
         global last_draft_mime
-        mime = use_preview_to_get_mime_data()
+        mime = get_mime_data()
 
         if mime and "PLACEHOLDER" in mime.text:
             actions.edit.select_none()
@@ -77,7 +77,20 @@ def close_editor_and_focus_back():
     actions.user.focus_window(original_window)
 
 
-def use_preview_to_get_mime_data() -> MimeData or None:
+def get_mime_data() -> MimeData or None:
+    """Get mime data to submit"""
+    if submit_as_html_mime():
+        return use_preview_to_get_html_mime_data()
+    return use_editor_to_get_text_mime_data()
+
+
+def use_editor_to_get_text_mime_data() -> MimeData or None:
+    """Use editor text to get plain text mime data"""
+    actions.edit.select_all()
+    return actions.user.selected_mime()
+
+
+def use_preview_to_get_html_mime_data() -> MimeData or None:
     """Open markdown preview and copy to get html mime data"""
     actions.user.vscode("markdown.showPreview")
     actions.sleep("75ms")
@@ -98,3 +111,10 @@ def get_text() -> str:
     if mime_text:
         return mime_text
     return mime.text
+
+
+def submit_as_html_mime() -> bool:
+    """If true drafts should be submitted as html mine"""
+    return original_window.app.name == "Firefox" and original_window.title.startswith(
+        "Slack |"
+    )
