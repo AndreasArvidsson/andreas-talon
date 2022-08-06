@@ -125,6 +125,7 @@ git reset all:              user.vscode("git.unstageAll")
 git pull:                   user.vscode("git.pull")
 git push:                   user.vscode("git.push")
 git push tags:              user.vscode("git.pushTags")
+git open:                   user.vscode("git.openFile")
 git checkout {user.git_branch}: user.git_find_branch(git_branch)
 git checkout [<user.text>]: user.git_find_branch(text or "")
 git commit [<user.text>]:
