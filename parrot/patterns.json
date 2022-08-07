@@ -1,0 +1,23 @@
+{
+    "cluck": {
+        "sounds": [
+            "click_alveolar",
+            "click_palatal"
+        ],
+        "threshold": {
+            ">power": 20,
+            ">probability": 0.85
+        },
+        "throttle": {}
+    },
+    "tut": {
+        "sounds": [
+            "click_lateral"
+        ],
+        "threshold": {
+            ">power": 20,
+            ">probability": 0.9
+        },
+        "throttle": {}
+    }
+}

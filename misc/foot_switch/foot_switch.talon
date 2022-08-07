@@ -17,7 +17,7 @@ key(keypad_3:down):         skip()
 key(keypad_3:up):           user.foot_switch_key(3)
 
 
-# Second device 
+# Second device
 
 # Top button
 key(keypad_4:down):         skip()
