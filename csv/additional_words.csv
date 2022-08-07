@@ -3,9 +3,16 @@ Spoken Form, Word(s) (If Different)
 
 # Words that should be added to Talon's vocabulary.
 
-# Portmanteaus containing commands
+# Portmanteaus containing trailing commands
 backup
+setup
 markdown
+
+# Without these "word down" and equal commands can get misinterpreted
+up
+down
+left
+right
 
 # Names
 andreas
