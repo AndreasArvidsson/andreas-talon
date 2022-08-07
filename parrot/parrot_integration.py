@@ -1,3 +1,4 @@
+# fmt: off
 from copy import copy
 from dataclasses import dataclass
 from typing import Callable, Optional, Sequence
@@ -296,5 +297,5 @@ class Delegate(ParrotDelegate):
 
         return active
 
-parrot_delegate = Delegate(pattern_path, debug=False)
-system = ParrotSystem(model_path, parrot_delegate)
+# parrot_delegate = Delegate(pattern_path, debug=False)
+# system = ParrotSystem(model_path, parrot_delegate)
