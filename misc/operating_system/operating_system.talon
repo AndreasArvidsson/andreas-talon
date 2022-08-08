@@ -11,7 +11,7 @@ open {user.launch_command}:
     user.exec(launch_command)
 
 open path {user.path}:
-    user.exec(path)
+    user.file_manager_open(path)
 
 open browser {user.webpage}:
-    user.browser_focus_open(webpage)
+    user.browser_open(webpage)

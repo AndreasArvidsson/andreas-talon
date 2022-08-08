@@ -2,10 +2,33 @@ from talon import app, Module, Context, actions, app
 from os import path, environ
 from ...merge import merge
 
-ctx = Context()
 mod = Module()
 mod.tag("file_manager", desc="Tag for enabling generic file management commands")
 mod.list("path", desc="List of the users favorite paths")
+
+ctx = Context()
+
+ctx_win = Context()
+ctx_win.matches = r"""
+os: windows
+"""
+
+ctx_linux = Context()
+ctx_linux.matches = r"""
+os: linux
+"""
+
+
+@ctx_win.action_class("user")
+class WinUserActions:
+    def file_manager_open(path: str):
+        actions.user.exec(path)
+
+
+@ctx_linux.action_class("user")
+class LinuxUserActions:
+    def file_manager_open(path: str):
+        actions.user.exec(f"nautilus {path}")
 
 
 @mod.action_class
@@ -38,7 +61,7 @@ class Actions:
     def file_manager_focus_address():
         """File manager focus address field"""
 
-    def file_manager_open_directory(path: str):
+    def file_manager_go(path: str):
         """File manager go to path"""
 
     def file_manager_copy_address():
@@ -57,6 +80,9 @@ class Actions:
 
     def file_manager_terminal_here():
         """Opens terminal at current location"""
+
+    def file_manager_open(path: str):
+        """Open file manager at the given path"""
 
 
 def get_windows_paths():

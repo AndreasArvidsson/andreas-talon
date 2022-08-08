@@ -4,8 +4,8 @@ tag(): user.navigation
 
 # ----- Navigation -----
 go parent:                  user.file_manager_go_parent()
+go {user.path}:             user.file_manager_go(path)
 go address:                 user.file_manager_focus_address()
-go {user.path}:             user.file_manager_open_directory(path)
 copy address:               user.file_manager_copy_address()
 
 # ----- Create folders / files -----

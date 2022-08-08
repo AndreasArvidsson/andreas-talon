@@ -8,7 +8,7 @@ tag(): user.navigation
 go address:                 browser.focus_address()
 go home:                    browser.go_home()
 go {user.webpage}:          browser.go(webpage)
-open {user.webpage}:        user.browser_open(webpage)
+open {user.webpage}:        user.browser_open_new_tab(webpage)
 
 go private:                 browser.open_private_window()
 

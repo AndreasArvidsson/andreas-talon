@@ -23,7 +23,7 @@ class UserActions:
         insert("cd $OLDPWD\n")
 
     def file_manager_go_parent():
-        user.file_manager_open_directory("..")
+        user.file_manager_go("..")
 
     def file_manager_focus_address():
         actions.skip()
@@ -31,7 +31,7 @@ class UserActions:
     def file_manager_copy_address():
         insert("pwd | clipboard\n")
 
-    def file_manager_open_directory(path: str):
+    def file_manager_go(path: str):
         path = path.replace(" ", "\\ ")
         insert(f"cd {path}")
         key("enter")

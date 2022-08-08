@@ -31,12 +31,12 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def browser_open(url: str):
-        """Open url in browser"""
+    def browser_open_new_tab(url: str):
+        """Open url in new tab"""
 
-    def browser_focus_open(url: str):
+    def browser_open(url: str):
         """Focus browser and open url"""
         if actions.app.name() != browser_name:
             actions.user.focus_name(browser_name)
             actions.sleep("50ms")
-        actions.user.browser_open(url)
+        actions.user.browser_open_new_tab(url)

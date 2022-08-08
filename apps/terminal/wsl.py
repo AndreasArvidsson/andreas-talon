@@ -39,7 +39,7 @@ class UserActions:
     def user_home() -> str:
         return update_path(actions.next())
 
-    def file_manager_open_directory(path: str):
+    def file_manager_go(path: str):
         if path.startswith("shell:"):
             actions.user.exec(path)
             return

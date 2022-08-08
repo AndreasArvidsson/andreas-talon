@@ -46,7 +46,7 @@ class UserActions:
         actions.edit.copy()
         key("escape")
 
-    def file_manager_open_directory(path: str):
+    def file_manager_go(path: str):
         key("ctrl-l")
         insert(path)
         key("enter")

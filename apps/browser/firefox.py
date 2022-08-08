@@ -122,7 +122,7 @@ class BrowserActions:
 @ctx.action_class("app")
 class AppActions:
     def preferences():
-        actions.user.browser_open("about:preferences")
+        actions.user.browser_open_new_tab("about:preferences")
 
     # ----- Vimium -----
     def tab_detach():
@@ -147,7 +147,7 @@ class UserActions:
     def tab_final():
         key("ctrl-9")
 
-    def browser_open(url: str):
+    def browser_open_new_tab(url: str):
         actions.browser.focus_address()
         actions.sleep("50ms")
         actions.insert(url)
