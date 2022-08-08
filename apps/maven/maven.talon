@@ -1,6 +1,7 @@
 tag: user.maven
 -
 
+maven:                      "mvn "
 maven version:              "mvn -v\n"
 maven install:              "mvn install\n"
 maven package:              "mvn package\n"
