@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, Context, actions, app
 
 mod = Module()
 ctx = Context()
@@ -7,7 +7,8 @@ ctx.matches = r"""
 tag: browser
 """
 
-browser_name = "Firefox"
+browser_name = "Firefox" if app.platform == "windows" else "firefox"
+
 
 
 @ctx.action_class("browser")
