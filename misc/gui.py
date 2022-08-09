@@ -1,7 +1,8 @@
-from talon import skia
+from talon import skia, ui
 from talon.skia.image import Image
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas
+from talon.screen import Screen
 from typing import Callable, Optional
 
 background_color = "fafafa"
@@ -18,10 +19,14 @@ padding = 4
 class State:
     def __init__(self, canvas: skia.Canvas, numbered: bool):
         self.canvas = canvas
-        self.x = padding + (round(1.5 * text_size) if numbered else 0)
-        self.y = padding
+        self.x = canvas.x + padding + (round(1.5 * text_size) if numbered else 0)
+        self.y = canvas.y + padding
         self.width = 0
         self.height = 0
+
+
+# if len(text) > max_cols + 4:
+#                 text = text[:max_cols] + " ..."
 
 
 class Text:
@@ -110,12 +115,15 @@ class GUI:
     def __init__(
         self,
         callback: Callable,
-        numbered: Optional[bool] = False,
-        # TODO
-        x: Optional[float] = None,
-        y: Optional[float] = None,
+        screen: Screen,
+        x: float,
+        y: float,
+        numbered: bool,
     ):
         self._callback = callback
+        self._screen = screen
+        self._x = x
+        self._y = y
         self._numbered = numbered
         self._showing = False
         self._need_resize = True
@@ -126,8 +134,12 @@ class GUI:
         return self._showing
 
     def show(self):
+        screen = self._get_screen()
+        x = screen.x + screen.width * self._x
+        y = screen.y + screen.height * self._y
+        # TODO
         # self._canvas = Canvas(0, 0, 1, 1)
-        self._canvas = Canvas(0, 0, 500, 500)
+        self._canvas = Canvas(x, y, 500, 500)
         self._canvas.register("draw", self._draw)
         self._showing = True
 
@@ -216,14 +228,29 @@ class GUI:
     #     )
     #     self._canvas.rect = rect
 
+    def _get_screen(self):
+        if self._screen is not None:
+            return self._screen
+        try:
+            return ui.active_window().screen
+        except:
+            return ui.main_screen()
+
 
 def open(
+    screen: Optional[Screen] = None,
+    x: Optional[float] = 0,
+    y: Optional[float] = 0,
     numbered: Optional[bool] = False,
-    x: Optional[float] = None,
-    y: Optional[float] = None,
 ):
     def open_inner(draw):
-        return GUI(draw, numbered=numbered, x=x, y=y)
+        return GUI(
+            draw,
+            numbered=numbered,
+            screen=screen,
+            x=x,
+            y=y,
+        )
 
     return open_inner
 

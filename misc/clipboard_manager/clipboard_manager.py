@@ -34,7 +34,7 @@ ignore_next: bool = False
 sticky: bool = False
 
 
-@open(numbered=True)
+@open(numbered=True, x=0)
 def gui(gui: GUI):
 
     max_rows = setting_clipboard_manager_max_rows.get()
@@ -47,10 +47,6 @@ def gui(gui: GUI):
         if item.image:
             gui.image(item.image)
         else:
-            # text = item.text.replace("\n", "\\n")
-            # if len(text) > max_cols + 4:
-            #     text = text[:max_cols] + " ..."
-            # gui.text(text)
             gui.text(item.text)
 
     gui.spacer()
