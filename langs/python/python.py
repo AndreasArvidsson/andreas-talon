@@ -55,6 +55,7 @@ ctx.lists["self.code_insert"] = merge(
         "class": "class ",
         "lambda": "lambda: ",
         "global": "global ",
+        "pass": "pass",
     },
 )
 ctx.lists["self.code_snippet"] = {
