@@ -1,9 +1,8 @@
 from typing import Optional
-from talon import Module, Context, actions, imgui, clip
+from talon import Module, Context, actions, clip
 from talon.skia.image import Image
 from talon.clip import MimeData
 from dataclasses import dataclass
-
 from ..gui import open, GUI
 
 
@@ -35,27 +34,24 @@ ignore_next: bool = False
 sticky: bool = False
 
 
-@imgui.open()
-def gui(gui: imgui.GUI):
-
-    # @open()
-    # def gui(gui: GUI):
+@open(numbered=True)
+def gui(gui: GUI):
 
     max_rows = setting_clipboard_manager_max_rows.get()
     max_cols = setting_clipboard_manager_max_cols.get()
     sticky_text = " - STICKY" if sticky else ""
-    gui.text(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
+    gui.header(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
     gui.line()
 
     for i, item in enumerate(clip_history):
         if item.image:
-            # gui.image(item.image)
-            text = f"Image(width={item.image.width}, height={item.image.height})"
+            gui.image(item.image)
         else:
-            text = item.text.replace("\n", "\\n")
-            if len(text) > max_cols + 4:
-                text = text[:max_cols] + " ..."
-        gui.text(f"{i+1}: {text}")
+            # text = item.text.replace("\n", "\\n")
+            # if len(text) > max_cols + 4:
+            #     text = text[:max_cols] + " ..."
+            # gui.text(text)
+            gui.text(item.text)
 
     gui.spacer()
     if gui.button("Hide"):

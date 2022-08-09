@@ -1,22 +1,24 @@
-from talon import skia, cron, ui
+from talon import skia
 from talon.skia.image import Image
+from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas
 from typing import Callable, Optional
-import math
 
 background_color = "fafafa"
 border_color = "000000"
+text_color = "444444"
 outer_padding = 27
 border_radius = 8
 text_size = 16
-text_size_header = 24
+text_size_header = 20
+line_height = 24
 padding = 4
 
 
 class State:
-    def __init__(self, canvas: skia.Canvas):
+    def __init__(self, canvas: skia.Canvas, numbered: bool):
         self.canvas = canvas
-        self.x = padding
+        self.x = padding + (round(1.5 * text_size) if numbered else 0)
         self.y = padding
         self.width = 0
         self.height = 0
@@ -24,6 +26,7 @@ class State:
 
 class Text:
     def __init__(self, text: str, header: bool):
+        self.numbered = not header
         self.text = text
         self.header = header
 
@@ -32,36 +35,59 @@ class Text:
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = self.header
         state.canvas.paint.textsize = size
-        rect = state.canvas.paint.measure_text(self.text)[1]
-        state.canvas.draw_text(self.text, state.x, state.y + rect.height)
-        state.width = max(state.width, rect.width)
-        height = rect.height + padding * 3
-        if self.header:
-            height += padding
-        state.height += height
-        state.y += height
+        state.canvas.paint.color = text_color
+
+        lines = self.text.split("\n")
+        for line in lines:
+            rect = state.canvas.paint.measure_text(line)[1]
+            state.canvas.draw_text(line, state.x, state.y + size)
+            state.width = max(state.width, rect.width)
+            height = size + 2 * padding
+            state.height += height
+            state.y += height
+
+        # rect = state.canvas.paint.measure_text(self.text)[1]
+        # state.canvas.draw_text(self.text, state.x, state.y + size)
+        # state.width = max(state.width, rect.width)
+        # height = size + 2 * padding
+        # state.height += height
+        # state.y += height
+
+    @classmethod
+    def draw_number(cls, canvas: skia.Canvas, y: int, number: int):
+        canvas.paint.style = canvas.paint.Style.FILL
+        canvas.paint.font.embolden = False
+        canvas.paint.textsize = text_size
+        text = str(number)
+        rect = canvas.paint.measure_text(text)[1]
+        canvas.draw_text(text, padding, y + text_size)
 
 
 class Line:
+    def __init__(self):
+        self.numbered = False
+
     def draw(self, state: State):
         y = state.y + padding
         state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.draw_line(state.x, y, state.canvas.width - padding, y)
-        height = padding * 4
-        state.height += height
-        state.y += height
+        state.canvas.paint.color = text_color
+        state.canvas.draw_line(padding, y, state.canvas.width - padding, y)
+        state.height += line_height
+        state.y += line_height
 
 
 class Spacer:
+    def __init__(self):
+        self.numbered = False
+
     def draw(self, state: State):
-        y = state.y + padding
-        height = padding * 4
-        state.height += height
-        state.y += height
+        state.height += line_height
+        state.y += line_height
 
 
 class Image:
     def __init__(self, image: Image):
+        self.numbered = True
         self._image = image
 
     def _resize(self, width: int, height: int) -> Image:
@@ -81,8 +107,16 @@ class Image:
 
 
 class GUI:
-    def __init__(self, callback: Callable):
+    def __init__(
+        self,
+        callback: Callable,
+        numbered: Optional[bool] = False,
+        # TODO
+        x: Optional[float] = None,
+        y: Optional[float] = None,
+    ):
         self._callback = callback
+        self._numbered = numbered
         self._showing = False
         self._need_resize = True
         self._resize_job = None
@@ -127,12 +161,14 @@ class GUI:
         self._elements = []
         self._callback(self)
         self._draw_background(canvas)
-        state = State(canvas)
+        state = State(canvas, self._numbered)
+        number = 1
+
         for el in self._elements:
+            if self._numbered and el.numbered:
+                Text.draw_number(canvas, state.y, number)
+                number += 1
             el.draw(state)
-        # print(dir(canvas))
-        # print(canvas.draw_picture)
-        # print(canvas.draw_image)
 
         # Resize to fit content
         # Debounce because for some reason draw gets called multiple times in quick succession.
@@ -143,13 +179,25 @@ class GUI:
 
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
+
+        # filter = ImageFilter.drop_shadow(0, 0, 1, 1, "000000")
+        # canvas.paint.imagefilter = filter
+
         canvas.paint.style = canvas.paint.Style.FILL
         canvas.paint.color = background_color
         canvas.draw_rrect(rrect)
 
+        # canvas.paint.imagefilter = None
+
         canvas.paint.style = canvas.paint.Style.STROKE
         canvas.paint.color = border_color
         canvas.draw_rrect(rrect)
+
+    # def _draw_numbers_background(self, canvas):
+    #     canvas.paint.style = canvas.paint.Style.FILL
+    #     canvas.paint.color = text_color
+    #     x = width = 4 * padding
+    #     canvas.draw_line(x, padding, x, canvas.height - padding)
 
     # def _debounce_resize(self, width: int, height: int):
     #     cron.cancel(self.resize_job)
@@ -169,10 +217,13 @@ class GUI:
     #     self._canvas.rect = rect
 
 
-def open(x: Optional[float] = None, y: Optional[float] = None):
-    # print(x, y)
+def open(
+    numbered: Optional[bool] = False,
+    x: Optional[float] = None,
+    y: Optional[float] = None,
+):
     def open_inner(draw):
-        return GUI(draw)
+        return GUI(draw, numbered=numbered, x=x, y=y)
 
     return open_inner
 
@@ -189,5 +240,3 @@ def gui(gui: GUI):
 
 # gui.show()
 # gui.freeze()
-
-# cron.after("2000ms", gui.hide)
