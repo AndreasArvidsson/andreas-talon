@@ -12,6 +12,7 @@ text_color = "444444"
 button_bg_color = "aaaaaa"
 button_text_color = "000000"
 border_radius = 8
+button_radius = 4
 
 mod = Module()
 
@@ -43,13 +44,17 @@ class State:
         self.width = 0
         self.height = self.padding
 
+    def add_width(self, width: float, offset: bool):
+        text_offset = self.text_offset if offset else self.padding
+        self.width = max(self.width, text_offset + width)
+
     def add_height(self, height: float):
         self.y += height
         self.height += height
 
     def get_width(self):
         if self.width:
-            return round(self.text_offset + self.width + self.font_size)
+            return round(self.width + self.padding)
         else:
             return 0
 
@@ -83,7 +88,7 @@ class Text:
                 line = line[: state.max_cols] + " ..."
             rect = state.canvas.paint.measure_text(line)[1]
             state.canvas.draw_text(line, x, state.y + state.font_size)
-            state.width = max(state.width, rect.x + rect.width)
+            state.add_width(rect.x + rect.width, offset=not self.header)
             state.add_height(state.font_size)
         state.add_height(state.padding)
 
@@ -123,18 +128,17 @@ class Button:
         state.canvas.paint.textsize = state.font_size
         text_rect = state.canvas.paint.measure_text(self.text)[1]
         padding = state.rem(0.25)
+        width = text_rect.width + 2 * padding
         height = state.font_size + 2 * padding
 
         self._rect = Rect(
             state.x + text_rect.x - padding,
             state.y + (height + text_rect.y - text_rect.height) / 2,
-            text_rect.width + 2 * padding,
+            width,
             height,
         )
 
-        rrect = skia.RoundRect.from_rect(
-            self._rect, x=border_radius / 2, y=border_radius / 2
-        )
+        rrect = skia.RoundRect.from_rect(self._rect, x=button_radius, y=button_radius)
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = button_bg_color
@@ -150,6 +154,7 @@ class Button:
         state.canvas.paint.color = button_text_color
         state.canvas.draw_text(self.text, state.x, state.y + state.font_size)
 
+        state.add_width(width, offset=False)
         state.add_height(height + state.padding)
 
     def _in_range(self, value, min, max):
@@ -194,7 +199,7 @@ class Image:
     def draw(self, state: State):
         image = self._resize(state.image_width, state.image_height)
         state.canvas.draw_image(image, state.x_text, state.y)
-        state.width = max(state.width, image.width)
+        state.add_width(image.width, offset=True)
         state.add_height(image.height + state.padding)
 
 
@@ -372,7 +377,7 @@ def gui(gui: GUI):
     gui.spacer()
     gui.text("ccc")
     gui.spacer()
-    if gui.button("Hide"):
+    if gui.button("some text"):
         print("Hide")
 
 
