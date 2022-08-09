@@ -30,7 +30,7 @@ ignore_next: bool = False
 sticky: bool = False
 
 
-@open(numbered=True)
+@open(numbered=True, x=0, y=0)
 def gui(gui: GUI):
     max_rows = setting_clipboard_manager_max_rows.get()
     sticky_text = " - STICKY" if sticky else ""
@@ -43,9 +43,10 @@ def gui(gui: GUI):
         else:
             gui.text(item.text)
 
-    # gui.spacer()
-    # if gui.button("Hide"):
-    #     actions.user.clipboard_manager_hide()
+    gui.spacer()
+    if gui.button("Hjide"):
+        actions.user.clipboard_manager_hide()
+    gui.button("Hide")
 
 
 @ctx.action_class("clip")

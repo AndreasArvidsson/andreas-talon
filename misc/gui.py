@@ -3,11 +3,13 @@ from talon.skia.image import Image
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas
 from talon.screen import Screen
+from talon.ui import Rect
 from typing import Callable, Optional
 
 background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
+button_color = "999999"
 border_radius = 8
 
 mod = Module()
@@ -88,9 +90,46 @@ class Text:
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = False
         state.canvas.paint.textsize = state.font_size
+        state.canvas.paint.color = text_color
         text = str(number).rjust(2)
         rect = state.canvas.paint.measure_text(text)[1]
         state.canvas.draw_text(text, state.x, state.y + state.font_size)
+
+
+class Button:
+    def __init__(self, text: str):
+        self.numbered = False
+        self.text = text
+
+    def draw(self, state: State):
+        state.canvas.paint.textsize = state.font_size
+        text_rect = state.canvas.paint.measure_text(self.text)[1]
+        padding = state.rem(0.25)
+        height = state.font_size + 2 * padding
+
+        rect = Rect(
+            state.x + text_rect.x - padding,
+            state.y + (height + text_rect.y - text_rect.height) / 2,
+            text_rect.width + 2 * padding,
+            height,
+        )
+        rrect = skia.RoundRect.from_rect(rect, x=border_radius / 2, y=border_radius / 2)
+
+        state.canvas.paint.style = state.canvas.paint.Style.FILL
+        state.canvas.paint.color = button_color
+        state.canvas.draw_rrect(rrect)
+
+        state.canvas.paint.style = state.canvas.paint.Style.STROKE
+        state.canvas.paint.color = border_color
+        state.canvas.draw_rrect(rrect)
+
+        state.canvas.paint.style = state.canvas.paint.Style.FILL
+        state.canvas.paint.font.embolden = False
+        state.canvas.paint.textsize = state.font_size
+        state.canvas.paint.color = text_color
+        state.canvas.draw_text(self.text, state.x, state.y + state.font_size)
+
+        state.add_height(height + state.padding)
 
 
 class Line:
@@ -188,6 +227,7 @@ class GUI:
         self._elements.append(Image(image))
 
     def button(self, text: str) -> bool:
+        self._elements.append(Button(text))
         return False
 
     def _draw(self, canvas):
@@ -217,7 +257,7 @@ class GUI:
             y = screen.y + screen.height * self._y
         else:
             y = screen.y + (screen.height - height) / 2
-        self._canvas.rect = ui.Rect(x, y, width, height)
+        self._canvas.rect = Rect(x, y, width, height)
 
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
