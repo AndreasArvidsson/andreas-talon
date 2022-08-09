@@ -9,13 +9,17 @@ background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
 border_radius = 8
+max_number_of_lines = 4
 
 
 class State:
     def __init__(self, canvas: skia.Canvas, dpi: float, numbered: bool):
         self.canvas = canvas
         self.font_size = round(16 * (dpi / 130))
+        self.line_height = self.rem(1.5)
         self.padding = self.rem(0.5)
+        self.image_height = max_number_of_lines * self.line_height
+        self.image_width = 5 * self.image_height
         self.x = canvas.x + self.padding
         self.x_text = canvas.x + self.rem(2.25) if numbered else self.x
         self.y = canvas.y + self.padding
@@ -28,7 +32,7 @@ class State:
             return 0
 
     def get_height(self):
-        return round(self.y + self.font_size)
+        return round(self.y + self.padding)
 
     def rem(self, number: int or float):
         return round(self.font_size * number)
@@ -54,7 +58,7 @@ class Text:
             rect = state.canvas.paint.measure_text(line)[1]
             state.canvas.draw_text(line, state.x_text, state.y + state.font_size)
             state.width = max(state.width, rect.width)
-            state.y += state.font_size
+            state.y += state.line_height
 
     @classmethod
     def draw_number(cls, state: State, number: int):
@@ -77,7 +81,7 @@ class Line:
         state.canvas.draw_line(
             state.x, y, state.x + state.canvas.width - state.font_size, y
         )
-        state.y += state.padding
+        state.y += state.font_size
 
 
 class Spacer:
@@ -95,16 +99,17 @@ class Image:
 
     def _resize(self, width: int, height: int) -> Image:
         aspect_ratio = self._image.width / self._image.height
-        if width < height:
+        if self._image.width < self._image.height:
             height = round(width / aspect_ratio)
         else:
             width = round(height * aspect_ratio)
         return self._image.reshape(width, height)
 
     def draw(self, state: State):
-        image = self._resize(100, 100)
+        image = self._resize(state.image_width, state.image_height)
         state.canvas.draw_image(image, state.x_text, state.y)
         state.y += image.height + state.padding * 2
+        state.width = max(state.width, image.width)
 
 
 class GUI:
@@ -174,9 +179,7 @@ class GUI:
         state = State(canvas, self._screen_current.dpi, self._numbered)
         number = 1
 
-        for i, el in enumerate(self._elements):
-            if i > 0:
-                state.y += state.padding
+        for el in self._elements:
             if self._numbered and el.numbered:
                 Text.draw_number(state, number)
                 number += 1
