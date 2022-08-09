@@ -1,13 +1,17 @@
+from typing import Optional
 from talon import Module, Context, actions, imgui, clip
 from talon.skia.image import Image
 from talon.clip import MimeData
 from dataclasses import dataclass
+
+from ..gui import open, GUI
 
 
 @dataclass
 class ClipItem:
     text: str
     mime: MimeData
+    image: Optional[Image]
 
 
 mod = Module()
@@ -33,6 +37,10 @@ sticky: bool = False
 
 @imgui.open()
 def gui(gui: imgui.GUI):
+
+    # @open()
+    # def gui(gui: GUI):
+
     max_rows = setting_clipboard_manager_max_rows.get()
     max_cols = setting_clipboard_manager_max_cols.get()
     sticky_text = " - STICKY" if sticky else ""
@@ -40,10 +48,10 @@ def gui(gui: imgui.GUI):
     gui.line()
 
     for i, item in enumerate(clip_history):
-        try:
-            image = item.mime.image
-            text = f"Image(width={image.width}, height={image.height})"
-        except:
+        if item.image:
+            # gui.image(item.image)
+            text = f"Image(width={item.image.width}, height={item.image.height})"
+        else:
             text = item.text.replace("\n", "\\n")
             if len(text) > max_cols + 4:
                 text = text[:max_cols] + " ..."
@@ -99,17 +107,20 @@ class Actions:
 
         text = mime.text
 
-        if not text:
-            try:
-                image = mime.image
-                text = f"Image(width={image.width}, height={image.height})"
-            except:
-                if is_image(mime):
-                    text = f"Image(UNKNOWN)"
-                else:
-                    text = "UNKNOWN"
+        try:
+            image = mime.image
+        except:
+            image = None
 
-        append(clip_history, ClipItem(text, mime))
+        if not text:
+            if image is not None:
+                text = f"Image(width={image.width}, height={image.height})"
+            elif is_image(mime):
+                text = f"Image(UNKNOWN)"
+            else:
+                text = "UNKNOWN"
+
+        append(clip_history, ClipItem(text, mime, image))
         shrink()
 
     def clipboard_manager_ignore_next():
@@ -151,7 +162,7 @@ class Actions:
         """Copy from clipboard manager"""
         items = get_items(numbers)
 
-        if len(items) == 1 and items[0].mime:
+        if len(items) == 1 and items[0].mime is not None:
             clip.set_mime(items[0].mime)
         else:
             texts = [i.text for i in items]

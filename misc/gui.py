@@ -1,4 +1,5 @@
 from talon import skia, cron, ui
+from talon.skia.image import Image
 from talon.canvas import Canvas
 from typing import Callable, Optional
 import math
@@ -15,6 +16,7 @@ padding = 4
 class State:
     def __init__(self, canvas: skia.Canvas):
         self.canvas = canvas
+        self.x = padding
         self.y = padding
         self.width = 0
         self.height = 0
@@ -26,13 +28,12 @@ class Text:
         self.header = header
 
     def draw(self, state: State):
-        x = padding
         size = text_size_header if self.header else text_size
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = self.header
         state.canvas.paint.textsize = size
         rect = state.canvas.paint.measure_text(self.text)[1]
-        state.canvas.draw_text(self.text, x, state.y + rect.height)
+        state.canvas.draw_text(self.text, state.x, state.y + rect.height)
         state.width = max(state.width, rect.width)
         height = rect.height + padding * 3
         if self.header:
@@ -45,10 +46,11 @@ class Line:
     def draw(self, state: State):
         y = state.y + padding
         state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.draw_line(padding, y, state.canvas.width - padding, y)
+        state.canvas.draw_line(state.x, y, state.canvas.width - padding, y)
         height = padding * 4
         state.height += height
         state.y += height
+
 
 class Spacer:
     def draw(self, state: State):
@@ -56,6 +58,27 @@ class Spacer:
         height = padding * 4
         state.height += height
         state.y += height
+
+
+class Image:
+    def __init__(self, image: Image):
+        self._image = image
+
+    def _resize(self, width: int, height: int) -> Image:
+        aspect_ratio = self._image.width / self._image.height
+        if width < height:
+            height = round(width / aspect_ratio)
+        else:
+            width = round(height * aspect_ratio)
+        return self._image.reshape(width, height)
+
+    def draw(self, state: State):
+        image = self._resize(100, 100)
+        state.canvas.draw_image(image, state.x, state.y)
+        height = image.height + padding * 2
+        state.height += height
+        state.y += height
+
 
 class GUI:
     def __init__(self, callback: Callable):
@@ -73,7 +96,7 @@ class GUI:
         self._canvas = Canvas(0, 0, 500, 500)
         self._canvas.register("draw", self._draw)
         self._showing = True
-    
+
     def freeze(self):
         self._canvas.freeze()
 
@@ -94,6 +117,9 @@ class GUI:
     def spacer(self):
         self._elements.append(Spacer())
 
+    def image(self, image):
+        self._elements.append(Image(image))
+
     def button(self, text: str) -> bool:
         return False
 
@@ -104,9 +130,9 @@ class GUI:
         state = State(canvas)
         for el in self._elements:
             el.draw(state)
-        print(dir(canvas))
-        print(canvas.draw_picture)
-        print(canvas.draw_image)
+        # print(dir(canvas))
+        # print(canvas.draw_picture)
+        # print(canvas.draw_image)
 
         # Resize to fit content
         # Debounce because for some reason draw gets called multiple times in quick succession.
@@ -144,9 +170,10 @@ class GUI:
 
 
 def open(x: Optional[float] = None, y: Optional[float] = None):
-    print(x, y)
+    # print(x, y)
     def open_inner(draw):
         return GUI(draw)
+
     return open_inner
 
 
