@@ -94,9 +94,23 @@ class Actions:
 
         mime = clip.mime()
 
-        if mime and mime.text:
-            append(clip_history, ClipItem(mime.text, mime))
-            shrink()
+        if mime is None:
+            return
+
+        text = mime.text
+
+        if not text:
+            try:
+                image = mime.image
+                text = f"Image(width={image.width}, height={image.height})"
+            except:
+                if is_image(mime):
+                    text = f"Image(UNKNOWN)"
+                else:
+                    text = "UNKNOWN"
+
+        append(clip_history, ClipItem(text, mime))
+        shrink()
 
     def clipboard_manager_ignore_next():
         """Ignore next copy for clipboard manager"""
@@ -198,3 +212,10 @@ def shrink():
 def error(msg: str):
     actions.user.notify(msg)
     raise ValueError(msg)
+
+
+def is_image(mime: MimeData):
+    for f in mime.formats:
+        if f.startswith("image/") and len(mime[f]):
+            return True
+    return False
