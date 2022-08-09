@@ -100,6 +100,22 @@ class Button:
     def __init__(self, text: str):
         self.numbered = False
         self.text = text
+        self._is_pressed = False
+        self._rect = None
+
+    def is_pressed(self):
+        is_pressed = self._is_pressed
+        self._is_pressed = False
+        return is_pressed
+
+    def click(self):
+        self._is_pressed = True
+
+    def in_pos(self, mouse_pos) -> bool:
+        rect = self._rect
+        return self._in_range(
+            mouse_pos.x, rect.x, rect.x + rect.width
+        ) and self._in_range(mouse_pos.y, rect.y, rect.y + rect.height)
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
@@ -107,13 +123,16 @@ class Button:
         padding = state.rem(0.25)
         height = state.font_size + 2 * padding
 
-        rect = Rect(
+        self._rect = Rect(
             state.x + text_rect.x - padding,
             state.y + (height + text_rect.y - text_rect.height) / 2,
             text_rect.width + 2 * padding,
             height,
         )
-        rrect = skia.RoundRect.from_rect(rect, x=border_radius / 2, y=border_radius / 2)
+
+        rrect = skia.RoundRect.from_rect(
+            self._rect, x=border_radius / 2, y=border_radius / 2
+        )
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = button_color
@@ -130,6 +149,9 @@ class Button:
         state.canvas.draw_text(self.text, state.x, state.y + state.font_size)
 
         state.add_height(height + state.padding)
+
+    def _in_range(self, value, min, max):
+        return value >= min and value <= max
 
 
 class Line:
@@ -191,6 +213,7 @@ class GUI:
         self._showing = False
         self._resize_job = None
         self._screen_current = None
+        self._buttons: dict[str, Button] = {}
 
     @property
     def showing(self):
@@ -200,14 +223,19 @@ class GUI:
         self._screen_current = self._get_screen()
         # Initializes at minimum size so to calculate and set correct size later
         self._canvas = Canvas(0, 0, 1, 1)
-        self._canvas.register("draw", self._draw)
         self._showing = True
+        self._canvas.draggle = True
+        self._canvas.blocks_mouse = True
+        self._last_mouse_pos = None
+        self._canvas.register("draw", self._draw)
+        self._canvas.register("mouse", self._mouse)
 
     def freeze(self):
         self._canvas.freeze()
 
     def hide(self):
         self._canvas.unregister("draw", self._draw)
+        self._canvas.unregister("mouse", self._mouse)
         self._canvas.close()
         self._showing = False
 
@@ -227,8 +255,13 @@ class GUI:
         self._elements.append(Image(image))
 
     def button(self, text: str) -> bool:
-        self._elements.append(Button(text))
-        return False
+        if text in self._buttons:
+            button = self._buttons[text]
+        else:
+            button = Button(text)
+            self._buttons[text] = button
+        self._elements.append(button)
+        return button.is_pressed()
 
     def _draw(self, canvas):
         self._elements = []
@@ -262,18 +295,35 @@ class GUI:
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
 
-        # filter = ImageFilter.drop_shadow(0, 0, 1, 1, "000000")
-        # canvas.paint.imagefilter = filter
-
         canvas.paint.style = canvas.paint.Style.FILL
         canvas.paint.color = background_color
         canvas.draw_rrect(rrect)
 
-        # canvas.paint.imagefilter = None
-
         canvas.paint.style = canvas.paint.Style.STROKE
         canvas.paint.color = border_color
         canvas.draw_rrect(rrect)
+
+    def _mouse(self, e):
+        if e.event == "mousedown" and e.button == 0:
+            button = self._get_button_for_pos(e.gpos)
+            if button is None:
+                self._last_mouse_pos = e.gpos
+        elif e.event == "mousemove" and self._last_mouse_pos:
+            dx = e.gpos.x - self._last_mouse_pos.x
+            dy = e.gpos.y - self._last_mouse_pos.y
+            self._last_mouse_pos = e.gpos
+            self._canvas.move(self._canvas.rect.x + dx, self._canvas.rect.y + dy)
+        elif e.event == "mouseup" and e.button == 0:
+            self._last_mouse_pos = None
+            button = self._get_button_for_pos(e.gpos)
+            if button is not None:
+                button.click()
+
+    def _get_button_for_pos(self, pos):
+        for button in self._buttons.values():
+            if button.in_pos(pos):
+                return button
+        return None
 
     def _get_screen(self) -> Screen:
         if self._screen is not None:
@@ -310,7 +360,9 @@ def gui(gui: GUI):
     gui.text("bbb")
     gui.spacer()
     gui.text("ccc")
+    gui.spacer()
+    if gui.button("Hide"):
+        print("Hide")
 
 
 # gui.show()
-# gui.freeze()
