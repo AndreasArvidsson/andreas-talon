@@ -1,34 +1,37 @@
-from talon import skia, ui, cron
+from talon import skia, ui
 from talon.skia.image import Image
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas
 from talon.screen import Screen
 from typing import Callable, Optional
 
-background_color = "fafafa"
+background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
-outer_padding = 27
 border_radius = 8
-text_size = 16
-text_size_header = 20
-line_height = 24
-padding = 4
 
 
 class State:
-    def __init__(self, canvas: skia.Canvas, numbered: bool):
+    def __init__(self, canvas: skia.Canvas, dpi: float, numbered: bool):
         self.canvas = canvas
-        self.x = canvas.x + padding
-        self.x_text = self.x + (round(1.5 * text_size) if numbered else 0)
-        self.y = canvas.y + padding
+        self.font_size = round(16 * (dpi / 130))
+        self.padding = self.rem(0.5)
+        self.x = canvas.x + self.padding
+        self.x_text = canvas.x + self.rem(2.25) if numbered else self.x
+        self.y = canvas.y + self.padding
         self.width = 0
 
     def get_width(self):
-        return round(self.x_text + self.width + 2 * padding)
+        if self.width:
+            return round(self.x_text + self.width + self.font_size)
+        else:
+            return 0
 
     def get_height(self):
-        return round(self.y + 2 * padding)
+        return round(self.y + self.font_size)
+
+    def rem(self, number: int or float):
+        return round(self.font_size * number)
 
 
 # if len(text) > max_cols + 4:
@@ -42,27 +45,25 @@ class Text:
         self.header = header
 
     def draw(self, state: State):
-        size = text_size_header if self.header else text_size
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = self.header
-        state.canvas.paint.textsize = size
+        state.canvas.paint.textsize = state.font_size
         state.canvas.paint.color = text_color
 
-        lines = self.text.split("\n")
-        for line in lines:
+        for line in self.text.split("\n"):
             rect = state.canvas.paint.measure_text(line)[1]
-            state.canvas.draw_text(line, state.x_text, state.y + size)
+            state.canvas.draw_text(line, state.x_text, state.y + state.font_size)
             state.width = max(state.width, rect.width)
-            state.y += size + 2 * padding
+            state.y += state.font_size
 
     @classmethod
     def draw_number(cls, state: State, number: int):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = False
-        state.canvas.paint.textsize = text_size
-        text = str(number)
+        state.canvas.paint.textsize = state.font_size
+        text = str(number).rjust(2)
         rect = state.canvas.paint.measure_text(text)[1]
-        state.canvas.draw_text(text, state.x, state.y + text_size)
+        state.canvas.draw_text(text, state.x, state.y + state.font_size)
 
 
 class Line:
@@ -70,13 +71,13 @@ class Line:
         self.numbered = False
 
     def draw(self, state: State):
-        y = state.y + padding
+        y = state.y + state.padding
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = text_color
         state.canvas.draw_line(
-            state.x, y, state.x + state.canvas.width - 2 * padding, y
+            state.x, y, state.x + state.canvas.width - state.font_size, y
         )
-        state.y += line_height
+        state.y += state.padding
 
 
 class Spacer:
@@ -84,7 +85,7 @@ class Spacer:
         self.numbered = False
 
     def draw(self, state: State):
-        state.y += line_height
+        state.y += state.font_size
 
 
 class Image:
@@ -102,8 +103,8 @@ class Image:
 
     def draw(self, state: State):
         image = self._resize(100, 100)
-        state.canvas.draw_image(image, state.x, state.y)
-        state.y += image.height + padding * 2
+        state.canvas.draw_image(image, state.x_text, state.y)
+        state.y += image.height + state.padding * 2
 
 
 class GUI:
@@ -170,10 +171,12 @@ class GUI:
         self._elements = []
         self._callback(self)
         self._draw_background(canvas)
-        state = State(canvas, self._numbered)
+        state = State(canvas, self._screen_current.dpi, self._numbered)
         number = 1
 
-        for el in self._elements:
+        for i, el in enumerate(self._elements):
+            if i > 0:
+                state.y += state.padding
             if self._numbered and el.numbered:
                 Text.draw_number(state, number)
                 number += 1
@@ -181,7 +184,6 @@ class GUI:
 
         # Resize to fit content
         if canvas.width != state.get_width() or canvas.height != state.get_height():
-            print(state.get_width(), state.get_height())
             self._canvas.resize(state.get_width(), state.get_height())
 
     def _draw_background(self, canvas):
