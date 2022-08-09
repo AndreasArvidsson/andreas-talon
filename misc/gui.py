@@ -1,7 +1,7 @@
 from talon import Module, skia, ui
 from talon.skia.image import Image
 from talon.skia.imagefilter import ImageFilter as ImageFilter
-from talon.canvas import Canvas
+from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.ui import Rect
 from typing import Callable, Optional
@@ -71,6 +71,7 @@ class Text:
         state.canvas.paint.font.embolden = self.header
         state.canvas.paint.textsize = state.font_size
         state.canvas.paint.color = text_color
+        x = state.x if self.header else state.x_text
 
         lines = self.text.split("\n")
         if len(lines) > state.max_rows:
@@ -81,7 +82,7 @@ class Text:
             if len(line) > state.max_cols + 4:
                 line = line[: state.max_cols] + " ..."
             rect = state.canvas.paint.measure_text(line)[1]
-            state.canvas.draw_text(line, state.x_text, state.y + state.font_size)
+            state.canvas.draw_text(line, x, state.y + state.font_size)
             state.width = max(state.width, rect.x + rect.width)
             state.add_height(state.font_size)
         state.add_height(state.padding)
@@ -310,7 +311,7 @@ class GUI:
         canvas.paint.color = border_color
         canvas.draw_rrect(rrect)
 
-    def _mouse(self, e):
+    def _mouse(self, e: MouseEvent):
         if e.event == "mousedown" and e.button == 0:
             button = self._get_button_for_pos(e.gpos)
             if button is None:

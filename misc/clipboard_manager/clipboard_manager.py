@@ -43,10 +43,6 @@ def gui(gui: GUI):
         else:
             gui.text(item.text)
 
-    gui.spacer()
-    if gui.button("Hide"):
-        actions.user.clipboard_manager_hide()
-
 
 @ctx.action_class("clip")
 class ClipActions:
