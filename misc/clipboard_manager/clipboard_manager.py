@@ -37,16 +37,6 @@ def gui(gui: GUI):
     gui.header(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
     gui.line()
 
-    # for i in range(22):
-    #     gui.text("stuff")
-    #     if i % 10 == 0:
-    #         gui.text("this is some other stuff")
-    #         gui.line()
-    # gui.text("stuff")
-    # gui.spacer()
-    # gui.text("stuff")
-    # # gui.line()
-
     for i, item in enumerate(clip_history):
         if item.image:
             gui.image(item.image)

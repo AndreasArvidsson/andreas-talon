@@ -33,19 +33,25 @@ class State:
         self.padding = self.rem(0.5)
         self.image_height = self.max_rows * self.font_size
         self.image_width = 5 * self.image_height
+        self.text_offset = self.rem(2.25) if numbered else self.padding
         self.x = canvas.x + self.padding
-        self.x_text = canvas.x + self.rem(2.25) if numbered else self.x
+        self.x_text = canvas.x + self.text_offset
         self.y = canvas.y + self.padding
         self.width = 0
+        self.height = self.padding
+
+    def add_height(self, height: float):
+        self.y += height
+        self.height += height
 
     def get_width(self):
         if self.width:
-            return round(self.x_text + self.width + self.font_size)
+            return round(self.text_offset + self.width + self.font_size)
         else:
             return 0
 
     def get_height(self):
-        return round(self.y + self.padding)
+        return round(self.height + self.padding)
 
     def rem(self, number: int or float):
         return round(self.font_size * number)
@@ -74,8 +80,8 @@ class Text:
             rect = state.canvas.paint.measure_text(line)[1]
             state.canvas.draw_text(line, state.x_text, state.y + state.font_size)
             state.width = max(state.width, rect.x + rect.width)
-            state.y += state.font_size
-        state.y += state.padding
+            state.add_height(state.font_size)
+        state.add_height(state.padding)
 
     @classmethod
     def draw_number(cls, state: State, number: int):
@@ -98,7 +104,7 @@ class Line:
         state.canvas.draw_line(
             state.x, y, state.x + state.canvas.width - state.font_size, y
         )
-        state.y += state.font_size
+        state.add_height(state.font_size)
 
 
 class Spacer:
@@ -106,7 +112,7 @@ class Spacer:
         self.numbered = False
 
     def draw(self, state: State):
-        state.y += state.font_size
+        state.add_height(state.font_size)
 
 
 class Image:
@@ -125,8 +131,8 @@ class Image:
     def draw(self, state: State):
         image = self._resize(state.image_width, state.image_height)
         state.canvas.draw_image(image, state.x_text, state.y)
-        state.y += image.height + state.padding
         state.width = max(state.width, image.width)
+        state.add_height(image.height + state.padding)
 
 
 class GUI:
@@ -134,8 +140,8 @@ class GUI:
         self,
         callback: Callable,
         screen: Screen or None,
-        x: float,
-        y: float,
+        x: float or None,
+        y: float or None,
         numbered: bool,
     ):
         self._callback = callback
@@ -154,12 +160,7 @@ class GUI:
     def show(self):
         self._screen_current = self._get_screen()
         # Initializes at minimum size so to calculate and set correct size later
-        self._canvas = Canvas(
-            self._screen_current.x + self._screen_current.width * self._x,
-            self._screen_current.y + self._screen_current.height * self._y,
-            1,
-            1,
-        )
+        self._canvas = Canvas(0, 0, 1, 1)
         self._canvas.register("draw", self._draw)
         self._showing = True
 
@@ -204,7 +205,19 @@ class GUI:
 
         # Resize to fit content
         if canvas.width != state.get_width() or canvas.height != state.get_height():
-            self._canvas.resize(state.get_width(), state.get_height())
+            self._resize(state.get_width(), state.get_height())
+
+    def _resize(self, width: int or float, height: int or float):
+        screen = self._screen_current
+        if self._x is not None:
+            x = screen.x + screen.width * self._x
+        else:
+            x = screen.x + (screen.width - width) / 2
+        if self._y is not None:
+            y = screen.y + screen.height * self._y
+        else:
+            y = screen.y + (screen.height - height) / 2
+        self._canvas.rect = ui.Rect(x, y, width, height)
 
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
@@ -233,8 +246,8 @@ class GUI:
 
 def open(
     screen: Optional[Screen] = None,
-    x: Optional[float] = 0,
-    y: Optional[float] = 0,
+    x: Optional[float] = None,
+    y: Optional[float] = None,
     numbered: Optional[bool] = False,
 ):
     def open_inner(draw):

@@ -156,7 +156,7 @@ class UserActions:
         insert("elif ")
 
     def code_else():
-        insert("else:")
+        insert_snippet("else:\n\t$0")
 
     def code_try():
         insert_snippet(
