@@ -44,6 +44,7 @@ class Text:
 class Line:
     def draw(self, state: State):
         y = state.y + padding
+        state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.draw_line(padding, y, state.canvas.width - padding, y)
         height = padding * 4
         state.height += height
@@ -59,29 +60,42 @@ class Spacer:
 class GUI:
     def __init__(self, callback: Callable):
         self._callback = callback
+        self._showing = False
         self._need_resize = True
         self._resize_job = None
+
+    @property
+    def showing(self):
+        return self._showing
 
     def show(self):
         # self._canvas = Canvas(0, 0, 1, 1)
         self._canvas = Canvas(0, 0, 500, 500)
         self._canvas.register("draw", self._draw)
+        self._showing = True
+    
+    def freeze(self):
+        self._canvas.freeze()
 
     def hide(self):
         self._canvas.unregister("draw", self._draw)
         self._canvas.close()
+        self._showing = False
 
-    def text(self, text: str) -> Text:
+    def text(self, text: str):
         self._elements.append(Text(text, header=False))
 
-    def header(self, text: str) -> Text:
+    def header(self, text: str):
         self._elements.append(Text(text, header=True))
 
-    def line(self) -> Line:
+    def line(self):
         self._elements.append(Line())
 
-    def spacer(self) -> Spacer:
+    def spacer(self):
         self._elements.append(Spacer())
+
+    def button(self, text: str) -> bool:
+        return False
 
     def _draw(self, canvas):
         self._elements = []
@@ -90,6 +104,9 @@ class GUI:
         state = State(canvas)
         for el in self._elements:
             el.draw(state)
+        print(dir(canvas))
+        print(canvas.draw_picture)
+        print(canvas.draw_image)
 
         # Resize to fit content
         # Debounce because for some reason draw gets called multiple times in quick succession.
@@ -126,7 +143,7 @@ class GUI:
     #     self._canvas.rect = rect
 
 
-def open(x: float, y: float):
+def open(x: Optional[float] = None, y: Optional[float] = None):
     print(x, y)
     def open_inner(draw):
         return GUI(draw)
@@ -144,5 +161,6 @@ def gui(gui: GUI):
 
 
 # gui.show()
+# gui.freeze()
 
 # cron.after("2000ms", gui.hide)
