@@ -1,4 +1,4 @@
-from talon import skia, ui
+from talon import skia, ui, cron
 from talon.skia.image import Image
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas
@@ -19,10 +19,16 @@ padding = 4
 class State:
     def __init__(self, canvas: skia.Canvas, numbered: bool):
         self.canvas = canvas
-        self.x = canvas.x + padding + (round(1.5 * text_size) if numbered else 0)
+        self.x = canvas.x + padding
+        self.x_text = self.x + (round(1.5 * text_size) if numbered else 0)
         self.y = canvas.y + padding
         self.width = 0
-        self.height = 0
+
+    def get_width(self):
+        return round(self.x_text + self.width + 2 * padding)
+
+    def get_height(self):
+        return round(self.y + 2 * padding)
 
 
 # if len(text) > max_cols + 4:
@@ -32,7 +38,7 @@ class State:
 class Text:
     def __init__(self, text: str, header: bool):
         self.numbered = not header
-        self.text = text
+        self.text = text.strip()
         self.header = header
 
     def draw(self, state: State):
@@ -45,27 +51,18 @@ class Text:
         lines = self.text.split("\n")
         for line in lines:
             rect = state.canvas.paint.measure_text(line)[1]
-            state.canvas.draw_text(line, state.x, state.y + size)
+            state.canvas.draw_text(line, state.x_text, state.y + size)
             state.width = max(state.width, rect.width)
-            height = size + 2 * padding
-            state.height += height
-            state.y += height
-
-        # rect = state.canvas.paint.measure_text(self.text)[1]
-        # state.canvas.draw_text(self.text, state.x, state.y + size)
-        # state.width = max(state.width, rect.width)
-        # height = size + 2 * padding
-        # state.height += height
-        # state.y += height
+            state.y += size + 2 * padding
 
     @classmethod
-    def draw_number(cls, canvas: skia.Canvas, y: int, number: int):
-        canvas.paint.style = canvas.paint.Style.FILL
-        canvas.paint.font.embolden = False
-        canvas.paint.textsize = text_size
+    def draw_number(cls, state: State, number: int):
+        state.canvas.paint.style = state.canvas.paint.Style.FILL
+        state.canvas.paint.font.embolden = False
+        state.canvas.paint.textsize = text_size
         text = str(number)
-        rect = canvas.paint.measure_text(text)[1]
-        canvas.draw_text(text, padding, y + text_size)
+        rect = state.canvas.paint.measure_text(text)[1]
+        state.canvas.draw_text(text, state.x, state.y + text_size)
 
 
 class Line:
@@ -76,8 +73,9 @@ class Line:
         y = state.y + padding
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = text_color
-        state.canvas.draw_line(padding, y, state.canvas.width - padding, y)
-        state.height += line_height
+        state.canvas.draw_line(
+            state.x, y, state.x + state.canvas.width - 2 * padding, y
+        )
         state.y += line_height
 
 
@@ -86,7 +84,6 @@ class Spacer:
         self.numbered = False
 
     def draw(self, state: State):
-        state.height += line_height
         state.y += line_height
 
 
@@ -106,16 +103,14 @@ class Image:
     def draw(self, state: State):
         image = self._resize(100, 100)
         state.canvas.draw_image(image, state.x, state.y)
-        height = image.height + padding * 2
-        state.height += height
-        state.y += height
+        state.y += image.height + padding * 2
 
 
 class GUI:
     def __init__(
         self,
         callback: Callable,
-        screen: Screen,
+        screen: Screen or None,
         x: float,
         y: float,
         numbered: bool,
@@ -126,20 +121,22 @@ class GUI:
         self._y = y
         self._numbered = numbered
         self._showing = False
-        self._need_resize = True
         self._resize_job = None
+        self._screen_current = None
 
     @property
     def showing(self):
         return self._showing
 
     def show(self):
-        screen = self._get_screen()
-        x = screen.x + screen.width * self._x
-        y = screen.y + screen.height * self._y
-        # TODO
-        # self._canvas = Canvas(0, 0, 1, 1)
-        self._canvas = Canvas(x, y, 500, 500)
+        self._screen_current = self._get_screen()
+        # Initializes at minimum size so to calculate and set correct size later
+        self._canvas = Canvas(
+            self._screen_current.x + self._screen_current.width * self._x,
+            self._screen_current.y + self._screen_current.height * self._y,
+            1,
+            1,
+        )
         self._canvas.register("draw", self._draw)
         self._showing = True
 
@@ -178,16 +175,14 @@ class GUI:
 
         for el in self._elements:
             if self._numbered and el.numbered:
-                Text.draw_number(canvas, state.y, number)
+                Text.draw_number(state, number)
                 number += 1
             el.draw(state)
 
         # Resize to fit content
-        # Debounce because for some reason draw gets called multiple times in quick succession.
-        # self._debounce_resize(
-        #     math.ceil(self.x - canvas.x + self.w + outer_padding),
-        #     math.ceil(self.max_y - canvas.y + outer_padding),
-        # )
+        if canvas.width != state.get_width() or canvas.height != state.get_height():
+            print(state.get_width(), state.get_height())
+            self._canvas.resize(state.get_width(), state.get_height())
 
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
@@ -205,30 +200,7 @@ class GUI:
         canvas.paint.color = border_color
         canvas.draw_rrect(rrect)
 
-    # def _draw_numbers_background(self, canvas):
-    #     canvas.paint.style = canvas.paint.Style.FILL
-    #     canvas.paint.color = text_color
-    #     x = width = 4 * padding
-    #     canvas.draw_line(x, padding, x, canvas.height - padding)
-
-    # def _debounce_resize(self, width: int, height: int):
-    #     cron.cancel(self.resize_job)
-    #     self.resize_job = cron.after("50ms", lambda: self.resize(width, height))
-
-    # def _resize(self, width: int, height: int):
-    #     if not self._need_resize:
-    #         return
-    #     self._need_resize = False
-    #     screen = ui.main_screen()
-    #     rect = ui.Rect(
-    #         screen.x + (screen.width - width) / 2,
-    #         screen.y + (screen.height - height) / 2,
-    #         width,
-    #         height,
-    #     )
-    #     self._canvas.rect = rect
-
-    def _get_screen(self):
+    def _get_screen(self) -> Screen:
         if self._screen is not None:
             return self._screen
         try:
