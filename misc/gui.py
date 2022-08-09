@@ -9,7 +9,8 @@ from typing import Callable, Optional
 background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
-button_color = "999999"
+button_bg_color = "aaaaaa"
+button_text_color = "000000"
 border_radius = 8
 
 mod = Module()
@@ -135,7 +136,7 @@ class Button:
         )
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.paint.color = button_color
+        state.canvas.paint.color = button_bg_color
         state.canvas.draw_rrect(rrect)
 
         state.canvas.paint.style = state.canvas.paint.Style.STROKE
@@ -145,7 +146,7 @@ class Button:
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = False
         state.canvas.paint.textsize = state.font_size
-        state.canvas.paint.color = text_color
+        state.canvas.paint.color = button_text_color
         state.canvas.draw_text(self.text, state.x, state.y + state.font_size)
 
         state.add_height(height + state.padding)
@@ -210,8 +211,9 @@ class GUI:
         self._x = x
         self._y = y
         self._numbered = numbered
+        self._x_moved = None
+        self._y_moved = None
         self._showing = False
-        self._resize_job = None
         self._screen_current = None
         self._buttons: dict[str, Button] = {}
 
@@ -237,6 +239,7 @@ class GUI:
         self._canvas.unregister("draw", self._draw)
         self._canvas.unregister("mouse", self._mouse)
         self._canvas.close()
+        self._buttons = {}
         self._showing = False
 
     def text(self, text: str):
@@ -282,11 +285,15 @@ class GUI:
 
     def _resize(self, width: int or float, height: int or float):
         screen = self._screen_current
-        if self._x is not None:
+        if self._x_moved:
+            x = self._x_moved
+        elif self._x is not None:
             x = screen.x + screen.width * self._x
         else:
             x = screen.x + (screen.width - width) / 2
-        if self._y is not None:
+        if self._y_moved:
+            y = self._y_moved
+        elif self._y is not None:
             y = screen.y + screen.height * self._y
         else:
             y = screen.y + (screen.height - height) / 2
@@ -312,7 +319,10 @@ class GUI:
             dx = e.gpos.x - self._last_mouse_pos.x
             dy = e.gpos.y - self._last_mouse_pos.y
             self._last_mouse_pos = e.gpos
-            self._canvas.move(self._canvas.rect.x + dx, self._canvas.rect.y + dy)
+            self._x_moved = self._canvas.rect.x + dx
+            self._y_moved = self._canvas.rect.y + dy
+            self._canvas.move(self._x_moved, self._y_moved)
+            self._dont_center = True
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
             button = self._get_button_for_pos(e.gpos)
