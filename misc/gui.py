@@ -1,4 +1,4 @@
-from talon import skia, ui
+from talon import Module, skia, ui
 from talon.skia.image import Image
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas
@@ -9,16 +9,29 @@ background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
 border_radius = 8
-max_number_of_lines = 4
+
+mod = Module()
+
+setting_max_rows = mod.setting(
+    "gui_max_rows",
+    type=int,
+    default=5,
+)
+setting_max_col = mod.setting(
+    "gui_max_cols",
+    type=int,
+    default=50,
+)
 
 
 class State:
     def __init__(self, canvas: skia.Canvas, dpi: float, numbered: bool):
+        self.max_rows = setting_max_rows.get()
+        self.max_cols = setting_max_col.get()
         self.canvas = canvas
         self.font_size = round(16 * (dpi / 130))
-        self.line_height = self.rem(1.5)
         self.padding = self.rem(0.5)
-        self.image_height = max_number_of_lines * self.line_height
+        self.image_height = self.max_rows * self.font_size
         self.image_width = 5 * self.image_height
         self.x = canvas.x + self.padding
         self.x_text = canvas.x + self.rem(2.25) if numbered else self.x
@@ -38,14 +51,10 @@ class State:
         return round(self.font_size * number)
 
 
-# if len(text) > max_cols + 4:
-#                 text = text[:max_cols] + " ..."
-
-
 class Text:
     def __init__(self, text: str, header: bool):
         self.numbered = not header
-        self.text = text.strip()
+        self.text = text
         self.header = header
 
     def draw(self, state: State):
@@ -54,11 +63,19 @@ class Text:
         state.canvas.paint.textsize = state.font_size
         state.canvas.paint.color = text_color
 
-        for line in self.text.split("\n"):
+        lines = self.text.split("\n")
+        if len(lines) > state.max_rows:
+            lines = lines[: state.max_rows]
+            lines[-1] = "..."
+
+        for line in lines:
+            if len(line) > state.max_cols + 4:
+                line = line[: state.max_cols] + " ..."
             rect = state.canvas.paint.measure_text(line)[1]
             state.canvas.draw_text(line, state.x_text, state.y + state.font_size)
-            state.width = max(state.width, rect.width)
-            state.y += state.line_height
+            state.width = max(state.width, rect.x + rect.width)
+            state.y += state.font_size
+        state.y += state.padding
 
     @classmethod
     def draw_number(cls, state: State, number: int):
@@ -75,7 +92,7 @@ class Line:
         self.numbered = False
 
     def draw(self, state: State):
-        y = state.y + state.padding
+        y = state.y + state.padding - 1
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = text_color
         state.canvas.draw_line(
@@ -108,7 +125,7 @@ class Image:
     def draw(self, state: State):
         image = self._resize(state.image_width, state.image_height)
         state.canvas.draw_image(image, state.x_text, state.y)
-        state.y += image.height + state.padding * 2
+        state.y += image.height + state.padding
         state.width = max(state.width, image.width)
 
 

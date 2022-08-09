@@ -23,25 +23,29 @@ setting_clipboard_manager_max_rows = mod.setting(
     type=int,
     default=20,
 )
-setting_clipboard_manager_max_cols = mod.setting(
-    "clipboard_manager_max_cols",
-    type=int,
-    default=50,
-)
+
 
 clip_history: list[ClipItem] = []
 ignore_next: bool = False
 sticky: bool = False
 
 
-@open(numbered=True, x=0)
+@open(numbered=True)
 def gui(gui: GUI):
-
     max_rows = setting_clipboard_manager_max_rows.get()
-    max_cols = setting_clipboard_manager_max_cols.get()
     sticky_text = " - STICKY" if sticky else ""
     gui.header(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
     gui.line()
+
+    # for i in range(22):
+    #     gui.text("stuff")
+    #     if i % 10 == 0:
+    #         gui.text("this is some other stuff")
+    #         gui.line()
+    # gui.text("stuff")
+    # gui.spacer()
+    # gui.text("stuff")
+    # # gui.line()
 
     for i, item in enumerate(clip_history):
         if item.image:
@@ -49,9 +53,9 @@ def gui(gui: GUI):
         else:
             gui.text(item.text)
 
-    gui.spacer()
-    if gui.button("Hide"):
-        actions.user.clipboard_manager_hide()
+    # gui.spacer()
+    # if gui.button("Hide"):
+    #     actions.user.clipboard_manager_hide()
 
 
 @ctx.action_class("clip")

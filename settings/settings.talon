@@ -23,6 +23,10 @@ settings():
     # Increase imgui size
     imgui.scale = 2
 
+    # General gui
+    user.gui_max_rows = 5
+    user.gui_max_cols = 60
+
     # Help gui
     user.help_max_command_lines_per_page = 50
     user.help_max_contexts_per_page = 50
@@ -34,4 +38,3 @@ settings():
 
     # Clipboard manager
     user.clipboard_manager_max_rows = 25
-    user.clipboard_manager_max_cols = 60
