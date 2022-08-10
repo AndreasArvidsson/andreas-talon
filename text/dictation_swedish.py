@@ -8,10 +8,10 @@ language: sv_SE
 """
 
 
-@ctx.action_class("user")
-class UserActions:
-    def lower_swedish_words(words: list[str]):
-        return [w.lower() for w in words]
+# @ctx.action_class("user")
+# class UserActions:
+#     def lower_swedish_words(words: list[str]):
+#         return [w.lower() for w in words]
 
 
 @mod.action_class
