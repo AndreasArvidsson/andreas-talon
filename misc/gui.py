@@ -37,7 +37,7 @@ class State:
         self.padding = self.rem(0.5)
         self.image_height = self.max_rows * self.font_size
         self.image_width = 5 * self.image_height
-        self.text_offset = self.rem(2.25) if numbered else self.padding
+        self.text_offset = self.rem(2.5) if numbered else self.padding
         self.x = canvas.x + self.padding
         self.x_text = canvas.x + self.text_offset
         self.y = canvas.y + self.padding
@@ -101,9 +101,7 @@ class Text:
         text = str(number).rjust(2)
         rect = state.canvas.paint.measure_text(text)[1]
         x = state.x + rect.x
-        # y = (state.y + y_start + rect.y + rect.height) / 2
-        y = (state.y + y_start) / 2 + rect.y / 2 + state.font_size / 2
-        # state.canvas.draw_text(text, state.x, state.y + state.font_size)
+        y = (state.y + y_start + rect.y + state.font_size) / 2
 
         # state.canvas.paint.style = state.canvas.paint.Style.FILL
         # state.canvas.paint.color = button_bg_color
@@ -392,7 +390,7 @@ def gui(gui: GUI):
     gui.line(bold=True)
     gui.text("text before spacer")
     gui.spacer()
-    gui.text("text after spacer")
+    gui.text("text after spacer, jg")
     for i in range(10):
         gui.line()
         gui.text(f"stuff stuff {i}")
