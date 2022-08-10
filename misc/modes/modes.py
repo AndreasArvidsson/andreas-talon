@@ -49,5 +49,10 @@ class Actions:
             actions.user.rephrase(phrase, run_async=True)
 
 
-# Disable face mode
-app.register("ready", lambda: actions.mode.disable("face"))
+def on_ready():
+    """Disabled not used modes"""
+    actions.mode.disable("face")
+    actions.mode.disable("noise")
+
+
+app.register("ready", on_ready)
