@@ -97,7 +97,7 @@ class Text:
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = False
         state.canvas.paint.textsize = state.font_size
-        state.canvas.paint.color = text_color
+        state.canvas.paint.color = button_text_color
         text = str(number).rjust(2)
         rect = state.canvas.paint.measure_text(text)[1]
         x = state.x + rect.x
@@ -106,7 +106,7 @@ class Text:
         # state.canvas.paint.style = state.canvas.paint.Style.FILL
         # state.canvas.paint.color = button_bg_color
         # state.canvas.draw_rect(Rect(x, y_start, rect.x + rect.width, state.y - y_start))
-        # state.canvas.paint.color = text_color
+        # state.canvas.paint.color = button_text_color
 
         state.canvas.draw_text(text, x, y)
 
