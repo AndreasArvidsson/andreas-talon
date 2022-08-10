@@ -35,9 +35,9 @@ def gui(gui: GUI):
     max_rows = setting_clipboard_manager_max_rows.get()
     sticky_text = " - STICKY" if sticky else ""
     gui.header(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
-    gui.line()
 
     for i, item in enumerate(clip_history):
+        gui.line(bold=i == 0)
         if item.image:
             gui.image(item.image)
         else:

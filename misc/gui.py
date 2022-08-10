@@ -93,14 +93,24 @@ class Text:
         state.add_height(state.padding)
 
     @classmethod
-    def draw_number(cls, state: State, number: int):
+    def draw_number(cls, state: State, y_start: float, number: int):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = False
         state.canvas.paint.textsize = state.font_size
         state.canvas.paint.color = text_color
         text = str(number).rjust(2)
         rect = state.canvas.paint.measure_text(text)[1]
-        state.canvas.draw_text(text, state.x, state.y + state.font_size)
+        x = state.x + rect.x
+        # y = (state.y + y_start + rect.y + rect.height) / 2
+        y = (state.y + y_start) / 2 + rect.y / 2 + state.font_size / 2
+        # state.canvas.draw_text(text, state.x, state.y + state.font_size)
+
+        # state.canvas.paint.style = state.canvas.paint.Style.FILL
+        # state.canvas.paint.color = button_bg_color
+        # state.canvas.draw_rect(Rect(x, y_start, rect.x + rect.width, state.y - y_start))
+        # state.canvas.paint.color = text_color
+
+        state.canvas.draw_text(text, x, y)
 
 
 class Button:
@@ -162,13 +172,14 @@ class Button:
 
 
 class Line:
-    def __init__(self):
+    def __init__(self, bold: bool):
         self.numbered = False
+        self.bold = bold
 
     def draw(self, state: State):
         y = state.y + state.padding - 1
         state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.paint.color = text_color
+        state.canvas.paint.color = text_color if self.bold else button_bg_color
         state.canvas.draw_line(
             state.x, y, state.x + state.canvas.width - state.font_size, y
         )
@@ -254,8 +265,8 @@ class GUI:
     def header(self, text: str):
         self._elements.append(Text(text, header=True))
 
-    def line(self):
-        self._elements.append(Line())
+    def line(self, bold: Optional[bool] = False):
+        self._elements.append(Line(bold))
 
     def spacer(self):
         self._elements.append(Spacer())
@@ -279,11 +290,18 @@ class GUI:
         state = State(canvas, self._screen_current.dpi, self._numbered)
         number = 1
 
+        # for el in self._elements:
+        #     if self._numbered and el.numbered:
+        #         Text.draw_number(state, number)
+        #         number += 1
+        #     el.draw(state)
+
         for el in self._elements:
-            if self._numbered and el.numbered:
-                Text.draw_number(state, number)
-                number += 1
+            y_start = state.y
             el.draw(state)
+            if self._numbered and el.numbered:
+                Text.draw_number(state, y_start, number)
+                number += 1
 
         # Resize to fit content
         if canvas.width != state.get_width() or canvas.height != state.get_height():
@@ -368,15 +386,28 @@ def open(
     return open_inner
 
 
-@open(x=0.2, y=0)
+@open(numbered=True, x=0.7, y=0.3)
 def gui(gui: GUI):
-    gui.header("hello")
-    gui.text("aaa")
+    gui.header("Some header")
+    gui.line(bold=True)
+    gui.text("text before spacer")
+    gui.spacer()
+    gui.text("text after spacer")
+    for i in range(10):
+        gui.line()
+        gui.text(f"stuff stuff {i}")
     gui.line()
-    gui.text("bbb")
-    gui.spacer()
-    gui.text("ccc")
-    gui.spacer()
+    gui.text(
+        """def draw(self, state: State):
+            y = state.y + state.padding - 1
+            state.canvas.paint.style = state.canvas.paint.Style.FILL
+            state.canvas.paint.color = text_color if self.bold else button_bg_color
+            state.canvas.draw_line(
+                state.x, y, state.x + state.canvas.width - state.font_size, y
+            )
+            state.add_height(state.font_size)"""
+    )
+
     if gui.button("some text"):
         print("Hide")
 
