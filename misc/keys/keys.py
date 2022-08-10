@@ -2,9 +2,11 @@ from talon import Module, Context, actions
 from ...merge import merge
 
 mod = Module()
+
 ctx = Context()
-ctx.matches = r"""
-language: en_US
+
+ctx_swe = Context()
+ctx_swe.matches = r"""
 language: sv_SE
 """
 
@@ -65,13 +67,20 @@ ctx.lists["self.key_modifier"] = {
 # Symbols you want available BOTH in dictation and command mode.
 mod.list("key_punctuation", desc="Symbols for inserting punctuation into text")
 ctx.lists["self.key_punctuation"] = {
-    "comma":            ",",
     "period":           ".",
+    "comma":            ",",
     "colon":            ":",
-    "stack":            ":",
-    "forward slash":    "/",
+    "slash":            "/",
     "question mark":    "?",
     "exclamation mark": "!",
+}
+ctx_swe.lists["self.key_punctuation"] = {
+    "punkt":            ".",
+    "komma":            ",",
+    "kolon":            ":",
+    "snedstreck":       "/",
+    "frågetecken":      "?",
+    "utropstecken":     "!",
 }
 
 # Symbols you want available ONLY in code formatters.

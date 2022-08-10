@@ -1,6 +1,4 @@
 mode: dictation
-language: en_US
-language: sv_SE
 experiment: anchor-file
 -
 
