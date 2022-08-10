@@ -1,4 +1,5 @@
 from talon import Context, Module, actions
+from dataclasses import dataclass
 
 mod = Module()
 ctx = Context()
@@ -38,6 +39,41 @@ extension_lang_map = {
     ".vim": "vimscript",
     ".vimrc": "vimscript",
 }
+
+
+@dataclass
+class Language:
+    id: str
+    file_ending: str
+    spoken_form: str
+    # file_ending_spoken_form: str?
+
+
+languages = [
+    Language("plaintext", "txt", "text"),
+    Language("talon", "talon", "talon"),
+    Language("python", "py", "pie"),  # pie and python?
+    Language("markdown", "md", "mark down"),
+    Language("lua", "lua", "lua"),
+    Language("c", "c", "see"),
+    Language("html", "html", "html"),
+    Language("json", "json", "json"),
+    Language("java", "java", "java"),
+    Language("xml", "xml", "xml"),
+    Language("csv", "csv", "csv"),
+    Language("exe", "exe", "exe"),
+    Language("shellscript", "sh", "shell script"),
+    Language("cplusplus", "cpp", "see plus plus"),
+    Language("csharp", "cs", "see sharp"),
+    Language("typescript", "ts", "type script"),
+    Language("typescriptreact", "tsx", "type script react"),
+    Language("javascript", "js", "java script"),
+    Language("javascriptreact", "jsx", "java script react"),
+]
+
+# mod.list("key_modifier", desc="All modifier keys")
+# ctx.lists["self.key_modifier"] = { }
+# update extensions.py
 
 # Create a context for each defined language
 for lang in extension_lang_map.values():

@@ -70,8 +70,8 @@
             ">probability": 0.95
         },
         "throttle": {
-            "shush": 0.2,
-            "hiss": 0.2
+            "shush": 0.9,
+            "hiss": 0.9
         }
     },
     "background": {
