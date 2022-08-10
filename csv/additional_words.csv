@@ -15,24 +15,30 @@ left
 right
 
 # Names
-andreas
-arvidsson
-pokey
-aegis
-knausj
-karlstad
-cursorless
+Aegis
+Andreas
+Arvidsson
+arvid son, Arvidsson
+Cursorless
+curse less, Cursorless
+Highcharts
+Karlstad
+Keycloak
+Knausj
+knaus j, Knausj
+Linpro
+Linux
+Orust
+Pokey
+Quarkus
+Rango
+Redpill
+Talon
+toby, Tobii
+tree sitter, Tree-sitter
+Vimium
 vscode
-linux
-vimium
-highcharts
-tree sitter
-quarkus
-keycloak
-rango
-talon
-redpill
-linpro
+visual code, vscode
 
 # Abbreviations
 admin
@@ -54,12 +60,3 @@ json
 # Misc words
 cheat sheet
 yeah
-
-
-# Different pronounciations of words that need to be added to Talon's vocabulary.
-
-knaus j, knausj
-toby, tobii
-curse less, cursorless
-visual code, vscode
-arvid son, arvidsson
