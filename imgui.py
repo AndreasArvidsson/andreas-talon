@@ -252,11 +252,12 @@ class GUI:
         self._canvas.freeze()
 
     def hide(self):
-        self._canvas.unregister("draw", self._draw)
-        self._canvas.unregister("mouse", self._mouse)
-        self._canvas.close()
-        self._buttons = {}
-        self._showing = False
+        if self._showing:
+            self._canvas.unregister("draw", self._draw)
+            self._canvas.unregister("mouse", self._mouse)
+            self._canvas.close()
+            self._buttons = {}
+            self._showing = False
 
     def text(self, text: str):
         self._elements.append(Text(text, header=False))
