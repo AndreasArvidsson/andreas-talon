@@ -1,16 +1,14 @@
-from talon import Module, actions, imgui, Module, registry, ui
+from talon import Module, actions, Module, registry
+from ...imgui import imgui
 
 mod = Module()
 mod.mode("help_alphabet", "Mode for showing the alphabet help gui")
 
 
-main_screen = ui.main_screen()
-
-
-@imgui.open(x=ui.main_screen().x)
+@imgui.open()
 def gui(gui: imgui.GUI):
-    gui.text("Alphabet")
-    gui.line()
+    gui.header("Alphabet")
+    gui.line(bold=True)
     alphabet = registry.lists["user.letter"][0]
     for key, val in alphabet.items():
         gui.text(f"{val}:  {key}")

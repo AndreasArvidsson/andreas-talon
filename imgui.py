@@ -4,7 +4,8 @@ from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.ui import Rect
-from typing import Callable, Optional
+from typing import Callable, ClassVar, Optional
+from dataclasses import dataclass
 
 background_color = "ffffff"
 border_color = "000000"
@@ -366,26 +367,35 @@ class GUI:
             return ui.main_screen()
 
 
-def open(
-    screen: Optional[Screen] = None,
-    x: Optional[float] = None,
-    y: Optional[float] = None,
-    numbered: Optional[bool] = False,
-):
-    def open_inner(draw):
-        return GUI(
-            draw,
-            numbered=numbered,
-            screen=screen,
-            x=x,
-            y=y,
-        )
+@dataclass
+class ImGUI:
+    GUI: GUI
 
-    return open_inner
+    @classmethod
+    def open(
+        cls,
+        screen: Optional[Screen] = None,
+        x: Optional[float] = None,
+        y: Optional[float] = None,
+        numbered: Optional[bool] = False,
+    ):
+        def open_inner(draw):
+            return GUI(
+                draw,
+                numbered=numbered,
+                screen=screen,
+                x=x,
+                y=y,
+            )
+
+        return open_inner
 
 
-@open(numbered=True, x=0.7, y=0.3)
-def gui(gui: GUI):
+imgui = ImGUI(GUI)
+
+
+@imgui.open(numbered=True, x=0.7, y=0.3)
+def gui(gui: imgui.GUI):
     gui.header("Some header")
     gui.line(bold=True)
     gui.text("text before spacer")

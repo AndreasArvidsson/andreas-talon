@@ -1,7 +1,8 @@
-from talon import Context, Module, app, imgui, ui, actions
+from talon import Context, Module, app, ui, actions
 from talon.grammar import Phrase
 import re
 import time
+from ...imgui import imgui
 
 
 mod = Module()
@@ -156,10 +157,10 @@ class Actions:
             appWindow.rect = activeRect
 
 
-@imgui.open(x=ui.main_screen().x)
+@imgui.open()
 def gui(gui: imgui.GUI):
-    gui.text("Focus")
-    gui.line()
+    gui.header("Focus")
+    gui.line(bold=True)
     index = 1
     for name in ctx.lists["self.running_application"]:
         gui.text(f"Focus {index}: {name}")

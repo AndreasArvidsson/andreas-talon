@@ -1,4 +1,5 @@
-from talon import Module, actions, imgui, Module, scope, ui
+from talon import Module, actions, Module, scope
+from ...imgui import imgui
 
 mod = Module()
 mod.mode("help_scope", "Mode for showing the scope help gui")
@@ -10,10 +11,10 @@ setting_max_length = mod.setting(
 )
 
 
-@imgui.open(x=ui.main_screen().x)
+@imgui.open(x=0)
 def gui(gui: imgui.GUI):
-    gui.text("Scope")
-    gui.line()
+    gui.header("Scope")
+    gui.line(bold=True)
     gui.spacer()
     gui.text("Modes")
     gui.line()

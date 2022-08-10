@@ -2,7 +2,7 @@ mode: command
 -
 
 parrot(pop):                user.mouse_on_pop()
-parrot(tsk):                user.mouse_click("control")
+# parrot(tsk):                user.mouse_click("control")
 
 parrot(cluck):              core.repeat_command(1)
 

@@ -1,6 +1,7 @@
-from talon import Context, Module, app, imgui, actions, ui
+from talon import Context, Module, app, actions
 import re
 import time
+from ...imgui import imgui
 
 # a list of homophones where each line is a comma separated list
 # e.g. where,wear,ware
@@ -11,14 +12,13 @@ ctx = Context()
 mod = Module()
 mod.mode("homophones")
 
-main_screen = ui.main_screen()
 homophones_last_used = {}
 
 
-@imgui.open(x=main_screen.x, y=main_screen.y)
+@imgui.open()
 def gui(gui: imgui.GUI):
-    gui.text("Homophones")
-    gui.line()
+    gui.header("Homophones")
+    gui.line(bold=True)
     index = 1
     global active_word_list
     for word in active_word_list:

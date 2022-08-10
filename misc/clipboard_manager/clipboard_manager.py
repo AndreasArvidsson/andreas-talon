@@ -3,7 +3,7 @@ from talon import Module, Context, actions, clip
 from talon.skia.image import Image
 from talon.clip import MimeData
 from dataclasses import dataclass
-from ..gui import open, GUI
+from ...imgui import imgui
 
 
 @dataclass
@@ -30,8 +30,8 @@ ignore_next: bool = False
 sticky: bool = False
 
 
-@open(numbered=True)
-def gui(gui: GUI):
+@imgui.open(numbered=True)
+def gui(gui: imgui.GUI):
     max_rows = setting_clipboard_manager_max_rows.get()
     sticky_text = " - STICKY" if sticky else ""
     gui.header(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")

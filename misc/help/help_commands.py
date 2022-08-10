@@ -1,7 +1,8 @@
 from collections import defaultdict
 import math
 from typing import Iterable, Tuple
-from talon import Module, Context, actions, imgui, Module, registry, ui, app
+from talon import Module, Context, actions, Module, registry, ui, app
+from ...imgui import imgui
 
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
@@ -149,10 +150,7 @@ def get_pages(item_line_counts: list[int]) -> list[int]:
     return pages
 
 
-main_screen = ui.main_screen()
-
-
-@imgui.open(x=main_screen.x, y=main_screen.y)
+@imgui.open(x=0)
 def gui_context_help(gui: imgui.GUI):
     global context_command_map
     global current_context_page
@@ -168,11 +166,11 @@ def gui_context_help(gui: imgui.GUI):
     if selected_context is None and search_phrase is None:
         total_page_count = get_total_context_pages()
 
-        gui.text(
+        gui.header(
             "Help: contexts ({}/{})".format(current_context_page, total_page_count)
         )
 
-        gui.line()
+        gui.line(bold=True)
 
         current_item_index = 1
         current_selection_index = 1
@@ -302,8 +300,8 @@ def draw_commands_title(gui: imgui.GUI, title: str):
     global selected_context_page
     global total_page_count
 
-    gui.text("{} ({}/{})".format(title, selected_context_page, total_page_count))
-    gui.line()
+    gui.header("{} ({}/{})".format(title, selected_context_page, total_page_count))
+    gui.line(bold=True)
 
 
 def draw_commands(gui: imgui.GUI, commands: Iterable[Tuple[str, str]]):

@@ -20,9 +20,6 @@ settings():
     # Show subtitles on all screens
     user.subtitles_all_screens = 1
 
-    # Increase imgui size
-    imgui.scale = 2
-
     # General gui
     user.gui_max_rows = 5
     user.gui_max_cols = 60

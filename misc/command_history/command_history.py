@@ -1,6 +1,7 @@
-from talon import Module, imgui, ui
+from talon import Module, ui
 from dataclasses import dataclass
 import time
+from ...imgui import imgui
 
 mod = Module()
 size_setting = mod.setting("command_history_size", int, default=50)

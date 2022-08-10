@@ -1,5 +1,6 @@
-from talon import Module, Context, actions, imgui
+from talon import Module, Context, actions
 import re
+from ..imgui import imgui
 
 mod = Module()
 ctx = Context()
@@ -104,8 +105,8 @@ def formatters(m) -> str:
 
 @imgui.open()
 def gui(gui: imgui.GUI):
-    gui.text("Formatters")
-    gui.line()
+    gui.header("Formatters")
+    gui.line(bold=True)
     formatters = {
         **ctx.lists["self.formatter_code"],
         **ctx.lists["self.formatter_prose"],

@@ -1,18 +1,18 @@
-from talon import Module, actions, imgui, Module, registry, ui
+from talon import Module, actions, Module, registry
+from ...imgui import imgui
 
 mod = Module()
 mod.mode("help_search", "Mode for showing the search help gui")
 
 
-main_screen = ui.main_screen()
 search_text = None
 search_type = None
 
 
-@imgui.open(x=ui.main_screen().x)
+@imgui.open()
 def gui(gui: imgui.GUI):
-    gui.text(f"Search - {search_type}: {search_text}")
-    gui.line()
+    gui.header(f"Search - {search_type}: {search_text}")
+    gui.line(bold=True)
     if search_type == "actions":
         gui_actions(gui)
     elif search_type == "commands":
