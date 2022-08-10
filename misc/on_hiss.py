@@ -17,4 +17,4 @@ def mouse_scrolling():
     actions.user.mouse_scrolling("down")
 
 
-noise.register("hiss", on_hiss)
+# noise.register("hiss", on_hiss)
