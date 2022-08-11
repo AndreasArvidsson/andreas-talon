@@ -2,23 +2,23 @@ mode: command
 -
 
 parrot(pop):
-    print("pop")
+    user.debug("pop")
     user.mouse_on_pop()
 
-parrot(tsk):
-    print("tsk")
+# parrot(tsk):
+    # user.debug("tsk")
     # user.mouse_click("control")
 
 parrot(cluck):
-    print("cluck")
+    user.debug("cluck")
     core.repeat_command(1)
 
 parrot(shush):
-    print("shush")
+    user.debug("shush")
     user.mouse_scrolling("up")
 
 parrot(hiss):
-    print("hiss")
+    user.debug("hiss")
     user.mouse_scrolling("down")
 
 parrot(shush:stop):         user.mouse_stop()

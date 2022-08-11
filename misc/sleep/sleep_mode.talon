@@ -5,11 +5,11 @@ settings():
     speech.timeout = 0
 
 parrot(cluck):
-    print("Talon wake parrot noise")
+    user.debug("Talon wake parrot noise")
     user.talon_wake()
 
 ^talon wake up$:
-    print("Talon wake voice command")
+    user.debug("Talon wake voice command")
     user.talon_wake()
 
 ^talon status$:             user.talon_sleep_status()
