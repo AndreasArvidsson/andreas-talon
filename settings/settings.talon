@@ -7,6 +7,9 @@ settings():
     # Show debug timing statistics for spoken phrases
     user.debug_timings = 0
 
+    # Set log level
+    user.log_level = "debug"
+
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas/cursorless-settings"
     # Location to store csv files
