@@ -77,7 +77,6 @@ class CodeActions:
     def language() -> str:
         file_extension = actions.win.file_ext()
         if file_extension in extension_lang_map:
-            print(extension_lang_map[file_extension])
             return extension_lang_map[file_extension]
         return ""
 
