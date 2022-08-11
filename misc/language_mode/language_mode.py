@@ -1,79 +1,58 @@
-from talon import Context, Module, actions
 from dataclasses import dataclass
+from talon import Context, Module, actions
 
 mod = Module()
 ctx = Context()
-
-extension_lang_map = {
-    ".asm": "assembly",
-    ".bashbook": "bash",
-    ".bat": "batch",
-    ".c": "c",
-    ".cmake": "cmake",
-    ".cpp": "cplusplus",
-    ".cs": "csharp",
-    ".csv": "csv",
-    ".gdb": "gdb",
-    ".go": "go",
-    ".h": "c",
-    ".hpp": "cplusplus",
-    ".html": "html",
-    ".java": "java",
-    ".js": "javascript",
-    ".json": "json",
-    ".jsx": "javascriptreact",
-    ".lua": "lua",
-    ".md": "markdown",
-    ".pl": "perl",
-    ".ps1": "powershell",
-    ".py": "python",
-    ".r": "r",
-    ".rb": "ruby",
-    ".s": "assembly",
-    ".sh": "bash",
-    ".snippets": "snippets",
-    ".talon": "talon",
-    ".ts": "typescript",
-    ".tsx": "typescriptreact",
-    ".vba": "vba",
-    ".vim": "vimscript",
-    ".vimrc": "vimscript",
-}
 
 
 @dataclass
 class Language:
     id: str
-    file_ending: str
+    extension: str
     spoken_form: str
-    # file_ending_spoken_form: str?
 
 
 languages = [
-    Language("plaintext", "txt", "text"),
-    Language("talon", "talon", "talon"),
-    Language("python", "py", "pie"),  # pie and python?
-    Language("markdown", "md", "mark down"),
-    Language("lua", "lua", "lua"),
+    Language("batch", "bat", "batch"),
     Language("c", "c", "see"),
-    Language("html", "html", "html"),
-    Language("json", "json", "json"),
-    Language("java", "java", "java"),
-    Language("xml", "xml", "xml"),
-    Language("csv", "csv", "csv"),
-    Language("exe", "exe", "exe"),
-    Language("shellscript", "sh", "shell script"),
     Language("cplusplus", "cpp", "see plus plus"),
     Language("csharp", "cs", "see sharp"),
-    Language("typescript", "ts", "type script"),
-    Language("typescriptreact", "tsx", "type script react"),
+    Language("csv", "csv", "csv"),
+    Language("go", "go", "go"),
+    Language("html", "html", "html"),
+    Language("java", "java", "java"),
     Language("javascript", "js", "java script"),
     Language("javascriptreact", "jsx", "java script react"),
+    Language("json", "json", "json"),
+    Language("lua", "lua", "lua"),
+    Language("markdown", "md", "mark down"),
+    Language("perl", "pl", "perl"),
+    Language("plaintext", "txt", "text"),
+    Language("powershell", "ps1", "power shell"),
+    Language("python", "py", "python"),
+    Language("r", "r", "are"),
+    Language("ruby", "rb", "ruby"),
+    Language("shellscript", "sh", "shell script"),
+    Language("talon", "talon", "talon"),
+    Language("typescript", "ts", "type script"),
+    Language("typescriptreact", "tsx", "type script react"),
+    Language("xml", "xml", "xml"),
 ]
 
-# mod.list("key_modifier", desc="All modifier keys")
-# ctx.lists["self.key_modifier"] = { }
-# update extensions.py
+mod.list("code_extension", desc="List of file programming languages file extensions")
+ctx.lists["self.code_extension"] = {
+    **{l.spoken_form: l.extension for l in languages},
+    "pie": "py",
+}
+
+mod.list("code_language", desc="List of file programming language identifiers")
+ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
+
+extension_lang_map = {
+    **{f".{l.extension}": l.id for l in languages},
+    ".bashbook": "bash",
+    ".h": "c",
+}
 
 # Create a context for each defined language
 for lang in extension_lang_map.values():
@@ -98,6 +77,7 @@ class CodeActions:
     def language() -> str:
         file_extension = actions.win.file_ext()
         if file_extension in extension_lang_map:
+            print(extension_lang_map[file_extension])
             return extension_lang_map[file_extension]
         return ""
 

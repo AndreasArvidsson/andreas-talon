@@ -4,9 +4,9 @@ mod = Module()
 ctx = Context()
 
 
-@mod.capture(rule="dot {user.extension}")
+@mod.capture(rule="dot [{user.code_extension} | {user.file_extension}]")
 def extension(m) -> str:
-    return f".{m.extension}"
+    return f".{m[-1]}"
 
 
 @mod.capture(rule="dot {user.domain}")
@@ -16,27 +16,10 @@ def domain(m) -> str:
 
 # fmt: off
 
-mod.list("extension", desc="List of file extensions")
-ctx.lists["self.extension"] = {
-    "pie":            "py",
-    "talon":          "talon",
-    "mark down":      "md",
-    "shell":          "sh",
-    "vim":            "vim",
-    "see":            "c",
-    "see sharp":      "cs",
-    "see plus plus":  "cpp",
+mod.list("file_extension", desc="List of (non-code) file extensions")
+ctx.lists["self.file_extension"] = {
     "exe":            "exe",
     "bin":            "bin",
-    "jason":          "json",
-    "java":           "java",
-    "java script":    "js",
-    "type script":    "ts",
-    "text":           "txt",
-    "lua":            "lua",
-    "csv":            "csv",
-    "xml":            "xml",
-    "html":           "html",
 }
 
 mod.list("domain", desc="List of top level domains")

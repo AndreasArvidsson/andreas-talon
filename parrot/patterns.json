@@ -40,7 +40,7 @@
             "hiss"
         ],
         "threshold": {
-            ">power": 10,
+            ">power": 12,
             ">probability": 0.95
         },
         "graceperiod": 0.1,
@@ -53,7 +53,7 @@
             "shush"
         ],
         "threshold": {
-            ">power": 10,
+            ">power": 12,
             ">probability": 0.95
         },
         "graceperiod": 0.1,

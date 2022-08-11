@@ -238,6 +238,10 @@ copy command id:            user.copy_command_id()
 snip last:                  user.vscode("jumpToPrevSnippetPlaceholder")
 [snip] next:                user.vscode("jumpToNextSnippetPlaceholder")
 
+change language {user.code_language}:
+    user.change_language(code_language)
+    key(enter)
+
 change language [<user.text>]:
     user.change_language(text or "")
 
