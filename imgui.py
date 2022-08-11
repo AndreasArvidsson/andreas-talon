@@ -34,7 +34,7 @@ class State:
         self.max_rows = setting_max_rows.get()
         self.max_cols = setting_max_col.get()
         self.canvas = canvas
-        self.font_size = round(16 * (dpi / 130))
+        self.font_size = round(16 * (dpi / 150))
         self.padding = self.rem(0.5)
         self.image_height = self.max_rows * self.font_size
         self.image_width = 5 * self.image_height
