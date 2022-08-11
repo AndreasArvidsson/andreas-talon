@@ -8,7 +8,7 @@ parrot(cluck):
     print("Talon wake parrot noise")
     user.talon_wake()
 
-^talon wake$:
+^talon wake up$:
     print("Talon wake voice command")
     user.talon_wake()
 
