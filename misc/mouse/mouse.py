@@ -41,7 +41,7 @@ class Actions:
             actions.user.zoom_mouse_on_pop()
         # Normal click when using control mouse
         elif actions.tracking.control_enabled():
-            ctrl.mouse_click(button=0)
+            actions.user.stabilized_click()
 
     def mouse_click(action: str):
         """Click mouse button"""
