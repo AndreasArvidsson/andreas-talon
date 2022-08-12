@@ -13,7 +13,7 @@ from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
 from talon_init import TALON_USER
 
 # PARROT_HOME = TALON_HOME / 'parrot'
-PARROT_HOME = TALON_USER / "andreas/parrot"
+PARROT_HOME = TALON_USER / "andreas-talon/parrot"
 pattern_path = str(PARROT_HOME / 'patterns.json')
 model_path = str(PARROT_HOME / 'model.pkl')
 

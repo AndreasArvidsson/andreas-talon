@@ -13,4 +13,4 @@ vscode package:
     "vsce package\n"
 
 talon user updates:
-    "node {user.talon_user()}/andreas/update.js\n"
+    "node {user.talon_user()}/andreas-talon/update.js\n"

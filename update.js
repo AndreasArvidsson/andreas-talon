@@ -30,7 +30,7 @@ function gitUpdate(userDir, url, folderName, branch) {
   gitUpdate(
     userDir,
     "git@github.com:AndreasArvidsson/andreas-talon.git",
-    "andreas",
+    "andreas-talon",
     "master"
   );
 
