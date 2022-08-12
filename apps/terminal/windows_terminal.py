@@ -48,9 +48,13 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
-    def tab_duplicate():
-        key("ctrl-shift-d")
+    def tab_jump(number: int):
+        """Jumps to the specified tab"""
+        key(f"ctrl-alt-{number}")
 
     def tab_final():
         actions.user.tab_jump(1)
         actions.app.tab_previous()
+
+    def tab_duplicate():
+        key("ctrl-shift-d")
