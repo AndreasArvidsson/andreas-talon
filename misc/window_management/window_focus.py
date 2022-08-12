@@ -52,17 +52,6 @@ def update_overrides(csv_dict: dict):
     #     print(f"{i}: {overrides[i]}")
 
 
-def get_app(name: str) -> ui.App:
-    for app in ui.apps(background=False):
-        if app.name == name:
-            return app
-    parsed_name = parse_name(name)
-    for app in ui.apps(background=False):
-        if parse_name(app.name) == parsed_name:
-            return app
-    raise RuntimeError(f'App not running: "{name}"')
-
-
 def cycle_windows(app: ui.App, diff: int):
     active = ui.active_window()
     windows = list(
@@ -80,7 +69,7 @@ def cycle_windows(app: ui.App, diff: int):
 
 
 def focus_name(name: str):
-    app = get_app(name)
+    app = actions.user.get_app(name)
     # Focus next window on same app
     if app == ui.active_app():
         cycle_windows(app, 1)
@@ -151,25 +140,24 @@ class Actions:
                 raise RuntimeError(f"Can't focus window: {window.title}")
             actions.sleep("50ms")
 
-    def swap_window_position(name: str):
-        """Swap window position with application by name"""
-        app = get_app(name)
-        activeWindow = ui.active_window()
-        appWindow = app.windows()[0]
-        if activeWindow != appWindow:
-            activeRect = activeWindow.rect
-            activeWindow.rect = appWindow.rect
-            appWindow.rect = activeRect
+    def get_app(name: str) -> ui.App:
+        """Get application by name"""
+        for app in ui.apps(background=False):
+            if app.name == name:
+                return app
+        parsed_name = parse_name(name)
+        for app in ui.apps(background=False):
+            if parse_name(app.name) == parsed_name:
+                return app
+        raise RuntimeError(f'App not running: "{name}"')
 
 
-@imgui.open()
+@imgui.open(numbered=True)
 def gui(gui: imgui.GUI):
     gui.header("Focus")
     gui.line(bold=True)
-    index = 1
     for name in ctx.lists["self.running_application"]:
-        gui.text(f"Focus {index}: {name}")
-        index += 1
+        gui.text(name)
     gui.spacer()
     if gui.button("Hide"):
         actions.user.focus_hide()

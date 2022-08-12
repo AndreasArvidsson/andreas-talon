@@ -60,6 +60,7 @@ ctx.lists["self.code_insert"] = merge(
 )
 ctx.lists["self.code_snippet"] = {
     "item": '"$1": $0,',
+    "ternary": "$1 if $2 else $0",
 }
 
 

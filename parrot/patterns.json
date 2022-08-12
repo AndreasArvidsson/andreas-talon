@@ -17,7 +17,7 @@
             "cluck"
         ],
         "threshold": {
-            ">power": 10,
+            ">power": 15,
             ">probability": 0.95
         },
         "throttle": {

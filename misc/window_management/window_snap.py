@@ -1,18 +1,5 @@
-from dataclasses import dataclass
 from talon import ui, Module, Context, actions
-
-mod = Module()
-ctx = Context()
-mod.list(
-    "window_snap_position",
-    "Predefined window positions for the current window. See `RelativeScreenPos`.",
-)
-mod.list("resize_side", "Side of window to use for resizing")
-mod.list("resize_direction", "Direction of window to use for resizing")
-mod.list("resize_size", "Offset to use for resizing")
-ctx.lists["user.resize_side"] = {"left", "top", "right", "bottom"}
-ctx.lists["user.resize_direction"] = {"in", "out"}
-ctx.lists["user.resize_size"] = {"small", "medium", "large"}
+from dataclasses import dataclass
 
 
 @dataclass
@@ -23,16 +10,6 @@ class RelativeScreenPos:
     top: float
     right: float
     bottom: float
-
-
-@dataclass
-class WindowState:
-
-    old_rect: ui.Rect
-    new_rect: ui.Rect
-
-
-window_states = {}
 
 
 snap_positions = {
@@ -83,23 +60,24 @@ snap_positions = {
     "full": RelativeScreenPos(0, 0, 1, 1),
 }
 
+mod = Module()
+ctx = Context()
+
+mod.list(
+    "window_snap_position",
+    "Predefined window positions for the current window. See `RelativeScreenPos`.",
+)
 ctx.lists["user.window_snap_position"] = snap_positions.keys()
-
-
-@mod.capture(rule="{user.window_snap_position}")
-def window_snap_position(m) -> RelativeScreenPos:
-    return snap_positions[m.window_snap_position]
 
 
 @mod.action_class
 class Actions:
-    def snap_window(pos: RelativeScreenPos):
-        """Move the active window to a specific position on-screen.
-        See `RelativeScreenPos` for the structure of this position.
-        """
+    def snap_window(pos_name: str):
+        """Move the active window to a specific position on-screen."""
+        pos = snap_positions[pos_name]
         window = ui.active_window()
         screen = window.screen.visible_rect
-        set_window_pos(
+        actions.user.window_set_pos(
             window,
             x=screen.x + (screen.width * pos.left),
             y=screen.y + (screen.height * pos.top),
@@ -119,85 +97,15 @@ class Actions:
         """Move the active window to a specific screen."""
         move_to_screen(ui.active_window(), screen_number=screen_number)
 
-    def move_window_to_screen_center():
-        """Move the active window to the center of the current screen"""
-        window = ui.active_window()
-        rect = window.rect
-        screen = window.screen.visible_rect
-        set_window_pos(
-            window,
-            x=screen.center.x - rect.width / 2,
-            y=screen.center.y - rect.height / 2,
-            width=rect.width,
-            height=rect.height,
-        )
-
-    def resize_window(side: str, direction: str, offset: str):
-        """Resize the active window"""
-        window = ui.active_window()
-        screen = window.screen.visible_rect
-        screen_size = min(screen.width, screen.height)
-        if offset == "small":
-            step = 0.05 * screen_size
-        elif offset == "medium":
-            step = 0.1 * screen_size
-        elif offset == "large":
-            step = 0.2 * screen_size
-        rect = window.rect
-        x = rect.x
-        y = rect.y
-        width = rect.width
-        height = rect.height
-        increase = direction == "out"
-        if side == "left":
-            if increase:
-                x -= step
-                width += step
-            else:
-                x += step
-                width -= step
-        elif side == "top":
-            if increase:
-                y -= step
-                height += step
-            else:
-                y += step
-                height -= step
-        elif side == "right":
-            if increase:
-                width += step
-            else:
-                width -= step
-        elif side == "bottom":
-            if increase:
-                height += step
-            else:
-                height -= step
-
-        set_window_pos(
-            window,
-            x=max(x, screen.x),
-            y=max(y, screen.y),
-            width=min(width, screen.width),
-            height=min(height, screen.height),
-        )
-
-    def move_window_revert():
-        """Revert window position"""
-        window = ui.active_window()
-        if window.id in window_states:
-            state = window_states[window.id]
-            if state:
-                window.rect = state.old_rect
-                window_states[window.id] = WindowState(state.new_rect, state.old_rect)
-
-
-def set_window_pos(window: ui.Window, x, y, width, height):
-    """Helper to set the window position."""
-    old_rect = window.rect
-    new_rect = ui.Rect(round(x), round(y), round(width), round(height))
-    window.rect = new_rect
-    window_states[window.id] = WindowState(old_rect, new_rect)
+    def swap_window_position(name: str):
+        """Swap window position with application by name"""
+        app = actions.user.get_app(name)
+        activeWindow = ui.active_window()
+        appWindow = app.windows()[0]
+        if activeWindow != appWindow:
+            activeRect = activeWindow.rect
+            actions.user.window_set_rect(activeWindow, appWindow.rect)
+            actions.user.window_set_rect(appWindow, activeRect)
 
 
 def move_to_screen(window: ui.Window, offset: int = None, screen_number: int = None):
@@ -228,7 +136,7 @@ def move_to_screen(window: ui.Window, offset: int = None, screen_number: int = N
     proportional_width = dest.width / src.width
     proportional_height = dest.height / src.height
 
-    set_window_pos(
+    actions.user.window_set_pos(
         window,
         x=dest.left + (window.rect.left - src.left) * proportional_width,
         y=dest.top + (window.rect.top - src.top) * proportional_height,
