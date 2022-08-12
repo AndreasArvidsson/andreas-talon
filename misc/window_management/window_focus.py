@@ -19,11 +19,16 @@ overrides = {}
 def parse_name(name):
     if name.lower() in overrides:
         return overrides[name.lower()]
+    # Remove executable file ending
     if name.endswith(".exe"):
         name = name.rsplit(".", 1)[0]
+    # Remove the last `-` and everything after it
     if " - " in name:
         name = name.rsplit(" - ", 1)[0]
-    name = re.sub(r"[^a-zA-Z0-9]", " ", name)
+    # Remove numbers
+    name = re.sub(r"\d", "", name)
+    # Split on camel case
+    name = re.sub(r"[^a-zA-Z]", " ", name)
     name = actions.user.de_camel(name)
     return name
 
