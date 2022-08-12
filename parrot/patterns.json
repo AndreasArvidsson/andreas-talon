@@ -21,7 +21,7 @@
             ">probability": 0.95
         },
         "throttle": {
-            "cluck": 0.2,
+            "cluck": 0.3,
             "pop": 0.3,
             "tsk": 0.2
         }
