@@ -10,7 +10,7 @@ def on_hiss(active: bool):
         return
     if active:
         if cron_job is None:
-            cron_job = cron.after("60ms", hiss_start)
+            cron_job = cron.after("70ms", hiss_start)
     elif cron_job is not None:
         cron.cancel(cron_job)
         cron_job = None
