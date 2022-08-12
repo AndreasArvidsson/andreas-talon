@@ -1,7 +1,7 @@
 os: windows
-and app.name: Windows Command Processor
-os: windows
 and app.exe: cmd.exe
+os: windows
+and app.exe: WindowsTerminal.exe
 title: Talon - REPL
 -
 
