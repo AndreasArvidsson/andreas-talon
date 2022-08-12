@@ -1,3 +1,5 @@
+# Since the foot switch uses keypad numbers make sure that `num lock` is turned off.
+
 # First device
 
 # Top button
