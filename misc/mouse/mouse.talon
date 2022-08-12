@@ -14,10 +14,10 @@ climb <number_small>:       user.mouse_scroll("up", number_small)
 drop <number_small>:        user.mouse_scroll("down", number_small)
 mouse gaze:                 user.mouse_gaze_scroll()
 
-mouse speed show:           user.mouse_scroll_speed_notify()
-mouse speed <number_small>: user.mouse_scroll_speed_set(number_small)
-mouse speed up:             user.mouse_scroll_speed_increase()
-mouse speed down:           user.mouse_scroll_speed_decrease()
+scroll speed show:          user.mouse_scroll_speed_notify()
+scroll speed <number_small>: user.mouse_scroll_speed_set(number_small)
+scroll speed up:            user.mouse_scroll_speed_increase()
+scroll speed down:          user.mouse_scroll_speed_decrease()
 
 # Eye tracking
 track control:              user.mouse_toggle_control_mouse()

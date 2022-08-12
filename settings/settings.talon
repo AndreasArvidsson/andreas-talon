@@ -15,8 +15,8 @@ settings():
     # Location to store csv files
     user.csv_directory = "andreas-talon/csv"
 
-    # Mouse scroll step
-    user.scroll_step = 0.02
+    # Mouse scroll speed
+    user.scroll_speed = 0.9
 
     # Subtitles
     user.subtitles_show = 1

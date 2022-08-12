@@ -18,7 +18,7 @@ ctx.lists["self.mouse_click"] = {
     "troll": "control",
 }
 
-setting_scroll_step = mod.setting("scroll_step", type=float, default=0.02)
+setting_scroll_speed = mod.setting("scroll_speed", type=float, default=1)
 
 scroll_job = None
 gaze_job = None
@@ -220,10 +220,8 @@ def scroll_continuous_helper():
         screen = get_screen_for_cursor(x, y)
         if screen is None:
             return
-        p = scroll_speed / 100
-        amount = int(p * screen.rect.height * setting_scroll_step.get())
-        amount = max(amount, 1)
-        actions.mouse_scroll(by_lines=False, y=amount * scroll_dir)
+        y = screen.dpi * setting_scroll_speed.get() * (scroll_speed / 100) * scroll_dir
+        actions.mouse_scroll(y, by_lines=False)
 
 
 def scroll_gaze_helper():
@@ -234,8 +232,8 @@ def scroll_gaze_helper():
             return
         rect = window.rect
         midpoint = rect.y + rect.height / 2
-        amount = int(((y - midpoint) / (rect.height / 10)) ** 3)
-        actions.mouse_scroll(by_lines=False, y=amount)
+        y = int(((y - midpoint) / (rect.height / 10)) ** 3)
+        actions.mouse_scroll(y, by_lines=False)
 
 
 def get_screen_for_cursor(x: float, y: float):
