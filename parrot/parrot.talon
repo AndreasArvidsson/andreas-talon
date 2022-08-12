@@ -1,9 +1,9 @@
 mode: command
 -
 
-parrot(pop):
-    user.debug("pop {power}")
-    user.mouse_on_pop()
+# parrot(pop):
+#     user.debug("pop {power}")
+#     user.mouse_on_pop()
 
 # parrot(tsk):
     # user.debug("tsk {power}")
@@ -13,16 +13,16 @@ parrot(cluck):
     user.debug("cluck {power}")
     core.repeat_command(1)
 
-parrot(shush):
-    user.debug("shush {power}")
-    user.mouse_scrolling("up")
+# parrot(shush):
+#     user.debug("shush {power}")
+#     user.mouse_scrolling("up")
 
-parrot(hiss):
-    user.debug("hiss {power}")
-    user.mouse_scrolling("down")
+# parrot(hiss):
+#     user.debug("hiss {power}")
+#     user.mouse_scrolling("down")
 
-parrot(shush:stop):         user.mouse_stop()
-parrot(hiss:stop):          user.mouse_stop()
+# parrot(shush:stop):         user.mouse_stop()
+# parrot(hiss:stop):          user.mouse_stop()
 
 
 # parrot(hiss):

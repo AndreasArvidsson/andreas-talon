@@ -2,6 +2,7 @@ from talon import noise, actions
 
 
 def on_pop(active: bool):
+    actions.user.debug("pop")
     # Talon is awake
     if actions.speech.enabled():
         actions.user.mouse_on_pop()
@@ -10,4 +11,4 @@ def on_pop(active: bool):
         actions.user.talon_wake_on_pop()
 
 
-# noise.register("pop", on_pop)
+noise.register("pop", on_pop)

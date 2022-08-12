@@ -14,7 +14,8 @@ def on_hiss(active: bool):
 
 
 def mouse_scrolling():
+    actions.user.debug("hiss")
     actions.user.mouse_scrolling("down")
 
 
-# noise.register("hiss", on_hiss)
+noise.register("hiss", on_hiss)

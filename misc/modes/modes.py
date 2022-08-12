@@ -52,7 +52,6 @@ class Actions:
 def on_ready():
     """Disabled not used modes"""
     actions.mode.disable("face")
-    actions.mode.disable("noise")
 
 
 app.register("ready", on_ready)
