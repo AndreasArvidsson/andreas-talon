@@ -1,4 +1,5 @@
 mode: command
+mode: dictation
 -
 
 parrot(pop):
@@ -8,10 +9,6 @@ parrot(pop):
 # parrot(tsk):
     # user.debug("tsk {power}")
     # user.mouse_click("control")
-
-parrot(cluck):
-    user.debug("cluck {power}")
-    core.repeat_command(1)
 
 # parrot(shush):
 #     user.debug("shush {power}")

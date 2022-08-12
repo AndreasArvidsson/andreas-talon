@@ -4,7 +4,7 @@ language: en_US
 language: sv_SE
 -
 
-{user.sleep_word} [<phrase>]$:
+{user.sleep_phrase} [<phrase>]$:
     user.debug("Talon sleep voice command")
     user.talon_sleep()
 

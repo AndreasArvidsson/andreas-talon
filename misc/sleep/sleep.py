@@ -2,13 +2,23 @@ from talon import Module, Context, actions
 import time
 
 mod = Module()
-ctx = Context()
 
-sleep_word = "drowse"
+ctx_en = Context()
+ctx_en.matches = r"""
+language: en_US
+"""
+
+ctx_swe = Context()
+ctx_swe.matches = r"""
+language: sv_SE
+"""
+
+mod.list("sleep_phrase", desc="Phrase used to sleep Talon")
+sleep_phrases = ["drowse", "sömnig"]
+ctx_en.lists["self.sleep_phrase"] = {sleep_phrases[0]}
+ctx_swe.lists["self.sleep_phrase"] = sleep_phrases
+
 time_last_pop = 0
-
-mod.list("sleep_word", desc="Word used to sleep Talon")
-ctx.lists["self.sleep_word"] = {sleep_word}
 
 
 @mod.action_class
@@ -42,10 +52,11 @@ class Actions:
 
     def talon_sleep_update_phrase(words: list[str]) -> tuple[bool, str]:
         """Update spoke in words in case of sleep command"""
-        if sleep_word in words:
-            index = words.index(sleep_word)
-            text = " ".join(words[: index + 1])
-            if index < len(words) - 1:
-                text += " ..."
-            return True, text
+        for sleep_phrase in sleep_phrases:
+            if sleep_phrase in words:
+                index = words.index(sleep_phrase)
+                text = " ".join(words[: index + 1])
+                if index < len(words) - 1:
+                    text += " ..."
+                return True, text
         return False, " ".join(words)
