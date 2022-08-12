@@ -11,5 +11,5 @@ scout [<user.text>]$:
     edit.find(text or "")
 pop <user.text>$:
     edit.find(text)
-    sleep("100ms")
+    sleep(100ms)
     key(enter)
