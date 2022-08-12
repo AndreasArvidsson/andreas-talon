@@ -1,9 +1,9 @@
 mode: command
 -
 
-# parrot(pop):
-#     user.debug("pop {power}")
-#     user.mouse_on_pop()
+parrot(pop):
+    user.debug("pop {power}")
+    user.mouse_on_pop()
 
 # parrot(tsk):
     # user.debug("tsk {power}")

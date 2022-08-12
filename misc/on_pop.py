@@ -11,4 +11,4 @@ def on_pop(active: bool):
         actions.user.talon_wake_on_pop()
 
 
-noise.register("pop", on_pop)
+# noise.register("pop", on_pop)
