@@ -8,6 +8,7 @@
             ">probability": 0.97
         },
         "throttle": {
+            "pop": 0.1,
             "cluck": 0.2,
             "tsk": 0.2
         }
