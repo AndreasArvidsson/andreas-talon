@@ -20,6 +20,9 @@ app: windows_terminal
 
 @ctx.action_class("app")
 class AppActions:
+    def window_open():
+        key("ctrl-shift-n")
+
     def tab_open():
         key("ctrl-shift-t")
 
@@ -44,6 +47,11 @@ class EditActions:
 
     def paste():
         key("ctrl-shift-v")
+
+    def find(text: str = None):
+        key("ctrl-shift-f")
+        if text:
+            actions.insert(text)
 
 
 @ctx.action_class("user")

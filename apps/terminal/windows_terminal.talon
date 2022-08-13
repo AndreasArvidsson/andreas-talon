@@ -1,6 +1,7 @@
 app: windows_terminal
 -
 tag(): user.tabs
+tag(): user.find
 tag(): user.bash
 
 split auto:                 key(ctrl-alt-d)
