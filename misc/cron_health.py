@@ -47,5 +47,20 @@ def on_interval():
         Deviation count: 63, sum: 167, avg: 2.7
 """
 
+"""
+    5min
+
+    Command mode: +tobii
+        Deviation count: 655, sum: 2331, avg: 3.6
+        Deviation count: 564, sum: 1644, avg: 2.9
+        Deviation count: 597, sum: 1499, avg: 2.5
+
+    Command mode: +tobii, +parrot
+        Deviation count: 703, sum: 2729, avg: 3.9
+        Deviation count: 304, sum: 722, avg: 2.4
+        Deviation count: 839, sum: 3539, avg: 4.2
+
+"""
+
 
 cron.interval(f"{interval}ms", on_interval)
