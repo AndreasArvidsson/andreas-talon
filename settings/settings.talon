@@ -16,7 +16,7 @@ settings():
     user.csv_directory = "andreas-talon/csv"
 
     # Mouse scroll speed
-    user.scroll_speed = 0.4
+    user.scroll_speed = 1
 
     # Subtitles
     user.subtitles_show = 1

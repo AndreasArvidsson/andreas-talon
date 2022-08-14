@@ -88,10 +88,10 @@ class Actions:
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
         stop_zoom()
-        amount = times
+        y = times
         if direction == "up":
-            amount = -amount
-        actions.mouse_scroll(by_lines=True, y=amount)
+            y = -y
+        actions.mouse_scroll(y, by_lines=True)
 
     def mouse_scrolling(direction: str):
         """Toggle scrolling continuously"""
@@ -108,7 +108,7 @@ class Actions:
         scroll_dir = new_scroll_dir
         if scroll_job is None:
             scroll_continuous_helper()
-            scroll_job = cron.interval("30ms", scroll_continuous_helper)
+            scroll_job = cron.interval("16ms", scroll_continuous_helper)
 
     def mouse_scroll_speed_set(speed: int):
         """Set scroll speed"""
@@ -138,7 +138,7 @@ class Actions:
         """Starts gaze scroll"""
         global gaze_job
         stop_scroll()
-        gaze_job = cron.interval("60ms", scroll_gaze_helper)
+        gaze_job = cron.interval("16ms", scroll_gaze_helper)
 
     def mouse_toggle_control_mouse():
         """Toggles control mouse"""
@@ -220,8 +220,8 @@ def scroll_continuous_helper():
         screen = get_screen_for_cursor(x, y)
         if screen is None:
             return
-        y = screen.dpi * setting_scroll_speed.get() * (scroll_speed / 100) * scroll_dir
-        actions.mouse_scroll(y, by_lines=False)
+        y = setting_scroll_speed.get() * (scroll_speed / 100) * scroll_dir
+        actions.mouse_scroll(y, by_lines=True)
 
 
 def scroll_gaze_helper():
@@ -231,9 +231,8 @@ def scroll_gaze_helper():
         if window is None:
             return
         rect = window.rect
-        midpoint = rect.y + rect.height / 2
-        y = int(((y - midpoint) / (rect.height / 10)) ** 3)
-        actions.mouse_scroll(y, by_lines=False)
+        y = ((y - rect.center.y) / (rect.height / 3)) ** 3
+        actions.mouse_scroll(y, by_lines=True)
 
 
 def get_screen_for_cursor(x: float, y: float):
