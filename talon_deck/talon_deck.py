@@ -29,7 +29,7 @@ app: firefox
 
 @ctx.action_class("user")
 class CommandActions:
-    def talon_deck_get_config() -> list[dict]:
+    def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
             {"icon": "commandMode.png"},
@@ -38,7 +38,7 @@ class CommandActions:
 
 @ctx_vscode.action_class("user")
 class VscodeActions:
-    def talon_deck_get_config() -> list[dict]:
+    def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
             {"icon": "vscode.png"},
@@ -47,7 +47,7 @@ class VscodeActions:
 
 @ctx_firefox.action_class("user")
 class VscodeActions:
-    def talon_deck_get_config() -> list[dict]:
+    def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
             {"icon": "firefox.png"},
@@ -56,7 +56,7 @@ class VscodeActions:
 
 @mod.action_class
 class Actions:
-    def talon_deck_get_config() -> list[dict]:
+    def talon_deck_get_buttons() -> list[dict]:
         """Return configuration for Talon deck"""
         result = []
 
@@ -71,7 +71,11 @@ class Actions:
 def update_file():
     global cron_job
     cron_job = None
-    config = actions.user.talon_deck_get_config()
+    buttons = actions.user.talon_deck_get_buttons()
+    config = {
+        "buttons": buttons,
+        "repl": f"{os.path.join(actions.path.talon_app(), 'python')} {os.path.join(actions.path.talon_app(), 'repl.py')}",
+    }
     file = open(temp_path, "w+")
     file.write(json.dumps(config))
     file.close()
