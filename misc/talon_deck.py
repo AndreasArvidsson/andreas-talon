@@ -1,10 +1,11 @@
-from talon import Module, Context, actions, registry, cron
+from talon import Module, Context, actions, registry, cron, app
 import tempfile
 import os
 import json
 
 temp_dir = os.path.join(tempfile.gettempdir(), "talonDeck")
 temp_path = os.path.join(temp_dir, "config.json")
+repl_path = None
 
 mod = Module()
 cron_job = None
@@ -74,7 +75,7 @@ def update_file():
     buttons = actions.user.talon_deck_get_buttons()
     config = {
         "buttons": buttons,
-        "repl": f"{os.path.join(actions.path.talon_app(), 'python')} {os.path.join(actions.path.talon_app(), 'repl.py')}",
+        "repl": repl_path,
     }
     file = open(temp_path, "w+")
     file.write(json.dumps(config))
@@ -88,5 +89,13 @@ def on_context_update():
     cron_job = cron.after("100ms", update_file)
 
 
-# os.makedirs(temp_dir, exist_ok=True)
-# registry.register("update_contexts", on_context_update)
+def on_ready():
+    global repl_path
+    python_path = os.path.join(actions.path.talon_app(), "python")
+    replpy_path = os.path.join(actions.path.talon_app(), "repl.py")
+    repl_path = f'"{python_path}" "{replpy_path}"'
+    os.makedirs(temp_dir, exist_ok=True)
+    registry.register("update_contexts", on_context_update)
+
+
+# app.register("ready", on_ready)
