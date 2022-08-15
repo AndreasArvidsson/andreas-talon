@@ -1,4 +1,4 @@
-from talon import Module, cron, actions, app
+from talon import Module, cron, actions
 from typing import Optional
 import subprocess
 import os
@@ -10,6 +10,11 @@ IGNORE_PATTERNS = []
 
 @mod.action_class
 class Actions:
+    def test():
+        """"""
+        print(actions.user.execparen(["node", "~/test.js"], verbose=False))
+        # actions.user.execnbparen(["node", "~/test.js"])
+
     def execparen(
         cmd: list[str],
         cwd: Optional[str] = None,
@@ -64,7 +69,6 @@ class Actions:
 
         # add it to the list to be raeaped when it finishes. We must do this or it will be become a zombie.
         procs.append(proc)
-        print(f"append {procs}")
 
 
 def env_for_subprocess():
@@ -110,9 +114,6 @@ def consume_process_output(proc: any, print_out: bool):
 def cleanup_processes():
     """Cleans up asynchronous processes"""
     global procs
-    print(f"clean up {procs}")
-
-    return
 
     new_procs = []
 
@@ -142,16 +143,4 @@ def cleanup_processes():
     procs = new_procs
 
 
-# cron.interval("1s", cleanup_processes)
-
-
-def on_ready():
-    print("Ready")
-
-    # res = actions.user.execparen(["node", "~/test.js"])
-    # print(res)
-
-    actions.user.execnbparen(["node", "~/test.js"])
-
-
-# app.register("ready", on_ready)
+cron.interval("1s", cleanup_processes)
