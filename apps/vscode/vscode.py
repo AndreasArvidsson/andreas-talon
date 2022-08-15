@@ -303,7 +303,7 @@ class Actions:
         """Open remote git file in browser"""
         url = actions.user.vscode_get("andreas.getGitURL", line_number)
         if url:
-            actions.user.browser_focus_open(url)
+            actions.user.browser_open(url)
 
     def git_copy_remote_file_url(line_number: bool = False):
         """Copy remote git file URL to clipboard"""
