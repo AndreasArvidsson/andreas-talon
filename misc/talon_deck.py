@@ -88,5 +88,5 @@ def on_context_update():
     cron_job = cron.after("100ms", update_file)
 
 
-os.makedirs(temp_dir, exist_ok=True)
-registry.register("update_contexts", on_context_update)
+# os.makedirs(temp_dir, exist_ok=True)
+# registry.register("update_contexts", on_context_update)
