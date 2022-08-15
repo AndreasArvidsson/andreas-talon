@@ -3,14 +3,14 @@ import tempfile
 import os
 import json
 
+temp_dir = os.path.join(tempfile.gettempdir(), "talonDeck")
+temp_path = os.path.join(temp_dir, "config.json")
 
-temp_path = os.path.join(tempfile.gettempdir(), "talonDeck.json")
 mod = Module()
 cron_job = None
 
 ctx = Context()
 ctx.matches = r"""
-os: windows
 mode: command
 """
 
@@ -84,4 +84,5 @@ def on_context_update():
     cron_job = cron.after("100ms", update_file)
 
 
-# registry.register("update_contexts", on_context_update)
+os.makedirs(temp_dir, exist_ok=True)
+registry.register("update_contexts", on_context_update)
