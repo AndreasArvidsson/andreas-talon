@@ -1,32 +1,41 @@
 import time
-from talon import Module, Context, actions
+from talon import Module, Context, actions, cron
 
 mod = Module()
 mod.tag("av")
 
-pressed = [False, False, False, False]
+current_state = [False, False, False, False]
+last_state = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
 hold_timeout = 0.2
 
 
+def on_interval():
+    for key in range(4):
+        if current_state[key] != last_state[key]:
+            last_state[key] = current_state[key]
+            # Key is pressed down
+            if current_state[key]:
+                call_down(key)
+            # Key is released after specified hold time out. ie key was held.
+            elif time.perf_counter() - timestamps[key] > hold_timeout:
+                call_up(key)
+
+
+cron.interval("16ms", on_interval)
+
+
 @mod.action_class
 class Actions:
-    def foot_switch_key(key: int):
-        """Press foot switch key. Top(0), Center(1), Left(2), Right(3)"""
-        global pressed
-        is_pressed = not pressed[key]
-        is_held = time.monotonic() - timestamps[key] > hold_timeout
-        pressed = [False, False, False, False]
-        pressed[key] = is_pressed
-        timestamps[key] = time.monotonic()
+    def foot_switch_down(key: int):
+        """Foot switch key down event. Top(0), Center(1), Left(2), Right(3)"""
+        timestamps[key] = time.perf_counter()
+        current_state[key] = True
 
-        # Initial downpress
-        if is_pressed:
-            call_down(key)
-        # Button was held and is now released
-        elif is_held:
-            call_up(key)
+    def foot_switch_up(key: int):
+        """Foot switch key up event. Top(0), Center(1), Left(2), Right(3)"""
+        current_state[key] = False
 
     def foot_switch_scroll_reverse():
         """Reverse scroll direction using foot switch"""
@@ -35,41 +44,64 @@ class Actions:
 
     def foot_switch_top_down():
         """Foot switch button top:down"""
+
+    def foot_switch_top_up():
+        """Foot switch button top:up"""
+
+    def foot_switch_center_down():
+        """Foot switch button center:down"""
+
+    def foot_switch_center_up():
+        """Foot switch button center:up"""
+
+    def foot_switch_left_down():
+        """Foot switch button left:down"""
+
+    def foot_switch_left_up():
+        """Foot switch button left:up"""
+
+    def foot_switch_right_down():
+        """Foot switch button right:down"""
+
+    def foot_switch_right_up():
+        """Foot switch button right:up"""
+
+
+# Default implementation
+ctx = Context()
+
+
+@ctx.action_class("user")
+class UserActions:
+    def foot_switch_top_down():
         if scroll_reversed:
             actions.user.mouse_scrolling("down")
         else:
             actions.user.mouse_scrolling("up")
 
     def foot_switch_top_up():
-        """Foot switch button top:up"""
         actions.user.mouse_stop()
 
     def foot_switch_center_down():
-        """Foot switch button center:down"""
         if scroll_reversed:
             actions.user.mouse_scrolling("up")
         else:
             actions.user.mouse_scrolling("down")
 
     def foot_switch_center_up():
-        """Foot switch button center:up"""
         actions.user.mouse_stop()
 
     def foot_switch_left_down():
-        """Foot switch button left:down"""
         actions.user.go_back()
 
     def foot_switch_left_up():
-        """Foot switch button left:up"""
-        return ""
+        pass
 
     def foot_switch_right_down():
-        """Foot switch button right:down"""
         actions.core.repeat_command(1)
 
     def foot_switch_right_up():
-        """Foot switch button right:up"""
-        return ""
+        pass
 
 
 # Audio / Video conferencing

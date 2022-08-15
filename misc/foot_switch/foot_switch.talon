@@ -1,41 +1,20 @@
 # Since the foot switch uses keypad numbers make sure that `num lock` is turned off.
 
-# First device
-
 # Top button
-key(keypad_0:down):         skip()
-key(keypad_0:up):           user.foot_switch_key(0)
+key(keypad_0:down):         user.foot_switch_down(0)
+key(keypad_0:up):           user.foot_switch_up(0)
 
 # Center button
-key(keypad_1:down):         skip()
-key(keypad_1:up):           user.foot_switch_key(1)
+key(keypad_1:down):         user.foot_switch_down(1)
+key(keypad_1:up):           user.foot_switch_up(1)
 
-# Left button
-key(keypad_2:down):         skip()
-key(keypad_2:up):           user.foot_switch_key(2)
-
-# Right button
-key(keypad_3:down):         skip()
-key(keypad_3:up):           user.foot_switch_key(3)
-
-
-# Second device
-
-# Top button
-key(keypad_4:down):         skip()
-key(keypad_4:up):           user.foot_switch_key(0)
-
-# Center button
-key(keypad_5:down):         skip()
-key(keypad_5:up):           user.foot_switch_key(1)
-
-# Left button
-key(keypad_6:down):         skip()
-key(keypad_6:up):           user.foot_switch_key(2)
+# # button
+key(keypad_2:down):         user.foot_switch_down(2)
+key(keypad_2:up):           user.foot_switch_up(2)
 
 # Right button
-key(keypad_7:down):         skip()
-key(keypad_7:up):           user.foot_switch_key(3)
+key(keypad_3:down):         user.foot_switch_down(3)
+key(keypad_3:up):           user.foot_switch_up(3)
 
 
 # Misc
