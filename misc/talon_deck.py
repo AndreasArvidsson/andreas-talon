@@ -1,11 +1,16 @@
 from talon import Module, Context, actions, registry, cron, app
+from talon_init import TALON_HOME
 import tempfile
 import os
 import json
 
 temp_dir = os.path.join(tempfile.gettempdir(), "talonDeck")
-temp_path = os.path.join(temp_dir, "config.json")
-repl_path = None
+config_path = os.path.join(temp_dir, "config.json")
+repl_path = (
+    f'"{os.path.join(TALON_HOME, ".venv","Scripts", "repl.bat")}"'
+    if app.platform == "windows"
+    else f'"{os.path.join(TALON_HOME, "bin","repl")}"'
+)
 
 mod = Module()
 cron_job = None
@@ -72,12 +77,11 @@ class Actions:
 def update_file():
     global cron_job
     cron_job = None
-    buttons = actions.user.talon_deck_get_buttons()
     config = {
-        "buttons": buttons,
         "repl": repl_path,
+        "buttons": actions.user.talon_deck_get_buttons(),
     }
-    file = open(temp_path, "w+")
+    file = open(config_path, "w+")
     file.write(json.dumps(config))
     file.close()
 
@@ -89,17 +93,5 @@ def on_context_update():
     cron_job = cron.after("100ms", update_file)
 
 
-def get_repl_path():
-    if app.platform == "windows":
-        return f'"{os.path.join(actions.path.talon_home(), ".venv","Scripts", "repl.bat")}"'
-    return f'"{os.path.join(actions.path.talon_home(), "bin","repl")}"'
-
-
-def on_ready():
-    global repl_path
-    repl_path = get_repl_path()
-    os.makedirs(temp_dir, exist_ok=True)
-    registry.register("update_contexts", on_context_update)
-
-
-# app.register("ready", on_ready)
+# os.makedirs(temp_dir, exist_ok=True)
+# registry.register("update_contexts", on_context_update)
