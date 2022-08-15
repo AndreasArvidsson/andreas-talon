@@ -24,7 +24,7 @@ ctx.lists["self.launch_command"] = {
 class UserActionsWin:
     def exec(command: str):
         actions.key("super-r")
-        actions.sleep("30ms")
+        actions.sleep("40ms")
         actions.insert(command)
         actions.key("enter")
 
