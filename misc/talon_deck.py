@@ -89,11 +89,15 @@ def on_context_update():
     cron_job = cron.after("100ms", update_file)
 
 
+def get_repl_path():
+    if app.platform == "windows":
+        return f'"{os.path.join(actions.path.talon_home(), ".venv","Scripts", "repl.bat")}"'
+    return f'"{os.path.join(actions.path.talon_home(), "bin","repl")}"'
+
+
 def on_ready():
     global repl_path
-    python_path = os.path.join(actions.path.talon_app(), "python")
-    replpy_path = os.path.join(actions.path.talon_app(), "repl.py")
-    repl_path = f'"{python_path}" "{replpy_path}"'
+    repl_path = get_repl_path()
     os.makedirs(temp_dir, exist_ok=True)
     registry.register("update_contexts", on_context_update)
 
