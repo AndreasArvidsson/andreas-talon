@@ -1,8 +1,8 @@
-mode: user.diablo3
+mode: user.diablo_III
 -
 
 ^command mode$:
-    mode.disable("user.diablo3")
+    mode.disable("user.diablo_III")
     mode.enable("command")
 
 

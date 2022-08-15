@@ -4,15 +4,15 @@ import time
 mod = Module()
 ctx = Context()
 
-mod.apps.diablo3 = """
+mod.apps.diablo_III = """
 os: windows
 and app.exe: Diablo III64.exe
 """
 
-mod.mode("diablo3", "Used for playing diablo 3")
+mod.mode("diablo_III", "Used for playing diablo 3")
 
 ctx.matches = r"""
-mode: user.diablo3
+mode: user.diablo_III
 """
 
 attack_stand = False

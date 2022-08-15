@@ -1,4 +1,4 @@
-app: diablo3
+app: diablo_III
 -
 
 settings():
