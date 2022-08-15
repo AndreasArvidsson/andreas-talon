@@ -5,8 +5,8 @@ not app: vscode
 pre line:                   edit.line_start()
 post line:                  edit.line_end()
 clone line:                 edit.line_clone()
-drink (line | this):        edit.line_insert_up()
-pour (line | this):         edit.line_insert_down()
+drink line:                 edit.line_insert_up()
+pour line:                  edit.line_insert_down()
 
 # Head / tail
 take head:                  user.select_line_start()

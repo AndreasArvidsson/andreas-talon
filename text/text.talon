@@ -7,12 +7,12 @@ strict <user.formatters_code> <user.text_code>$:
 # Formatted prose phrase: "sentence hello there" -> Hello there
 {user.formatter_prose} <user.prose>$:
     user.insert_formatted(prose, formatter_prose)
-{user.formatter_prose} <user.prose> over:
-    user.insert_formatted(prose, formatter_prose)
+{user.formatter_prose} <user.prose> {user.phrase_ender}:
+    user.insert_formatted("{prose}{phrase_ender}", formatter_prose)
 
 # Only words, no symbols or numbers
-escape words <user.words>$: "{words}"
-escape words <user.words> over: "{words}"
+escape <user.words>$:       "{words}"
+escape <user.words> over:   "{words}"
 
 # Single word
 {user.formatter_word} <user.word>:

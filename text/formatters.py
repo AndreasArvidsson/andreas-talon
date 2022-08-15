@@ -89,6 +89,14 @@ ctx.lists["self.formatter_hidden"] = {
 }
 
 
+mod.list("phrase_ender", desc="List of commands that can be used to end a phrase")
+ctx.lists["self.phrase_ender"] = {
+    "void": " ",
+    "slap": "\n",
+    "over": "",
+}
+
+
 @mod.capture(rule="{self.formatter_code}+")
 def formatters_code(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD'"
