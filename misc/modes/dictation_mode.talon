@@ -10,6 +10,9 @@ experiment: anchor-file
 escape <user.words>$:       "{words}"
 escape <user.words> over:   "{words}"
 
+bullet:                     "* "
+task:                       "- [ ] "
+
 new line:
     edit.line_insert_down()
     user.dictation_format_reset()

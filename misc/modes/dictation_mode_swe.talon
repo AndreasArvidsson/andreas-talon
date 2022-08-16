@@ -5,6 +5,9 @@ language: sv_SE
 # Freely dictate text
 <user.prose>:               "{prose}"
 
+listpunkt:                  "* "
+uppgift:                    "- [ ] "
+
 ny rad:
     edit.line_insert_down()
     user.dictation_format_reset()

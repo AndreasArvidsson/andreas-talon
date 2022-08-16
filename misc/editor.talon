@@ -75,7 +75,7 @@ disk:                       edit.save()
 # ----- Text insertions -----
 make to do:                 "TODO "
 bullet:                     "* "
-checkbox:                   "* [ ] "
+task:                       "- [ ] "
 spam:                       ", "
 stacker:                    ": "
 period:                     ". "
