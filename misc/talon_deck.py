@@ -47,7 +47,7 @@ class CommandActions:
         ]
         code_language = actions.user.code_language()
         if code_language:
-            buttons.append({"icon": f"programming_{code_language}"})
+            buttons.append({"icon": code_language})
         return buttons
 
 

@@ -18,6 +18,7 @@ languages = [
     Language("cplusplus", "cpp", "see plus plus"),
     Language("csharp", "cs", "see sharp"),
     Language("csv", "csv", "csv"),
+    Language("css", "css", "css"),
     Language("go", "go", "go"),
     Language("html", "html", "html"),
     Language("java", "java", "java"),
