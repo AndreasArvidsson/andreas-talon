@@ -14,7 +14,8 @@ repl_path = (
 
 mod = Module()
 cron_job = None
-current_microphone = "None"
+current_microphone = ""
+current_eye_tracker = None
 
 ctx_command = Context()
 ctx_command.matches = r"""
@@ -44,11 +45,9 @@ class CommandActions:
     def talon_deck_get_buttons() -> list[dict]:
         buttons = [
             *actions.next(),
-            {"icon": "commandMode", "action": "user.talon_sleep()"},
+            {"icon": "commandMode", "action": "user.talon_sleep()", "order": 1},
+            *get_code_language_buttons(),
         ]
-        code_language = actions.user.code_language()
-        if code_language:
-            buttons.append({"icon": code_language})
         return buttons
 
 
@@ -57,8 +56,7 @@ class DictationActions:
     def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
-            {"icon": "dictationMode", "action": "user.command_mode()"},
-            {"icon": get_language()},
+            {"icon": get_language(), "action": "user.command_mode()", "order": 1},
         ]
 
 
@@ -67,7 +65,7 @@ class SleepActions:
     def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
-            {"icon": "sleepMode", "action": "user.talon_wake()"},
+            {"icon": "sleepMode", "action": "user.talon_wake()", "order": 1},
         ]
 
 
@@ -86,6 +84,7 @@ class Actions:
         """Return configuration for Talon deck"""
         return [
             get_microphone_button(),
+            *get_eye_tracking_buttons(),
         ]
 
 
@@ -98,16 +97,30 @@ def get_language():
             return lang
 
 
+def get_code_language_buttons():
+    code_language = actions.user.code_language()
+    if code_language:
+        return [{"icon": code_language, "order": 2}]
+    return []
+
+
+def get_eye_tracking_buttons():
+    if current_eye_tracker:
+        return [{"icon": "eyeTracking"}]
+    return []
+
+
 def get_microphone_button():
     if current_microphone == "None":
-        icon = "off"
+        icon = "Off"
         microphone = "System Default"
     else:
-        icon = "on"
+        icon = "On"
         microphone = "None"
     return {
-        "icon": f"microphone-{icon}",
+        "icon": f"microphone{icon}",
         "action": f"sound.set_microphone('{microphone}')",
+        "order": 0,
     }
 
 
@@ -123,6 +136,13 @@ def update_file():
     file.close()
 
 
+def on_context_update():
+    global cron_job
+    if cron_job:
+        cron.cancel(cron_job)
+    cron_job = cron.after("100ms", update_file)
+
+
 def poll_microphone():
     global current_microphone
     active_microphone = actions.sound.active_microphone()
@@ -131,13 +151,21 @@ def poll_microphone():
         on_context_update()
 
 
-def on_context_update():
-    global cron_job
-    if cron_job:
-        cron.cancel(cron_job)
-    cron_job = cron.after("100ms", update_file)
+def poll_eye_tracker():
+    global current_eye_tracker
+    active_eye_tracker = (
+        actions.tracking.control_enabled() or actions.tracking.control_zoom_enabled()
+    )
+    if active_eye_tracker != current_eye_tracker:
+        current_eye_tracker = active_eye_tracker
+        on_context_update()
+
+
+def run_poll():
+    poll_microphone()
+    poll_eye_tracker()
 
 
 os.makedirs(temp_dir, exist_ok=True)
 registry.register("update_contexts", on_context_update)
-cron.interval("200ms", poll_microphone)
+cron.interval("200ms", run_poll)
