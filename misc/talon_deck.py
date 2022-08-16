@@ -14,6 +14,7 @@ repl_path = (
 
 mod = Module()
 cron_job = None
+current_microphone = "None"
 
 ctx_command = Context()
 ctx_command.matches = r"""
@@ -83,7 +84,9 @@ class VscodeActions:
 class Actions:
     def talon_deck_get_buttons() -> list[dict]:
         """Return configuration for Talon deck"""
-        return []
+        return [
+            get_microphone_button(),
+        ]
 
 
 def get_language():
@@ -93,6 +96,19 @@ def get_language():
     for lang in language:
         if "_" in lang:
             return lang
+
+
+def get_microphone_button():
+    if current_microphone == "None":
+        icon = "off"
+        microphone = "System Default"
+    else:
+        icon = "on"
+        microphone = "None"
+    return {
+        "icon": f"microphone-{icon}",
+        "action": f"sound.set_microphone('{microphone}')",
+    }
 
 
 def update_file():
@@ -107,6 +123,14 @@ def update_file():
     file.close()
 
 
+def poll_microphone():
+    global current_microphone
+    active_microphone = actions.sound.active_microphone()
+    if active_microphone != current_microphone:
+        current_microphone = active_microphone
+        on_context_update()
+
+
 def on_context_update():
     global cron_job
     if cron_job:
@@ -116,3 +140,4 @@ def on_context_update():
 
 os.makedirs(temp_dir, exist_ok=True)
 registry.register("update_contexts", on_context_update)
+cron.interval("200ms", poll_microphone)
