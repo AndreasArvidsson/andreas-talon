@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, registry, cron, app
+from talon import Module, Context, actions, registry, cron, app, scope
 from talon_init import TALON_HOME
 import tempfile
 import os
@@ -15,30 +15,58 @@ repl_path = (
 mod = Module()
 cron_job = None
 
-ctx = Context()
-ctx.matches = r"""
+ctx_command = Context()
+ctx_command.matches = r"""
 mode: command
+"""
+
+ctx_dictation = Context()
+ctx_dictation.matches = r"""
+mode: dictation
+"""
+
+ctx_sleep = Context()
+ctx_sleep.matches = r"""
+mode: sleep
 """
 
 ctx_vscode = Context()
 ctx_vscode.matches = r"""
 mode: command
+mode: dictation
 app: vscode
 """
 
-ctx_firefox = Context()
-ctx_firefox.matches = r"""
-mode: command
-app: firefox
-"""
 
-
-@ctx.action_class("user")
+@ctx_command.action_class("user")
 class CommandActions:
+    def talon_deck_get_buttons() -> list[dict]:
+        buttons = [
+            *actions.next(),
+            {"icon": "commandMode", "action": "user.talon_sleep()"},
+        ]
+        code_language = actions.user.code_language()
+        if code_language:
+            buttons.append({"icon": f"programming_{code_language}"})
+        return buttons
+
+
+@ctx_dictation.action_class("user")
+class DictationActions:
     def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
-            {"icon": "commandMode.png"},
+            {"icon": "dictationMode", "action": "user.command_mode()"},
+            {"icon": get_language()},
+        ]
+
+
+@ctx_sleep.action_class("user")
+class SleepActions:
+    def talon_deck_get_buttons() -> list[dict]:
+        return [
+            *actions.next(),
+            {"icon": "sleepMode", "action": "user.talon_wake()"},
         ]
 
 
@@ -47,16 +75,7 @@ class VscodeActions:
     def talon_deck_get_buttons() -> list[dict]:
         return [
             *actions.next(),
-            {"icon": "vscode.png"},
-        ]
-
-
-@ctx_firefox.action_class("user")
-class VscodeActions:
-    def talon_deck_get_buttons() -> list[dict]:
-        return [
-            *actions.next(),
-            {"icon": "firefox.png"},
+            {"icon": "vscode"},
         ]
 
 
@@ -64,14 +83,16 @@ class VscodeActions:
 class Actions:
     def talon_deck_get_buttons() -> list[dict]:
         """Return configuration for Talon deck"""
-        result = []
+        return []
 
-        if actions.speech.enabled():
-            result.append({"icon": "talonAwake.png", "action": "user.talon_sleep()"})
-        else:
-            result.append({"icon": "talonSleeping.png", "action": "user.talon_wake()"})
 
-        return result
+def get_language():
+    language = scope.get("language", "en_US")
+    if isinstance(language, str):
+        return language
+    for lang in language:
+        if "_" in lang:
+            return lang
 
 
 def update_file():
@@ -93,5 +114,5 @@ def on_context_update():
     cron_job = cron.after("100ms", update_file)
 
 
-# os.makedirs(temp_dir, exist_ok=True)
-# registry.register("update_contexts", on_context_update)
+os.makedirs(temp_dir, exist_ok=True)
+registry.register("update_contexts", on_context_update)

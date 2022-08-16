@@ -1,5 +1,5 @@
+from talon import Context, Module, actions, scope
 from dataclasses import dataclass
-from talon import Context, Module, actions
 
 mod = Module()
 ctx = Context()
@@ -54,6 +54,8 @@ extension_lang_map = {
     ".h": "c",
 }
 
+language_ids = {l.id for l in languages}
+
 # Create a context for each defined language
 for lang in extension_lang_map.values():
     mod.tag(lang)
@@ -81,6 +83,18 @@ class CodeActions:
         return ""
 
 
+ctx_auto = Context()
+ctx_auto.matches = r"""
+tag: user.auto_lang
+"""
+
+
+@ctx_auto.action_class("user")
+class AutoUserActions:
+    def code_language():
+        return actions.code.language()
+
+
 @mod.action_class
 class Actions:
     def code_set_language_mode(language: str):
@@ -91,3 +105,11 @@ class Actions:
     def code_clear_language_mode():
         """Clears the active language mode, and re-enables code.language: extension matching"""
         ctx.tags = ["user.auto_lang"]
+
+    def code_language() -> str:
+        """Get the active language mode"""
+        for tag in scope.get("tag"):
+            lang = tag[5:]
+            if lang in language_ids:
+                return lang
+        return ""
