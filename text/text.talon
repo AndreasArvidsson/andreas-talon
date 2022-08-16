@@ -6,7 +6,7 @@ strict <user.formatters_code> <user.text_code>$:
 
 # Formatted prose phrase: "sentence hello there" -> Hello there
 {user.formatter_prose} <user.prose>$:
-    user.insert_formatted("{prose} ", formatter_prose)
+    user.insert_formatted(prose, formatter_prose)
 {user.formatter_prose} <user.prose> {user.phrase_ender}:
     user.insert_formatted("{prose}{phrase_ender}", formatter_prose)
 
