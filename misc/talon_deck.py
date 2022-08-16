@@ -100,7 +100,7 @@ def get_language():
 def get_code_language_buttons():
     code_language = actions.user.code_language()
     if code_language:
-        return [{"icon": code_language, "order": 2}]
+        return [{"icon": code_language}]
     return []
 
 
