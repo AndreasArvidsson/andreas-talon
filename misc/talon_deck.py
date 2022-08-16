@@ -131,9 +131,8 @@ def update_file():
         "repl": repl_path,
         "buttons": actions.user.talon_deck_get_buttons(),
     }
-    file = open(config_path, "w+")
-    file.write(json.dumps(config))
-    file.close()
+    with open(config_path, "w+") as f:
+        f.write(json.dumps(config))
 
 
 def on_context_update():
