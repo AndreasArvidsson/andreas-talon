@@ -1,15 +1,15 @@
 from talon import Module, Context, actions, registry, cron, app, scope
 from talon_init import TALON_HOME
 import tempfile
-import os
 import json
+from pathlib import Path
 
-temp_dir = os.path.join(tempfile.gettempdir(), "talonDeck")
-config_path = os.path.join(temp_dir, "config.json")
+temp_dir = Path(tempfile.gettempdir()) / "talonDeck"
+config_path = temp_dir / "config.json"
 repl_path = (
-    f'"{os.path.join(TALON_HOME, ".venv","Scripts", "repl.bat")}"'
+    f'"{Path(TALON_HOME)/ ".venv"/"Scripts"/ "repl.bat"}"'
     if app.platform == "windows"
-    else f'"{os.path.join(TALON_HOME, "bin","repl")}"'
+    else f'"{Path(TALON_HOME)/ "bin"/"repl"}"'
 )
 
 mod = Module()
@@ -139,6 +139,7 @@ def on_context_update():
     global cron_job
     if cron_job:
         cron.cancel(cron_job)
+    # Debounce since multiple context updates triggers rapidly.
     cron_job = cron.after("100ms", update_file)
 
 
@@ -165,6 +166,14 @@ def run_poll():
     poll_eye_tracker()
 
 
-os.makedirs(temp_dir, exist_ok=True)
-registry.register("update_contexts", on_context_update)
-cron.interval("200ms", run_poll)
+def on_ready():
+    temp_dir.mkdir(exist_ok=True)
+    # Listen for context updates
+    registry.register("update_contexts", on_context_update)
+    # Use poll for features that are not updating the context
+    cron.interval("200ms", run_poll)
+    # Send is alive signal
+    cron.interval("5s", lambda: config_path.touch())
+
+
+app.register("ready", on_ready)
