@@ -8,6 +8,9 @@ language: sv_SE
 ^listpunkt:                 "* "
 ^uppgift:                   "- [ ] "
 
+^indrag:                    edit.indent_more()
+^utdrag:                    edit.indent_less()
+
 ny rad:
     edit.line_insert_down()
     user.dictation_format_reset()

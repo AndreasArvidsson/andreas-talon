@@ -13,6 +13,9 @@ escape <user.words> over:   "{words}"
 ^bullet:                    "* "
 ^task:                      "- [ ] "
 
+^indent:                    edit.indent_more()
+^dedent:                    edit.indent_less()
+
 new line:
     edit.line_insert_down()
     user.dictation_format_reset()
