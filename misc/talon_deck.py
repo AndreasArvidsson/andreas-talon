@@ -171,7 +171,7 @@ def on_ready():
     # Listen for context updates
     registry.register("update_contexts", on_context_update)
     # Use poll for features that are not updating the context
-    cron.interval("200ms", run_poll)
+    cron.interval("100ms", run_poll)
     # Send heartbeat signal
     cron.interval("1s", lambda: config_path.touch())
 
