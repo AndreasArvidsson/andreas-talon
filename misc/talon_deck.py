@@ -7,9 +7,9 @@ from pathlib import Path
 temp_dir = Path(tempfile.gettempdir()) / "talonDeck"
 config_path = temp_dir / "config.json"
 repl_path = (
-    f'"{Path(TALON_HOME)/ ".venv"/"Scripts"/ "repl.bat"}"'
+    f'{Path(TALON_HOME) / ".venv" / "Scripts" / "repl.bat"}'
     if app.platform == "windows"
-    else f'"{Path(TALON_HOME)/ "bin"/"repl"}"'
+    else f'{Path(TALON_HOME) / "bin" / "repl"}'
 )
 
 mod = Module()
