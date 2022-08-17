@@ -45,7 +45,7 @@ class CommandActions:
     def talon_deck_get_buttons() -> list[dict]:
         buttons = [
             *actions.next(),
-            {"icon": "commandMode", "action": "user.talon_sleep()", "order": 1},
+            {"icon": "commandMode3", "action": "user.talon_sleep()", "order": 1},
             *get_code_language_buttons(),
         ]
         return buttons
@@ -172,7 +172,7 @@ def on_ready():
     registry.register("update_contexts", on_context_update)
     # Use poll for features that are not updating the context
     cron.interval("200ms", run_poll)
-    # Send is alive signal
+    # Send heartbeat signal
     cron.interval("5s", lambda: config_path.touch())
 
 
