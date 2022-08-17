@@ -5,6 +5,7 @@ open settings:              app.preferences()
 ^system hibernate$:
     user.talon_sleep()
     user.system_hibernate()
+    user.repeat_command_block()
 ^system lock$:              key(super-l)
 
 open {user.launch_command}:
