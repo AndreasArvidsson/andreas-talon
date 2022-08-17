@@ -16,6 +16,7 @@ mod = Module()
 cron_job = None
 current_microphone = ""
 current_eye_tracker = None
+current_file_content = ""
 
 ctx_command = Context()
 ctx_command.matches = r"""
@@ -125,14 +126,17 @@ def get_microphone_button():
 
 
 def update_file():
-    global cron_job
+    global cron_job, current_file_content
     cron_job = None
     config = {
         "repl": repl_path,
         "buttons": actions.user.talon_deck_get_buttons(),
     }
-    with open(config_path, "w+") as f:
-        f.write(json.dumps(config))
+    file_content = json.dumps(config)
+    if file_content != current_file_content:
+        with open(config_path, "w+") as f:
+            f.write(file_content)
+            current_file_content = file_content
 
 
 def on_context_update():
@@ -140,7 +144,7 @@ def on_context_update():
     if cron_job:
         cron.cancel(cron_job)
     # Debounce since multiple context updates triggers rapidly.
-    cron_job = cron.after("100ms", update_file)
+    cron_job = cron.after("10ms", update_file)
 
 
 def poll_microphone():
