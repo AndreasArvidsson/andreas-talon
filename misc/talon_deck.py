@@ -173,7 +173,7 @@ def on_ready():
     # Use poll for features that are not updating the context
     cron.interval("200ms", run_poll)
     # Send heartbeat signal
-    cron.interval("5s", lambda: config_path.touch())
+    cron.interval("1s", lambda: config_path.touch())
 
 
 app.register("ready", on_ready)
