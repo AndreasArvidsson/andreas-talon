@@ -34,6 +34,8 @@ class Actions:
         actions.speech.enable()
         actions.user.mouse_wake()
         actions.user.notify("Talon awake")
+        if not actions.user.sound_microphone_enabled():
+            actions.user.sound_microphone_enable(True)
 
     def talon_wake_on_pop():
         """Use pop sound to wake from sleep"""

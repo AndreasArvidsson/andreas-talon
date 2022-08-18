@@ -1,22 +1,9 @@
-from talon import Module, Context, actions, registry, cron, app, scope
-from talon_init import TALON_HOME
-import tempfile
-import json
-from pathlib import Path
+from talon import Context, actions, scope, app, cron
 
-temp_dir = Path(tempfile.gettempdir()) / "talonDeck"
-config_path = temp_dir / "config.json"
-repl_path = (
-    f'{Path(TALON_HOME) / ".venv" / "Scripts" / "repl.bat"}'
-    if app.platform == "windows"
-    else f'{Path(TALON_HOME) / "bin" / "repl"}'
-)
-
-mod = Module()
-cron_job = None
-current_microphone = ""
+current_microphone = None
 current_eye_tracker = None
-current_file_content = ""
+
+ctx = Context()
 
 ctx_command = Context()
 ctx_command.matches = r"""
@@ -41,9 +28,19 @@ app: vscode
 """
 
 
+@ctx.action_class("user")
+class Actions:
+    def talon_deck_get_buttons():
+        return [
+            *actions.next(),
+            *get_microphone_buttons(),
+            *get_eye_tracking_buttons(),
+        ]
+
+
 @ctx_command.action_class("user")
 class CommandActions:
-    def talon_deck_get_buttons() -> list[dict]:
+    def talon_deck_get_buttons():
         buttons = [
             *actions.next(),
             {"icon": "commandMode3", "action": "user.talon_sleep()", "order": 1},
@@ -54,7 +51,7 @@ class CommandActions:
 
 @ctx_dictation.action_class("user")
 class DictationActions:
-    def talon_deck_get_buttons() -> list[dict]:
+    def talon_deck_get_buttons():
         return [
             *actions.next(),
             {"icon": get_language(), "action": "user.command_mode()", "order": 1},
@@ -63,7 +60,7 @@ class DictationActions:
 
 @ctx_sleep.action_class("user")
 class SleepActions:
-    def talon_deck_get_buttons() -> list[dict]:
+    def talon_deck_get_buttons():
         return [
             *actions.next(),
             {"icon": "sleepMode", "action": "user.talon_wake()", "order": 1},
@@ -76,16 +73,6 @@ class VscodeActions:
         return [
             *actions.next(),
             {"icon": "vscode"},
-        ]
-
-
-@mod.action_class
-class Actions:
-    def talon_deck_get_buttons() -> list[dict]:
-        """Return configuration for Talon deck"""
-        return [
-            get_microphone_button(),
-            *get_eye_tracking_buttons(),
         ]
 
 
@@ -111,35 +98,17 @@ def get_eye_tracking_buttons():
     return []
 
 
-def get_microphone_button():
+def get_microphone_buttons():
+    if current_microphone and actions.speech.enabled():
+        return []
     icon = "On" if current_microphone else "Off"
-    return {
-        "icon": f"microphone{icon}",
-        "action": f"user.sound_microphone_enable({not current_microphone})",
-        "order": 0,
-    }
-
-
-def update_file():
-    global cron_job, current_file_content
-    cron_job = None
-    config = {
-        "repl": repl_path,
-        "buttons": actions.user.talon_deck_get_buttons(),
-    }
-    file_content = json.dumps(config)
-    if file_content != current_file_content:
-        with open(config_path, "w+") as f:
-            f.write(file_content)
-            current_file_content = file_content
-
-
-def on_context_update():
-    global cron_job
-    if cron_job:
-        cron.cancel(cron_job)
-    # Debounce since multiple context updates triggers rapidly.
-    cron_job = cron.after("10ms", update_file)
+    return [
+        {
+            "icon": f"microphone{icon}",
+            "action": f"user.sound_microphone_enable({not current_microphone})",
+            "order": 0,
+        }
+    ]
 
 
 def poll_microphone():
@@ -147,7 +116,7 @@ def poll_microphone():
     active_microphone = actions.user.sound_microphone_enabled()
     if active_microphone != current_microphone:
         current_microphone = active_microphone
-        on_context_update()
+        actions.user.talon_deck_update()
 
 
 def poll_eye_tracker():
@@ -157,7 +126,7 @@ def poll_eye_tracker():
     )
     if active_eye_tracker != current_eye_tracker:
         current_eye_tracker = active_eye_tracker
-        on_context_update()
+        actions.user.talon_deck_update()
 
 
 def run_poll():
@@ -166,13 +135,8 @@ def run_poll():
 
 
 def on_ready():
-    temp_dir.mkdir(exist_ok=True)
-    # Listen for context updates
-    registry.register("update_contexts", on_context_update)
     # Use poll for features that are not updating the context
     cron.interval("100ms", run_poll)
-    # Send heartbeat signal
-    cron.interval("1s", lambda: config_path.touch())
 
 
 app.register("ready", on_ready)
