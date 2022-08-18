@@ -134,9 +134,5 @@ def run_poll():
     poll_eye_tracker()
 
 
-def on_ready():
-    # Use poll for features that are not updating the context
-    cron.interval("100ms", run_poll)
-
-
-app.register("ready", on_ready)
+# Use poll for features that are not updating the context
+app.register("ready", lambda: cron.interval("100ms", run_poll))
