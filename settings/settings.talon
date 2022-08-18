@@ -11,9 +11,9 @@ settings():
     user.log_level = "debug"
 
     # Location to store cursorless settings
-    user.cursorless_settings_directory = "andreas-talon/cursorless-settings"
+    user.cursorless_settings_directory = "andreas-talon//settings/cursorless-settings"
     # Location to store csv files
-    user.csv_directory = "andreas-talon/csv"
+    user.csv_directory = "andreas-talon/settings/csv"
 
     # Mouse scroll speed
     user.scroll_speed = 1
