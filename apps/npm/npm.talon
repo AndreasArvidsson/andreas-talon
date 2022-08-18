@@ -1,6 +1,7 @@
 tag: user.npm
 -
 
+node version:               "node -v\n"
 npm version:                "npm -v\n"
 npm install:                "npm install\n"
 npm install global:         "npm install -g "
