@@ -3,7 +3,6 @@ from subprocess import call
 import os
 
 mod = Module()
-ctx = Context()
 mod.list("playback_device", desc="Playback devices")
 mod.list("microhpone_device", desc="Microphone devices")
 mod.list("playback_microphone_pair", desc="Playback / microphone device pair")
@@ -25,15 +24,18 @@ class Actions:
     def change_sound_device_pair(name: str):
         """Change sound device pair."""
 
+    def sound_microphone_enabled() -> bool:
+        """Returns true if the microphone is not set to 'None'"""
+        return actions.sound.active_microphone() != "None"
 
-@ctx.action_class("sound")
-class SoundActions:
-    def set_microphone(name: str):
-        actions.next(name)
-        if name == "None":
-            actions.user.notify("Microphone: Off")
+    def sound_microphone_enable(enable: bool):
+        """Enables or disables the microphone"""
+        if enable:
+            actions.sound.set_microphone("System Default")
+            actions.user.notify("Activating microphone")
         else:
-            actions.user.notify("Microphone: On")
+            actions.sound.set_microphone("None")
+            actions.user.notify("Deactivating microphone")
 
 
 # ----- WINDOWS -----

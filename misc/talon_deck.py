@@ -112,15 +112,14 @@ def get_eye_tracking_buttons():
 
 
 def get_microphone_button():
-    if current_microphone == "None":
-        icon = "Off"
-        microphone = "System Default"
-    else:
+    if current_microphone:
+        actions.user.sound_microphone_enabled()
         icon = "On"
-        microphone = "None"
+    else:
+        icon = "Off"
     return {
         "icon": f"microphone{icon}",
-        "action": f"sound.set_microphone('{microphone}')",
+        "action": f"user.sound_microphone_enable({not current_microphone})",
         "order": 0,
     }
 
@@ -149,7 +148,7 @@ def on_context_update():
 
 def poll_microphone():
     global current_microphone
-    active_microphone = actions.sound.active_microphone()
+    active_microphone = actions.user.sound_microphone_enabled()
     if active_microphone != current_microphone:
         current_microphone = active_microphone
         on_context_update()
