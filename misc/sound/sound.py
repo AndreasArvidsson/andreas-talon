@@ -2,9 +2,8 @@ from talon import Context, Module, actions
 from subprocess import call
 import os
 
-key = actions.key
-
 mod = Module()
+ctx = Context()
 mod.list("playback_device", desc="Playback devices")
 mod.list("microhpone_device", desc="Microphone devices")
 mod.list("playback_microphone_pair", desc="Playback / microphone device pair")
@@ -14,17 +13,27 @@ mod.list("playback_microphone_pair", desc="Playback / microphone device pair")
 class Actions:
     def volume_up():
         """Volume increase"""
-        key("volup")
+        actions.key("volup")
 
     def volume_down():
         """Volume decrease"""
-        key("voldown")
+        actions.key("voldown")
 
     def change_sound_device(name: str):
         """Change sound device."""
 
     def change_sound_device_pair(name: str):
         """Change sound device pair."""
+
+
+@ctx.action_class("sound")
+class SoundActions:
+    def set_microphone(name: str):
+        actions.next(name)
+        if name == "None":
+            actions.user.notify("Microphone: Off")
+        else:
+            actions.user.notify("Microphone: On")
 
 
 # ----- WINDOWS -----
