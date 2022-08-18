@@ -112,11 +112,7 @@ def get_eye_tracking_buttons():
 
 
 def get_microphone_button():
-    if current_microphone:
-        actions.user.sound_microphone_enabled()
-        icon = "On"
-    else:
-        icon = "Off"
+    icon = "On" if current_microphone else "Off"
     return {
         "icon": f"microphone{icon}",
         "action": f"user.sound_microphone_enable({not current_microphone})",
