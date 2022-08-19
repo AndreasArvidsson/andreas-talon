@@ -134,7 +134,6 @@ def capture_to_words(m):
             if isinstance(item, grammar.vm.Phrase)
             else [item])
     words = actions.user.homophones_replace_words(words)
-    words = actions.user.lower_swedish_words(words)
     return words
 
 # There must be a simpler way to do this, but I don't see it right now.
