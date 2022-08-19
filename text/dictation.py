@@ -6,8 +6,8 @@ mod = Module()
 
 ctx = Context()
 ctx.matches = r"""
-language: en_US
-language: sv_SE
+language: en
+language: sv
 """
 
 
@@ -99,15 +99,15 @@ def prose(m) -> str:
 
 # ----- Dictation mode only -----
 
-ctx_citation = Context()
-ctx_citation.matches = r"""
+ctx_dictation = Context()
+ctx_dictation.matches = r"""
 mode: dictation
-language: en_US
-language: sv_SE
+language: en
+language: sv
 """
 
 
-@ctx_citation.action_class("main")
+@ctx_dictation.action_class("main")
 class main_action:
     def auto_insert(text):
         actions.user.dictation_insert(text)

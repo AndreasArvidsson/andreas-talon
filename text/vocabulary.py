@@ -3,9 +3,6 @@ from talon import Context, Module, app, actions
 mod = Module()
 ctx = Context()
 
-ctx.matches = r"""
-language: en_US
-"""
 
 mod.list("vocabulary", desc="additional vocabulary words")
 

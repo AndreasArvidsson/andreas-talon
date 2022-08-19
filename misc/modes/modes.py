@@ -3,19 +3,7 @@ from talon.grammar import Phrase
 from typing import Union
 
 mod = Module()
-mod.tag("swedish")
-
 ctx = Context()
-
-ctx_swedish = Context()
-ctx_swedish.matches = r"""
-tag: user.swedish
-"""
-
-ctx_swedish.settings = {
-    "speech.engine": "webspeech",
-    "speech.language": "sv_SE",
-}
 
 
 @mod.action_class

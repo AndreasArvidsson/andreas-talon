@@ -5,9 +5,9 @@ mod = Module()
 
 ctx = Context()
 
-ctx_swe = Context()
-ctx_swe.matches = r"""
-language: sv_SE
+ctx_sv = Context()
+ctx_sv.matches = r"""
+language: sv
 """
 
 
@@ -74,7 +74,7 @@ ctx.lists["self.key_punctuation"] = {
     "question mark":    "?",
     "exclamation mark": "!",
 }
-ctx_swe.lists["self.key_punctuation"] = {
+ctx_sv.lists["self.key_punctuation"] = {
     "punkt":            ".",
     "komma":            ",",
     "kolon":            ":",

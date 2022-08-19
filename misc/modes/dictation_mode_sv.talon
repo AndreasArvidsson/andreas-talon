@@ -1,5 +1,5 @@
 mode: dictation
-language: sv_SE
+language: sv
 -
 
 # Freely dictate text

@@ -2,21 +2,17 @@ from talon import Module, Context, actions
 import time
 
 mod = Module()
-
 ctx_en = Context()
-ctx_en.matches = r"""
-language: en_US
-"""
 
-ctx_swe = Context()
-ctx_swe.matches = r"""
-language: sv_SE
+ctx_sv = Context()
+ctx_sv.matches = r"""
+language: sv
 """
 
 mod.list("sleep_phrase", desc="Phrase used to sleep Talon")
 sleep_phrases = ["drowse", "sömnig"]
 ctx_en.lists["self.sleep_phrase"] = {sleep_phrases[0]}
-ctx_swe.lists["self.sleep_phrase"] = sleep_phrases
+ctx_sv.lists["self.sleep_phrase"] = sleep_phrases
 
 time_last_pop = 0
 
