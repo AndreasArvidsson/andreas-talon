@@ -32,7 +32,6 @@ app: vscode
 class Actions:
     def talon_deck_get_buttons():
         return [
-            *actions.next(),
             *get_microphone_buttons(),
             *get_eye_tracking_buttons(),
         ]
@@ -43,7 +42,7 @@ class CommandActions:
     def talon_deck_get_buttons():
         buttons = [
             *actions.next(),
-            {"icon": "commandMode3", "action": "user.talon_sleep()", "order": 1},
+            {"icon": "commandMode3", "action": "user.talon_sleep()", "order": 0},
             *get_code_language_buttons(),
         ]
         return buttons
@@ -54,7 +53,7 @@ class DictationActions:
     def talon_deck_get_buttons():
         return [
             *actions.next(),
-            {"icon": get_language(), "action": "user.command_mode()", "order": 1},
+            {"icon": get_language(), "action": "user.command_mode()", "order": 0},
         ]
 
 
@@ -63,7 +62,7 @@ class SleepActions:
     def talon_deck_get_buttons():
         return [
             *actions.next(),
-            {"icon": "sleepMode", "action": "user.talon_wake()", "order": 1},
+            {"icon": "sleepMode", "action": "user.talon_wake()", "order": 0},
         ]
 
 
@@ -106,7 +105,6 @@ def get_microphone_buttons():
         {
             "icon": f"microphone{icon}",
             "action": f"user.sound_microphone_enable({not current_microphone})",
-            "order": 0,
         }
     ]
 
