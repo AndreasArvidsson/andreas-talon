@@ -23,6 +23,7 @@ scroll speed down:          user.mouse_scroll_speed_decrease()
 track control:              user.mouse_toggle_control_mouse()
 track zoom:                 user.mouse_toggle_zoom_mouse()
 track off:                  user.mouse_turn_off()
+track:                      user.mouse_sleep_toggle()
 ^track calibrate$:          tracking.calibrate()
 ^track debug$:              tracking.control_debug_toggle()
 

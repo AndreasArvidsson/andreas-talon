@@ -189,6 +189,20 @@ class Actions:
         for button in ctrl.mouse_buttons_down():
             ctrl.mouse_click(button=button, up=True)
 
+    def mouse_sleep_toggle():
+        """Toggle sleep/wake for the eye tracker"""
+        if actions.user.tracking_enabled():
+            actions.user.mouse_sleep()
+        else:
+            actions.user.mouse_wake()
+
+    def tracking_enabled() -> bool:
+        """Returns true if eye tracker is enabled"""
+        return (
+            actions.tracking.control_enabled()
+            or actions.tracking.control_zoom_enabled()
+        )
+
     def mouse_center_window():
         """Move the mouse cursor to the center of the currently active window"""
         rect = ui.active_window().rect

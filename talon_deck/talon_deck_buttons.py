@@ -119,9 +119,7 @@ def poll_microphone():
 
 def poll_eye_tracker():
     global current_eye_tracker
-    active_eye_tracker = (
-        actions.tracking.control_enabled() or actions.tracking.control_zoom_enabled()
-    )
+    active_eye_tracker = actions.user.tracking_enabled()
     if active_eye_tracker != current_eye_tracker:
         current_eye_tracker = active_eye_tracker
         actions.user.talon_deck_update()
