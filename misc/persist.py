@@ -23,8 +23,7 @@ class Actions:
             "payload": payload,
         }
         with open(file, "a") as f:
-            f.write(json.dumps(full_payload))
-            f.write("\n")
+            f.writelines([json.dumps(full_payload), "\n"])
 
 
 def on_ready():
