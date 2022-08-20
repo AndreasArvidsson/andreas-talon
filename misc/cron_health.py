@@ -15,10 +15,10 @@ def on_interval():
     ts2 = time.perf_counter()
     delta = abs(interval - (ts2 - ts) * 1000)
     ts = ts2
+    applications.add(", ".join(scope.get("app.app")))
     if delta >= 1:
         deviation_count += 1
         deviation_sum += delta
-        applications.add(", ".join(scope.get("app.app")))
     if ts2 >= ts_summary + window_size:
         application = list(applications)[0] if len(applications) == 1 else None
         actions.user.persist_append(
