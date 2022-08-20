@@ -5,9 +5,9 @@ import json
 import time
 
 mod = Module()
-hostname = scope.get("main.hostname")
-os = scope.get("main.os")
 dir_path = None
+hostname = None
+os = None
 
 
 @mod.action_class
@@ -28,9 +28,11 @@ class Actions:
 
 
 def on_ready():
-    global dir_path
+    global dir_path, hostname, os
     dir_path = Path(actions.path.user_home()) / "Documents" / "Talon persisted files"
     dir_path.mkdir(exist_ok=True)
+    hostname = scope.get("main.hostname")
+    os = scope.get("main.os")
 
 
 app.register("ready", on_ready)
