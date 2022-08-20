@@ -1,37 +1,43 @@
-from talon import actions, cron
+from talon import actions, cron, scope
 import time
 
-window_size = 60
+window_size = 10
 interval = 16
 ts = time.perf_counter()
 ts_summary = ts
 deviation_count = 0
 deviation_sum = 0
+applications = set()
 
 
 def on_interval():
-    global ts, ts_summary, deviation_count, deviation_sum
+    global ts, ts_summary, deviation_count, deviation_sum, applications
     ts2 = time.perf_counter()
     delta = abs(interval - (ts2 - ts) * 1000)
     ts = ts2
     if delta >= 1:
         deviation_count += 1
         deviation_sum += delta
+        applications.add(", ".join(scope.get("app.app")))
     if ts2 >= ts_summary + window_size:
+        application = list(applications)[0] if len(applications) == 1 else None
         actions.user.persist_append(
             "cron_deviation",
             {
                 "window_size": window_size,
                 "count": deviation_count,
                 "sum": deviation_sum,
+                "application": application,
             },
         )
         # print(
         #     f"Deviation count: {deviation_count}, sum: {round(deviation_sum)}, avg: {round(deviation_sum/deviation_count, 1)}"
         # )
+
         ts_summary = ts2
         deviation_count = 0
         deviation_sum = 0
+        applications = set()
 
 
 """
