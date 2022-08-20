@@ -93,7 +93,7 @@ def get_code_language_buttons():
 
 def get_eye_tracking_buttons():
     if current_eye_tracker:
-        return [{"icon": "eyeTracking"}]
+        return [{"icon": "eyeTracking", "action": "user.mouse_turn_off()"}]
     return []
 
 
