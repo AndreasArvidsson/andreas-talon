@@ -24,7 +24,6 @@ head <number_small>:        "head -{number_small}"
 
 tail <number_small>:        "tail -{number_small}"
 watch talon log:            "tail -f {user.talon_home()}/talon.log\n"
-# watch talon log:               user.tail_talon_log() TODO
 
 print dir:                  "pwd\n"
 copy dir:                   "pwd | clipboard\n"
