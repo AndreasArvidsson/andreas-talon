@@ -1,7 +1,7 @@
-from talon import cron
+from talon import actions, cron
 import time
 
-window_size = 60 * 5
+window_size = 60
 interval = 16
 ts = time.perf_counter()
 ts_summary = ts
@@ -18,9 +18,17 @@ def on_interval():
         deviation_count += 1
         deviation_sum += delta
     if ts2 >= ts_summary + window_size:
-        print(
-            f"Deviation count: {deviation_count}, sum: {round(deviation_sum)}, avg: {round(deviation_sum/deviation_count, 1)}"
+        actions.user.persist_append(
+            "cron_deviation",
+            {
+                "window_size": window_size,
+                "count": deviation_count,
+                "sum": deviation_sum,
+            },
         )
+        # print(
+        #     f"Deviation count: {deviation_count}, sum: {round(deviation_sum)}, avg: {round(deviation_sum/deviation_count, 1)}"
+        # )
         ts_summary = ts2
         deviation_count = 0
         deviation_sum = 0
@@ -63,4 +71,4 @@ def on_interval():
 """
 
 
-# cron.interval(f"{interval}ms", on_interval)
+cron.interval(f"{interval}ms", on_interval)
