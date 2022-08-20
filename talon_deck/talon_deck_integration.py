@@ -37,7 +37,7 @@ def update_file():
     }
     file_content = json.dumps(config)
     if file_content != current_file_content:
-        with open(config_path, "w+") as f:
+        with open(config_path, "w") as f:
             f.write(file_content)
             current_file_content = file_content
 
