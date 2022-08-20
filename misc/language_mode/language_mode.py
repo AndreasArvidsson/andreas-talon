@@ -25,6 +25,7 @@ languages = [
     Language("javascript", "js", "java script"),
     Language("javascriptreact", "jsx", "java script react"),
     Language("json", "json", "json"),
+    Language("jsonl", "jsonl", "json lines"),
     Language("lua", "lua", "lua"),
     Language("markdown", "md", "mark down"),
     Language("perl", "pl", "perl"),
