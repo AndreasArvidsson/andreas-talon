@@ -7,6 +7,7 @@ talon print context:
     print("Title: {title}")
 
 talon print title:          print(win.title())
+talon print name:           print(app.name())
 talon print tags:           print(" \n{user.talon_get_tags()}")
 talon print modes:          print(" \n{user.talon_get_modes()}")
 talon print captures:       print(" \n{user.talon_get_captures()}")
@@ -18,6 +19,7 @@ talon print list problems:  user.talon_print_list_problems()
 talon print core:           print(" \n{user.talon_get_core()}")
 
 talon copy title:           clip.set_text(win.title())
+talon copy name:            clip.set_text(app.name())
 talon copy tags:            clip.set_text(user.talon_get_tags())
 talon copy modes:           clip.set_text(user.talon_get_modes())
 talon copy captures:        clip.set_text(user.talon_get_captures())

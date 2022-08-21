@@ -127,6 +127,7 @@ git checkout {user.git_branch}: user.git_find_branch(git_branch)
 git checkout [<user.text>]: user.git_find_branch(text or "")
 git commit [<user.text>]:
     user.vscode("git.commit")
+    sleep(200ms)
     text = user.format_text(text or "", "CAPITALIZE_FIRST_WORD")
     "{text}"
 
