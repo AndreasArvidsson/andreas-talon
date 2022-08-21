@@ -1,4 +1,4 @@
-from talon import Module, actions, scope
+from talon import Module, actions
 from talon.grammar import Phrase
 
 mod = Module()
@@ -21,12 +21,10 @@ class Actions:
         try:
             meta = phrase["_metadata"]
 
-            scope_app = scope.get("app.app")
-
             actions.user.persist_append(
                 "phrase",
                 {
-                    "application": ", ".join(scope_app) if scope_app else None,
+                    "application": actions.app.name(),
                     **{k: v for k, v in meta.items() if k not in blacklist},
                 },
             )

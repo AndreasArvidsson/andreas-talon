@@ -1,4 +1,4 @@
-from talon import actions, cron, scope
+from talon import actions, cron
 import time
 
 window_size = 10
@@ -15,9 +15,12 @@ def on_interval():
     ts2 = time.perf_counter()
     delta = abs(interval - (ts2 - ts) * 1000)
     ts = ts2
-    scope_app = scope.get("app.app")
-    if scope_app:
-        applications.add(", ".join(scope_app))
+
+    try:
+        applications.add(actions.app.name())
+    except:
+        pass
+
     if delta >= 1:
         deviation_count += 1
         deviation_sum += delta
