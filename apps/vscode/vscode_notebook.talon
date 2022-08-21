@@ -1,7 +1,7 @@
 tag: user.vscode_notebook
 -
 
-render every cell0:         user.vscode("notebook.renderAllMarkdownCells")
+render every cell:          user.vscode("notebook.renderAllMarkdownCells")
 
 # Execution
 run cell:                   user.vscode("notebook.cell.execute")
