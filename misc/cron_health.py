@@ -15,7 +15,9 @@ def on_interval():
     ts2 = time.perf_counter()
     delta = abs(interval - (ts2 - ts) * 1000)
     ts = ts2
-    applications.add(", ".join(scope.get("app.app")))
+    scope_app = scope.get("app.app")
+    if scope_app:
+        applications.add(", ".join(scope_app))
     if delta >= 1:
         deviation_count += 1
         deviation_sum += delta
@@ -24,10 +26,10 @@ def on_interval():
         actions.user.persist_append(
             "cron_deviation",
             {
+                "application": application,
                 "window_size": window_size,
                 "count": deviation_count,
                 "sum": deviation_sum,
-                "application": application,
             },
         )
         # print(

@@ -21,10 +21,12 @@ class Actions:
         try:
             meta = phrase["_metadata"]
 
+            scope_app = scope.get("app.app")
+
             actions.user.persist_append(
                 "phrase",
                 {
-                    "app": ", ".join(scope.get("app.app")),
+                    "application": ", ".join(scope_app) if scope_app else None,
                     **{k: v for k, v in meta.items() if k not in blacklist},
                 },
             )
