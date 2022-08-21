@@ -94,6 +94,7 @@ def get_windows_paths():
         "program files": environ["PROGRAMFILES"],
         "temp": environ["TEMP"],
         "windows": environ["WINDIR"],
+        "talon bin": path.join(str(actions.path.talon_home()), ".venv", "Scripts"),
     }
 
 
@@ -101,6 +102,7 @@ def get_linux_paths():
     return {
         "root": "/",
         "temp": "/tmp",
+        "talon bin": path.join(str(actions.path.talon_home()), "bin"),
     }
 
 
