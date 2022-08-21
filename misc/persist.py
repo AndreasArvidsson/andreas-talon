@@ -20,7 +20,7 @@ class Actions:
             "time": time.time(),
             "hostname": hostname,
             "os": os,
-            "payload": payload,
+            **payload,
         }
         with open(file, "a") as f:
             f.writelines([json.dumps(full_payload), "\n"])
