@@ -95,7 +95,7 @@ def use_preview_to_get_html_mime_data() -> MimeData or None:
     actions.user.vscode("markdown.showPreview")
     actions.sleep("100ms")
     actions.user.vscode("workbench.action.focusActiveEditorGroup")
-    actions.sleep("50ms")
+    actions.sleep("75ms")
     actions.edit.select_all()
     mime = actions.user.selected_mime()
     actions.app.tab_close()
