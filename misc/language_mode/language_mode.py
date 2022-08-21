@@ -53,6 +53,7 @@ ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
 extension_lang_map = {
     **{f".{l.extension}": l.id for l in languages},
     ".bashbook": "bash",
+    ".ipynb": "python",
     ".h": "c",
 }
 
