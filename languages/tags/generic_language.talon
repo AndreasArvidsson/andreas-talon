@@ -28,8 +28,8 @@ make link:                  user.code_link()
 
 # ----- Print statements -----
 make print:                 user.code_print("")
-make print <user.text>$:
-    text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
+make print <user.words>$:
+    text = user.format_text(words, "CAPITALIZE_FIRST_WORD")
     user.code_print(text)
 format string:              user.code_format_string()
 
