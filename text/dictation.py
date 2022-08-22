@@ -290,4 +290,4 @@ class Actions:
 
     def dictation_get_context() -> tuple[str, str]:
         """Returns the text before and after the current selection"""
-        return ("", "")
+        return (None, None)
