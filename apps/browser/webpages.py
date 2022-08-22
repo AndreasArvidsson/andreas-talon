@@ -32,6 +32,7 @@ ctx.lists["self.webpage"] = {
     "karlstad buss":        "https://www.karlstadsbuss.se",
     "nine gag":             "https://9gag.com",
     "cursorless":           "https://cursorless.org",
+    "talon deck":           "http://localhost:3000",
 
     # Redpill Linpro & customers
     "zimbra":               "https://zimbra.redpill-linpro.com",
