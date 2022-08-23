@@ -1,11 +1,9 @@
 from talon import Module, Context, actions
 
-key = actions.key
-ctx = Context()
 mod = Module()
-apps = mod.apps
+ctx = Context()
 
-apps.firefox = """
+mod.apps.firefox = """
 os: windows
 and app.name: Firefox
 os: windows
@@ -51,66 +49,11 @@ ctx.lists["user.rango_without_target_action"] = {
 
 @ctx.action_class("browser")
 class BrowserActions:
-    def go(url: str):
-        actions.browser.focus_address()
-        actions.sleep("50ms")
-        actions.insert(url)
-        key("enter")
-
-    def focus_search():
-        actions.focus_address()
-
-    def submit_form():
-        key("enter")
-
-    def bookmark():
-        key("ctrl-d")
-
-    def bookmark_tabs():
-        key("ctrl-shift-d")
-
-    def bookmarks():
-        key("ctrl-shift-O")
-
-    def bookmarks_bar():
-        key("alt-v")
-        actions.sleep("50ms")
-        key("t")
-        actions.sleep("50ms")
-        key("b")
-
-    def focus_address():
-        key("ctrl-l")
-
-    def go_blank():
-        key("ctrl-n")
-
-    def go_home():
-        key("alt-home")
-
     def open_private_window():
-        key("ctrl-shift-p")
-
-    def reload():
-        key("ctrl-r")
-
-    def reload_hard():
-        key("ctrl-shift-r")
-
-    def show_clear_cache():
-        key("ctrl-shift-delete")
-
-    def show_downloads():
-        key("ctrl-j")
+        actions.key("ctrl-shift-p")
 
     def show_extensions():
-        key("ctrl-shift-a")
-
-    def show_history():
-        key("ctrl-h")
-
-    def toggle_dev_tools():
-        key("ctrl-shift-i")
+        actions.key("ctrl-shift-a")
 
 
 @ctx.action_class("app")
@@ -120,13 +63,13 @@ class AppActions:
 
     # ----- Vimium -----
     def tab_detach():
-        key("escape ctrl-alt-M")
+        actions.key("escape ctrl-alt-M")
 
 
 @ctx.action_class("edit")
 class EditActions:
     def find(text: str = None):
-        key("ctrl-f")
+        actions.key("ctrl-f")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
@@ -136,26 +79,26 @@ class EditActions:
 class UserActions:
     def tab_jump(number: int):
         if number < 9:
-            key(f"ctrl-{number}")
+            actions.key(f"ctrl-{number}")
 
     def tab_final():
-        key("ctrl-9")
+        actions.key("ctrl-9")
 
     def browser_open_new_tab(url: str):
         actions.browser.focus_address()
         actions.sleep("50ms")
         actions.insert(url)
-        key("alt-enter")
+        actions.key("alt-enter")
 
     # ----- Vimium -----
     def tab_back():
-        key("escape ctrl-alt-N")
+        actions.key("escape ctrl-alt-N")
 
     def scroll_left():
-        key("ctrl-alt-k")
+        actions.key("ctrl-alt-k")
 
     def scroll_right():
-        key("ctrl-alt-l")
+        actions.key("ctrl-alt-l")
 
     # ----- Rango -----
     def scroll_up():
@@ -189,8 +132,8 @@ app: firefox
 @ctx_linux.action_class("user")
 class UserActionsLinux:
     def tab_final():
-        key("alt-9")
+        actions.key("alt-9")
 
     def tab_jump(number: int):
         if number < 9:
-            key(f"alt-{number}")
+            actions.key(f"alt-{number}")

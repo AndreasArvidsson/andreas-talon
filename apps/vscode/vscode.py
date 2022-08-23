@@ -1,9 +1,6 @@
 from talon import Module, Context, actions, ui, ctrl
 import json
 
-key = actions.key
-insert = actions.insert
-edit = actions.edit
 vscode = actions.user.vscode
 
 mod = Module()
@@ -96,7 +93,7 @@ class EditActions:
         actions.next()
 
     def select_none():
-        key("escape")
+        actions.key("escape")
 
     # ----- Word -----
     def select_word():
@@ -130,8 +127,8 @@ class EditActions:
 
     def jump_line(n: int):
         vscode("workbench.action.gotoLine")
-        insert(n)
-        key("enter")
+        actions.insert(n)
+        actions.key("enter")
 
     # ----- Indent -----
     def indent_more():
@@ -146,10 +143,10 @@ class EditActions:
 
     # ----- Find -----
     def find_previous():
-        key("shift-f4")
+        actions.key("shift-f4")
 
     def find_next():
-        key("f4")
+        actions.key("f4")
 
 
 @ctx.action_class("user")
@@ -163,7 +160,7 @@ class UserActions:
 
     def line_middle(n: int = None):
         if n:
-            edit.jump_line(n)
+            actions.edit.jump_line(n)
         vscode("andreas.lineMiddle")
 
     # ----- Find / Replace -----
@@ -171,31 +168,31 @@ class UserActions:
         vscode("workbench.action.findInFiles")
         if text:
             actions.sleep("50ms")
-            insert(text)
+            actions.insert(text)
 
     def find_file(text: str = None):
         vscode("workbench.action.quickOpen")
         if text:
             actions.sleep("50ms")
-            insert(text)
+            actions.insert(text)
 
     def find_toggle_match_by_case():
-        key("alt-c")
+        actions.key("alt-c")
 
     def find_toggle_match_by_word():
-        key("alt-w")
+        actions.key("alt-w")
 
     def find_toggle_match_by_regex():
-        key("alt-r")
+        actions.key("alt-r")
 
     def find_replace_toggle_preserve_case():
-        key("alt-p")
+        actions.key("alt-p")
 
     def find_replace_confirm():
-        key("enter")
+        actions.key("enter")
 
     def find_replace_confirm_all():
-        key("ctrl-alt-enter")
+        actions.key("ctrl-alt-enter")
 
     # ----- Tabs -----
     def tab_back():
@@ -212,16 +209,16 @@ class UserActions:
 
     # ----- Scroll -----
     def scroll_up():
-        key("ctrl-up")
+        actions.key("ctrl-up")
 
     def scroll_down():
-        key("ctrl-down")
+        actions.key("ctrl-down")
 
     def scroll_up_page():
-        key("alt-pageup")
+        actions.key("alt-pageup")
 
     def scroll_down_page():
-        key("alt-pagedown")
+        actions.key("alt-pagedown")
 
     def scroll_up_half_page():
         vscode("editorScroll", {"to": "up", "by": "halfPage"})
@@ -284,8 +281,8 @@ class Actions:
     def jump_line_character(l: int, c: int):
         """Move cursor to line <l> and character <c>"""
         vscode("workbench.action.gotoLine")
-        insert(f"{l}:{c}")
-        key("enter")
+        actions.insert(f"{l}:{c}")
+        actions.key("enter")
 
     def save_without_formatting():
         """Save current document without formatting"""
@@ -302,7 +299,7 @@ class Actions:
         if text or sleep:
             actions.sleep("100ms")
         if text:
-            insert(text)
+            actions.insert(text)
 
     def git_open_remote_file_url(line_number: bool = False):
         """Open remote git file in browser"""
@@ -342,7 +339,7 @@ class Actions:
         """Fined git branch"""
         vscode("git.checkout")
         if text:
-            insert(text)
+            actions.insert(text)
 
     def vscode_take_word(cursorless_target: dict, repeats: int):
         """Take word on cursorless target with number of repeats"""
@@ -418,5 +415,5 @@ class Actions:
 
 
 def empty_selection():
-    if edit.selected_text():
-        edit.right()
+    if actions.edit.selected_text():
+        actions.edit.right()

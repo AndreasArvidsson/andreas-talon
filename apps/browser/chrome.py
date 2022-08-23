@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Module, Context, actions
 
 ctx = Context()
 mod = Module()
@@ -15,3 +15,9 @@ app: chrome
 """
 
 ctx.tags = ["browser"]
+
+
+@ctx.action_class("browser")
+class BrowserActions:
+    def open_private_window():
+        actions.key("ctrl-shift-n")
