@@ -45,7 +45,7 @@ def update_running():
 def update_overrides(csv_dict: dict):
     """Updates the overrides list"""
     global overrides
-    overrides = {k: v for k, v in csv_dict.items()}
+    overrides = {k.lower(): v for k, v in csv_dict.items()}
     update_running()
 
     # for i in sorted(overrides):

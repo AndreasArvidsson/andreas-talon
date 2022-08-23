@@ -153,14 +153,14 @@ def homophones_update(values: list[list[str]], headers: list[str]):
     global all_homophones
     homophones = {}
     for row in values:
-        words = sorted(row)
+        words = sorted([w.lower() for w in row])
         for word in words:
-            homophones[word.lower()] = words
+            homophones[word] = words
     all_homophones = homophones
 
 
 def on_ready():
-    actions.user.watch_csv_as_list("homophones", homophones_update)
+    actions.user.watch_csv_as_list("homophones_en", homophones_update)
 
 
 app.register("ready", on_ready)

@@ -50,11 +50,10 @@ class Actions:
 def list_to_dict(path: str, values: ListType) -> DictType:
     result = {}
     for row in values:
-        key = row[0].lower()
         if len(row) == 1:
-            result[key] = row[0]
+            result[row[0]] = row[0]
         elif len(row) == 2:
-            result[key] = row[1]
+            result[row[0]] = row[1]
         else:
             raise ValueError(
                 f"Can't create dict from csv '{path}' with row length {len(row)}"
@@ -65,8 +64,7 @@ def list_to_dict(path: str, values: ListType) -> DictType:
 def list_to_dict_of_lists(path: str, values: ListType) -> dict[str, RowType]:
     result = {}
     for row in values:
-        key = row[0].lower()
-        result[key] = row[1:]
+        result[row[0]] = row[1:]
     return result
 
 
