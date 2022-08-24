@@ -116,7 +116,11 @@ def get_list(word: str):
         msg = f"Found no homophones for: {word.strip()}"
         actions.user.notify(msg)
         raise ValueError(msg)
-    return all_homophones[word_lower]
+    homophones = all_homophones[word_lower]
+    # This is a word that can be used as a homophone source but not destination/result
+    if word_lower not in homophones:
+        homophones = [word_lower, *homophones]
+    return homophones
 
 
 def get_from_list(list: list[str], number: int) -> str:
@@ -153,9 +157,13 @@ def homophones_update(values: list[list[str]], headers: list[str]):
     global all_homophones
     homophones = {}
     for row in values:
-        words = sorted([w.lower() for w in row])
-        for word in words:
-            homophones[word] = words
+        # Homophones starting with `$` can't be updated to
+        words = sorted([w.lower() for w in row if w[0] != "$"])
+        for word in row:
+            # Homophones starting with `$` can be a source. ie updated from.
+            if word[0] == "$":
+                word = word[1:]
+            homophones[word.lower()] = words
     all_homophones = homophones
 
 
