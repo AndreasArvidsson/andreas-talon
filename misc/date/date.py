@@ -4,8 +4,6 @@ from datetime import date, timedelta
 mod = Module()
 format = "%Y-%m-%d"
 
-print(timedelta(days=1))
-
 
 @mod.action_class
 class Actions:
