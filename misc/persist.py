@@ -1,4 +1,4 @@
-from talon import actions, Module, app, scope
+from talon import actions, Module, actions, app, scope
 from typing import Any
 from pathlib import Path
 import json
@@ -14,7 +14,7 @@ os = None
 class Actions:
     def persist_append(name: str, payload: Any):
         """Append payload to persisted storage"""
-        date = time.strftime(r"%Y-%m-%d")
+        date = actions.user.date_today()
         file = dir_path / f"{name}_{date}.jsonl"
         full_payload = {
             "time": time.time(),

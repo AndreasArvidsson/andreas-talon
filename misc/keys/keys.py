@@ -44,7 +44,6 @@ ctx_en.lists["self.key_special"] = merge(
         "insert",
         "escape",
         "menu",
-        "escape",
     },
     {
         "deli":         "delete",
