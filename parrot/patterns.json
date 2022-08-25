@@ -58,10 +58,10 @@
             ">probability": 0.95
         },
         "throttle": {
-            "pop": 0.2,
-            "cluck": 0.2,
-            "shush": 0.2,
-            "hiss": 0.2
+            "pop": 0.3,
+            "cluck": 0.3,
+            "shush": 0.3,
+            "hiss": 0.3
         }
     }
 }
