@@ -252,8 +252,8 @@ class Delegate(ParrotDelegate):
         inactive_power_threshold = 10000000
         thresholds = []
         for pattern in self.patterns.values():
-            if pattern.is_active(current_time):
-                thresholds.append(pattern.get_current_lowest_power_threshold(current_time))
+            # if pattern.is_active(current_time):
+            thresholds.append(pattern.get_current_lowest_power_threshold(current_time))
 
         # If the debug is on, drop the silence threshold to make it easier to view model output for debugging
         if self.debug:

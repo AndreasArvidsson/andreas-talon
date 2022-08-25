@@ -6,21 +6,16 @@ parrot(pop):
     user.debug("pop {power}")
     user.mouse_on_pop()
 
-# parrot(tsk):
-    # user.debug("tsk {power}")
-    # user.mouse_click("control")
+parrot(shush):
+    user.debug("shush {power}")
+    user.mouse_scrolling("up")
 
-# parrot(shush):
-#     user.debug("shush {power}")
-#     user.mouse_scrolling("up")
+parrot(hiss):
+    user.debug("hiss {power}")
+    user.mouse_scrolling("down")
 
-# parrot(hiss):
-#     user.debug("hiss {power}")
-#     user.mouse_scrolling("down")
-
-# parrot(shush:stop):         user.mouse_stop()
-# parrot(hiss:stop):          user.mouse_stop()
-
+parrot(shush:stop):         user.mouse_stop()
+parrot(hiss:stop):          user.mouse_stop()
 
 # parrot(hiss):
 #     user.power_momentum_scroll_down()

@@ -58,4 +58,4 @@ def hiss_stop():
     actions.user.noise_hiss_stop()
 
 
-noise.register("hiss", on_hiss)
+# noise.register("hiss", on_hiss)
