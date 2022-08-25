@@ -2,9 +2,9 @@ tag: user.html
 -
 tag(): user.comments
 
-block tag {user.code_tag}:
+element {user.code_tag}:
     user.insert_snippet("<{code_tag}>\n\t$0\n</{code_tag}>")
-block tag <user.text>:
+element <user.text>:
     user.insert_snippet("<{text}>\n\t$0\n</{text}>")
 
 tag {user.code_tag}:
@@ -15,7 +15,7 @@ tag <user.text>:
     user.code_push_tag_name(text)
 
 closed tag {user.code_tag}: "<{code_tag}/>"
-close tag <user.text>:      "<{text}/>"
+closed tag <user.text>:     "<{text}/>"
 
 close tag:                  user.code_close_tag()
 

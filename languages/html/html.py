@@ -45,19 +45,22 @@ tag_names = {
     "unlist":           "ul",
     "list item":        "li",
     "image":            "img",
-    "head one":         "h1",
-    "head two":         "h2",
-    "head three":       "h3",
-    "head four":        "h4",
-    "head five":        "h5",
-    "head six":         "h6",
+    "harp one":         "h1",
+    "harp two":         "h2",
+    "harp three":       "h3",
+    "harp four":        "h4",
+    "harp five":        "h5",
+    "harp six":         "h6",
     "break":            "br"
 }
 # fmt: on
-tag_names.update(dict(zip(tag_names_list, tag_names_list)))
 
 mod.list("code_tag", desc="Predefined tag names")
-ctx.lists["self.code_tag"] = tag_names
+ctx.lists["self.code_tag"] = {
+    **{n: n for n in tag_names_list},
+    **tag_names,
+}
+
 
 tags = []
 

@@ -4,8 +4,8 @@
             "pop"
         ],
         "threshold": {
-            ">power": 10,
-            ">probability": 0.98
+            ">power": 8,
+            ">probability": 0.97
         },
         "throttle": {
             "pop": 0.1
@@ -16,7 +16,7 @@
             "cluck"
         ],
         "threshold": {
-            ">power": 40,
+            ">power": 50,
             ">probability": 0.99
         },
         "throttle": {
@@ -28,7 +28,7 @@
             "hiss"
         ],
         "threshold": {
-            ">power": 20,
+            ">power": 15,
             ">probability": 0.99
         },
         "graceperiod": 0.1,
