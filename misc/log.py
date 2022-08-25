@@ -15,3 +15,8 @@ class Actions:
         """Log debug message"""
         if setting_level.get() == "debug":
             print(f"DEBUG: {message}")
+
+    def info(message: str):
+        """Log info message"""
+        if setting_level.get() in ["debug", "info"]:
+            print(f"INFO: {message}")

@@ -5,7 +5,7 @@
         ],
         "threshold": {
             ">power": 10,
-            ">probability": 0.99
+            ">probability": 0.98
         },
         "throttle": {
             "pop": 0.1
@@ -20,8 +20,7 @@
             ">probability": 0.99
         },
         "throttle": {
-            "cluck": 0.1,
-            "pop": 0.1
+            "cluck": 0.2
         }
     },
     "hiss": {
