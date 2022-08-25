@@ -9,9 +9,11 @@ import time
 from talon import Module, resource, events
 from talon.debug import log_exception
 from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
+# Andreas changed
 # from talon_init import TALON_HOME
 from talon_init import TALON_USER
 
+# Andreas changed
 # PARROT_HOME = TALON_HOME / 'parrot'
 PARROT_HOME = TALON_USER / "andreas-talon/parrot"
 pattern_path = str(PARROT_HOME / 'patterns.json')
@@ -252,6 +254,7 @@ class Delegate(ParrotDelegate):
         inactive_power_threshold = 10000000
         thresholds = []
         for pattern in self.patterns.values():
+            # Andreas changed
             # if pattern.is_active(current_time):
             thresholds.append(pattern.get_current_lowest_power_threshold(current_time))
 
@@ -287,7 +290,9 @@ class Delegate(ParrotDelegate):
     def pattern_match(self, frame: ParrotFrame) -> set[str]:
         if self.debug:
             winner_label, winner_prob = next(iter(frame.classes.items()))
-            events.write('parrot', f"predict {winner_label} {winner_prob * 100:.2f}% pow={frame.power:.2f} f0={frame.f0:.3f} f1={frame.f1:.3f} f2={frame.f2:.3f}")
+            # Andreas changed
+            if winner_label != "background":
+                events.write('parrot', f"predict {winner_label} {winner_prob * 100:.2f}% pow={frame.power:.2f} f0={frame.f0:.3f} f1={frame.f1:.3f} f2={frame.f2:.3f}")
 
         active: set[str] = set()
         for pattern in self.patterns.values():
