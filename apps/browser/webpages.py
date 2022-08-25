@@ -40,6 +40,7 @@ ctx.lists["self.webpage"] = {
     "mattermost":           "https://mattermost.redpill-linpro.com",
     "gitlab":               "https://gitlab.redpill-linpro.com",
     "redpill info":         "https://info.redpill-linpro.com",
+    "cv partner":           "https://redpill-linpro.cvpartner.com",
     "bitbucket":            "https://bitbucket.org",
     "xledger":              "https://xledger.net",
     "hogia business":       "https://payroll.accountor.se",
