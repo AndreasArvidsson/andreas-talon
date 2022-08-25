@@ -30,11 +30,11 @@
         ],
         "threshold": {
             ">power": 20,
-            ">probability": 0.98
+            ">probability": 0.99
         },
         "graceperiod": 0.1,
         "grace_threshold": {
-            ">power": 5
+            ">power": 10
         }
     },
     "shush": {
@@ -43,11 +43,11 @@
         ],
         "threshold": {
             ">power": 15,
-            ">probability": 0.98
+            ">probability": 0.99
         },
         "graceperiod": 0.1,
         "grace_threshold": {
-            ">power": 5
+            ">power": 10
         }
     },
     "speech": {
