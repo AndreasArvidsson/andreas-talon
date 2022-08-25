@@ -29,8 +29,9 @@
         ],
         "threshold": {
             ">power": 15,
-            ">probability": 0.99
+            ">probability": 0.95
         },
+        "detect_after": 0.05,
         "graceperiod": 0.1,
         "grace_threshold": {
             ">power": 10
@@ -42,8 +43,9 @@
         ],
         "threshold": {
             ">power": 15,
-            ">probability": 0.99
+            ">probability": 0.95
         },
+        "detect_after": 0.05,
         "graceperiod": 0.1,
         "grace_threshold": {
             ">power": 10
