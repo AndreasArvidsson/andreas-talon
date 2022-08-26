@@ -1,5 +1,6 @@
 from talon import Context, Module, actions, app, cron, ctrl, ui, storage
 from talon_plugins import eye_mouse
+import time
 
 mod = Module()
 ctx = Context()
@@ -20,10 +21,11 @@ ctx.lists["self.mouse_click"] = {
 
 setting_scroll_speed = mod.setting("scroll_speed", type=float, default=1)
 
-scroll_job = None
 gaze_job = None
+scroll_job = None
 scroll_speed = 100
 scroll_dir = 1
+scroll_ts = None
 
 
 @mod.action_class
@@ -95,18 +97,23 @@ class Actions:
 
     def mouse_scrolling(direction: str):
         """Toggle scrolling continuously"""
-        global scroll_job, scroll_dir
+        global scroll_job, scroll_dir, scroll_ts
         stop_zoom()
-        if direction == "up":
-            new_scroll_dir = -1
-        else:
-            new_scroll_dir = 1
-        # Issuing a scroll in the same direction as existing aborts it.
-        if scroll_job != None and scroll_dir == new_scroll_dir:
-            stop_scroll()
-            return
-        scroll_dir = new_scroll_dir
+        new_scroll_dir = -1 if direction == "up" else 1
+
+        if scroll_job != None:
+            # Issuing a scroll in the same direction as existing aborts it
+            if scroll_dir == new_scroll_dir:
+                stop_scroll()
+                return
+            # Issuing a scroll in the reverse direction resets acceleration
+            else:
+                scroll_dir = new_scroll_dir
+                scroll_ts = time.perf_counter()
+
         if scroll_job is None:
+            scroll_dir = new_scroll_dir
+            scroll_ts = time.perf_counter()
             scroll_continuous_helper()
             scroll_job = cron.interval("16ms", scroll_continuous_helper)
 
@@ -230,11 +237,14 @@ def stop_scroll():
 
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
-        x, y = ctrl.mouse_pos()
-        screen = get_screen_for_cursor(x, y)
-        if screen is None:
-            return
-        y = setting_scroll_speed.get() * (scroll_speed / 100) * scroll_dir
+        ts_delta = time.perf_counter() - scroll_ts
+        acceleration_speed = 1 + min(ts_delta / 0.5, 3)
+        y = (
+            setting_scroll_speed.get()
+            * (scroll_speed / 100)
+            * acceleration_speed
+            * scroll_dir
+        )
         actions.mouse_scroll(y, by_lines=True)
 
 
