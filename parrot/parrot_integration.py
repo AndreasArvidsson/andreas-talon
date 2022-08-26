@@ -302,5 +302,5 @@ class Delegate(ParrotDelegate):
 
         return active
 
-parrot_delegate = Delegate(pattern_path, debug=False)
+parrot_delegate = Delegate(pattern_path, debug=True)
 system = ParrotSystem(model_path, parrot_delegate)

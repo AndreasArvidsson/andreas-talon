@@ -1,27 +1,13 @@
-mode: command
-mode: dictation
--
-
 parrot(pop):
     user.debug("pop {power}")
-    user.mouse_on_pop()
+    user.noise_pop()
 
-parrot(shush):
-    user.debug("shush {power}")
-    user.mouse_scrolling("up")
+parrot(cluck):
+    user.debug("cluck {power}")
+    user.noise_cluck()
 
-parrot(hiss):
-    user.debug("hiss {power}")
-    user.mouse_scrolling("down")
+parrot(shush):              user.noise_debounce("shush", 1)
+parrot(shush:stop):         user.noise_debounce("shush", 0)
 
-parrot(shush:stop):         user.mouse_stop()
-parrot(hiss:stop):          user.mouse_stop()
-
-# parrot(hiss):
-#     user.power_momentum_scroll_down()
-#     user.power_momentum_start(ts, 5.0)
-# parrot(hiss:repeat):
-#     user.power_momentum_add(ts, power)
-# parrot(hiss:stop):
-#     user.power_momentum_decaying()
-#     # user.power_momentum_stop()
+parrot(hiss):               user.noise_debounce("hiss", 1)
+parrot(hiss:stop):          user.noise_debounce("hiss", 0)

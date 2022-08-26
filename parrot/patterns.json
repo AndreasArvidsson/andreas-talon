@@ -31,8 +31,7 @@
             ">power": 15,
             ">probability": 0.95
         },
-        "detect_after": 0.05,
-        "graceperiod": 0.1,
+        "graceperiod": 0.05,
         "grace_threshold": {
             ">power": 10
         }
@@ -45,8 +44,7 @@
             ">power": 15,
             ">probability": 0.95
         },
-        "detect_after": 0.05,
-        "graceperiod": 0.1,
+        "graceperiod": 0.05,
         "grace_threshold": {
             ">power": 10
         }
