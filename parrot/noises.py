@@ -36,7 +36,7 @@ class UserActions:
 @mod.action_class
 class Actions:
     def noise_debounce(name: str, active: bool):
-        """Start or stop noise with"""
+        """Start or stop continuous noise using debounce"""
         if name not in state:
             state[name] = active
             cron_jobs[name] = cron.after("50ms", lambda: callback(name))
