@@ -1,3 +1,6 @@
+not mode: sleep
+-
+
 parrot(pop):
     user.debug("pop {power}")
     user.noise_pop()
