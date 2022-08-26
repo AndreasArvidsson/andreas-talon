@@ -8,6 +8,9 @@ tag(): user.find
 tag(): user.comments
 tag(): user.cursorless_experimental_snippets
 
+settings():
+    user.scroll_speed = 1.5
+
 # Language features
 jest:                       code.complete()
 jest first:

@@ -44,7 +44,6 @@ class Actions:
         elif state[name] != active:
             cron.cancel(cron_jobs[name])
             state.pop(name)
-            cron_jobs.pop(name)
 
     def noise_pop():
         """Noise pop"""
