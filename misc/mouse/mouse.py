@@ -19,11 +19,22 @@ ctx.lists["self.mouse_click"] = {
     "troll": "control",
 }
 
-setting_scroll_speed = mod.setting("scroll_speed", type=float, default=1)
+setting_scroll_speed = mod.setting(
+    "scroll_speed",
+    type=float,
+    default=1,
+    desc="Base scroll speed",
+)
+setting_scroll_speed_multiplier = mod.setting(
+    "scroll_speed_multiplier",
+    type=float,
+    default=1,
+    desc="Context specific scroll speed multiplier",
+)
 
 gaze_job = None
 scroll_job = None
-scroll_speed = 100
+scroll_speed_dynamic = 1
 scroll_dir = 1
 scroll_ts = None
 
@@ -119,27 +130,25 @@ class Actions:
 
     def mouse_scroll_speed_set(speed: int):
         """Set scroll speed"""
-        if speed > 50:
-            speed = 50
-        global scroll_speed
-        scroll_speed = speed * 10
+        global scroll_speed_dynamic
+        scroll_speed_dynamic = speed / 10
         actions.user.mouse_scroll_speed_notify()
 
     def mouse_scroll_speed_increase():
         """Increase scroll speed"""
-        global scroll_speed
-        scroll_speed = scroll_speed + 20
+        global scroll_speed_dynamic
+        scroll_speed_dynamic += 0.2
         actions.user.mouse_scroll_speed_notify()
 
     def mouse_scroll_speed_decrease():
         """Decrease scroll speed"""
-        global scroll_speed
-        scroll_speed = scroll_speed - 20
+        global scroll_speed_dynamic
+        scroll_speed_dynamic -= 0.2
         actions.user.mouse_scroll_speed_notify()
 
     def mouse_scroll_speed_notify():
         """Notify scroll speed"""
-        actions.user.notify("Mouse scroll speed: {}%".format(scroll_speed))
+        actions.user.notify(f"Mouse scroll speed: {int(scroll_speed_dynamic*100)}%")
 
     def mouse_gaze_scroll():
         """Starts gaze scroll"""
@@ -237,11 +246,11 @@ def stop_scroll():
 
 def scroll_continuous_helper():
     if actions.user.zoom_mouse_idle():
-        ts_delta = time.perf_counter() - scroll_ts
-        acceleration_speed = 1 + min(ts_delta / 0.5, 3)
+        acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 3)
         y = (
             setting_scroll_speed.get()
-            * (scroll_speed / 100)
+            * setting_scroll_speed_multiplier.get()
+            * scroll_speed_dynamic
             * acceleration_speed
             * scroll_dir
         )

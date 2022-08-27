@@ -9,7 +9,7 @@ tag(): user.comments
 tag(): user.cursorless_experimental_snippets
 
 settings():
-    user.scroll_speed = 1.1
+    user.scroll_speed_multiplier = 1.25
 
 # Language features
 jest:                       code.complete()
