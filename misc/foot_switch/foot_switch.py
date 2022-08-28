@@ -98,7 +98,7 @@ class UserActions:
         pass
 
     def foot_switch_right_down():
-        actions.core.repeat_command(1)
+        actions.user.mouse_sleep_toggle()
 
     def foot_switch_right_up():
         pass
