@@ -260,7 +260,8 @@ class Delegate(ParrotDelegate):
 
         # If the debug is on, drop the silence threshold to make it easier to view model output for debugging
         if self.debug:
-            thresholds.append(10)
+            # Andreas changed
+            thresholds.append(5)
 
         # If no noises are active - skip all noise recognition and save some CPU
         if len(thresholds) == 0:
