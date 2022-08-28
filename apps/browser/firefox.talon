@@ -21,9 +21,6 @@ login fill:
 password generate:
     key(ctrl-shift-9)
 
-# Vimium
-tab split:                  app.tab_detach()
-
 hunting:
     user.stop_app()
     key(escape ctrl-alt-f)
