@@ -61,9 +61,9 @@ class AppActions:
     def preferences():
         actions.user.browser_open_new_tab("about:preferences")
 
-    # ----- Vimium -----
+    # ----- Rango -----
     def tab_detach():
-        actions.key("escape ctrl-alt-M")
+        actions.user.rango_command_without_target("moveCurrentTabToNewWindow")
 
 
 @ctx.action_class("edit")
@@ -91,9 +91,6 @@ class UserActions:
         actions.key("alt-enter")
 
     # ----- Vimium -----
-    def tab_back():
-        actions.key("escape ctrl-alt-N")
-
     def scroll_left():
         actions.key("ctrl-alt-k")
 
@@ -101,6 +98,9 @@ class UserActions:
         actions.key("ctrl-alt-l")
 
     # ----- Rango -----
+    def tab_back():
+        actions.user.rango_command_without_target("focusPreviousTab")
+
     def scroll_up():
         actions.user.rango_command_without_target("scrollUpPage", 0.1)
 
