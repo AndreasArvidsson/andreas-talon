@@ -1,12 +1,13 @@
 # fmt: off
 from copy import copy
 from dataclasses import dataclass
-from typing import Callable, Optional, Sequence
+from typing import Callable, Optional
 import json
 import logging
 import time
 
-from talon import Module, resource, events
+# Andreas changed
+from talon import Module, resource, events, app
 from talon.debug import log_exception
 from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
 # Andreas changed
@@ -16,7 +17,7 @@ from talon_init import TALON_USER
 # Andreas changed
 # PARROT_HOME = TALON_HOME / 'parrot'
 PARROT_HOME = TALON_USER / "andreas-talon/parrot"
-pattern_path = str(PARROT_HOME / 'patterns.json')
+# pattern_path = str(PARROT_HOME / 'patterns.json')
 model_path = str(PARROT_HOME / 'model.pkl')
 
 ## START PARROT CLASSES ##
@@ -303,5 +304,22 @@ class Delegate(ParrotDelegate):
 
         return active
 
-parrot_delegate = Delegate(pattern_path, debug=False)
-system = ParrotSystem(model_path, parrot_delegate)
+# Andreas changed
+# fmt: on
+mod = Module()
+
+setting_patterns = mod.setting(
+    "parrot_patterns",
+    type=str,
+    default="patterns.json",
+    desc="File name for parrot pattern.json",
+)
+
+
+def on_ready():
+    pattern_path = str(PARROT_HOME / setting_patterns.get())
+    parrot_delegate = Delegate(pattern_path, debug=False)
+    system = ParrotSystem(model_path, parrot_delegate)
+
+
+app.register("ready", on_ready)
