@@ -290,12 +290,6 @@ class GUI:
         state = State(canvas, self._screen_current.dpi, self._numbered)
         number = 1
 
-        # for el in self._elements:
-        #     if self._numbered and el.numbered:
-        #         Text.draw_number(state, number)
-        #         number += 1
-        #     el.draw(state)
-
         for el in self._elements:
             y_start = state.y
             el.draw(state)
@@ -314,13 +308,13 @@ class GUI:
         elif self._x is not None:
             x = screen.x + screen.width * self._x
         else:
-            x = screen.x + (screen.width - width) / 2
+            x = screen.x + max(0, (screen.width - width) / 2)
         if self._y_moved:
             y = self._y_moved
         elif self._y is not None:
             y = screen.y + screen.height * self._y
         else:
-            y = screen.y + (screen.height - height) / 2
+            y = screen.y + max(0, (screen.height - height) / 2)
         self._canvas.rect = Rect(x, y, width, height)
 
     def _draw_background(self, canvas):
