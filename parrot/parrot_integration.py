@@ -312,7 +312,7 @@ setting_patterns = mod.setting(
     "parrot_patterns",
     type=str,
     default="patterns.json",
-    desc="File name for parrot pattern.json",
+    desc="File name for parrot patterns.json",
 )
 
 
