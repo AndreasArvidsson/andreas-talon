@@ -134,7 +134,7 @@ class Actions:
                 for line in reversed(item.text.split("\n")):
                     line = line.strip()
                     if line:
-                        append(new_history, ClipItem(line, None))
+                        append(new_history, ClipItem(line, None, None))
             else:
                 append(new_history, item)
         clip_history = new_history
