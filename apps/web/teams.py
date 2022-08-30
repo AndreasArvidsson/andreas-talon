@@ -5,8 +5,7 @@ mod = Module()
 
 # Teams meeting
 ctx.matches = """
-os: windows
-app.name: Microsoft Edge
+tag: browser
 title: /Microsoft Teams/
 """
 
