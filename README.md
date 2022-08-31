@@ -15,6 +15,8 @@ This is a list of features that I have implemented that I think is of more inter
 1. **Custom subtitles** - User customizable subtitles for Talon
    - [on_phrase.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/on_phrase.py)
    - [screen.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/screen.py#L39-L42)
+1. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
+   - [Talon Deck](https://github.com/AndreasArvidsson/talon-deck)
 1. **Scroll on hiss noise** - Use the Talon hiss noise to scroll
    - [on_hiss.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/on_hiss.py)
    - [mouse.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/mouse/mouse.py#L97-L112)
