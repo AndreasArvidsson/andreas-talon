@@ -27,7 +27,7 @@ def words(m) -> str:
     return format_phrase(m)
 
 
-@mod.capture(rule="{self.letter} {self.letter}+")
+@mod.capture(rule="[spell] {self.letter} {self.letter}+")
 def spell(m) -> str:
     """Spell word phoneticly"""
     return "".join(m.letter_list)
