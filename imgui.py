@@ -27,7 +27,6 @@ setting_max_col = mod.setting(
     type=int,
     default=50,
 )
-setting_scale = settings.lookup("imgui.scale")
 
 
 class State:
@@ -35,7 +34,7 @@ class State:
         self.max_rows = setting_max_rows.get()
         self.max_cols = setting_max_col.get()
         self.canvas = canvas
-        self.font_size = round(dpi * setting_scale.get() / 10)
+        self.font_size = round(dpi * settings.get("imgui.scale") / 10)
         self.padding = self.rem(0.5)
         self.image_height = self.max_rows * self.font_size
         self.image_width = 5 * self.image_height
