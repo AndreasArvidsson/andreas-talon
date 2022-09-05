@@ -16,4 +16,5 @@ vscode package:
 talon user updates:
     "node {user.talon_user()}/andreas-talon/update.js\n"
 
-python version:             "py --version\n"
+python version:             "python --version\n"
+java version:               "java --version\n"
