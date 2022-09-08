@@ -43,9 +43,9 @@ function gitUpdate(userDir, url, folderName, branch) {
 
   gitUpdate(
     userDir,
-    "git@github.com:cursorless-dev/cursorless-talon.git",
+    "git@github.com:AndreasArvidsson/cursorless-talon.git",
     "cursorless-talon",
-    "andreas"
+    "main"
   );
 
   gitUpdate(
