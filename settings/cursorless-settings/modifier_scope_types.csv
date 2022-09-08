@@ -44,3 +44,10 @@ section, section
 -six section, sectionLevelSix
 -three section, sectionLevelThree
 -two section, sectionLevelTwo
+-chapter, chapter
+-environment, environment
+-paragraph, namedParagraph
+-part, part
+-subparagraph, subParagraph
+-subsection, subSection
+-subsubsection, subSubSection
