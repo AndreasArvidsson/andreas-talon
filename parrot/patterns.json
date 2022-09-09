@@ -4,7 +4,7 @@
             "pop"
         ],
         "threshold": {
-            ">power": 6,
+            ">power": 5,
             ">probability": 0.98
         },
         "throttle": {
