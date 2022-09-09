@@ -1,0 +1,2 @@
+Spoken form, Regex
+member, ([\w.](\(.*\))?)+
