@@ -38,8 +38,8 @@ git checkout:               "git checkout "
 git checkout {user.git_branch}:
     "git checkout {git_branch}\n"
 git checkout <user.text>:   "git checkout {text}"
-git checkout branch:        "git checkout -b "
-git checkout branch <user.text>:
+git checkout branch [<user.text>]:
+    text = user.format_text(text or '', "SNAKE_CASE")
     "git checkout -b {text}"
 git checkout last:          "git checkout -\n"
 

@@ -128,6 +128,11 @@ git push tags:              user.vscode("git.pushTags")
 git open:                   user.vscode("git.openFile")
 git checkout {user.git_branch}: user.git_find_branch(git_branch)
 git checkout [<user.text>]: user.git_find_branch(text or "")
+git checkout branch [<user.text>]:
+    user.vscode("git.branch")
+    sleep(50ms)
+    text = user.format_text(text or '', "SNAKE_CASE")
+    "{text}"
 git commit [<user.text>]:
     user.vscode("git.commit")
     sleep(300ms)
