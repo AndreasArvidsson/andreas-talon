@@ -163,6 +163,8 @@ class UserActions:
         text = name
         if modifiers:
             text = f"{' '.join(modifiers)} {text}"
+            if "const" in modifiers:
+                assign = True
         if data_type:
             text = f"{text}: {data_type}"
         if assign:
