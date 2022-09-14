@@ -1,5 +1,4 @@
-os: windows
-and app.exe: kodi.exe
+app: kodi
 -
 
 [go] back:                  user.go_back()
