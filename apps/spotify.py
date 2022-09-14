@@ -15,6 +15,8 @@ ctx.matches = r"""
 app: spotify
 """
 
+ctx.tags = ["user.navigation"]
+
 
 @ctx.action_class("user")
 class UserActions:
