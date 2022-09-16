@@ -1,10 +1,12 @@
-from talon import Module, Context, cron, actions
+from talon import Module, Context, cron, actions, noise
+import time
 
 mod = Module()
 
 state = {}
 cron_jobs = {}
 callbacks = {}
+pop_throttle = 0
 
 ctx = Context()
 ctx.matches = r"""
@@ -43,6 +45,11 @@ class Actions:
         elif state[name] != active:
             cron.cancel(cron_jobs[name])
             state.pop(name)
+
+    def noise_throttle_pop(duration: float):
+        """Throttle pop noise for duration(s)"""
+        global pop_throttle
+        pop_throttle = max(pop_throttle, time.perf_counter() + duration)
 
     def noise_pop():
         """Noise pop"""
@@ -88,3 +95,12 @@ def on_hiss(active: bool):
 
 callbacks["shush"] = on_shush
 callbacks["hiss"] = on_hiss
+
+
+def on_pop(_: bool):
+    if actions.speech.enabled() and time.perf_counter() >= pop_throttle:
+        actions.user.debug("pop")
+        actions.user.noise_pop()
+
+
+noise.register("pop", on_pop)
