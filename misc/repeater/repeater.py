@@ -31,7 +31,7 @@ class Actions:
             actions.user.debug(f"Blocked repetition of command '{last_command[1]}'")
             return
         last_command = None
-        actions.core.repeat_command(n)
+        actions.core.repeat_phrase(n)
 
     def repeat_command_block():
         """Block the repeat of the last command"""

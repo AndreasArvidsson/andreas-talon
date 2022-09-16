@@ -39,7 +39,7 @@ class Actions:
         """Start or stop continuous noise using debounce"""
         if name not in state:
             state[name] = active
-            cron_jobs[name] = cron.after("60ms", lambda: callback(name))
+            cron_jobs[name] = cron.after("80ms", lambda: callback(name))
         elif state[name] != active:
             cron.cancel(cron_jobs[name])
             state.pop(name)
