@@ -98,10 +98,23 @@ class UserActions:
         pass
 
     def foot_switch_right_down():
-        actions.user.mouse_sleep_toggle()
+        pass
 
     def foot_switch_right_up():
         pass
+
+
+# Default non sleep implementation
+ctx_wake = Context()
+ctx_wake.matches = r"""
+not mode: sleep
+"""
+
+
+@ctx_wake.action_class("user")
+class UserWakeActions:
+    def foot_switch_right_down():
+        actions.user.mouse_sleep_toggle()
 
 
 # Audio / Video conferencing
