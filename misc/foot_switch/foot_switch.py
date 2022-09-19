@@ -120,6 +120,7 @@ class UserWakeActions:
 # Audio / Video conferencing
 ctx_av = Context()
 ctx_av.matches = r"""
+mode: all
 tag: user.av
 """
 
@@ -136,6 +137,7 @@ class AvActions:
 # Mouse zoom mode
 ctx_zoom = Context()
 ctx_zoom.matches = r"""
+mode: all
 tag: user.zoom_mouse
 """
 
