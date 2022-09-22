@@ -70,6 +70,7 @@ ctx_en.lists["self.key_punctuation"] = {
     "comma":            ",",
     "colon":            ":",
     "slash":            "/",
+    "forward slash":    "/",
     "question mark":    "?",
     "exclamation mark": "!",
 }
