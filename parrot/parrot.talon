@@ -7,7 +7,7 @@ not mode: sleep
 
 parrot(cluck):
     user.debug("cluck {power}")
-    user.noise_throttle_pop(0.35)
+    user.noise_throttle_pop(0.4)
     user.noise_cluck()
 
 parrot(shush):              user.noise_debounce("shush", 1)
