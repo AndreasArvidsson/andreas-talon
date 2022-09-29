@@ -16,5 +16,8 @@ vscode package:
 talon user updates:
     "node {user.talon_user()}/andreas-talon/update.js\n"
 
+run talon deck:
+    "npm start --prefix {user.user_home()}/talon-deck\n"
+
 python version:             "python --version\n"
 java version:               "java --version\n"
