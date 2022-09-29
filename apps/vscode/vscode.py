@@ -96,9 +96,6 @@ class EditActions:
         actions.key("escape")
 
     # ----- Word -----
-    def select_word():
-        vscode("editor.action.addSelectionToNextFindMatch")
-
     def delete_word():
         empty_selection()
         actions.next()
@@ -346,7 +343,8 @@ class Actions:
         actions.user.cursorless_command("setSelection", cursorless_target)
         # Select number of next instances
         for _ in range(repeats):
-            actions.edit.select_word()
+            vscode("editor.action.addSelectionToNextFindMatch")
+
         # Select all instances
         if repeats < 0:
             vscode("editor.action.selectHighlights")

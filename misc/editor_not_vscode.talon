@@ -1,6 +1,13 @@
 not app: vscode
 -
 
+# ----- Word -----
+take token:                 edit.select_word()
+cut token:                  user.cut_word()
+copy token:                 user.copy_word()
+paste to token:             user.paste_word()
+(chuck | clear) token:      edit.delete_word()
+
 # Line
 pre line:                   edit.line_start()
 post line:                  edit.line_end()
@@ -43,15 +50,24 @@ paste to file:              user.paste_all()
 # Reformat
 <user.formatters> format this:
     user.reformat_selection(formatters)
+<user.formatters> format token:
+    edit.select_word()
+    user.reformat_selection(formatters)
 <user.formatters> format line:
     edit.select_line()
     user.reformat_selection(formatters)
 
 # Homophones
 phones this:                user.homophones_cycle_selected()
+phones token:
+    edit.select_word()
+    user.homophones_cycle_selected()
 
-# Wrap selection with delimiter pair
+# Wrappers
 {user.delimiter_pair_wrap} wrap this:
+    user.delimiters_pair_wrap_selection(delimiter_pair_wrap)
+{user.delimiter_pair_wrap} wrap token:
+    edit.select_word()
     user.delimiters_pair_wrap_selection(delimiter_pair_wrap)
 {user.delimiter_pair_wrap} wrap line:
     edit.select_line()

@@ -33,8 +33,3 @@ swe {user.swedish_phrase}:  "{swedish_phrase}"
 # Upper case characters
 ship <user.letters> [over]:
     user.insert_formatted(letters, "ALL_CAPS")
-
-# Reformat
-<user.formatters> format word:
-    edit.select_word()
-    user.reformat_selection(formatters)

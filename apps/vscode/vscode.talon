@@ -150,7 +150,6 @@ fold comments:              user.vscode("editor.foldAllBlockComments")
 
 # Navigation
 go line <number>:           edit.jump_line(number)
-take word back:             user.vscode("editor.action.addSelectionToPreviousFindMatch")
 cursor back:                user.vscode("cursorUndo")
 cursor forward:             user.vscode("cursorRedo")
 cursor up:                  user.vscode("editor.action.insertCursorAbove")
@@ -218,6 +217,8 @@ scout all symbol [<user.text>]$:
 
 # Find miscellaneous
 scout again:                user.vscode("rerunSearchEditorSearch")
+take next:                  user.vscode("editor.action.addSelectionToNextFindMatch")
+take last:                  user.vscode("editor.action.addSelectionToPreviousFindMatch")
 
 # Settings
 open settings json:

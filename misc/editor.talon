@@ -57,13 +57,6 @@ copy (this | dis):          edit.copy()
 paste it:                   edit.paste()
 paste special:              edit.paste_match_style()
 
-# ----- Word -----
-take word:                  edit.select_word()
-cut word:                   user.cut_word()
-copy word:                  user.copy_word()
-paste to word:              user.paste_word()
-(chuck | clear) word:       edit.delete_word()
-
 remove:                     user.delete_word_left()
 wipe:                       user.delete_word_right()
 
@@ -83,7 +76,7 @@ dasher:                     " - "
 arrow:                      user.insert_arrow()
 
 # ----- Cursorless duplication -----
-# This are here because their implementation is useful in vscode input dialogs
+# These are here because their implementation is useful in vscode input dialogs
 take line:                  edit.select_line()
 cut line:                   user.cut_line()
 copy line:                  user.copy_line()

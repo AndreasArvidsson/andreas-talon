@@ -1,10 +1,6 @@
 phones pick this:
     user.homophones_show_selected()
 
-phones pick word:
+phones pick token:
     edit.select_word()
     user.homophones_show_selected()
-
-phones word:
-    edit.select_word()
-    user.homophones_cycle_selected()
