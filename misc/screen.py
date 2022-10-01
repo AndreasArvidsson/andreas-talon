@@ -94,7 +94,7 @@ def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
         else:
             y = c.rect.center.y + rect.height / 2
         draw_text(c, text, x, y, is_subtitle)
-        timeout = max(750, len(text) * 50)
+        timeout = min(5000, max(750, len(text) * 50))
         # Notify
         if not is_subtitle:
             timeout *= 2
