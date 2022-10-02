@@ -6,7 +6,7 @@ from ...imgui import imgui
 mod = Module()
 size_setting = mod.setting("command_history_size", int, default=50)
 display_size_setting = mod.setting("command_history_display", int, default=10)
-ttl_setting = mod.setting("command_history_ttl", float, default=0)
+ttl_setting = mod.setting("command_history_ttl", float, default=-1)
 history = []
 display_size = None
 # If true ttl(time to live) is used to auto hide older history entries
@@ -26,7 +26,7 @@ def gui(gui: imgui.GUI):
     # Hide entries outside of display size
     for entry in history[-display_size:]:
         # If ttl is disabled or time hasn't passed yet: show command.
-        if not use_ttl or entry.ttl >= t:
+        if not use_ttl or entry.ttl < 0 or entry.ttl >= t:
             gui.text(entry.command)
 
 
@@ -35,7 +35,8 @@ class Actions:
     def command_history_append(command: str):
         """Append command to history"""
         global history
-        ttl = time.monotonic() + ttl_setting.get()
+        ttl = ttl_setting.get()
+        ttl = time.monotonic() + ttl if ttl > -1 else -1
         entry = HistoryEntry(command, ttl)
         history.append(entry)
         history = history[-size_setting.get() :]
