@@ -3,7 +3,7 @@ mode: sleep
 
 parrot(cluck):
     user.debug("Talon wake parrot noise. Power: {power}")
-    user.noise_throttle_pop(0.4)
+    user.noise_throttle_pop(0.5)
     user.talon_wake()
 
 ^talon wake up$:
