@@ -201,7 +201,7 @@ select element:             key(ctrl-shift-c)
 scout (sesh | recent) [<user.text>]$:
     user.vscode_find_recent(text or "")
 pop (sesh | recent) <user.text>$:
-    user.vscode_find_recent(text)
+    user.vscode_find_recent(text, 1)
     key(enter)
 pop (sesh | recent):
     user.vscode_find_recent("", 1)

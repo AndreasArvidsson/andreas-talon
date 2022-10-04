@@ -293,10 +293,11 @@ class Actions:
     def vscode_find_recent(text: str = None, sleep: bool = False):
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
-        if text or sleep:
-            actions.sleep("100ms")
         if text:
+            actions.sleep("150ms")
             actions.insert(text)
+        if sleep:
+            actions.sleep("150ms")
 
     def git_open_remote_file_url(line_number: bool = False):
         """Open remote git file in browser"""
