@@ -36,6 +36,7 @@ rename, rename
 reverse, reverseTargets
 scout all for, findInWorkspace
 scout for, findInDocument
+shuffle, randomizeTargets
 sort, sortTargets
 swap, swapTargets
 switch, rewrap
@@ -46,7 +47,6 @@ highlight, highlight
 
 -copy, copyToClipboard
 -cut, cutToClipboard
--shuffle, randomizeTargets
 # `revealDefinition` is already part of `followLink`
 -define, revealDefinition
 -snippet, insertSnippet
