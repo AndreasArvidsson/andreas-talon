@@ -241,6 +241,8 @@ disk raw:                   user.save_without_formatting()
 disk files:                 user.vscode("workbench.action.files.saveFiles")
 undo everything:            user.vscode("andreas.undoUntilNotDirty")
 copy command id:            user.copy_command_id()
+generate range [from <number_small>]:
+    user.vscode("andreas.generateRange", number_small or 1)
 
 snip last:                  user.vscode("jumpToPrevSnippetPlaceholder")
 [snip] next:                user.vscode("jumpToNextSnippetPlaceholder")
