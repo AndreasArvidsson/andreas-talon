@@ -7,3 +7,5 @@ slice, verticalRange
 just, toRawSelection
 leading, leading
 trailing, trailing
+content, keepContentFilter
+empty, keepEmptyFilter
