@@ -151,9 +151,6 @@ def split_list(value, l: list) -> Iterator:
 
 
 # ---------- CAPTURES ----------
-alt_digits = "(" + ("|".join(digits_map.keys())) + ")"
-alt_teens = "(" + ("|".join(teens_map.keys())) + ")"
-alt_tens = "(" + ("|".join(tens_map.keys())) + ")"
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
 # don't allow numbers to start with scale words like "hundred", "thousand", etc
 leading_words = numbers_map.keys() - scales_map.keys()
@@ -163,6 +160,16 @@ number_word_leading = f"({'|'.join(leading_words)})"
 # Only allow numbers above nine by themself
 leading_words_dd = {*teens_map.keys(),  *tens_map.keys()}
 number_word_dd = f"({'|'.join(leading_words_dd)})"
+
+# Numbers used in `number_small` capture
+number_small_list = [*digits, *teens]
+for ten in tens:
+    number_small_list.append(ten)
+    number_small_list.extend(f"{ten} {digit}" for digit in digits[1:])
+number_small_map = {n: i for i, n in enumerate(number_small_list)}
+
+mod.list("number_small", desc="List of small numbers")
+ctx.lists["self.number_small"] = number_small_map.keys()
 
 
 @mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
@@ -186,9 +193,9 @@ def number(m) -> int:
     return int(m.number_string)
 
 
-@ctx.capture("number_small", rule=f"({alt_digits} | {alt_teens} | {alt_tens} [{alt_digits}])")
-def number_small(m): 
-    return int(parse_number(list(m)))
+@ctx.capture("number_small", rule="{user.number_small}")
+def number_small(m) -> int:
+    return number_small_map[m.number_small]
 
 
 @mod.capture(rule="<user.number_string> point <user.number_string>")
