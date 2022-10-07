@@ -9,3 +9,9 @@ leading, leading
 trailing, trailing
 content, keepContentFilter
 empty, keepEmptyFilter
+backward, backward
+every, every
+first, first
+last, last
+next, next
+previous, previous
