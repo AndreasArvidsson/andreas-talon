@@ -7,6 +7,7 @@ tag(): user.tabs
 tag(): user.find
 tag(): user.comments
 tag(): user.cursorless_experimental_snippets
+tag(): user.cursorless_custom_number_small
 
 settings():
     user.scroll_speed_multiplier = 1.25
