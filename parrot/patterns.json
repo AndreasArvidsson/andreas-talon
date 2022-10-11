@@ -16,11 +16,12 @@
             "cluck"
         ],
         "threshold": {
-            ">power": 50,
+            ">power": 35,
             ">probability": 0.99
         },
         "throttle": {
-            "cluck": 0.2
+            "cluck": 0.2,
+            "pop": 0.2
         }
     },
     "hiss": {

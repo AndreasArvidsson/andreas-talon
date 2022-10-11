@@ -1,9 +1,9 @@
 not mode: sleep
 -
 
-# parrot(pop):
-#     user.debug("pop {power}")
-#     user.noise_pop()
+parrot(pop):
+    user.debug("pop {power}")
+    user.noise_pop()
 
 parrot(cluck):
     user.debug("cluck {power}")

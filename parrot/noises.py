@@ -99,8 +99,8 @@ callbacks["hiss"] = on_hiss
 
 def on_pop(_: bool):
     if actions.speech.enabled() and time.perf_counter() >= pop_throttle:
-        actions.user.debug("pop")
+        actions.user.debug(f"pop {time.perf_counter() - pop_throttle}")
         actions.user.noise_pop()
 
 
-noise.register("pop", on_pop)
+# noise.register("pop", on_pop)
