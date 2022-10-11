@@ -27,11 +27,12 @@ class Actions:
 
     def talon_wake():
         """Wake Talon from sleep"""
+        # Removes current data in the audio buffer
+        actions.sound.set_microphone("None")
         actions.speech.enable()
         actions.user.mouse_wake()
         actions.user.notify("Talon awake")
-        if not actions.user.sound_microphone_enabled():
-            actions.user.sound_microphone_enable(True)
+        actions.sound.set_microphone("System Default")
 
     def talon_wake_on_pop():
         """Use pop sound to wake from sleep"""

@@ -60,7 +60,6 @@
         },
         "throttle": {
             "pop": 0.3,
-            "cluck": 0.3,
             "shush": 0.3,
             "hiss": 0.3
         }
