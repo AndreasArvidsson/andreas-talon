@@ -21,13 +21,13 @@ class Actions:
         try:
             meta = phrase["_metadata"]
 
-            actions.user.persist_append(
-                "phrase",
-                {
-                    "application": actions.app.name(),
-                    **{k: v for k, v in meta.items() if k not in blacklist},
-                },
-            )
+            # actions.user.persist_append(
+            #     "phrase",
+            #     {
+            #         "application": actions.app.name(),
+            #         **{k: v for k, v in meta.items() if k not in blacklist},
+            #     },
+            # )
 
             if settings_log.get():
                 status = f"[audio]={meta['audio_ms']:.3f}ms "
