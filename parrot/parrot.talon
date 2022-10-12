@@ -7,7 +7,6 @@ parrot(pop):
 
 parrot(cluck):
     user.debug("cluck {power}")
-    # user.noise_throttle_pop(0.5) TODO
     user.noise_cluck()
 
 parrot(shush):              user.noise_debounce("shush", 1)
