@@ -1,9 +1,8 @@
 from talon import Module, Context
+import time
 
 mod = Module()
-setting = mod.setting("abort_phrase", type=str)
 
-mod = Module()
 ctx_en = Context()
 
 ctx_sv = Context()
@@ -16,15 +15,32 @@ abort_phrases = ["cancel", "avbryt"]
 ctx_en.lists["self.abort_phrase"] = {abort_phrases[0]}
 ctx_sv.lists["self.abort_phrase"] = abort_phrases
 
+ts_threshold = None
+
 
 @mod.action_class
 class Actions:
+    def abort_current_phrase():
+        """Abort current phrase"""
+        global ts_threshold
+        ts_threshold = time.perf_counter()
+
     def abort_phrase(phrase: dict, words: list[str]) -> tuple[bool, str]:
         """Abort current spoken phrase"""
+        global ts_threshold
+
+        if ts_threshold is not None:
+            is_aborted = phrase["_ts"] < ts_threshold
+            ts_threshold = None
+            if is_aborted:
+                phrase["parsed"]._sequence = []
+                return True, ""
+
         for abort_phrase in abort_phrases:
             if words[-1] == abort_phrase:
                 phrase["parsed"]._sequence = []
                 if len(words) > 1:
                     return True, f"... {abort_phrase}"
                 return True, abort_phrase
+
         return False, " ".join(words)
