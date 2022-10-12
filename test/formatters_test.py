@@ -2,6 +2,7 @@ from talon import actions
 
 input_raw = "why? and it's nice!"
 input_raw_numbers = "why? and it's nice 123.0!"
+import_unicode = "Hej på dig åäö"
 
 fixtures_format = [
     # Simple formatters
@@ -25,13 +26,18 @@ fixtures_format = [
     ["DOUBLE_UNDERSCORE", input_raw, "why?and__its__nice!"],
     ["DOUBLE_COLON_SEPARATED", input_raw, "why?and::its::nice!"],
     ["NO_SPACES", input_raw, "why?anditsnice!"],
-    # More tests with special characters
+    # Symbols
     ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "why?andItsNice123.0!"],
     ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why?and_its_nice_123.0!"],
+    # Unicode characters
+    ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
+    ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],
 ]
 
-input_snake = "hello_there.my_ip_address_2_x_3"
 input_camel = "helloThere.myIPAddress2x3"
+input_snake = "hello_there.my_ip_address_2_x_3"
+input_camel_unicode = "hejPåDigÅäö"
+input_snake_unicode = "hej_på_dig_åäö"
 output_raw = "hello there my ip address 2 x 3"
 
 fixtures_reformat = [
@@ -40,6 +46,8 @@ fixtures_reformat = [
     ["Unformat camel", "REMOVE_FORMATTING", input_camel, output_raw],
     ["Snake to camel", "CAMEL_CASE", input_snake, "helloThereMyIpAddress2x3"],
     ["Camel to snake", "SNAKE_CASE", input_camel, "hello_there_my_ip_address_2_x_3"],
+    # ["Camel to snake unicode", "SNAKE_CASE", input_camel_unicode, input_snake_unicode], TODO
+    ["Snake to camel unicode", "CAMEL_CASE", input_snake_unicode, input_camel_unicode],
 ]
 
 

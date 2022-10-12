@@ -175,6 +175,7 @@ class Actions:
 
     def de_camel(text: str) -> str:
         """Replacing camelCase boundaries with blank space"""
+        # TODO Support unicode splitting camel case
         return re.sub(
             r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])",
             " ",
@@ -200,7 +201,7 @@ def format_delim(
     # Strip apostrophes and quotes
     text = re.sub(r"['`\"]+", "", text)
     # Split on anything that is not alpha-num
-    words = re.split(r"([^a-zA-Z0-9]+)", text)
+    words = re.split(r"([^\w\d]+)", text)
     groups = []
     group = []
     first = True
@@ -212,7 +213,7 @@ def format_delim(
         if bool(re.match(r"\d+", word)):
             first = True
         # Word is symbol
-        elif bool(re.match(r"[^a-zA-Z]+", word)):
+        elif bool(re.match(r"\W+", word)):
             groups.append(delimiter.join(group))
             word = word.strip()
             first = True
