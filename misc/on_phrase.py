@@ -2,8 +2,6 @@ from talon import speech_system, actions
 
 
 def on_phrase(phrase):
-    global ts_threshold
-
     if not actions.speech.enabled():
         return
 
