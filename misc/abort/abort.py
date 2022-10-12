@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Module, Context, actions
 import time
 
 mod = Module()
@@ -30,9 +30,10 @@ class Actions:
         global ts_threshold
 
         if ts_threshold is not None:
-            is_aborted = phrase["_ts"] < ts_threshold
+            delta = ts_threshold - phrase["_ts"]
             ts_threshold = None
-            if is_aborted:
+            if delta > 0:
+                actions.user.debug(f"Aborted phrase. {delta:.2f}s")
                 phrase["parsed"]._sequence = []
                 return True, ""
 
