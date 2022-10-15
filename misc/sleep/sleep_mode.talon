@@ -2,7 +2,7 @@ mode: sleep
 -
 
 settings():
-    speech.timeout = 0.01
+    speech.timeout = 0.1
 
 parrot(cluck):
     user.debug("Talon wake parrot noise. Power: {power}")
