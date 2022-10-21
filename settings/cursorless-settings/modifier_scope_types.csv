@@ -4,7 +4,7 @@ attribute, attribute
 block, paragraph
 call, functionCall
 cell, notebookCell
-car | cars, character
+car, character
 class, class
 class name, className
 comment, comment
@@ -29,7 +29,7 @@ tags, xmlBothTags
 token, token
 type, type
 value, value
-word | words, word
+word, word
 condition, condition
 long paint, nonWhitespaceSequence
 paint, boundedNonWhitespaceSequence
