@@ -3,25 +3,33 @@ arg, argumentOrParameter
 attribute, attribute
 block, paragraph
 call, functionCall
-cell, notebookCell
+callee, functionCallee
 car, character
-class, class
+cell, notebookCell
 class name, className
+class, class
 comment, comment
+condition, condition
 element, xmlElement
 end tag, xmlEndTag
 file, document
-funk, namedFunction
 funk name, functionName
+funk, namedFunction
+id, identifier
 if state, ifStatement
 item, collectionItem
 key, collectionKey
 lambda, anonymousFunction
 line, line
 list, list
+location, url
+long paint, nonWhitespaceSequence
 map, map
 name, name
+paint, boundedNonWhitespaceSequence
 regex, regularExpression
+section, section
+selector, selector
 start tag, xmlStartTag
 state, statement
 string, string
@@ -30,25 +38,18 @@ token, token
 type, type
 value, value
 word, word
-condition, condition
-long paint, nonWhitespaceSequence
-paint, boundedNonWhitespaceSequence
-location, url
-callee, functionCallee
-selector, selector
-section, section
 
+-chapter, chapter
+-environment, environment
 -five section, sectionLevelFive
 -four section, sectionLevelFour
 -one section, sectionLevelOne
--six section, sectionLevelSix
--three section, sectionLevelThree
--two section, sectionLevelTwo
--chapter, chapter
--environment, environment
 -paragraph, namedParagraph
 -part, part
+-six section, sectionLevelSix
 -subparagraph, subParagraph
 -subsection, subSection
 -subsubsection, subSubSection
+-three section, sectionLevelThree
+-two section, sectionLevelTwo
 -unit, unit
