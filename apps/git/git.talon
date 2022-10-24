@@ -69,6 +69,7 @@ git push tags:              "git push --tags\n"
 
 git stash:                  "git stash "
 git stash show:             "git stash show\n"
+git stash list:             "git stash list\n"
 git stash pop:              "git stash pop"
 
 git merge quit:
