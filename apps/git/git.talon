@@ -15,6 +15,7 @@ git branch deli:            "git branch -d "
 git clone:                  "git clone "
 git cherry pick:            "git cherry-pick "
 git rebase:                 "git rebase "
+git revert:                 "git revert "
 
 git merge:                  "git merge "
 git merge {user.git_branch}:
