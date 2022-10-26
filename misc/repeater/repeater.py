@@ -4,7 +4,7 @@ mod = Module()
 last_command = None
 
 
-@mod.capture(rule="twice | trice | <number_small> times")
+@mod.capture(rule="twice | trice | <number_small> (times | ex)")
 def repeater_phrase(m) -> int:
     """Repeater string. Returns an integer for number of times to repeat"""
     if m[0] == "twice":
