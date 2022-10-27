@@ -141,8 +141,6 @@ git commit [<user.text>]:
     "{text}"
 
 # Folding
-fold this:                  user.vscode("editor.fold")
-unfold this:                user.vscode("editor.unfold")
 fold recursive:             user.vscode("editor.foldRecursively")
 unfold recursive:           user.vscode("editor.unfoldRecursively")
 fold all:                   user.vscode("editor.foldAll")
