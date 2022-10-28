@@ -13,7 +13,7 @@ title: /Links - /
 class EditActions:
     def paste():
         actions.next()
-        actions.sleep("300ms")
+        actions.sleep("400ms")
         actions.edit.line_insert_down()
         actions.edit.line_insert_down()
         actions.user.tab_back()
