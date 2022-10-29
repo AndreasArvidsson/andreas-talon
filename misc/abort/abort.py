@@ -11,8 +11,8 @@ language: sv
 """
 
 mod.list("abort_phrase", desc="Phrase used to abort Talon commands")
-abort_phrases = ["cancel", "avbryt"]
-ctx_en.lists["self.abort_phrase"] = {abort_phrases[0]}
+abort_phrases = ["cancel", "canceled", "avbryt"]
+ctx_en.lists["self.abort_phrase"] = abort_phrases[:2]
 ctx_sv.lists["self.abort_phrase"] = abort_phrases
 
 ts_threshold = None

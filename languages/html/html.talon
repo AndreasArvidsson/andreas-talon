@@ -17,7 +17,7 @@ tag <user.text>:
 closed tag {user.code_tag}: "<{code_tag}/>"
 closed tag <user.text>:     "<{text}/>"
 
-close tag:                  user.code_close_tag()
+close tag | tag close:      user.code_close_tag()
 
 attr <user.text>:
     user.insert_snippet(" {text}=$0")
