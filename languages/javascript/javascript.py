@@ -56,6 +56,7 @@ javascript_inserts = merge(
         "nullish": " ?? ",
         "instance of": " instanceof ",
         "type of": "typeof ",
+        "yield": "yield ",
     },
 )
 ctx.lists["self.code_insert"] = javascript_inserts
