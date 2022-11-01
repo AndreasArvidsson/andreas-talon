@@ -2,13 +2,13 @@ settings():
     # Speech timeout
     speech.timeout = 0.400
     # Record speech
-    # speech.record_all = 1
+    speech.record_all = 1
 
     # Log timing statistics for spoken phrases
     user.timings_log = 0
 
     # Set log level
-    # user.log_level = "debug"
+    user.log_level = "debug"
 
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas-talon/settings/cursorless-settings"
