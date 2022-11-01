@@ -13,12 +13,6 @@ head:                       edit.line_start()
 tail:                       edit.line_end()
 center:                     user.line_middle()
 
-# TODO
-# up [<number_small>]:        user.up(number_small or 1)
-# down [<number_small>]:      user.down(number_small or 1)
-# left [<number_small>]:      user.left(number_small or 1)
-# right [<number_small>]:     user.right(number_small or 1)
-
 up:                         edit.up()
 down:                       edit.down()
 left:                       edit.left()
