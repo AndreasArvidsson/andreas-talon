@@ -175,7 +175,7 @@ class Actions:
 
     def de_camel(text: str) -> str:
         """Replacing camelCase boundaries with blank space"""
-        # TODO Support unicode splitting camel case
+        # TODO: Support unicode splitting camel case
         return re.sub(
             r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])",
             " ",

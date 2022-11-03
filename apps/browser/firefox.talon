@@ -45,7 +45,7 @@ rango direct:
 copy address:
     user.rango_command_without_target("copyLocationProperty", "href")
 
-# TODO Remove as soon as rango has proper extension side settings
+# TODO: Remove as soon as rango has proper extension side settings
 hint bigger:
     user.rango_command_without_target("increaseHintSize")
 hint smaller:
