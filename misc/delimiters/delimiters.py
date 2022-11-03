@@ -5,7 +5,6 @@ ctx = Context()
 
 # fmt: off
 
-mod.list("delimiter_pair", desc="List of matching pair delimiters")
 matching_pairs = {
     "round":    ["(", ")"],
     "index":    ["[", "]"],
@@ -16,21 +15,16 @@ matching_pairs = {
     "string":   ['"', '"'],
     "skis":     ['`', '`'],
 }
-ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
 
-matching_pairs_wrap = {
-    "quad":     ['"', '"'],
-    "square":   ["[", "]"],
-    "angle":    ["<", ">"],
+matching_pairs_all = {
+    **matching_pairs,
     "void":     [" ", " "],
 }
 
 # fmt: on
 
-matching_pairs_all = {
-    **matching_pairs,
-    **matching_pairs_wrap,
-}
+ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
+mod.list("delimiter_pair", desc="List of matching pair delimiters")
 
 mod.list(
     "delimiter_pair_wrap",
