@@ -47,8 +47,8 @@ mod.list("formatter_code", desc="List of code formatters")
 ctx.lists["self.formatter_code"] = {
     "upper": "ALL_CAPS",
     "lower": "ALL_LOWERCASE",
-    "string": "DOUBLE_QUOTED_STRING",
-    "twin": "SINGLE_QUOTED_STRING",
+    # "string": "DOUBLE_QUOTED_STRING",
+    # "twin": "SINGLE_QUOTED_STRING",
     # Splitting formatters
     "title": "CAPITALIZE_ALL_WORDS",
     "camel": "CAMEL_CASE",
@@ -67,8 +67,8 @@ mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
     "say": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
-    "string sentence": "DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
-    "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
+    # "string sentence": "DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
+    # "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
 }
 
 
