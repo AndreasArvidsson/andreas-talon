@@ -57,7 +57,14 @@ def cycle_windows(app: ui.App, diff: int):
     windows = list(
         filter(lambda w: w == active or (not w.hidden and w.title != ""), app.windows())
     )
+    windows.sort(key=lambda w: w.id)
     current = windows.index(active)
+
+    # TODO: window focus
+    # print("")
+    # for w in windows:
+    #     print(w.hidden, w.id, w.rect, w.title)
+
     max = len(windows) - 1
     i = actions.user.cycle(current + diff, 0, max)
     while i != current:
