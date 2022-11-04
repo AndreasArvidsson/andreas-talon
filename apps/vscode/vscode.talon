@@ -119,6 +119,9 @@ pop sibling:
 # Git
 git open file:              user.git_open_remote_file_url()
 git copy file:              user.git_copy_remote_file_url()
+git issues:                 user.git_open_url("Issues")
+git new issue:              user.git_open_url("NewIssue")
+git pull requests:          user.git_open_url("PullRequests")
 git changes:                user.vscode("git.openChange")
 git changed files:          user.vscode("git.openAllChanges")
 git add all:                user.vscode("git.stageAll")

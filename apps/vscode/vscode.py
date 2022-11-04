@@ -301,15 +301,21 @@ class Actions:
 
     def git_open_remote_file_url(line_number: bool = False):
         """Open remote git file in browser"""
-        url = actions.user.vscode_get("andreas.getGitURL", line_number)
+        url = actions.user.vscode_get("andreas.getGitFileURL", line_number)
         if url:
             actions.user.browser_open(url)
 
     def git_copy_remote_file_url(line_number: bool = False):
         """Copy remote git file URL to clipboard"""
-        url = actions.user.vscode_get("andreas.getGitURL", line_number)
+        url = actions.user.vscode_get("andreas.getGitFileURL", line_number)
         if url:
             actions.clip.set_text(url)
+
+    def git_open_url(command: str):
+        """Open remote repository in browser"""
+        url = actions.user.vscode_get(f"andreas.getGit{command}URL")
+        if url:
+            actions.user.browser_open(url)
 
     def git_copy_markdown_remote_file_url(targets: list[dict]):
         """Copy remote git file URL to clipboard as markdown link"""
@@ -329,7 +335,7 @@ class Actions:
         if len(targets) == 1:
             text = actions.edit.selected_text()
 
-        url = actions.user.vscode_get("andreas.getGitURL", line_number)
+        url = actions.user.vscode_get("andreas.getGitFileURL", line_number)
         if url and text:
             actions.clip.set_text(f"[`{text}`]({url})")
 
