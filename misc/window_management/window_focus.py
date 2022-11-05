@@ -72,7 +72,9 @@ def cycle_windows(app: ui.App, diff: int):
     # print("----------")
     # import win32gui
     # for w in app.windows():
-    #     print(f"'{w.title}'", w.hidden, win32gui.IsWindowVisible(w.id) == 0, w.rect)
+    #     hidden = f"{w.hidden}/{win32gui.IsWindowVisible(w.id) == 0}"
+    #     dimensions = f"{w.rect.width}/{w.rect.height}"
+    #     print(f"'{w.title}'", hidden, dimensions)
     # print("")
 
     max = len(windows) - 1
