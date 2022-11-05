@@ -56,13 +56,13 @@ def cycle_windows(app: ui.App, diff: int):
     active = ui.active_window()
     windows = list(
         filter(
-            lambda w: w == active
-            or (
-                not w.hidden
-                and w.title != ""
-                and w.rect.width > w.screen.dpi
-                and w.rect.height > w.screen.dpi
-            ),
+            # lambda w: w == active
+            # or (
+            lambda w: not w.hidden
+            and w.title != ""
+            and w.rect.width > w.screen.dpi
+            and w.rect.height > w.screen.dpi,
+            # ),
             app.windows(),
         )
     )
@@ -70,8 +70,9 @@ def cycle_windows(app: ui.App, diff: int):
     current = windows.index(active)
 
     # print("----------")
-    # for w in windows:
-    #     print(w.title, w.rect)
+    # import win32gui
+    # for w in app.windows():
+    #     print(f"'{w.title}'", w.hidden, win32gui.IsWindowVisible(w.id) == 0, w.rect)
     # print("")
 
     max = len(windows) - 1
