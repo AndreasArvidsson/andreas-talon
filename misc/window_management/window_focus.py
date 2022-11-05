@@ -55,15 +55,24 @@ def update_overrides(csv_dict: dict):
 def cycle_windows(app: ui.App, diff: int):
     active = ui.active_window()
     windows = list(
-        filter(lambda w: w == active or (not w.hidden and w.title != ""), app.windows())
+        filter(
+            lambda w: w == active
+            or (
+                not w.hidden
+                and w.title != ""
+                and w.rect.width > w.screen.dpi
+                and w.rect.height > w.screen.dpi
+            ),
+            app.windows(),
+        )
     )
     windows.sort(key=lambda w: w.id)
     current = windows.index(active)
 
-    # TODO: window focus
-    # print("")
+    # print("----------")
     # for w in windows:
-    #     print(w.hidden, w.id, w.rect, w.title)
+    #     print(w.title, w.rect)
+    # print("")
 
     max = len(windows) - 1
     i = actions.user.cycle(current + diff, 0, max)
