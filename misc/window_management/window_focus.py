@@ -142,7 +142,7 @@ class Actions:
         t1 = time.monotonic()
         while ui.active_window() != window:
             if time.monotonic() - t1 > 1:
-                raise RuntimeError(f"Can't focus window: {window.title}")
+                raise RuntimeError(f"Can't focus window '{window.title}'")
             actions.sleep("50ms")
 
     def get_app(name: str) -> ui.App:
@@ -159,7 +159,7 @@ class Actions:
 
         # No application found for either name
         if not apps:
-            raise RuntimeError(f'App not running: "{name}"')
+            raise RuntimeError(f"App '{name}' not running")
 
         # Multiple hits on this application. Filter out applications with invalid active window
         if len(apps) > 1:
