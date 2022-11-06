@@ -56,29 +56,15 @@ def cycle_windows(app: ui.App, diff: int):
     active = ui.active_window()
     windows = list(
         filter(
-            lambda w: w == active
-            or (
-                not w.hidden
-                and w.title != ""
-                and w.rect.width > w.screen.dpi
-                and w.rect.height > w.screen.dpi
-            ),
+            lambda w: w == active or is_valid_window(w),
             app.windows(),
         )
     )
     windows.sort(key=lambda w: w.id)
     current = windows.index(active)
-
-    # print("----------")
-    # import win32gui
-    # for w in app.windows():
-    #     hidden = f"{w.hidden}/{win32gui.IsWindowVisible(w.id) == 0}"
-    #     dimensions = f"{w.rect.width}/{w.rect.height}"
-    #     print(f"'{w.title}'", hidden, dimensions)
-    # print("")
-
     max = len(windows) - 1
     i = actions.user.cycle(current + diff, 0, max)
+
     while i != current:
         try:
             actions.user.focus_window(windows[i])
@@ -161,14 +147,38 @@ class Actions:
 
     def get_app(name: str) -> ui.App:
         """Get application by name"""
-        for app in ui.apps(background=False):
-            if app.name == name:
-                return app
-        parsed_name = parse_name(name)
-        for app in ui.apps(background=False):
-            if parse_name(app.name) == parsed_name:
-                return app
-        raise RuntimeError(f'App not running: "{name}"')
+        all_apps = ui.apps(background=False)
+
+        # First try to get application by default name
+        apps = list(filter(lambda app: app.name == name, all_apps))
+
+        # Second try to get application by alternative name
+        if not apps:
+            alt_name = parse_name(name)
+            apps = list(filter(lambda app: app.name == alt_name, all_apps))
+
+        # No application found for either name
+        if not apps:
+            raise RuntimeError(f'App not running: "{name}"')
+
+        # Multiple hits on this application. Filter out applications with invalid active window
+        if len(apps) > 1:
+            apps2 = list(filter(lambda app: is_valid_window(app.active_window), apps))
+            if apps2:
+                return apps2[0]
+
+        # Finally just pick the first application
+        if apps:
+            return apps[0]
+
+
+def is_valid_window(window: ui.Window) -> bool:
+    return (
+        not window.hidden
+        and window.title != ""
+        and window.rect.width > window.screen.dpi
+        and window.rect.height > window.screen.dpi
+    )
 
 
 @imgui.open(numbered=True)
