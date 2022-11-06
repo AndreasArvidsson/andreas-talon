@@ -56,13 +56,12 @@ def cycle_windows(app: ui.App, diff: int):
     active = ui.active_window()
     windows = list(
         filter(
-            # lambda w: w == active
-            # or (
-            lambda w: not w.hidden
-            and w.title != ""
-            and w.rect.width > w.screen.dpi
-            and w.rect.height > w.screen.dpi,
-            # ),
+            lambda w: (
+                not w.hidden
+                and w.title != ""
+                and w.rect.width > w.screen.dpi
+                and w.rect.height > w.screen.dpi
+            ),
             app.windows(),
         )
     )
