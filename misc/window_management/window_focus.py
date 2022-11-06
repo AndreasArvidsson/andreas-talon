@@ -53,7 +53,7 @@ def update_overrides(csv_dict: dict):
 
 
 def cycle_windows(app: ui.App, diff: int):
-    active = ui.active_window()
+    active = app.active_window
     windows = list(
         filter(
             lambda w: w == active or is_valid_window(w),
