@@ -15,6 +15,15 @@ class Actions:
         """Use developed folder of cursorless-talon"""
         switch_folder(f"{actions.path.user_home()}\\cursorless\\cursorless-talon")
 
+    def cursorless_browser_open_target(target: dict):
+        """Search for target text in browser"""
+        texts = actions.user.cursorless_single_target_command_get(
+            "getText",
+            target,
+        )
+        text = " + ".join(texts)
+        actions.user.browser_open(text)
+
 
 def switch_folder(target: str):
     link = f"{actions.path.talon_user()}\\cursorless-talon"

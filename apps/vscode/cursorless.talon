@@ -69,6 +69,9 @@ break line <user.cursorless_target>:
     user.cursorless_command("setSelectionBefore", cursorless_target)
     key("enter")
 
+search for <user.cursorless_target>:
+    user.cursorless_browser_open_target(cursorless_target)
+
 {user.key_symbol} wrap <user.cursorless_target>:
     delimiters = user.as_list(key_symbol, key_symbol)
     user.cursorless_single_target_command_with_arg_list("wrapWithPairedDelimiter", cursorless_target, delimiters)
