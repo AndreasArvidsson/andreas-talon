@@ -119,6 +119,7 @@ pop sibling:
 # Git
 git open file:              user.git_open_remote_file_url()
 git copy file:              user.git_copy_remote_file_url()
+git repo:                   user.git_open_url("Repo")
 git issues:                 user.git_open_url("Issues")
 git new issue:              user.git_open_url("NewIssue")
 git pull requests:          user.git_open_url("PullRequests")
@@ -130,6 +131,7 @@ git pull:                   user.vscode("git.pull")
 git push:                   user.vscode("git.push")
 git push tags:              user.vscode("git.pushTags")
 git open:                   user.vscode("git.openFile")
+git merge:                  user.vscode("git.merge")
 git checkout {user.git_branch}: user.git_find_branch(git_branch)
 git checkout [<user.text>]: user.git_find_branch(text or "")
 git checkout branch [<user.text>]:
