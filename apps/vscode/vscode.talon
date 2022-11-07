@@ -243,7 +243,7 @@ trim trailing:              user.vscode("editor.action.trimTrailingWhitespace")
 inspect scope:              user.vscode("editor.action.inspectTMScopes")
 disk raw:                   user.save_without_formatting()
 disk files:                 user.vscode("workbench.action.files.saveFiles")
-undo everything:            user.vscode("andreas.undoUntilNotDirty")
+revert everything:          user.vscode("workbench.action.files.revert")
 copy command id:            user.copy_command_id()
 generate range [from <number_small>]:
     user.vscode("andreas.generateRange", number_small or 1)
