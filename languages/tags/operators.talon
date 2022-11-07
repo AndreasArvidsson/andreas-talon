@@ -26,8 +26,8 @@ is less [or] equal:         user.op_less_or_eq()
 is greater [or] equal:      user.op_greater_or_eq()
 is not:                     user.op_not()
 
-is null:                    user.op_equal_null()
-is not null:                user.op_not_equal_null()
+is [equal] null:            user.op_equal_null()
+is not [equal] null:        user.op_not_equal_null()
 
 # ----- Logical operators -----
 op and:                     user.op_and()
