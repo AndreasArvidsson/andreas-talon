@@ -406,7 +406,7 @@ class Actions:
 
     def find_sibling_file():
         """Find sibling file based on file name"""
-        full_name = actions.user.vscode_get("andreas.getFileName")
+        full_name = actions.user.vscode_get("andreas.getFilename")
         index = full_name.rfind(".")
         if index < 0:
             return

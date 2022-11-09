@@ -105,7 +105,7 @@ file copy relative:
     user.vscode("copyRelativeFilePath")
     user.clipboard_manager_update()
 file copy name:
-    name = user.vscode_get("andreas.getFileName")
+    name = user.vscode_get("andreas.getFilename")
     clip.set_text(name)
 file clone:                 user.vscode("fileutils.duplicateFile")
 file rename:                user.vscode("fileutils.renameFile")
