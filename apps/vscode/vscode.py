@@ -199,7 +199,7 @@ class UserActions:
         vscode("workbench.action.lastEditorInGroup")
 
     def tab_jump(number: int):
-        vscode("workbench.action.openEditorAtIndex", number - 1)
+        vscode("andreas.openEditorAtIndex", number - 1)
 
     def tab_jump_from_back(number: int):
         vscode("andreas.openEditorAtIndex", -number)
