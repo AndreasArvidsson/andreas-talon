@@ -133,6 +133,10 @@ git create tag:             user.vscode("git.createTag")
 git push tags:              user.vscode("git.pushTags")
 git open:                   user.vscode("git.openFile")
 git merge:                  user.vscode("git.merge")
+git merge {user.git_branch}:
+    user.vscode("git.merge")
+    sleep(50ms)
+    "{git_branch}"
 git checkout {user.git_branch}: user.git_find_branch(git_branch)
 git checkout [<user.text>]: user.git_find_branch(text or "")
 git checkout branch [<user.text>]:
