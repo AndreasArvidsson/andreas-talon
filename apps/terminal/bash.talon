@@ -11,6 +11,8 @@ list:                       "ls\n"
 list all:                   "ls -a\n"
 list long:                  "ls -lah\n"
 list long pipe:             "ls -lah | "
+list tree files:            "cmd //c tree //f\n"
+list tree folders:          "cmd //c tree\n"
 
 history:                    "history "
 history tail:               "history | tail\n"
