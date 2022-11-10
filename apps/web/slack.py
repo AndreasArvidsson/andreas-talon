@@ -8,7 +8,7 @@ mod = Module()
 
 mod.apps.slack = """
 tag: browser
-and title: /^Slack \\|/
+and title: / - Slack - /
 """
 
 ctx.matches = """
