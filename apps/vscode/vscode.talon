@@ -117,8 +117,10 @@ pop sibling:
     key(enter)
 
 # Git
-git open file:              user.git_open_remote_file_url()
-git copy file:              user.git_copy_remote_file_url()
+git open file:              user.git_open_remote_file_url(0, 0)
+git copy file:              user.git_copy_remote_file_url(0, 0)
+git open branch:            user.git_open_remote_file_url(0, 1)
+git copy branch:            user.git_copy_remote_file_url(0, 1)
 git repo:                   user.git_open_url("Repo")
 git issues:                 user.git_open_url("Issues")
 git new issue:              user.git_open_url("NewIssue")

@@ -299,15 +299,21 @@ class Actions:
         if sleep:
             actions.sleep("150ms")
 
-    def git_open_remote_file_url(line_number: bool = False):
+    def git_open_remote_file_url(use_selection: bool, use_branch: bool):
         """Open remote git file in browser"""
-        url = actions.user.vscode_get("andreas.getGitFileURL", line_number)
+        url = actions.user.vscode_get(
+            "andreas.getGitFileURL",
+            {"useSelection": use_selection, "useBranch": use_branch},
+        )
         if url:
             actions.user.browser_open(url)
 
-    def git_copy_remote_file_url(line_number: bool = False):
+    def git_copy_remote_file_url(use_selection: bool, use_branch: bool):
         """Copy remote git file URL to clipboard"""
-        url = actions.user.vscode_get("andreas.getGitFileURL", line_number)
+        url = actions.user.vscode_get(
+            "andreas.getGitFileURL",
+            {"useSelection": use_selection, "useBranch": use_branch},
+        )
         if url:
             actions.clip.set_text(url)
 
@@ -319,14 +325,15 @@ class Actions:
 
     def git_copy_markdown_remote_file_url(targets: list[dict]):
         """Copy remote git file URL to clipboard as markdown link"""
-        line_number = False
+        use_selection = False
+
         # The second target is optional and is used for getting the text
         if len(targets) == 2:
             texts = actions.user.cursorless_single_target_command_get(
                 "getText", targets[1]
             )
             text = "".join(texts)
-            line_number = True
+            use_selection = True
 
         # The first target is the source of the git url
         actions.user.cursorless_command("setSelection", targets[0])
@@ -335,7 +342,10 @@ class Actions:
         if len(targets) == 1:
             text = actions.edit.selected_text()
 
-        url = actions.user.vscode_get("andreas.getGitFileURL", line_number)
+        url = actions.user.vscode_get(
+            "andreas.getGitFileURL",
+            {"useSelection": use_selection, "useBranch": False},
+        )
         if url and text:
             actions.clip.set_text(f"[`{text}`]({url})")
 
