@@ -6,7 +6,7 @@ key(keypad_divide:up):      user.foot_switch_up(0)
 key(keypad_multiply:down):  user.foot_switch_down(1)
 key(keypad_multiply:up):    user.foot_switch_up(1)
 
-# # button
+# Left button
 key(keypad_minus:down):     user.foot_switch_down(2)
 key(keypad_minus:up):       user.foot_switch_up(2)
 
