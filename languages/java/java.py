@@ -62,6 +62,7 @@ ctx.lists["self.code_insert"] = merge(
         "implements": "implements ",
         "class": "class ",
         "void": "void ",
+        "throw": "throw ",
     },
 )
 ctx.lists["self.code_snippet"] = {
