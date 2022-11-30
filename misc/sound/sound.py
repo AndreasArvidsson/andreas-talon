@@ -49,6 +49,7 @@ os: windows
 ctx_win.lists["self.playback_device"] = [
     "Headphones",
     "Speakers",
+    "TV",
 ]
 
 ctx_win.lists["self.microhpone_device"] = {
