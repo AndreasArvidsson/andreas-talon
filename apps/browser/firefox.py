@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+import re
 
 mod = Module()
 ctx = Context()
@@ -46,9 +47,19 @@ ctx.lists["user.rango_without_target_action"] = {
     "downer again": "scrollDownAtElement",
 }
 
+url_pattern = re.compile(r"https?://\S+")
+
 
 @ctx.action_class("browser")
 class BrowserActions:
+    def address() -> str:
+        # Rango adds address to window title
+        title = actions.win.title()
+        match = re.search(url_pattern, title)
+        if match:
+            return match.group()
+        return ""
+
     def open_private_window():
         actions.key("ctrl-shift-p")
 
