@@ -20,6 +20,7 @@ scout next:                 edit.find_next()
 
 scout hide:
     edit.find("")
+    sleep(100ms)
     key(escape)
 
 replace confirm:            user.find_replace_confirm()
