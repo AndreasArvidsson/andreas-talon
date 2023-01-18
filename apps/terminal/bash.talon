@@ -28,7 +28,10 @@ tail <number_small>:        "tail -{number_small}"
 watch talon log:            "tail -f {user.talon_home()}/talon.log\n"
 
 print dir:                  "pwd\n"
-copy dir:                   "pwd | clipboard\n"
+copy dir:
+    "pwd | clipboard\n"
+    sleep(500ms)
+    user.clipboard_manager_update()
 
 tar create:                 "tar -czvf "
 tar extractf:               "tar -xzvf "
