@@ -50,7 +50,7 @@ os: windows
 class AppActionsWin:
     def window_hide():
         actions.key("alt-space")
-        actions.sleep("50ms")
+        actions.sleep("100ms")
         actions.key("n")
 
 
