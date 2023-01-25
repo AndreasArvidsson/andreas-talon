@@ -8,7 +8,7 @@
             ">probability": 0.98
         },
         "throttle": {
-            "pop": 0.1
+            "pop": 0.2
         }
     },
     "cluck": {
@@ -20,7 +20,8 @@
             ">probability": 0.99
         },
         "throttle": {
-            "cluck": 0.2
+            "cluck": 0.2,
+            "pop": 0.2
         }
     },
     "hiss": {
