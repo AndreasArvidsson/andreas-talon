@@ -5,12 +5,6 @@ mode: user.diablo_III
     mode.disable("user.diablo_III")
     mode.enable("command")
 
+{user.key_diablo3}:         key(key_diablo3)
 
-parrot(pop):                user.diablo_primary_attack()
-parrot(cluck):              mouse_click(1)
-parrot(tsk):                key(w)
-
-# parrot(shush):              print("shush")
-# parrot(hiss):               print("hiss")
-
-{user.letter}:              key(letter)
+press <user.key_any>:       key(key_any)

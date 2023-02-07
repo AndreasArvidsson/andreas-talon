@@ -15,48 +15,76 @@ ctx.matches = r"""
 mode: user.diablo_III
 """
 
+mod.list("key_diablo3", desc="Diablo 3 keybindings")
+ctx.lists["self.key_diablo3"] = {
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "potion": "space",
+    "town portal": "t",
+    "move": "w",
+    "banner": "g",
+    "inventory": "i",
+    "skills": "s",
+    "quests": "q",
+    "journal": "j",
+    "follower": "f",
+    "map": "tab",
+    "world": "m",
+    "zoom": "z",
+    "paragon": "p",
+}
+
 attack_stand = False
 attack_continuous = False
 
 timestamps = {}
 
 
-def primary_attack():
+def attack(key: int):
     """Primary attack in diablo"""
     if attack_stand:
         actions.key("shift:down")
 
     if attack_continuous:
-        actions.mouse_drag(0)
+        actions.mouse_drag(key)
     else:
-        actions.mouse_click(0)
+        actions.mouse_click(key)
 
     if attack_stand:
         actions.key("shift:up")
 
 
-@mod.action_class
-class Actions:
-    def diablo_primary_attack():
-        """Primary attack in diablo"""
-        global attack_continuous
-        attack_continuous = False
-        primary_attack()
-
-
 @ctx.action_class("user")
 class UserActions:
+    def noise_pop():
+        global attack_continuous
+        attack_continuous = False
+        actions.mouse_release(1)
+        attack(0)
 
-    # def noise_hiss_start():
-    #     # print("noise_hiss_start")
-    #     # global attack_continuous
-    #     # attack_continuous = True
-    #     # primary_attack()
-    #     pass
+    def noise_cluck():
+        global attack_continuous
+        attack_continuous = False
+        actions.mouse_release(0)
+        attack(1)
+
+    def noise_hiss_start():
+        global attack_continuous
+        attack_continuous = True
+        attack(0)
 
     # def noise_hiss_stop():
-    #     # print("noise_hiss_stop")
-    #     pass
+    #     actions.user.mouse_stop()
+
+    def noise_shush_start():
+        global attack_continuous
+        attack_continuous = True
+        attack(1)
+
+    # def noise_shush_stop():
+    #     actions.user.mouse_stop()
 
     def foot_switch_top_down():
         print("Top down")

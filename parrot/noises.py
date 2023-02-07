@@ -8,7 +8,8 @@ callbacks = {}
 
 ctx = Context()
 ctx.matches = r"""
-not mode: sleep
+mode: command
+mode: dictation
 """
 
 
