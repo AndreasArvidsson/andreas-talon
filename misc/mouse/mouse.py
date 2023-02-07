@@ -17,6 +17,7 @@ ctx.lists["self.mouse_click"] = {
     "trip": "triple",
     "control": "control",
     "troll": "control",
+    "shift": "shift",
 }
 
 setting_scroll_speed = mod.setting(
@@ -78,6 +79,10 @@ class Actions:
             actions.key("ctrl:down")
             ctrl.mouse_click(button=0)
             actions.key("ctrl:up")
+        elif action == "shift":
+            actions.key("shift:down")
+            ctrl.mouse_click(button=0)
+            actions.key("shift:up")
 
     def mouse_stop():
         """Stops mouse action"""
