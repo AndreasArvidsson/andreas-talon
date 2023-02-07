@@ -8,6 +8,7 @@ backup
 setup
 markdown
 for each
+to string
 
 # Without these "word down" and equal commands can get misinterpreted
 up
