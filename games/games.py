@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 mod.mode("game", "Used to play games")
-mod.tag("game_speech")
+mod.tag("game_speech", "Signals that speech commands are enabled in the game")
 
 ctx.matches = r"""
 mode: user.game
