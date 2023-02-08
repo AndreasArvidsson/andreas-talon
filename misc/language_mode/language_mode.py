@@ -4,6 +4,10 @@ from dataclasses import dataclass
 mod = Module()
 ctx = Context()
 
+ctx.matches = r"""
+mode: command
+"""
+
 
 @dataclass
 class Language:
