@@ -15,6 +15,12 @@ ctx_dictation.matches = r"""
 mode: dictation
 """
 
+ctx_diablo3 = Context()
+ctx_diablo3.matches = r"""
+mode: user.diablo3
+and not mode: sleep
+"""
+
 ctx_sleep = Context()
 ctx_sleep.matches = r"""
 mode: sleep
@@ -40,12 +46,11 @@ class Actions:
 @ctx_command.action_class("user")
 class CommandActions:
     def talon_deck_get_buttons():
-        buttons = [
+        return [
             *actions.next(),
             {"icon": "commandMode3", "action": "user.talon_sleep()", "order": 0},
             *get_code_language_buttons(),
         ]
-        return buttons
 
 
 @ctx_dictation.action_class("user")
@@ -54,6 +59,15 @@ class DictationActions:
         return [
             *actions.next(),
             {"icon": get_language(), "action": "user.command_mode()", "order": 0},
+        ]
+
+
+@ctx_diablo3.action_class("user")
+class Diablo3Actions:
+    def talon_deck_get_buttons():
+        return [
+            *actions.next(),
+            {"icon": "diablo3", "order": 0},
         ]
 
 

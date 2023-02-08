@@ -1,4 +1,4 @@
-app: diablo_III
+app: diablo3
 -
 
 settings():
@@ -6,4 +6,4 @@ settings():
 
 ^diablo mode$:
     mode.disable("command")
-    mode.enable("user.diablo_III")
+    mode.enable("user.diablo3")
