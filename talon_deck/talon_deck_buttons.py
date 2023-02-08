@@ -15,9 +15,9 @@ ctx_dictation.matches = r"""
 mode: dictation
 """
 
-ctx_diablo3 = Context()
-ctx_diablo3.matches = r"""
-mode: user.diablo3
+ctx_game = Context()
+ctx_game.matches = r"""
+mode: user.game
 and not mode: sleep
 """
 
@@ -62,12 +62,12 @@ class DictationActions:
         ]
 
 
-@ctx_diablo3.action_class("user")
-class Diablo3Actions:
+@ctx_game.action_class("user")
+class GameActions:
     def talon_deck_get_buttons():
         return [
             *actions.next(),
-            {"icon": "diablo3", "order": 0},
+            {"icon": "gameMode", "order": 0},
         ]
 
 
@@ -107,7 +107,7 @@ def get_code_language_buttons():
 
 def get_eye_tracking_buttons():
     if current_eye_tracker:
-        return [{"icon": "eyeTracking", "action": "user.mouse_turn_off()"}]
+        return [{"icon": "eyeTracking"}]
     return []
 
 
