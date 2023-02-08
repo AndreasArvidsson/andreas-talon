@@ -1,5 +1,4 @@
-from talon import Module, Context, actions, cron
-import time
+from talon import Module, Context, actions
 
 mod = Module()
 ctx = Context()
@@ -9,10 +8,10 @@ os: windows
 and app.exe: Diablo III64.exe
 """
 
-mod.mode("diablo3", "Used for playing diablo 3")
 
 ctx.matches = r"""
-mode: user.diablo3
+mode: user.game
+app: diablo3
 """
 
 
@@ -61,10 +60,11 @@ class UserActions:
         actions.key("shift:up")
 
     def foot_switch_left_down():
-        print("left down")
+        """Toggle mute on discord"""
+        actions.user.mute_discord()
 
-    def foot_switch_left_up():
-        print("left up")
+    # def foot_switch_left_up():
+    #     print("left up")
 
     # def foot_switch_right_down():
     #     print("right down")
