@@ -15,15 +15,22 @@ ctx_dictation.matches = r"""
 mode: dictation
 """
 
+ctx_sleep = Context()
+ctx_sleep.matches = r"""
+mode: sleep
+"""
+
 ctx_game = Context()
 ctx_game.matches = r"""
 mode: user.game
 and not mode: sleep
 """
 
-ctx_sleep = Context()
-ctx_sleep.matches = r"""
-mode: sleep
+ctx_game_listening = Context()
+ctx_game_listening.matches = r"""
+mode: user.game
+and not mode: sleep
+and not mode: user.discord_muted
 """
 
 ctx_vscode = Context()
@@ -62,6 +69,15 @@ class DictationActions:
         ]
 
 
+@ctx_sleep.action_class("user")
+class SleepActions:
+    def talon_deck_get_buttons():
+        return [
+            *actions.next(),
+            {"icon": "sleepMode", "action": "user.talon_wake()", "order": 0},
+        ]
+
+
 @ctx_game.action_class("user")
 class GameActions:
     def talon_deck_get_buttons():
@@ -71,12 +87,12 @@ class GameActions:
         ]
 
 
-@ctx_sleep.action_class("user")
-class SleepActions:
+@ctx_game_listening.action_class("user")
+class GameListeningActions:
     def talon_deck_get_buttons():
         return [
             *actions.next(),
-            {"icon": "sleepMode", "action": "user.talon_wake()", "order": 0},
+            {"icon": "listening", "order": 1},
         ]
 
 
