@@ -77,7 +77,7 @@ def show_screen_number(screen: ui.Screen, number: int):
         draw_text(c, text, x, y)
         cron.after("3s", canvas.close)
 
-    canvas = Canvas.from_rect(screen.rect)
+    canvas = Canvas.from_screen(screen)
     canvas.register("draw", on_draw)
     canvas.freeze()
 
@@ -100,7 +100,7 @@ def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
             timeout *= 2
         cron.after(f"{timeout}ms", canvas.close)
 
-    canvas = Canvas.from_rect(screen.rect)
+    canvas = Canvas.from_screen(screen)
     canvas.register("draw", on_draw)
     canvas.freeze()
     return canvas
