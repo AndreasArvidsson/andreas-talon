@@ -4,6 +4,13 @@ from talon import Module, Context, actions, cron
 mod = Module()
 mod.tag("av")
 
+settings_timeout = mod.setting(
+    "foot_switch_timeout",
+    type=bool,
+    default=True,
+    desc="If true timeout will be used to decide if the foot switch was held or not",
+)
+
 current_state = [False, False, False, False]
 last_state = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
@@ -19,7 +26,10 @@ def on_interval():
             if current_state[key]:
                 call_down(key)
             # Key is released after specified hold time out. ie key was held.
-            elif time.perf_counter() - timestamps[key] > hold_timeout:
+            elif (
+                not settings_timeout.get()
+                or time.perf_counter() - timestamps[key] > hold_timeout
+            ):
                 call_up(key)
 
 

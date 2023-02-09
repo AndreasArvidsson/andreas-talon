@@ -19,29 +19,31 @@ app: diablo3
 class UserActions:
     def noise_pop():
         """Primary attack click"""
+        # Release right click on left click
         actions.mouse_release(1)
         actions.mouse_click(0)
 
     def noise_cluck():
         """Secondary attack click"""
-        actions.mouse_release(0)
         actions.mouse_click(1)
 
     def noise_hiss_start():
         """Primary attack hold"""
+        # Can't hold two buttons at the same time
         actions.mouse_release(1)
         actions.mouse_drag(0)
 
     def noise_shush_start():
         """Secondary attack hold"""
+        # Can't hold two buttons at the same time
         actions.mouse_release(0)
         actions.mouse_drag(1)
 
-    # def noise_hiss_stop():
-    #     actions.user.mouse_stop()
+    def noise_hiss_stop():
+        pass
 
-    # def noise_shush_stop():
-    #     actions.user.mouse_stop()
+    def noise_shush_stop():
+        pass
 
     def foot_switch_top_down():
         """Start move"""
@@ -63,11 +65,11 @@ class UserActions:
         """Toggle voice chat for game"""
         actions.user.game_toggle_mute()
 
-    # def foot_switch_left_up():
-    #     print("left up")
+    def foot_switch_left_up():
+        pass
 
-    # def foot_switch_right_down():
-    #     print("right down")
+    def foot_switch_right_down():
+        actions.tracking.control_toggle(False)
 
-    # def foot_switch_right_up():
-    #     print("Right up")
+    def foot_switch_right_up():
+        actions.tracking.control_toggle(True)
