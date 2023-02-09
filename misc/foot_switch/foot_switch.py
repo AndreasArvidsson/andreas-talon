@@ -126,6 +126,9 @@ class UserWakeActions:
     def foot_switch_right_down():
         actions.user.mouse_sleep_toggle()
 
+    def foot_switch_right_up():
+        actions.user.mouse_sleep_toggle()
+
 
 # Audio / Video conferencing
 ctx_av = Context()
