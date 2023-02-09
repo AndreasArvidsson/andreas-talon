@@ -3,6 +3,7 @@ import math
 from typing import Iterable, Tuple
 from talon import Module, Context, actions, Module, registry, ui, app
 from ...imgui import imgui
+import re
 
 mod = Module()
 mod.list("help_contexts", desc="list of available contexts")
@@ -353,7 +354,6 @@ def refresh_context_command_map(enabled_only=False):
     global sorted_context_map_keys
     global show_enabled_contexts_only
     global cached_window_title
-    global context_map
 
     context_map = {}
     cached_short_context_names = {}
@@ -363,6 +363,7 @@ def refresh_context_command_map(enabled_only=False):
     update_active_contexts_cache(active_contexts)
 
     context_command_map = {}
+
     for context_name, context in registry.contexts.items():
         splits = context_name.split(".")
         index = -1
@@ -378,17 +379,18 @@ def refresh_context_command_map(enabled_only=False):
 
         if short_name in overrides:
             short_name = overrides[short_name]
+        else:
+            short_name = re.sub(r"\d+", " ", short_name).strip()
 
-        if enabled_only and context in active_contexts or not enabled_only:
-            context_command_map[context_name] = {}
+        if not enabled_only or context in active_contexts:
+            commands_map = {}
+
             for command_alias, val in context.commands.items():
                 if command_alias in registry.commands:
-                    context_command_map[context_name][
-                        str(val.rule.rule)
-                    ] = val.target.code
-            if len(context_command_map[context_name]) == 0:
-                context_command_map.pop(context_name)
-            else:
+                    commands_map[str(val.rule.rule)] = val.target.code
+
+            if len(commands_map) > 0:
+                context_command_map[context_name] = commands_map
                 cached_short_context_names[short_name] = context_name
                 context_map[context_name] = context
 
