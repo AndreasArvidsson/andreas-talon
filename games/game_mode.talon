@@ -1,5 +1,5 @@
 mode: user.game
-tag: user.game_speech
+tag: user.game_commands
 -
 
 ^command mode$:

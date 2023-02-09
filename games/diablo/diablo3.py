@@ -60,8 +60,8 @@ class UserActions:
         actions.key("shift:up")
 
     def foot_switch_left_down():
-        """Toggle mute on discord"""
-        actions.user.mute_discord()
+        """Toggle voice chat for game"""
+        actions.user.game_toggle_mute()
 
     # def foot_switch_left_up():
     #     print("left up")

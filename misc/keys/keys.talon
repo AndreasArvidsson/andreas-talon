@@ -15,7 +15,7 @@ tab:                        key(tab)
 new line [symbol]:          "\\n"
 tab symbol:                 "\\t"
 
-# Modifier(s) + key: "control alpha" or "control win left"
+# Modifier(s) + key: "control air" or "control win left"
 <user.key_modifiers> <user.key_unmodified>:
     key("{key_modifiers}-{key_unmodified}")
 

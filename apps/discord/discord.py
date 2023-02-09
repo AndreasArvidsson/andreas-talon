@@ -15,8 +15,6 @@ ctx.matches = r"""
 app: discord
 """
 
-mod.mode("discord_muted", "Used to signal that discord is muted")
-
 
 @ctx.action_class("edit")
 class EditActions:
@@ -48,4 +46,3 @@ class Actions:
     def mute_discord():
         """Toggle mute on discord"""
         actions.key("ctrl-shift-f12")
-        actions.mode.toggle("user.discord_muted")

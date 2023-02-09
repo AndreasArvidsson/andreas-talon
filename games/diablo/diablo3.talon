@@ -1,5 +1,5 @@
 mode: user.game
-tag: user.game_speech
+tag: user.game_commands
 app: diablo3
 -
 
@@ -9,19 +9,13 @@ app: diablo3
 # ---------- Abort/Cancel ----------
 {user.abort_phrase}$:       skip()
 
-# ---------- Repeater ----------
-<user.repeater_phrase>:     core.repeat_command(repeater_phrase)
-
-# ---------- Mouse ----------
-click shift:                user.mouse_click("shift")
-
 # ---------- Keys ----------
 
 # Letters [A-Z]
 {user.letter}:              key(letter)
 
 # Symbol keys: !, %, _
-{user.key_symbol}:          key(key_symbol)
+# {user.key_symbol}:          key(key_symbol)
 
 # Digits [0-9]
 {user.key_number}:          key(key_number)
@@ -31,7 +25,7 @@ click shift:                user.mouse_click("shift")
 tab:                        key(tab)
 stop:                       key(escape)
 
-# Modifier(s) + key: "control alpha" or "control win left"
+# Modifier(s) + key: "control air" or "control win left"
 <user.key_modifiers> <user.key_unmodified>:
     key("{key_modifiers}-{key_unmodified}")
 
