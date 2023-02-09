@@ -1,5 +1,7 @@
 app: vscode
 -
+tag(): user.cursorless_experimental_snippets
+tag(): user.cursorless_custom_number_small
 
 # Cursorless command without targets
 ^cursorless use release$:
