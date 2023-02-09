@@ -137,10 +137,10 @@ tag: user.av
 
 @ctx_av.action_class("user")
 class AvActions:
-    def foot_switch_right_down():
+    def foot_switch_left_down():
         actions.user.mute_microphone()
 
-    def foot_switch_right_up():
+    def foot_switch_left_up():
         actions.user.mute_microphone()
 
 
