@@ -26,11 +26,11 @@ mode: user.game
 and not mode: sleep
 """
 
-ctx_game_listening = Context()
-ctx_game_listening.matches = r"""
+ctx_game_voip_listening = Context()
+ctx_game_voip_listening.matches = r"""
 mode: user.game
 and not mode: sleep
-and not mode: user.discord_muted
+and not mode: user.game_voip_muted
 """
 
 ctx_vscode = Context()
@@ -83,16 +83,16 @@ class GameActions:
     def talon_deck_get_buttons():
         return [
             *actions.next(),
-            {"icon": "gameMode", "order": 0},
+            {"icon": "gameMode", "action": "user.game_mode_disable()", "order": 0},
         ]
 
 
-@ctx_game_listening.action_class("user")
-class GameListeningActions:
+@ctx_game_voip_listening.action_class("user")
+class GameVoipListeningActions:
     def talon_deck_get_buttons():
         return [
             *actions.next(),
-            {"icon": "listening", "order": 1},
+            {"icon": "listening", "action": "user.game_toggle_mute()", "order": 1},
         ]
 
 

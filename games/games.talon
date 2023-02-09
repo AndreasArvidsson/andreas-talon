@@ -1,4 +1,4 @@
 app: diablo3
 -
 
-^game mode$:                user.game_mode()
+^game mode$:                user.game_mode_enable()
