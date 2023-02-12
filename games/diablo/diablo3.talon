@@ -15,7 +15,7 @@ app: diablo3
 {user.letter}:              key(letter)
 
 # Symbol keys: !, %, _
-# {user.key_symbol}:          key(key_symbol)
+{user.key_symbol}:          key(key_symbol)
 
 # Digits [0-9]
 {user.key_number}:          key(key_number)
