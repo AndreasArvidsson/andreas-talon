@@ -20,7 +20,7 @@ new line:
     edit.line_insert_down()
     user.dictation_format_reset()
 
-new block:
+new [graph | block]:
     edit.line_insert_down()
     edit.line_insert_down()
     user.dictation_format_reset()
