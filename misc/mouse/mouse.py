@@ -50,9 +50,6 @@ class Actions:
         # Left mouse button is held down: end drag
         if 0 in ctrl.mouse_buttons_down():
             actions.user.mouse_drag()
-        # Zoom mouse is enabled
-        elif actions.tracking.control_zoom_enabled():
-            actions.user.zoom_mouse_on_pop()
         # Normal click when using control mouse
         elif actions.tracking.control_enabled():
             actions.user.stabilized_click()
@@ -60,9 +57,7 @@ class Actions:
     def mouse_click(action: str):
         """Click mouse button"""
         stop_scroll()
-        if not actions.user.zoom_mouse_idle():
-            actions.user.zoom_mouse_click(action)
-        elif action == "left":
+        if action == "left":
             ctrl.mouse_click(button=0)
         elif action == "right":
             ctrl.mouse_click(button=1)
@@ -86,9 +81,6 @@ class Actions:
 
     def mouse_stop():
         """Stops mouse action"""
-        # Close zoomed in view
-        if stop_zoom():
-            return True
         # Stop scroll
         if stop_scroll():
             return True
@@ -105,7 +97,6 @@ class Actions:
 
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
-        stop_zoom()
         y = times
         if direction == "up":
             y = -y
@@ -114,7 +105,6 @@ class Actions:
     def mouse_scrolling(direction: str):
         """Toggle scrolling continuously"""
         global scroll_job, scroll_dir, scroll_ts
-        stop_zoom()
         new_scroll_dir = -1 if direction == "up" else 1
 
         if scroll_job != None:
@@ -161,80 +151,45 @@ class Actions:
         stop_scroll()
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
 
-    def mouse_toggle_control_mouse():
-        """Toggles control mouse"""
+    def mouse_control_enable():
+        """Enable control mouse"""
         tracking_control = (
             not actions.tracking.control_enabled() and eye_mouse.tracker is not None
         )
         storage.set("tracking_control", tracking_control)
-        if tracking_control:
-            storage.set("tracking_zoom", False)
-            actions.tracking.control_zoom_toggle(False)
         actions.tracking.control_toggle(tracking_control)
         actions.user.notify(f"Control mouse: {tracking_control}")
 
-    def mouse_toggle_zoom_mouse():
-        """Toggles zoom mouse"""
-        tracking_zoom = (
-            not actions.tracking.control_zoom_enabled()
-            and eye_mouse.tracker is not None
-        )
-        storage.set("tracking_zoom", tracking_zoom)
-        if tracking_zoom:
-            storage.set("tracking_control", False)
-            actions.tracking.control_toggle(False)
-        actions.tracking.control_zoom_toggle(tracking_zoom)
-        actions.user.notify(f"Zoom mouse: {tracking_zoom}")
-
-    def mouse_turn_off():
-        """Disables control mouse and zoom mouse"""
+    def mouse_control_disable():
+        """Disable control mouse"""
         storage.set("tracking_control", False)
-        storage.set("tracking_zoom", False)
         actions.tracking.control_toggle(False)
-        actions.tracking.control_zoom_toggle(False)
-        actions.user.notify("Mouse off")
+        actions.user.notify("Control mouse: off")
 
     def mouse_wake():
-        """Enable control mouse and zoom mouse to earlier state"""
+        """Set control mouse to earlier state"""
         tracking_control = storage.get("tracking_control", False)
-        tracking_zoom = storage.get("tracking_zoom", False)
         actions.tracking.control_toggle(tracking_control)
-        actions.tracking.control_zoom_toggle(tracking_zoom)
 
     def mouse_sleep():
-        """Disables control mouse, zoom mouse and scroll"""
+        """Disables control mouse and scroll"""
         stop_scroll()
         actions.tracking.control_toggle(False)
-        actions.tracking.control_zoom_toggle(False)
         # Release all held buttons
         for button in ctrl.mouse_buttons_down():
             ctrl.mouse_click(button=button, up=True)
 
     def mouse_sleep_toggle():
         """Toggle sleep/wake for the eye tracker"""
-        if actions.user.tracking_enabled():
+        if actions.tracking.control_enabled():
             actions.user.mouse_sleep()
         else:
             actions.user.mouse_wake()
-
-    def tracking_enabled() -> bool:
-        """Returns true if eye tracker is enabled"""
-        return (
-            actions.tracking.control_enabled()
-            or actions.tracking.control_zoom_enabled()
-        )
 
     def mouse_center_window():
         """Move the mouse cursor to the center of the currently active window"""
         rect = ui.active_window().rect
         ctrl.mouse_move(rect.center.x, rect.center.y)
-
-
-def stop_zoom():
-    if not actions.user.zoom_mouse_idle():
-        actions.user.zoom_mouse_cancel()
-        return True
-    return False
 
 
 def stop_scroll():
@@ -250,27 +205,25 @@ def stop_scroll():
 
 
 def scroll_continuous_helper():
-    if actions.user.zoom_mouse_idle():
-        acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 3)
-        y = (
-            setting_scroll_speed.get()
-            * setting_scroll_speed_multiplier.get()
-            * scroll_speed_dynamic
-            * acceleration_speed
-            * scroll_dir
-        )
-        actions.mouse_scroll(y, by_lines=True)
+    acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 3)
+    y = (
+        setting_scroll_speed.get()
+        * setting_scroll_speed_multiplier.get()
+        * scroll_speed_dynamic
+        * acceleration_speed
+        * scroll_dir
+    )
+    actions.mouse_scroll(y, by_lines=True)
 
 
 def scroll_gaze_helper():
-    if actions.user.zoom_mouse_idle():
-        x, y = ctrl.mouse_pos()
-        window = get_window_for_cursor(x, y)
-        if window is None:
-            return
-        rect = window.rect
-        y = ((y - rect.center.y) / (rect.height / 3)) ** 3
-        actions.mouse_scroll(y, by_lines=True)
+    x, y = ctrl.mouse_pos()
+    window = get_window_for_cursor(x, y)
+    if window is None:
+        return
+    rect = window.rect
+    y = ((y - rect.center.y) / (rect.height / 3)) ** 3
+    actions.mouse_scroll(y, by_lines=True)
 
 
 def get_screen_for_cursor(x: float, y: float):

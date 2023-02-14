@@ -20,9 +20,8 @@ scroll speed up:            user.mouse_scroll_speed_increase()
 scroll speed down:          user.mouse_scroll_speed_decrease()
 
 # Eye tracking
-track control:              user.mouse_toggle_control_mouse()
-track zoom:                 user.mouse_toggle_zoom_mouse()
-track off:                  user.mouse_turn_off()
+track on:                   user.mouse_control_enable()
+track off:                  user.mouse_control_disable()
 track:                      user.mouse_sleep_toggle()
 ^track calibrate$:          tracking.calibrate()
 ^track debug$:              tracking.control_debug_toggle()

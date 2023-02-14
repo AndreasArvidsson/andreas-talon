@@ -147,41 +147,6 @@ class AvActions:
         actions.user.mute_microphone()
 
 
-# Mouse zoom mode
-ctx_zoom = Context()
-ctx_zoom.matches = r"""
-mode: all
-tag: user.zoom_mouse
-"""
-
-
-@ctx_zoom.action_class("user")
-class ZoomActions:
-    def foot_switch_top_down():
-        actions.user.zoom_mouse_click("triple")
-
-    def foot_switch_center_down():
-        actions.user.zoom_mouse_click("middle")
-
-    def foot_switch_left_down():
-        actions.user.zoom_mouse_click("double")
-
-    def foot_switch_right_down():
-        actions.user.zoom_mouse_click("right")
-
-    def foot_switch_top_up():
-        pass
-
-    def foot_switch_center_up():
-        pass
-
-    def foot_switch_left_up():
-        pass
-
-    def foot_switch_right_up():
-        pass
-
-
 def call_down(key: int):
     # Top
     if key == 0:
