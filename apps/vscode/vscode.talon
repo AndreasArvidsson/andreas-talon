@@ -227,8 +227,8 @@ scout all symbol [<user.text>]$:
 
 # Find miscellaneous
 scout again:                user.vscode("rerunSearchEditorSearch")
-take next:                  user.vscode("editor.action.addSelectionToNextFindMatch")
-take last:                  user.vscode("editor.action.addSelectionToPreviousFindMatch")
+scout take next:            user.vscode("editor.action.addSelectionToNextFindMatch")
+scout take last:            user.vscode("editor.action.addSelectionToPreviousFindMatch")
 
 # Settings
 open settings json:
