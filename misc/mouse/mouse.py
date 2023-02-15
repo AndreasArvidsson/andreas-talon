@@ -18,6 +18,7 @@ ctx.lists["self.mouse_click"] = {
     "control": "control",
     "troll": "control",
     "shift": "shift",
+    "center": "center",
 }
 
 setting_scroll_speed = mod.setting(
@@ -44,9 +45,7 @@ scroll_ts = None
 class Actions:
     def mouse_on_pop():
         """Mouse on pop handler"""
-        if stop_scroll():
-            # Make sure scrolling has stopped so that click doesn't miss
-            actions.sleep("50ms")
+        stop_scroll_for_click()
         # Left mouse button is held down: end drag
         if 0 in ctrl.mouse_buttons_down():
             actions.user.mouse_drag()
@@ -56,7 +55,7 @@ class Actions:
 
     def mouse_click(action: str):
         """Click mouse button"""
-        stop_scroll()
+        stop_scroll_for_click()
         if action == "left":
             ctrl.mouse_click(button=0)
         elif action == "right":
@@ -78,6 +77,9 @@ class Actions:
             actions.key("shift:down")
             ctrl.mouse_click(button=0)
             actions.key("shift:up")
+        elif action == "center":
+            actions.user.mouse_center_window()
+            ctrl.mouse_click(button=0)
 
     def mouse_stop():
         """Stops mouse action"""
@@ -153,18 +155,11 @@ class Actions:
 
     def mouse_control_enable():
         """Enable control mouse"""
-        tracking_control = (
-            not actions.tracking.control_enabled() and eye_mouse.tracker is not None
-        )
-        storage.set("tracking_control", tracking_control)
-        actions.tracking.control_toggle(tracking_control)
-        actions.user.notify(f"Control mouse: {tracking_control}")
+        mouse_control(eye_mouse.tracker is not None)
 
     def mouse_control_disable():
         """Disable control mouse"""
-        storage.set("tracking_control", False)
-        actions.tracking.control_toggle(False)
-        actions.user.notify("Control mouse: off")
+        mouse_control(False)
 
     def mouse_wake():
         """Set control mouse to earlier state"""
@@ -192,6 +187,12 @@ class Actions:
         ctrl.mouse_move(rect.center.x, rect.center.y)
 
 
+def mouse_control(enable: bool):
+    storage.set("tracking_control", enable)
+    actions.tracking.control_toggle(enable)
+    actions.user.notify(f"Control mouse: {enable}")
+
+
 def stop_scroll():
     global scroll_job, gaze_job
     return_value = scroll_job or gaze_job
@@ -202,6 +203,12 @@ def stop_scroll():
         cron.cancel(gaze_job)
         gaze_job = None
     return return_value
+
+
+def stop_scroll_for_click():
+    if stop_scroll():
+        # Make sure scrolling has stopped so that click doesn't miss
+        actions.sleep("50ms")
 
 
 def scroll_continuous_helper():

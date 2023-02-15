@@ -3,9 +3,6 @@ click {user.mouse_click}:   user.mouse_click(mouse_click)
 dragging:                   user.mouse_drag()
 troll:                      user.mouse_click("control")
 righter:                    user.mouse_click("right")
-click center:
-    user.mouse_center_window()
-    mouse_click(0)
 
 # Scroll
 climb:                      user.mouse_scrolling("up")
