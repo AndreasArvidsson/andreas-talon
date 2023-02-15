@@ -27,6 +27,7 @@ class Actions:
 
 def switch_folder(target: str):
     link = f"{actions.path.talon_user()}\\cursorless-talon"
+    print(f"cmd /c mklink /d {link} {target}")
     os.system(f"cmd /c rmdir {link}")
     os.system(f"cmd /c mklink /d {link} {target}")
     actions.sleep("500ms")
