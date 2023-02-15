@@ -1,8 +1,9 @@
-from talon import Module, Context, actions, app, registry, scope, ui
+from talon import Module, Context, actions, app, registry, scope, ui, speech_system
 import os
 import re
 from itertools import islice
-from typing import Any
+from typing import Any, Union
+from talon.grammar import Phrase
 
 mod = Module()
 
@@ -103,6 +104,12 @@ class Actions:
         captures_string = format("captures", captures, add_desc=True)
         actions_string = format("actions", actions, add_desc=True)
         return f"{captures_string}\n\n{actions_string}"
+
+    def talon_sim_phrase(phrase: Union[str, Phrase]):
+        """Sims the phrase in the active app and dumps to the log"""
+        print("**** Simulated Phrase **** ")
+        print(speech_system._sim(str(phrase)))
+        print("*************************")
 
     def talon_restart():
         """Quit and relaunch the Talon app"""

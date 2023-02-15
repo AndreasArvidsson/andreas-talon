@@ -37,4 +37,6 @@ talon open repl:            menu.open_repl()
 talon open home:            menu.open_talon_home()
 talon check updates:        menu.check_for_updates()
 
+talon sim <phrase>$:        user.talon_sim_phrase(phrase)
+
 talon restart:              user.talon_restart()
