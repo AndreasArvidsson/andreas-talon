@@ -35,10 +35,10 @@ paste <number_small> [and <number_small>]* <user.cursorless_positional_target>:
 # Git
 git open <user.cursorless_target>:
     user.cursorless_command("setSelection", cursorless_target)
-    user.git_open_remote_file_url(1, 0)
+    user.git_open_remote_file_url(true, false)
 git copy <user.cursorless_target>:
     user.cursorless_command("setSelection", cursorless_target)
-    user.git_copy_remote_file_url(1, 0)
+    user.git_copy_remote_file_url(true, false)
 git copy mark [down] <user.cursorless_target>:
     user.git_copy_markdown_remote_file_url(cursorless_primitive_target_list)
 git copy mark [down] <user.cursorless_primitive_target> [as <user.cursorless_primitive_target>]:

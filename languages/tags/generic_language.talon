@@ -52,9 +52,9 @@ function main:              user.code_function_main()
 
 # ----- Variable statement -----
 var {user.code_variable_modifier}* [{user.code_data_type}] <user.text>:
-    user.code_variable_wrapper(text, code_variable_modifier_list or "", 0, code_data_type or "")
+    user.code_variable_wrapper(text, code_variable_modifier_list or "", false, code_data_type or "")
 var {user.code_variable_modifier}* [{user.code_data_type}] <user.text> equals:
-    user.code_variable_wrapper(text, code_variable_modifier_list or "", 1, code_data_type or "")
+    user.code_variable_wrapper(text, code_variable_modifier_list or "", true, code_data_type or "")
 
 # ----- Insert data type -----
 type {user.code_data_type}: "{code_data_type}"

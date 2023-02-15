@@ -13,8 +13,8 @@ require tag:                "tag: "
 
 # Generic
 make tag:                   "tag(): "
-make true:                  "1"
-make false:                 "0"
+make true:                  "true"
+make false:                 "false"
 make key:                   user.insert_snippet("key($0)")
 make print:                 user.insert_snippet("print($0)")
 make command:               user.insert_snippet('$0: user.vscode("$CLIPBOARD")')

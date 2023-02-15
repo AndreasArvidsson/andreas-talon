@@ -116,10 +116,10 @@ pop sibling:
     key(enter)
 
 # Git
-git open file:              user.git_open_remote_file_url(0, 0)
-git copy file:              user.git_copy_remote_file_url(0, 0)
-git open branch:            user.git_open_remote_file_url(0, 1)
-git copy branch:            user.git_copy_remote_file_url(0, 1)
+git open file:              user.git_open_remote_file_url(false, false)
+git copy file:              user.git_copy_remote_file_url(false, false)
+git open branch:            user.git_open_remote_file_url(false, true)
+git copy branch:            user.git_copy_remote_file_url(false, true)
 git repo:                   user.git_open_url("Repo")
 git issues:                 user.git_open_url("Issues")
 git new issue:              user.git_open_url("NewIssue")
@@ -211,10 +211,10 @@ select element:             key(ctrl-shift-c)
 scout (sesh | recent) [<user.text>]$:
     user.vscode_find_recent(text or "")
 pop (sesh | recent) <user.text>$:
-    user.vscode_find_recent(text, 1)
+    user.vscode_find_recent(text, true)
     key(enter)
 pop (sesh | recent):
-    user.vscode_find_recent("", 1)
+    user.vscode_find_recent("", true)
     key(enter)
 
 # Find a symbol

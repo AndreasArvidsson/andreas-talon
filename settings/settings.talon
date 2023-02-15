@@ -2,10 +2,10 @@ settings():
     # Speech timeout
     speech.timeout = 0.400
     # Record speech
-    speech.record_all = 1
+    speech.record_all = true
 
     # Log timing statistics for spoken phrases
-    user.timings_log = 0
+    user.timings_log = false
 
     # Set log level
     user.log_level = "debug"
@@ -19,9 +19,9 @@ settings():
     user.scroll_speed = 0.7
 
     # Subtitles
-    user.subtitles_show = 1
+    user.subtitles_show = true
     # Show subtitles on all screens
-    user.subtitles_all_screens = 1
+    user.subtitles_all_screens = true
 
     # General gui
     user.gui_max_rows = 5

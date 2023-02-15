@@ -129,12 +129,12 @@ class tab_actions:
 
     # ----- Variable statement -----
     def code_variable_wrapper(
-        name: str, modifiers: Union[list[str], str], assign: int, data_type: str = None
+        name: str, modifiers: Union[list[str], str], assign: bool, data_type: str = None
     ):
         """Variable statement wrapper"""
         format = actions.user.code_get_variable_format()
         name = actions.user.format_text(name, format)
-        actions.user.code_variable(name, modifiers or [], bool(assign), data_type)
+        actions.user.code_variable(name, modifiers or [], assign, data_type)
 
     def code_variable(
         name: str, modifiers: list[str], assign: bool, data_type: str = None
