@@ -38,6 +38,7 @@ token, token
 type, type
 value, value
 word, word
+branch, branch
 
 -chapter, chapter
 -environment, environment
