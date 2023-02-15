@@ -35,6 +35,7 @@ setting_scroll_speed_multiplier = mod.setting(
 )
 
 gaze_job = None
+gaze_origin_y = None
 scroll_job = None
 scroll_speed_dynamic = 1
 scroll_dir = 1
@@ -149,8 +150,9 @@ class Actions:
 
     def mouse_gaze_scroll():
         """Starts gaze scroll"""
-        global gaze_job
+        global gaze_job, gaze_origin_y
         stop_scroll()
+        _, gaze_origin_y = ctrl.mouse_pos()
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
 
     def mouse_control_enable():
@@ -229,7 +231,7 @@ def scroll_gaze_helper():
     if window is None:
         return
     rect = window.rect
-    y = ((y - rect.center.y) / (rect.height / 3)) ** 3
+    y = ((y - gaze_origin_y) / (rect.height / 3)) ** 3
     actions.mouse_scroll(y, by_lines=True)
 
 
