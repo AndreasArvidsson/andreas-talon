@@ -11,7 +11,7 @@ app: vscode
 
 original_window = None
 original_selected_text = None
-last_draft_mime = None
+last_draft = None
 
 
 @mod.action_class
@@ -21,7 +21,7 @@ class Actions:
         global original_window, original_selected_text
         original_window = ui.active_window()
         editor_app = get_editor_app()
-        original_selected_text = get_text()
+        original_selected_text = actions.edit.selected_text()
         actions.user.focus_app(editor_app)
         # Wait for context to change.
         actions.sleep("100ms")
@@ -32,89 +32,48 @@ class Actions:
 
     def draft_editor_submit():
         """Submit/save draft editor"""
-        global last_draft_mime
-        mime = get_mime_data()
-
-        if mime and "PLACEHOLDER" in mime.text:
-            actions.edit.select_none()
-            actions.user.notify("Placeholder text found")
-            return
-
-        last_draft_mime = mime
-        close_editor_and_focus_back()
-
-        # Some applications like slack(browser) have a problem with pasting over selected text.
-        if original_selected_text:
-            actions.edit.delete()
-
-        actions.user.draft_editor_paste_last()
+        close_editor(submit_draft=True)
 
     def draft_editor_discard():
         """Discard draft editor"""
-        global last_draft_mime
-        last_draft_mime = None
-        close_editor_and_focus_back()
+        close_editor(submit_draft=False)
 
     def draft_editor_paste_last():
         """Paste last submitted draft"""
-        if last_draft_mime:
-            actions.user.paste_mime(last_draft_mime)
+        if last_draft:
+            actions.insert(last_draft)
 
 
 def get_editor_app() -> ui.App:
-    editor_names = {"Visual Studio Code", "Code", "VSCodium", "Codium", "code-oss"}
+    editor_names = {"Visual Studio Code", "Code"}
     for app in ui.apps(background=False):
         if app.name in editor_names:
             return app
     raise RuntimeError("VSCode is not running")
 
 
-def close_editor_and_focus_back():
-    ctx.tags = []
+def close_editor(submit_draft: bool):
+    global last_draft
     actions.edit.select_all()
+
+    if submit_draft:
+        last_draft = actions.edit.selected_text()
+
+        if last_draft and "PLACEHOLDER" in last_draft:
+            actions.edit.select_none()
+            actions.user.notify("Placeholder text found")
+            return
+    else:
+        last_draft = None
+
+    ctx.tags = []
     actions.edit.delete()
     actions.app.tab_close()
     actions.user.focus_window(original_window)
 
+    if submit_draft:
+        # Some applications like slack(browser) have a problem with pasting over selected text.
+        if original_selected_text:
+            actions.edit.delete()
 
-def get_mime_data() -> MimeData or None:
-    """Get mime data to submit"""
-    if submit_as_html_mime():
-        return use_preview_to_get_html_mime_data()
-    return use_editor_to_get_text_mime_data()
-
-
-def use_editor_to_get_text_mime_data() -> MimeData or None:
-    """Use editor text to get plain text mime data"""
-    actions.edit.select_all()
-    return actions.user.selected_mime()
-
-
-def use_preview_to_get_html_mime_data() -> MimeData or None:
-    """Open markdown preview and copy to get html mime data"""
-    actions.user.vscode("markdown.showPreview")
-    actions.sleep("100ms")
-    actions.user.vscode("workbench.action.focusActiveEditorGroup")
-    actions.sleep("75ms")
-    actions.edit.select_all()
-    mime = actions.user.selected_mime()
-    actions.app.tab_close()
-    return mime
-
-
-def get_text() -> str:
-    """Try to convert known mime types to markdown. Default to plaintext."""
-    mime = actions.user.selected_mime()
-    if not mime:
-        return ""
-    mime_text = actions.user.slack_mime_to_markdown(mime)
-    if mime_text:
-        return mime_text
-    return mime.text
-
-
-def submit_as_html_mime() -> bool:
-    """If true drafts should be submitted as html mine"""
-    return original_window.app.name == "Firefox" and original_window.title.startswith(
-        "Slack |"
-    )
+        actions.insert(last_draft)
