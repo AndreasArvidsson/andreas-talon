@@ -20,6 +20,7 @@ mod.list(
     "rango_without_target_action", desc="List of Rango actions used WITHOUT a target"
 )
 
+# https://github.com/david-tejada/rango
 ctx.lists["user.rango_with_target_action"] = {
     "click": "clickElement",
     "open": "openInNewTab",
@@ -34,6 +35,8 @@ ctx.lists["user.rango_with_target_action"] = {
     "center": "scrollElementToCenter",
     "upper": "scrollUpAtElement",
     "downer": "scrollDownAtElement",
+    "hunt include": "includeExtraSelectors",
+    "hunt exclude": "excludeExtraSelectors",
 }
 
 ctx.lists["user.rango_without_target_action"] = {
@@ -45,6 +48,15 @@ ctx.lists["user.rango_without_target_action"] = {
     "tab clone": "cloneCurrentTab",
     "upper again": "scrollUpAtElement",
     "downer again": "scrollDownAtElement",
+    "hunt extra": "displayExtraHints",
+    "hunt more": "displayExcludedHints",
+    "hunt less": "displayLessHints",
+    "hunt save": "confirmSelectorsCustomization",
+    "hunt reset": "resetCustomSelectors",
+    "hunt bigger": "increaseHintSize",
+    "hunt smaller": "decreaseHintSize",
+    "hunt some more": "includeOrExcludeMoreSelectors",
+    "hunt some less": "includeOrExcludeLessSelectors",
 }
 
 url_pattern = re.compile(r"https?://\S+")

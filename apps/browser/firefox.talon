@@ -21,16 +21,6 @@ login fill:
 password generate:
     key(ctrl-shift-9)
 
-hunting:
-    user.stop_app()
-    key(escape ctrl-alt-f)
-hunting new:
-    user.stop_app()
-    key(escape ctrl-alt-F)
-hunting open:
-    user.stop_app()
-    key(escape ctrl-alt-g)
-
 # Rango
 {user.rango_with_target_action} <user.rango_target>:
     user.rango_command_with_target(rango_with_target_action, rango_target)
@@ -45,11 +35,6 @@ rango direct:
 copy address:
     user.rango_command_without_target("copyLocationProperty", "href")
 
-# TODO: Remove as soon as rango has proper extension side settings
-hint bigger:
-    user.rango_command_without_target("increaseHintSize")
-hint smaller:
-    user.rango_command_without_target("decreaseHintSize")
 hint {user.rango_hint_styles}:
     user.rango_command_without_target("setHintStyle", user.rango_hint_styles)
 hint weight {user.rango_hint_weights}:
