@@ -35,6 +35,36 @@ def on_interval():
 cron.interval("16ms", on_interval)
 
 
+def call_down(key: int):
+    # Top
+    if key == 0:
+        actions.user.foot_switch_top_down()
+    # Center
+    elif key == 1:
+        actions.user.foot_switch_center_down()
+    # Left
+    elif key == 2:
+        actions.user.foot_switch_left_down()
+    # Right
+    elif key == 3:
+        actions.user.foot_switch_right_down()
+
+
+def call_up(key: int):
+    # Top
+    if key == 0:
+        actions.user.foot_switch_top_up()
+    # Center
+    elif key == 1:
+        actions.user.foot_switch_center_up()
+    # Left
+    elif key == 2:
+        actions.user.foot_switch_left_up()
+    # Right
+    elif key == 3:
+        actions.user.foot_switch_right_up()
+
+
 @mod.action_class
 class Actions:
     def foot_switch_down(key: int):
@@ -76,7 +106,7 @@ class Actions:
         """Foot switch button right:up"""
 
 
-# Default implementation
+# ---------- Default implementation ----------
 ctx = Context()
 
 
@@ -113,7 +143,7 @@ class UserActions:
         pass
 
 
-# Default non sleep implementation
+# ---------- Default non-sleep implementation ----------
 ctx_wake = Context()
 ctx_wake.matches = r"""
 not mode: sleep
@@ -129,7 +159,7 @@ class UserWakeActions:
         actions.user.mouse_sleep_toggle()
 
 
-# Audio / Video conferencing
+# ---------- Audio conferencing ----------
 ctx_voip = Context()
 ctx_voip.matches = r"""
 mode: all
@@ -144,33 +174,3 @@ class VoipActions:
 
     def foot_switch_left_up():
         actions.user.mute_microphone()
-
-
-def call_down(key: int):
-    # Top
-    if key == 0:
-        actions.user.foot_switch_top_down()
-    # Center
-    elif key == 1:
-        actions.user.foot_switch_center_down()
-    # Left
-    elif key == 2:
-        actions.user.foot_switch_left_down()
-    # Right
-    elif key == 3:
-        actions.user.foot_switch_right_down()
-
-
-def call_up(key: int):
-    # Top
-    if key == 0:
-        actions.user.foot_switch_top_up()
-    # Center
-    elif key == 1:
-        actions.user.foot_switch_center_up()
-    # Left
-    elif key == 2:
-        actions.user.foot_switch_left_up()
-    # Right
-    elif key == 3:
-        actions.user.foot_switch_right_up()
