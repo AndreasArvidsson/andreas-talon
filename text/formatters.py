@@ -175,9 +175,15 @@ class Actions:
 
     def de_camel(text: str) -> str:
         """Replacing camelCase boundaries with blank space"""
-        # TODO: Support unicode splitting camel case
+        Ll = "a-zåäö"
+        Lu = "A-ZÅÄÖ"
+        L = f"{Ll}{Lu}"
+        low_to_upper = rf"(?<=[{Ll}])(?=[{Lu}])"  # camel|Case
+        upper_to_last_upper = rf"(?<=[L{Lu}])(?=[{Lu}][{Ll}])"  # IP|Address
+        letter_to_digit = rf"(?<=[{L}])(?=[\d])"  # version|10
+        digit_to_letter = rf"(?<=[\d])(?=[{L}])"  # 2|x
         return re.sub(
-            r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-zA-Z])(?=[0-9])|(?<=[0-9])(?=[a-zA-Z])",
+            rf"{low_to_upper}|{upper_to_last_upper}|{letter_to_digit}|{digit_to_letter}",
             " ",
             text,
         )

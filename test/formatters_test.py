@@ -39,14 +39,27 @@ input_snake = "hello_there.my_ip_address_2_x_3"
 input_camel_unicode = "hejPåDigÅäö"
 input_snake_unicode = "hej_på_dig_åäö"
 output_raw = "hello there my ip address 2 x 3"
+output_raw_unicode = "hej på dig åäö"
 
 fixtures_reformat = [
     ["COMMA_SEPARATED", input_raw, "why?, and, it's, nice!"],
     ["Unformat snake", "REMOVE_FORMATTING", input_snake, output_raw],
+    [
+        "Unformat unicode snake",
+        "REMOVE_FORMATTING",
+        input_snake_unicode,
+        output_raw_unicode,
+    ],
     ["Unformat camel", "REMOVE_FORMATTING", input_camel, output_raw],
+    [
+        "Unformat unicode camel",
+        "REMOVE_FORMATTING",
+        input_camel_unicode,
+        output_raw_unicode,
+    ],
     ["Snake to camel", "CAMEL_CASE", input_snake, "helloThereMyIpAddress2x3"],
     ["Camel to snake", "SNAKE_CASE", input_camel, "hello_there_my_ip_address_2_x_3"],
-    # ["Camel to snake unicode", "SNAKE_CASE", input_camel_unicode, input_snake_unicode], TODO
+    ["Camel to snake unicode", "SNAKE_CASE", input_camel_unicode, input_snake_unicode],
     ["Snake to camel unicode", "CAMEL_CASE", input_snake_unicode, input_camel_unicode],
 ]
 
