@@ -1,4 +1,4 @@
-from talon import Module, cron, ctrl
+from talon import Module, cron, actions
 
 mod = Module()
 
@@ -12,16 +12,16 @@ class Actions:
     def stabilized_click():
         """Mouse left click with stabilized cursor position"""
         global pos, count_left, cron_job
-        ctrl.mouse_click(button=0)
+        actions.mouse_click()
         count_left += 8
         if cron_job is None:
-            pos = ctrl.mouse_pos()
+            pos = actions.user.mouse_pos()
             cron_job = cron.interval("16ms", stabilize_cursor)
 
 
 def stabilize_cursor():
     global cron_job, count_left
-    ctrl.mouse_move(*pos)
+    actions.mouse_move(*pos)
     count_left -= 1
     if count_left == 0:
         cron.cancel(cron_job)

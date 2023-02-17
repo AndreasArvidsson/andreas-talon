@@ -1,4 +1,4 @@
-from talon import Module, actions, ui, ctrl
+from talon import Module, actions, ui
 from talon.experimental.locate import locate
 import time
 
@@ -33,19 +33,19 @@ class Actions:
         elif position == "bottom":
             y = location.bot
 
-        ctrl.mouse_move(x, y)
+        actions.mouse_move(x, y)
         return True, x, y
 
     def locate_click(name: str, position: str = "") -> tuple[bool, int, int]:
         """Locate image and mouse left click"""
         ok, x, y = actions.user.locate_hover(name, position)
         if ok:
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
         return ok, x, y
 
     def locate_drag(name: str, position: str = "") -> tuple[bool, int, int]:
         """Locate image and mouse left click drag"""
         ok, x, y = actions.user.locate_hover(name, position)
         if ok:
-            ctrl.mouse_click(button=0, down=True)
+            actions.mouse_drag()
         return ok, x, y

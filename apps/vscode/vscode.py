@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, ui, ctrl
+from talon import Module, Context, actions, ui
 import json
 
 vscode = actions.user.vscode
@@ -384,9 +384,9 @@ class Actions:
                 x = window.rect.x + screen_size * ratio
             else:
                 y = window.rect.y + window.rect.height - screen_size * ratio
-            ctrl.mouse_move(x, y)
+            actions.mouse_move(x, y)
             actions.sleep("100ms")
-            ctrl.mouse_click(button=0, up=True)
+            actions.mouse_release()
 
     def vscode_grab_line(panel: dict):
         """Grab vscode sideboard/panel line to resize"""

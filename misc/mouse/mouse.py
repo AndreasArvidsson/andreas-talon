@@ -58,29 +58,33 @@ class Actions:
         """Click mouse button"""
         stop_scroll_for_click()
         if action == "left":
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
         elif action == "right":
-            ctrl.mouse_click(button=1)
+            actions.mouse_click(1)
         elif action == "middle":
-            ctrl.mouse_click(button=2)
+            actions.mouse_click(2)
         elif action == "double":
-            ctrl.mouse_click(button=0)
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
+            actions.mouse_click()
         elif action == "triple":
-            ctrl.mouse_click(button=0)
-            ctrl.mouse_click(button=0)
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
+            actions.mouse_click()
+            actions.mouse_click()
         elif action == "control":
             actions.key("ctrl:down")
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
             actions.key("ctrl:up")
         elif action == "shift":
             actions.key("shift:down")
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
             actions.key("shift:up")
         elif action == "center":
             actions.user.mouse_center_window()
-            ctrl.mouse_click(button=0)
+            actions.mouse_click()
+
+    def mouse_pos() -> tuple[float, float]:
+        """Mouse position (X, Y)"""
+        return ctrl.mouse_pos()
 
     def mouse_stop():
         """Stops mouse action"""
@@ -92,10 +96,10 @@ class Actions:
     def mouse_drag():
         """Press and hold/release button 0 depending on state for dragging"""
         if 0 in ctrl.mouse_buttons_down():
-            ctrl.mouse_click(button=0, up=True)
+            actions.mouse_release()
             actions.user.notify("Mouse drag: False")
         else:
-            ctrl.mouse_click(button=0, down=True)
+            actions.mouse_drag()
             actions.user.notify("Mouse drag: True")
 
     def mouse_scroll(direction: str, times: int):
@@ -152,7 +156,7 @@ class Actions:
         """Starts gaze scroll"""
         global gaze_job, gaze_origin_y
         stop_scroll()
-        _, gaze_origin_y = ctrl.mouse_pos()
+        _, gaze_origin_y = actions.user.mouse_pos()
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
 
     def mouse_control_enable():
@@ -174,7 +178,7 @@ class Actions:
         actions.tracking.control_toggle(False)
         # Release all held buttons
         for button in ctrl.mouse_buttons_down():
-            ctrl.mouse_click(button=button, up=True)
+            actions.mouse_release(button)
 
     def mouse_sleep_toggle():
         """Toggle sleep/wake for the eye tracker"""
@@ -186,7 +190,7 @@ class Actions:
     def mouse_center_window():
         """Move the mouse cursor to the center of the currently active window"""
         rect = ui.active_window().rect
-        ctrl.mouse_move(rect.center.x, rect.center.y)
+        actions.mouse_move(rect.center.x, rect.center.y)
 
 
 def mouse_control(enable: bool):
@@ -226,7 +230,7 @@ def scroll_continuous_helper():
 
 
 def scroll_gaze_helper():
-    x, y = ctrl.mouse_pos()
+    x, y = actions.user.mouse_pos()
     window = get_window_for_cursor(x, y)
     if window is None:
         return
