@@ -76,7 +76,7 @@ ctx_en.lists["self.key_punctuation"] = {
 }
 ctx_sv.lists["self.key_punctuation"] = {
     "punkt":            ".",
-    "komma":            ",",
+    "kommatecken":      ",",
     "kolon":            ":",
     "snedstreck":       "/",
     "frågetecken":      "?",
