@@ -42,6 +42,12 @@ scroll_dir = 1
 scroll_ts = None
 
 
+@ctx.action_class("main")
+class MainActions:
+    def mouse_click(button: int = 0):
+        ctrl.mouse_click(button=button, hold=16000)
+
+
 @mod.action_class
 class Actions:
     def mouse_on_pop():
