@@ -14,7 +14,7 @@ ctx.matches = r"""
 app: skype
 """
 
-ctx.tags = ["user.av"]
+ctx.tags = ["user.voip"]
 
 
 @ctx.action_class("edit")

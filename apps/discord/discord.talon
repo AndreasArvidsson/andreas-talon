@@ -1,6 +1,6 @@
 app: discord
 -
-tag(): user.av
+tag(): user.voip
 tag(): user.navigation
 
 deafen:                     key(ctrl-shift-d)

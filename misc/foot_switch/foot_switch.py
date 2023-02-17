@@ -2,7 +2,6 @@ import time
 from talon import Module, Context, actions, cron
 
 mod = Module()
-mod.tag("av")
 
 settings_timeout = mod.setting(
     "foot_switch_timeout",
@@ -131,15 +130,15 @@ class UserWakeActions:
 
 
 # Audio / Video conferencing
-ctx_av = Context()
-ctx_av.matches = r"""
+ctx_voip = Context()
+ctx_voip.matches = r"""
 mode: all
-tag: user.av
+tag: user.voip
 """
 
 
-@ctx_av.action_class("user")
-class AvActions:
+@ctx_voip.action_class("user")
+class VoipActions:
     def foot_switch_left_down():
         actions.user.mute_microphone()
 
