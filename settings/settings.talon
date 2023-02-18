@@ -31,6 +31,7 @@ settings():
     user.gui_max_cols = 60
 
     # Help gui
+    # imgui.scale = 2
     user.help_max_command_lines_per_page = 50
     user.help_max_contexts_per_page = 50
     user.help_scope_max_length = 80

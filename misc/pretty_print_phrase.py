@@ -19,32 +19,27 @@ class Actions:
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
         print(
-            f"{bcolors.BOLD}Command:{bcolors.ENDC} {bcolors.GREEN}{bcolors.BOLD}{phrase_str}{bcolors.ENDC}"
+            f"{bcolors.BOLD}Phrase:{bcolors.ENDC} {bcolors.GREEN}{bcolors.BOLD}{phrase_str}{bcolors.ENDC}"
         )
 
         # Render the individual commands nicely.
         for cmd in commands:
-            print(
-                " ".join(
-                    [
-                        f"#{cmd['num']}:",
-                        f"{bcolors.BOLD}{cmd['phrase']}{bcolors.ENDC}:",
-                        f"file:{cmd['path']} {bcolors.GREEN}{cmd['rule']}{bcolors.ENDC}",
-                    ]
-                ).strip()
+            printLine(
+                f"#{cmd.num}:",
+                f"{bcolors.BOLD}{cmd.phrase}{bcolors.ENDC}:",
+                f"file:{cmd.path} {bcolors.GREEN}{cmd.rule}{bcolors.ENDC}",
             )
-            for action in cmd["actions"]:
-                " ".join(
-                    [
-                        f"  {bcolors.BOLD}{action['name']}{bcolors.ENDC}:"
-                        f"{action['desc']}"
-                    ]
-                )
-                print(
-                    f"  {bcolors.BOLD}{action['name']}{bcolors.ENDC}: {action['desc']}"
+            for action in cmd.actions:
+                printLine(
+                    f"  {bcolors.BOLD}{action.name}{bcolors.ENDC}:",
+                    f"{action.desc}",
                 )
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
+
+
+def printLine(*argv):
+    print(" ".join(argv))
 
 
 class bcolors:

@@ -19,10 +19,9 @@ def on_phrase(phrase):
             text = " ".join(words)
 
     if text:
-        actions.user.print_phrase_timings(phrase, text)
         actions.user.subtitle(text)
-        actions.user.command_history_append(text)
-
+        actions.user.print_phrase_timings(phrase, text)
+        actions.user.command_history_append(text, sim_commands)
         actions.user.pretty_print_phrase(text, sim_commands)
 
 

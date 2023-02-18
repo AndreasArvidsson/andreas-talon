@@ -1,8 +1,32 @@
-import re
 from talon import Module, speech_system, registry
+import re
+from dataclasses import dataclass
 import os
 
 mod = Module()
+
+
+@dataclass
+class SimAction:
+    name: str
+    desc: str
+
+
+class SimCommand:
+    def __init__(
+        self,
+        num: int,
+        phrase: str,
+        path: str,
+        rule: str,
+        actions: list[SimAction],
+    ):
+        self.num = num
+        self.phrase = phrase
+        self.path = path
+        self.rule = rule
+        self.actions = actions
+        self.name = path[path.rindex(os.path.sep) + 1 : -6]
 
 
 @mod.action_class
@@ -14,15 +38,13 @@ class Actions:
                 return [canceled_command(phrase)]
 
             sim = speech_system._sim(phrase)
-            commands = parse_sim(sim)
-            add_actions(commands)
-            return commands
+            return parse_sim(sim)
         except Exception as e:
             print(e)
             return []
 
 
-def canceled_command(phrase: str):
+def canceled_command(phrase: str) -> SimCommand:
     path = os.path.sep.join(["user", "andreas-talon", "misc", "abort", "abort.talon"])
     action_name = "user.abort_phrase"
 
@@ -31,67 +53,21 @@ def canceled_command(phrase: str):
     command_key = next(iter(context.commands))
     command = context.commands[command_key]
 
-    return {
-        "num": 1,
-        "phrase": phrase,
-        "path": path,
-        "rule": command.rule.rule,
-        "actions": [
-            {
-                "name": action_name,
-                "desc": get_action_description(action_name),
-            }
-        ],
-    }
+    action = SimAction(
+        action_name,
+        get_action_description(action_name),
+    )
+
+    return SimCommand(
+        1,
+        phrase,
+        path,
+        command.rule.rule,
+        [action],
+    )
 
 
-def add_actions(sim_commands: list):
-    """Enrich simulated commands with action"""
-
-    for sim_cmd in sim_commands:
-        context_name = path_to_context_name(sim_cmd["path"])
-        rule = sim_cmd["rule"]
-
-        context = registry.contexts[context_name]
-        commands = context.commands.values()
-        command = next(x for x in commands if x.rule.rule == rule)
-
-        actions = []
-
-        for line in command.target.lines:
-            action_name = get_action_name(line)
-            actions.append(
-                {
-                    "name": action_name,
-                    "desc": get_action_description(action_name),
-                }
-            )
-
-        sim_cmd["actions"] = actions
-
-
-def path_to_context_name(path: str):
-    return path.replace("/", ".").replace("\\", ".")
-
-
-def get_action_description(name: str):
-    if name in registry.actions:
-        action = registry.actions[name][0]
-        return action.type_decl.desc
-    raise Exception(f"Can't find action {name}")
-
-
-def get_action_name(command_line: dict):
-    name = getattr(command_line, "name", None)
-    if name:
-        return name
-    keys = getattr(command_line, "keys", None)
-    if keys:
-        return "key"
-    raise Exception(f"Can't find action name: {command_line}")
-
-
-def parse_sim(sim: str):
+def parse_sim(sim: str) -> list[SimCommand]:
     """Attempts to parse {sim} (the output of `sim()`) into a richer object with the phrase, grammar, path,
     and possibly the matched rule(s).
     """
@@ -104,15 +80,58 @@ def parse_sim(sim: str):
 
     for _, num, phrase, path, rule in matches:
         commands.append(
-            {
-                "num": int(num),
-                "phrase": phrase,
-                "path": path,
-                "rule": rule,
-            }
+            SimCommand(
+                int(num),
+                phrase,
+                path,
+                rule,
+                get_actions(path, rule),
+            )
         )
 
     return commands
+
+
+def get_actions(path: str, rule: str) -> list[SimAction]:
+    context_name = path_to_context_name(path)
+
+    context = registry.contexts[context_name]
+    commands = context.commands.values()
+    command = next(x for x in commands if x.rule.rule == rule)
+
+    actions = []
+
+    for line in command.target.lines:
+        action_name = get_action_name(line)
+        actions.append(
+            SimAction(
+                action_name,
+                get_action_description(action_name),
+            )
+        )
+
+    return actions
+
+
+def path_to_context_name(path: str) -> str:
+    return path.replace("/", ".").replace("\\", ".")
+
+
+def get_action_description(name: str) -> str:
+    if name in registry.actions:
+        action = registry.actions[name][0]
+        return action.type_decl.desc
+    raise Exception(f"Can't find action {name}")
+
+
+def get_action_name(command_line: dict) -> str:
+    name = getattr(command_line, "name", None)
+    if name:
+        return name
+    keys = getattr(command_line, "keys", None)
+    if keys:
+        return "key"
+    raise Exception(f"Can't find action name: {command_line}")
 
 
 SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")

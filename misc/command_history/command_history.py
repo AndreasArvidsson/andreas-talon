@@ -16,7 +16,8 @@ use_ttl = True
 # Wrapping in a data class is a simple solution to get a unique identifier for each string even if they are identical
 @dataclass
 class HistoryEntry:
-    command: str
+    phrase: str
+    commands: list
     ttl: int
 
 
@@ -27,17 +28,22 @@ def gui(gui: imgui.GUI):
     for entry in history[-display_size:]:
         # If ttl is disabled or time hasn't passed yet: show command.
         if not use_ttl or entry.ttl < 0 or entry.ttl >= t:
-            gui.text(entry.command)
+            # gui.text(entry.phrase)
+
+            for cmd in entry.commands:
+                gui.header(f"{cmd.phrase}")
+                for action in cmd.actions:
+                    gui.text(f"  {action.desc}")
 
 
 @mod.action_class
 class Actions:
-    def command_history_append(command: str):
+    def command_history_append(phrase: str, sim_commands: list):
         """Append command to history"""
         global history
         ttl = ttl_setting.get()
         ttl = time.monotonic() + ttl if ttl > -1 else -1
-        entry = HistoryEntry(command, ttl)
+        entry = HistoryEntry(phrase, sim_commands, ttl)
         history.append(entry)
         history = history[-size_setting.get() :]
 
