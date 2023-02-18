@@ -175,7 +175,7 @@ class UserActions:
         insert_snippet(
             """try:
                 \t$1
-            except:
+            except Exception as ex:
                 \t$0"""
         )
 
