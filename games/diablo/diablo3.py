@@ -51,7 +51,7 @@ class UserActions:
 
     def foot_switch_top_up():
         """Stop move"""
-        actions.key("w:up")
+        actions.key("w")
 
     def foot_switch_center_down():
         """Start stand still"""
@@ -59,7 +59,7 @@ class UserActions:
 
     def foot_switch_center_up():
         """Stop stand still"""
-        actions.key("shift:up")
+        actions.key("shift")
 
     def foot_switch_left_down():
         """Toggle voice chat for game"""
