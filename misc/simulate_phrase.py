@@ -45,10 +45,13 @@ class Actions:
 
 
 def canceled_command(phrase: str) -> SimCommand:
-    path = os.path.sep.join(["user", "andreas-talon", "misc", "abort", "abort.talon"])
+    name = "abort.talon"
     action_name = "user.abort_phrase"
 
-    context_name = path_to_context_name(path)
+    context_name = next(x for x in registry.contexts.keys() if x.endswith(name))
+    path_prefix = os.path.sep.join(context_name.split(".")[:-2])
+    path = f"{path_prefix}{os.path.sep}{name}"
+
     context = registry.contexts[context_name]
     command_key = next(iter(context.commands))
     command = context.commands[command_key]
