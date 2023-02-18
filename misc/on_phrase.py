@@ -11,6 +11,8 @@ def on_phrase(phrase):
 
     is_aborted, text = actions.user.abort_phrase(phrase, words)
 
+    sim_commands = actions.user.simulate_phrase(" ".join(words), is_aborted)
+
     if not is_aborted:
         is_sleep, text = actions.user.talon_sleep_update_phrase(words)
         if not is_sleep:
@@ -20,6 +22,8 @@ def on_phrase(phrase):
         actions.user.print_phrase_timings(phrase, text)
         actions.user.subtitle(text)
         actions.user.command_history_append(text)
+
+        actions.user.pretty_print_phrase(text, sim_commands)
 
 
 speech_system.register("phrase", on_phrase)

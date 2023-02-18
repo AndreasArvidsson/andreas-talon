@@ -2,11 +2,20 @@ from talon import Module
 
 mod = Module()
 
+settings_log = mod.setting(
+    "pretty_print_phrase",
+    type=bool,
+    default=False,
+    desc="If true phrase will be pretty printed to the log",
+)
+
 
 @mod.action_class
 class Actions:
     def pretty_print_phrase(phrase_str: str, commands: list):
         """Pretty prints the command information to the terminal"""
+        if not settings_log.get():
+            return
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
         print(
@@ -15,17 +24,25 @@ class Actions:
 
         # Render the individual commands nicely.
         for cmd in commands:
-            rule = cmd["rule"] if "rule" in cmd else ""
             print(
-                " "
-                + " ".join(
+                " ".join(
                     [
                         f"#{cmd['num']}:",
                         f"{bcolors.BOLD}{cmd['phrase']}{bcolors.ENDC}:",
-                        f"{cmd['path']} {bcolors.GREEN}{rule}{bcolors.ENDC}",
+                        f"file:{cmd['path']} {bcolors.GREEN}{cmd['rule']}{bcolors.ENDC}",
                     ]
                 ).strip()
             )
+            for action in cmd["actions"]:
+                " ".join(
+                    [
+                        f"  {bcolors.BOLD}{action['name']}{bcolors.ENDC}:"
+                        f"{action['desc']}"
+                    ]
+                )
+                print(
+                    f"    {bcolors.BOLD}{action['name']}{bcolors.ENDC}: {action['desc']}"
+                )
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
 

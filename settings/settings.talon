@@ -10,6 +10,8 @@ settings():
     # Set log level
     user.log_level = "debug"
 
+    user.pretty_print_phrase = true
+
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas-talon/settings/cursorless-settings"
     # Location to store csv files
