@@ -4,13 +4,14 @@ settings():
     # Record speech
     speech.record_all = true
 
-    # Log timing statistics for spoken phrases
-    user.timings_log = false
-
     # Set log level
     user.log_level = "debug"
 
-    user.pretty_print_phrase = true
+    # Log timing statistics for spoken phrases
+    user.timings_log = false
+
+    # Pretty print spoken phrases
+    user.pretty_print_phrase = false
 
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas-talon/settings/cursorless-settings"

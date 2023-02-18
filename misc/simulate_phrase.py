@@ -1,5 +1,6 @@
 import re
 from talon import Module, speech_system, registry
+import os
 
 mod = Module()
 
@@ -22,24 +23,23 @@ class Actions:
 
 
 def canceled_command(phrase: str):
-    path = "user\\andreas-talon\\misc\\abort\\abort.talon"
+    path = os.path.sep.join(["user", "andreas-talon", "misc", "abort", "abort.talon"])
     action_name = "user.abort_phrase"
-    action_desc = get_action_description(action_name)
 
-    # context_name = path_to_context_name(path)
-    # context = registry.contexts[context_name]
-    # commands = next(context.commands)
-    # print(commands)
+    context_name = path_to_context_name(path)
+    context = registry.contexts[context_name]
+    command_key = next(iter(context.commands))
+    command = context.commands[command_key]
 
     return {
         "num": 1,
         "phrase": phrase,
         "path": path,
-        "rule": "{user.abort_phrase}$",
+        "rule": command.rule.rule,
         "actions": [
             {
                 "name": action_name,
-                "desc": action_desc,
+                "desc": get_action_description(action_name),
             }
         ],
     }
@@ -60,11 +60,10 @@ def add_actions(sim_commands: list):
 
         for line in command.target.lines:
             action_name = get_action_name(line)
-            action_desc = get_action_description(action_name)
             actions.append(
                 {
                     "name": action_name,
-                    "desc": action_desc,
+                    "desc": get_action_description(action_name),
                 }
             )
 
@@ -72,7 +71,7 @@ def add_actions(sim_commands: list):
 
 
 def path_to_context_name(path: str):
-    return path.replace("\\", ".")
+    return path.replace("/", ".").replace("\\", ".")
 
 
 def get_action_description(name: str):

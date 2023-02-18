@@ -41,7 +41,7 @@ class Actions:
                     ]
                 )
                 print(
-                    f"    {bcolors.BOLD}{action['name']}{bcolors.ENDC}: {action['desc']}"
+                    f"  {bcolors.BOLD}{action['name']}{bcolors.ENDC}: {action['desc']}"
                 )
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
