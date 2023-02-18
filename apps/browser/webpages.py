@@ -27,6 +27,7 @@ ctx.lists["self.webpage"] = {
     "pricerunner":          "https://www.pricerunner.se",
     "prisjakt":             "https://classic.prisjakt.nu",
     "regex cheat sheet":    "https://duckduckgo.com/?q=regex+cheat+sheet&t=ffab&ia=cheatsheet&iax=1",
+    "regex one oh one":     "https://regex101.com",
     "savr":                 "https://www.savr.com",
     "swec":                 "https://www.sweclockers.com/forum/aktiva",
     "sweclockers":          "https://www.sweclockers.com/forum/aktiva",
