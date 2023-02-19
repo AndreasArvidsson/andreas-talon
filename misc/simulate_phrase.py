@@ -1,9 +1,31 @@
 from talon import Module, speech_system, registry
+from typing import Union
 import re
 from dataclasses import dataclass
 import os
 
 mod = Module()
+
+list_pattern = re.compile(r"\{([\w.]+)\}")
+parameter_pattern = re.compile(r"\{([\w.]+)\}")
+
+
+def get_explanation(
+    phrase: str, rule: str, action_name: str, command_line
+) -> Union[str, None]:
+    if action_name == "key":
+        words = phrase.split()
+        rule_lists = list_pattern.findall(rule)
+        if len(words) == 1 and len(rule_lists) == 1 and len(command_line.keys) == 1:
+            word = words[0]
+            rule_list = rule_lists[0]
+            key = command_line.keys[0].value
+            if rule_list.endswith(key):
+                registry_list = next(iter(registry.lists[rule_list]))
+                value = registry_list[word]
+                return f"Press key '{value}'"
+
+    return None
 
 
 @dataclass
@@ -88,14 +110,14 @@ def parse_sim(sim: str) -> list[SimCommand]:
                 phrase,
                 path,
                 rule,
-                get_actions(path, rule),
+                get_actions(phrase, path, rule),
             )
         )
 
     return commands
 
 
-def get_actions(path: str, rule: str) -> list[SimAction]:
+def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
     context_name = path_to_context_name(path)
 
     context = registry.contexts[context_name]
@@ -106,10 +128,11 @@ def get_actions(path: str, rule: str) -> list[SimAction]:
 
     for line in command.target.lines:
         action_name = get_action_name(line)
+        explanation = get_explanation(phrase, rule, action_name, line)
         actions.append(
             SimAction(
                 action_name,
-                get_action_description(action_name),
+                explanation or get_action_description(action_name),
             )
         )
 
