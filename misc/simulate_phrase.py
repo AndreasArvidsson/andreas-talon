@@ -150,7 +150,7 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
                 path,
                 rule,
                 parameters,
-                get_actions(phrase, path, rule, parameters),
+                get_actions(path, rule, parameters),
             )
         )
         i += 1
@@ -158,7 +158,7 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
     return commands
 
 
-def get_actions(phrase: str, path: str, rule: str, parameters: dict) -> list[SimAction]:
+def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
     context_name = path_to_context_name(path)
     context = registry.contexts[context_name]
     commands = context.commands.values()
