@@ -56,20 +56,30 @@ def get_list_parameters(phrase: str, rule: str) -> dict:
     return result
 
 
+def apply_parameters(phrase: str, rule: str, action_params: str) -> str:
+    parameters = get_list_parameters(phrase, rule)
+    text = destring(action_params)
+    for k, v in parameters.items():
+        text = text.replace(f"{{{k}}}", v).replace(k, v)
+    return text
+
+
 def get_explanation(
     phrase: str, rule: str, action_name: str, action_params: str
 ) -> Union[str, None]:
     if action_name == "key":
-        parameters = get_list_parameters(phrase, rule)
-        keys = action_params[1:-1] if STRING_RE.match(action_params) else action_params
-
-        for k, v in parameters.items():
-            keys = keys.replace(f"{{{k}}}", v).replace(k, v)
-
-        multiple_keys = " " in keys or "-" in keys
-        label = "keys" if multiple_keys else "key"
-
+        keys = apply_parameters(phrase, rule, action_params)
+        is_plural = " " in keys or "-" in keys
+        label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
+
+    if action_name == "insert" or action_name == "auto_insert":
+        text = apply_parameters(phrase, rule, action_params)
+        return f"Insert text '{text}'"
+
+    if action_name == "print":
+        text = apply_parameters(phrase, rule, action_params)
+        return f"Log text '{text}'"
 
     return None
 
@@ -180,7 +190,7 @@ def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
         if match:
             action_name = match.group(1)
             action_params = match.group(2)
-        elif STRING_RE.match(line):
+        elif is_string(line):
             action_name = "auto_insert"
             action_params = line
         else:
@@ -197,12 +207,22 @@ def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
     return actions
 
 
-def path_to_context_name(path: str) -> str:
-    return path.replace("/", ".").replace("\\", ".")
-
-
 def get_action_description(name: str) -> str:
     if name in registry.actions:
         action = registry.actions[name][0]
         return action.type_decl.desc
     raise Exception(f"Can't find action {name}")
+
+
+def path_to_context_name(path: str) -> str:
+    return path.replace("/", ".").replace("\\", ".")
+
+
+def is_string(text: str) -> bool:
+    return STRING_RE.match(text) is not None
+
+
+def destring(text: str) -> str:
+    if is_string(text):
+        return text[1:-1]
+    return text
