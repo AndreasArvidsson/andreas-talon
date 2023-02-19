@@ -6,24 +6,69 @@ import os
 
 mod = Module()
 
-list_pattern = re.compile(r"\{([\w.]+)\}")
-parameter_pattern = re.compile(r"\{([\w.]+)\}")
+SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
+ACTION_RE = re.compile(r"([\w.]+)\((.*)\)")
+LIST_RE = re.compile(r"\{([\w.]+)\}")
+
+replace_map = {
+    " ": "space",
+}
+
+
+def get_list_parameters(phrase: str, rule: str) -> dict:
+    result = {}
+    phrase_words = phrase.split()
+    rule_words = rule.split()
+    i = 0
+
+    for rule_word in rule_words:
+        match = LIST_RE.match(rule_word)
+
+        # Match list
+        if match:
+            list_name = match.group(1)
+            list_name_short = list_name.split(".")[-1]
+            registry_list = next(iter(registry.lists[list_name]))
+            i2 = i + 1
+            word = phrase_words[i]
+
+            # Greedily expand matched words. eg match "question mark" over just "question"
+            while i2 < len(phrase_words):
+                new_word = " ".join(phrase_words[i : i2 + 1])
+                if new_word in registry_list:
+                    word = new_word
+                    i2 += 1
+                else:
+                    break
+
+            value = registry_list[word]
+            if value in replace_map:
+                value = replace_map[value]
+
+            result[list_name_short] = value
+            i = i2
+
+        # Literal or capture. For now captures will us be skipped. Hopefully they are of length one
+        else:
+            i += 1
+
+    return result
 
 
 def get_explanation(
-    phrase: str, rule: str, action_name: str, command_line
+    phrase: str, rule: str, action_name: str, action_params: str
 ) -> Union[str, None]:
     if action_name == "key":
-        words = phrase.split()
-        rule_lists = list_pattern.findall(rule)
-        if len(words) == 1 and len(rule_lists) == 1 and len(command_line.keys) == 1:
-            word = words[0]
-            rule_list = rule_lists[0]
-            key = command_line.keys[0].value
-            if rule_list.endswith(key):
-                registry_list = next(iter(registry.lists[rule_list]))
-                value = registry_list[word]
-                return f"Press key '{value}'"
+        parameters = get_list_parameters(phrase, rule)
+        keys = action_params
+
+        for k, v in parameters.items():
+            keys = keys.replace(k, v)
+
+        multiple_keys = " " in keys or "-" in keys
+        label = "keys" if multiple_keys else "key"
+
+        return f"Press {label} '{keys}'"
 
     return None
 
@@ -62,6 +107,7 @@ class Actions:
             sim = speech_system._sim(phrase)
             return parse_sim(sim)
         except Exception as e:
+            print("Failed to simulate phrase")
             print(e)
             return []
 
@@ -123,12 +169,19 @@ def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
     context = registry.contexts[context_name]
     commands = context.commands.values()
     command = next(x for x in commands if x.rule.rule == rule)
+    lines = command.target.code.splitlines()
 
     actions = []
 
-    for line in command.target.lines:
-        action_name = get_action_name(line)
-        explanation = get_explanation(phrase, rule, action_name, line)
+    for line in lines:
+        match = ACTION_RE.match(line)
+
+        if not match:
+            continue
+
+        action_name = match.group(1)
+        action_params = match.group(2)
+        explanation = get_explanation(phrase, rule, action_name, action_params)
         actions.append(
             SimAction(
                 action_name,
@@ -148,16 +201,3 @@ def get_action_description(name: str) -> str:
         action = registry.actions[name][0]
         return action.type_decl.desc
     raise Exception(f"Can't find action {name}")
-
-
-def get_action_name(command_line: dict) -> str:
-    name = getattr(command_line, "name", None)
-    if name:
-        return name
-    keys = getattr(command_line, "keys", None)
-    if keys:
-        return "key"
-    raise Exception(f"Can't find action name: {command_line}")
-
-
-SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
