@@ -7,7 +7,7 @@ import os
 mod = Module()
 
 SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
-ACTION_RE = re.compile(r"([\w.]+)\((.*)\)")
+ACTION_RE = re.compile(r"(?:.*\s)?([\w.]+)\((.*?)\)")
 LIST_RE = re.compile(r"\{([\w.]+)\}")
 STRING_RE = re.compile(r"""^".*"$|^'.*'$""")
 
