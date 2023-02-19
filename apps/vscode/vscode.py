@@ -155,9 +155,7 @@ class UserActions:
     def go_forward():
         vscode("workbench.action.navigateForward")
 
-    def line_middle(n: int = None):
-        if n:
-            actions.edit.jump_line(n)
+    def line_middle():
         vscode("andreas.lineMiddle")
 
     # ----- Find / Replace -----

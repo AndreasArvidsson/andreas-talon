@@ -77,10 +77,8 @@ class EditActions:
 
 @mod.action_class
 class Actions:
-    def line_middle(n: int = None):
-        """Move cursor to middle of line <n> or current"""
-        if n:
-            edit.jump_line(n)
+    def line_middle():
+        """Move cursor to middle of line"""
         edit.select_line()
         text = edit.selected_text().strip()
         edit.right()
