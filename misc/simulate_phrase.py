@@ -9,6 +9,7 @@ mod = Module()
 SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
 ACTION_RE = re.compile(r"([\w.]+)\((.*)\)")
 LIST_RE = re.compile(r"\{([\w.]+)\}")
+STRING_RE = re.compile(r"""^".*"$|^'.*'$""")
 
 replace_map = {
     " ": "space",
@@ -60,10 +61,10 @@ def get_explanation(
 ) -> Union[str, None]:
     if action_name == "key":
         parameters = get_list_parameters(phrase, rule)
-        keys = action_params
+        keys = action_params[1:-1] if STRING_RE.match(action_params) else action_params
 
         for k, v in parameters.items():
-            keys = keys.replace(k, v)
+            keys = keys.replace(f"{{{k}}}", v).replace(k, v)
 
         multiple_keys = " " in keys or "-" in keys
         label = "keys" if multiple_keys else "key"
@@ -176,11 +177,15 @@ def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
     for line in lines:
         match = ACTION_RE.match(line)
 
-        if not match:
+        if match:
+            action_name = match.group(1)
+            action_params = match.group(2)
+        elif STRING_RE.match(line):
+            action_name = "auto_insert"
+            action_params = line
+        else:
             continue
 
-        action_name = match.group(1)
-        action_params = match.group(2)
         explanation = get_explanation(phrase, rule, action_name, action_params)
         actions.append(
             SimAction(
