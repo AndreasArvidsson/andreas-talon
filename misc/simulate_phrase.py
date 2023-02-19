@@ -73,14 +73,14 @@ class SimCommand:
         phrase: str,
         path: str,
         rule: str,
-        parameters: dict,
+        captures: list,
         actions: list[SimAction],
     ):
         self.num = num
         self.phrase = phrase
         self.path = path
         self.rule = rule
-        self.parameters = parameters
+        self.captures = captures
         self.actions = actions
         self.name = path[path.rindex(os.path.sep) + 1 : -6]
 
@@ -142,14 +142,15 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
     i = 0
 
     for _, num, phrase, path, rule in matches:
-        parameters = parse_capture(rule, parsed[i])
+        capture = parsed[i]
+        parameters = parse_capture(rule, capture)
         commands.append(
             SimCommand(
                 int(num),
                 phrase,
                 path,
                 rule,
-                parameters,
+                list(capture),
                 get_actions(path, rule, parameters),
             )
         )
@@ -195,14 +196,22 @@ def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
 def parse_capture(rule: str, parsed: Capture) -> dict:
     result = {}
     rule_parts = rule.split()
+    count = {}
     for i, value in enumerate(parsed):
         param = rule_parts[i]
         if value != param:
             name = PARAM_RE.match(param).group(1)
             name_short = name.split(".")[-1]
-            if value in replace_values:
+
+            if isinstance(value, str) and value in replace_values:
                 value = replace_values[value]
-            result[name_short] = value
+
+            if param in count:
+                count[param] += 1
+            else:
+                count[param] = 1
+                result[name_short] = value
+            result[f"{name_short}_{count[param]}"] = value
     return result
 
 
