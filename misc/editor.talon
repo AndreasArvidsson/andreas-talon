@@ -2,12 +2,8 @@
 page up:                    edit.page_up()
 page down:                  edit.page_down()
 
-go top:
-    user.stop_app()
-    edit.file_start()
-go bottom:
-    user.stop_app()
-    edit.file_end()
+go top:                     edit.file_start()
+go bottom:                  edit.file_end()
 
 head:                       edit.line_start()
 tail:                       edit.line_end()

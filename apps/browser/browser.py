@@ -67,6 +67,12 @@ class BrowserActions:
         actions.key("ctrl-shift-delete")
 
 
+@ctx.action_class("edit")
+class EditActions:
+    def file_end():
+        actions.key("ctrl-end")
+
+
 @ctx.action_class("user")
 class UserActions:
     def go_back():

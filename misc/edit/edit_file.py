@@ -14,7 +14,7 @@ class EditActions:
         key("ctrl-home")
 
     def file_end():
-        key("ctrl-end")
+        key("ctrl-end home")
 
     def select_all():
         key("ctrl-a")
