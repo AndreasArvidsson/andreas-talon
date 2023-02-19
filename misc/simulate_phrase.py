@@ -53,6 +53,9 @@ class SimAction:
     desc: str
     explanation: Union[str, None]
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.__dict__})"
+
 
 class SimCommand:
     def __init__(
@@ -70,7 +73,9 @@ class SimCommand:
         self.rule = rule
         self.captures = captures
         self.actions = actions
-        self.name = path[path.rindex(os.path.sep) + 1 : -6]
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.__dict__})"
 
 
 @mod.action_class
@@ -181,11 +186,11 @@ def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
     return actions
 
 
-def parse_capture(rule: str, parsed: Capture) -> dict:
+def parse_capture(rule: str, capture: Capture) -> dict:
     result = {}
     rule_parts = rule.split()
     count = {}
-    for i, value in enumerate(parsed):
+    for i, value in enumerate(capture):
         param = rule_parts[i]
         if value != param:
             name = PARAM_RE.match(param).group(1)
