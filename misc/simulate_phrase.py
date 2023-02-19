@@ -21,18 +21,7 @@ ignore_actions = {
 }
 
 
-def apply_parameters(action_params: str, parameters: dict) -> str:
-    if is_string(action_params):
-        action_params = destring(action_params)
-        for k, v in parameters.items():
-            action_params = action_params.replace(f"{{{k}}}", str(v))
-    else:
-        for k, v in parameters.items():
-            action_params = action_params.replace(k, str(v))
-    return action_params
-
-
-def get_explanation(
+def get_action_explanation(
     action_name: str, action_params: str, parameters: dict
 ) -> Union[str, None]:
     if action_name == "key":
@@ -50,9 +39,7 @@ def get_explanation(
         return f"Log text '{text}'"
 
     if action_name == "user.vscode_get":
-        return (
-            f"Execute command '{destring(action_params)}' in vscode and return results"
-        )
+        return f"Execute command '{destring(action_params)}' in vscode and get result"
 
     if action_name == "user.vscode":
         return f"Execute command '{destring(action_params)}' in vscode"
@@ -187,7 +174,7 @@ def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
             SimAction(
                 action_name,
                 get_action_description(action_name),
-                get_explanation(action_name, action_params, parameters),
+                get_action_explanation(action_name, action_params, parameters),
             )
         )
 
@@ -235,3 +222,14 @@ def destring(text: str) -> str:
     if is_string(text):
         return text[1:-1]
     return text
+
+
+def apply_parameters(action_params: str, parameters: dict) -> str:
+    if is_string(action_params):
+        action_params = destring(action_params)
+        for k, v in parameters.items():
+            action_params = action_params.replace(f"{{{k}}}", str(v))
+    else:
+        for k, v in parameters.items():
+            action_params = action_params.replace(k, str(v))
+    return action_params
