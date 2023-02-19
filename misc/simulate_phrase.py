@@ -197,10 +197,16 @@ def parse_capture(rule: str, capture: Capture) -> dict:
     result = {}
     rule_parts = rule.split()
     count = {}
+
     for i, value in enumerate(capture):
         param = rule_parts[i]
         if value != param:
-            name = PARAM_RE.match(param).group(1)
+            match = PARAM_RE.match(param)
+
+            if not match:
+                continue
+
+            name = match.group(1)
             name_short = name.split(".")[-1]
 
             if isinstance(value, str) and value in replace_values:
@@ -212,6 +218,7 @@ def parse_capture(rule: str, capture: Capture) -> dict:
                 count[param] = 1
                 result[name_short] = value
             result[f"{name_short}_{count[param]}"] = value
+
     return result
 
 
