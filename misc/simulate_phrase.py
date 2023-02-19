@@ -49,7 +49,9 @@ def get_action_explanation(
 
 @dataclass
 class SimAction:
+    code: str
     name: str
+    params: str
     desc: str
     explanation: Union[str, None]
 
@@ -64,6 +66,8 @@ class SimCommand:
         phrase: str,
         path: str,
         rule: str,
+        code: str,
+        line: int,
         captures: list,
         actions: list[SimAction],
     ):
@@ -71,6 +75,8 @@ class SimCommand:
         self.phrase = phrase
         self.path = path
         self.rule = rule
+        self.code = code
+        self.line = line
         self.captures = captures
         self.actions = actions
 
@@ -135,6 +141,7 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
     i = 0
 
     for _, num, phrase, path, rule in matches:
+        command = get_command(path, rule)
         capture = parsed[i]
         parameters = parse_capture(rule, capture)
         commands.append(
@@ -143,8 +150,10 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
                 phrase,
                 path,
                 rule,
+                command.target.code,
+                command.target.start_line,
                 list(capture),
-                get_actions(path, rule, parameters),
+                get_actions(command, parameters),
             )
         )
         i += 1
@@ -152,11 +161,7 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
     return commands
 
 
-def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
-    context_name = path_to_context_name(path)
-    context = registry.contexts[context_name]
-    commands = context.commands.values()
-    command = next(x for x in commands if x.rule.rule == rule)
+def get_actions(command: dict, parameters: dict) -> list[SimAction]:
     lines = command.target.code.splitlines()
     actions = []
 
@@ -177,7 +182,9 @@ def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
 
         actions.append(
             SimAction(
+                line,
                 action_name,
+                action_params,
                 get_action_description(action_name),
                 get_action_explanation(action_name, action_params, parameters),
             )
@@ -206,6 +213,13 @@ def parse_capture(rule: str, capture: Capture) -> dict:
                 result[name_short] = value
             result[f"{name_short}_{count[param]}"] = value
     return result
+
+
+def get_command(path: str, rule: str):
+    context_name = path_to_context_name(path)
+    context = registry.contexts[context_name]
+    commands = context.commands.values()
+    return next(x for x in commands if x.rule.rule == rule)
 
 
 def get_action_description(name: str) -> str:
