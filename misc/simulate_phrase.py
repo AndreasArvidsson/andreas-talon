@@ -15,6 +15,10 @@ replace_map = {
     " ": "space",
 }
 
+ignore_actions = {
+    "sleep",
+}
+
 
 def get_list_parameters(phrase: str, rule: str) -> dict:
     result = {}
@@ -176,7 +180,6 @@ def parse_sim(sim: str) -> list[SimCommand]:
 
 def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
     context_name = path_to_context_name(path)
-
     context = registry.contexts[context_name]
     commands = context.commands.values()
     command = next(x for x in commands if x.rule.rule == rule)
@@ -194,6 +197,9 @@ def get_actions(phrase: str, path: str, rule: str) -> list[SimAction]:
             action_name = "auto_insert"
             action_params = line
         else:
+            continue
+
+        if action_name in ignore_actions:
             continue
 
         explanation = get_explanation(phrase, rule, action_name, action_params)
