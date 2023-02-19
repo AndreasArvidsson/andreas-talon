@@ -91,7 +91,7 @@ class Actions:
         """Simulate spoke phrase and return list of commands"""
         try:
             if is_aborted:
-                return [canceled_command(text)]
+                return [aborted_command(text)]
 
             return parse_sim(phrase)
         except Exception as e:
@@ -100,7 +100,7 @@ class Actions:
             return []
 
 
-def canceled_command(phrase: str) -> SimCommand:
+def aborted_command(phrase: str) -> SimCommand:
     name = "abort.talon"
     action_name = "user.abort_phrase"
 
