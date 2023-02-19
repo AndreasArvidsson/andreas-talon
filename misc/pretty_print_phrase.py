@@ -32,7 +32,7 @@ class Actions:
             for action in cmd.actions:
                 printLine(
                     f"  {bcolors.BOLD}{action.name}{bcolors.ENDC}:",
-                    f"{action.desc}",
+                    f"{action.explanation or action.desc}",
                 )
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")

@@ -64,6 +64,7 @@ def get_explanation(
 class SimAction:
     name: str
     desc: str
+    explanation: Union[str, None]
 
 
 class SimCommand:
@@ -182,11 +183,11 @@ def get_actions(path: str, rule: str, parameters: dict) -> list[SimAction]:
         if action_name in ignore_actions:
             continue
 
-        explanation = get_explanation(action_name, action_params, parameters)
         actions.append(
             SimAction(
                 action_name,
-                explanation or get_action_description(action_name),
+                get_action_description(action_name),
+                get_explanation(action_name, action_params, parameters),
             )
         )
 
