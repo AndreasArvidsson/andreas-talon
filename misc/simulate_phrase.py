@@ -12,7 +12,7 @@ ACTION_RE = re.compile(r"(?:.*\s)?([\w.]+)\((.*?)\)")
 PARAM_RE = re.compile(r"[{<](.+)[}>]")
 STRING_RE = re.compile(r"""^".*"$|^'.*'$""")
 
-replace_map = {
+replace_values = {
     " ": "space",
 }
 
@@ -200,8 +200,8 @@ def parse_capture(rule: str, parsed: Capture) -> dict:
         if value != param:
             name = PARAM_RE.match(param).group(1)
             name_short = name.split(".")[-1]
-            if value in replace_map:
-                value = replace_map[value]
+            if value in replace_values:
+                value = replace_values[value]
             result[name_short] = value
     return result
 
