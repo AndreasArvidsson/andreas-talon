@@ -85,6 +85,14 @@ def get_explanation(
         text = apply_parameters(phrase, rule, action_params)
         return f"Log text '{text}'"
 
+    if action_name == "user.vscode_get":
+        return (
+            f"Execute command '{destring(action_params)}' in vscode and return results"
+        )
+
+    if action_name == "user.vscode":
+        return f"Execute command '{destring(action_params)}' in vscode"
+
     return None
 
 
