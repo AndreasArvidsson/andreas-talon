@@ -24,6 +24,12 @@ class Actions:
         actions.user.mouse_sleep()
         actions.user.notify("Talon sleeping")
 
+    def talon_sleep_command():
+        """Put Talon to sleep"""
+        actions.user.debug("Talon sleep voice command")
+        actions.user.talon_sleep()
+        actions.user.repeat_command_block()
+
     def talon_wake():
         """Wake Talon from sleep"""
         actions.user.abort_current_phrase()
