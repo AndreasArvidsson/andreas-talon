@@ -17,7 +17,7 @@ use_ttl = True
 @dataclass
 class HistoryEntry:
     phrase: str
-    commands: list
+    actions: list
     ttl: int
 
 
@@ -28,12 +28,9 @@ def gui(gui: imgui.GUI):
     for entry in history[-display_size:]:
         # If ttl is disabled or time hasn't passed yet: show command.
         if not use_ttl or entry.ttl < 0 or entry.ttl >= t:
-            # gui.text(entry.phrase)
-
-            for cmd in entry.commands:
-                gui.header(f"{cmd.phrase}")
-                for action in cmd.actions:
-                    gui.text(f"  {action.desc}")
+            gui.header(entry.phrase)
+            for action in entry.actions:
+                gui.text(f"  {action.desc}")
 
 
 @mod.action_class
@@ -43,8 +40,8 @@ class Actions:
         global history
         ttl = ttl_setting.get()
         ttl = time.monotonic() + ttl if ttl > -1 else -1
-        entry = HistoryEntry(phrase, sim_commands, ttl)
-        history.append(entry)
+        for cmd in sim_commands:
+            history.append(HistoryEntry(cmd.phrase, cmd.actions, ttl))
         history = history[-size_setting.get() :]
 
     def command_history_toggle():
