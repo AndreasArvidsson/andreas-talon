@@ -200,6 +200,8 @@ def parse_capture(rule: str, parsed: Capture) -> dict:
         if value != param:
             name = PARAM_RE.match(param).group(1)
             name_short = name.split(".")[-1]
+            if value in replace_map:
+                value = replace_map[value]
             result[name_short] = value
     return result
 
