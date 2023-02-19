@@ -25,5 +25,5 @@ press <user.key_any>:       key(key_any)
 # Add symbol at end of line and then insert line below
 push {user.key_symbol}:
     edit.line_end()
-    "{key_symbol}"
+    key(key_symbol)
     edit.line_insert_down()
