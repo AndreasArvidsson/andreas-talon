@@ -11,7 +11,7 @@ def on_phrase(phrase):
 
     is_aborted, text = actions.user.abort_phrase(phrase, words)
 
-    sim_commands = actions.user.simulate_phrase(text, is_aborted)
+    sim_commands = actions.user.simulate_phrase(phrase, text, is_aborted)
 
     if not is_aborted:
         is_sleep, text = actions.user.talon_sleep_update_phrase(words)
