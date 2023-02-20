@@ -55,11 +55,17 @@ class UserActions:
 
     def foot_switch_center_down():
         """Start stand still"""
-        actions.key("shift:down")
+        if actions.tracking.control_enabled():
+            actions.key("shift:down")
+        # Eye tracker is disabled. Used for comparing rings.
+        else:
+            actions.key("alt:down")
 
     def foot_switch_center_up():
         """Stop stand still"""
+        # key:up appears to be less reliable than pressing the key
         actions.key("shift")
+        actions.key("alt")
 
     def foot_switch_left_down():
         """Toggle voice chat for game"""
