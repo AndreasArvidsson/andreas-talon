@@ -161,7 +161,7 @@ class UserActions:
     def code_return():
         insert("return ")
 
-    # Function called
+    # Function call
     def code_call_function(name: str):
         insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
