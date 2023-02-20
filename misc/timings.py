@@ -1,5 +1,4 @@
 from talon import Module, actions
-from talon.grammar import Phrase
 
 mod = Module()
 
@@ -16,8 +15,9 @@ blacklist = {"emit", "decode"}
 
 @mod.action_class
 class Actions:
-    def print_phrase_timings(phrase: Phrase, text: str):
+    def print_phrase_timings(phrase: dict, text: str):
         """Print phrase timings"""
+
         try:
             meta = phrase["_metadata"]
 

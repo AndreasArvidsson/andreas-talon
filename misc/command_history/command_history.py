@@ -35,7 +35,7 @@ def gui(gui: imgui.GUI):
 
 @mod.action_class
 class Actions:
-    def command_history_append(phrase: str, sim_commands: list):
+    def command_history_append(sim_commands: list):
         """Append command to history"""
         global history
         ttl = ttl_setting.get()

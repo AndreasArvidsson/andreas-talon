@@ -17,9 +17,9 @@ def on_phrase(phrase):
 
     if text:
         actions.user.subtitle(text)
-        actions.user.print_phrase_timings(phrase, text)
-        actions.user.command_history_append(text, sim_commands)
+        actions.user.command_history_append(sim_commands)
         actions.user.pretty_print_phrase(text, sim_commands)
+        actions.user.print_phrase_timings(phrase, text)
 
 
 speech_system.register("phrase", on_phrase)
