@@ -262,7 +262,7 @@ class UserActions:
 
     # Function call
     def code_call_function(name: str):
-        insert_snippet(f"{name}($0)")
+        insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
     # Insert types
     def code_insert_type_annotation(type: str):

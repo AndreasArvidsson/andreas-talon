@@ -163,7 +163,7 @@ class UserActions:
 
     # Function called
     def code_call_function(name: str):
-        insert_snippet(f"{name}($0)")
+        insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
     # Formatting getters
     def code_get_class_format() -> str:
