@@ -198,4 +198,4 @@ class MainActions:
     def key(key: str):
         actions.next(key)
         if key in requires_space:
-            actions.next(" ")
+            actions.next("space")

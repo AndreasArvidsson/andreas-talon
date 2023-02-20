@@ -1,6 +1,6 @@
 from talon import Module, speech_system, registry
 from talon.grammar import Capture
-from typing import Union
+from typing import Union, Optional
 import re
 from dataclasses import dataclass
 import os
@@ -12,12 +12,12 @@ ACTION_RE = re.compile(r"(?:.*\s)?([\w.]+)\((.*?)\)")
 PARAM_RE = re.compile(r"[{<](.+)[}>]")
 STRING_RE = re.compile(r"""^".*"$|^'.*'$""")
 
-replace_values = {
-    " ": "space",
-}
-
 ignore_actions = {
     "sleep",
+}
+
+key_replacements = {
+    " ": "space",
 }
 
 
@@ -25,7 +25,7 @@ def get_action_explanation(
     action_name: str, action_params: str, parameters: dict
 ) -> Union[str, None]:
     if action_name == "key":
-        keys = apply_parameters(action_params, parameters)
+        keys = apply_parameters(action_params, parameters, key_replacements)
         is_plural = " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
@@ -113,7 +113,6 @@ def run_sim(phrase: dict) -> list[SimCommand]:
     for _, num, phrase, path, rule in matches:
         command = get_command(path, rule)
         capture = parsed[len(commands)]
-        parameters = parse_capture(rule, capture)
         commands.append(
             SimCommand(
                 int(num),
@@ -123,15 +122,16 @@ def run_sim(phrase: dict) -> list[SimCommand]:
                 command.target.code,
                 command.target.start_line,
                 list(capture),
-                get_actions(command, parameters),
+                get_actions(command, rule, capture),
             )
         )
 
     return commands
 
 
-def get_actions(command: dict, parameters: dict) -> list[SimAction]:
+def get_actions(command: dict, rule: str, capture: Capture) -> list[SimAction]:
     lines = [l for l in command.target.code.splitlines() if l and not l.startswith("#")]
+    parameters = get_parameters_from_capture(rule, capture)
     actions = []
 
     for line in lines:
@@ -162,7 +162,7 @@ def get_actions(command: dict, parameters: dict) -> list[SimAction]:
     return actions
 
 
-def parse_capture(rule: str, capture: Capture) -> dict:
+def get_parameters_from_capture(rule: str, capture: Capture) -> dict:
     result = {}
     rule_parts = rule.split()
     count = {}
@@ -178,15 +178,12 @@ def parse_capture(rule: str, capture: Capture) -> dict:
             name = match.group(1)
             name_short = name.split(".")[-1]
 
-            if isinstance(value, str) and value in replace_values:
-                value = replace_values[value]
-
             if param in count:
                 count[param] += 1
             else:
                 count[param] = 1
-                result[name_short] = value
-            result[f"{name_short}_{count[param]}"] = value
+                result[name_short] = str(value)
+            result[f"{name_short}_{count[param]}"] = str(value)
 
     return result
 
@@ -219,12 +216,20 @@ def destring(text: str) -> str:
     return text
 
 
-def apply_parameters(text: str, parameters: dict) -> str:
-    if is_string(text):
+def apply_parameters(
+    text: str, parameters: dict, replacements: Optional[dict] = {}
+) -> str:
+    was_string = is_string(text)
+
+    if was_string:
         text = destring(text)
-        for k, v in parameters.items():
-            text = text.replace(f"{{{k}}}", str(v))
-    else:
-        for k, v in parameters.items():
-            text = text.replace(k, str(v))
+
+    for k, v in parameters.items():
+        if v in replacements:
+            v = replacements[v]
+        if was_string:
+            text = text.replace(f"{{{k}}}", v)
+        else:
+            text = text.replace(k, v)
+
     return text
