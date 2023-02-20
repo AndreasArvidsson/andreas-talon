@@ -9,6 +9,9 @@ app: diablo3
 # ---------- Abort/Cancel ----------
 {user.abort_phrase}$:       skip()
 
+# ---------- Discord ----------
+discord:                    key(ctrl-shift-´)
+
 # ---------- Keys ----------
 
 # Letters [A-Z]
