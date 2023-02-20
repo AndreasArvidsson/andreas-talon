@@ -162,7 +162,7 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
 
 
 def get_actions(command: dict, parameters: dict) -> list[SimAction]:
-    lines = command.target.code.splitlines()
+    lines = [l for l in command.target.code.splitlines() if l and not l.startswith("#")]
     actions = []
 
     for line in lines:
