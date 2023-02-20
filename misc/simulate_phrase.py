@@ -219,12 +219,12 @@ def destring(text: str) -> str:
     return text
 
 
-def apply_parameters(action_params: str, parameters: dict) -> str:
-    if is_string(action_params):
-        action_params = destring(action_params)
+def apply_parameters(text: str, parameters: dict) -> str:
+    if is_string(text):
+        text = destring(text)
         for k, v in parameters.items():
-            action_params = action_params.replace(f"{{{k}}}", str(v))
+            text = text.replace(f"{{{k}}}", str(v))
     else:
         for k, v in parameters.items():
-            action_params = action_params.replace(k, str(v))
-    return action_params
+            text = text.replace(k, str(v))
+    return text
