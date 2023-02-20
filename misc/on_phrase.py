@@ -5,7 +5,7 @@ def on_phrase(phrase):
     if not actions.speech.enabled():
         return
 
-    if not "phrase" in phrase:
+    if not phrase.get("phrase"):
         return
 
     is_aborted, text = actions.user.abort_phrase(phrase)
