@@ -39,10 +39,10 @@ def get_action_explanation(
         return f"Log text '{text}'"
 
     if action_name == "user.vscode_get":
-        return f"Execute command '{destring(action_params)}' in vscode and get result"
+        return f"Execute vscode command '{destring(action_params)}' and return result"
 
     if action_name == "user.vscode":
-        return f"Execute command '{destring(action_params)}' in vscode"
+        return f"Execute vscode command '{destring(action_params)}'"
 
     return None
 
