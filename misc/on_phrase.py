@@ -5,18 +5,17 @@ def on_phrase(phrase):
     if not actions.speech.enabled():
         return
 
-    words = phrase.get("text")
+    words = phrase.get("phrase")
+
     if not words:
         return
 
-    is_aborted, text = actions.user.abort_phrase(phrase, words)
-
-    sim_commands = actions.user.simulate_phrase(phrase, text, is_aborted)
+    is_aborted, text = actions.user.abort_phrase(phrase)
 
     if not is_aborted:
-        is_sleep, text = actions.user.talon_sleep_update_phrase(words)
-        if not is_sleep:
-            text = " ".join(words)
+        is_sleep, text = actions.user.talon_sleep_update_phrase(phrase)
+
+    sim_commands = actions.user.simulate_phrase(phrase)
 
     if text:
         actions.user.subtitle(text)

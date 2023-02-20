@@ -86,50 +86,21 @@ class SimCommand:
 
 @mod.action_class
 class Actions:
-    def simulate_phrase(phrase: dict, text: str, is_aborted: bool) -> list:
+    def simulate_phrase(phrase: dict) -> list:
         """Simulate spoke phrase and return list of commands"""
         try:
-            if is_aborted:
-                return [aborted_command(text)]
-
-            return parse_sim(phrase)
+            return run_sim(phrase)
         except Exception as e:
             print("Failed to simulate phrase")
             print(e)
             return []
 
 
-def aborted_command(phrase: str) -> SimCommand:
-    name = "abort.talon"
-    action_name = "user.abort_phrase"
-
-    context_name = next(x for x in registry.contexts.keys() if x.endswith(name))
-    path_prefix = os.path.sep.join(context_name.split(".")[:-2])
-    path = f"{path_prefix}{os.path.sep}{name}"
-
-    context = registry.contexts[context_name]
-    command_key = next(iter(context.commands))
-    command = context.commands[command_key]
-
-    action = SimAction(
-        action_name,
-        get_action_description(action_name),
-    )
-
-    return SimCommand(
-        1,
-        phrase,
-        path,
-        command.rule.rule,
-        [action],
-    )
-
-
-def parse_sim(phrase: dict) -> list[SimCommand]:
+def run_sim(phrase: dict) -> list[SimCommand]:
     """Attempts to parse {sim} (the output of `sim()`) into a richer object with the phrase, grammar, path,
     and possibly the matched rule(s).
     """
-    text = " ".join(phrase["text"])
+    text = " ".join(phrase["phrase"])
     parsed = phrase["parsed"]
     sim = speech_system._sim(text)
     matches = SIM_RE.findall(sim)
@@ -138,11 +109,10 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
         return None
 
     commands = []
-    i = 0
 
     for _, num, phrase, path, rule in matches:
         command = get_command(path, rule)
-        capture = parsed[i]
+        capture = parsed[len(commands)]
         parameters = parse_capture(rule, capture)
         commands.append(
             SimCommand(
@@ -156,7 +126,6 @@ def parse_sim(phrase: dict) -> list[SimCommand]:
                 get_actions(command, parameters),
             )
         )
-        i += 1
 
     return commands
 

@@ -25,7 +25,7 @@ class Actions:
         global ts_threshold
         ts_threshold = time.perf_counter()
 
-    def abort_phrase(phrase: dict, words: list[str]) -> tuple[bool, str]:
+    def abort_phrase(phrase: dict) -> tuple[bool, str]:
         """Abort current spoken phrase"""
         global ts_threshold
 
@@ -35,13 +35,21 @@ class Actions:
             if delta > 0:
                 actions.user.debug(f"Aborted phrase. {delta:.2f}s")
                 phrase["parsed"]._sequence = []
+                phrase["phrase"] = []
                 return True, ""
+
+        words = phrase["phrase"]
 
         for abort_phrase in abort_phrases:
             if words[-1] == abort_phrase:
-                phrase["parsed"]._sequence = []
+                phrase["parsed"]._sequence = phrase["parsed"]._sequence[-1:]
+                phrase["phrase"] = [abort_phrase]
                 if len(words) > 1:
                     return True, f"... {abort_phrase}"
                 return True, abort_phrase
 
         return False, " ".join(words)
+
+    def abort_phrase_command():
+        """Abort current spoken phrase"""
+        return ""
