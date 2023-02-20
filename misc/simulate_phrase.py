@@ -69,6 +69,7 @@ class SimCommand:
         code: str,
         line: int,
         captures: list,
+        parameters: dict,
         actions: list[SimAction],
     ):
         self.num = num
@@ -78,6 +79,7 @@ class SimCommand:
         self.code = code
         self.line = line
         self.captures = captures
+        self.parameters = parameters
         self.actions = actions
 
     def __repr__(self):
@@ -113,6 +115,7 @@ def run_sim(phrase: dict) -> list[SimCommand]:
     for _, num, phrase, path, rule in matches:
         command = get_command(path, rule)
         capture = parsed[len(commands)]
+        parameters = get_parameters_from_capture(rule, capture)
         commands.append(
             SimCommand(
                 int(num),
@@ -122,16 +125,16 @@ def run_sim(phrase: dict) -> list[SimCommand]:
                 command.target.code,
                 command.target.start_line,
                 list(capture),
-                get_actions(command, rule, capture),
+                parameters,
+                get_actions(command, parameters),
             )
         )
 
     return commands
 
 
-def get_actions(command: dict, rule: str, capture: Capture) -> list[SimAction]:
+def get_actions(command: dict, parameters: dict) -> list[SimAction]:
     lines = [l for l in command.target.code.splitlines() if l and not l.startswith("#")]
-    parameters = get_parameters_from_capture(rule, capture)
     actions = []
 
     for line in lines:
