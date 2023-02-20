@@ -185,8 +185,8 @@ def get_parameters_from_capture(rule: str, capture: Capture) -> dict:
                 count[param] += 1
             else:
                 count[param] = 1
-                result[name_short] = str(value)
-            result[f"{name_short}_{count[param]}"] = str(value)
+                result[name_short] = value
+            result[f"{name_short}_{count[param]}"] = value
 
     return result
 
@@ -228,6 +228,7 @@ def apply_parameters(
         text = destring(text)
 
     for k, v in parameters.items():
+        v = str(v)
         if v in replacements:
             v = replacements[v]
         if was_string:
