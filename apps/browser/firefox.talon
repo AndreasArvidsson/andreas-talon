@@ -45,17 +45,11 @@ copy image:
     mouse_click(1)
     sleep(100ms)
     key(y)
-    sleep(100ms)
-    user.clipboard_manager_update()
 copy image source:
     mouse_click(1)
     sleep(100ms)
     key(o:2 enter)
-    sleep(100ms)
-    user.clipboard_manager_update()
 copy video:
     mouse_click(1)
     sleep(100ms)
     key(o:2 enter)
-    sleep(100ms)
-    user.clipboard_manager_update()

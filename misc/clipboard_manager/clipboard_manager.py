@@ -1,9 +1,18 @@
-from typing import Optional
-from talon import Module, Context, actions, clip
+from talon import Module, actions, clip, app, cron
 from talon.skia.image import Image
 from talon.clip import MimeData
 from dataclasses import dataclass
+from typing import Optional
 from ...imgui import imgui
+
+mod = Module()
+mod.mode("clipboard_manager", "Indicates that the clipboard manager is visible")
+
+setting_clipboard_manager_max_rows = mod.setting(
+    "clipboard_manager_max_rows",
+    type=int,
+    default=20,
+)
 
 
 @dataclass
@@ -13,21 +22,43 @@ class ClipItem:
     image: Optional[Image]
 
 
-mod = Module()
-ctx = Context()
-mod.mode("clipboard_manager", "Indicates that the clipboard manager is visible")
-
-
-setting_clipboard_manager_max_rows = mod.setting(
-    "clipboard_manager_max_rows",
-    type=int,
-    default=20,
-)
-
-
 clip_history: list[ClipItem] = []
 ignore_next: bool = False
 sticky: bool = False
+last_mime = None
+
+
+def update():
+    """Read current clipboard and update manager"""
+    global last_mime, clip_history, ignore_next
+
+    if ignore_next:
+        ignore_next = False
+        return
+
+    mime = clip.mime()
+
+    if not mime or mime == last_mime:
+        return
+
+    last_mime = mime
+    text = mime.text
+
+    try:
+        image = mime.image
+    except:
+        image = None
+
+    if not text:
+        if image is not None:
+            text = f"Image(width={image.width}, height={image.height})"
+        elif is_image(mime):
+            text = f"Image(UNKNOWN)"
+        else:
+            text = "UNKNOWN"
+
+    append(clip_history, ClipItem(text, mime, image))
+    shrink()
 
 
 @imgui.open(numbered=True)
@@ -42,17 +73,6 @@ def gui(gui: imgui.GUI):
             gui.image(item.image)
         else:
             gui.text(item.text)
-
-
-@ctx.action_class("clip")
-class ClipActions:
-    def set_text(text: str):
-        clip.set_text(text)
-        actions.user.clipboard_manager_update()
-
-    def set_image(image: Image):
-        clip.set_image(image)
-        actions.user.clipboard_manager_update()
 
 
 @mod.action_class
@@ -74,36 +94,6 @@ class Actions:
         """Hide clipboard manager"""
         actions.mode.disable("user.clipboard_manager")
         gui.hide()
-
-    def clipboard_manager_update():
-        """Read current clipboard and add to manager"""
-        global clip_history, ignore_next
-        if ignore_next:
-            ignore_next = False
-            return
-
-        mime = clip.mime()
-
-        if mime is None:
-            return
-
-        text = mime.text
-
-        try:
-            image = mime.image
-        except:
-            image = None
-
-        if not text:
-            if image is not None:
-                text = f"Image(width={image.width}, height={image.height})"
-            elif is_image(mime):
-                text = f"Image(UNKNOWN)"
-            else:
-                text = "UNKNOWN"
-
-        append(clip_history, ClipItem(text, mime, image))
-        shrink()
 
     def clipboard_manager_ignore_next():
         """Ignore next copy for clipboard manager"""
@@ -212,3 +202,6 @@ def is_image(mime: MimeData):
         if f.startswith("image/") and len(mime[f]):
             return True
     return False
+
+
+app.register("ready", lambda: cron.interval("100ms", update))

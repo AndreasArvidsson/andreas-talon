@@ -4,9 +4,6 @@ mode: user.clipboard_manager
 clippy stay:
     user.clipboard_manager_toggle_sticky()
 
-clippy update:
-    user.clipboard_manager_update()
-
 clippy clear:
     user.clipboard_manager_remove()
 

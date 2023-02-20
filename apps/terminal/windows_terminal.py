@@ -43,7 +43,6 @@ class AppActions:
 class EditActions:
     def copy():
         key("ctrl-shift-c")
-        actions.user.clipboard_manager_update()
 
     def paste():
         key("ctrl-shift-v")
