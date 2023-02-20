@@ -2,10 +2,7 @@ from talon import speech_system, actions
 
 
 def on_phrase(phrase):
-    if not actions.speech.enabled():
-        return
-
-    if not phrase.get("phrase"):
+    if not actions.speech.enabled() or not phrase.get("phrase"):
         return
 
     is_aborted, text = actions.user.abort_phrase(phrase)
