@@ -1,8 +1,8 @@
 from talon import Module, speech_system, registry
 from talon.grammar import Capture
 from typing import Union, Optional
-import re
 from dataclasses import dataclass
+import re
 import os
 
 mod = Module()
@@ -39,7 +39,7 @@ def get_action_explanation(
         return f"Log text '{text}'"
 
     if action_name == "user.vscode_get":
-        return f"Execute vscode command '{destring(action_params)}' and return result"
+        return f"Execute vscode command '{destring(action_params)}' with return value"
 
     if action_name == "user.vscode":
         return f"Execute vscode command '{destring(action_params)}'"
@@ -192,7 +192,7 @@ def get_parameters_from_capture(rule: str, capture: Capture) -> dict:
 
 
 def get_command(path: str, rule: str):
-    context_name = path_to_context_name(path)
+    context_name = path.replace(os.path.sep, ".")
     context = registry.contexts[context_name]
     commands = context.commands.values()
     return next(x for x in commands if x.rule.rule == rule)
@@ -203,10 +203,6 @@ def get_action_description(name: str) -> str:
         action = registry.actions[name][0]
         return action.type_decl.desc
     raise Exception(f"Can't find action {name}")
-
-
-def path_to_context_name(path: str) -> str:
-    return path.replace("/", ".").replace("\\", ".")
 
 
 def is_string(text: str) -> bool:
