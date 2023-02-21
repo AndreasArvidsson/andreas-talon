@@ -33,7 +33,7 @@ def on_interval():
 
 
 # In a hotkey down event, eg "key(ctrl:down)", any key you press with key/insert
-# actions will be combined with ctrl since it still held. Just updating a
+# actions will be combined with ctrl since it's still held. Just updating a
 # boolean in the actual hotkey event and reading it asynchronously with cron
 # gets around this issue.
 cron.interval("16ms", on_interval)
