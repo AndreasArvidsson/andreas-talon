@@ -1,4 +1,5 @@
 from talon import Module, ui
+from typing import Any
 from dataclasses import dataclass
 import time
 from ...imgui import imgui
@@ -35,12 +36,12 @@ def gui(gui: imgui.GUI):
 
 @mod.action_class
 class Actions:
-    def command_history_append(sim_commands: list):
+    def command_history_append(analyzed_phrase: Any):
         """Append command to history"""
         global history
         ttl = ttl_setting.get()
         ttl = time.monotonic() + ttl if ttl > -1 else -1
-        for cmd in sim_commands:
+        for cmd in analyzed_phrase.commands:
             history.append(HistoryEntry(cmd.phrase, cmd.actions, ttl))
         history = history[-size_setting.get() :]
 

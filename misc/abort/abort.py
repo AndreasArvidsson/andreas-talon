@@ -43,7 +43,7 @@ class Actions:
         for abort_phrase in abort_phrases:
             if words[-1] == abort_phrase:
                 phrase["parsed"]._sequence = phrase["parsed"]._sequence[-1:]
-                phrase["phrase"] = [abort_phrase]
+                phrase["phrase"] = phrase["phrase"][-1:]
                 if len(words) > 1:
                     return True, f"... {abort_phrase}"
                 return True, abort_phrase

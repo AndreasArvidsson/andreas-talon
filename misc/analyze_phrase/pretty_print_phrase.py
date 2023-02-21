@@ -1,4 +1,5 @@
 from talon import Module
+from .types import AnalyzedPhraseWithActions
 
 mod = Module()
 
@@ -12,18 +13,17 @@ settings_log = mod.setting(
 
 @mod.action_class
 class Actions:
-    def pretty_print_phrase(phrase_str: str, commands: list):
-        """Pretty prints the command information to the terminal"""
+    def pretty_print_phrase(analyzed_phrase: AnalyzedPhraseWithActions):
+        """Pretty prints the analysed phrase and its commands"""
         if not settings_log.get():
             return
 
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
         print(
-            f"{bcolors.BOLD}Phrase:{bcolors.ENDC} {bcolors.GREEN}{bcolors.BOLD}{phrase_str}{bcolors.ENDC}"
+            f"{bcolors.BOLD}Phrase:{bcolors.ENDC} {bcolors.GREEN}{bcolors.BOLD}{analyzed_phrase.phrase}{bcolors.ENDC}"
         )
 
-        # Render the individual commands nicely.
-        for cmd in commands:
+        for cmd in analyzed_phrase.commands:
             printLine(
                 f"#{cmd.num}:",
                 f"{bcolors.BOLD}{cmd.phrase}{bcolors.ENDC}:",
