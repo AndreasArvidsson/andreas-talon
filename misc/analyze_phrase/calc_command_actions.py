@@ -42,8 +42,7 @@ class Actions:
                     cmd.rule,
                     cmd.code,
                     cmd.line,
-                    cmd.captures,
-                    cmd.parameters,
+                    cmd.capture,
                     actions.user.calc_command_actions(cmd),
                 )
                 for cmd in phrase.commands
@@ -53,6 +52,7 @@ class Actions:
     def calc_command_actions(command: AnalyzedCommand) -> list[AnalyzedAction]:
         """Calculate command actions from a analyzed phrase"""
         lines = [l for l in command.code.splitlines() if l and not l.startswith("#")]
+        parameters = get_parameters(command)
         actions = []
 
         for line in lines:
@@ -76,13 +76,25 @@ class Actions:
                     action_name,
                     action_params,
                     get_action_description(action_name),
-                    get_action_explanation(
-                        action_name, action_params, command.parameters
-                    ),
+                    get_action_explanation(action_name, action_params, parameters),
                 )
             )
 
         return actions
+
+
+def get_parameters(command: AnalyzedCommand):
+    parameters = {}
+
+    for capture, values in command.capture.mapping.items():
+        parameters[f"{capture}_list"] = values
+        if len(values) == 1:
+            parameters[capture] = values[0]
+        else:
+            for i, value in enumerate(values):
+                parameters[f"{capture}_{i+1}"] = value
+
+    return parameters
 
 
 def get_action_explanation(

@@ -2,12 +2,11 @@ from talon import Module, speech_system, registry
 from talon.grammar import Phrase, Capture
 import re
 import os
-from .types import AnalyzedPhrase, AnalyzedCommand, WordTiming
+from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, WordTiming
 
 mod = Module()
 
 SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
-PARAM_RE = re.compile(r"[{<](.+)[}>]")
 
 
 @mod.action_class
@@ -48,7 +47,6 @@ def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:
     for _, num, phrase, path, rule in matches:
         command = get_command(path, rule)
         capture = parsed[len(commands)]
-        parameters = get_parameters_from_capture(rule, capture)
         commands.append(
             AnalyzedCommand(
                 int(num),
@@ -57,8 +55,7 @@ def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:
                 rule,
                 command.target.code,
                 command.target.start_line,
-                list(capture),
-                parameters,
+                get_capture(capture, rule),
             )
         )
 
@@ -72,27 +69,11 @@ def get_command(path: str, rule: str):
     return next(x for x in commands if x.rule.rule == rule)
 
 
-def get_parameters_from_capture(rule: str, capture: Capture) -> dict:
-    result = {}
-    rule_parts = rule.split()
-    count = {}
+def get_capture(capture: Capture, rule) -> AnalyzedCapture:
+    mapping = {}
 
-    for i, value in enumerate(capture):
-        param = rule_parts[i]
-        if value != param:
-            match = PARAM_RE.match(param)
+    for k, v in capture._mapping.items():
+        if not k.endswith("_list") and not "." in k:
+            mapping[k] = v
 
-            if not match:
-                continue
-
-            name = match.group(1)
-            name_short = name.split(".")[-1]
-
-            if param in count:
-                count[param] += 1
-            else:
-                count[param] = 1
-                result[name_short] = value
-            result[f"{name_short}_{count[param]}"] = value
-
-    return result
+    return AnalyzedCapture(capture._unmapped, capture._sequence, mapping)

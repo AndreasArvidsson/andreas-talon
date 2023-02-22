@@ -25,6 +25,16 @@ class WordTiming:
 
 
 @dataclass
+class AnalyzedCapture:
+    words: list
+    values: list
+    mapping: dict
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.__dict__})"
+
+
+@dataclass
 class AnalyzedCommand:
     num: int
     phrase: str
@@ -32,8 +42,7 @@ class AnalyzedCommand:
     rule: str
     code: str
     line: int
-    captures: list
-    parameters: dict
+    capture: AnalyzedCapture
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
