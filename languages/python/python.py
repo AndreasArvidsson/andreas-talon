@@ -26,6 +26,11 @@ ctx.lists["self.code_data_type"] = {
     "list": "list",
     "tuple": "tuple",
     "range": "range",
+    "none": "None",
+    "any": "Any",
+    "tuple": "Tuple",
+    "union": "Union",
+    "optional": "Optional",
 }
 ctx.lists["self.code_function"] = {
     "format",
@@ -56,11 +61,14 @@ ctx.lists["self.code_insert"] = merge(
         "lambda": "lambda: ",
         "global": "global ",
         "pass": "pass",
+        "raise": "raise ",
     },
 )
 ctx.lists["self.code_snippet"] = {
     "item": '"$1": $0,',
     "ternary": "$1 if $2 else $0",
+    "exception": "Exception($0)",
+    "raise exception": "raise Exception($0)",
 }
 
 
