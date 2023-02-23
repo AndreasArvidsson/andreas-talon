@@ -71,12 +71,19 @@ class Actions:
             if action_name in ignore_actions:
                 continue
 
+            if action_name not in registry.actions:
+                raise Exception(f"Can't find action {action_name}")
+
+            action = registry.actions[action_name][-1]
+
             actions.append(
                 AnalyzedAction(
                     line,
                     action_name,
                     action_params,
-                    get_action_description(action_name),
+                    action.ctx.path,
+                    action.type_decl.desc,
+                    action.func.__doc__,
                     get_action_explanation(action_name, action_params, parameters),
                 )
             )
@@ -122,13 +129,6 @@ def get_action_explanation(
         return f"Execute vscode command '{destring(action_params)}'"
 
     return None
-
-
-def get_action_description(name: str) -> str:
-    if name in registry.actions:
-        action = registry.actions[name][0]
-        return action.type_decl.desc
-    raise Exception(f"Can't find action {name}")
 
 
 def apply_parameters(

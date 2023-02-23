@@ -31,7 +31,7 @@ def gui(gui: imgui.GUI):
         if not use_ttl or entry.ttl < 0 or entry.ttl >= t:
             gui.header(entry.phrase)
             for action in entry.actions:
-                gui.text(f"  {action.explanation or action.desc}")
+                gui.text(f"  {action.get_explanation_or_desc()}")
 
 
 @mod.action_class
