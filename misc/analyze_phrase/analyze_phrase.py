@@ -68,8 +68,7 @@ def get_command(path: str, rule: str):
 def get_captures(capture: Capture) -> AnalyzedCapture:
     captures = []
 
-    for i in range(len(capture._sequence)):
-        value = capture._sequence[i]
+    for i, value in enumerate(capture):
         c = capture._capture[i]
 
         if isinstance(c, DecodeWord):
