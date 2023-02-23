@@ -5,7 +5,7 @@ mod = Module()
 
 mod.apps.mattermost = """
 tag: browser
-and title: /Mattermost/
+title: /Mattermost/
 """
 
 ctx.matches = r"""

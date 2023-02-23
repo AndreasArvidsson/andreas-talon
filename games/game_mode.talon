@@ -3,7 +3,7 @@ tag: user.game_commands
 -
 
 settings():
-    user.foot_switch_timeout = 0
+    user.foot_switch_timeout = false
 
 ^command mode$:             user.game_mode_disable()
 
