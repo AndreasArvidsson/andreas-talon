@@ -63,7 +63,7 @@ class Actions:
 
             if match:
                 action_name = match.group(1)
-                action_params = match.group(2)
+                action_params = match.group(2) or None
             elif is_string(line):
                 action_name = "auto_insert"
                 action_params = line

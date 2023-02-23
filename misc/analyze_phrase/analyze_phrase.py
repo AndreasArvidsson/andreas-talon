@@ -44,9 +44,9 @@ def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:
             AnalyzedCommand(
                 int(num),
                 phrase,
-                path,
                 rule,
                 command.target.code,
+                path,
                 command.target.start_line,
                 get_captures(capture),
                 get_capture_mapping(capture),

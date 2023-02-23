@@ -6,7 +6,7 @@ from typing import Optional, Any
 class AnalyzedAction:
     code: str
     name: str
-    params: str
+    params: Optional[str]
     path: str
     line: Optional[float]
     modDesc: str
@@ -47,6 +47,7 @@ class AnalyzedCommand:
     path: str
     rule: str
     code: str
+    path: str
     line: int
     captures: list[AnalyzedCapture]
     captureMapping: dict
