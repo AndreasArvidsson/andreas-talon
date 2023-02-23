@@ -26,10 +26,7 @@ class Actions:
 
 
 def get_word_timings(words: list) -> list[AnalyzedWord]:
-    return [
-        AnalyzedWord(str(word), word.start, word.end)
-        for word in words
-    ]
+    return [AnalyzedWord(str(word), word.start, word.end) for word in words]
 
 
 def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:

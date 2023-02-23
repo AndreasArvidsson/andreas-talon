@@ -8,6 +8,7 @@ class AnalyzedAction:
     name: str
     params: str
     path: str
+    line: Optional[float]
     modDesc: str
     ctxDesc: Optional[str]
     explanation: Optional[str]

@@ -2,6 +2,7 @@ from talon import Module, actions, registry
 from typing import Union, Optional
 import re
 import os
+import inspect
 from .types import (
     AnalyzedPhrase,
     AnalyzedCommand,
@@ -77,12 +78,18 @@ class Actions:
 
             action = registry.actions[action_name][-1]
 
+            try:
+                line = inspect.getsourcelines(action.func)[1]
+            except:
+                line = None
+
             actions.append(
                 AnalyzedAction(
                     line,
                     action_name,
                     action_params,
                     action.ctx.path.replace(".", os.path.sep),
+                    line,
                     action.type_decl.desc,
                     action.func.__doc__,
                     get_action_explanation(action_name, action_params, parameters),
