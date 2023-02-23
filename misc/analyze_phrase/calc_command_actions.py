@@ -1,4 +1,5 @@
 from talon import Module, actions, registry
+from talon.grammar import Phrase
 from typing import Union, Optional
 import re
 import os
@@ -27,15 +28,14 @@ key_replacements = {
 
 @mod.action_class
 class Actions:
-    def calc_analyzed_phrase_with_actions(
-        phrase: AnalyzedPhrase,
-    ) -> AnalyzedPhraseWithActions:
-        """Turn an analyzed phrase into an analyzed phrase with actions"""
+    def analyze_phrase_with_actions(phrase: Phrase) -> AnalyzedPhraseWithActions:
+        """Analyze spoken phrase. Include actions"""
+        analyzed_phrase: AnalyzedPhrase = actions.user.analyze_phrase(phrase)
 
         return AnalyzedPhraseWithActions(
-            phrase.phrase,
-            phrase.words,
-            phrase.rawSim,
+            analyzed_phrase.phrase,
+            analyzed_phrase.words,
+            analyzed_phrase.rawSim,
             [
                 AnalyzedCommandWithActions(
                     cmd.num,
@@ -48,7 +48,7 @@ class Actions:
                     cmd.captureMapping,
                     actions.user.calc_command_actions(cmd),
                 )
-                for cmd in phrase.commands
+                for cmd in analyzed_phrase.commands
             ],
         )
 

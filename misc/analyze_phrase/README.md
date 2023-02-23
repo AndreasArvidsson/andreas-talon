@@ -2,9 +2,18 @@
 from talon import speech_system, actions
 
 def on_phrase(phrase):
+    # Get an analyzed phrase without actions
     analyzed_phrase = actions.user.analyze_phrase(phrase)
-    analyzed_phrase = actions.user.calc_analyzed_phrase_with_actions(analyzed_phrase)
-    actions.user.pretty_print_phrase(analyzed_phrase)
+
+    # Calculate actions for each command
+    for cmd in analyzed_phrase.commands:
+        actions = actions.user.calc_command_actions(cmd)
+
+    # Get an analyzed phrase with actions
+    analyzed_phrase_with_actions = actions.user.analyze_phrase_with_actions(phrase)
+
+    # Pretty print analyzed phrase with actions
+    actions.user.pretty_print_phrase(analyzed_phrase_with_actions)
 
 speech_system.register("phrase", on_phrase)
 ```
