@@ -2,7 +2,7 @@ from talon import Module, speech_system, registry
 from talon.grammar import Phrase, Capture
 import re
 import os
-from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, WordTiming
+from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
 
 mod = Module()
 
@@ -25,9 +25,9 @@ class Actions:
         )
 
 
-def get_word_timings(words: list) -> list[WordTiming]:
+def get_word_timings(words: list) -> list[AnalyzedWord]:
     return [
-        WordTiming(
+        AnalyzedWord(
             str(words[i]),
             words[i].start if words[i].start is not None else None,
             words[i].end if words[i].end is not None else None,
@@ -55,7 +55,8 @@ def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:
                 rule,
                 command.target.code,
                 command.target.start_line,
-                get_capture(capture, rule),
+                get_captures(capture),
+                get_capture_mapping(capture),
             )
         )
 
@@ -69,11 +70,29 @@ def get_command(path: str, rule: str):
     return next(x for x in commands if x.rule.rule == rule)
 
 
-def get_capture(capture: Capture, rule) -> AnalyzedCapture:
+def get_captures(capture: Capture) -> AnalyzedCapture:
+    captures = []
+
+    for i in range(len(capture._unmapped)):
+        phrase = capture._unmapped[i]
+        value = capture._sequence[i]
+
+        c = capture._capture[i]
+        try:
+            name = c._name
+        except AttributeError:
+            name = c
+
+        captures.append(AnalyzedCapture(phrase, name, value))
+
+    return captures
+
+
+def get_capture_mapping(capture: Capture):
     mapping = {}
 
     for k, v in capture._mapping.items():
         if not k.endswith("_list") and not "." in k:
             mapping[k] = v
 
-    return AnalyzedCapture(capture._unmapped, capture._sequence, mapping)
+    return mapping

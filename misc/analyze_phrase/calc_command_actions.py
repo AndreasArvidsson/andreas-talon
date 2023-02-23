@@ -32,7 +32,7 @@ class Actions:
 
         return AnalyzedPhraseWithActions(
             phrase.phrase,
-            phrase.wordTimings,
+            phrase.words,
             phrase.rawSim,
             [
                 AnalyzedCommandWithActions(
@@ -42,7 +42,8 @@ class Actions:
                     cmd.rule,
                     cmd.code,
                     cmd.line,
-                    cmd.capture,
+                    cmd.captures,
+                    cmd.captureMapping,
                     actions.user.calc_command_actions(cmd),
                 )
                 for cmd in phrase.commands
@@ -86,7 +87,7 @@ class Actions:
 def get_parameters(command: AnalyzedCommand):
     parameters = {}
 
-    for capture, values in command.capture.mapping.items():
+    for capture, values in command.captureMapping.items():
         parameters[f"{capture}_list"] = values
         if len(values) == 1:
             parameters[capture] = values[0]

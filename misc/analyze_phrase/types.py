@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Any
 
 
 @dataclass
@@ -15,8 +15,8 @@ class AnalyzedAction:
 
 
 @dataclass
-class WordTiming:
-    word: str
+class AnalyzedWord:
+    text: str
     start: float
     end: float
 
@@ -26,9 +26,9 @@ class WordTiming:
 
 @dataclass
 class AnalyzedCapture:
-    words: list
-    values: list
-    mapping: dict
+    phrase: str
+    name: str
+    value: Any
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
@@ -42,7 +42,8 @@ class AnalyzedCommand:
     rule: str
     code: str
     line: int
-    capture: AnalyzedCapture
+    captures: list[AnalyzedCapture]
+    captureMapping: dict
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
@@ -59,7 +60,7 @@ class AnalyzedCommandWithActions(AnalyzedCommand):
 @dataclass
 class AnalyzedPhraseBase:
     phrase: str
-    wordTimings: list[WordTiming]
+    words: list[AnalyzedWord]
     rawSim: str
 
     def __repr__(self):
