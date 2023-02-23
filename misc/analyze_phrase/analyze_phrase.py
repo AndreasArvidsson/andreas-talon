@@ -27,11 +27,7 @@ class Actions:
 
 def get_word_timings(words: list) -> list[AnalyzedWord]:
     return [
-        AnalyzedWord(
-            str(words[i]),
-            words[i].start if words[i].start is not None else None,
-            words[i].end if words[i].end is not None else None,
-        )
+        AnalyzedWord(str(words[i]), words[i].start, words[i].end)
         for i in range(len(words))
     ]
 
