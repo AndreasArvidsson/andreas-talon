@@ -9,7 +9,7 @@ def on_phrase(phrase):
 speech_system.register("phrase", on_phrase)
 ```
 
-```json
+```js
 AnalyzedPhraseWithActions({
   phrase: "test air batt five",
   words: [
