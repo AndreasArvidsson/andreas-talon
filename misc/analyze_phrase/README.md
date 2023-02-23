@@ -15,23 +15,23 @@ AnalyzedPhraseWithActions({
   words: [
     AnalyzedWord({
       text: "test",
-      start: 11309.37369797144,
-      end: 11309.614126542867,
+      start: 29000.987656018176,
+      end: 29001.226292381816,
     }),
     AnalyzedWord({
       text: "air",
-      start: 11309.667555114296,
-      end: 11309.827840828582,
+      start: 29001.279322684844,
+      end: 29001.438413593936,
     }),
     AnalyzedWord({
       text: "batt",
-      start: 11309.88126940001,
-      end: 11310.06826940001,
+      start: 29001.464928745452,
+      end: 29001.677049957572,
     }),
     AnalyzedWord({
       text: "five",
-      start: 11310.121697971439,
-      end: 11310.468983685725,
+      start: 29001.70356510909,
+      end: 29002.18083783636,
     }),
   ],
   rawSim:
@@ -40,15 +40,15 @@ AnalyzedPhraseWithActions({
     AnalyzedCommandWithActions({
       num: 1,
       phrase: "test air batt five",
-      path: "user\\andreas-talon\\misc\\editor.talon",
       rule: "test [<user.letter>] <user.letter> <number_small>",
-      code: 'print("{letter_1} {letter_2} {number_small}")\n# skip()',
+      code: 'print("{letter_1} {letter_2} {number_small}")\n',
+      path: "user\\andreas-talon\\misc\\editor.talon",
       line: 84,
       captures: [
-        AnalyzedCapture({ phrase: "test", name: "test", value: "test" }),
-        AnalyzedCapture({ phrase: "air", name: "user.letter", value: "a" }),
-        AnalyzedCapture({ phrase: "batt", name: "user.letter", value: "b" }),
-        AnalyzedCapture({ phrase: "five", name: "number_small", value: 5 }),
+        AnalyzedCapture({ phrase: "test", value: "test", name: None }),
+        AnalyzedCapture({ phrase: "air", value: "a", name: "user.letter" }),
+        AnalyzedCapture({ phrase: "batt", value: "b", name: "user.letter" }),
+        AnalyzedCapture({ phrase: "five", value: 5, name: "number_small" }),
       ],
       captureMapping: { letter: ["a", "b"], number_small: [5] },
       actions: [
@@ -57,6 +57,7 @@ AnalyzedPhraseWithActions({
           name: "print",
           params: '"{letter_1} {letter_2} {number_small}"',
           path: "main",
+          line: None,
           modDesc: "Display an object in the log",
           ctxDesc: "Display an object in the log",
           explanation: "Log text 'a b 5'",

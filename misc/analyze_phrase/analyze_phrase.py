@@ -1,5 +1,7 @@
 from talon import Module, speech_system, registry
 from talon.grammar import Phrase, Capture
+from talon.grammar.vm import Phrase, Capture, VMListCapture, VMCapture
+from talon.engines.w2l import DecodeWord
 import re
 import os
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
@@ -66,17 +68,23 @@ def get_command(path: str, rule: str):
 def get_captures(capture: Capture) -> AnalyzedCapture:
     captures = []
 
-    for i in range(len(capture._unmapped)):
-        phrase = capture._unmapped[i]
+    for i in range(len(capture._sequence)):
         value = capture._sequence[i]
-
         c = capture._capture[i]
-        try:
-            name = c._name
-        except AttributeError:
-            name = c
 
-        captures.append(AnalyzedCapture(phrase, name, value))
+        if isinstance(c, DecodeWord):
+            phrase = c.word
+            name = None
+        elif isinstance(c, VMCapture):
+            phrase = " ".join(c.unmapped())
+            name = c._name
+        elif isinstance(c, VMListCapture):
+            phrase = c._value
+            name = c._name
+        else:
+            raise Exception(f"Unknown capture type '{type(c)}'")
+
+        captures.append(AnalyzedCapture(phrase, value, name))
 
     return captures
 

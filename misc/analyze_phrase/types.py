@@ -33,8 +33,8 @@ class AnalyzedWord:
 @dataclass
 class AnalyzedCapture:
     phrase: str
-    name: str
     value: Any
+    name: Optional[str]
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
@@ -44,7 +44,6 @@ class AnalyzedCapture:
 class AnalyzedCommand:
     num: int
     phrase: str
-    path: str
     rule: str
     code: str
     path: str

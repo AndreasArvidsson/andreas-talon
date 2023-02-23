@@ -40,9 +40,9 @@ class Actions:
                 AnalyzedCommandWithActions(
                     cmd.num,
                     cmd.phrase,
-                    cmd.path,
                     cmd.rule,
                     cmd.code,
+                    cmd.path,
                     cmd.line,
                     cmd.captures,
                     cmd.captureMapping,
@@ -79,9 +79,9 @@ class Actions:
             action = registry.actions[action_name][-1]
 
             try:
-                line = inspect.getsourcelines(action.func)[1]
+                lineNumber = inspect.getsourcelines(action.func)[1]
             except:
-                line = None
+                lineNumber = None
 
             actions.append(
                 AnalyzedAction(
@@ -89,7 +89,7 @@ class Actions:
                     action_name,
                     action_params,
                     action.ctx.path.replace(".", os.path.sep),
-                    line,
+                    lineNumber,
                     action.type_decl.desc,
                     action.func.__doc__,
                     get_action_explanation(action_name, action_params, parameters),
