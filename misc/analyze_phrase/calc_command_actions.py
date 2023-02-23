@@ -1,6 +1,7 @@
 from talon import Module, actions, registry
 from typing import Union, Optional
 import re
+import os
 from .types import (
     AnalyzedPhrase,
     AnalyzedCommand,
@@ -81,7 +82,7 @@ class Actions:
                     line,
                     action_name,
                     action_params,
-                    action.ctx.path,
+                    action.ctx.path.replace(".", os.path.sep),
                     action.type_decl.desc,
                     action.func.__doc__,
                     get_action_explanation(action_name, action_params, parameters),
