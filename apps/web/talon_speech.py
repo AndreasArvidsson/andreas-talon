@@ -43,5 +43,5 @@ def down():
 
 def up():
     actions.key("space")
-    actions.sleep("300ms")
+    actions.sleep("350ms")
     actions.key("down")
