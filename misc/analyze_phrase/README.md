@@ -7,7 +7,7 @@ def on_phrase(phrase):
 
     # Calculate actions for each command
     for cmd in analyzed_phrase.commands:
-        actions = actions.user.calc_command_actions(cmd)
+        cmd_actions = actions.user.calc_command_actions(cmd)
 
     # Get an analyzed phrase with actions
     analyzed_phrase_with_actions = actions.user.analyze_phrase_with_actions(phrase)
