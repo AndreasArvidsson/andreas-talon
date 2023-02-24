@@ -315,7 +315,8 @@ class GUI:
             y = screen.y + screen.height * self._y
         else:
             y = screen.y + max(0, (screen.height - height) / 2)
-        self._canvas.rect = Rect(x, y, width, height)
+        if self._showing:
+            self._canvas.rect = Rect(x, y, width, height)
 
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
