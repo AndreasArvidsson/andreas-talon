@@ -23,8 +23,8 @@ class AnalyzedAction:
 @dataclass
 class AnalyzedWord:
     text: str
-    start: float
-    end: float
+    start: Optional[float]
+    end: Optional[float]
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"

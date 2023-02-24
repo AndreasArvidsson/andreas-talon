@@ -1,7 +1,7 @@
 from talon import Module, speech_system, registry
 from talon.grammar import Phrase, Capture
 from talon.grammar.vm import Phrase, Capture, VMListCapture, VMCapture
-from talon.engines.w2l import DecodeWord
+from talon.engines.w2l import DecodeWord, WordMeta
 import re
 import os
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
@@ -28,7 +28,14 @@ class Actions:
 
 
 def get_word_timings(words: list) -> list[AnalyzedWord]:
-    return [AnalyzedWord(str(word), word.start, word.end) for word in words]
+    return [
+        AnalyzedWord(
+            str(word),
+            getattr(word, "start", None),
+            getattr(word, "end", None),
+        )
+        for word in words
+    ]
 
 
 def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:
@@ -71,7 +78,7 @@ def get_captures(capture: Capture) -> AnalyzedCapture:
     for i, value in enumerate(capture):
         c = capture._capture[i]
 
-        if isinstance(c, DecodeWord):
+        if isinstance(c, DecodeWord) or isinstance(c, WordMeta):
             phrase = c.word
             name = None
         elif isinstance(c, VMCapture):
