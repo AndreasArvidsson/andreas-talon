@@ -10,8 +10,7 @@ def on_phrase(phrase):
     if not is_aborted:
         is_sleep, text = actions.user.talon_sleep_update_phrase(phrase)
 
-    analyzed_phrase = actions.user.analyze_phrase(phrase)
-    analyzed_phrase = actions.user.calc_analyzed_phrase_with_actions(analyzed_phrase)
+    analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
 
     if text:
         actions.user.subtitle(text)
