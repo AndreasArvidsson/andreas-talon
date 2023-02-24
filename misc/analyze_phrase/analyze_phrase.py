@@ -17,7 +17,11 @@ class Actions:
         """Analyze spoken phrase"""
         words = phrase.get("phrase")
         phrase_text = " ".join(words)
-        raw_sim = speech_system._sim(phrase_text)
+
+        try:
+            raw_sim = speech_system._sim(phrase_text)
+        except Exception as ex:
+            raise Exception(f"Failed to run sim on phrase '{phrase_text}'. Ex: {ex}")
 
         return AnalyzedPhrase(
             phrase_text,
@@ -44,7 +48,7 @@ def get_commands(phrase: Phrase, raw_sim: str) -> list[AnalyzedCommand]:
     commands = []
 
     if not matches:
-        raise Exception("Failed to run sim on phrase")
+        raise Exception(f"Can't parse sim '{raw_sim}'")
 
     for _, num, phrase, path, rule in matches:
         command = get_command(path, rule)
