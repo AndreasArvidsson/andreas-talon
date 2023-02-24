@@ -24,25 +24,37 @@ AnalyzedPhraseWithActions({
   words: [
     AnalyzedWord({
       text: "test",
-      start: 29000.987656018176,
-      end: 29001.226292381816,
+      start: 7821.851141466672,
+      end: 7822.0911414666725,
     }),
     AnalyzedWord({
       text: "air",
-      start: 29001.279322684844,
-      end: 29001.438413593936,
+      start: 7822.144474800006,
+      end: 7822.277808133339,
     }),
     AnalyzedWord({
       text: "batt",
-      start: 29001.464928745452,
-      end: 29001.677049957572,
+      start: 7822.304474800006,
+      end: 7822.544474800005,
     }),
     AnalyzedWord({
       text: "five",
-      start: 29001.70356510909,
-      end: 29002.18083783636,
+      start: 7822.571141466672,
+      end: 7822.997808133339,
     }),
   ],
+  metadata: {
+    audio_ms: 1590.0,
+    compile_ms: 0.011499999345687684,
+    pad_ms: 2.5589999995645485,
+    emit_ms: 40.27730000052543,
+    decode_ms: 12.326699999903212,
+    total_ms: 52.61549999977433,
+    clock_ms: 55.049896240234375,
+    engine: "wav2letter",
+    model: "conformer",
+    desc: "W2lEngine(fast Conformer b108 (2021-09-15))",
+  },
   rawSim:
     '[1] "test air batt five"\n   path: user\\andreas-talon\\misc\\editor.talon\n   rule: "test [<user.letter>] <user.letter> <number_small>"',
   commands: [

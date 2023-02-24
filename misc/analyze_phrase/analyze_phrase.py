@@ -2,6 +2,7 @@ from talon import Module, speech_system, registry
 from talon.grammar import Phrase, Capture
 from talon.grammar.vm import Phrase, Capture, VMListCapture, VMCapture
 from talon.engines.w2l import DecodeWord, WordMeta
+from typing import Optional
 import re
 import os
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
@@ -15,7 +16,7 @@ SIM_RE = re.compile(r"""(\[(\d+)] "([^"]+)"\s+path: ([^\n]+)\s+rule: "([^"]+))+"
 class Actions:
     def analyze_phrase(phrase: Phrase) -> AnalyzedPhrase:
         """Analyze spoken phrase"""
-        words = phrase.get("phrase")
+        words = phrase["phrase"]
         phrase_text = " ".join(words)
 
         try:
@@ -26,9 +27,18 @@ class Actions:
         return AnalyzedPhrase(
             phrase_text,
             get_word_timings(words),
+            get_metadata(phrase),
             raw_sim,
             get_commands(phrase, raw_sim),
         )
+
+
+def get_metadata(phrase: Phrase) -> Optional[dict]:
+    meta = phrase.get("_metadata")
+    if meta:
+        # We have already captured the phrase and don't need a duplication.
+        return {k: v for k, v in meta.items() if k not in {"emit", "decode"}}
+    return None
 
 
 def get_word_timings(words: list) -> list[AnalyzedWord]:

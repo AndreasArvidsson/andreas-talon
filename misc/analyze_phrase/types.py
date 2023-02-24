@@ -67,6 +67,7 @@ class AnalyzedCommandWithActions(AnalyzedCommand):
 class AnalyzedPhraseBase:
     phrase: str
     words: list[AnalyzedWord]
+    metadata: Optional[dict]
     rawSim: str
 
     def __repr__(self):

@@ -35,6 +35,7 @@ class Actions:
         return AnalyzedPhraseWithActions(
             analyzed_phrase.phrase,
             analyzed_phrase.words,
+            analyzed_phrase.metadata,
             analyzed_phrase.rawSim,
             [
                 AnalyzedCommandWithActions(
