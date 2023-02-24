@@ -18,15 +18,6 @@ ctx.settings = {
 }
 
 
-@ctx.action_class("edit")
-class EditActions:
-    def left():
-        actions.skip()
-
-    def right():
-        actions.skip()
-
-
 @ctx.action_class("user")
 class UserActions:
     def foot_switch_top_down():
@@ -44,11 +35,11 @@ class UserActions:
     def foot_switch_left_down():
         down()
 
-    def foot_switch_right_down():
-        down()
-
     def foot_switch_left_up():
         up()
+
+    def foot_switch_right_down():
+        down()
 
     def foot_switch_right_up():
         up()
