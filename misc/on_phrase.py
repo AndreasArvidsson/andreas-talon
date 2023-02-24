@@ -10,9 +10,8 @@ def on_phrase(phrase):
     if not is_aborted:
         is_sleep, text = actions.user.talon_sleep_update_phrase(phrase)
 
-    analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
-
     if text:
+        analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
         actions.user.subtitle(text)
         actions.user.print_phrase_timings(phrase, text)
         actions.user.command_history_append(analyzed_phrase)
