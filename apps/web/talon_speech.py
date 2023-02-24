@@ -5,7 +5,7 @@ mod = Module()
 
 mod.apps.talon_speech = """
 tag: browser
-title: /Talon Speech Collection/
+browser.host: speech.talonvoice.com
 """
 
 ctx.matches = """

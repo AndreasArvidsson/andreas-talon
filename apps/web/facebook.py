@@ -5,7 +5,7 @@ mod = Module()
 
 mod.apps.facebook = """
 tag: browser
-title: /Facebook/
+browser.host: www.facebook.com
 """
 
 ctx.matches = """

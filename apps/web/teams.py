@@ -5,7 +5,7 @@ mod = Module()
 
 mod.apps.teams = """
 tag: browser
-title: /Microsoft Teams/
+browser.host: teams.microsoft.com
 """
 mod.apps.teams = """
 os: windows

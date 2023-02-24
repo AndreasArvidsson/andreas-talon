@@ -1,5 +1,4 @@
-tag: browser
-title: /YouTube| - YouTube$/
+app: youtube
 -
 
 speed down:                 key(shift-,)

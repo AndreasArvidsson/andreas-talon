@@ -67,7 +67,7 @@ class BrowserActions:
     def address() -> str:
         # Rango adds address to window title
         title = actions.win.title()
-        match = re.search(url_pattern, title)
+        match = url_pattern.search(title)
         if match:
             return match.group()
         return ""

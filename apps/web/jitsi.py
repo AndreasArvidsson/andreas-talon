@@ -5,7 +5,8 @@ mod = Module()
 
 mod.apps.jitsi = """
 tag: browser
-title: /\\| Jitsi Meet/
+browser.host: meet.jit.si
+browser.host: meet.redpill-linpro.com
 """
 
 ctx.matches = r"""

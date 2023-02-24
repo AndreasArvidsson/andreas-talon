@@ -5,7 +5,7 @@ mod = Module()
 
 mod.apps.mattermost = """
 tag: browser
-title: /Mattermost/
+browser.host: mattermost.redpill-linpro.com
 """
 
 ctx.matches = r"""
