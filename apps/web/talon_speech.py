@@ -1,7 +1,7 @@
-from talon import Context, Module, actions
+from talon import Module, Context, actions
 
-ctx = Context()
 mod = Module()
+ctx = Context()
 
 mod.apps.talon_speech = """
 tag: browser
@@ -9,8 +9,13 @@ browser.host: speech.talonvoice.com
 """
 
 ctx.matches = """
+mode: sleep
 app: talon_speech
 """
+
+ctx.settings = {
+    "user.foot_switch_timeout": False,
+}
 
 
 @ctx.action_class("edit")
