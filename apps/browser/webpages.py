@@ -35,6 +35,7 @@ ctx.lists["self.webpage"] = {
     "talon deck":           "http://localhost:3000",
     "talon search":         "https://search.talonvoice.com",
     "talon speech":         "https://speech.talonvoice.com",
+    "talon noise":          "https://noise.talonvoice.com",
     "talon slack":          "https://talonvoice.slack.com",
     "youtube":              "https://www.youtube.com/feed/subscriptions",
 
