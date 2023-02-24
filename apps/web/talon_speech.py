@@ -29,6 +29,18 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
+    def foot_switch_top_down():
+        actions.key("up")
+
+    def foot_switch_top_up():
+        pass
+
+    def foot_switch_center_down():
+        actions.key("down")
+
+    def foot_switch_center_up():
+        pass
+
     def foot_switch_left_down():
         down()
 
