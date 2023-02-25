@@ -34,7 +34,8 @@ class Actions:
             ts_threshold = None
             if delta > 0:
                 actions.user.debug(f"Aborted phrase. {delta:.2f}s")
-                phrase["parsed"]._sequence = []
+                if "parsed" in phrase:
+                    phrase["parsed"]._sequence = []
                 phrase["phrase"] = []
                 return True, ""
 
