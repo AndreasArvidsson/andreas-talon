@@ -74,7 +74,6 @@ class UserActions:
     def foot_switch_center_up():
         """Stop stand still"""
         actions.key("shift:up")
-        actions.key("alt:up")
 
     def foot_switch_left_down():
         """Toggle voice chat for game"""
@@ -87,11 +86,15 @@ class UserActions:
         actions.user.mouse_freeze_toggle(True)
 
     def foot_switch_right_up():
+        actions.key("alt:up")
         actions.user.mouse_freeze_toggle(False)
 
 
 @ctx_frozen_mouse.action_class("user")
 class FrozenMouseActions:
-    def foot_switch_center_down():
+    def foot_switch_left_down():
         """Hold alt. Used for comparing rings"""
         actions.key("alt:down")
+
+    def foot_switch_left_up():
+        actions.key("alt:up")
