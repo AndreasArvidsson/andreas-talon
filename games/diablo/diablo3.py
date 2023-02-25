@@ -17,7 +17,7 @@ ctx_frozen_mouse = Context()
 ctx_frozen_mouse.matches = """
 mode: user.game
 app: diablo3
-tag: user.mouse_frozen
+tag: user.eye_tracker_frozen
 """
 
 

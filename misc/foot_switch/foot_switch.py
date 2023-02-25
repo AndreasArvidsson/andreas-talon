@@ -123,7 +123,7 @@ class UserActions:
             actions.user.mouse_scrolling("up")
 
     def foot_switch_top_up():
-        actions.user.mouse_stop()
+        actions.user.mouse_scroll_stop()
 
     def foot_switch_center_down():
         if scroll_reversed:
@@ -132,7 +132,7 @@ class UserActions:
             actions.user.mouse_scrolling("down")
 
     def foot_switch_center_up():
-        actions.user.mouse_stop()
+        actions.user.mouse_scroll_stop()
 
     def foot_switch_left_down():
         actions.user.go_back()
@@ -150,13 +150,13 @@ class UserActions:
 # ---------- Default non-sleep implementation ----------
 ctx_eye_tracker = Context()
 ctx_eye_tracker.matches = r"""
-not mode: sleep
 tag: user.eye_tracker
+tag: user.eye_tracker_frozen
 """
 
 
 @ctx_eye_tracker.action_class("user")
-class EyeTrackerActions:
+class NonSleepActions:
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
 

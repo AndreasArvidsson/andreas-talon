@@ -18,7 +18,7 @@ class AppActions:
 class Actions:
     def stop_app():
         """Stop current app actions"""
-        if actions.user.mouse_stop():
+        if actions.user.mouse_scroll_stop():
             return
         if actions.user.scroll_stop():
             return

@@ -25,13 +25,13 @@ class UserActions:
         actions.user.mouse_scrolling("up")
 
     def noise_shush_stop():
-        actions.user.mouse_stop()
+        actions.user.mouse_scroll_stop()
 
     def noise_hiss_start():
         actions.user.mouse_scrolling("down")
 
     def noise_hiss_stop():
-        actions.user.mouse_stop()
+        actions.user.mouse_scroll_stop()
 
 
 @mod.action_class

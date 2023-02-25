@@ -34,9 +34,14 @@ and not mode: sleep
 and not mode: user.game_voip_muted
 """
 
-ctx_frozen_mouse = Context()
-ctx_frozen_mouse.matches = """
-tag: user.mouse_frozen
+ctx_eye_tracker = Context()
+ctx_eye_tracker.matches = """
+tag: user.eye_tracker
+"""
+
+ctx_eye_tracker_frozen = Context()
+ctx_eye_tracker_frozen.matches = """
+tag: user.eye_tracker_frozen
 """
 
 ctx_vscode = Context()
@@ -50,10 +55,7 @@ app: vscode
 @ctx.action_class("user")
 class Actions:
     def talon_deck_get_buttons():
-        return [
-            *get_microphone_buttons(),
-            *actions.user.talon_deck_get_eye_tracker_buttons(),
-        ]
+        return [*get_microphone_buttons()]
 
 
 @ctx_command.action_class("user")
@@ -102,12 +104,22 @@ class GameVoipListeningActions:
         ]
 
 
-@ctx_frozen_mouse.action_class("user")
-class FrozenMouseActions:
-    def talon_deck_get_eye_tracker_buttons() -> list[dict]:
-        if current_eye_tracker:
-            return [{"icon": "eyeTracking2", "action": "user.mouse_freeze_toggle()"}]
-        return []
+@ctx_eye_tracker.action_class("user")
+class EyeTrackerActions:
+    def talon_deck_get_buttons() -> list[dict]:
+        return [
+            *actions.next(),
+            {"icon": "eyeTracking"},
+        ]
+
+
+@ctx_eye_tracker_frozen.action_class("user")
+class EyeTrackerFrozenActions:
+    def talon_deck_get_buttons() -> list[dict]:
+        return [
+            *actions.next(),
+            {"icon": "eyeTracking2", "action": "user.mouse_control_toggle(True)"},
+        ]
 
 
 @ctx_vscode.action_class("user")
@@ -117,15 +129,6 @@ class VscodeActions:
             *actions.next(),
             {"icon": "vscode"},
         ]
-
-
-@mod.action_class
-class Actions:
-    def talon_deck_get_eye_tracker_buttons() -> list[dict]:
-        """Return eye tracker buttons for Talon Deck"""
-        if current_eye_tracker:
-            return [{"icon": "eyeTracking"}]
-        return []
 
 
 def get_language():
@@ -164,19 +167,8 @@ def poll_microphone():
         actions.user.talon_deck_update()
 
 
-def poll_eye_tracker():
-    global current_eye_tracker
-    active_eye_tracker = (
-        actions.tracking.control_enabled() or actions.tracking.control_zoom_enabled()
-    )
-    if active_eye_tracker != current_eye_tracker:
-        current_eye_tracker = active_eye_tracker
-        actions.user.talon_deck_update()
-
-
 def run_poll():
     poll_microphone()
-    poll_eye_tracker()
 
 
 # Use poll for features that are not updating the context
