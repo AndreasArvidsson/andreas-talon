@@ -11,7 +11,7 @@ class Actions:
         global cron_job
         actions.tracking.control_toggle(False)
         cron.cancel(cron_job)
-        cron_job = cron.after("128ms", unfreeze_cursor)
+        cron_job = cron.after("150ms", unfreeze_cursor)
         actions.mouse_click()
 
 
