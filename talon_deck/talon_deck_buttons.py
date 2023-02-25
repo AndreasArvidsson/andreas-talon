@@ -1,40 +1,46 @@
-from talon import Context, actions, scope, app, cron
+from talon import Module, Context, actions, scope, app, cron
 
 current_microphone = None
 current_eye_tracker = None
 
+mod = Module()
 ctx = Context()
 
 ctx_command = Context()
-ctx_command.matches = r"""
+ctx_command.matches = """
 mode: command
 """
 
 ctx_dictation = Context()
-ctx_dictation.matches = r"""
+ctx_dictation.matches = """
 mode: dictation
 """
 
 ctx_sleep = Context()
-ctx_sleep.matches = r"""
+ctx_sleep.matches = """
 mode: sleep
 """
 
 ctx_game = Context()
-ctx_game.matches = r"""
+ctx_game.matches = """
 mode: user.game
 and not mode: sleep
 """
 
 ctx_game_voip_listening = Context()
-ctx_game_voip_listening.matches = r"""
+ctx_game_voip_listening.matches = """
 mode: user.game
 and not mode: sleep
 and not mode: user.game_voip_muted
 """
 
+ctx_frozen_mouse = Context()
+ctx_frozen_mouse.matches = """
+tag: user.mouse_frozen
+"""
+
 ctx_vscode = Context()
-ctx_vscode.matches = r"""
+ctx_vscode.matches = """
 mode: command
 mode: dictation
 app: vscode
@@ -46,7 +52,7 @@ class Actions:
     def talon_deck_get_buttons():
         return [
             *get_microphone_buttons(),
-            *get_eye_tracking_buttons(),
+            *actions.user.talon_deck_get_eye_tracker_buttons(),
         ]
 
 
@@ -96,6 +102,14 @@ class GameVoipListeningActions:
         ]
 
 
+@ctx_frozen_mouse.action_class("user")
+class FrozenMouseActions:
+    def talon_deck_get_eye_tracker_buttons() -> list[dict]:
+        if current_eye_tracker:
+            return [{"icon": "eyeTracking2", "action": "user.mouse_freeze_toggle()"}]
+        return []
+
+
 @ctx_vscode.action_class("user")
 class VscodeActions:
     def talon_deck_get_buttons() -> list[dict]:
@@ -103,6 +117,15 @@ class VscodeActions:
             *actions.next(),
             {"icon": "vscode"},
         ]
+
+
+@mod.action_class
+class Actions:
+    def talon_deck_get_eye_tracker_buttons() -> list[dict]:
+        """Return eye tracker buttons for Talon Deck"""
+        if current_eye_tracker:
+            return [{"icon": "eyeTracking"}]
+        return []
 
 
 def get_language():
@@ -118,12 +141,6 @@ def get_code_language_buttons():
     code_language = actions.user.code_language()
     if code_language:
         return [{"icon": code_language}]
-    return []
-
-
-def get_eye_tracking_buttons():
-    if current_eye_tracker:
-        return [{"icon": "eyeTracking"}]
     return []
 
 
