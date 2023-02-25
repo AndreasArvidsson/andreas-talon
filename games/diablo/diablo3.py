@@ -92,6 +92,14 @@ class UserActions:
 
 @ctx_frozen_mouse.action_class("user")
 class FrozenMouseActions:
+    def noise_pop():
+        """Primary attack click"""
+        mouse_click(0)
+
+    def noise_cluck():
+        """Secondary attack click"""
+        mouse_click(1)
+
     def foot_switch_left_down():
         """Hold alt. Used for comparing rings"""
         actions.key("alt:down")
