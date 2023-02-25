@@ -91,6 +91,7 @@ def get_windows_paths():
         "applications": "shell:AppsFolder",
         "root": environ["HOMEDRIVE"],
         "app data": environ["APPDATA"],
+        "local app data": environ["LOCALAPPDATA"],
         "program files": environ["PROGRAMFILES"],
         "temp": environ["TEMP"],
         "windows": environ["WINDIR"],
