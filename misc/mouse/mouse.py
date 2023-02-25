@@ -26,6 +26,12 @@ class MainActions:
         ctrl.mouse_click(button=button, hold=16000)
 
 
+@ctx.action_class("user")
+class UserActions:
+    def mouse_on_pop():
+        pass
+
+
 @mod.action_class
 class Actions:
     def mouse_on_pop():
