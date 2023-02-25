@@ -157,10 +157,10 @@ not mode: sleep
 @ctx_wake.action_class("user")
 class UserWakeActions:
     def foot_switch_right_down():
-        actions.user.mouse_sleep_toggle()
+        actions.user.mouse_freeze_toggle()
 
     def foot_switch_right_up():
-        actions.user.mouse_sleep_toggle()
+        actions.user.mouse_freeze_toggle()
 
 
 # ---------- Audio conferencing ----------
