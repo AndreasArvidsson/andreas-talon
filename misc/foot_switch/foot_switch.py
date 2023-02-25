@@ -148,14 +148,15 @@ class UserActions:
 
 
 # ---------- Default non-sleep implementation ----------
-ctx_wake = Context()
-ctx_wake.matches = r"""
+ctx_eye_tracker = Context()
+ctx_eye_tracker.matches = r"""
 not mode: sleep
+tag: user.eye_tracker
 """
 
 
-@ctx_wake.action_class("user")
-class UserWakeActions:
+@ctx_eye_tracker.action_class("user")
+class EyeTrackerActions:
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
 

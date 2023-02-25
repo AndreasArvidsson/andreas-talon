@@ -19,6 +19,8 @@ ctx_frozen_mouse.matches = """
 tag: user.mouse_frozen
 """
 
+mod.tag("eye_tracker", "Indicates that the eye tracker is enabled")
+
 mod.list("mouse_click", desc="Available mouse clicks")
 ctx.lists["self.mouse_click"] = {
     "left": "left",
@@ -188,24 +190,21 @@ class Actions:
 
     def mouse_control_enable():
         """Enable control mouse"""
-        mouse_control(bool(tracking_system.trackers))
+        mouse_control_enable_disable(bool(tracking_system.trackers))
 
     def mouse_control_disable():
         """Disable control mouse"""
-        mouse_control(False)
+        mouse_control_enable_disable(False)
 
     def mouse_wake():
         """Set control mouse to earlier state"""
         tracking_control = storage.get("tracking_control", False)
-        actions.tracking.control_toggle(tracking_control)
+        control_toggle(tracking_control)
 
     def mouse_sleep():
         """Disables control mouse and scroll"""
         stop_scroll()
-        actions.tracking.control_toggle(False)
-        # Release all held buttons
-        for button in ctrl.mouse_buttons_down():
-            actions.mouse_release(button)
+        control_toggle(False)
 
     def mouse_sleep_toggle():
         """Toggle sleep/wake for the eye tracker"""
@@ -220,10 +219,22 @@ class Actions:
         actions.mouse_move(rect.center.x, rect.center.y)
 
 
-def mouse_control(enable: bool):
+def mouse_control_enable_disable(enable: bool):
     storage.set("tracking_control", enable)
-    actions.tracking.control_toggle(enable)
+    control_toggle(enable)
     actions.user.notify(f"Control mouse: {enable}")
+
+
+def control_toggle(enable: bool):
+    actions.tracking.control_toggle(enable)
+    if actions.tracking.control_enabled():
+        ctx.tags = ["user.eye_tracker"]
+    else:
+        ctx.tags = []
+        actions.user.mouse_freeze_toggle(False)
+        # Release all held buttons
+        for button in ctrl.mouse_buttons_down():
+            actions.mouse_release(button)
 
 
 def stop_scroll():
