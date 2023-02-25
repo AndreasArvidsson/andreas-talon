@@ -91,7 +91,7 @@ class UserActions:
 
 
 @ctx_frozen_mouse.action_class("user")
-class UserActions:
+class FrozenMouseActions:
     def foot_switch_center_down():
         """Hold alt. Used for comparing rings"""
         actions.key("alt:down")

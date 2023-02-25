@@ -9,7 +9,7 @@ class Actions:
     def stabilized_click():
         """Mouse left click with stabilized cursor position"""
         global cron_job
-        actions.user.mouse_freeze_toggle(True)
+        actions.user.mouse_freeze_toggle(True, None)
         cron.cancel(cron_job)
         cron_job = cron.after("128ms", unfreeze_cursor)
         actions.mouse_click()

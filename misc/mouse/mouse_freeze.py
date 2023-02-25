@@ -25,7 +25,9 @@ mod.tag(
 
 @mod.action_class
 class Actions:
-    def mouse_freeze_toggle(freeze: Optional[bool] = None):
+    def mouse_freeze_toggle(
+        freeze: Optional[bool] = None, tag: Optional[str] = "user.mouse_frozen"
+    ):
         """Toggle to freeze position updates of the mouse cursor"""
         global frozen
 
@@ -38,7 +40,7 @@ class Actions:
 
         frozen = freeze
 
-        if freeze:
-            ctx.tags = ["user.mouse_frozen"]
+        if freeze and tag:
+            ctx.tags = [tag]
         else:
             ctx.tags = []

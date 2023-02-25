@@ -14,6 +14,11 @@ import time
 mod = Module()
 ctx = Context()
 
+ctx_frozen_mouse = Context()
+ctx_frozen_mouse.matches = """
+tag: user.mouse_frozen
+"""
+
 mod.list("mouse_click", desc="Available mouse clicks")
 ctx.lists["self.mouse_click"] = {
     "left": "left",
@@ -55,6 +60,13 @@ scroll_ts = None
 class MainActions:
     def mouse_click(button: int = 0):
         ctrl.mouse_click(button=button, hold=16000)
+
+
+@ctx_frozen_mouse.action_class("user")
+class FrozenMouseActions:
+    def mouse_on_pop():
+        """Frozen mouse on pop handler"""
+        actions.mouse_click()
 
 
 @mod.action_class
