@@ -1,5 +1,14 @@
-from talon import Context, Module, actions, app, cron, ctrl, ui, storage
-from talon_plugins import eye_mouse
+from talon import (
+    Context,
+    Module,
+    actions,
+    app,
+    cron,
+    ctrl,
+    ui,
+    storage,
+    tracking_system,
+)
 import time
 
 mod = Module()
@@ -167,7 +176,7 @@ class Actions:
 
     def mouse_control_enable():
         """Enable control mouse"""
-        mouse_control(eye_mouse.tracker is not None)
+        mouse_control(bool(tracking_system.trackers))
 
     def mouse_control_disable():
         """Disable control mouse"""
