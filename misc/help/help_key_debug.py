@@ -1,10 +1,9 @@
-from talon import Module, Context, actions, ctrl
+from talon import Module, Context, actions, ctrl, settings
 from ...imgui import imgui
 
 mod = Module()
 
 mod.tag("key_debug", "Keep track of which keys are held and not")
-mod.mode("help_key_debug", "Mode for showing the key debug help gui")
 
 ctx = Context()
 ctx.matches = r"""
@@ -23,9 +22,10 @@ def gui(gui: imgui.GUI):
         gui.text(f"Mouse {button}")
     for key in held:
         gui.text(key)
-    gui.spacer()
-    if gui.button("Hide"):
-        actions.user.help_key_debug_toggle()
+
+    # gui.spacer()
+    # if gui.button("Hide"):
+    #     actions.user.help_key_debug_toggle()
 
 
 @ctx.action_class("main")
@@ -47,8 +47,6 @@ class Actions:
     def help_key_debug_toggle():
         """Toggle help key debug gui"""
         if gui.showing:
-            actions.mode.disable("user.help_key_debug")
             gui.hide()
         else:
-            actions.mode.enable("user.help_key_debug")
             gui.show()
