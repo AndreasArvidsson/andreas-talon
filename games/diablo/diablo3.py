@@ -20,12 +20,26 @@ app: diablo3
 tag: user.eye_tracker_frozen
 """
 
+# Release mouse keys for all key presses except these
+dont_release = {"a", "b", "c", "d", "space"}
+
 
 def mouse_click(button: int):
     # Can't hold two buttons at the same time
     actions.mouse_release(0)
     actions.mouse_release(1)
+    # actions.sleep("500ms")
     actions.mouse_click(button)
+
+
+@ctx.action_class("main")
+class MainActions:
+    def key(key: str):
+        """Diablo implementation of pressing a key"""
+        if ":" not in key and key not in dont_release:
+            actions.mouse_release(0)
+            actions.mouse_release(1)
+        actions.next(key)
 
 
 @ctx.action_class("user")
@@ -38,6 +52,7 @@ class UserActions:
     def noise_cluck():
         """Secondary attack hold"""
         mouse_click(1)
+        # actions.sleep("500ms")
         actions.mouse_drag(1)
 
     def noise_hiss_start():
@@ -58,8 +73,6 @@ class UserActions:
         """Start move"""
         actions.mouse_release(0)
         actions.mouse_release(1)
-        actions.key("shift:up")
-        actions.key("alt:up")
         actions.key("w:down")
 
     def foot_switch_top_up():
@@ -68,7 +81,6 @@ class UserActions:
 
     def foot_switch_center_down():
         """Start stand still"""
-        actions.key("w:up")
         actions.key("shift:down")
 
     def foot_switch_center_up():
