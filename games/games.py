@@ -1,19 +1,28 @@
 from talon import Module, Context, actions
 
 mod = Module()
-ctx = Context()
 
 mod.mode("game", "Used to play games")
 mod.mode("game_voip_muted", "Signals that game voice chat is muted")
 mod.tag("game_commands", "Signals that voice commands are enabled in the game")
 
+ctx = Context()
 ctx.matches = r"""
+mode: user.game
+"""
+
+ctx.settings = {
+    "user.foot_switch_timeout": False,
+}
+
+ctx_commands = Context()
+ctx_commands.matches = r"""
 mode: user.game
 and mode: user.game_voip_muted
 and not mode: sleep
 """
 
-ctx.tags = ["user.game_commands"]
+ctx_commands.tags = ["user.game_commands"]
 
 
 @mod.action_class
