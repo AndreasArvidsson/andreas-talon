@@ -1,7 +1,7 @@
 Spoken form, Cursorless identifier
 arg, argumentOrParameter
 attribute, attribute
-block, paragraph
+block | graph, paragraph
 call, functionCall
 callee, functionCallee
 car, character
