@@ -1,3 +1,5 @@
+# tag(): user.key_debug
+
 settings():
     # Speech timeout
     speech.timeout = 0.400
