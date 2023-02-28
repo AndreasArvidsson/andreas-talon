@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, Context, actions, ctrl
 
 mod = Module()
 
@@ -20,16 +20,8 @@ app: diablo3
 tag: user.eye_tracker_frozen
 """
 
-# Release mouse keys for all key presses except these
+# Release held mouse buttons for all key presses except these
 dont_release = {"a", "b", "c", "d", "space"}
-
-
-def mouse_click(button: int):
-    # Can't hold two buttons at the same time
-    actions.mouse_release(0)
-    actions.mouse_release(1)
-    # actions.sleep("500ms")
-    actions.mouse_click(button)
 
 
 @ctx.action_class("main")
@@ -37,8 +29,7 @@ class MainActions:
     def key(key: str):
         """Diablo implementation of pressing a key"""
         if ":" not in key and key not in dont_release:
-            actions.mouse_release(0)
-            actions.mouse_release(1)
+            release_held_buttons()
         actions.next(key)
 
 
@@ -71,8 +62,7 @@ class UserActions:
 
     def foot_switch_top_down():
         """Start move"""
-        actions.mouse_release(0)
-        actions.mouse_release(1)
+        release_held_buttons()
         actions.key("w:down")
 
     def foot_switch_top_up():
@@ -118,3 +108,15 @@ class FrozenMouseActions:
 
     def foot_switch_left_up():
         actions.key("alt:up")
+
+
+def mouse_click(button: int):
+    # Can't hold two buttons at the same time
+    release_held_buttons()
+    # actions.sleep("500ms")
+    actions.mouse_click(button)
+
+
+def release_held_buttons():
+    for button in ctrl.mouse_buttons_down():
+        actions.mouse_release(button)
