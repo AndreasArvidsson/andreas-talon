@@ -90,6 +90,6 @@ class Actions:
     def browser_open(url: str):
         """Focus browser and open url"""
         if actions.app.name() != browser_name:
-            actions.user.focus_name(browser_name)
+            actions.user.window_focus_name(browser_name)
             actions.sleep("50ms")
         actions.user.browser_open_new_tab(url)

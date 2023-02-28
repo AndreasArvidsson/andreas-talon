@@ -7,6 +7,8 @@ window back:                user.window_focus_last()
 
 focus {user.running_application}:
     user.window_focus_name(running_application)
+(focus {user.running_application} <phrase>)+$:
+    user.focus_names(running_application_list, phrase_list)
 
 snap <user.screen>:
     user.window_snap_to_screen(screen)

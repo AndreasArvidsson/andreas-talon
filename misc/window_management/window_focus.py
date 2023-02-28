@@ -107,6 +107,11 @@ class Actions:
             actions.sleep("300ms")
             actions.user.rephrase(phrase)
 
+    def window_focus_names(names: list[str], phrases: list[Phrase]):
+        """Focus applications by name"""
+        for n, p in zip(names, phrases):
+            actions.user.window_focus_name(n, p)
+
     def focus_index(index: int):
         """Focus application by index"""
         names = list(ctx.lists["user.running_application"].values())
