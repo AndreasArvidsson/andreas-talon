@@ -94,6 +94,10 @@ class AppActionsWin:
 
 @mod.action_class
 class Actions:
+    def window_focus_last():
+        """Switch focus to last window"""
+        actions.key("alt-tab")
+
     def focus_name(name: str, phrase: Phrase = None):
         """Focus application by name"""
         focus_name(name)

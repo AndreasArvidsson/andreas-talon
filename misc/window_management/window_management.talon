@@ -3,7 +3,7 @@ window close:               app.window_close()
 window hide:                app.window_hide()
 window last:                app.window_previous()
 window next:                app.window_next()
-window back:                key("alt-tab")
+window back:                user.window_focus_last()
 
 focus {user.running_application}:
     user.focus_name(running_application)
@@ -24,8 +24,8 @@ move {user.resize_side} {user.resize_direction} [{user.resize_size}]:
     user.resize_window(resize_side, resize_direction, resize_size or "medium")
 
 move side:                  user.resize_window_at_cursor_position()
-move window:                user.move_window_at_cursor_position()
+move here:                  user.move_window_at_cursor_position()
 
-(snap | move) undo:         user.window_revert_rect()
+(snap | move) (undo | back): user.window_revert_rect()
 
 screen numbers:             user.screens_show_numbering()
