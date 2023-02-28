@@ -37,7 +37,7 @@ class Actions:
         if old_rect:
             actions.user.window_set_rect(window, old_rect)
 
-    def move_window_to_screen_center():
+    def window_move_to_screen_center():
         """Move the active window to the center of the current screen"""
         window = ui.active_window()
         rect = window.rect
@@ -50,7 +50,7 @@ class Actions:
             height=rect.height,
         )
 
-    def resize_window(side: str, direction: str, offset: str):
+    def window_resize(side: str, direction: str, offset: str):
         """Resize the active window"""
         window = ui.active_window()
         screen = window.screen.visible_rect

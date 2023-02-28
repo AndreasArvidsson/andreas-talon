@@ -13,7 +13,7 @@ class Side:
 
 @mod.action_class
 class Actions:
-    def resize_window_at_cursor_position():
+    def window_resize_at_cursor_position():
         """Resize active windows closest side to cursor position"""
         window = ui.active_window()
         rect = window.rect
@@ -35,7 +35,7 @@ class Actions:
 
         actions.user.window_set_pos(window, *pos)
 
-    def move_window_at_cursor_position():
+    def window_move_at_cursor_position():
         """Move active windows closest side to cursor position"""
         window = ui.active_window()
         rect = window.rect

@@ -21,7 +21,7 @@ class Actions:
             show_screen_number(screen, number)
             number += 1
 
-    def screens_get_by_number(screen_number: int) -> ui.Screen:
+    def screen_get_by_number(screen_number: int) -> ui.Screen:
         """Get screen by number"""
         screens = ui.screens()
         length = len(screens)
@@ -30,6 +30,13 @@ class Actions:
                 f"Non-existing screen {screen_number} in range [1, {length}]"
             )
         return screens[screen_number - 1]
+
+    def screen_get_by_offset(offset: int):
+        """Get screen by offset"""
+        screens = ui.screens()
+        src_screen = ui.active_window().screen
+        index = (screens.index(src_screen) + offset) % len(screens)
+        return screens[index]
 
     def toggle_subtitles():
         """Toggle subtitles"""

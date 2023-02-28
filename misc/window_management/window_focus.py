@@ -81,6 +81,7 @@ def focus_name(name: str):
     # Focus app
     else:
         actions.user.focus_app(app)
+    actions.user.focus_hide()
 
 
 @ctx.action_class("app")
@@ -98,24 +99,19 @@ class Actions:
         """Switch focus to last window"""
         actions.key("alt-tab")
 
-    def focus_name(name: str, phrase: Phrase = None):
+    def window_focus_name(name: str, phrase: Phrase = None):
         """Focus application by name"""
         focus_name(name)
-        actions.user.focus_hide()
+
         if phrase:
             actions.sleep("300ms")
             actions.user.rephrase(phrase)
-
-    def focus_names(names: list[str], phrases: list[Phrase]):
-        """Focus applications by name"""
-        for n, p in zip(names, phrases):
-            actions.user.focus_name(n, p)
 
     def focus_index(index: int):
         """Focus application by index"""
         names = list(ctx.lists["user.running_application"].values())
         if index > -1 and index < len(names):
-            actions.user.focus_name(names[index])
+            focus_name(names[index])
 
     def focus_help_toggle():
         """Shows/hides all running applications"""

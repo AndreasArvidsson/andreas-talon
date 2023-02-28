@@ -87,7 +87,7 @@ def flash_rect(rect: ui.Rect):
 def get_screen(screen_number: int = None) -> ui.Screen:
     if screen_number == None:
         return screen.main_screen()
-    return actions.user.screens_get_by_number(screen_number)
+    return actions.user.screen_get_by_number(screen_number)
 
 
 ctx_win = Context()
