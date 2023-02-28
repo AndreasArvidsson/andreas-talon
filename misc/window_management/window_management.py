@@ -2,12 +2,6 @@ from talon import ui, Module, Context, actions
 from dataclasses import dataclass
 
 
-@dataclass
-class WindowState:
-    old_rect: ui.Rect
-    new_rect: ui.Rect
-
-
 mod = Module()
 ctx = Context()
 window_states = {}
@@ -24,9 +18,8 @@ ctx.lists["user.resize_size"] = {"small", "medium", "large"}
 class Actions:
     def window_set_rect(window: ui.Window, rect: ui.Rect):
         """Update window position. Keeps track of old position to enable revert/undo"""
-        old_rect = window.rect
+        window_states[window] = window.rect
         window.rect = rect
-        window_states[window.id] = WindowState(old_rect, rect)
 
     def window_set_pos(
         window: ui.Window, x: float, y: float, width: float, height: float
@@ -40,11 +33,9 @@ class Actions:
     def window_revert_rect():
         """Revert window position"""
         window = ui.active_window()
-        if window.id in window_states:
-            state = window_states[window.id]
-            if state:
-                window.rect = state.old_rect
-                window_states[window.id] = WindowState(state.new_rect, state.old_rect)
+        old_rect = window_states.get(window)
+        if old_rect:
+            actions.user.window_set_rect(window, old_rect)
 
     def move_window_to_screen_center():
         """Move the active window to the center of the current screen"""
