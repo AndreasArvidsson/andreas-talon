@@ -43,7 +43,6 @@ class UserActions:
     def noise_cluck():
         """Secondary attack hold"""
         mouse_click(1)
-        # actions.sleep("500ms")
         actions.mouse_drag(1)
 
     def noise_hiss_start():
