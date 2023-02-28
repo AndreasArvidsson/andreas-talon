@@ -82,3 +82,8 @@ class Actions:
         """Move the mouse cursor to the center of the currently active window"""
         rect = ui.active_window().rect
         actions.mouse_move(rect.center.x, rect.center.y)
+
+    def mouse_release_held_buttons():
+        """Release held mouse buttons"""
+        for button in ctrl.mouse_buttons_down():
+            actions.mouse_release(button)

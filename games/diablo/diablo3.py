@@ -29,7 +29,7 @@ class MainActions:
     def key(key: str):
         """Diablo implementation of pressing a key"""
         if ":" not in key and key not in dont_release:
-            release_held_buttons()
+            actions.user.mouse_release_held_buttons()
         actions.next(key)
 
 
@@ -62,7 +62,7 @@ class UserActions:
 
     def foot_switch_top_down():
         """Start move"""
-        release_held_buttons()
+        actions.user.mouse_release_held_buttons()
         actions.key("w:down")
 
     def foot_switch_top_up():
@@ -112,11 +112,5 @@ class FrozenMouseActions:
 
 def mouse_click(button: int):
     # Can't hold two buttons at the same time
-    release_held_buttons()
-    # actions.sleep("500ms")
+    actions.user.mouse_release_held_buttons()
     actions.mouse_click(button)
-
-
-def release_held_buttons():
-    for button in ctrl.mouse_buttons_down():
-        actions.mouse_release(button)

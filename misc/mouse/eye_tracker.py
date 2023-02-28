@@ -75,9 +75,7 @@ class Actions:
     def mouse_sleep():
         """Disables control mouse and scroll"""
         actions.user.mouse_scroll_stop()
-        # Release all held buttons
-        for button in ctrl.mouse_buttons_down():
-            actions.mouse_release(button)
+        actions.user.mouse_release_held_buttons()
         control_toggle(False)
 
 

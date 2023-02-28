@@ -39,6 +39,7 @@ class Actions:
         actions.mode.disable("user.game")
         actions.mode.disable("user.game_voip_muted")
         actions.mode.enable("command")
+        actions.user.mouse_release_held_buttons()
 
     def game_toggle_mute():
         """Toggle voice chat for game"""
