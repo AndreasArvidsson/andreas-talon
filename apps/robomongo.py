@@ -14,7 +14,7 @@ ctx.matches = r"""
 app: robomongo
 """
 
-ctx.tags = ["user.comments", "user.tabs"]
+ctx.tags = ["user.comments", "user.tabs", "user.find"]
 
 
 @ctx.action_class("app")
@@ -27,6 +27,15 @@ class AppActions:
 
     def tab_reopen():
         actions.skip()
+
+
+@ctx.action_class("edit")
+class EditActions:
+    def find(text: str = None):
+        actions.key("ctrl-f")
+        if text:
+            actions.sleep("50ms")
+            actions.insert(text)
 
 
 @ctx.action_class("user")
