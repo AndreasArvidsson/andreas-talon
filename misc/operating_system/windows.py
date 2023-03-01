@@ -10,6 +10,7 @@ ctx.lists["self.launch_command"] = {
     "control panel": "control",
     "sound settings": "control mmsys.cpl sounds",
     "system settings": "ms-settings:",
+    "advanced settings": "C:\Windows\System32\systempropertiesadvanced.exe",
     "taskbar settings": "ms-settings:taskbar",
     "services": "services.msc",
     "device manager": "devmgmt.msc",
