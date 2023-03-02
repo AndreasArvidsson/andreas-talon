@@ -176,6 +176,12 @@ def any_alphanumeric_keys(m) -> str:
     return " ".join(m)
 
 
+@mod.capture(rule="{self.letter}")
+def letter(m) -> str:
+    """One letter in the alphabet"""
+    return m[0]
+
+
 @mod.capture(rule="{self.letter}+")
 def letters(m) -> str:
     """One or more letters in the alphabet"""
