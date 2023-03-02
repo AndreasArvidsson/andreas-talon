@@ -72,7 +72,7 @@ ctx.lists["user.snap_position"] = snap_positions.keys()
 
 
 @mod.capture(rule="screen (last|next|<number_small>)")
-def screen(m) -> Union[int, str]:
+def snap_screen(m) -> Union[int, str]:
     "A single screen position."
     try:
         return m.number_small
