@@ -1,4 +1,4 @@
-from talon import Context, Module, app, ui, actions
+from talon import Context, Module, app, ui, actions, ctrl
 from talon.grammar import Phrase
 import re
 import time
@@ -107,11 +107,6 @@ class Actions:
             actions.sleep("300ms")
             actions.user.rephrase(phrase)
 
-    def window_focus_names(names: list[str], phrases: list[Phrase]):
-        """Focus applications by name"""
-        for n, p in zip(names, phrases):
-            actions.user.window_focus_name(n, p)
-
     def focus_index(index: int):
         """Focus application by index"""
         names = list(ctx.lists["user.running_application"].values())
@@ -168,13 +163,34 @@ class Actions:
 
         # Multiple hits on this application. Filter out applications with invalid active window
         if len(apps) > 1:
-            apps2 = list(filter(lambda app: is_valid_window(app.active_window), apps))
+            apps2 = list(filter(lambda app: is_valid_app(app), apps))
             if apps2:
                 return apps2[0]
 
         # Finally just pick the first application
         if apps:
             return apps[0]
+
+    def get_app_window(app_name: str) -> ui.Window:
+        """Get window by application name"""
+        app = actions.user.get_app(app_name)
+        return app.windows()[0]
+
+    def window_get_under_cursor() -> ui.Window:
+        """Get the window under the mouse cursor"""
+        x, y = ctrl.mouse_pos()
+        windows = filter(
+            lambda w: w.rect.contains(x, y) and is_valid_app(w.app),
+            ui.windows(),
+        )
+        window = next(windows, None)
+        if window:
+            return window
+        raise Exception("Can't find window under the mouse cursor")
+
+
+def is_valid_app(app: ui.App) -> bool:
+    return is_valid_window(app.active_window)
 
 
 def is_valid_window(window: ui.Window) -> bool:
@@ -183,6 +199,7 @@ def is_valid_window(window: ui.Window) -> bool:
         and window.title != ""
         and window.rect.width > window.screen.dpi
         and window.rect.height > window.screen.dpi
+        # and window.rect != window.screen.rect
     )
 
 

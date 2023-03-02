@@ -30,12 +30,17 @@ class Actions:
             ui.Rect(round(x), round(y), round(width), round(height)),
         )
 
-    def window_revert_rect():
-        """Revert window position"""
-        window = ui.active_window()
-        old_rect = window_states.get(window)
-        if old_rect:
-            actions.user.window_set_rect(window, old_rect)
+    def window_revert_active():
+        """Revert active window to last position"""
+        revert_window(ui.active_window())
+
+    def window_revert_under_cursor():
+        """Revert the window under the cursor to last position"""
+        revert_window(actions.user.window_get_under_cursor())
+
+    def window_revert_application(app_name: str):
+        """Revert window for application <app_name> to last position"""
+        revert_window(actions.user.get_app_window(app_name))
 
     def window_move_to_screen_center():
         """Move the active window to the center of the current screen"""
@@ -49,6 +54,16 @@ class Actions:
             width=rect.width,
             height=rect.height,
         )
+
+    def window_swap_positions_with_app(name: str):
+        """Swap window position with application by name"""
+        app = actions.user.get_app(name)
+        activeWindow = ui.active_window()
+        appWindow = app.windows()[0]
+        if activeWindow != appWindow:
+            activeRect = activeWindow.rect
+            actions.user.window_set_rect(activeWindow, appWindow.rect)
+            actions.user.window_set_rect(appWindow, activeRect)
 
     def window_resize(side: str, direction: str, offset: str):
         """Resize the active window"""
@@ -99,3 +114,9 @@ class Actions:
             width=min(width, screen.width),
             height=min(height, screen.height),
         )
+
+
+def revert_window(window: ui.Window):
+    old_rect = window_states.get(window)
+    if old_rect:
+        actions.user.window_set_rect(window, old_rect)

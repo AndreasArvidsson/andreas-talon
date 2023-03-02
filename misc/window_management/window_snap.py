@@ -1,5 +1,6 @@
 from talon import ui, Module, Context, actions
 from dataclasses import dataclass
+from typing import Union
 
 
 @dataclass
@@ -10,14 +11,6 @@ class RelativePosition:
     top: float
     right: float
     bottom: float
-
-
-@dataclass
-class ScreenDesc:
-    """Represents a single screen"""
-
-    value: int
-    offset: bool
 
 
 snap_positions = {
@@ -72,61 +65,130 @@ mod = Module()
 ctx = Context()
 
 mod.list(
-    "window_snap_position",
+    "snap_position",
     "Predefined window positions for the current window. See `RelativePosition`.",
 )
-ctx.lists["user.window_snap_position"] = snap_positions.keys()
+ctx.lists["user.snap_position"] = snap_positions.keys()
 
 
 @mod.capture(rule="screen (last|next|<number_small>)")
-def screen(m) -> ScreenDesc:
+def screen(m) -> Union[int, str]:
     "A single screen position."
     try:
-        return ScreenDesc(m.number_small, False)
+        return m.number_small
     except AttributeError:
-        return ScreenDesc(-1 if m[1] == "last" else 1, True)
+        return "previous" if m[1] == "last" else "next"
 
 
 @mod.action_class
 class Actions:
-    def window_snap_to_position(pos_name: str):
-        """Move the active window to a specific position on the same screen"""
-        snap_to_screen_and_position(ui.active_window().screen, pos_name)
-
-    def window_snap_to_screen_and_position(screen_desc: ScreenDesc, pos_name: str):
-        """Move the active window to a specific screen and position on that screen"""
-        snap_to_screen_and_position(get_screen(screen_desc), pos_name)
-
-    def window_snap_to_screen(screen_desc: ScreenDesc):
-        """Move the active window to a specific screen and retaining the same relative position"""
-        screen = get_screen(screen_desc)
-        window = ui.active_window()
-        dest = screen.visible_rect
-        src = window.screen.visible_rect
-        proportional_width = dest.width / src.width
-        proportional_height = dest.height / src.height
-        actions.user.window_set_pos(
-            window,
-            x=dest.left + (window.rect.left - src.left) * proportional_width,
-            y=dest.top + (window.rect.top - src.top) * proportional_height,
-            width=window.rect.width * proportional_width,
-            height=window.rect.height * proportional_height,
+    def snap_active_window_to_screen(screen_desc: Union[int, str]):
+        """Move the active window to screen <screen_desc> while retaining the same relative position"""
+        snap_window_to_screen(
+            ui.active_window(),
+            get_screen(screen_desc),
         )
 
-    def window_swap_positions_with_app(name: str):
-        """Swap window position with application by name"""
-        app = actions.user.get_app(name)
-        activeWindow = ui.active_window()
-        appWindow = app.windows()[0]
-        if activeWindow != appWindow:
-            activeRect = activeWindow.rect
-            actions.user.window_set_rect(activeWindow, appWindow.rect)
-            actions.user.window_set_rect(appWindow, activeRect)
+    def snap_window_under_cursor_to_screen(screen_desc: Union[int, str]):
+        """Move the window under the cursor to screen <screen_desc> while retaining the same relative position"""
+        snap_window_to_screen(
+            actions.user.window_get_under_cursor(),
+            get_screen(screen_desc),
+        )
+
+    def snap_application_to_screen(
+        app_name: str,
+        screen_desc: Union[int, str],
+    ):
+        """Move window for application <app_name> to screen <screen_desc> while retaining the same relative position"""
+        snap_window_to_screen(
+            actions.user.get_app_window(app_name),
+            get_screen(screen_desc),
+        )
+
+    def snap_active_window_to_position(pos_name: str):
+        """Move the active window to position <pos_name> on the current screen"""
+        window = ui.active_window()
+        snap_window_to_screen_and_position(
+            window,
+            window.screen,
+            pos_name,
+        )
+
+    def snap_window_under_cursor_to_position(pos_name: str):
+        """Move the window under the cursor to position <pos_name> on the current screen"""
+        window = actions.user.window_get_under_cursor()
+        snap_window_to_screen_and_position(
+            window,
+            window.screen,
+            pos_name,
+        )
+
+    def snap_application_to_position(
+        app_name: str,
+        pos_name: str,
+    ):
+        """Move window for application <app_name> to position <pos_name> on the current screen"""
+        window = actions.user.get_app_window(app_name)
+        snap_window_to_screen_and_position(
+            window,
+            window.screen,
+            pos_name,
+        )
+
+    def snap_active_window_to_screen_and_position(
+        screen_desc: Union[int, str],
+        pos_name: str,
+    ):
+        """Move the active window to position <pos_name> on screen <screen_desc>"""
+        snap_window_to_screen_and_position(
+            ui.active_window(),
+            get_screen(screen_desc),
+            pos_name,
+        )
+
+    def snap_window_under_cursor_to_screen_and_position(
+        screen_desc: Union[int, str],
+        pos_name: str,
+    ):
+        """Move the window under the cursor to position <pos_name> on screen <screen_desc>"""
+        snap_window_to_screen_and_position(
+            actions.user.window_get_under_cursor(),
+            get_screen(screen_desc),
+            pos_name,
+        )
+
+    def snap_application_to_screen_and_position(
+        app_name: str,
+        screen_desc: Union[int, str],
+        pos_name: str,
+    ):
+        """Move window for application <app_name> to position <pos_name> on screen <screen_desc>"""
+        snap_window_to_screen_and_position(
+            actions.user.get_app_window(app_name),
+            get_screen(screen_desc),
+            pos_name,
+        )
 
 
-def snap_to_screen_and_position(screen: ui.Screen, pos_name: str):
+def snap_window_to_screen(window: ui.Window, screen: ui.Screen):
+    dest = screen.visible_rect
+    src = window.screen.visible_rect
+    proportional_width = dest.width / src.width
+    proportional_height = dest.height / src.height
+    actions.user.window_set_pos(
+        window,
+        x=dest.left + (window.rect.left - src.left) * proportional_width,
+        y=dest.top + (window.rect.top - src.top) * proportional_height,
+        width=window.rect.width * proportional_width,
+        height=window.rect.height * proportional_height,
+    )
+
+
+def snap_window_to_screen_and_position(
+    window: ui.Window, screen: ui.Screen, pos_name: str
+):
     pos = snap_positions[pos_name]
-    window = ui.active_window()
     rect = screen.visible_rect
     actions.user.window_set_pos(
         window,
@@ -137,7 +199,9 @@ def snap_to_screen_and_position(screen: ui.Screen, pos_name: str):
     )
 
 
-def get_screen(screen_desc: ScreenDesc) -> ui.Screen:
-    if screen_desc.offset:
-        return actions.user.screen_get_by_offset(screen_desc.value)
-    return actions.user.screen_get_by_number(screen_desc.value)
+def get_screen(screen_desc: Union[int, str]) -> ui.Screen:
+    if screen_desc == "previous":
+        return actions.user.screen_get_by_offset(-1)
+    if screen_desc == "next":
+        return actions.user.screen_get_by_offset(1)
+    return actions.user.screen_get_by_number(screen_desc)
