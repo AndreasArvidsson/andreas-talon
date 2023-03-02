@@ -155,17 +155,23 @@ def get_action_explanation(
     if action_name == "user.vscode":
         return f"Execute vscode command '{destring(action_params)}'"
 
-    if len(action_args) and not is_string(action_params):
+    if len(action_args):
         action_params = [x.strip() for x in action_params.split(",")]
+
         if len(action_args) == len(action_params):
             result = action_desc
+
             for param, arg in zip(action_params, action_args):
-                if param in parametersMap:
+                if is_string(param):
+                    value = apply_parameters(param, parametersMap)
+                elif param in parametersMap:
                     value = parametersMap[param]
-                    result = result.replace(f"<{arg}>", f"'{value}'")
+                else:
+                    value = destring(param)
+                result = result.replace(f"<{arg}>", f"'{value}'")
+
             if result != action_desc:
                 return result
-
     return None
 
 

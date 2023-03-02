@@ -131,7 +131,9 @@ def on_ready():
         os_paths = get_linux_paths()
 
     ctx.lists["self.path"] = merge(
-        {p.lower(): path.join(user_path, p) for p in user_dirs}, common_paths, os_paths
+        {p.lower(): path.join(user_path, p) for p in user_dirs},
+        common_paths,
+        os_paths,
     )
 
     # for k, v in sorted(ctx.lists["self.path"].items(), key=lambda i: i[1]):

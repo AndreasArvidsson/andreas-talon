@@ -1,14 +1,20 @@
-# Formatted code phrase: "camel hello there" -> helloThere
-<user.formatters_code> <user.text_code> [over]:
-    user.insert_formatted(text_code, formatters_code)
-strict <user.formatters_code> <user.text_code>$:
-    user.insert_formatted(text_code, formatters_code)
+# Un-formatted prose phrase: "say hello there" -> hello there
+say <user.prose>$:
+    "{prose}"
+say <user.prose> {user.phrase_ender}:
+    "{prose}{phrase_ender}"
 
 # Formatted prose phrase: "sentence hello there" -> Hello there
 {user.formatter_prose} <user.prose>$:
     user.insert_formatted(prose, formatter_prose)
 {user.formatter_prose} <user.prose> {user.phrase_ender}:
     user.insert_formatted("{prose}{phrase_ender}", formatter_prose)
+
+# Formatted code phrase: "camel hello there" -> helloThere
+<user.formatters_code> <user.text_code> [over]:
+    user.insert_formatted(text_code, formatters_code)
+strict <user.formatters_code> <user.text_code>$:
+    user.insert_formatted(text_code, formatters_code)
 
 # Only words, no symbols or numbers
 escape <user.words>$:       "{words}"

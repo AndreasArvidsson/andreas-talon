@@ -45,12 +45,9 @@ formatters_no_unformat = {
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", desc="List of code formatters")
 ctx.lists["self.formatter_code"] = {
-    "upper": "ALL_CAPS",
-    "lower": "ALL_LOWERCASE",
     # "string": "DOUBLE_QUOTED_STRING",
     # "twin": "SINGLE_QUOTED_STRING",
     # Splitting formatters
-    "title": "CAPITALIZE_ALL_WORDS",
     "camel": "CAMEL_CASE",
     "pascal": "PASCAL_CASE",
     "snake": "SNAKE_CASE",
@@ -65,8 +62,11 @@ ctx.lists["self.formatter_code"] = {
 
 mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
-    "say": "NOOP",
+    # "say": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
+    "title": "CAPITALIZE_ALL_WORDS",
+    "upper": "ALL_CAPS",
+    "lower": "ALL_LOWERCASE",
     # "string sentence": "DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
     # "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
 }
@@ -131,7 +131,7 @@ def gui(gui: imgui.GUI):
 @mod.action_class
 class Actions:
     def insert_formatted(text: str, formatters: str):
-        """Inserts a text formatted according to formatters. Formatters is a comma separated list of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
+        """Insert text <text> formatted as <formatters>"""
         formatted = actions.user.format_text(text, formatters)
         actions.insert(formatted)
 
