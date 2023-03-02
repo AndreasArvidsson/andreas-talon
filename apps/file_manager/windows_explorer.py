@@ -27,6 +27,15 @@ app: windows_file_browser
 """
 
 
+@ctx.action_class("edit")
+class EditActions:
+    def file_start():
+        key("home")
+
+    def file_end():
+        key("end")
+
+
 @ctx.action_class("user")
 class UserActions:
     def go_back():
