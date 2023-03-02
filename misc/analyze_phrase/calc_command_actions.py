@@ -95,6 +95,8 @@ class Actions:
                     ctxDesc or modDesc,
                     parametersMap,
                 )
+            else:
+                explanation = None
 
             actions.append(
                 AnalyzedAction(
