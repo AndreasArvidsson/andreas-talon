@@ -56,7 +56,7 @@ class Actions:
     def calc_command_actions(command: AnalyzedCommand) -> list[AnalyzedAction]:
         """Calculate command actions from a analyzed phrase"""
         lines = [l for l in command.code.splitlines() if l and not l.startswith("#")]
-        parameters = get_parameters(command)
+        parametersMap = get_parameters(command)
         actions = []
 
         for line in lines:
@@ -84,6 +84,9 @@ class Actions:
             except:
                 lineNumber = None
 
+            modDesc = action.type_decl.desc
+            ctxDesc = inspect.getdoc(action.func)
+
             actions.append(
                 AnalyzedAction(
                     line,
@@ -91,9 +94,15 @@ class Actions:
                     action_params,
                     action.ctx.path.replace(".", os.path.sep),
                     lineNumber,
-                    action.type_decl.desc,
-                    action.func.__doc__,
-                    get_action_explanation(action_name, action_params, parameters),
+                    modDesc,
+                    ctxDesc,
+                    get_action_explanation(
+                        action_name,
+                        action_params,
+                        inspect.getfullargspec(action.func).args,
+                        ctxDesc or modDesc,
+                        parametersMap,
+                    ),
                 )
             )
 
@@ -115,20 +124,24 @@ def get_parameters(command: AnalyzedCommand):
 
 
 def get_action_explanation(
-    action_name: str, action_params: str, parameters: dict
+    action_name: str,
+    action_params: str,
+    action_args: list[str],
+    action_desc: str,
+    parametersMap: dict,
 ) -> Union[str, None]:
     if action_name == "key":
-        keys = apply_parameters(action_params, parameters, key_replacements)
+        keys = apply_parameters(action_params, parametersMap, key_replacements)
         is_plural = " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
 
     if action_name == "insert" or action_name == "auto_insert":
-        text = apply_parameters(action_params, parameters)
+        text = apply_parameters(action_params, parametersMap)
         return f"Insert text '{text}'"
 
     if action_name == "print":
-        text = apply_parameters(action_params, parameters)
+        text = apply_parameters(action_params, parametersMap)
         return f"Log text '{text}'"
 
     if action_name == "user.vscode_get":
@@ -136,6 +149,17 @@ def get_action_explanation(
 
     if action_name == "user.vscode":
         return f"Execute vscode command '{destring(action_params)}'"
+
+    if len(action_args) and not is_string(action_params):
+        action_params = [x.strip() for x in action_params.split(",")]
+        if len(action_args) == len(action_params):
+            result = action_desc
+            for param, arg in zip(action_params, action_args):
+                if param in parametersMap:
+                    value = parametersMap[param]
+                    result = result.replace(f"<{arg}>", f"'{value}'")
+            if result != action_desc:
+                return result
 
     return None
 
