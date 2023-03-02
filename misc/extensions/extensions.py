@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 
-@mod.capture(rule="dot [{user.code_extension} | {user.file_extension}]")
+@mod.capture(rule="dot ({user.code_extension} | {user.file_extension})")
 def extension(m) -> str:
     return f".{m[-1]}"
 

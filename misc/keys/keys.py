@@ -143,7 +143,7 @@ ctx_en.lists["self.key_symbol"] = {
 @mod.capture(rule="{self.key_modifier}+")
 def key_modifiers(m) -> str:
     "One or more modifier keys"
-    return "-".join(m.key_modifier_list)
+    return "-".join(m)
 
 
 @mod.capture(
@@ -167,7 +167,7 @@ def any_alphanumeric_key(m) -> str:
     "A single alphanumeric key"
     if m[0] == " ":
         return "space"
-    return str(m)
+    return m[0]
 
 
 @mod.capture(rule="<user.any_alphanumeric_key>+")
@@ -176,16 +176,10 @@ def any_alphanumeric_keys(m) -> str:
     return " ".join(m)
 
 
-@mod.capture(rule="{self.letter}")
-def letter(m) -> str:
-    """One letter in the alphabet"""
-    return str(m)
-
-
 @mod.capture(rule="{self.letter}+")
 def letters(m) -> str:
     """One or more letters in the alphabet"""
-    return "".join(m.letter_list)
+    return "".join(m)
 
 
 # Window specific context
