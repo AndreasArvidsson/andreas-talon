@@ -52,7 +52,7 @@ split clear:                user.vscode("workbench.action.joinTwoGroups")
 split solo:                 user.vscode("workbench.action.editorLayoutSingle")
 maximize:                   user.vscode("workbench.action.toggleEditorWidths")
 cross:                      user.vscode("workbench.action.focusNextGroup")
-open cross:                 key(ctrl-enter)
+open (cross | split):       key(alt-enter)
 
 # Sidebar
 bar (show | hide):          user.vscode("workbench.action.toggleSidebarVisibility")
