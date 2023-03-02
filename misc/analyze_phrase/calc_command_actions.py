@@ -29,10 +29,6 @@ default_descs = {
     "user.vscode_get": "Execute vscode command <command_id> with return value",
 }
 
-key_replacements = {
-    " ": "space",
-}
-
 
 @mod.action_class
 class Actions:
@@ -148,7 +144,7 @@ def get_action_explanation(
     parameters_map: dict,
 ) -> Union[str, None]:
     if action_name == "key":
-        keys = apply_parameters(action_params, parameters_map, key_replacements)
+        keys = apply_parameters(action_params, parameters_map)
         is_plural = len(keys) > 1 and " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
@@ -174,9 +170,7 @@ def get_action_explanation(
     return None
 
 
-def apply_parameters(
-    text: str, parameters: dict, replacements: Optional[dict] = {}
-) -> str:
+def apply_parameters(text: str, parameters: dict) -> str:
     was_string = is_string(text)
 
     if was_string:
@@ -184,8 +178,6 @@ def apply_parameters(
 
     for k, v in parameters.items():
         v = str(v)
-        if v in replacements:
-            v = replacements[v]
         if was_string:
             text = text.replace(f"{{{k}}}", v)
         else:

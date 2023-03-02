@@ -189,11 +189,12 @@ ctx_win.matches = r"""
 os: windows
 """
 
-win_key_replacement_pattern = re.compile(r"([`^~])")
+KEY_REPLACEMENT_RE = re.compile(r"([`^~])")
 
 
 @ctx_win.action_class("main")
 class MainActions:
     def key(key: str):
-        key = win_key_replacement_pattern.sub(r"\1 space", key)
-        actions.next(key)
+        actions.next(
+            KEY_REPLACEMENT_RE.sub(r"\1 space", key),
+        )
