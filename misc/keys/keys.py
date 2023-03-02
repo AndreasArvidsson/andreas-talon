@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+import re
 from ...merge import merge
 
 mod = Module()
@@ -138,12 +139,6 @@ ctx_en.lists["self.key_symbol"] = {
 
 # fmt: on
 
-requires_space = {
-    "`",
-    "^",
-    "~",
-}
-
 
 @mod.capture(rule="{self.key_modifier}+")
 def key_modifiers(m) -> str:
@@ -169,8 +164,16 @@ def key_any(m) -> str:
 
 @mod.capture(rule="{self.letter} | {self.key_number} | {self.key_symbol}")
 def any_alphanumeric_key(m) -> str:
-    "any alphanumeric key"
+    "A single alphanumeric key"
+    if m[0] == " ":
+        return "space"
     return str(m)
+
+
+@mod.capture(rule="<user.any_alphanumeric_key>+")
+def any_alphanumeric_keys(m) -> str:
+    "One or more alphanumeric keys. Space separated"
+    return " ".join(m)
 
 
 @mod.capture(rule="{self.letter}")
@@ -192,10 +195,11 @@ ctx_win.matches = r"""
 os: windows
 """
 
+win_key_replacement_pattern = re.compile(r"([`^~])")
+
 
 @ctx_win.action_class("main")
 class MainActions:
     def key(key: str):
+        key = win_key_replacement_pattern.sub(r"\1 space", key)
         actions.next(key)
-        if key in requires_space:
-            actions.next("space")
