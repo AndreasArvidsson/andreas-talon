@@ -30,18 +30,18 @@ snap {user.running_application} <user.screen> {user.snap_position}:
     user.snap_application_to_screen_and_position(running_application, screen, snap_position)
 
 (snap | move) back:
-    user.window_revert_active()
+    user.revert_active_window_position()
 (snap | move) this back:
-    user.window_revert_under_cursor()
+    user.revert_window_under_cursor_position()
 (snap | move) {user.running_application} back:
-    user.window_revert_application(running_application)
+    user.revert_application_window_position(running_application)
 
 snap {user.running_application}:
-    user.window_swap_positions_with_app(running_application)
+    user.swap_active_window_position_with_application(running_application)
 
-move center:                user.window_move_to_screen_center()
-side here:                  user.window_resize_at_cursor_position()
-move here:                  user.window_move_at_cursor_position()
+move center:                user.move_window_to_screen_center()
+move here:                  user.move_window_side_to_cursor_position()
+side here:                  user.resize_window_side_to_cursor_position()
 
 move {user.resize_side} {user.resize_direction} [{user.resize_size}]:
     user.window_resize(resize_side, resize_direction, resize_size or "medium")

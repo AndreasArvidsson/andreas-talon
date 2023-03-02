@@ -13,29 +13,7 @@ class Side:
 
 @mod.action_class
 class Actions:
-    def window_resize_at_cursor_position():
-        """Resize active windows closest side to cursor position"""
-        window = ui.active_window()
-        rect = window.rect
-        x, y = actions.user.mouse_pos()
-        side = get_closest_side(rect, x, y)
-
-        if side == "left":
-            pos = (x, rect.y, rect.right - x, rect.height)
-        elif side == "right":
-            pos = (rect.x, rect.y, x - rect.left, rect.height)
-        elif side == "top":
-            pos = (rect.x, y, rect.width, rect.bot - y)
-        elif side == "bot":
-            pos = (rect.x, rect.y, rect.width, y - rect.top)
-        elif side == "NOOP":
-            return
-        else:
-            raise Exception(f"Unknown side {side}")
-
-        actions.user.window_set_pos(window, *pos)
-
-    def window_move_at_cursor_position():
+    def move_window_side_to_cursor_position():
         """Move active windows closest side to cursor position"""
         window = ui.active_window()
         rect = window.rect
@@ -50,6 +28,28 @@ class Actions:
             pos = (rect.x, y, rect.width, rect.height)
         elif side == "bot":
             pos = (rect.x, y - rect.height, rect.width, rect.height)
+        elif side == "NOOP":
+            return
+        else:
+            raise Exception(f"Unknown side {side}")
+
+        actions.user.window_set_pos(window, *pos)
+
+    def resize_window_side_to_cursor_position():
+        """Resize active windows closest side to cursor position"""
+        window = ui.active_window()
+        rect = window.rect
+        x, y = actions.user.mouse_pos()
+        side = get_closest_side(rect, x, y)
+
+        if side == "left":
+            pos = (x, rect.y, rect.right - x, rect.height)
+        elif side == "right":
+            pos = (rect.x, rect.y, x - rect.left, rect.height)
+        elif side == "top":
+            pos = (rect.x, y, rect.width, rect.bot - y)
+        elif side == "bot":
+            pos = (rect.x, rect.y, rect.width, y - rect.top)
         elif side == "NOOP":
             return
         else:

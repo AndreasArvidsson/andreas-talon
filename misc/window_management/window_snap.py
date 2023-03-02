@@ -92,7 +92,7 @@ class Actions:
     def snap_window_under_cursor_to_screen(screen_desc: Union[int, str]):
         """Move the window under the cursor to screen <screen_desc> while retaining the same relative position"""
         snap_window_to_screen(
-            actions.user.window_get_under_cursor(),
+            actions.user.get_window_under_cursor(),
             get_screen(screen_desc),
         )
 
@@ -117,7 +117,7 @@ class Actions:
 
     def snap_window_under_cursor_to_position(pos_name: str):
         """Move the window under the cursor to position <pos_name> on the current screen"""
-        window = actions.user.window_get_under_cursor()
+        window = actions.user.get_window_under_cursor()
         snap_window_to_screen_and_position(
             window,
             window.screen,
@@ -153,7 +153,7 @@ class Actions:
     ):
         """Move the window under the cursor to position <pos_name> on screen <screen_desc>"""
         snap_window_to_screen_and_position(
-            actions.user.window_get_under_cursor(),
+            actions.user.get_window_under_cursor(),
             get_screen(screen_desc),
             pos_name,
         )
