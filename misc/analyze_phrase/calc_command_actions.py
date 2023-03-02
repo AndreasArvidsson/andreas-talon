@@ -87,6 +87,15 @@ class Actions:
             modDesc = action.type_decl.desc
             ctxDesc = inspect.getdoc(action.func)
 
+            if action_params:
+                explanation = get_action_explanation(
+                    action_name,
+                    action_params,
+                    inspect.getfullargspec(action.func).args,
+                    ctxDesc or modDesc,
+                    parametersMap,
+                )
+
             actions.append(
                 AnalyzedAction(
                     line,
@@ -96,13 +105,7 @@ class Actions:
                     lineNumber,
                     modDesc,
                     ctxDesc,
-                    get_action_explanation(
-                        action_name,
-                        action_params,
-                        inspect.getfullargspec(action.func).args,
-                        ctxDesc or modDesc,
-                        parametersMap,
-                    ),
+                    explanation,
                 )
             )
 
