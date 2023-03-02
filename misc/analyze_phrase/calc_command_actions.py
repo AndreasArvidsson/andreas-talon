@@ -1,4 +1,4 @@
-from talon import Module, actions, registry, app
+from talon import Module, Context, actions, registry, app
 from talon.grammar import Phrase
 from typing import Union, Optional
 import re
@@ -19,6 +19,14 @@ STRING_RE = re.compile(r"""^".*"$|^'.*'$""")
 
 ignore_actions = {
     "sleep",
+}
+
+default_descs = {
+    "insert": "Insert text <text>",
+    "auto_insert": "Insert text <text>",
+    "print": "Log text <text>",
+    "user.vscode": "Execute vscode command <command_id>",
+    "user.vscode_get": "Execute vscode command <command_id> with return value",
 }
 
 key_replacements = {
@@ -56,7 +64,7 @@ class Actions:
     def calc_command_actions(command: AnalyzedCommand) -> list[AnalyzedAction]:
         """Calculate command actions from a analyzed phrase"""
         lines = [l for l in command.code.splitlines() if l and not l.startswith("#")]
-        parametersMap = get_parameters(command)
+        parameters_map = get_parameters(command)
         actions = []
 
         for line in lines:
@@ -80,20 +88,23 @@ class Actions:
             action = registry.actions[action_name][-1]
 
             try:
-                lineNumber = inspect.getsourcelines(action.func)[1]
+                line_number = inspect.getsourcelines(action.func)[1]
             except:
-                lineNumber = None
+                line_number = None
 
-            modDesc = action.type_decl.desc
-            ctxDesc = inspect.getdoc(action.func)
+            mod_desc = action.type_decl.desc
+            ctx_desc = (
+                inspect.getdoc(action.func) if isinstance(action.ctx, Context) else None
+            )
 
             if action_params:
                 explanation = get_action_explanation(
                     action_name,
                     action_params,
                     inspect.getfullargspec(action.func).args,
-                    ctxDesc or modDesc,
-                    parametersMap,
+                    mod_desc,
+                    ctx_desc,
+                    parameters_map,
                 )
             else:
                 explanation = None
@@ -104,9 +115,9 @@ class Actions:
                     action_name,
                     action_params,
                     action.ctx.path.replace(".", os.path.sep),
-                    lineNumber,
-                    modDesc,
-                    ctxDesc,
+                    line_number,
+                    mod_desc,
+                    ctx_desc,
                     explanation,
                 )
             )
@@ -132,46 +143,34 @@ def get_action_explanation(
     action_name: str,
     action_params: str,
     action_args: list[str],
-    action_desc: str,
-    parametersMap: dict,
+    mod_desc: str,
+    ctx_desc: str,
+    parameters_map: dict,
 ) -> Union[str, None]:
     if action_name == "key":
-        keys = apply_parameters(action_params, parametersMap, key_replacements)
-        is_plural = " " in keys or "-" in keys
+        keys = apply_parameters(action_params, parameters_map, key_replacements)
+        is_plural = len(keys) > 1 and " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
 
-    if action_name == "insert" or action_name == "auto_insert":
-        text = apply_parameters(action_params, parametersMap)
-        return f"Insert text '{text}'"
+    action_params = [x.strip() for x in action_params.split(",")]
+    action_desc = ctx_desc or default_descs.get(action_name) or mod_desc
 
-    if action_name == "print":
-        text = apply_parameters(action_params, parametersMap)
-        return f"Log text '{text}'"
+    result = action_desc
+    length = min(len(action_params), len(action_args))
 
-    if action_name == "user.vscode_get":
-        return f"Execute vscode command '{destring(action_params)}' with return value"
+    for param, arg in zip(action_params[:length], action_args[:length]):
+        if is_string(param):
+            value = apply_parameters(param, parameters_map)
+        elif param in parameters_map:
+            value = parameters_map[param]
+        else:
+            value = destring(param)
+        result = result.replace(f"<{arg}>", f"'{value}'")
 
-    if action_name == "user.vscode":
-        return f"Execute vscode command '{destring(action_params)}'"
+    if result != action_desc:
+        return result
 
-    if len(action_args):
-        action_params = [x.strip() for x in action_params.split(",")]
-
-        if len(action_args) == len(action_params):
-            result = action_desc
-
-            for param, arg in zip(action_params, action_args):
-                if is_string(param):
-                    value = apply_parameters(param, parametersMap)
-                elif param in parametersMap:
-                    value = parametersMap[param]
-                else:
-                    value = destring(param)
-                result = result.replace(f"<{arg}>", f"'{value}'")
-
-            if result != action_desc:
-                return result
     return None
 
 
@@ -211,25 +210,39 @@ def test_get_action_explanation():
             name,
             "print",
             params,
-            None,
+            ["text"],
+            "Module description",
             None,
             {"prose": "hello world"},
             f"Log text '{expected or 'hello world'}'",
         ]
 
     def get_key(name: str, params: str, expected: str):
-        return [name, "key", params, None, None, {"letter": "a b"}, expected]
+        return [
+            name,
+            "key",
+            params,
+            ["key"],
+            "Module description",
+            None,
+            {"letter": "a b"},
+            expected,
+        ]
 
     def get_vscode(name: str, expected: str = ""):
         return [
             name,
             f"user.{name}",
             "edit.command",
+            ["command_id"],
+            "Module description",
             None,
-            None,
-            None,
+            {},
             f"Execute vscode command 'edit.command'" + expected,
         ]
+
+    def get_desc(name: str, mod: str, ctx: str, expected: str):
+        return [name, "my_action", "hello world", ["text"], mod, ctx, {}, expected]
 
     fixtures = [
         get_print("print1", "hello world"),
@@ -246,11 +259,24 @@ def test_get_action_explanation():
         get_key("key7", '"{letter} c"', "Press keys 'a b c'"),
         get_vscode("vscode"),
         get_vscode("vscode_get", " with return value"),
+        get_desc(
+            "mod desc",
+            "Module description <text>",
+            None,
+            "Module description 'hello world'",
+        ),
+        get_desc(
+            "ctx desc",
+            "Module description <text>",
+            "Context description <text>",
+            "Context description 'hello world'",
+        ),
         [
-            "doc string1",
+            "formatter",
             "my_action",
             'prose, "ALL_CAPS"',
             ["text", "formatters"],
+            "Module description",
             "Insert text <text> formatted as <formatters>",
             {"prose": "hello world"},
             "Insert text 'hello world' formatted as 'ALL_CAPS'",
