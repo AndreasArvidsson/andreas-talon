@@ -1,4 +1,4 @@
-from talon import Module, actions, registry
+from talon import Module, actions, registry, app
 from talon.grammar import Phrase
 from typing import Union, Optional
 import re
@@ -203,3 +203,67 @@ def destring(text: str) -> str:
     if is_string(text):
         return text[1:-1]
     return text
+
+
+def test_get_action_explanation():
+    def get_print(name: str, params: str, expected: str = None):
+        return [
+            name,
+            "print",
+            params,
+            None,
+            None,
+            {"prose": "hello world"},
+            f"Log text '{expected or 'hello world'}'",
+        ]
+
+    def get_key(name: str, params: str, expected: str):
+        return [name, "key", params, None, None, {"letter": "a b"}, expected]
+
+    def get_vscode(name: str, expected: str = ""):
+        return [
+            name,
+            f"user.{name}",
+            "edit.command",
+            None,
+            None,
+            None,
+            f"Execute vscode command 'edit.command'" + expected,
+        ]
+
+    fixtures = [
+        get_print("print1", "hello world"),
+        get_print("print2", "prose"),
+        get_print("print3", "'{prose}'"),
+        get_print("print4", '"{prose}"'),
+        get_print("print5", '"say {prose}!"', "say hello world!"),
+        get_key("key1", "a", "Press key 'a'"),
+        get_key("key2", "a b", "Press keys 'a b'"),
+        get_key("key3", "ctrl-a", "Press keys 'ctrl-a'"),
+        get_key("key4", "letter", "Press keys 'a b'"),
+        get_key("key5", "'{letter}'", "Press keys 'a b'"),
+        get_key("key6", '"{letter}"', "Press keys 'a b'"),
+        get_key("key7", '"{letter} c"', "Press keys 'a b c'"),
+        get_vscode("vscode"),
+        get_vscode("vscode_get", " with return value"),
+        [
+            "doc string1",
+            "my_action",
+            'prose, "ALL_CAPS"',
+            ["text", "formatters"],
+            "Insert text <text> formatted as <formatters>",
+            {"prose": "hello world"},
+            "Insert text 'hello world' formatted as 'ALL_CAPS'",
+        ],
+    ]
+
+    def test(fixture):
+        params = fixture[1:-1]
+        expected = fixture[-1]
+        found = get_action_explanation(*params)
+        actions.user.assert_equals(expected, found)
+
+    actions.user.test_run_suite("get_action_explanation", fixtures, test)
+
+
+# app.register("ready", test_get_action_explanation)
