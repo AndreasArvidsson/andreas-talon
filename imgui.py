@@ -290,12 +290,16 @@ class GUI:
         state = State(canvas, self._screen_current.dpi, self._numbered)
         number = 1
 
-        for el in self._elements:
-            y_start = state.y
-            el.draw(state)
-            if self._numbered and el.numbered:
-                Text.draw_number(state, y_start, number)
-                number += 1
+        if self._elements:
+            for el in self._elements:
+                y_start = state.y
+                el.draw(state)
+                if self._numbered and el.numbered:
+                    Text.draw_number(state, y_start, number)
+                    number += 1
+        else:
+            state.width = 1
+            state.height = 1
 
         # Resize to fit content
         if canvas.width != state.get_width() or canvas.height != state.get_height():
