@@ -57,7 +57,7 @@ class Actions:
 
     def swap_active_window_position_with_application(app_name: str):
         """Swap active window position with application <app_name>"""
-        app = actions.user.get_app(name)
+        app = actions.user.get_app(app_name)
         activeWindow = ui.active_window()
         appWindow = app.windows()[0]
         if activeWindow != appWindow:
