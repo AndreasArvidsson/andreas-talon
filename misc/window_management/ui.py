@@ -21,13 +21,8 @@ class Actions:
         """Get application by name"""
         all_apps = ui.apps(background=False)
 
-        # First try to get application by default name
+        # Try to get application by default name
         apps = list(filter(lambda app: app.name == name, all_apps))
-
-        # Second try to get application by alternative name
-        if not apps:
-            alt_name = parse_name(name)
-            apps = list(filter(lambda app: app.name == alt_name, all_apps))
 
         # No application found for either name
         if not apps:
