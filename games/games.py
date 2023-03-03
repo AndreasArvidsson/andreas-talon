@@ -54,6 +54,6 @@ class Actions:
 
 def voip_muted() -> bool:
     try:
-        return actions.user.discord_mute_status()
+        return actions.user.discord_get_mute_status()
     except:
         return True

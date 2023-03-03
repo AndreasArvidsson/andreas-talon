@@ -9,6 +9,7 @@ import struct
 import uuid
 
 import requests
+from typing import Optional
 from talon import Context, Module, actions, ui
 
 # ================================================================================
@@ -319,13 +320,7 @@ class DiscordClient:
         }
 
         self._send(1, payload)
-        return self._decode()
-
-
-ctx = Context()
-mod = Module()
-
-discord_client = None
+        return self._decode()["data"]["mute"]
 
 
 def create_discord_client() -> DiscordClient:
@@ -354,52 +349,57 @@ def validate_client(client: DiscordClient):
         return False
 
 
-def get_discord_client():
-    """Returns a Discord client, tries to validate that it is working"""
-    global discord_client
-    if discord_client is not None and validate_client(discord_client):
-        return discord_client
+_client = None
 
-    discord_client = create_discord_client()
-    discord_client.connect()
-    discord_client.authorize_if_needed()
-    discord_client.authenticate()
-    return discord_client
+
+def client():
+    """Returns a Discord client, tries to validate that it is working"""
+    global _client
+    if _client is not None and validate_client(_client):
+        return _client
+
+    _client = create_discord_client()
+    _client.connect()
+    _client.authorize_if_needed()
+    _client.authenticate()
+
+    return _client
+
+
+mod = Module()
 
 
 @mod.action_class
 class Actions:
     # def discord_client_reconnect():
     #     """Forces the Discord client to reconnect"""
-    #     global discord_client
-    #     discord_client = None
-    #     return get_discord_client()
+    #     global _client
+    #     _client = None
+    #     return client()
 
     # def discord_leave_meeting():
     #     """Leaves the current meeting"""
-    #     get_discord_client().select_voice_channel(None)
+    #     client().select_voice_channel(None)
 
     def discord_voice_settings() -> dict:
         """Returns the current Discord voice settings"""
-        return get_discord_client().get_voice_settings()
+        return client().get_voice_settings()
 
-    def discord_mute_status() -> bool:
+    def discord_get_mute_status() -> bool:
         """Returns the current mute status"""
-        return actions.user.discord_voice_settings()["mute"]
+        return client().get_voice_settings()["mute"]
 
-    def discord_set_mute_status(mute: bool):
+    def discord_set_mute_status(mute: bool) -> bool:
         """Sets the Discord mute status"""
-        get_discord_client().set_mute_status(mute)
+        return client().set_mute_status(mute)
 
     def discord_toggle_mute() -> bool:
         """Toggles the mute status on Discord"""
-        client = get_discord_client()
-        settings = client.get_voice_settings()
-        old_status = settings["mute"]
-        new_status = not old_status
-        client.set_mute_status(new_status)
-        return new_status
+        c = client()
+        return c.set_mute_status(
+            not c.get_voice_settings()["mute"],
+        )
 
-    def discord_get_selected_voice_channel():
+    def discord_get_selected_voice_channel() -> Optional[dict]:
         """Gets the selected discord voice channel"""
-        return get_discord_client().get_selected_voice_channel()
+        return client().get_selected_voice_channel()
