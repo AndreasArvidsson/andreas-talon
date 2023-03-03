@@ -285,6 +285,16 @@ class DiscordClient:
         self._send(1, payload)
         self._decode()
 
+    def get_selected_voice_channel(self):
+        """Get selected voice channel"""
+        payload = {
+            "cmd": "GET_SELECTED_VOICE_CHANNEL",
+            "nonce": str(uuid.uuid4()),
+        }
+
+        self._send(1, payload)
+        return self._decode()["data"]
+
     def get_voice_settings(self):
         """Returns the current voice settings."""
         payload = {"cmd": "GET_VOICE_SETTINGS", "nonce": str(uuid.uuid4())}
@@ -389,3 +399,7 @@ class Actions:
         new_status = not old_status
         client.set_mute_status(new_status)
         return new_status
+
+    def discord_get_selected_voice_channel():
+        """Gets the selected discord voice channel"""
+        return get_discord_client().get_selected_voice_channel()
