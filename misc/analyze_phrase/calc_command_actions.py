@@ -241,6 +241,26 @@ def test_get_action_explanation():
         get_print("print3", "'{prose}'"),
         get_print("print4", '"{prose}"'),
         get_print("print5", '"say {prose}!"', "say hello world!"),
+        [
+            "print6",
+            "print",
+            "\"a {number_small} b {number_small_2 or 'X'} c {number_small}\"",
+            ["obj"],
+            "Module description",
+            None,
+            {"number_small": 1},
+            "Log text 'a 1 b X c 1'",
+        ],
+        [
+            "print7",
+            "print",
+            "\"a {number_small} b {number_small_2 or 'X'} c {number_small}\"",
+            ["obj"],
+            "Module description",
+            None,
+            {"number_small": 1, "number_small_2": 2},
+            "Log text 'a 1 b 2 c 1'",
+        ],
         get_key("key1", "a", "Press key 'a'"),
         get_key("key2", "a b", "Press keys 'a b'"),
         get_key("key3", "ctrl-a", "Press keys 'ctrl-a'"),
@@ -283,4 +303,4 @@ def test_get_action_explanation():
     actions.user.test_run_suite("get_action_explanation", fixtures, test)
 
 
-app.register("ready", test_get_action_explanation)
+# app.register("ready", test_get_action_explanation)
