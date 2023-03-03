@@ -19,18 +19,16 @@ class AppActionsWin:
 class Actions:
     def get_app(name: str) -> ui.App:
         """Get application by name"""
-        all_apps = ui.apps(background=False)
+        # Try to get application by name
+        apps = [a for a in ui.apps(background=False) if a.name == name]
 
-        # Try to get application by default name
-        apps = list(filter(lambda app: app.name == name, all_apps))
-
-        # No application found for either name
+        # No application found for name
         if not apps:
             raise RuntimeError(f"App '{name}' not running")
 
-        # Multiple hits on this application. Filter out applications with invalid active window
+        # Multiple hits on this application. Filter out invalid applications.
         if len(apps) > 1:
-            apps2 = list(filter(lambda app: is_app_valid(app), apps))
+            apps2 = [a for a in apps if is_app_valid(a)]
             if apps2:
                 return apps2[0]
 
@@ -46,14 +44,14 @@ class Actions:
     def get_window_under_cursor() -> ui.Window:
         """Get the window under the mouse cursor"""
         x, y = ctrl.mouse_pos()
-        windows = filter(
-            lambda w: w.rect.contains(x, y) and is_app_valid(w.app),
-            ui.windows(),
-        )
-        window = next(windows, None)
-        if window:
-            return window
-        raise Exception("Can't find window under the mouse cursor")
+        windows = [
+            w
+            for w in ui.windows(hidden=False)
+            if w.rect.contains(x, y) and is_window_valid(w) and is_app_valid(w.app)
+        ]
+        if not windows:
+            raise Exception("Can't find window under the mouse cursor")
+        return windows[0]
 
     def focus_app(app: ui.App):
         """Focus app and wait until finished"""
@@ -77,12 +75,7 @@ class Actions:
 
 def cycle_windows(app: ui.App, diff: int):
     active = app.active_window
-    windows = list(
-        filter(
-            lambda w: w == active or is_window_valid(w),
-            app.windows(),
-        )
-    )
+    windows = [w for w in app.windows() if w == active or is_window_valid(w)]
     windows.sort(key=lambda w: w.id)
     current = windows.index(active)
     max = len(windows) - 1
@@ -97,7 +90,11 @@ def cycle_windows(app: ui.App, diff: int):
 
 
 def is_app_valid(app: ui.App) -> bool:
-    return is_window_valid(app.active_window)
+    return (
+        not app.background
+        and not is_system_app(app)
+        and is_window_valid(app.active_window)
+    )
 
 
 def is_window_valid(window: ui.Window) -> bool:
@@ -106,4 +103,10 @@ def is_window_valid(window: ui.Window) -> bool:
         and window.title != ""
         and window.rect.width > window.screen.dpi
         and window.rect.height > window.screen.dpi
+    )
+
+
+def is_system_app(app: ui.App):
+    return app.exe.startswith("C:\\WINDOWS\\SystemApps") or app.exe.startswith(
+        "C:\\WINDOWS\\system32"
     )
