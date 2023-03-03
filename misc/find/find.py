@@ -7,7 +7,7 @@ mod.tag("find")
 @mod.action_class
 class Actions:
     def find_file(text: str = None):
-        """Find file by file name"""
+        """Find file <text>"""
 
     def find_everywhere(text: str = None):
         """Find in entire project/all files"""
