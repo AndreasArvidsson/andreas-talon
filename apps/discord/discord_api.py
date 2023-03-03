@@ -1,3 +1,5 @@
+# Source https://github.com/phillco/talon-videoconferencing/tree/work
+
 import json
 import os
 import platform
