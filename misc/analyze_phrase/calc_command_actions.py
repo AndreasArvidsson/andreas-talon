@@ -16,6 +16,8 @@ mod = Module()
 
 ACTION_RE = re.compile(r"(?:.*\s)?([\w.]+)\((.*?)\)")
 STRING_RE = re.compile(r"""^".*"$|^'.*'$""")
+PARAM_RE = re.compile(r"\{(.*?)\}")
+OR_RE = re.compile(r"(.+) or (.+)")
 
 ignore_actions = {
     "sleep",
@@ -24,7 +26,7 @@ ignore_actions = {
 default_descs = {
     "insert": "Insert text <text>",
     "auto_insert": "Insert text <text>",
-    "print": "Log text <text>",
+    "print": "Log text <obj>",
     "user.vscode": "Execute vscode command <command_id>",
     "user.vscode_get": "Execute vscode command <command_id> with return value",
 }
@@ -126,11 +128,9 @@ def get_parameters(command: AnalyzedCommand):
 
     for capture, values in command.captureMapping.items():
         parameters[f"{capture}_list"] = values
-        if len(values) == 1:
-            parameters[capture] = values[0]
-        else:
-            for i, value in enumerate(values):
-                parameters[f"{capture}_{i+1}"] = value
+        parameters[capture] = values[0]
+        for i, value in enumerate(values):
+            parameters[f"{capture}_{i+1}"] = value
 
     return parameters
 
@@ -144,7 +144,7 @@ def get_action_explanation(
     parameters_map: dict,
 ) -> Union[str, None]:
     if action_name == "key":
-        keys = apply_parameters(action_params, parameters_map)
+        keys = update_parameter(action_params, parameters_map)
         is_plural = len(keys) > 1 and " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
@@ -156,12 +156,7 @@ def get_action_explanation(
     length = min(len(action_params), len(action_args))
 
     for param, arg in zip(action_params[:length], action_args[:length]):
-        if is_string(param):
-            value = apply_parameters(param, parameters_map)
-        elif param in parameters_map:
-            value = parameters_map[param]
-        else:
-            value = destring(param)
+        value = update_parameter(param, parameters_map)
         result = result.replace(f"<{arg}>", f"'{value}'")
 
     result = result.replace("\n", "\\n")
@@ -172,20 +167,24 @@ def get_action_explanation(
     return None
 
 
-def apply_parameters(text: str, parameters: dict) -> str:
-    was_string = is_string(text)
+def update_parameter(param: str, map: dict) -> str:
+    if is_string(param):
+        for p in set(PARAM_RE.findall(param)):
+            param = param.replace(f"{{{p}}}", update_parameter(p, map))
+        return destring(param)
 
-    if was_string:
-        text = destring(text)
+    if param in map:
+        return str(map[param])
 
-    for k, v in parameters.items():
-        v = str(v)
-        if was_string:
-            text = text.replace(f"{{{k}}}", v)
-        else:
-            text = text.replace(k, v)
+    or_match = OR_RE.match(param)
+    if or_match:
+        param = or_match.group(1)
+        default_value = or_match.group(2)
+        if param in map:
+            return str(map[param])
+        return update_parameter(default_value, map)
 
-    return text
+    return param
 
 
 def is_string(text: str) -> bool:
@@ -193,9 +192,7 @@ def is_string(text: str) -> bool:
 
 
 def destring(text: str) -> str:
-    if is_string(text):
-        return text[1:-1]
-    return text
+    return text[1:-1]
 
 
 def test_get_action_explanation():
@@ -204,7 +201,7 @@ def test_get_action_explanation():
             name,
             "print",
             params,
-            ["text"],
+            ["obj"],
             "Module description",
             None,
             {"prose": "hello world"},
@@ -286,4 +283,4 @@ def test_get_action_explanation():
     actions.user.test_run_suite("get_action_explanation", fixtures, test)
 
 
-# app.register("ready", test_get_action_explanation)
+app.register("ready", test_get_action_explanation)
