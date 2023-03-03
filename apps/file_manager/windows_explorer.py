@@ -83,7 +83,7 @@ class UserActions:
 
     def pick_item(index: int):
         if index == 0:
-            key("down up enter")
+            key("space enter")
         else:
             actions.next(index)
 

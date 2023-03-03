@@ -2,13 +2,7 @@ tag: user.tabs
 -
 
 tab last:                   app.tab_previous()
-tab last <number_small>:
-    app.tab_previous()
-    repeat(number_small - 1)
 tab next:                   app.tab_next()
-tab next <number_small>:
-    app.tab_next()
-    repeat(number_small - 1)
 tab <number_small>:         user.tab_jump(number_small)
 tab minus <number_small>:   user.tab_jump_from_back(number_small)
 tab final:                  user.tab_final()
