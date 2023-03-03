@@ -49,7 +49,7 @@ class Actions:
         if voip_muted:
             actions.mode.enable("user.game_voip_muted")
         else:
-            actions.mode.disabled("user.game_voip_muted")
+            actions.mode.disable("user.game_voip_muted")
 
 
 def voip_muted() -> bool:
