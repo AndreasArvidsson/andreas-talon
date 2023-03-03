@@ -288,14 +288,12 @@ class Actions:
         """Format document"""
         vscode("editor.action.formatDocument")
 
-    def vscode_find_recent(text: str = None, sleep: bool = False):
+    def vscode_find_recent(text: str = None):
         """Find recent session, directory or file"""
         vscode("workbench.action.openRecent")
         if text:
             actions.sleep("150ms")
             actions.insert(text)
-        if sleep:
-            actions.sleep("150ms")
 
     def git_open_remote_file_url(use_selection: bool, use_branch: bool):
         """Open remote git file in browser"""

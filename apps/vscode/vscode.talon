@@ -208,11 +208,9 @@ select element:             key(ctrl-shift-c)
 # Find session
 scout (sesh | recent) [<user.text>]$:
     user.vscode_find_recent(text or "")
-pop (sesh | recent) <user.text>$:
-    user.vscode_find_recent(text, true)
-    key(enter)
-pop (sesh | recent):
-    user.vscode_find_recent("", true)
+pop sesh [<user.text>]$:
+    user.vscode_find_recent(text or "")
+    sleep(150ms)
     key(enter)
 
 # Find a symbol
