@@ -9,6 +9,15 @@ def extension(m) -> str:
     return f".{m[-1]}"
 
 
+@mod.capture(rule="<user.text> [<user.extension>]")
+def filename(m) -> str:
+    try:
+        extension = m.extension
+    except AttributeError:
+        extension = ""
+    return f"{m.text}{extension}"
+
+
 @mod.capture(rule="dot {user.domain}")
 def domain(m) -> str:
     return f".{m.domain}"

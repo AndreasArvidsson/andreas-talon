@@ -27,17 +27,14 @@ replace confirm:            user.find_replace_confirm()
 replace confirm all:        user.find_replace_confirm_all()
 
 scout file for clip:        user.find_file(clip.text())
-scout file [<user.text>] [<user.extension>]$:
-    text = text or ""
-    extension = extension or ""
-    user.find_file(text + extension)
+scout file [<user.filename>]$:
+    user.find_file(filename or "")
 
 pop <user.text>$:
     edit.find(text)
     key(enter)
 
-pop file <user.text> [<user.extension>]$:
-    extension = extension or ""
-    user.find_file(text + extension)
+pop file <user.filename>$:
+    user.find_file(filename)
     sleep(300ms)
     key(enter)
