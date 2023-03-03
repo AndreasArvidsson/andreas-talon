@@ -31,8 +31,9 @@ class Actions:
     def game_mode_enable():
         """Enable game mode"""
         actions.mode.disable("command")
-        actions.mode.enable("user.game_voip_muted")
         actions.mode.enable("user.game")
+        if voip_muted():
+            actions.mode.enable("user.game_voip_muted")
 
     def game_mode_disable():
         """Disable game mode"""
@@ -44,5 +45,15 @@ class Actions:
     def game_toggle_mute():
         """Toggle voice chat for game"""
         actions.user.abort_current_phrase()
-        actions.mode.toggle("user.game_voip_muted")
-        actions.user.mute_discord()
+        voip_muted = actions.user.discord_toggle_mute()
+        if voip_muted:
+            actions.mode.enable("user.game_voip_muted")
+        else:
+            actions.mode.disabled("user.game_voip_muted")
+
+
+def voip_muted() -> bool:
+    try:
+        return actions.user.discord_mute_status()
+    except:
+        return True
