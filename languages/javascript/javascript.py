@@ -9,8 +9,8 @@ mod = Module()
 ctx = Context()
 ctx.matches = r"""
 tag: user.javascript
-# Make javascript have precedence c common
-mode: all
+# Make javascript have precedence over c common
+mode: command
 """
 
 ctx.lists["self.code_class_modifier"] = {}

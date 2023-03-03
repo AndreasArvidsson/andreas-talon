@@ -167,7 +167,9 @@ class NonSleepActions:
 # ---------- Audio conferencing ----------
 ctx_voip = Context()
 ctx_voip.matches = r"""
-mode: all
+mode: command
+mode: dictation
+mode: sleep
 tag: user.voip
 """
 
