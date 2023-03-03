@@ -164,6 +164,8 @@ def get_action_explanation(
             value = destring(param)
         result = result.replace(f"<{arg}>", f"'{value}'")
 
+    result = result.replace("\n", "\\n")
+
     if result != action_desc:
         return result
 
