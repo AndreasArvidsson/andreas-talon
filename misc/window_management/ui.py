@@ -72,6 +72,16 @@ class Actions:
                 raise RuntimeError(f"Can't focus window '{window.title}'")
             actions.sleep("50ms")
 
+    def send_key(key: str, app: ui.App):
+        """Send key <key> to application"""
+        active_app = ui.active_app()
+        if active_app != app:
+            actions.user.focus_app(app)
+            actions.key(key)
+            actions.user.focus_app(active_app)
+        else:
+            actions.key(key)
+
 
 def cycle_windows(app: ui.App, diff: int):
     active = app.active_window

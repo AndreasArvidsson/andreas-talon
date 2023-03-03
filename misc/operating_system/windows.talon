@@ -10,8 +10,6 @@ task view:                  key(super-tab)
 start menu:                 key(super)
 context menu:               key(super-x)
 
-(start | stop) recording:   key(alt-f9)
-
 scout app [<user.text>]$:
     key(super-s)
     "apps: {text or ''}"

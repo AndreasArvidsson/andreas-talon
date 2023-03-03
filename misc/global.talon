@@ -11,3 +11,6 @@ pick <user.word>:
 pick <user.letters>:
     "{letters}"
     key(enter)
+
+start recording:            user.recording_start()
+stop recording:             user.recording_stop()
