@@ -76,11 +76,11 @@ class Actions:
             actions.sleep("300ms")
             actions.user.rephrase(phrase)
 
-    def focus_index(index: int):
-        """Focus application by index"""
+    def focus_number(number: int):
+        """Focus application number <number>"""
         names = list(ctx.lists["user.running_application"].values())
-        if index > -1 and index < len(names):
-            focus_name(names[index])
+        if number > 0 and number <= len(names):
+            focus_name(names[number - 1])
 
     def focus_help_toggle():
         """Shows/hides all running applications"""

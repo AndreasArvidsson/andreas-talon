@@ -27,9 +27,9 @@ class Actions:
     def mute_microphone():
         """Mute microphone"""
 
-    def pick_item(index: int):
-        """Pick list item by index"""
-        for _ in range(index):
+    def pick_item(number: int):
+        """Pick list item number <number>"""
+        for _ in range(number - 1):
             actions.edit.down()
         actions.key("enter")
 

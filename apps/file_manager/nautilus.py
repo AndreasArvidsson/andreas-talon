@@ -53,5 +53,5 @@ class UserActions:
         if name:
             insert(name)
 
-    def pick_item(index: int):
-        actions.next(index + 1)
+    def pick_item(number: int):
+        actions.next(number + 1)

@@ -81,11 +81,11 @@ class UserActions:
         insert("cmd.exe")
         key("enter")
 
-    def pick_item(index: int):
-        if index == 0:
+    def pick_item(number: int):
+        if number == 1:
             key("space enter")
         else:
-            actions.next(index)
+            actions.next(number)
 
 
 @mod.action_class

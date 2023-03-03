@@ -487,9 +487,10 @@ class Actions:
                 else:
                     selected_context_page = 1
 
-    def help_select_index(index: int):
-        """Select the context by a number"""
+    def help_select_number(number: int):
+        """Select context number <number>"""
         global sorted_context_map_keys, selected_context
+        index = number - 1
         if gui_context_help.showing:
             if index < setting_help_max_contexts_per_page.get() and (
                 (current_context_page - 1) * setting_help_max_contexts_per_page.get()
