@@ -240,13 +240,15 @@ def format_delim(
 
 def first_and_rest(text, format_first=None, format_rest=None):
     words = text.split()
+
     for i, word in enumerate(words):
         if i == 0:
             if format_first:
                 words[i] = format_first(word)
         elif format_rest:
             words[i] = format_rest(word)
-    return " ".join(words)
+
+    return " ".join(words) + get_trailing_whitespace(text)
 
 
 def capitalize(text: str) -> str:
@@ -263,3 +265,8 @@ def upper(text: str) -> str:
 
 def de_string(text: str) -> str:
     return text.strip('"').strip("'")
+
+
+def get_trailing_whitespace(text: str) -> str:
+    match = re.search(r"\s+$", text)
+    return match.group() if match else ""
