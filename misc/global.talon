@@ -10,5 +10,10 @@ pick <user.letters>:
     "{letters}"
     key(enter)
 
-start recording:            user.recording_start()
-stop recording:             user.recording_stop()
+start recording:
+    user.command_history_clear()
+    user.talon_sleep_no_notification()
+    user.recording_start()
+
+stop recording:
+    user.recording_stop()

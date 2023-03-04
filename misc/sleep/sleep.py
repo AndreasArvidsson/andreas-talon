@@ -21,9 +21,11 @@ time_last_pop = 0
 class Actions:
     def talon_sleep():
         """Put Talon to sleep"""
-        actions.speech.disable()
-        actions.user.mouse_sleep()
-        actions.user.notify("Talon sleeping")
+        talon_sleep(True)
+
+    def talon_sleep_no_notification():
+        """Put Talon to sleep without showing notification"""
+        talon_sleep(False)
 
     def talon_sleep_command():
         """Put Talon to sleep"""
@@ -61,3 +63,11 @@ class Actions:
                 return True, text
 
         return False, " ".join(words)
+
+
+def talon_sleep(notify: bool):
+    """Put Talon to sleep"""
+    actions.speech.disable()
+    actions.user.mouse_sleep()
+    if notify:
+        actions.user.notify("Talon sleeping")
