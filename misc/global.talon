@@ -11,8 +11,9 @@ pick <user.letters>:
     key(enter)
 
 start recording:
+    user.talon_sleep()
     user.command_history_clear()
-    user.talon_sleep_no_notification()
+    user.clear_subtitles()
     user.recording_start()
 
 stop recording:
