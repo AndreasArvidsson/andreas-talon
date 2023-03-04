@@ -1,7 +1,8 @@
 from talon import speech_system, actions
+from talon.grammar import Phrase
 
 
-def on_phrase(phrase):
+def on_phrase(phrase: Phrase):
     if not actions.speech.enabled() or not phrase.get("phrase"):
         return
 

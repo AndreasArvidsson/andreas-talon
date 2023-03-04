@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+from talon.grammar import Phrase
 
 mod = Module()
 ctx_en = Context()
@@ -46,8 +47,8 @@ class Actions:
         else:
             actions.user.notify("Talon is: sleeping")
 
-    def talon_sleep_update_phrase(phrase: dict) -> tuple[bool, str]:
-        """Update spoke in words in case of sleep command"""
+    def talon_sleep_update_phrase(phrase: Phrase) -> tuple[bool, str]:
+        """Update spoken phrase in case of sleep command"""
         words = phrase["phrase"]
 
         for sleep_phrase in sleep_phrases:

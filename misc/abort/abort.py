@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+from talon.grammar import Phrase
 import time
 
 mod = Module()
@@ -21,12 +22,12 @@ ts_threshold = None
 @mod.action_class
 class Actions:
     def abort_current_phrase():
-        """Abort current phrase"""
+        """Abort current spoken phrase"""
         global ts_threshold
         ts_threshold = time.perf_counter()
 
-    def abort_phrase(phrase: dict) -> tuple[bool, str]:
-        """Abort current spoken phrase"""
+    def abort_phrase(phrase: Phrase) -> tuple[bool, str]:
+        """Possibly abort current spoken phrase"""
         global ts_threshold
 
         if ts_threshold is not None:
