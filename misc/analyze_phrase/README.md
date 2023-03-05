@@ -74,7 +74,7 @@ AnalyzedPhraseWithActions({
           code: 'print("{letter_1} {letter_2} {number_small}")',
           name: "print",
           params: '"{letter_1} {letter_2} {number_small}"',
-          path: "main",
+          path: "talon\\scripting\\core\\main.py",
           line: None,
           modDesc: "Display an object in the log",
           ctxDesc: "Display an object in the log",
