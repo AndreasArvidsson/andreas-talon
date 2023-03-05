@@ -82,6 +82,14 @@ ctx_sv.lists["self.key_punctuation"] = {
     "snedstreck":       "/",
     "frågetecken":      "?",
     "utropstecken":     "!",
+
+    # For vosk engine
+    "\\Punkt":          ".",
+    "komma tecken":     ",",
+    # "kolon":          ":",
+    "snedsträck":       "/",
+    "\\Frågetecken":    "?",
+    "\\Utropstecken":   "!",
 }
 
 # Symbols you want available ONLY in code formatters.
