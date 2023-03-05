@@ -1,5 +1,6 @@
 from talon import Module, Context, actions, registry, app
 from talon.grammar import Phrase
+from talon_init import TALON_HOME
 from typing import Union, Optional
 import re
 import os
@@ -82,6 +83,11 @@ class Actions:
                 raise Exception(f"Can't find action {action_name}")
 
             action = registry.actions[action_name][-1]
+            action_args = inspect.getfullargspec(action.func).args
+            path = os.path.relpath(
+                inspect.getsourcefile(action.func),
+                TALON_HOME,
+            )
 
             try:
                 line_number = inspect.getsourcelines(action.func)[1]
@@ -97,7 +103,7 @@ class Actions:
                 explanation = get_action_explanation(
                     action_name,
                     action_params,
-                    inspect.getfullargspec(action.func).args,
+                    action_args,
                     mod_desc,
                     ctx_desc,
                     parameters_map,
@@ -110,7 +116,7 @@ class Actions:
                     line,
                     action_name,
                     action_params,
-                    action.ctx.path.replace(".", os.path.sep),
+                    path,
                     line_number,
                     mod_desc,
                     ctx_desc,

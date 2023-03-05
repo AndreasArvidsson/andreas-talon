@@ -26,8 +26,8 @@ class Actions:
         for i, cmd in enumerate(analyzed_phrase.commands):
             printLine(
                 f"#{i + 1}:",
-                f"{bcolors.BOLD}{cmd.phrase}{bcolors.ENDC}:",
-                f"file:{cmd.path} {bcolors.GREEN}{cmd.rule}{bcolors.ENDC}",
+                f"{bcolors.BOLD}{cmd.phrase}{bcolors.ENDC}",
+                f"{cmd.path} {bcolors.GREEN}{cmd.rule}{bcolors.ENDC}",
             )
             for action in cmd.actions:
                 printLine(
