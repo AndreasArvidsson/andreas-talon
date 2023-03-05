@@ -35,6 +35,9 @@ class EditActions:
     def file_end():
         key("end")
 
+    def delete():
+        key("delete")
+
 
 @ctx.action_class("user")
 class UserActions:
