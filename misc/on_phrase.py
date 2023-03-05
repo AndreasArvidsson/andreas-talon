@@ -13,7 +13,7 @@ def on_phrase(phrase: Phrase):
 
     if text:
         actions.user.subtitle(text)
-        actions.user.print_phrase_timings(phrase, text)
+        actions.user.print_phrase_timings(phrase)
 
 
 def on_post_phrase(phrase: Phrase):
