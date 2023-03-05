@@ -84,10 +84,7 @@ class Actions:
 
             action = registry.actions[action_name][-1]
             action_args = inspect.getfullargspec(action.func).args
-            path = os.path.relpath(
-                inspect.getsourcefile(action.func),
-                TALON_HOME,
-            )
+            path = get_path(inspect.getsourcefile(action.func))
 
             try:
                 line_number = inspect.getsourcelines(action.func)[1]
@@ -197,6 +194,10 @@ def is_string(text: str) -> bool:
 
 def destring(text: str) -> str:
     return text[1:-1]
+
+
+def get_path(filename: str) -> str:
+    return os.path.relpath(filename, TALON_HOME)
 
 
 def test_get_action_explanation():
