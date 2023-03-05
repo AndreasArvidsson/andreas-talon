@@ -101,17 +101,3 @@ class Actions:
     def select_toggle():
         """Toggle selection"""
         key("ctrl-space")
-
-
-# ----- Windows explorer application only, no file browser -----
-
-ctx_no_browser = Context()
-ctx_no_browser.matches = """
-app: windows_explorer
-"""
-
-
-@ctx_no_browser.action_class("edit")
-class EditActions:
-    def delete():
-        key("delete")
