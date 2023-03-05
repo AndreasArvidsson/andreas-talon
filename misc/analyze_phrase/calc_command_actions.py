@@ -42,10 +42,8 @@ class Actions:
             analyzed_phrase.phrase,
             analyzed_phrase.words,
             analyzed_phrase.metadata,
-            analyzed_phrase.rawSim,
             [
                 AnalyzedCommandWithActions(
-                    cmd.num,
                     cmd.phrase,
                     cmd.rule,
                     cmd.code,

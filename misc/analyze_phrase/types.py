@@ -42,7 +42,6 @@ class AnalyzedCapture:
 
 @dataclass
 class AnalyzedCommand:
-    num: int
     phrase: str
     rule: str
     code: str
@@ -68,7 +67,6 @@ class AnalyzedPhraseBase:
     phrase: str
     words: list[AnalyzedWord]
     metadata: Optional[dict]
-    rawSim: str
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"

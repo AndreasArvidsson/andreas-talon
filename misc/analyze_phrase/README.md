@@ -1,7 +1,7 @@
 ```py
 from talon import speech_system, actions
 
-def on_phrase(phrase):
+def on_post_phrase(phrase):
     # Get an analyzed phrase without actions
     analyzed_phrase = actions.user.analyze_phrase(phrase)
 
@@ -15,7 +15,7 @@ def on_phrase(phrase):
     # Pretty print analyzed phrase with actions
     actions.user.pretty_print_phrase(analyzed_phrase_with_actions)
 
-speech_system.register("phrase", on_phrase)
+speech_system.register("post:phrase", on_post_phrase)
 ```
 
 ```js
@@ -55,11 +55,8 @@ AnalyzedPhraseWithActions({
     model: "conformer",
     desc: "W2lEngine(fast Conformer b108 (2021-09-15))",
   },
-  rawSim:
-    '[1] "test air batt five"\n   path: user\\andreas-talon\\misc\\editor.talon\n   rule: "test [<user.letter>] <user.letter> <number_small>"',
   commands: [
     AnalyzedCommandWithActions({
-      num: 1,
       phrase: "test air batt five",
       rule: "test [<user.letter>] <user.letter> <number_small>",
       code: 'print("{letter_1} {letter_2} {number_small}")\n',
