@@ -25,5 +25,5 @@ def on_post_phrase(phrase: Phrase):
     actions.user.pretty_print_phrase(analyzed_phrase)
 
 
-speech_system.register("phrase", on_phrase)
+speech_system.register("pre:phrase", on_phrase)
 speech_system.register("post:phrase", on_post_phrase)

@@ -13,7 +13,7 @@ settings():
     user.timings_log = false
 
     # Pretty print spoken phrases
-    user.pretty_print_phrase = true
+    user.pretty_print_phrase = false
 
     # Location to store cursorless settings
     user.cursorless_settings_directory = "andreas-talon/settings/cursorless-settings"
