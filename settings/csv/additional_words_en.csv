@@ -10,7 +10,7 @@ markdown
 for each
 to string
 
-# Without these "word down" and equal commands can get misinterpreted
+# Without these "word down" and similar commands can get misinterpreted
 up
 down
 left
@@ -49,6 +49,7 @@ admin
 api
 css
 csv
+dir
 dns
 exe
 html

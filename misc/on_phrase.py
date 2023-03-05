@@ -23,7 +23,6 @@ def on_post_phrase(phrase: Phrase):
     analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
     actions.user.command_history_append(analyzed_phrase)
     actions.user.pretty_print_phrase(analyzed_phrase)
-    print(analyzed_phrase)
 
 
 speech_system.register("phrase", on_phrase)
