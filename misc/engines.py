@@ -13,12 +13,6 @@ speech_system.add_engine(
 mod = Module()
 mod.tag("swedish", "Use voice engine for Swedish")
 
-# Set the default engine
-ctx = Context()
-ctx.settings = {
-    "speech.engine": "wav2letter",
-}
-
 # Context for Swedish dictation
 ctx_sv = Context()
 ctx_sv.matches = r"""
