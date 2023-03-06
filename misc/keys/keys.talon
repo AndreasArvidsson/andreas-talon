@@ -1,6 +1,11 @@
-# Letters [A-Z], Digits [0-9], Symbol: !, %, _
-<user.any_alphanumeric_keys>:
-    key(any_alphanumeric_keys)
+# Letters [A-Z]
+{user.letter}:              key(letter)
+
+# Symbol keys: !, %, _
+{user.key_symbol}:          key(key_symbol)
+
+# Digits [0-9]
+{user.key_number}:          key(key_number)
 
 # Special keys.
 (enter | okay):             key(enter)
