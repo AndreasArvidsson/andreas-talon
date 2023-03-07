@@ -71,6 +71,10 @@ class Text:
         self.numbered = not header
         self.text = text
         self.header = header
+        self.rect = None
+
+    def click(self):
+        print(f"clicked '{self.text}'")
 
     def draw(self, state: State):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
@@ -78,6 +82,10 @@ class Text:
         state.canvas.paint.textsize = state.font_size
         state.canvas.paint.color = text_color
         x = state.x if self.header else state.x_text
+        start_x = state.x
+        start_y = state.y
+        width = 0
+        height = 0
 
         lines = self.text.split("\n")
         if len(lines) > state.max_rows:
@@ -91,6 +99,17 @@ class Text:
             state.canvas.draw_text(line, x, state.y + state.font_size)
             state.add_width(rect.x + rect.width, offset=not self.header)
             state.add_height(state.font_size)
+            width = max(width, rect.x + rect.width)
+            height += state.font_size
+
+        self.rect = Rect(
+            start_x,
+            start_y,
+            width + x - start_x,
+            height + state.padding / 2,
+        )
+        # state.canvas.draw_rect(self.rect) TODO remove
+
         state.add_height(state.padding)
 
     @classmethod
@@ -117,7 +136,7 @@ class Button:
         self.numbered = False
         self.text = text
         self._is_pressed = False
-        self._rect = None
+        self.rect = None
 
     def is_pressed(self):
         is_pressed = self._is_pressed
@@ -127,12 +146,6 @@ class Button:
     def click(self):
         self._is_pressed = True
 
-    def in_pos(self, mouse_pos) -> bool:
-        rect = self._rect
-        return self._in_range(
-            mouse_pos.x, rect.x, rect.x + rect.width
-        ) and self._in_range(mouse_pos.y, rect.y, rect.y + rect.height)
-
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
         text_rect = state.canvas.paint.measure_text(self.text)[1]
@@ -140,14 +153,14 @@ class Button:
         width = text_rect.width + 2 * padding
         height = state.font_size + 2 * padding
 
-        self._rect = Rect(
+        self.rect = Rect(
             state.x + text_rect.x - padding,
             state.y + (height + text_rect.y - text_rect.height) / 2,
             width,
             height,
         )
 
-        rrect = skia.RoundRect.from_rect(self._rect, x=button_radius, y=button_radius)
+        rrect = skia.RoundRect.from_rect(self.rect, x=button_radius, y=button_radius)
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = button_bg_color
@@ -166,14 +179,12 @@ class Button:
         state.add_width(width, offset=False)
         state.add_height(height + state.padding)
 
-    def _in_range(self, value, min, max):
-        return value >= min and value <= max
-
 
 class Line:
     def __init__(self, bold: bool):
         self.numbered = False
         self.bold = bold
+        self.rect = None
 
     def draw(self, state: State):
         y = state.y + state.padding - 1
@@ -188,6 +199,7 @@ class Line:
 class Spacer:
     def __init__(self):
         self.numbered = False
+        self.rect = None
 
     def draw(self, state: State):
         state.add_height(state.font_size)
@@ -197,6 +209,7 @@ class Image:
     def __init__(self, image: Image):
         self.numbered = True
         self._image = image
+        self.rect = None
 
     def _resize(self, width: int, height: int) -> Image:
         aspect_ratio = self._image.width / self._image.height
@@ -335,8 +348,7 @@ class GUI:
 
     def _mouse(self, e: MouseEvent):
         if e.event == "mousedown" and e.button == 0:
-            button = self._get_button_for_pos(e.gpos)
-            if button is None:
+            if not self._get_element(e.gpos):
                 self._last_mouse_pos = e.gpos
         elif e.event == "mousemove" and self._last_mouse_pos:
             dx = e.gpos.x - self._last_mouse_pos.x
@@ -348,14 +360,14 @@ class GUI:
             self._dont_center = True
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
-            button = self._get_button_for_pos(e.gpos)
-            if button is not None:
-                button.click()
+            element = self._get_element(e.gpos)
+            if element:
+                element.click()
 
-    def _get_button_for_pos(self, pos):
-        for button in self._buttons.values():
-            if button.in_pos(pos):
-                return button
+    def _get_element(self, pos):
+        for el in self._elements:
+            if el.rect and el.rect.contains(pos.x, pos.y):
+                return el
         return None
 
     def _get_screen(self) -> Screen:
