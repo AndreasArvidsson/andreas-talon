@@ -125,6 +125,7 @@ ctx_en.lists["self.key_symbol"] = {
     "amper":            "&",
     "at sign":          "@",
     "sterling":         "£",
+    "euro":             "€",
 
     "single":           "'",
     "double":           '"',
