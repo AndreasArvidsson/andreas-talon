@@ -1,5 +1,14 @@
-from talon import speech_system, actions
+from talon import Module, speech_system, actions
 from talon.grammar import Phrase
+
+mod = Module()
+
+settings_pretty = mod.setting(
+    "pretty_print_phrase",
+    type=bool,
+    default=False,
+    desc="If true phrase will be pretty printed to the log",
+)
 
 
 def on_phrase(phrase: Phrase):
@@ -22,7 +31,8 @@ def on_post_phrase(phrase: Phrase):
 
     analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
     actions.user.command_history_append(analyzed_phrase)
-    actions.user.pretty_print_phrase(analyzed_phrase)
+    if settings_pretty.get():
+        actions.user.pretty_print_phrase(analyzed_phrase)
 
 
 speech_system.register("pre:phrase", on_phrase)

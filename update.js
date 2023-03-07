@@ -29,6 +29,13 @@ function gitUpdate(userDir, url, folderName, branch) {
 
   gitUpdate(
     userDir,
+    "https://github./AndreasArvidsson/talon-analyze-phrase",
+    "analyze-phrase",
+    "main"
+  );
+
+  gitUpdate(
+    userDir,
     "git@github.com:AndreasArvidsson/andreas-talon.git",
     "andreas-talon",
     "master"
