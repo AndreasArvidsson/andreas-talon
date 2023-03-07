@@ -1,11 +1,15 @@
 from talon import Module, actions, speech_system, registry
 from talon.grammar import Phrase, Capture
-from talon.grammar.vm import Phrase, Capture, VMListCapture, VMCapture
+from talon.grammar.vm import VMListCapture, VMCapture
 from talon.engines.w2l import DecodeWord, WordMeta
+from talon.scripting.types import CommandImpl
 from talon_init import TALON_HOME
 from typing import Optional
 import os
+import re
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
+
+SIM_RE = re.compile(r"""(\[\d+] "[^"]+"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
 
 mod = Module()
 
@@ -14,11 +18,12 @@ mod = Module()
 class Actions:
     def analyze_phrase(phrase: Phrase) -> AnalyzedPhrase:
         """Analyze spoken phrase"""
+        phrase_text = get_phrase(phrase)
         return AnalyzedPhrase(
-            get_phrase(phrase),
+            phrase_text,
             get_words(phrase),
             get_metadata(phrase),
-            get_commands(phrase),
+            get_commands(phrase, phrase_text),
         )
 
 
@@ -46,31 +51,77 @@ def get_metadata(phrase: Phrase) -> Optional[dict]:
     return None
 
 
-def get_commands(phrase: Phrase) -> list[AnalyzedCommand]:
-    commands = actions.core.recent_commands()[-1]
+def get_commands(phrase: Phrase, phrase_text: str) -> list[AnalyzedCommand]:
     captures = phrase["parsed"]
+    commands = get_commands_impl(captures, phrase_text)
 
-    result = []
-
-    for i, (command, capture) in enumerate(commands):
-        if capture != captures[i]:
-            raise Exception(
-                "Expected different capture. Make sure to use phrase from 'post:phrase' event"
-            )
-
-        result.append(
-            AnalyzedCommand(
-                " ".join(capture._unmapped),
-                command.rule.rule,
-                command.target.code,
-                get_path(command.target.filename),
-                command.target.start_line,
-                get_captures(capture),
-                get_capture_mapping(capture),
-            )
+    return [
+        AnalyzedCommand(
+            " ".join(capture._unmapped),
+            command.rule.rule,
+            command.target.code,
+            get_path(command.target.filename),
+            command.target.start_line,
+            get_captures(capture),
+            get_capture_mapping(capture),
         )
+        for command, capture in zip(commands, captures)
+    ]
 
-    return result
+
+def get_commands_impl(captures: list[Capture], phrase_text: str) -> list[CommandImpl]:
+    commands = try_get_last_commands(captures)
+    if commands:
+        return commands
+    commands = get_commands_from_sim(phrase_text)
+    if len(captures) != len(commands):
+        raise Exception(
+            f"Got in correct number of commands({len(commands)}) for the list of captures({len(captures)})"
+        )
+    return commands
+
+
+def try_get_last_commands(captures: list[Capture]) -> Optional[list[CommandImpl]]:
+    """
+    Returns last command implementation if its captures matches the given list.
+    Repeat commands are missing from this list and then we can't use the list of last commands.
+    """
+    recent_commands = actions.core.recent_commands()
+    if not recent_commands:
+        return None
+    last_commands = recent_commands[-1]
+    if len(captures) != len(last_commands):
+        return None
+    for c1, (_, c2) in zip(captures, last_commands):
+        if c1 != c2:
+            return None
+    return [c for _, c in last_commands]
+
+
+def get_commands_from_sim(phrase_text: str) -> list[CommandImpl]:
+    try:
+        raw_sim = speech_system._sim(phrase_text)
+    except Exception as ex:
+        raise Exception(f"Failed to run sim on phrase '{phrase_text}'. Ex: {ex}")
+
+    matches = SIM_RE.findall(raw_sim)
+    if not matches:
+        raise Exception(f"Can't parse sim '{raw_sim}'")
+
+    return [get_command_from_path(path, rule) for _, path, rule in matches]
+
+
+def get_command_from_path(path: str, rule: str) -> CommandImpl:
+    context_name = path.replace(os.path.sep, ".")
+    if not context_name in registry.contexts:
+        raise Exception(f"Can't find context for path '{path}'")
+    context = registry.contexts[context_name]
+    commands = [c for c in context.commands.values() if c.rule.rule == rule]
+    if len(commands) != 1:
+        raise Exception(
+            f"Expected 1 command. Found {len(commands)} for rule '{rule}' in path '{path}'"
+        )
+    return commands[0]
 
 
 def get_path(filename: str) -> str:
