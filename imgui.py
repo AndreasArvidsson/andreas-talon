@@ -135,16 +135,16 @@ class Button:
     def __init__(self, text: str):
         self.numbered = False
         self.text = text
-        self._is_pressed = False
+        self.is_clicked = False
         self.rect = None
 
-    def is_pressed(self):
-        is_pressed = self._is_pressed
-        self._is_pressed = False
-        return is_pressed
+    def is_clicked(self):
+        is_clicked = self.is_clicked
+        self.is_clicked = False
+        return is_clicked
 
     def click(self):
-        self._is_pressed = True
+        self.is_clicked = True
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
@@ -294,7 +294,7 @@ class GUI:
             button = Button(text)
             self._buttons[text] = button
         self._elements.append(button)
-        return button.is_pressed()
+        return button.is_clicked()
 
     def _draw(self, canvas):
         self._elements = []
