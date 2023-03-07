@@ -9,7 +9,7 @@ import os
 import re
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
 
-SIM_RE = re.compile(r"""(\[\d+] "[^"]+"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
+SIM_RE = re.compile(r"""(?:\[\d+] "[^"]+"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
 
 mod = Module()
 
@@ -54,6 +54,7 @@ def get_metadata(phrase: Phrase) -> Optional[dict]:
 def get_commands(phrase: Phrase, phrase_text: str) -> list[AnalyzedCommand]:
     captures = phrase["parsed"]
     commands = get_commands_impl(captures, phrase_text)
+    cmd = commands[0]
 
     return [
         AnalyzedCommand(
@@ -95,7 +96,7 @@ def try_get_last_commands(captures: list[Capture]) -> Optional[list[CommandImpl]
     for c1, (_, c2) in zip(captures, last_commands):
         if c1 != c2:
             return None
-    return [c for _, c in last_commands]
+    return [cmd for cmd, _ in last_commands]
 
 
 def get_commands_from_sim(phrase_text: str) -> list[CommandImpl]:
@@ -108,7 +109,7 @@ def get_commands_from_sim(phrase_text: str) -> list[CommandImpl]:
     if not matches:
         raise Exception(f"Can't parse sim '{raw_sim}'")
 
-    return [get_command_from_path(path, rule) for _, path, rule in matches]
+    return [get_command_from_path(path, rule) for path, rule in matches]
 
 
 def get_command_from_path(path: str, rule: str) -> CommandImpl:
