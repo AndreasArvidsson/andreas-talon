@@ -23,22 +23,18 @@ class ClipItem:
 
 
 clip_history: list[ClipItem] = []
-ignore_next: bool = False
 sticky: bool = False
+stopped: bool = False
 last_mime = None
 
 
 def update():
     """Read current clipboard and update manager"""
-    global last_mime, clip_history, ignore_next
-
-    if ignore_next:
-        ignore_next = False
-        return
+    global last_mime, clip_history
 
     mime = clip.mime()
 
-    if not mime or mime == last_mime:
+    if stopped or not mime or mime == last_mime:
         return
 
     last_mime = mime
@@ -95,10 +91,15 @@ class Actions:
         actions.mode.disable("user.clipboard_manager")
         gui.hide()
 
-    def clipboard_manager_ignore_next():
-        """Ignore next copy for clipboard manager"""
-        global ignore_next
-        ignore_next = True
+    def clipboard_manager_stop_updating():
+        """Stop clipboard manager from updating"""
+        global stopped
+        stopped = True
+
+    def clipboard_manager_resume_updating():
+        """Resume clipboard manager updating"""
+        global stopped
+        stopped = False
 
     def clipboard_manager_remove(numbers: list[int] = None):
         """Remove clipboard manager history"""

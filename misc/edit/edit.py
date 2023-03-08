@@ -121,13 +121,8 @@ class EditActions:
 
     # ----- Miscellaneous -----
     def selected_text() -> str:
-        with clip.capture() as c:
-            actions.user.clipboard_manager_ignore_next()
-            edit.copy()
-        try:
-            return c.text()
-        except clip.NoChange:
-            return ""
+        mime = actions.user.selected_mime()
+        return mime.text if mime else ""
 
 
 @mod.action_class
@@ -158,13 +153,15 @@ class Actions:
 
     def selected_mime() -> MimeData or None:
         """Return current selected mime"""
-        with clip.capture() as c:
-            actions.user.clipboard_manager_ignore_next()
-            edit.copy()
         try:
+            actions.user.clipboard_manager_stop_updating()
+            with clip.capture() as c:
+                edit.copy()
             return c.mime()
         except clip.NoChange:
             return None
+        finally:
+            actions.user.clipboard_manager_resume_updating()
 
     def paste_mime(mime: MimeData):
         """Pastes mime data and preserves clipboard"""
