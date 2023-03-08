@@ -69,6 +69,7 @@ ctx.lists["self.code_snippet"] = {
     "ternary": "$1 if $2 else $0",
     "exception": "Exception($0)",
     "raise exception": "raise Exception($0)",
+    "finally": "finally:\n\t$0",
 }
 
 
