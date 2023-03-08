@@ -71,13 +71,21 @@ mod.list(
 ctx.lists["user.snap_position"] = snap_positions.keys()
 
 
-@mod.capture(rule="screen (last|next|<number_small>)")
+@mod.capture(rule="last | next")
+def prev_next(m) -> str:
+    "Previous or next position"
+    return "previous" if "last" == m[0] else "next"
+
+
+@mod.capture(
+    rule="<user.prev_next> screen | screen (<user.prev_next> | <number_small>)"
+)
 def snap_screen(m) -> Union[int, str]:
     "A single screen position."
     try:
         return m.number_small
     except AttributeError:
-        return "previous" if m[1] == "last" else "next"
+        return m.prev_next
 
 
 @mod.action_class
