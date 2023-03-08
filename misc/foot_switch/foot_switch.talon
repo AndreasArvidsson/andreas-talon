@@ -1,20 +1,18 @@
-# Top button
-key(keypad_divide:down):    user.foot_switch_down(0)
-key(keypad_divide:up):      user.foot_switch_up(0)
+# Left button
+key(f13:down):              user.foot_switch_down(0)
+key(f13:up):                user.foot_switch_up(0)
 
 # Center button
-key(keypad_multiply:down):  user.foot_switch_down(1)
-key(keypad_multiply:up):    user.foot_switch_up(1)
-
-# Left button
-key(keypad_minus:down):     user.foot_switch_down(2)
-key(keypad_minus:up):       user.foot_switch_up(2)
+key(f14:down):              user.foot_switch_down(1)
+key(f14:up):                user.foot_switch_up(1)
 
 # Right button
-key(keypad_plus:down):      user.foot_switch_down(3)
-key(keypad_plus:up):        user.foot_switch_up(3)
+key(f15:down):              user.foot_switch_down(2)
+key(f15:up):                user.foot_switch_up(2)
 
+# Top button
+key(f16:down):              user.foot_switch_down(3)
+key(f16:up):                user.foot_switch_up(3)
 
 # Misc
-
 scroll reverse:             user.foot_switch_scroll_reverse()

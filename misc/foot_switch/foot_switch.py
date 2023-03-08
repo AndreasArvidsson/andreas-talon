@@ -42,42 +42,42 @@ cron.interval("16ms", on_interval)
 def call_down(key: int):
     # Top
     if key == 0:
-        actions.user.foot_switch_top_down()
+        actions.user.foot_switch_left_down()
     # Center
     elif key == 1:
         actions.user.foot_switch_center_down()
     # Left
     elif key == 2:
-        actions.user.foot_switch_left_down()
+        actions.user.foot_switch_right_down()
     # Right
     elif key == 3:
-        actions.user.foot_switch_right_down()
+        actions.user.foot_switch_top_down()
 
 
 def call_up(key: int):
     # Top
     if key == 0:
-        actions.user.foot_switch_top_up()
+        actions.user.foot_switch_left_up()
     # Center
     elif key == 1:
         actions.user.foot_switch_center_up()
     # Left
     elif key == 2:
-        actions.user.foot_switch_left_up()
+        actions.user.foot_switch_right_up()
     # Right
     elif key == 3:
-        actions.user.foot_switch_right_up()
+        actions.user.foot_switch_top_up()
 
 
 @mod.action_class
 class Actions:
     def foot_switch_down(key: int):
-        """Foot switch key down event. Top(0), Center(1), Left(2), Right(3)"""
+        """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
         current_state[key] = True
 
     def foot_switch_up(key: int):
-        """Foot switch key up event. Top(0), Center(1), Left(2), Right(3)"""
+        """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
         current_state[key] = False
 
     def foot_switch_scroll_reverse():
