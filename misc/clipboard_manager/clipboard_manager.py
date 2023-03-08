@@ -26,11 +26,18 @@ clip_history: list[ClipItem] = []
 sticky: bool = False
 stopped: bool = False
 last_mime = None
+clicked_num = 0
 
 
 def update():
     """Read current clipboard and update manager"""
-    global last_mime, clip_history
+    global last_mime, clicked_num
+
+    if clicked_num:
+        try:
+            actions.user.clipboard_manager_paste([clicked_num])
+        finally:
+            clicked_num = 0
 
     mime = clip.mime()
 
@@ -59,6 +66,7 @@ def update():
 
 @imgui.open(numbered=True)
 def gui(gui: imgui.GUI):
+    global clicked_num
     max_rows = setting_clipboard_manager_max_rows.get()
     sticky_text = " - STICKY" if sticky else ""
     gui.header(f"Clipboard ({len(clip_history)} / {max_rows}){sticky_text}")
@@ -68,7 +76,8 @@ def gui(gui: imgui.GUI):
         if item.image:
             gui.image(item.image)
         else:
-            gui.text(item.text)
+            if gui.text(item.text):
+                clicked_num = i + 1
 
 
 @mod.action_class
