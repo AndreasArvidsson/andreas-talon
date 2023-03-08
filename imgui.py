@@ -72,9 +72,15 @@ class Text:
         self.text = text
         self.header = header
         self.rect = None
+        self._is_clicked = False
+
+    def is_clicked(self):
+        is_clicked = self._is_clicked
+        self._is_clicked = False
+        return is_clicked
 
     def click(self):
-        print(f"clicked '{self.text}'")
+        self._is_clicked = True
 
     def draw(self, state: State):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
@@ -135,16 +141,16 @@ class Button:
     def __init__(self, text: str):
         self.numbered = False
         self.text = text
-        self.is_clicked = False
         self.rect = None
+        self._is_clicked = False
 
     def is_clicked(self):
-        is_clicked = self.is_clicked
-        self.is_clicked = False
+        is_clicked = self._is_clicked
+        self._is_clicked = False
         return is_clicked
 
     def click(self):
-        self.is_clicked = True
+        self._is_clicked = True
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
@@ -245,6 +251,7 @@ class GUI:
         self._showing = False
         self._screen_current = None
         self._buttons: dict[str, Button] = {}
+        self._texts: dict[str, Text] = {}
 
     @property
     def showing(self):
@@ -270,13 +277,32 @@ class GUI:
             self._canvas.unregister("mouse", self._mouse)
             self._canvas.close()
             self._buttons = {}
+            self._texts = {}
             self._showing = False
 
-    def text(self, text: str):
-        self._elements.append(Text(text, header=False))
+    def text(self, text: str) -> bool:
+        return self._text(text, header=False)
 
-    def header(self, text: str):
-        self._elements.append(Text(text, header=True))
+    def header(self, text: str) -> bool:
+        return self._text(text, header=True)
+
+    def _text(self, text: str, header: bool) -> bool:
+        if text in self._texts:
+            element = self._texts[text]
+        else:
+            element = Text(text, header)
+            self._texts[text] = element
+        self._elements.append(element)
+        return element.is_clicked()
+
+    def button(self, text: str) -> bool:
+        if text in self._buttons:
+            element = self._buttons[text]
+        else:
+            element = Button(text)
+            self._buttons[text] = element
+        self._elements.append(element)
+        return element.is_clicked()
 
     def line(self, bold: Optional[bool] = False):
         self._elements.append(Line(bold))
@@ -286,15 +312,6 @@ class GUI:
 
     def image(self, image):
         self._elements.append(Image(image))
-
-    def button(self, text: str) -> bool:
-        if text in self._buttons:
-            button = self._buttons[text]
-        else:
-            button = Button(text)
-            self._buttons[text] = button
-        self._elements.append(button)
-        return button.is_clicked()
 
     def _draw(self, canvas):
         self._elements = []
