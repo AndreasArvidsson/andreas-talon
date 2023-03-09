@@ -10,6 +10,11 @@ settings_timeout = mod.setting(
     desc="If true timeout will be used to decide if the foot switch was held or not",
 )
 
+LEFT = 0
+CENTER = 1
+RIGHT = 2
+TOP = 3
+
 current_state = [False, False, False, False]
 last_state = [False, False, False, False]
 timestamps = [0, 0, 0, 0]
@@ -40,32 +45,24 @@ cron.interval("16ms", on_interval)
 
 
 def call_down(key: int):
-    # Top
-    if key == 0:
+    if key == LEFT:
         actions.user.foot_switch_left_down()
-    # Center
-    elif key == 1:
+    elif key == CENTER:
         actions.user.foot_switch_center_down()
-    # Left
-    elif key == 2:
+    elif key == RIGHT:
         actions.user.foot_switch_right_down()
-    # Right
-    elif key == 3:
+    elif key == TOP:
         actions.user.foot_switch_top_down()
 
 
 def call_up(key: int):
-    # Top
-    if key == 0:
+    if key == LEFT:
         actions.user.foot_switch_left_up()
-    # Center
-    elif key == 1:
+    elif key == CENTER:
         actions.user.foot_switch_center_up()
-    # Left
-    elif key == 2:
+    elif key == RIGHT:
         actions.user.foot_switch_right_up()
-    # Right
-    elif key == 3:
+    elif key == TOP:
         actions.user.foot_switch_top_up()
 
 
