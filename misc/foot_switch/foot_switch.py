@@ -63,12 +63,12 @@ def call_up(key: int, held: bool):
 
 @mod.action_class
 class Actions:
-    def foot_switch_down(key: int):
+    def foot_switch_down_event(key: int):
         """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
         events[key] = EVENT_DOWN
 
-    def foot_switch_up(key: int):
+    def foot_switch_up_event(key: int):
         """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
         events[key] = EVENT_UP
 
