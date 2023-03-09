@@ -21,7 +21,7 @@ PASTE_RE = re.compile(r"[ /-]|\n")
 class MainActions:
     def insert(text: str):
         if isinstance(text, str) and re.search(PASTE_RE, text):
-            if actions.user.paste_text(text):
+            if paste_text(text):
                 return
         actions.next(text)
 
@@ -163,30 +163,22 @@ class Actions:
         finally:
             actions.user.clipboard_manager_resume_updating()
 
-    def paste_mime(mime: MimeData):
-        """Pastes mime data and preserves clipboard"""
+
+def paste_text(text: str) -> bool:
+    """Pastes text and preserves clipboard"""
+    try:
+        actions.user.clipboard_manager_stop_updating()
         with clip.revert():
-            clip.set_mime(mime)
+            clip.set_text(text)
+
+            if clip.text() != text:
+                user.notify("Failed to set clipboard")
+                return False
 
             edit.paste()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("150ms")
 
-    def paste_text(text: str) -> bool:
-        """Pastes text and preserves clipboard"""
-        try:
-            actions.user.clipboard_manager_stop_updating()
-            with clip.revert():
-                clip.set_text(text)
-
-                if clip.text() != text:
-                    user.notify("Failed to set clipboard")
-                    return False
-
-                edit.paste()
-                # sleep here so that clip.revert doesn't revert the clipboard too soon
-                actions.sleep("150ms")
-
-            return True
-        finally:
-            actions.user.clipboard_manager_resume_updating()
+        return True
+    finally:
+        actions.user.clipboard_manager_resume_updating()
