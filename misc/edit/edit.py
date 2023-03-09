@@ -14,7 +14,7 @@ ctx_no_terminal.matches = r"""
 not tag: terminal
 """
 
-PASTE_RE = re.compile(r"[ /-]|\n")
+PASTE_RE = re.compile(r"\s|[ /-]")
 
 
 @ctx_no_terminal.action_class("main")
