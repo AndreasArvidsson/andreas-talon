@@ -14,13 +14,13 @@ ctx_no_terminal.matches = r"""
 not tag: terminal
 """
 
+PASTE_RE = re.compile(r"[ /-]|\n")
+
 
 @ctx_no_terminal.action_class("main")
 class MainActions:
     def insert(text: str):
-        if not text:
-            return
-        if isinstance(text, str) and len(text) > 2 and re.search(r"[ /-]|\n", text):
+        if isinstance(text, str) and re.search(PASTE_RE, text):
             if actions.user.paste_text(text):
                 return
         actions.next(text)
@@ -174,14 +174,19 @@ class Actions:
 
     def paste_text(text: str) -> bool:
         """Pastes text and preserves clipboard"""
-        with clip.revert():
-            clip.set_text(text)
+        try:
+            actions.user.clipboard_manager_stop_updating()
+            with clip.revert():
+                clip.set_text(text)
 
-            if clip.text() != text:
-                user.notify("Failed to set clipboard")
-                return False
+                if clip.text() != text:
+                    user.notify("Failed to set clipboard")
+                    return False
 
-            edit.paste()
-            # sleep here so that clip.revert doesn't revert the clipboard too soon
-            actions.sleep("150ms")
-        return True
+                edit.paste()
+                # sleep here so that clip.revert doesn't revert the clipboard too soon
+                actions.sleep("150ms")
+
+            return True
+        finally:
+            actions.user.clipboard_manager_resume_updating()
