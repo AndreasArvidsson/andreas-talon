@@ -64,7 +64,7 @@ class UserActions:
         actions.user.mouse_release_held_buttons()
         actions.key("w:down")
 
-    def foot_switch_top_up():
+    def foot_switch_top_up(held: bool):
         """Stop move"""
         actions.key("w:up")
 
@@ -72,7 +72,7 @@ class UserActions:
         """Start stand still"""
         actions.key("shift:down")
 
-    def foot_switch_center_up():
+    def foot_switch_center_up(held: bool):
         """Stop stand still"""
         actions.key("shift:up")
 
@@ -80,13 +80,13 @@ class UserActions:
         """Toggle voice chat for game"""
         actions.user.game_toggle_mute()
 
-    def foot_switch_left_up():
+    def foot_switch_left_up(held: bool):
         pass
 
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle(True)
 
-    def foot_switch_right_up():
+    def foot_switch_right_up(held: bool):
         actions.key("alt:up")
         actions.user.mouse_freeze_toggle(False)
 
@@ -105,7 +105,7 @@ class FrozenMouseActions:
         """Hold alt. Used for comparing rings"""
         actions.key("alt:down")
 
-    def foot_switch_left_up():
+    def foot_switch_left_up(held: bool):
         actions.key("alt:up")
 
 

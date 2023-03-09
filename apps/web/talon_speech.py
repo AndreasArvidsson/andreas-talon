@@ -13,35 +13,31 @@ mode: sleep
 app: talon_speech
 """
 
-ctx.settings = {
-    "user.foot_switch_timeout": False,
-}
-
 
 @ctx.action_class("user")
 class UserActions:
     def foot_switch_top_down():
         actions.key("up")
 
-    def foot_switch_top_up():
+    def foot_switch_top_up(held: bool):
         pass
 
     def foot_switch_center_down():
         actions.key("down")
 
-    def foot_switch_center_up():
+    def foot_switch_center_up(held: bool):
         pass
 
     def foot_switch_left_down():
         down()
 
-    def foot_switch_left_up():
+    def foot_switch_left_up(held: bool):
         up()
 
     def foot_switch_right_down():
         down()
 
-    def foot_switch_right_up():
+    def foot_switch_right_up(held: bool):
         up()
 
 

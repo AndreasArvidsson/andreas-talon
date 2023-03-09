@@ -12,7 +12,6 @@ mode: user.game
 """
 
 ctx.settings = {
-    "user.foot_switch_timeout": False,
     "speech.timeout": 0.05,
 }
 
