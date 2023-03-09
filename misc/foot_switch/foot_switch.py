@@ -15,29 +15,34 @@ CENTER = 1
 RIGHT = 2
 TOP = 3
 
-current_state = [False, False, False, False]
-last_state = [False, False, False, False]
+EVENT_NONE = 0
+EVENT_DOWN = 1
+EVENT_UP = 2
+
+events = [EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
 hold_timeout = 0.2
 
 
 def on_interval():
-    for key in range(4):
-        if current_state[key] != last_state[key]:
-            last_state[key] = current_state[key]
-            # Key is pressed down
-            if current_state[key]:
-                call_down(key)
-            # Key is released after specified hold time out. ie key was held.
-            elif (
-                not settings_timeout.get()
-                or time.perf_counter() - timestamps[key] > hold_timeout
-            ):
-                call_up(key)
+    for key, event in enumerate(events):
+        if event == EVENT_NONE:
+            continue
+
+        events[key] = EVENT_NONE
+
+        if event == EVENT_DOWN:
+            call_down(key)
+        # Key is released after specified hold time out. ie key was held.
+        elif (
+            not settings_timeout.get()
+            or time.perf_counter() - timestamps[key] > hold_timeout
+        ):
+            call_up(key)
 
 
-# In a hotkey down event, eg "key(ctrl:down)", any key you press with key/insert
+# In a hotkey event, eg "key(ctrl:down)", any key you press with key/insert
 # actions will be combined with ctrl since it's still held. Just updating a
 # boolean in the actual hotkey event and reading it asynchronously with cron
 # gets around this issue.
@@ -71,11 +76,11 @@ class Actions:
     def foot_switch_down(key: int):
         """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
-        current_state[key] = True
+        events[key] = EVENT_DOWN
 
     def foot_switch_up(key: int):
         """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
-        current_state[key] = False
+        events[key] = EVENT_UP
 
     def foot_switch_scroll_reverse():
         """Reverse scroll direction using foot switch"""
