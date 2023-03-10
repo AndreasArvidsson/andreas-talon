@@ -29,7 +29,7 @@ function gitUpdate(userDir, url, folderName, branch) {
 
   gitUpdate(
     userDir,
-    "https://github./AndreasArvidsson/talon-analyze-phrase",
+    "git@github.com:AndreasArvidsson/talon-analyze-phrase.git",
     "analyze-phrase",
     "main"
   );
