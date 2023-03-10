@@ -8,11 +8,11 @@ CENTER = 1
 RIGHT = 2
 TOP = 3
 
-STATE_DOWN = 1
-STATE_UP = 2
+DOWN = 0
+UP = 1
 
-current_state = [STATE_UP, STATE_UP, STATE_UP, STATE_UP]
-last_state = [STATE_UP, STATE_UP, STATE_UP, STATE_UP]
+current_state = [UP, UP, UP, UP]
+last_state = [UP, UP, UP, UP]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
 hold_timeout = 0.2
@@ -23,7 +23,7 @@ def on_interval():
         if last_state[key] != current_state[key]:
             last_state[key] = current_state[key]
 
-            if current_state[key] == STATE_DOWN:
+            if current_state[key] == DOWN:
                 call_down(key)
             else:
                 held = time.perf_counter() - timestamps[key] > hold_timeout
@@ -64,11 +64,11 @@ class Actions:
     def foot_switch_down_event(key: int):
         """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
-        current_state[key] = STATE_DOWN
+        current_state[key] = DOWN
 
     def foot_switch_up_event(key: int):
         """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
-        current_state[key] = STATE_UP
+        current_state[key] = UP
 
     def foot_switch_scroll_reverse():
         """Reverse scroll direction using foot switch"""
