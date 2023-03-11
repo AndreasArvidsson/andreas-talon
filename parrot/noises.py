@@ -19,7 +19,7 @@ class UserActions:
         actions.user.mouse_on_pop()
 
     def noise_cluck():
-        actions.user.repeat_command()
+        actions.core.repeat_phrase()
 
     def noise_shush_start():
         actions.user.mouse_scrolling("up")

@@ -29,7 +29,6 @@ class Actions:
         """Put Talon to sleep"""
         actions.user.debug("Talon sleep voice command")
         actions.user.talon_sleep()
-        actions.user.repeat_command_block()
 
     def talon_wake():
         """Wake Talon from sleep"""
