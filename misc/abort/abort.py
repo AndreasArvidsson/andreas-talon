@@ -1,9 +1,8 @@
 from talon import Module, Context, actions
 from talon.grammar import Phrase, Capture
+from talon.grammar.vm import VMCapture
+from talon.engines.w2l import DecodeWord
 import time
-
-from talon.grammar.vm import VMListCapture, VMCapture
-from talon.engines.w2l import DecodeWord, WordMeta
 
 mod = Module()
 
