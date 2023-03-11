@@ -22,7 +22,7 @@ os: linux
 @ctx_win.action_class("user")
 class WinUserActions:
     def file_manager_open(path: str):
-        actions.user.exec(path)
+        actions.user.exec(f"explorer {path}")
 
 
 @ctx_linux.action_class("user")

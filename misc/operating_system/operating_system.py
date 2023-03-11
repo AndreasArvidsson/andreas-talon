@@ -1,6 +1,5 @@
 from talon import Context, Module
-import os
-
+import subprocess
 
 mod = Module()
 mod.list("launch_command", desc="List of applications to launch")
@@ -8,12 +7,17 @@ mod.list("launch_command", desc="List of applications to launch")
 ctx = Context()
 ctx.lists["self.launch_command"] = {}
 
+child_processes = []
+
 
 @mod.action_class
 class Actions:
     def exec(command: str):
-        """Run command"""
-        os.system(command)
+        """Execute command"""
+        # Store child process handle to avoid log warning about subprocess still running
+        child_processes.append(
+            subprocess.Popen(command, shell=True),
+        )
 
     def system_shutdown():
         """Shutdown operating system"""

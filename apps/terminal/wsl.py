@@ -41,10 +41,10 @@ class UserActions:
 
     def file_manager_go(path: str):
         if path.startswith("shell:"):
-            actions.user.exec(path)
-            return
-        path = update_path(path)
-        actions.next(path)
+            actions.user.file_manager_open(path)
+        else:
+            path = update_path(path)
+            actions.next(path)
 
 
 def update_path(path: str) -> str:

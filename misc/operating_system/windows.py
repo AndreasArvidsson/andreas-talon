@@ -1,6 +1,5 @@
 from talon import Context, actions
 
-
 ctx = Context()
 ctx.matches = r"""
 os: windows
@@ -9,9 +8,10 @@ os: windows
 ctx.lists["self.launch_command"] = {
     "control panel": "control",
     "sound settings": "control mmsys.cpl sounds",
-    "system settings": "ms-settings:",
-    "advanced settings": "C:\\Windows\\System32\\systempropertiesadvanced.exe",
-    "taskbar settings": "ms-settings:taskbar",
+    "system settings": "start ms-settings:",
+    "taskbar settings": "start ms-settings:taskbar",
+    "advanced settings": "systempropertiesadvanced.exe",
+    "task manager": "taskmgr",
     "services": "services.msc",
     "device manager": "devmgmt.msc",
     "paint": "mspaint",
@@ -22,13 +22,7 @@ ctx.lists["self.launch_command"] = {
 
 
 @ctx.action_class("user")
-class UserActionsWin:
-    def exec(command: str):
-        actions.key("super-r")
-        actions.sleep("40ms")
-        actions.insert(command)
-        actions.key("enter")
-
+class UserActions:
     def system_shutdown():
         shutdown("s /t 0")
 
@@ -42,5 +36,5 @@ class UserActionsWin:
 
 def shutdown(flag: str):
     actions.key("super-r")
-    actions.sleep("30ms")
+    actions.sleep("50ms")
     actions.insert(f"shutdown /{flag}")
