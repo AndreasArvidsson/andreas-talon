@@ -4,7 +4,7 @@ app: diablo3
 -
 
 # ---------- Abort/Cancel ----------
-{user.abort_phrase}$:       skip()
+cancel$:                    user.abort_phrase_command()
 
 # ---------- Discord ----------
 discord:                    key(ctrl-shift-´)
