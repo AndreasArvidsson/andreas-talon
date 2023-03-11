@@ -41,7 +41,6 @@ class Actions:
 
     def game_toggle_mute():
         """Toggle voice chat for game"""
-        print("toggle mute")
         actions.user.abort_current_phrase()
         update_tag(
             actions.user.discord_toggle_mute(),
