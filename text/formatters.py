@@ -1,11 +1,9 @@
 from talon import Module, Context, actions
 import re
-from ..imgui import imgui
 
 mod = Module()
 ctx = Context()
 
-mod.mode("help_formatters", "Mode for showing the formatter help gui")
 
 formatters_dict = {
     # Simple formatters
@@ -111,23 +109,6 @@ def formatters(m) -> str:
     return ",".join(m)
 
 
-@imgui.open()
-def gui(gui: imgui.GUI):
-    gui.header("Formatters")
-    gui.line(bold=True)
-    formatters = {
-        **ctx.lists["self.formatter_code"],
-        **ctx.lists["self.formatter_prose"],
-    }
-    for name in sorted(set(formatters)):
-        gui.text(
-            f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}"
-        )
-    gui.spacer()
-    if gui.button("Hide"):
-        actions.user.formatters_help_toggle()
-
-
 @mod.action_class
 class Actions:
     def insert_formatted(text: str, formatters: str):
@@ -187,15 +168,6 @@ class Actions:
             " ",
             text,
         )
-
-    def formatters_help_toggle():
-        """Toggle list all formatters gui"""
-        if gui.showing:
-            actions.mode.disable("user.help_formatters")
-            gui.hide()
-        else:
-            gui.show()
-            actions.mode.enable("user.help_formatters")
 
 
 def format_delim(

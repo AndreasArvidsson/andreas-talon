@@ -1,9 +1,9 @@
-from talon import Module, actions, Module, registry
+from talon import Module, Context, actions, registry
 from ...imgui import imgui
 
 mod = Module()
-mod.mode("help_search", "Mode for showing the search help gui")
-
+ctx = Context()
+mod.tag("help_search", "Help search gui is showing")
 
 search_text = None
 search_type = None
@@ -50,7 +50,7 @@ def show_gui(text: str, type: str):
     search_text = text
     search_type = type
     if not gui.showing:
-        actions.mode.enable("user.help_search")
+        ctx.tags = ["user.help_search"]
         gui.show()
 
 
@@ -66,7 +66,7 @@ class Actions:
 
     def help_search_hide():
         """Hide help search gui"""
-        actions.mode.disable("user.help_search")
+        ctx.tags = []
         gui.hide()
 
 

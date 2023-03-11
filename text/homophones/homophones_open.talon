@@ -1,4 +1,4 @@
-mode: user.homophones
+tag: user.homophones
 -
 
 phones hide:                user.homophones_hide()

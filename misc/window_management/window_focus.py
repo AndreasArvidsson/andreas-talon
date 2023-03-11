@@ -1,13 +1,11 @@
-from talon import Context, Module, app, ui, actions
+from talon import Module, Context, app, ui, actions
 from talon.grammar import Phrase
 import re
-from ...imgui import imgui
 
 
 mod = Module()
 ctx = Context()
 
-mod.mode("focus")
 mod.list("running_application", desc="All running applications")
 ctx.lists["self.running_application"] = {}
 
@@ -81,30 +79,6 @@ class Actions:
         names = list(ctx.lists["user.running_application"].values())
         if number > 0 and number <= len(names):
             focus_name(names[number - 1])
-
-    def focus_help_toggle():
-        """Shows/hides all running applications"""
-        if gui.showing:
-            actions.user.focus_hide()
-        else:
-            actions.mode.enable("user.focus")
-            gui.show()
-
-    def focus_hide():
-        """Hides list of running applications"""
-        actions.mode.disable("user.focus")
-        gui.hide()
-
-
-@imgui.open(numbered=True)
-def gui(gui: imgui.GUI):
-    gui.header("Focus")
-    gui.line(bold=True)
-    for name in ctx.lists["self.running_application"]:
-        gui.text(name)
-    gui.spacer()
-    if gui.button("Hide"):
-        actions.user.focus_hide()
 
 
 def on_ready():

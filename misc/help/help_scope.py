@@ -2,7 +2,6 @@ from talon import Module, actions, Module, scope
 from ...imgui import imgui
 
 mod = Module()
-mod.mode("help_scope", "Mode for showing the scope help gui")
 
 setting_max_length = mod.setting(
     "help_scope_max_length",
@@ -62,8 +61,6 @@ class Actions:
     def help_scope_toggle():
         """Toggle help scope gui"""
         if gui.showing:
-            actions.mode.disable("user.help_scope")
             gui.hide()
         else:
-            actions.mode.enable("user.help_scope")
             gui.show()

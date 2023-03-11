@@ -1,4 +1,4 @@
-mode: user.help_commands
+tag: user.help_commands
 -
 
 help hide:                  user.help_hide()

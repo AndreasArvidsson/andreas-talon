@@ -8,9 +8,10 @@ from ...imgui import imgui
 # a suitable one can be found here:
 # https://github.com/pimentel/homophones
 
-ctx = Context()
 mod = Module()
-mod.mode("homophones")
+ctx = Context()
+
+mod.tag("homophones", "Pick homophones gui is showing")
 
 homophones_last_used = {}
 
@@ -64,7 +65,7 @@ class Actions:
         list = get_list(word)
         active_word = word
         active_word_list = format_list(word, list)
-        actions.mode.enable("user.homophones")
+        ctx.tags = ["user.homophones"]
         gui.show()
 
     def homophones_cycle_selected():
@@ -81,7 +82,7 @@ class Actions:
 
     def homophones_hide():
         """Hides the homophones display"""
-        actions.mode.disable("user.homophones")
+        ctx.tags = []
         gui.hide()
 
     def homophones_select(number: int) -> str:

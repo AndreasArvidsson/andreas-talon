@@ -7,5 +7,7 @@
 
 ^help alphabet$:            user.help_alphabet_toggle()
 ^help scope$:               user.help_scope_toggle()
-^help (format|formatters)$: user.formatters_help_toggle()
-^help focus$:               user.focus_help_toggle()
+^help (format|formatters)$: user.help_formatters_toggle()
+^help (running|focus)$:     user.help_running_apps_toggle()
+
+^help key$:                 user.help_key_debug_toggle()

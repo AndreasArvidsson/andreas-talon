@@ -1,4 +1,4 @@
-mode: user.clipboard_manager
+tag: user.clipboard_manager
 -
 
 clippy stay:
