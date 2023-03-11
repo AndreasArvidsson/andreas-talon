@@ -1,10 +1,7 @@
 mode: user.game
-tag: user.game_commands
+tag: user.game_voip_muted
 app: diablo3
 -
-
-# ---------- Sleep mode ----------
-{user.sleep_phrase} [<phrase>]$: user.talon_sleep()
 
 # ---------- Abort/Cancel ----------
 {user.abort_phrase}$:       skip()

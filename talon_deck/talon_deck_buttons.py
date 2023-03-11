@@ -30,8 +30,7 @@ and not mode: sleep
 ctx_game_voip_listening = Context()
 ctx_game_voip_listening.matches = """
 mode: user.game
-and not mode: sleep
-and not mode: user.game_voip_muted
+not tag: user.game_voip_muted
 """
 
 ctx_eye_tracker = Context()
