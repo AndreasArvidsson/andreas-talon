@@ -57,7 +57,7 @@ def focus_name(name: str):
     # Focus app
     else:
         actions.user.focus_app(app)
-    actions.user.focus_hide()
+    actions.user.help_running_apps_hide()
 
 
 @mod.action_class

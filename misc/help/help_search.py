@@ -3,6 +3,7 @@ from ...imgui import imgui
 
 mod = Module()
 ctx = Context()
+
 mod.tag("help_search", "Help search gui is showing")
 
 search_text = None
