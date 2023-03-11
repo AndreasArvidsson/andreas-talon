@@ -8,28 +8,26 @@ CENTER = 1
 RIGHT = 2
 TOP = 3
 
-EVENT_NONE = 0
-EVENT_DOWN = 1
-EVENT_UP = 2
+DOWN = 0
+UP = 1
 
-events = [EVENT_NONE, EVENT_NONE, EVENT_NONE, EVENT_NONE]
+current_state = [UP, UP, UP, UP]
+last_state = [UP, UP, UP, UP]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
 hold_timeout = 0.2
 
 
 def on_interval():
-    for key, event in enumerate(events):
-        if event == EVENT_NONE:
-            continue
+    for key in range(4):
+        if last_state[key] != current_state[key]:
+            last_state[key] = current_state[key]
 
-        events[key] = EVENT_NONE
-
-        if event == EVENT_DOWN:
-            call_down(key)
-        else:
-            held = time.perf_counter() - timestamps[key] > hold_timeout
-            call_up(key, held)
+            if current_state[key] == DOWN:
+                call_down(key)
+            else:
+                held = time.perf_counter() - timestamps[key] > hold_timeout
+                call_up(key, held)
 
 
 # In a hotkey event, eg "key(ctrl:down)", any key you press with key/insert
@@ -66,11 +64,11 @@ class Actions:
     def foot_switch_down_event(key: int):
         """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
-        events[key] = EVENT_DOWN
+        current_state[key] = DOWN
 
     def foot_switch_up_event(key: int):
         """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
-        events[key] = EVENT_UP
+        current_state[key] = UP
 
     def foot_switch_scroll_reverse():
         """Reverse scroll direction using foot switch"""

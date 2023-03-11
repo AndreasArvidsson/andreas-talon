@@ -124,8 +124,8 @@ ctx_en.lists["self.key_symbol"] = {
     "question mark":    "?",
     "amper":            "&",
     "at sign":          "@",
-    "sterling":         "£",
-    "euro":             "€",
+    "pound sign":       "£",
+    "euro sign":        "€",
 
     "single":           "'",
     "double":           '"',
