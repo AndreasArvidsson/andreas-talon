@@ -12,6 +12,6 @@
    - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml)
 1. Change shortcut keys to: F13, F14, F15, F16
    - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml)
-   - On windows F-keys above F12 won't be visible in the tool but works if imported
+   - On windows F-keys above F12 won't be visible in the tool, but works if imported
 
 ![Foot Switch Configuration Tool](foot_switch_configuration.png)
