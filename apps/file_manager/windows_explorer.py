@@ -27,6 +27,15 @@ app: windows_file_browser
 """
 
 
+@ctx.action_class("app")
+class AppActions:
+    def tab_previous():
+        key("ctrl-shift-tab")
+
+    def tab_next():
+        key("ctrl-tab")
+
+
 @ctx.action_class("edit")
 class EditActions:
     def file_start():
@@ -38,6 +47,8 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
+    # ----- Navigation -----
+
     def go_back():
         key("alt-left")
 
@@ -60,7 +71,20 @@ class UserActions:
         insert(path)
         key("enter")
 
+    # ----- Tabs -----
+
+    def tab_final():
+        actions.user.tab_jump(0)
+        actions.app.tab_previous()
+
+    def tab_move_left():
+        pass
+
+    def tab_move_right():
+        pass
+
     # ----- Create folders / files -----
+
     def file_manager_new_folder(name: str = None):
         key("home")
         key("ctrl-shift-n")
@@ -73,6 +97,7 @@ class UserActions:
             insert(name)
 
     # ----- Miscellaneous -----
+
     def file_manager_show_properties():
         key("alt-enter")
 

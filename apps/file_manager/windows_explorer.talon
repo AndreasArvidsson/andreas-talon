@@ -2,6 +2,7 @@ app: windows_explorer
 app: windows_file_browser
 -
 tag(): user.file_manager
+tag(): user.tabs
 
 go up:                      user.select_up()
 go down:                    user.select_down()
