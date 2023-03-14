@@ -1,7 +1,5 @@
 from talon import Context, Module, actions
 
-key = actions.key
-insert = actions.insert
 
 mod = Module()
 
@@ -27,22 +25,13 @@ app: windows_file_browser
 """
 
 
-@ctx.action_class("app")
-class AppActions:
-    def tab_previous():
-        key("ctrl-shift-tab")
-
-    def tab_next():
-        key("ctrl-tab")
-
-
 @ctx.action_class("edit")
 class EditActions:
     def file_start():
-        key("home")
+        actions.key("home")
 
     def file_end():
-        key("end")
+        actions.key("end")
 
 
 @ctx.action_class("user")
@@ -50,65 +39,53 @@ class UserActions:
     # ----- Navigation -----
 
     def go_back():
-        key("alt-left")
+        actions.key("alt-left")
 
     def go_forward():
-        key("alt-right")
+        actions.key("alt-right")
 
     def file_manager_go_parent():
-        key("alt-up")
+        actions.key("alt-up")
 
     def file_manager_focus_address():
-        key("alt-d")
+        actions.key("alt-d")
 
     def file_manager_copy_address():
         actions.user.file_manager_focus_address()
         actions.edit.copy()
-        key("escape")
+        actions.key("escape")
 
     def file_manager_go(path: str):
-        key("ctrl-l")
-        insert(path)
-        key("enter")
-
-    # ----- Tabs -----
-
-    def tab_final():
-        actions.user.tab_jump(0)
-        actions.app.tab_previous()
-
-    def tab_move_left():
-        pass
-
-    def tab_move_right():
-        pass
+        actions.key("ctrl-l")
+        actions.insert(path)
+        actions.key("enter")
 
     # ----- Create folders / files -----
 
     def file_manager_new_folder(name: str = None):
-        key("home")
-        key("ctrl-shift-n")
+        actions.key("home")
+        actions.key("ctrl-shift-n")
         if name:
-            insert(name)
+            actions.insert(name)
 
     def file_manager_new_file(name: str = None):
-        key("shift-f10 w t")
+        actions.key("shift-f10 w t")
         if name:
-            insert(name)
+            actions.insert(name)
 
     # ----- Miscellaneous -----
 
     def file_manager_show_properties():
-        key("alt-enter")
+        actions.key("alt-enter")
 
     def file_manager_terminal_here():
-        key("ctrl-l")
-        insert("cmd.exe")
-        key("enter")
+        actions.key("ctrl-l")
+        actions.insert("cmd.exe")
+        actions.key("enter")
 
     def pick_item(number: int):
         if number == 1:
-            key("space enter")
+            actions.key("space enter")
         else:
             actions.next(number)
 
@@ -117,12 +94,12 @@ class UserActions:
 class Actions:
     def select_up():
         """Move selection up"""
-        key("ctrl-up")
+        actions.key("ctrl-up")
 
     def select_down():
         """Move selection down"""
-        key("ctrl-down")
+        actions.key("ctrl-down")
 
     def select_toggle():
         """Toggle selection"""
-        key("ctrl-space")
+        actions.key("ctrl-space")

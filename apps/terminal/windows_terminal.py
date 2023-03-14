@@ -1,7 +1,5 @@
 from talon import Module, Context, actions
 
-key = actions.key
-insert = actions.insert
 ctx = Context()
 mod = Module()
 
@@ -21,34 +19,28 @@ app: windows_terminal
 @ctx.action_class("app")
 class AppActions:
     def window_open():
-        key("ctrl-shift-n")
+        actions.key("ctrl-shift-n")
 
     def tab_open():
-        key("ctrl-shift-t")
+        actions.key("ctrl-shift-t")
 
     def tab_close():
-        key("ctrl-shift-w")
-
-    def tab_previous():
-        key("ctrl-shift-tab")
-
-    def tab_next():
-        key("ctrl-tab")
+        actions.key("ctrl-shift-w")
 
     def preferences():
-        key("ctrl-,")
+        actions.key("ctrl-,")
 
 
 @ctx.action_class("edit")
 class EditActions:
     def copy():
-        key("ctrl-shift-c")
+        actions.key("ctrl-shift-c")
 
     def paste():
-        key("ctrl-shift-v")
+        actions.key("ctrl-shift-v")
 
     def find(text: str = None):
-        key("ctrl-shift-f")
+        actions.key("ctrl-shift-f")
         if text:
             actions.insert(text)
 
@@ -56,12 +48,11 @@ class EditActions:
 @ctx.action_class("user")
 class UserActions:
     def tab_jump(number: int):
-        """Jumps to the specified tab"""
-        key(f"ctrl-alt-{number}")
+        if number < 9:
+            actions.key(f"ctrl-alt-{number}")
 
     def tab_final():
-        actions.user.tab_jump(1)
-        actions.app.tab_previous()
+        actions.key("ctrl-alt-9")
 
     def tab_duplicate():
-        key("ctrl-shift-d")
+        actions.key("ctrl-shift-d")

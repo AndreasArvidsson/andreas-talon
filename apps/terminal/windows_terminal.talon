@@ -4,9 +4,9 @@ tag(): user.tabs
 tag(): user.find
 tag(): user.bash
 
-split cross:                key(ctrl-alt-d)
-split right:                key(ctrl-alt-right)
-split down:                 key(ctrl-alt-down)
+split cross:                key(alt-shift-d)
+split right:                key(alt-shift-+)
+split down:                 key(alt-shift--)
 
 cross:                      key(ctrl-alt-left)
 focus up:                   key(alt-up)

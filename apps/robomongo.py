@@ -19,12 +19,6 @@ ctx.tags = ["user.comments", "user.tabs", "user.find"]
 
 @ctx.action_class("app")
 class AppActions:
-    def tab_previous():
-        actions.key("ctrl-shift-tab")
-
-    def tab_next():
-        actions.key("ctrl-tab")
-
     def tab_reopen():
         actions.skip()
 

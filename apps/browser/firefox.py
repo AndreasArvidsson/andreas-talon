@@ -113,13 +113,6 @@ class UserActions:
         actions.insert(url)
         actions.key("alt-enter")
 
-    # ----- Vimium -----
-    def scroll_left():
-        actions.key("ctrl-alt-k")
-
-    def scroll_right():
-        actions.key("ctrl-alt-l")
-
     # ----- Rango -----
     def tab_back():
         actions.user.rango_command_without_target("focusPreviousTab")

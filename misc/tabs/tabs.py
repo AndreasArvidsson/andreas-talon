@@ -1,6 +1,5 @@
 from talon import Module, Context, actions
 
-key = actions.key
 
 mod = Module()
 mod.tag("tabs")
@@ -14,26 +13,26 @@ tag: user.tabs
 @ctx.action_class("app")
 class AppActions:
     def tab_previous():
-        key("ctrl-pageup")
+        actions.key("ctrl-shift-tab")
 
     def tab_next():
-        key("ctrl-pagedown")
+        actions.key("ctrl-tab")
 
     def tab_open():
-        key("ctrl-t")
+        actions.key("ctrl-t")
 
     def tab_close():
-        key("ctrl-w")
+        actions.key("ctrl-w")
 
     def tab_reopen():
-        key("ctrl-shift-t")
+        actions.key("ctrl-shift-t")
 
 
 @mod.action_class
 class TabActions:
     def tab_jump(number: int):
         """Jumps to the specified tab"""
-        key(f"ctrl-{number}")
+        actions.key(f"ctrl-{number}")
 
     def tab_jump_from_back(number: int):
         """Jumps to the specified tab counted from the back"""
@@ -43,15 +42,16 @@ class TabActions:
 
     def tab_final():
         """Jumps to the final tab"""
-        key("ctrl-0")
+        actions.user.tab_jump(1)
+        actions.app.tab_previous()
 
     def tab_move_left():
         """Move tab to the left"""
-        key("ctrl-shift-pageup")
+        actions.key("ctrl-shift-pageup")
 
     def tab_move_right():
         """Move tab to the right"""
-        key("ctrl-shift-pagedown")
+        actions.key("ctrl-shift-pagedown")
 
     def tab_duplicate():
         """Duplicate tab"""
