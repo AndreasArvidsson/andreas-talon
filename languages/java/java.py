@@ -125,7 +125,7 @@ class UserActions:
             insert_snippet("System.out.println($0);")
 
     def code_format_string():
-        insert_snippet("String.format($0)")
+        insert_snippet("String.format(\"$0\")")
 
     # Class declaration
     def code_class(name: str, modifiers: list[str]):
