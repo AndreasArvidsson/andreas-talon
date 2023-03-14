@@ -5,10 +5,10 @@ language: sv
 # Freely dictate text
 <user.prose>:               "{prose}"
 
-^listpunkt:                 "* "
+^(listpunkt | list punkt):  "* "
 ^uppgift:                   "- [ ] "
 
-^indrag:                    edit.indent_more()
+^(indrag | in drag):        edit.indent_more()
 ^utdrag:                    edit.indent_less()
 
 ny rad:
