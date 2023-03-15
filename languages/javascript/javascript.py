@@ -80,6 +80,7 @@ ctx.lists["self.code_snippet"] = {
     "error": "throw Error($0)",
     "tertiary": "$1 ? $2 : $0",
     "import star": 'import * as $0 from "$0";',
+    "import from": 'import $0 from "$0";',
 }
 
 
