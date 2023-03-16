@@ -37,7 +37,7 @@ tags, xmlBothTags
 token, token
 type, type
 value, value
-word, word
+sub, word
 branch, branch
 
 -chapter, chapter
