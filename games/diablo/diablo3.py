@@ -7,16 +7,23 @@ os: windows
 and app.exe: Diablo III64.exe
 """
 
+mod.apps.diablo4 = """
+os: windows
+and app.exe: Diablo IV.exe
+"""
+
 ctx = Context()
 ctx.matches = """
 mode: user.game
 app: diablo3
+app: diablo4
 """
 
 ctx_frozen_mouse = Context()
 ctx_frozen_mouse.matches = """
 mode: user.game
 app: diablo3
+app: diablo4
 tag: user.eye_tracker_frozen
 """
 

@@ -1,6 +1,7 @@
 mode: user.game
 tag: user.game_voip_muted
 app: diablo3
+app: diablo4
 -
 
 # ---------- Abort/Cancel ----------
@@ -23,3 +24,9 @@ void:                       key(space)
 
 # Single key. Including Modifiers, [a-z], [0-9], [F1-F12], arrow, symbols
 press <user.key_any>:       key(key_any)
+
+# Skip cutscenes
+skip:
+    key(escape:down)
+    sleep(1s)
+    key(escape:up)

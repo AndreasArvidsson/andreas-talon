@@ -1,4 +1,5 @@
 app: diablo3
+app: diablo4
 -
 
 settings():
