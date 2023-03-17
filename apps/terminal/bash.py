@@ -22,6 +22,9 @@ class UserActions:
     def file_manager_go_parent():
         actions.user.file_manager_go("..")
 
+    def file_manager_go_home():
+        actions.user.file_manager_go("~")
+
     def file_manager_focus_address():
         actions.skip()
 

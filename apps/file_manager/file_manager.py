@@ -58,6 +58,9 @@ class Actions:
     def file_manager_go_parent():
         """File manager go parent"""
 
+    def file_manager_go_home():
+        """File manager go user home"""
+
     def file_manager_focus_address():
         """File manager focus address field"""
 

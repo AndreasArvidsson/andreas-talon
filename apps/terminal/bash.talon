@@ -5,7 +5,6 @@ tag(): terminal
 cd:                         "cd "
 cd <user.text>$:            "cd {text}"
 cd <user.text> tab$:        "cd {text}\t"
-go home:                    "cd ~\n"
 
 list:                       "ls\n"
 list all:                   "ls -a\n"

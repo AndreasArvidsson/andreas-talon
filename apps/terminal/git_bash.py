@@ -46,7 +46,7 @@ class UserActions:
 
     def file_manager_go(path: str):
         if path.startswith("shell:"):
-            actions.insert("start " + path)
+            actions.insert(f"start {path}")
             actions.key("enter")
             return
         path = update_path(path)
@@ -55,6 +55,6 @@ class UserActions:
 
 def update_path(path: str) -> str:
     path = str(path)
-    if path[1] == ":":
+    if len(path) > 1 and path[1] == ":":
         path = f"/{path[0]}{path[2:]}"
     return path.replace("\\", "/")
