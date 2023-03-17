@@ -30,9 +30,10 @@ scout file for clip:        user.find_file(clip.text())
 scout file [<user.filename>]$:
     user.find_file(filename or "")
 
-pop <user.text>$:
-    edit.find(text)
-    key(enter)
+# TODO:
+# pop <user.text>$:
+#     edit.find(text)
+#     key(enter)
 
 pop file <user.filename>$:
     user.find_file(filename)
