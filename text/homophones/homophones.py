@@ -100,8 +100,9 @@ class Actions:
         for i, word in enumerate(words):
             if word in homophones_last_used:
                 used = homophones_last_used[word]
-                # Reuse homophones used the last five minutes
-                if time.monotonic() - used["time"] < 5 * 60:
+                # Reuse homophones used the last 30 minutes
+                if time.monotonic() - used["time"] < 30 * 60:
+                    used["time"] = time.monotonic()
                     words[i] = used["word"]
         return words
 
