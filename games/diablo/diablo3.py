@@ -58,7 +58,8 @@ class UserActions:
 
     def noise_shush_start():
         """Secondary attack click"""
-        mouse_click(1)
+        # mouse_click(1)
+        actions.key("space")
 
     def noise_hiss_stop():
         pass

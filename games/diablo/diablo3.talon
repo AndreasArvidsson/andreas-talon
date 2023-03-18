@@ -30,3 +30,5 @@ skip:
     key(escape:down)
     sleep(1s)
     key(escape:up)
+    sleep(50ms)
+    key(escape)
