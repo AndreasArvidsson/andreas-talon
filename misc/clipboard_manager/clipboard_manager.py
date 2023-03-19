@@ -49,7 +49,7 @@ def update():
     last_mime = mime
     text = mime.text
 
-    if text.startswith("file://"):
+    if text and text.startswith("file://"):
         return
 
     try:
