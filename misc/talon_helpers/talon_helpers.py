@@ -1,6 +1,17 @@
-from talon import Module, Context, actions, app, registry, scope, ui, speech_system
+from talon import (
+    Module,
+    Context,
+    actions,
+    app,
+    registry,
+    scope,
+    ui,
+    speech_system,
+    storage,
+)
 import os
 import re
+import time
 from itertools import islice
 from typing import Any, Union
 from talon.grammar import Phrase
@@ -114,6 +125,11 @@ class Actions:
     def talon_restart():
         """Quit and relaunch the Talon app"""
 
+    def talon_was_restart() -> bool:
+        """Returns true if Talon was just restarted"""
+        restart_event = storage.get("talon_restart_event", 0)
+        return time.monotonic() - restart_event < 5
+
     def as_dict(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
     ) -> dict:
@@ -136,6 +152,7 @@ class Actions:
 @ctx_win.action_class("user")
 class WinUserActions:
     def talon_restart():
+        storage.set("talon_restart_event", time.monotonic())
         talon_app = ui.apps(pid=os.getpid())[0]
         os.startfile(talon_app.exe)
         talon_app.quit()

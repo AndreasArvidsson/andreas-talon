@@ -103,4 +103,10 @@ def mouse_freeze_toggle(freeze: bool):
         control_toggle(True)
 
 
-app.register("launch", lambda: actions.user.mouse_wake())
+def on_launch():
+    """Restore eye tracker after a Talon restart"""
+    if actions.user.talon_was_restart():
+        actions.user.mouse_wake()
+
+
+app.register("launch", on_launch)

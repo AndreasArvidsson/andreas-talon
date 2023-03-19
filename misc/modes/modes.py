@@ -37,9 +37,11 @@ class Actions:
             actions.user.rephrase(phrase, run_async=True)
 
 
-def on_ready():
-    """Disabled not used modes"""
+def on_launch():
+    """Disable not used modes and put Talon to sleep"""
     actions.mode.disable("face")
+    if not actions.user.talon_was_restart():
+        actions.user.talon_sleep()
 
 
-app.register("ready", on_ready)
+app.register("launch", on_launch)
