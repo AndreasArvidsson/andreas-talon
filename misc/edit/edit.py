@@ -14,13 +14,14 @@ ctx_no_terminal.matches = r"""
 not tag: terminal
 """
 
+# Matching strings that cannot be undone in a single step
 PASTE_RE = re.compile(r"\s|[ /-]")
 
 
 @ctx_no_terminal.action_class("main")
 class MainActions:
     def insert(text: str):
-        if isinstance(text, str) and re.search(PASTE_RE, text):
+        if re.search(PASTE_RE, text):
             if paste_text(text):
                 return
         actions.next(text)
