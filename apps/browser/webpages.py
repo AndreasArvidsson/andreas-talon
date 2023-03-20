@@ -21,6 +21,7 @@ ctx.lists["self.webpage"] = {
     "karlstad buss":        "https://www.karlstadsbuss.se",
     "kbab":                 "https://minasidor.kbab.se",
     "kivra":                "https://www.kivra.se",
+    "komplett bank":        "https://www.komplettbank.se",
     "linkedin":             "https://www.linkedin.com",
     "news":                 "https://www.svt.se",
     "nine gag":             "https://9gag.com",
@@ -33,10 +34,10 @@ ctx.lists["self.webpage"] = {
     "sweclockers":          "https://www.sweclockers.com/forum/aktiva",
     "swedbank":             "https://swedbank.se",
     "talon deck":           "http://localhost:3000",
-    "talon search":         "https://search.talonvoice.com",
-    "talon speech":         "https://speech.talonvoice.com",
     "talon noise":          "https://noise.talonvoice.com",
+    "talon search":         "https://search.talonvoice.com",
     "talon slack":          "https://talonvoice.slack.com",
+    "talon speech":         "https://speech.talonvoice.com",
     "youtube":              "https://www.youtube.com/feed/subscriptions",
 
     # Redpill Linpro & customers
