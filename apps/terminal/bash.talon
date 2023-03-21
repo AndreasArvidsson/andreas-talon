@@ -2,6 +2,9 @@ tag: user.bash
 -
 tag(): terminal
 
+flag:                       " -"
+flag <user.letters>:        " -{letters} "
+
 cd:                         "cd "
 cd <user.text>$:            "cd {text}"
 cd <user.text> tab$:        "cd {text}\t"
