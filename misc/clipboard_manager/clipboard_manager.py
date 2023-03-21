@@ -47,10 +47,11 @@ def update():
         return
 
     last_mime = mime
-    text = mime.text
 
-    if text and text.startswith("file://"):
+    if not mime.formats:
         return
+
+    text = mime.text
 
     try:
         image = mime.image
