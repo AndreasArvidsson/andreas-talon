@@ -31,7 +31,7 @@ make print:                 user.code_print("")
 format string:              user.code_format_string()
 
 # ----- Insert language specific text and snippets -----
-make {user.code_insert}:    "{code_insert}"
+make <user.code_inserts>:   "{code_inserts}"
 make {user.code_snippet}:   user.insert_snippet("{code_snippet}")
 
 # ----- Class statement -----

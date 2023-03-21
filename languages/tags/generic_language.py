@@ -13,10 +13,10 @@ mod.list("code_insert", desc="Names of miscellaneous text insertions")
 mod.list("code_snippet", desc="Names of miscellaneous text snippets")
 
 
-@mod.capture(rule="{user.code_function}")
-def code_functions(m) -> str:
-    """Returns a function name"""
-    return m.code_function
+@mod.capture(rule="{user.code_insert}+")
+def code_inserts(m) -> str:
+    """Returns multiple code inserts join together"""
+    return " ".join(m.code_insert_list).replace("  ", " ")
 
 
 @mod.action_class
