@@ -355,32 +355,6 @@ class Actions:
         if repeats < 0:
             vscode("editor.action.selectHighlights")
 
-    def vscode_resize_panel(panel: dict, size: str):
-        """Resize vscode sidebar/panel"""
-        actions.user.mouse_center_window()
-        actions.sleep("200ms")
-        ok, x, y = actions.user.locate_drag(panel["filename"], panel["position"])
-        if ok:
-            if size == "small":
-                ratio = 0.2
-            elif size == "medium":
-                ratio = 0.3
-            elif size == "large":
-                ratio = 0.4
-            window = ui.active_window()
-            screen_size = min(window.screen.width, window.screen.height)
-            if panel["xDirection"]:
-                x = window.rect.x + screen_size * ratio
-            else:
-                y = window.rect.y + window.rect.height - screen_size * ratio
-            actions.mouse_move(x, y)
-            actions.sleep("100ms")
-            actions.mouse_release()
-
-    def vscode_grab_line(panel: dict):
-        """Grab vscode sideboard/panel line to resize"""
-        actions.user.locate_drag(panel["filename"], panel["position"])
-
     def change_language(language: str = ""):
         """Change language mode"""
         vscode("workbench.action.editor.changeLanguageMode")

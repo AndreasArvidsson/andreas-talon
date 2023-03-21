@@ -77,12 +77,6 @@ panel terminal:             user.vscode("workbench.action.terminal.focus")
 panel debug:                user.vscode("workbench.debug.action.toggleRepl")
 panel clear:                user.vscode("workbench.debug.panel.action.clearReplAction")
 
-# Experimental locate api
-<user.vscode_panel> grab line:
-    user.vscode_grab_line(vscode_panel)
-<user.vscode_panel> snap {user.resize_size}:
-    user.vscode_resize_panel(vscode_panel, resize_size)
-
 # Hide sidebar and panel
 hide all:
     user.vscode("workbench.action.closeSidebar")
