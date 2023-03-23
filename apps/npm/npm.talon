@@ -3,7 +3,7 @@ tag: user.npm
 
 node version:               "node -v\n"
 npm version:                "npm -v\n"
-npm install:                "npm install\n"
+npm install:                "npm install "
 npm install global:         "npm install -g "
 npm prune:                  "npm prune\n"
 npm clean:                  "npm run clean\n"
@@ -16,3 +16,6 @@ npm run mongodb:            "npm run mongodb\n"
 npm run keycloak:           "npm run keycloak\n"
 npm run wildfly:            "npm run wildfly\n"
 npm run gss:                "npm run startLocal gss-"
+
+pnpm version:               "pnpm -v\n"
+pnpm install:               "pnpm install "
