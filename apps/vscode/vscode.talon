@@ -152,6 +152,11 @@ fold comments:              user.vscode("editor.foldAllBlockComments")
 
 # Navigation
 go line <number>:           edit.jump_line(number)
+pop back:                   user.vscode("workbench.action.openPreviousRecentlyUsedEditor")
+pop forward:                user.vscode("workbench.action.openNextRecentlyUsedEditor")
+focus editor:               user.vscode("workbench.action.focusActiveEditorGroup")
+
+# Cursor
 cursor back:                user.vscode("cursorUndo")
 cursor forward:             user.vscode("cursorRedo")
 cursor up:                  user.vscode("editor.action.insertCursorAbove")
@@ -159,9 +164,10 @@ cursor down:                user.vscode("editor.action.insertCursorBelow")
 cursor lines:               user.vscode("editor.action.insertCursorAtEndOfEachLineSelected")
 cursor expand:              user.vscode("editor.action.smartSelect.expand")
 cursor shrink:              user.vscode("editor.action.smartSelect.shrink")
-pop back:                   user.vscode("workbench.action.openPreviousRecentlyUsedEditor")
-pop forward:                user.vscode("workbench.action.openNextRecentlyUsedEditor")
-focus editor:               user.vscode("workbench.action.focusActiveEditorGroup")
+cursor next:                user.vscode("editor.action.addSelectionToNextFindMatch")
+cursor last:                user.vscode("editor.action.addSelectionToPreviousFindMatch")
+cursor (breed | all):       user.vscode("editor.action.selectHighlights")
+cursor skip:                user.vscode("editor.action.moveSelectionToNextFindMatch")
 
 # Debug and run
 build program:              user.vscode("workbench.action.tasks.build")
@@ -215,11 +221,6 @@ scout all symbol [<user.text>]$:
     user.vscode("workbench.action.showAllSymbols")
     "{text}"
 
-# Find miscellaneous
-scout again:                user.vscode("rerunSearchEditorSearch")
-scout take next:            user.vscode("editor.action.addSelectionToNextFindMatch")
-scout take last:            user.vscode("editor.action.addSelectionToPreviousFindMatch")
-
 # Settings
 open settings json:
     user.vscode("workbench.action.openSettingsJson")
@@ -241,6 +242,7 @@ disk raw:                   user.save_without_formatting()
 disk files:                 user.vscode("workbench.action.files.saveFiles")
 revert everything:          user.vscode("workbench.action.files.revert")
 copy command id:            user.copy_command_id()
+scout again:                user.vscode("rerunSearchEditorSearch")
 generate range [from <number_small>]:
     user.vscode("andreas.generateRange", number_small or 1)
 

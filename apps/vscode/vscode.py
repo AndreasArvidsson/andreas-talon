@@ -1,5 +1,6 @@
-from talon import Module, Context, actions, ui
+from talon import Module, Context, actions
 import json
+import re
 
 vscode = actions.user.vscode
 
@@ -346,7 +347,14 @@ class Actions:
 
     def vscode_take_word(cursorless_target: dict, repeats: int):
         """Take word on cursorless target with number of repeats"""
-        actions.user.cursorless_command("setSelectionAfter", cursorless_target)
+        actions.user.cursorless_command("setSelection", cursorless_target)
+        text = actions.edit.selected_text()
+
+        if re.match(r"[\wåäöÅÄÖ]", text):
+            actions.edit.right()
+        else:
+            repeats -= 1
+
         # Select number of next instances
         for _ in range(repeats):
             vscode("editor.action.addSelectionToNextFindMatch")
