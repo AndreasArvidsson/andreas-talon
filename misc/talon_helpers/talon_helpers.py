@@ -128,7 +128,7 @@ class Actions:
     def talon_was_restart() -> bool:
         """Returns true if Talon was just restarted"""
         restart_event = storage.get("talon_restart_event", 0)
-        return time.monotonic() - restart_event < 5
+        return time.monotonic() - restart_event < 20
 
     def as_dict(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
