@@ -10,10 +10,10 @@ forward, forward
 head, extendThroughStartOf
 its, inferPreviousMark
 just, toRawSelection
-last, last
+final, last
 leading, leading
 next, next
-previous, previous
+last, previous
 slice, verticalRange
 tail, extendThroughEndOf
 trailing, trailing
