@@ -88,7 +88,10 @@ folder open:                user.vscode("workbench.action.files.openFolder")
 folder add:                 user.vscode("workbench.action.addRootFolder")
 folder new:                 user.vscode("explorer.newFolder")
 file open:                  user.vscode("workbench.action.files.openFile")
-file new [<user.filename>]: user.vscode("andreas.newFile", filename or "")
+file new [<user.filename>]:
+    user.vscode("explorer.newFile")
+    "{filename or ''}"
+file sibling [<user.filename>]: user.vscode("andreas.newFile", filename or "")
 file open folder:           user.vscode("revealFileInOS")
 file reveal:                user.vscode("workbench.files.action.showActiveFileInExplorer")
 file copy path:             user.vscode("copyFilePath")
