@@ -40,7 +40,8 @@ class EyeTrackerActions:
             actions.user.mouse_drag()
         # Normal click when using control mouse
         else:
-            actions.user.stabilized_click()
+            # actions.user.stabilized_click()
+            actions.mouse_click()
 
     def mouse_control_toggle(enable: Optional[bool] = None):
         mouse_control_toggle(enable if enable is not None else False)
