@@ -67,6 +67,7 @@ git pull upstream main:     "git pull upstream main\n"
 
 git push:                   "git push\n"
 git push tags:              "git push --tags\n"
+git push deli:              "git push origin -d "
 
 git stash:                  "git stash "
 git stash show:             "git stash show\n"
