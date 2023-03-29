@@ -20,15 +20,17 @@ strict <user.formatters_code> <user.text_code>$:
 escape <user.words>$:       "{words}"
 escape <user.words> over:   "{words}"
 
-# Single word
+# Single word: "word up" => up, "proud up" => Up
 {user.formatter_word} <user.word>:
     user.insert_formatted(word, formatter_word)
+# Single abbreviated word. "proud brief app" => App
+{user.formatter_word} <self.abbreviation>:
+    user.insert_formatted(abbreviation, formatter_word)
 # Single homophone word
 {user.formatter_word} <user.ordinals_small> <user.word>:
     homophone = user.homophones_get_by_number(word, ordinals_small)
     user.insert_formatted(homophone, formatter_word)
-
-# Abbreviated word: breif application -> app
+# Abbreviated word without formatter: "breif application" => app, "breif app" => app
 <user.abbreviation>:        "{abbreviation}"
 
 # Easy access to specific Swedish phrases
