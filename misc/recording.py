@@ -7,11 +7,15 @@ mod = Module()
 class Actions:
     def recording_start():
         """Start recording"""
-        send_key("alt-f9")
+        actions.key("alt-f9:down")
+        actions.sleep("100ms")
+        actions.key("alt-f9:up")
 
     def recording_stop():
         """Stop recording"""
-        send_key("alt-f10")
+        actions.key("alt-f10:down")
+        actions.sleep("100ms")
+        actions.key("alt-f10:up")
 
 
 def send_key(key: str):
