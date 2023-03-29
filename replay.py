@@ -70,28 +70,28 @@ def replay_dir(dir):
 
 # 2023-03-29 07:43:25    IO ----------------------------
 # 2023-03-29 07:43:25    IO hybrid -d                         hybrid -d, new acoustic file
-# 2023-03-29 07:43:25    IO air                               air
-# 2023-03-29 07:43:25    IO bring id then bang fine           bring id then bang fine
-# 2023-03-29 07:43:26    IO cap                               cap
-# 2023-03-29 07:43:26    IO clear core                        clear core
-# 2023-03-29 07:43:26    IO deli                              deli two
-# 2023-03-29 07:43:26    IO dot                               dot
-# 2023-03-29 07:43:26    IO dotted file                       git add file
-# 2023-03-29 07:43:26    IO enter                             righter
-# 2023-03-29 07:43:26    IO enter                             righter
-# 2023-03-29 07:43:26    IO gust                              jest
-# 2023-03-29 07:43:26    IO ink two dot                       ink two dot
-# 2023-03-29 07:43:27    IO jig one pit pit                   jig one pit pit
-# 2023-03-29 07:43:27    IO leap it                           leap it
-# 2023-03-29 07:43:27    IO pit                               pit
-# 2023-03-29 07:43:27    IO pit                               batt
-# 2023-03-29 07:43:27    IO round                             round
-# 2023-03-29 07:43:27    IO sam word rejection                say word rejection
-# 2023-03-29 07:43:27    IO say that tip                      say that tip
-# 2023-03-29 07:43:27    IO snake red image                   snake read image
-# 2023-03-29 07:43:27    IO string that up                    say that up
-# 2023-03-29 07:43:27    IO three                             troll
-# 2023-03-29 07:43:28    IO twin                              twin
-# 2023-03-29 07:43:28    IO wipe                              righter
-# 2023-03-29 07:43:28    IO wipe                              righter
-# 2023-03-29 07:43:28    IO word green dot                    word green dot
+# 2023-03-29 08:52:38    IO air                               harp
+# 2023-03-29 08:52:38    IO bring id then bang fine           bring id then ink fine
+# 2023-03-29 08:52:38    IO cap                               pipe
+# 2023-03-29 08:52:38    IO clear core                        clear core
+# 2023-03-29 08:52:38    IO deli                              deli
+# 2023-03-29 08:52:38    IO dot                               dot
+# 2023-03-29 08:52:38    IO dotted file                       git add file
+# 2023-03-29 08:52:38    IO enter                             righter
+# 2023-03-29 08:52:38    IO enter                             righter
+# 2023-03-29 08:52:38    IO gust                              jest
+# 2023-03-29 08:52:38    IO ink two dot                       bring two dot
+# 2023-03-29 08:52:38    IO jig one pit pit                   jig one pit pit
+# 2023-03-29 08:52:38    IO leap it                           leap it
+# 2023-03-29 08:52:38    IO pit                               pit
+# 2023-03-29 08:52:38    IO pit                               pit
+# 2023-03-29 08:52:39    IO round                             made
+# 2023-03-29 08:52:39    IO sam word rejection                pit word rejection
+# 2023-03-29 08:52:39    IO say that tip                      say that tip
+# 2023-03-29 08:52:39    IO snake red image                   snake red image
+# 2023-03-29 08:52:39    IO string that up                    say that up
+# 2023-03-29 08:52:39    IO three                             troll
+# 2023-03-29 08:52:39    IO twin                              twin
+# 2023-03-29 08:52:39    IO wipe                              righter
+# 2023-03-29 08:52:39    IO wipe                              righter
+# 2023-03-29 08:52:39    IO word green dot                    word green dot
