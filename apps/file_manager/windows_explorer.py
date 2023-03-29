@@ -36,6 +36,15 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
+    # ----- Tabs -----
+    def tab_duplicate():
+        actions.user.file_manager_focus_address()
+        address = actions.edit.selected_text()
+        actions.sleep("50ms")
+        actions.app.tab_open()
+        actions.sleep("100ms")
+        actions.user.file_manager_go(address)
+
     # ----- Navigation -----
 
     def go_back():
