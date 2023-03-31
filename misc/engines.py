@@ -1,10 +1,11 @@
 from talon import Module, Context, speech_system
-from talon.engines.webspeech import WebSpeechEngine
 from talon.engines.vosk import VoskEngine
 
-speech_system.add_engine(
-    WebSpeechEngine(),
-)
+# from talon.engines.webspeech import WebSpeechEngine
+
+# speech_system.add_engine(
+#     WebSpeechEngine(),
+# )
 
 speech_system.add_engine(
     VoskEngine(model="vosk-model-small-sv-rhasspy-0.15", language="sv_SE"),
