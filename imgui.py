@@ -99,6 +99,7 @@ class Text:
             lines[-1] = "..."
 
         for line in lines:
+            line = line.replace("\t", "    ")
             if len(line) > state.max_cols + 4:
                 line = line[: state.max_cols] + " ..."
             rect = state.canvas.paint.measure_text(line)[1]
