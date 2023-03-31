@@ -387,7 +387,7 @@ def refresh_context_command_map(enabled_only=False):
                 if command_alias in registry.commands:
                     for cmd in registry.commands[command_alias]:
                         if cmd.ctx == context:
-                            commands_map[str(val.rule.rule)] = val.target.code
+                            commands_map[str(val.rule.rule)] = val.script.code
 
             if len(commands_map) > 0:
                 context_command_map[context_name] = commands_map
