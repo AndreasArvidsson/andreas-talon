@@ -91,18 +91,20 @@ file open:                  user.vscode("workbench.action.files.openFile")
 file new [<user.filename>]:
     user.vscode("explorer.newFile")
     "{filename or ''}"
-file sibling [<user.filename>]: user.vscode("andreas.newFile", filename or "")
 file open folder:           user.vscode("revealFileInOS")
 file reveal:                user.vscode("workbench.files.action.showActiveFileInExplorer")
 file copy path:             user.vscode("copyFilePath")
 file copy relative:         user.vscode("copyRelativeFilePath")
-file copy name:
-    name = user.vscode_get("andreas.getFilename")
-    clip.set_text(name)
-file clone:                 user.vscode("fileutils.duplicateFile")
-file rename:                user.vscode("fileutils.renameFile")
-file remove:                user.vscode("fileutils.removeFile")
-file move:                  user.vscode("fileutils.moveFile")
+file copy name:             user.vscode("andreas.copyFilename")
+file remove:                user.vscode("andreas.removeFile")
+file move:                  user.vscode("andreas.moveFile")
+file sibling [<user.filename>]:
+    user.vscode("andreas.newFile", filename or "")
+file rename [<user.filename>]:
+    user.vscode("andreas.renameFile", filename or "")
+file clone [<user.filename>]:
+    user.vscode("andreas.duplicateFile", filename or "")
+
 pop sibling:
     user.find_sibling_file()
     sleep(150ms)
