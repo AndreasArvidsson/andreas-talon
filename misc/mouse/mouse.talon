@@ -1,7 +1,7 @@
 # Click
 click {user.mouse_click}:   user.mouse_click(mouse_click)
 drag:                       user.mouse_drag()
-troll:                      user.mouse_click("control")
+con:                        user.mouse_click("control")
 righter:                    user.mouse_click("right")
 
 # Scroll
