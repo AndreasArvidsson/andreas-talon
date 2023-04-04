@@ -38,6 +38,7 @@ ctx.lists["self.webpage"] = {
     "talon search":         "https://search.talonvoice.com",
     "talon slack":          "https://talonvoice.slack.com",
     "talon speech":         "https://speech.talonvoice.com",
+    "talon wiki":           "https://talon.wiki",
     "youtube":              "https://www.youtube.com/feed/subscriptions",
 
     # Redpill Linpro & customers
