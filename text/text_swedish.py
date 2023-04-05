@@ -8,4 +8,5 @@ ctx.lists["self.swedish_phrase"] = {
     "hello": "Hej",
     "goodbye": "Hejdå",
     "thanks": "Tack",
+    "cannon": "Kanon",
 }
