@@ -1,4 +1,4 @@
-Spoken Form, Word(s) (If Different)
+list: user.vocabulary
 -
 
 # Words that should be added to Talon's vocabulary.
@@ -21,16 +21,16 @@ right
 Administratum
 Aegis
 Andreas
-arvid son, Arvidsson
+arvid son: Arvidsson
 Arvidsson
 Bitwarden
-curse less, Cursorless
+curse less: Cursorless
 Cursorless
 Highcharts
 Izabel
 Karlstad
 Keycloak
-knaus j, Knausj
+knaus j: Knausj
 Knausj
 Linpro
 Linux
@@ -40,10 +40,10 @@ Quarkus
 Rango
 Redpill
 Talon
-toby, Tobii
+toby: Tobii
 Tree sitter
 Vimium
-visual code, vscode
+visual code: vscode
 vscode
 Wildfly
 
@@ -67,6 +67,6 @@ vpn
 
 # Misc words
 cheat sheet
-local host, localhost
+local host: localhost
 vosk
 yeah
