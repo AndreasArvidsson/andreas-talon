@@ -1,101 +1,37 @@
 from talon import Module, Context, actions
 import re
-from ...merge import merge
 
 mod = Module()
-
-ctx_en = Context()
-
-ctx_sv = Context()
-ctx_sv.matches = r"""
-language: sv
-"""
-
-
-# fmt: off
-
-default_digits = "zero one two three four five six seven eight nine ten eleven twelve".split(" ")
+ctx = Context()
 
 mod.list("letter", desc="The spoken phonetic alphabet")
-
-mod.list("digit", desc="All number/digit keys")
-ctx_en.lists["self.digit"] = {default_digits[i]: str(i) for i in range(10)}
-
-mod.list("key_function", desc="All function keys")
-ctx_en.lists["self.key_function"] = {f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)}
-
 mod.list("key_arrow", desc="All arrow keys")
-ctx_en.lists["self.key_arrow"] = {"up", "down", "left", "right"}
-
 mod.list("key_special", desc="All special keys")
-ctx_en.lists["self.key_special"] = merge(
-    {
-        "enter",
-        "tab",
-        "delete",
-        "backspace",
-        "home",
-        "end",
-        "insert",
-        "escape",
-        "menu",
-    },
-    {
-        "deli":         "delete",
-        "page up":      "pageup",
-        "page down":    "pagedown",
-        "print screen": "printscr",
-        "caps lock":    "capslock",
-        "num lock":     "numlock",
-    }
-)
-
 mod.list("key_modifier", desc="All modifier keys")
-ctx_en.lists["self.key_modifier"] = {
-    "alt":          "alt",
-    "control":      "ctrl",
-    "shift":        "shift",
-    "super":        "super",
-}
-
-# Symbols you want available BOTH in dictation and command mode.
-mod.list("key_punctuation", desc="Symbols for inserting punctuation into text")
-ctx_en.lists["self.key_punctuation"] = {
-    "period":           ".",
-    "comma":            ",",
-    "colon":            ":",
-    "slash":            "/",
-    "forward slash":    "/",
-    "question mark":    "?",
-    "exclamation mark": "!",
-}
-ctx_sv.lists["self.key_punctuation"] = {
-    "punkt":            ".",
-    "kommatecken":      ",",
-    "kolon":            ":",
-    "snedstreck":       "/",
-    "frågetecken":      "?",
-    "utropstecken":     "!",
-
-    # For vosk engine
-    "\\Punkt":          ".",
-    "komma tecken":     ",",
-    # "kolon":          ":",
-    "snedsträck":       "/",
-    "\\Frågetecken":    "?",
-    "\\Utropstecken":   "!",
-}
-
-# Symbols you want available ONLY in code formatters.
-mod.list("key_punctuation_code", desc="Symbols for inserting punctuation into code formatters")
-ctx_en.lists["self.key_punctuation_code"] = {
-    "dot":           ".",
-}
 
 # Symbols available in command mode, but NOT during dictation.
 mod.list("symbol", desc="All symbols from the keyboard")
 
-# fmt: on
+# Symbols you want available BOTH in dictation and command mode.
+mod.list("key_punctuation", desc="Symbols for inserting punctuation into text")
+
+# Symbols you want available ONLY in code formatters.
+mod.list(
+    "key_punctuation_code",
+    desc="Symbols for inserting punctuation into code formatters",
+)
+
+default_digits = (
+    "zero one two three four five six seven eight nine ten eleven twelve".split(" ")
+)
+
+mod.list("digit", desc="All number/digit keys")
+ctx.lists["self.digit"] = {default_digits[i]: str(i) for i in range(10)}
+
+mod.list("key_function", desc="All function keys")
+ctx.lists["self.key_function"] = {
+    f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)
+}
 
 
 @mod.capture(rule="{self.key_modifier}+")

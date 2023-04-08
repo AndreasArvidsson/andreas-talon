@@ -1,0 +1,17 @@
+list: user.key_punctuation
+language: sv
+-
+
+punkt:                      .
+kommatecken:                ,
+kolon:                      :
+snedstreck:                 /
+frågetecken:                ?
+utropstecken:               !
+
+# For vosk engine
+\Punkt:                     .
+komma tecken:               ,
+snedsträck:                 /
+\Frågetecken:               ?
+\Utropstecken:              !

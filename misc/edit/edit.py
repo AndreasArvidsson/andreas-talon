@@ -128,29 +128,19 @@ class EditActions:
 
 @mod.action_class
 class Actions:
-    def up(n: int):
-        """Move cursor up <n> rows"""
-        for _ in range(n):
-            edit.up()
-
-    def down(n: int):
-        """Move cursor down <n> rows"""
-        for _ in range(n):
-            edit.down()
-
-    def left(n: int):
-        """Move cursor left <n> columns"""
-        for _ in range(n):
-            edit.left()
-
-    def right(n: int):
-        """Move cursor right <n> columns"""
-        for _ in range(n):
-            edit.right()
-
     def delete_right():
         """Delete character to the right"""
         key("delete")
+
+    def insert_arrow():
+        """Insert arrow symbol"""
+        actions.insert(" => ")
+
+    def insert_symbol_and_break_at_end(symbol: str):
+        """Add symbol at end of line and then insert line below"""
+        actions.edit.line_end()
+        actions.key(symbol)
+        actions.edit.line_insert_down()
 
     def selected_mime() -> MimeData or None:
         """Return current selected mime"""

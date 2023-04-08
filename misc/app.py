@@ -33,10 +33,6 @@ class Actions:
             actions.edit.down()
         actions.key("enter")
 
-    def insert_arrow():
-        """Insert arrow symbol"""
-        actions.insert(" => ")
-
 
 # ----- WINDOWS -----
 

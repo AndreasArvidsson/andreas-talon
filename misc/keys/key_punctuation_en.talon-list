@@ -1,0 +1,10 @@
+list: user.key_punctuation
+-
+
+period:                     .
+comma:                      ,
+colon:                      :
+slash:                      /
+forward slash:              /
+question mark:              ?
+exclamation mark:           !

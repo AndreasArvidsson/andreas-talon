@@ -41,9 +41,9 @@ class Actions:
             actions.insert(line)
 
         if found_stop:
-            actions.user.up(len(lines) - stop_row - 1)
+            up(len(lines) - stop_row - 1)
             actions.edit.line_start()
-            actions.user.right(stop_col)
+            right(stop_col)
 
 
 @ctx_vscode.action_class("user")
@@ -61,3 +61,15 @@ def split_snippet(snippet: Union[str, list[str]]) -> list[str]:
     lines = snippet.split("\n")
     # Clean leading whitespaces(not tabs) in case this was a multiline string
     return [line.lstrip(" ") for line in lines]
+
+
+def up(n: int):
+    """Move cursor up <n> rows"""
+    for _ in range(n):
+        actions.edit.up()
+
+
+def right(n: int):
+    """Move cursor right <n> columns"""
+    for _ in range(n):
+        actions.edit.right()

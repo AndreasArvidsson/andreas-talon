@@ -26,5 +26,5 @@ new [graph | block]:
     user.dictation_format_reset()
 
 # Switch to command mode and insert a phrase
-(command mode | over) [<phrase>]$:
+(command mode | over | uber) [<phrase>]$:
     user.command_mode(phrase or "")

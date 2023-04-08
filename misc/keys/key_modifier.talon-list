@@ -1,0 +1,7 @@
+list: user.key_modifier
+-
+
+alt:                        alt
+control:                    ctrl
+shift:                      shift
+super:                      super
