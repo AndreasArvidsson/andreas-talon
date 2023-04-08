@@ -18,8 +18,8 @@ default_digits = "zero one two three four five six seven eight nine ten eleven t
 
 mod.list("letter", desc="The spoken phonetic alphabet")
 
-mod.list("key_number", desc="All number keys")
-ctx_en.lists["self.key_number"] = {default_digits[i]: str(i) for i in range(10)}
+mod.list("digit", desc="All number/digit keys")
+ctx_en.lists["self.digit"] = {default_digits[i]: str(i) for i in range(10)}
 
 mod.list("key_function", desc="All function keys")
 ctx_en.lists["self.key_function"] = {f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)}
@@ -93,52 +93,7 @@ ctx_en.lists["self.key_punctuation_code"] = {
 }
 
 # Symbols available in command mode, but NOT during dictation.
-mod.list("key_symbol", desc="All symbols from the keyboard")
-ctx_en.lists["self.key_symbol"] = {
-    "void":             " ",
-    "dot":              ".",
-    "point":            ".",
-    "drip":             ",",
-    "stack":            ":",
-    "semi":             ";",
-    "score":            "_",
-    "dash":             "-",
-
-    "minus":            "-",
-    "plus":             "+",
-    "equal":            "=",
-    "caret":            "^",
-    "tilde":            "~",
-    "bang":             "!",
-    "hash":             "#",
-    "star":             "*",
-    "dollar":           "$",
-    "percent":          "%",
-    "question":         "?",
-    "question mark":    "?",
-    "amper":            "&",
-    "at sign":          "@",
-    "pound sign":       "£",
-    "euro sign":        "€",
-
-    "single":           "'",
-    "double":           '"',
-    "quote":            '"',
-    "brick":            "`",
-
-    "slash":            "/",
-    "pipe":             "|",
-    "pike":             "\\",
-
-    "paren":            "(",
-    "raren":            ")",
-    "brace":            "{",
-    "race":             "}",
-    "square":           "[",
-    "rare":             "]",
-    "angle":            "<",
-    "rangle":           ">",
-}
+mod.list("symbol", desc="All symbols from the keyboard")
 
 # fmt: on
 
@@ -150,7 +105,7 @@ def key_modifiers(m) -> str:
 
 
 @mod.capture(
-    rule="{self.letter} | {self.key_number} | {self.key_symbol} | {self.key_special} | {self.key_arrow} | {self.key_function}"
+    rule="{self.letter} | {self.digit} | {self.symbol} | {self.key_special} | {self.key_arrow} | {self.key_function}"
 )
 def key_unmodified(m) -> str:
     "A single key with no modifiers"
@@ -165,7 +120,7 @@ def key_any(m) -> str:
     return m[0]
 
 
-@mod.capture(rule="{self.letter} | {self.key_number} | {self.key_symbol}")
+@mod.capture(rule="{self.letter} | {self.digit} | {self.symbol}")
 def any_alphanumeric_key(m) -> str:
     "A single alphanumeric key"
     if m[0] == " ":

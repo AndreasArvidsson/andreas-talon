@@ -24,6 +24,15 @@ class Actions:
         text = " + ".join(texts)
         actions.user.browser_open(text)
 
+    def cursorless_wrap_target_with_symbol(target: dict, symbol: str):
+        """Wrap the target with the given symbol"""
+        if symbol == "space":
+            symbol = " "
+        delimiters = [symbol, symbol]
+        actions.user.cursorless_single_target_command_with_arg_list(
+            "wrapWithPairedDelimiter", target, delimiters
+        )
+
 
 def switch_folder(target: str):
     link = f"{actions.path.talon_user()}\\cursorless-talon"

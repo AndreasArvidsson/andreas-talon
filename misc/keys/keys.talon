@@ -2,10 +2,10 @@
 {user.letter}:              key(letter)
 
 # Symbol keys: !, %, _
-{user.key_symbol}:          key(key_symbol)
+{user.symbol}:              key(symbol)
 
 # Digits [0-9]
-{user.key_number}:          key(key_number)
+{user.digit}:               key(digit)
 
 # Special keys.
 (enter | okay):             key(enter)
@@ -23,7 +23,7 @@ tab symbol:                 "\\t"
 press <user.key_any>:       key(key_any)
 
 # Add symbol at end of line and then insert line below
-spike {user.key_symbol}:
+spike {user.symbol}:
     edit.line_end()
-    key(key_symbol)
+    key(symbol)
     edit.line_insert_down()
