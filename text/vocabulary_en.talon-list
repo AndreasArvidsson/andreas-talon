@@ -44,6 +44,7 @@ toby: Tobii
 Tree sitter
 Vimium
 visual code: vscode
+vosk
 vscode
 Wildfly
 
@@ -69,5 +70,4 @@ vpn
 # Misc words
 cheat sheet
 local host: localhost
-vosk
 yeah
