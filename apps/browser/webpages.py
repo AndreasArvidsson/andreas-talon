@@ -25,6 +25,7 @@ ctx.lists["self.webpage"] = {
     "linkedin":             "https://www.linkedin.com",
     "news":                 "https://www.svt.se",
     "nine gag":             "https://9gag.com",
+    "eleven seventy seven": "https://www.1177.se",
     "pricerunner":          "https://www.pricerunner.se",
     "prisjakt":             "https://classic.prisjakt.nu",
     "regex cheat sheet":    "https://duckduckgo.com/?q=regex+cheat+sheet&t=ffab&ia=cheatsheet&iax=1",
