@@ -1,5 +1,4 @@
 from talon import Module, Context, actions, ui
-from talon.clip import MimeData
 
 mod = Module()
 ctx = Context()
