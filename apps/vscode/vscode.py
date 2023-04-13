@@ -53,10 +53,9 @@ def vscode_panel(m) -> dict:
 @ctx.action_class("win")
 class WinActions:
     def filename():
-        title = actions.win.title()
-        if "." in title:
-            i = title.rindex(".")
-            return title[i:].split(" ")[0]
+        filename = actions.win.title().split(" - ")[0]
+        if "." in filename:
+            return filename
         return ""
 
 

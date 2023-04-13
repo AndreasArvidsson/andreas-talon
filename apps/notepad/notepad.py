@@ -1,4 +1,4 @@
-from talon import Context, actions, Module, app
+from talon import Context, actions, Module
 
 ctx = Context()
 mod = Module()
@@ -18,8 +18,7 @@ app: notepad
 @ctx.action_class("win")
 class win_actions:
     def filename():
-        title = actions.win.title()
-        result = title.split(" - ")[0]
-        if "." in result:
-            return result
+        filename = actions.win.title().split(" - ")[0]
+        if "." in filename:
+            return filename
         return ""
