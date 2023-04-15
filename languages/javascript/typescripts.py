@@ -10,7 +10,7 @@ tag: user.typescript
 mode: command
 """
 
-ctx.lists["self.code_data_type"] = {
+types = {
     "bool": "boolean",
     "number": "number",
     "string": "string",
@@ -21,6 +21,11 @@ ctx.lists["self.code_data_type"] = {
     "void": "void",
     "null": "null",
     "undefined": "undefined",
+}
+
+ctx.lists["self.code_data_type"] = {
+    **types,
+    **{f"{k} list": f"{v}[]" for k, v in types.items()},
 }
 
 ctx.lists["self.code_insert"] = {
