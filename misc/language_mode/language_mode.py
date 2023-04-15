@@ -50,6 +50,7 @@ mod.list("code_extension", desc="List of file programming languages file extensi
 ctx.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
     "pie": "py",
+    "talon list": "talon-list",
 }
 
 mod.list("code_language", desc="List of file programming language identifiers")
