@@ -1,11 +1,13 @@
 from talon import Module, actions, app
 from typing import Any
 from .formatters_test import test_formatters
+from .command_description_test import test_get_action_explanation
 
 
 def run_tests():
     print("")
     test_formatters()
+    test_get_action_explanation()
 
 
 # app.register("ready", run_tests)
