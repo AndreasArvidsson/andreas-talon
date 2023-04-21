@@ -19,7 +19,8 @@ class UserActions:
         actions.user.mouse_on_pop()
 
     def noise_cluck():
-        actions.core.repeat_phrase()
+        if not last_command_is_sleep():
+            actions.core.repeat_phrase()
 
     def noise_shush_start():
         actions.user.mouse_scrolling("up")
@@ -62,6 +63,11 @@ class Actions:
 
     def noise_hiss_stop():
         """Noise hiss stopped"""
+
+
+def last_command_is_sleep():
+    cmd, _ = actions.core.last_command()
+    return cmd.script.code.startswith("user.talon_sleep()")
 
 
 def callback(name: str):
