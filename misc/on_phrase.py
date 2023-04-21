@@ -3,16 +3,9 @@ from talon.grammar import Phrase
 
 mod = Module()
 
-settings_pretty = mod.setting(
-    "pretty_print_phrase",
-    type=bool,
-    default=False,
-    desc="If true phrase will be pretty printed to the log",
-)
 
-
-def on_phrase(phrase: Phrase):
-    if not actions.speech.enabled() or not phrase.get("phrase"):
+def on_pre_phrase(phrase: Phrase):
+    if skip_phrase(phrase):
         return
 
     is_aborted, text = actions.user.abort_phrase(phrase)
@@ -26,14 +19,26 @@ def on_phrase(phrase: Phrase):
 
 
 def on_post_phrase(phrase: Phrase):
-    if not actions.speech.enabled() or not phrase.get("phrase"):
+    if skip_phrase(phrase):
         return
 
     analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
     actions.user.command_history_append(analyzed_phrase)
-    if settings_pretty.get():
-        actions.user.pretty_print_phrase(analyzed_phrase)
+    actions.user.pretty_print_phrase(analyzed_phrase)
 
 
-speech_system.register("pre:phrase", on_phrase)
+def skip_phrase(phrase: Phrase) -> bool:
+    return not phrase.get("phrase") or skip_phrase_in_sleep(phrase)
+
+
+def skip_phrase_in_sleep(phrase: Phrase) -> bool:
+    """Returns true if the rule is <phrase> in sleep mode"""
+    return (
+        not actions.speech.enabled()
+        and len(phrase["parsed"]) == 1
+        and "phrase" in phrase["parsed"][0]._mapping
+    )
+
+
+speech_system.register("pre:phrase", on_pre_phrase)
 speech_system.register("post:phrase", on_post_phrase)

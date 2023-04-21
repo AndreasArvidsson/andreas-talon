@@ -3,10 +3,21 @@ from .types import AnalyzedPhraseWithActions
 
 mod = Module()
 
+settings_pretty = mod.setting(
+    "pretty_print_phrase",
+    type=bool,
+    default=False,
+    desc="If true phrase will be pretty printed to the log",
+)
+
+
 @mod.action_class
 class Actions:
     def pretty_print_phrase(analyzed_phrase: AnalyzedPhraseWithActions):
         """Pretty prints the analyzed phrase and its commands"""
+        if not settings_pretty.get():
+            return
+
         print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
         print(
             f"{bcolors.BOLD}Phrase:{bcolors.ENDC} {bcolors.GREEN}{bcolors.BOLD}{analyzed_phrase.phrase}{bcolors.ENDC}"
