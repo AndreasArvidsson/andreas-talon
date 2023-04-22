@@ -21,11 +21,12 @@ December
 
 # Default words that need to be remapped.
 
+cereal, serial
 classname, class name
-flatmap, flat map
 de, the
 dick, deck
 dis, this
+flatmap, flat map
 I tracker, eye tracker
 Isabel, Izabel
 jess, yes
@@ -34,7 +35,6 @@ juicing, using
 marino, merino
 organization, organisation
 organizations, organisations
+shat, chat
 te shirt, tshirt
 wicky, wiki
-shat, chat
-cereal, serial
