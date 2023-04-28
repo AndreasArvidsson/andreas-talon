@@ -1,4 +1,4 @@
-from talon import Context, Module
+from talon import Context, Module, actions
 
 mod = Module()
 ctx = Context()
@@ -9,13 +9,17 @@ def extension(m) -> str:
     return f".{m[-1]}"
 
 
-@mod.capture(rule="<user.text> [<user.extension>]")
+@mod.capture(rule="[{user.formatter_code}] <user.text> [<user.extension>]")
 def filename(m) -> str:
+    try:
+        text = actions.user.format_text(m.text, m.formatter_code)
+    except AttributeError:
+        text = m.text
     try:
         extension = m.extension
     except AttributeError:
         extension = ""
-    return f"{m.text}{extension}"
+    return f"{text}{extension}"
 
 
 @mod.capture(rule="dot {user.domain}")
