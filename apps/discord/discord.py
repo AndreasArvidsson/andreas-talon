@@ -38,4 +38,5 @@ class UserActions:
         actions.edit.delete()
 
     def mute_microphone():
-        actions.key("ctrl-shift-m")
+        # actions.key("ctrl-shift-m")
+        actions.user.discord_toggle_mute()
