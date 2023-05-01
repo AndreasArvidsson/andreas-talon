@@ -8,7 +8,7 @@
 {user.digit}:               key(digit)
 
 # Special keys.
-(enter | okay):             key(enter)
+enter | okay:               key(enter)
 tab:                        key(tab)
 
 # Special symbols

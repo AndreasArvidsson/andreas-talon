@@ -29,7 +29,7 @@ settings():
     user.subtitles_all_screens = true
 
     # General gui
-    # imgui.scale = 2
+    # imgui.scale = 1.5
     user.gui_max_rows = 5
     user.gui_max_cols = 80
 
