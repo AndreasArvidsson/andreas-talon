@@ -6,9 +6,10 @@ from os import walk, path
 
 def on_phrase(phrase):
     spoken = " ".join(phrase["phrase"])
-    print(f"    {spoken}")
+    print(f"    {spoken}", end="")
     phrase["phrase"] = []
-    phrase["parsed"]._sequence = []
+    if "parsed" in phrase:
+        phrase["parsed"]._sequence = []
 
 
 def replay_files(filenames):
@@ -23,6 +24,7 @@ def replay_files(filenames):
         # print(file)
         print(phrase.ljust(30), end="")
         actions.speech.replay(file)
+        print()
 
     speech_system.unregister("pre:phrase", on_phrase)
 
