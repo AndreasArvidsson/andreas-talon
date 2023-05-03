@@ -27,3 +27,6 @@ class Actions:
 
     def system_hibernate():
         """Hibernate operating system"""
+
+    def system_lock():
+        """Lock operating system"""

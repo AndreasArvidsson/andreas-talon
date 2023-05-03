@@ -33,6 +33,9 @@ class UserActions:
         shutdown("h")
         actions.key("enter")
 
+    def system_lock():
+        actions.user.exec("rundll32.exe user32.dll,LockWorkStation")
+
 
 def shutdown(flag: str):
     actions.key("super-r")

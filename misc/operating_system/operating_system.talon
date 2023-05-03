@@ -5,7 +5,7 @@ open settings:              app.preferences()
 ^system hibernate$:
     user.talon_sleep()
     user.system_hibernate()
-^system lock$:              key(super-l)
+^system lock$:              user.system_lock()
 
 open {user.launch_command}:
     user.exec(launch_command)
