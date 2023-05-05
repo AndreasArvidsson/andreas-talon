@@ -1,8 +1,6 @@
 {
     "pop": {
-        "sounds": [
-            "pop"
-        ],
+        "sounds": ["pop"],
         "threshold": {
             ">power": 6,
             ">probability": 0.96
@@ -12,9 +10,7 @@
         }
     },
     "cluck": {
-        "sounds": [
-            "cluck"
-        ],
+        "sounds": ["cluck"],
         "threshold": {
             ">power": 35,
             ">probability": 0.99
@@ -25,9 +21,7 @@
         }
     },
     "hiss": {
-        "sounds": [
-            "hiss"
-        ],
+        "sounds": ["hiss"],
         "threshold": {
             ">power": 15,
             ">probability": 0.95
@@ -38,9 +32,7 @@
         }
     },
     "shush": {
-        "sounds": [
-            "shush"
-        ],
+        "sounds": ["shush"],
         "threshold": {
             ">power": 15,
             ">probability": 0.95
@@ -51,9 +43,7 @@
         }
     },
     "speech": {
-        "sounds": [
-            "speech"
-        ],
+        "sounds": ["speech"],
         "threshold": {
             ">power": 15,
             ">probability": 0.95
