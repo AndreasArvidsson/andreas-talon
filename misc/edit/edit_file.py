@@ -1,9 +1,5 @@
 from talon import Context, Module, actions
 
-key = actions.key
-edit = actions.edit
-user = actions.user
-
 mod = Module()
 ctx = Context()
 
@@ -11,40 +7,40 @@ ctx = Context()
 @ctx.action_class("edit")
 class EditActions:
     def file_start():
-        key("ctrl-home")
+        actions.key("ctrl-home")
 
     def file_end():
-        key("ctrl-end home")
+        actions.key("ctrl-end home")
 
     def select_all():
-        key("ctrl-a")
+        actions.key("ctrl-a")
 
     def extend_file_start():
-        key("shift-ctrl-home")
+        actions.key("shift-ctrl-home")
 
     def extend_file_end():
-        key("shift-ctrl-end")
+        actions.key("shift-ctrl-end")
 
 
 @mod.action_class
 class Actions:
     def cut_all():
         """Cut all text in the current document"""
-        edit.select_all()
-        edit.cut()
+        actions.edit.select_all()
+        actions.edit.cut()
 
     def copy_all():
         """Copy all text in the current document"""
-        edit.select_all()
-        edit.copy()
-        edit.select_none()
+        actions.edit.select_all()
+        actions.edit.copy()
+        actions.edit.select_none()
 
     def paste_all():
         """Paste to the current document"""
-        edit.select_all()
-        edit.paste()
+        actions.edit.select_all()
+        actions.edit.paste()
 
     def delete_all():
         """Delete all text in the current document"""
-        edit.select_all()
-        edit.delete()
+        actions.edit.select_all()
+        actions.edit.delete()

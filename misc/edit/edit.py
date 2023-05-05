@@ -2,10 +2,6 @@ from talon import Context, Module, actions, clip
 from talon.clip import MimeData
 import re
 
-key = actions.key
-edit = actions.edit
-user = actions.user
-
 mod = Module()
 ctx = Context()
 ctx_no_terminal = Context()
@@ -31,94 +27,99 @@ class MainActions:
 class EditActions:
     # ----- Navigation -----
     def up():
-        key("up")
+        actions.key("up")
 
     def down():
-        key("down")
+        actions.key("down")
 
     def left():
-        key("left")
+        actions.key("left")
 
     def right():
-        key("right")
+        actions.key("right")
 
     def page_up():
-        key("pageup")
+        actions.key("pageup")
 
     def page_down():
-        key("pagedown")
+        actions.key("pagedown")
 
     # ----- Selection -----
     def select_none():
-        key("right")
+        actions.key("right")
 
     def extend_up():
-        key("shift-up")
+        actions.key("shift-up")
 
     def extend_down():
-        key("shift-down")
+        actions.key("shift-down")
 
     def extend_left():
-        key("shift-left")
+        actions.key("shift-left")
 
     def extend_right():
-        key("shift-right")
+        actions.key("shift-right")
+
+    def selection_clone():
+        text = actions.edit.selected_text()
+        actions.edit.select_none()
+        actions.insert(text)
 
     # ----- Save -----
     def save():
-        key("ctrl-s")
+        actions.key("ctrl-s")
 
     # ----- Delete, Undo, Redo -----
     def delete():
-        key("backspace")
+        actions.key("backspace")
 
     def undo():
-        key("ctrl-z")
+        actions.key("ctrl-z")
 
     def redo():
-        key("ctrl-y")
+        actions.key("ctrl-y")
 
     # ----- Cut, Copy, Paste -----
     def cut():
-        key("ctrl-x")
+        actions.key("ctrl-x")
 
     def copy():
-        key("ctrl-c")
+        actions.key("ctrl-c")
 
     def paste():
-        key("ctrl-v")
+        actions.key("ctrl-v")
 
     def paste_match_style():
-        key("ctrl-shift-v")
+        actions.key("ctrl-shift-v")
 
     # ----- Indent -----
     def indent_less():
-        key("home delete")
+        actions.key("home delete")
 
     def indent_more():
-        key("home tab")
+        actions.key("home tab")
 
     # ----- Find -----
     def find(text: str = None):
-        key("ctrl-f")
+        actions.key("ctrl-f")
         if text:
             actions.insert(text)
 
     def find_previous():
-        key("shift-f3")
+        actions.key("shift-f3")
 
     def find_next():
-        key("f3")
+        actions.key("f3")
 
     # ----- Zoom -----
     def zoom_in():
-        key("ctrl-+")
+        actions.key("ctrl-+")
 
     def zoom_out():
-        key("ctrl--")
+        actions.key("ctrl--")
 
     def zoom_reset():
-        key("ctrl-0")
+        actions.key("ctrl-0")
 
     # ----- Miscellaneous -----
     def selected_text() -> str:
@@ -130,7 +131,7 @@ class EditActions:
 class Actions:
     def delete_right():
         """Delete character to the right"""
-        key("delete")
+        actions.key("delete")
 
     def insert_arrow():
         """Insert arrow symbol"""
@@ -147,7 +148,7 @@ class Actions:
         try:
             actions.user.clipboard_manager_stop_updating()
             with clip.capture() as c:
-                edit.copy()
+                actions.edit.copy()
             return c.mime()
         except clip.NoChange:
             return None
@@ -163,10 +164,10 @@ def paste_text(text: str) -> bool:
             clip.set_text(text)
 
             if clip.text() != text:
-                user.notify("Failed to set clipboard")
+                actions.user.notify("Failed to set clipboard")
                 return False
 
-            edit.paste()
+            actions.edit.paste()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("150ms")
 

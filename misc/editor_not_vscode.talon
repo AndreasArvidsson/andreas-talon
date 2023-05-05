@@ -22,6 +22,8 @@ cut head:                   user.cut_line_start()
 cut tail:                   user.cut_line_end()
 copy head:                  user.copy_line_start()
 copy tail:                  user.copy_line_end()
+paste to head:              user.paste_line_start()
+paste to tail:              user.paste_line_end()
 (chuck | clear) head:       user.delete_line_start()
 (chuck | clear) tail:       user.delete_line_end()
 
@@ -42,6 +44,9 @@ cut file:                   user.cut_all()
 copy file:                  user.copy_all()
 paste to file:              user.paste_all()
 (chuck | clear) file:       user.delete_all()
+
+# Selection
+clone this:                 edit.selection_clone()
 
 # Navigate to specified text/symbol: go right paren
 {user.navigation_action} {user.navigation_direction} to <user.any_alphanumeric_key>:
