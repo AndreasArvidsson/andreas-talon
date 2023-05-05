@@ -43,7 +43,8 @@ abbreviations = {
     "compare": "cmp",
     "conference": "conf",
     "config": "cfg",
-    "configuration": "cfg",
+    "configuration": "config",
+    "configurations": "configs",
     "context": "ctx",
     "control": "ctrl",
     "constant": "const",
@@ -227,8 +228,8 @@ abbreviations = {
 }
 
 ctx.lists["user.abbreviation"] = {
-    **abbreviations,
     **{v: v for v in abbreviations.values()},
+    **abbreviations,
 }
 
 
