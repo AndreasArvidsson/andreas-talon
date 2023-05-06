@@ -1,6 +1,7 @@
 from talon import Context, Module, app, actions
 import re
 import time
+from pathlib import Path
 from ...imgui import imgui
 
 # a list of homophones where each line is a comma separated list
@@ -170,7 +171,10 @@ def homophones_update(values: list[list[str]], headers: list[str]):
 
 
 def on_ready():
-    actions.user.watch_csv_as_list("homophones_en", homophones_update)
+    actions.user.watch_csv_as_list(
+        Path(__file__).parent / "homophones_en.csv",
+        homophones_update,
+    )
 
 
 app.register("ready", on_ready)

@@ -17,21 +17,22 @@ csv_directory_setting = mod.setting(
 
 @mod.action_class
 class Actions:
-    def watch_csv_as_list(path: str, callback: Callable[[ListType, RowType], None]):
+    def watch_csv_as_list(path: Path, callback: Callable[[ListType, RowType], None]):
         """Watch csv file for changes. Present content as list"""
-        full_path = get_full_path(path)
 
-        def on_watch(path: str, flags):
-            if full_path.match(path):
-                callback(*read_csv_file(full_path))
+        if not path.is_file():
+            raise Exception(f"{path} is not a file")
 
-        fs.watch(str(full_path.parent), on_watch)
+        def on_watch(p: str, flags):
+            if path.match(p):
+                callback(*read_csv_file(p))
 
-        if full_path.is_file():
-            callback(*read_csv_file(full_path))
+        fs.watch(str(path.parent), on_watch)
+
+        callback(*read_csv_file(str(path)))
 
     def watch_csv_as_dict(
-        path: str,
+        path: Path,
         callback: Callable[[dict], None],
         values_as_list: bool = False,
     ):
@@ -39,7 +40,7 @@ class Actions:
 
         def on_watch(values: ListType, headers: RowType):
             if values_as_list:
-                csv_dict = list_to_dict_of_lists(path, values)
+                csv_dict = list_to_dict_of_lists(values)
             else:
                 csv_dict = list_to_dict(path, values)
             callback(csv_dict)
@@ -47,7 +48,7 @@ class Actions:
         actions.user.watch_csv_as_list(path, on_watch)
 
 
-def list_to_dict(path: str, values: ListType) -> DictType:
+def list_to_dict(path: Path, values: ListType) -> DictType:
     result = {}
     for row in values:
         if len(row) == 1:
@@ -61,14 +62,14 @@ def list_to_dict(path: str, values: ListType) -> DictType:
     return result
 
 
-def list_to_dict_of_lists(path: str, values: ListType) -> dict[str, RowType]:
+def list_to_dict_of_lists(values: ListType) -> dict[str, RowType]:
     result = {}
     for row in values:
         result[row[0]] = row[1:]
     return result
 
 
-def read_csv_file(path: Path) -> TupleType:
+def read_csv_file(path: str) -> TupleType:
     """Read csv file and return tuple with values and headers"""
     result = []
     with open(path, "r") as csv_file:
@@ -93,19 +94,3 @@ def parse_headers(csv_list: ListType) -> TupleType:
     if len(csv_list) > 1 and len(csv_list[1]) == 1 and csv_list[1][0] == "-":
         return csv_list[2:], csv_list[0]
     return csv_list, []
-
-
-def get_full_path(path: str) -> Path:
-    """Convert string file path to full absolute Path"""
-    if not path.endswith(".csv"):
-        path = f"{path}.csv"
-
-    path = Path(path)
-
-    if not path.is_absolute():
-        directory = Path(csv_directory_setting.get())
-        if not directory.is_absolute():
-            directory = actions.path.talon_user() / directory
-        path = directory / path
-
-    return path.resolve()

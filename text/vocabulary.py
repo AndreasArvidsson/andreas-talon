@@ -1,5 +1,6 @@
 from talon import Context, Module, app, actions
 from typing import Sequence
+from pathlib import Path
 from .phrase_replacer import PhraseReplacer
 
 mod = Module()
@@ -44,8 +45,15 @@ def words_to_replace_sv_update(csv_dict: dict):
 
 
 def on_ready():
-    actions.user.watch_csv_as_dict("words_to_replace_en", words_to_replace_en_update)
-    actions.user.watch_csv_as_dict("words_to_replace_sv", words_to_replace_sv_update)
+    dir = Path(__file__).parent
+    actions.user.watch_csv_as_dict(
+        dir / "words_to_replace_en.csv",
+        words_to_replace_en_update,
+    )
+    actions.user.watch_csv_as_dict(
+        dir / "words_to_replace_sv.csv",
+        words_to_replace_sv_update,
+    )
 
 
 app.register("ready", on_ready)

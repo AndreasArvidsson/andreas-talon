@@ -1,5 +1,6 @@
 from talon import Module, Context, app, ui, actions
 from talon.grammar import Phrase
+from pathlib import Path
 import re
 
 
@@ -82,7 +83,10 @@ class Actions:
 
 
 def on_ready():
-    actions.user.watch_csv_as_dict("app_name_overrides.csv", update_overrides)
+    actions.user.watch_csv_as_dict(
+        Path(__file__).parent / "app_name_overrides.csv",
+        update_overrides,
+    )
     ui.register("app_launch", lambda _: update_running())
     ui.register("app_close", lambda _: update_running())
 
