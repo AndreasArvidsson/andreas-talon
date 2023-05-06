@@ -2,51 +2,142 @@
 
 from talon import actions, speech_system
 from os import walk, path
+import json
+import re
 
+delimiter = ","
+expected = {}
 accepted = 0
+match_expected = 0
+res = ""
 
 
-def on_phrase(phrase):
-    global accepted
-    accepted += 1
+def store_results():
+    out_file = path.join(actions.path.user_home(), "Downloads", "replay.csv")
+    with open(out_file, "a") as f:
+        f.write(res)
+
+
+def read_expected(dir):
+    expected_file = path.join(dir, "expected.json")
+    try:
+        with open(expected_file) as f:
+            return json.load(f)
+    except:
+        return {}
+
+
+def get_spoken_phrase_from_file_name(filename: str) -> str:
+    if re.match(r"^\d+-", filename):
+        return filename.split("-")[1]
+    return filename.split("-")[0]
+
+
+def on_pre_phrase(phrase):
+    global accepted, match_expected, res
     spoken = " ".join(phrase["phrase"])
-    print(f"    {spoken}", end="")
+    if spoken:
+        accepted += 1
+    else:
+        spoken = "[REJECTED]"
+
+    if expected:
+        ext = expected[filename]
+        res += f"{ext}{delimiter}"
+        if ext == spoken:
+            match_expected += 1
+        else:
+            res += spoken
+    else:
+        res += spoken
     phrase["phrase"] = []
     if "parsed" in phrase:
         phrase["parsed"]._sequence = []
 
 
-def replay_files(filenames):
-    speech_system.register("pre:phrase", on_phrase)
+def replay_files(files):
+    global res, filename
+    speech_system.register("pre:phrase", on_pre_phrase)
+    res += f"Filename{delimiter}Original{delimiter}"
+    if expected:
+        res += f"Expected{delimiter}"
+    res += f"{speech_system.engine.engine}\n"
 
-    print("----------------------------")
-    print("hybrid-d".ljust(30), end="")
-    print("conformer-b")
-
-    for file in filenames:
-        # print(file)
-        phrase = path.basename(file).split("-")[0]
-        # phrase = path.basename(file).split("-")[1]
-        print(phrase.ljust(30), end="")
+    for file in files:
+        filename = path.basename(file)[:-5]
+        # print(f'"{filename}": "",')
+        phrase = get_spoken_phrase_from_file_name(filename)
+        res += f"{filename}{delimiter}{phrase}{delimiter}"
         actions.speech.replay(file)
-        print()
+        res += "\n"
 
-    print(f"Accepted {accepted} / {len(filenames)}")
+    res += f"> Accepted {accepted} / {len(files)}\n"
+    if expected:
+        res += f"> Expected {match_expected} / {len(files)}\n"
+    res += "\n"
+    store_results()
+    print(f"Accepted {accepted} / {len(files)}\n")
+    print(f"Expected {match_expected} / {len(files)}\n")
 
-    speech_system.unregister("pre:phrase", on_phrase)
+    speech_system.unregister("pre:phrase", on_pre_phrase)
 
 
 def replay_dir(dir):
+    global expected
+    expected = read_expected(dir)
     for dirpath, dirnames, filenames in walk(dir):
-        replay_files([path.join(dirpath, f) for f in filenames])
+        filenames = [path.join(dirpath, f) for f in filenames if f.endswith(".flac")]
+        replay_files(filenames)
 
 
-# replay_dir("C:\\Users\\andre\\AppData\\Roaming\\talon\\rejects\\rejected only noises") # 23 / 236
-# replay_dir("C:\\Users\\andre\\AppData\\Roaming\\talon\\rejects\\rejected with speech") 80 / 82
-# replay_dir("C:\\Users\\andre\AppData\\Roaming\\talon\\recordings d problems")
+# replay_dir("C:\\Users\\andre\\AppData\\Roaming\\talon\\rejects\\rejected with speech")
+# replay_dir("C:\\Users\\andre\\AppData\\Roaming\\talon\\rejects\\rejected only noises")
+# replay_dir("C:\\Users\\andre\\AppData\\Roaming\\talon\\recordings d problems")
 
 # replay_files(
 #     [
 #         "C:\\Users\\andre\AppData\\Roaming\\talon\\recordings d problems\\gust-8jKb5cdq.flac"
 #     ]
 # )
+
+# Rejected with speech (-596)
+# b108: 202 / 202
+# D-28: 33 / 202
+# D-19: 63 / 202
+# D-11: 109 / 202
+# D-06: 109 / 202
+
+# Rejected only noises (-596)
+# b108: 71 / 500
+# D-28: 1 / 500
+# D-19: 1 / 500
+# D-11: 4 / 500
+# D-06: 4 / 500
+
+# Problems (-596)
+# b108: 70 / 79
+# D-28: 21 / 79
+# D-19: 46 / 79
+# D-11: 43 / 79
+# D-06: 43 / 79
+
+# Rejected with speech (attempted hotfix)
+# b108: 198 / 202
+# D-28: 162 / 202
+# D-19: 184 / 202
+# D-11: 178 / 202
+# D-06: 178 / 202
+
+# Rejected only noises (attempted hotfix)
+# b108: 23 / 500
+# D-28: 8 / 500
+# D-19: 10 / 500
+# D-11: 8 / 500
+# D-06: 8 / 500
+
+# Problems (attempted hotfix)
+# b108: 56 / 79
+# D-28: 30 / 79
+# D-19: 42 / 79
+# D-11: 40 / 79
+# D-06: 40 / 79
