@@ -14,7 +14,7 @@ vscode package:
     "vsce package\n"
 
 talon user updates:
-    "node {user.talon_user()}/andreas-talon/update.js\n"
+    "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \;\n"
 
 run talon deck:             "talon-deck\n"
 
