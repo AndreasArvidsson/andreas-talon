@@ -160,10 +160,10 @@ class UserActions:
 
     # Selection statements
     def code_if():
-        insert("if ")
+        insert_snippet("if $1:\n\t$0")
 
     def code_elif():
-        insert("elif ")
+        insert_snippet("elif $1:\n\t$0")
 
     def code_else():
         insert_snippet("else:\n\t$0")
