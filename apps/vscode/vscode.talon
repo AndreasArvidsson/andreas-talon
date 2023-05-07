@@ -221,10 +221,10 @@ pop sesh [<user.text>]$:
 # Find a symbol
 scout symbol [<user.text>]$:
     user.vscode("workbench.action.gotoSymbol")
-    "{text}"
+    "{text or ''}"
 scout all symbol [<user.text>]$:
     user.vscode("workbench.action.showAllSymbols")
-    "{text}"
+    "{text or ''}"
 
 # Settings
 open settings json:
