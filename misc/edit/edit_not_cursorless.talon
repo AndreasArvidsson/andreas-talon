@@ -1,4 +1,4 @@
-not app: vscode
+not tag: user.cursorless
 -
 
 # ----- Word -----
