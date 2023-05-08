@@ -220,11 +220,9 @@ pop sesh [<user.text>]$:
 
 # Find a symbol
 scout symbol [<user.text>]$:
-    user.vscode("workbench.action.gotoSymbol")
-    "{text or ''}"
-scout all symbol [<user.text>]$:
     user.vscode("workbench.action.showAllSymbols")
-    "{text or ''}"
+    sleep(50ms)
+    user.insert_formatted(text or "", "CAMEL_CASE")
 
 # Settings
 open settings json:
