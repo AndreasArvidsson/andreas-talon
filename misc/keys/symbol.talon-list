@@ -13,6 +13,7 @@ dash:                       -
 minus:                      -
 plus:                       +
 equal:                      =
+equals:                     =
 caret:                      ^
 tilde:                      ~
 bang:                       !
