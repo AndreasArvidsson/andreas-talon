@@ -22,7 +22,6 @@ def get_color() -> str:
 
 def draw(c: SkiaCanvas):
     c.paint.style = c.paint.Style.FILL
-    print(dir(c.paint.Style))
     c.paint.color = current_color + "aa"
     c.paint.imagefilter = ImageFilter.drop_shadow(1, 1, 1, 1, "000000")
     radius = c.rect.height / 2
