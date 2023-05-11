@@ -150,35 +150,35 @@ class UserActions:
         actions.insert(f"# {text}")
 
     def comments_insert_block(text: str = ""):
-        actions.insert_snippet(f'"""{text}$0"""')
+        actions.user.insert_snippet(f'"""{text}$0"""')
 
     def comments_insert_docstring(text: str = ""):
         actions.user.comments_insert_block(text)
 
     # Selection statements
     def code_if():
-        actions.insert_snippet("if $1:\n\t$0")
+        actions.user.insert_snippet("if $1:\n\t$0")
 
     def code_elif():
-        actions.insert_snippet("elif $1:\n\t$0")
+        actions.user.insert_snippet("elif $1:\n\t$0")
 
     def code_else():
-        actions.insert_snippet("else:\n\t$0")
+        actions.user.insert_snippet("else:\n\t$0")
 
     def code_try():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """try:
                 \t$0"""
         )
 
     def code_catch():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """except:
                 \t$0"""
         )
 
     def code_try_catch():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """try:
                 \t$1
             except Exception as ex:
@@ -187,19 +187,19 @@ class UserActions:
 
     # Iteration statements
     def code_for():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """for i in range($1):
                 \t$0"""
         )
 
     def code_foreach():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """for $1 in $2:
                 \t$0"""
         )
 
     def code_while():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """while $1:
                 \t$0"""
         )
@@ -227,28 +227,28 @@ class UserActions:
         if text:
             actions.insert(f'print("{text}")')
         else:
-            actions.insert_snippet("print($0)")
+            actions.user.insert_snippet("print($0)")
 
     def code_format_string():
-        actions.insert_snippet('f"$0"')
+        actions.user.insert_snippet('f"$0"')
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             f"""class {name}:
                 \t$0"""
         )
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """def __init__(self$1):
                 \t$0"""
         )
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             f"""def {''.join(modifiers)}{name}($1):
                 \t$0"""
         )
@@ -268,7 +268,7 @@ class UserActions:
 
     # Function call
     def code_call_function(name: str):
-        actions.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
+        actions.user.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
     # Insert types
     def code_insert_type_annotation(type: str):

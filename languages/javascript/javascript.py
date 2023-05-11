@@ -95,14 +95,14 @@ class UserActions:
 
     # Selection statements
     def code_catch():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """catch(error) {
                 \t$0
             }"""
         )
 
     def code_try_catch():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """try {
                 \t$1
             }
@@ -113,14 +113,14 @@ class UserActions:
 
     # Iteration statements
     def code_for():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """for (let i = 0; i < $1; ++i) {
                 \t$0
             }"""
         )
 
     def code_foreach():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """for (const $1 of $2) {
                 \t$0
             }"""
@@ -131,14 +131,14 @@ class UserActions:
         if text:
             actions.insert(f'console.log("{text}")')
         else:
-            actions.insert_snippet("console.log($0)")
+            actions.user.insert_snippet("console.log($0)")
 
     def code_format_string():
-        actions.insert_snippet("`$0`")
+        actions.user.insert_snippet("`$0`")
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             f"""class {name} {{
                 \t$0
             }}"""
@@ -186,7 +186,7 @@ class Actions:
 
 
 def snip_func(name):
-    actions.insert_snippet(
+    actions.user.insert_snippet(
         f"""{name}($1) {{
             \t$0
         }}"""

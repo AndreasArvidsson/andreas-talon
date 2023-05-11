@@ -90,10 +90,10 @@ class UserActions:
         actions.insert(f"// {text}")
 
     def comments_insert_block(text: str = ""):
-        actions.insert_snippet(f"/* {text}$0 */")
+        actions.user.insert_snippet(f"/* {text}$0 */")
 
     def comments_insert_docstring(text: str = ""):
-        actions.insert_snippet(f"/** {text}$0 */")
+        actions.user.insert_snippet(f"/** {text}$0 */")
 
     # Selection statements
     def code_if():
@@ -103,7 +103,7 @@ class UserActions:
         snip_func("else if")
 
     def code_else():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """else {
                 \t$0
             }"""
@@ -113,19 +113,19 @@ class UserActions:
         snip_func("switch")
 
     def code_case():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """case $1:
                 \t$0"""
         )
 
     def code_default():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """default:
                 \t$0"""
         )
 
     def code_try():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """try {
                 \t$0
             }"""
@@ -136,7 +136,7 @@ class UserActions:
         snip_func("while")
 
     def code_do_while():
-        actions.insert_snippet(
+        actions.user.insert_snippet(
             """do {
                 \t$0
             } while ($1);"""
@@ -160,7 +160,7 @@ class UserActions:
 
     # Function call
     def code_call_function(name: str):
-        actions.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
+        actions.user.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
     # Formatting getters
     def code_get_class_format() -> str:
@@ -174,7 +174,7 @@ class UserActions:
 
 
 def snip_func(name):
-    actions.insert_snippet(
+    actions.user.insert_snippet(
         f"""{name}($1) {{
             \t$0
         }}"""
