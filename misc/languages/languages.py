@@ -106,14 +106,15 @@ class AutoUserActions:
 
 @mod.action_class
 class Actions:
-    def code_set_language_mode(language: str):
-        """Sets the active language mode, and disables extension matching"""
+    def code_set_language(language: str):
+        """Sets the active language, and disables extension matching"""
         ctx.tags = [f"user.{language}_forced"]
-        actions.user.notify(f"Enabled {language} mode")
+        actions.user.notify(f"Enabled {language}")
 
-    def code_clear_language_mode():
-        """Clears the active language mode, and re-enables code.language: extension matching"""
+    def code_automatic_language():
+        """Clears the active forced language, and re-enables code.language: extension matching"""
         ctx.tags = ["user.auto_lang"]
+        actions.user.notify("Automatic language")
 
     def code_language() -> str:
         """Get the active language mode"""
