@@ -21,6 +21,9 @@ settings():
     # Mouse scroll speed
     user.scroll_speed = 0.7
 
+    # Mode indicator
+    user.mode_indicator_show = true
+
     # Subtitles
     user.subtitles_show = true
     # Show subtitles on all screens
