@@ -16,6 +16,9 @@ def get_color() -> str:
     if "sleep" in modes:
         return "808080"  # Grey
     if "dictation" in modes:
+        # Mixed mode
+        if "command" in modes:
+            return "6b8e23"  # OliveDrab
         return "da70d6"  # Orchid
     return "f8f8ff"  # GhostWhite
 
