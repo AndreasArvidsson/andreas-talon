@@ -1,9 +1,6 @@
 from talon import Module, Context, actions
 from ...merge import merge
 
-insert = actions.insert
-insert_snippet = actions.user.insert_snippet
-
 mod = Module()
 
 ctx = Context()
@@ -87,25 +84,25 @@ ctx.lists["self.code_snippet"] = {
 class UserActions:
     # Math operators
     def op_exp():
-        insert(" ** ")
+        actions.insert(" ** ")
 
     # Comparison operators
     def op_equal():
-        insert(" === ")
+        actions.insert(" === ")
 
     def op_not_equal():
-        insert(" !== ")
+        actions.insert(" !== ")
 
     # Selection statements
     def code_catch():
-        insert_snippet(
+        actions.insert_snippet(
             """catch(error) {
                 \t$0
             }"""
         )
 
     def code_try_catch():
-        insert_snippet(
+        actions.insert_snippet(
             """try {
                 \t$1
             }
@@ -116,14 +113,14 @@ class UserActions:
 
     # Iteration statements
     def code_for():
-        insert_snippet(
+        actions.insert_snippet(
             """for (let i = 0; i < $1; ++i) {
                 \t$0
             }"""
         )
 
     def code_foreach():
-        insert_snippet(
+        actions.insert_snippet(
             """for (const $1 of $2) {
                 \t$0
             }"""
@@ -132,16 +129,16 @@ class UserActions:
     # Miscellaneous statements
     def code_print(text: str = None):
         if text:
-            insert(f'console.log("{text}")')
+            actions.insert(f'console.log("{text}")')
         else:
-            insert_snippet("console.log($0)")
+            actions.insert_snippet("console.log($0)")
 
     def code_format_string():
-        insert_snippet("`$0`")
+        actions.insert_snippet("`$0`")
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        insert_snippet(
+        actions.insert_snippet(
             f"""class {name} {{
                 \t$0
             }}"""
@@ -170,8 +167,8 @@ class UserActions:
         if data_type:
             text = f"{text}: {data_type}"
         if assign:
-            text = text + " = "
-        insert(text)
+            text += " = "
+        actions.insert(text)
 
 
 @mod.action_class
@@ -189,7 +186,7 @@ class Actions:
 
 
 def snip_func(name):
-    insert_snippet(
+    actions.insert_snippet(
         f"""{name}($1) {{
             \t$0
         }}"""

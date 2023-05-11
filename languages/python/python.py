@@ -1,9 +1,6 @@
 from talon import Module, Context, actions
 from ...merge import merge
 
-insert = actions.insert
-insert_snippet = actions.user.insert_snippet
-
 mod = Module()
 ctx = Context()
 
@@ -77,111 +74,111 @@ ctx.lists["self.code_snippet"] = {
 class UserActions:
     # Assignment operator
     def op_assign():
-        insert(" = ")
+        actions.insert(" = ")
 
     # Math operators
     def op_sub():
-        insert(" - ")
+        actions.insert(" - ")
 
     def op_sub_assign():
-        insert(" -= ")
+        actions.insert(" -= ")
 
     def op_add():
-        insert(" + ")
+        actions.insert(" + ")
 
     def op_add_assign():
-        insert(" += ")
+        actions.insert(" += ")
 
     def op_mult():
-        insert(" * ")
+        actions.insert(" * ")
 
     def op_mult_assign():
-        insert(" *= ")
+        actions.insert(" *= ")
 
     def op_div():
-        insert(" / ")
+        actions.insert(" / ")
 
     def op_div_assign():
-        insert(" /= ")
+        actions.insert(" /= ")
 
     def op_mod():
-        insert(" % ")
+        actions.insert(" % ")
 
     def op_mod_assign():
-        insert(" %= ")
+        actions.insert(" %= ")
 
     def op_exp():
-        insert(" ** ")
+        actions.insert(" ** ")
 
     # Comparison operators
     def op_equal():
-        insert(" == ")
+        actions.insert(" == ")
 
     def op_not_equal():
-        insert(" != ")
+        actions.insert(" != ")
 
     def op_less():
-        insert(" < ")
+        actions.insert(" < ")
 
     def op_greater():
-        insert(" > ")
+        actions.insert(" > ")
 
     def op_less_or_eq():
-        insert(" <= ")
+        actions.insert(" <= ")
 
     def op_greater_or_eq():
-        insert(" >= ")
+        actions.insert(" >= ")
 
     def op_not():
-        insert("not ")
+        actions.insert("not ")
 
     def op_equal_null():
-        insert(" is None")
+        actions.insert(" is None")
 
     def op_not_equal_null():
-        insert(" is not None")
+        actions.insert(" is not None")
 
     # Logical operators
     def op_and():
-        insert(" and ")
+        actions.insert(" and ")
 
     def op_or():
-        insert(" or ")
+        actions.insert(" or ")
 
     # Comments
     def comments_insert(text: str = ""):
-        insert(f"# {text}")
+        actions.insert(f"# {text}")
 
     def comments_insert_block(text: str = ""):
-        insert_snippet(f'"""{text}$0"""')
+        actions.insert_snippet(f'"""{text}$0"""')
 
     def comments_insert_docstring(text: str = ""):
         actions.user.comments_insert_block(text)
 
     # Selection statements
     def code_if():
-        insert_snippet("if $1:\n\t$0")
+        actions.insert_snippet("if $1:\n\t$0")
 
     def code_elif():
-        insert_snippet("elif $1:\n\t$0")
+        actions.insert_snippet("elif $1:\n\t$0")
 
     def code_else():
-        insert_snippet("else:\n\t$0")
+        actions.insert_snippet("else:\n\t$0")
 
     def code_try():
-        insert_snippet(
+        actions.insert_snippet(
             """try:
                 \t$0"""
         )
 
     def code_catch():
-        insert_snippet(
+        actions.insert_snippet(
             """except:
                 \t$0"""
         )
 
     def code_try_catch():
-        insert_snippet(
+        actions.insert_snippet(
             """try:
                 \t$1
             except Exception as ex:
@@ -190,68 +187,68 @@ class UserActions:
 
     # Iteration statements
     def code_for():
-        insert_snippet(
+        actions.insert_snippet(
             """for i in range($1):
                 \t$0"""
         )
 
     def code_foreach():
-        insert_snippet(
+        actions.insert_snippet(
             """for $1 in $2:
                 \t$0"""
         )
 
     def code_while():
-        insert_snippet(
+        actions.insert_snippet(
             """while $1:
                 \t$0"""
         )
 
     # Miscellaneous statements
     def code_break():
-        insert("break")
+        actions.insert("break")
 
     def code_true():
-        insert("True")
+        actions.insert("True")
 
     def code_false():
-        insert("False")
+        actions.insert("False")
 
     def code_continue():
-        insert("continue")
+        actions.insert("continue")
 
     def code_return():
-        insert("return ")
+        actions.insert("return ")
 
     def insert_arrow():
-        insert(" -> ")
+        actions.insert(" -> ")
 
     def code_print(text: str = None):
         if text:
-            insert(f'print("{text}")')
+            actions.insert(f'print("{text}")')
         else:
-            insert_snippet("print($0)")
+            actions.insert_snippet("print($0)")
 
     def code_format_string():
-        insert_snippet('f"$0"')
+        actions.insert_snippet('f"$0"')
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        insert_snippet(
+        actions.insert_snippet(
             f"""class {name}:
                 \t$0"""
         )
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        insert_snippet(
+        actions.insert_snippet(
             """def __init__(self$1):
                 \t$0"""
         )
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        insert_snippet(
+        actions.insert_snippet(
             f"""def {''.join(modifiers)}{name}($1):
                 \t$0"""
         )
@@ -266,12 +263,12 @@ class UserActions:
         if data_type:
             text = f"{text}: {data_type}"
         if assign:
-            text = text + " = "
-        insert(text)
+            text += " = "
+        actions.insert(text)
 
     # Function call
     def code_call_function(name: str):
-        insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
+        actions.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
     # Insert types
     def code_insert_type_annotation(type: str):

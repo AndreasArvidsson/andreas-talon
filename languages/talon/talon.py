@@ -1,7 +1,5 @@
 from talon import Module, Context, actions
 
-insert = actions.insert
-
 mod = Module()
 ctx = Context()
 
@@ -14,69 +12,69 @@ tag: user.talon
 class UserActions:
     # Assignment operator
     def op_assign():
-        insert(" = ")
+        actions.insert(" = ")
 
     # Math operators
     def op_sub():
-        insert(" - ")
+        actions.insert(" - ")
 
     def op_sub_assign():
-        insert(" -= ")
+        actions.insert(" -= ")
 
     def op_add():
-        insert(" + ")
+        actions.insert(" + ")
 
     def op_add_assign():
-        insert(" += ")
+        actions.insert(" += ")
 
     def op_mult():
-        insert(" * ")
+        actions.insert(" * ")
 
     def op_mult_assign():
-        insert(" *= ")
+        actions.insert(" *= ")
 
     def op_div():
-        insert(" / ")
+        actions.insert(" / ")
 
     def op_div_assign():
-        insert(" /= ")
+        actions.insert(" /= ")
 
     def op_mod():
-        insert(" % ")
+        actions.insert(" % ")
 
     def op_mod_assign():
-        insert(" %= ")
+        actions.insert(" %= ")
 
     def op_exp():
-        insert(" ** ")
+        actions.insert(" ** ")
 
     # Boolean operators
     def op_and():
-        insert("and ")
+        actions.insert("and ")
 
     def op_or():
-        insert(" or ")
+        actions.insert(" or ")
 
     def op_equal():
-        insert(" == ")
+        actions.insert(" == ")
 
     def op_not_equal():
-        insert(" != ")
+        actions.insert(" != ")
 
     def op_less():
-        insert(" < ")
+        actions.insert(" < ")
 
     def op_greater():
-        insert(" > ")
+        actions.insert(" > ")
 
     def op_less_or_eq():
-        insert(" <= ")
+        actions.insert(" <= ")
 
     def op_greater_or_eq():
-        insert(" >= ")
+        actions.insert(" >= ")
 
     def op_not():
-        insert("not ")
+        actions.insert("not ")
 
     # Comments
     def comments_insert(text: str = ""):

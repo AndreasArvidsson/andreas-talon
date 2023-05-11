@@ -1,8 +1,5 @@
 from talon import Module, Context, actions
 
-insert = actions.insert
-insert_snippet = actions.user.insert_snippet
-
 mod = Module()
 ctx = Context()
 
@@ -19,84 +16,84 @@ and tag: user.html # Solve conflict when using react typescript
 class UserActions:
     # Assignment operator
     def op_assign():
-        insert(" = ")
+        actions.insert(" = ")
 
     # Math operators
     def op_sub():
-        insert(" - ")
+        actions.insert(" - ")
 
     def op_sub_assign():
-        insert(" -= ")
+        actions.insert(" -= ")
 
     def op_add():
-        insert(" + ")
+        actions.insert(" + ")
 
     def op_add_assign():
-        insert(" += ")
+        actions.insert(" += ")
 
     def op_mult():
-        insert(" * ")
+        actions.insert(" * ")
 
     def op_mult_assign():
-        insert(" *= ")
+        actions.insert(" *= ")
 
     def op_div():
-        insert(" / ")
+        actions.insert(" / ")
 
     def op_div_assign():
-        insert(" /= ")
+        actions.insert(" /= ")
 
     def op_mod():
-        insert(" % ")
+        actions.insert(" % ")
 
     def op_mod_assign():
-        insert(" %= ")
+        actions.insert(" %= ")
 
     # Comparison operators
     def op_less():
-        insert(" < ")
+        actions.insert(" < ")
 
     def op_greater():
-        insert(" > ")
+        actions.insert(" > ")
 
     def op_less_or_eq():
-        insert(" <= ")
+        actions.insert(" <= ")
 
     def op_greater_or_eq():
-        insert(" >= ")
+        actions.insert(" >= ")
 
     def op_not():
-        insert("!")
+        actions.insert("!")
 
     def op_equal_null():
-        insert(" == null")
+        actions.insert(" == null")
 
     def op_not_equal_null():
-        insert(" != null")
+        actions.insert(" != null")
 
     # Comparison operators
     def op_equal():
-        insert(" == ")
+        actions.insert(" == ")
 
     def op_not_equal():
-        insert(" != ")
+        actions.insert(" != ")
 
     # Logical operators
     def op_and():
-        insert(" && ")
+        actions.insert(" && ")
 
     def op_or():
-        insert(" || ")
+        actions.insert(" || ")
 
     # Comments
     def comments_insert(text: str = ""):
-        insert(f"// {text}")
+        actions.insert(f"// {text}")
 
     def comments_insert_block(text: str = ""):
-        insert_snippet(f"/* {text}$0 */")
+        actions.insert_snippet(f"/* {text}$0 */")
 
     def comments_insert_docstring(text: str = ""):
-        insert_snippet(f"/** {text}$0 */")
+        actions.insert_snippet(f"/** {text}$0 */")
 
     # Selection statements
     def code_if():
@@ -106,7 +103,7 @@ class UserActions:
         snip_func("else if")
 
     def code_else():
-        insert_snippet(
+        actions.insert_snippet(
             """else {
                 \t$0
             }"""
@@ -116,19 +113,19 @@ class UserActions:
         snip_func("switch")
 
     def code_case():
-        insert_snippet(
+        actions.insert_snippet(
             """case $1:
                 \t$0"""
         )
 
     def code_default():
-        insert_snippet(
+        actions.insert_snippet(
             """default:
                 \t$0"""
         )
 
     def code_try():
-        insert_snippet(
+        actions.insert_snippet(
             """try {
                 \t$0
             }"""
@@ -139,7 +136,7 @@ class UserActions:
         snip_func("while")
 
     def code_do_while():
-        insert_snippet(
+        actions.insert_snippet(
             """do {
                 \t$0
             } while ($1);"""
@@ -147,23 +144,23 @@ class UserActions:
 
     # Miscellaneous statements
     def code_break():
-        insert("break;")
+        actions.insert("break;")
 
     def code_true():
-        insert("true")
+        actions.insert("true")
 
     def code_false():
-        insert("false")
+        actions.insert("false")
 
     def code_continue():
-        insert("continue;")
+        actions.insert("continue;")
 
     def code_return():
-        insert("return ")
+        actions.insert("return ")
 
     # Function call
     def code_call_function(name: str):
-        insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
+        actions.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
 
     # Formatting getters
     def code_get_class_format() -> str:
@@ -177,7 +174,7 @@ class UserActions:
 
 
 def snip_func(name):
-    insert_snippet(
+    actions.insert_snippet(
         f"""{name}($1) {{
             \t$0
         }}"""

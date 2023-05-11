@@ -1,9 +1,5 @@
 from talon import Module, Context, actions
 
-key = actions.key
-insert = actions.insert
-user = actions.user
-
 mod = Module()
 
 mod.apps.wsl = r"""

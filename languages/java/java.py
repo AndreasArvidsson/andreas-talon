@@ -1,9 +1,6 @@
 from talon import Module, Context, actions
 from ...merge import merge
 
-insert = actions.insert
-insert_snippet = actions.user.insert_snippet
-
 mod = Module()
 ctx = Context()
 
@@ -84,14 +81,14 @@ class UserActions:
 
     # Selection statements
     def code_catch():
-        insert_snippet(
+        actions.insert_snippet(
             """catch(Exception ex) {
                 \t$0
             }"""
         )
 
     def code_try_catch():
-        insert_snippet(
+        actions.insert_snippet(
             """try {
                 \t$1
             }
@@ -102,14 +99,14 @@ class UserActions:
 
     # Iteration statements
     def code_for():
-        insert_snippet(
+        actions.insert_snippet(
             """for (int i = 0; i < $1; ++i) {
                 \t$0
             }"""
         )
 
     def code_foreach():
-        insert_snippet(
+        actions.insert_snippet(
             """for (final $1 : $2) {
                 \t$0
             }"""
@@ -117,16 +114,16 @@ class UserActions:
 
     # Miscellaneous statements
     def insert_arrow():
-        insert(" -> ")
+        actions.insert(" -> ")
 
     def code_print(text: str = None):
         if text:
-            insert(f'System.out.println("{text}");')
+            actions.insert(f'System.out.println("{text}");')
         else:
-            insert_snippet("System.out.println($0);")
+            actions.insert_snippet("System.out.println($0);")
 
     def code_format_string():
-        insert_snippet('String.format("$0")')
+        actions.insert_snippet('String.format("$0")')
 
     # Class declaration
     def code_class(name: str, modifiers: list[str]):
@@ -135,7 +132,7 @@ class UserActions:
             text = f"{' '.join(modifiers)} {text}"
         else:
             text = f"public {text}"
-        insert_snippet(text)
+        actions.insert_snippet(text)
 
     # Constructor declaration
     def code_constructor(modifiers: list[str]):
@@ -168,14 +165,14 @@ class UserActions:
         if modifiers:
             text = f"{' '.join(modifiers)} {text}"
         if assign:
-            text = text + " = "
-        insert(text)
+            text += " = "
+        actions.insert(text)
 
 
 def snip_func(name, args=""):
     if not args:
         args = "$1"
-    insert_snippet(
+    actions.insert_snippet(
         f"""{name}({args}) {{
             \t$0
         }}"""
