@@ -27,7 +27,7 @@ def draw(c: SkiaCanvas):
     c.paint.style = c.paint.Style.FILL
     c.paint.color = current_color + "aa"
     c.paint.imagefilter = ImageFilter.drop_shadow(1, 1, 1, 1, "000000")
-    radius = c.rect.height / 2 - 1
+    radius = c.rect.height / 2 - 2
     c.draw_circle(c.rect.center.x, c.rect.top + radius, radius)
 
 
