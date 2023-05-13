@@ -68,6 +68,7 @@ op or:                      " || "
 terminate:                  key(ctrl-c)
 clear:                      key(ctrl-l)
 revert:                     key(alt-r)
+ssh:                        "ssh "
 
 # head:                          "head "
 # tail:                          "tail "
