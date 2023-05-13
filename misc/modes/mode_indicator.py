@@ -14,12 +14,13 @@ setting_show = mod.setting(
     f"{prefix}_show",
     bool,
     False,
+    "If true the mode indicator is shown",
 )
 setting_size = mod.setting(
     f"{prefix}_size",
     float,
-    7.5,
-    "Mode indicator diameter in mm",
+    30,
+    "Mode indicator diameter in pixels",
 )
 setting_x = mod.setting(
     f"{prefix}_x",
@@ -55,8 +56,9 @@ setting_color_other = mod.setting(
 )
 setting_color_alpha = mod.setting(
     f"{prefix}_color_alpha",
-    str,
-    "aa",
+    float,
+    0.5,
+    "Mode indicator alpha/opacity in percentages(0-1)",
 )
 
 setting_paths = {
@@ -84,7 +86,8 @@ def get_color() -> str:
         color = setting_color_mixed.get()
     else:
         color = setting_color_other.get()
-    return color + setting_color_alpha.get()
+    alpha = f"{int(setting_color_alpha.get() * 255):02x}"
+    return color + alpha
 
 
 def on_draw(c: SkiaCanvas):
@@ -97,7 +100,7 @@ def on_draw(c: SkiaCanvas):
 def move_indicator():
     screen: Screen = ui.main_screen()
     rect = screen.rect
-    radius = setting_size.get() * screen.height / screen.mm_y / 2
+    radius = setting_size.get() * screen.scale / 2
 
     if setting_x.get() is not None:
         x = setting_x.get() * rect.width - radius
@@ -108,11 +111,6 @@ def move_indicator():
         y = setting_y.get() * rect.height - radius
     else:
         y = rect.top
-
-    print(screen.dpi, screen.dpi_x, screen.dpi_y)
-    print(screen.scale)
-    print(screen.mm_y)
-    print()
 
     side = 2 * radius
     canvas.move(x, y)
