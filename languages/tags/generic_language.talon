@@ -39,15 +39,15 @@ make {user.code_snippet}:   user.insert_snippet("{code_snippet}")
     user.code_class_wrapper(text, code_class_modifier_list or "")
 
 # ----- Function statement -----
-{user.code_function_modifier}* function <user.text>$:
+{user.code_function_modifier}* funk <user.text>$:
     user.code_function_wrapper(text, code_function_modifier_list or "")
 {user.code_function_modifier}* method <user.text>$:
     user.code_method_wrapper(text, code_function_modifier_list or "")
 
-function main:              user.code_function_main()
+funk main:                  user.code_function_main()
 
 # ----- Constructor statement -----
-{user.code_function_modifier}* function constructor:
+{user.code_function_modifier}* funk constructor:
     user.code_constructor_wrapper(code_function_modifier_list or "")
 
 # ----- Variable statement -----
