@@ -6,14 +6,29 @@ from talon.screen import Screen
 from talon.ui import Rect
 
 prefix = "mode_indicator"
-current_mode = ""
 canvas: Canvas = None
+current_mode = ""
 mod = Module()
 
 setting_show = mod.setting(
     f"{prefix}_show",
     bool,
     default=False,
+)
+setting_radius = mod.setting(
+    f"{prefix}_radius",
+    float,
+    default=None,
+)
+setting_x = mod.setting(
+    f"{prefix}_x",
+    float,
+    default=None,
+)
+setting_y = mod.setting(
+    f"{prefix}_y",
+    float,
+    default=None,
 )
 setting_color_sleep = mod.setting(
     f"{prefix}_color_sleep",
@@ -45,6 +60,9 @@ setting_paths = {
     s.path
     for s in [
         setting_show,
+        setting_radius,
+        setting_x,
+        setting_y,
         setting_color_sleep,
         setting_color_dictation,
         setting_color_mixed,
@@ -70,17 +88,36 @@ def on_draw(c: SkiaCanvas):
     c.paint.style = c.paint.Style.FILL
     c.paint.color = get_color()
     c.paint.imagefilter = ImageFilter.drop_shadow(1, 1, 1, 1, "000000")
-    radius = c.rect.height / 2 - 2
-    c.draw_circle(c.rect.center.x, c.rect.top + radius, radius)
+    c.draw_circle(c.rect.center.x, c.rect.center.y, c.rect.height / 2 - 2)
+
+
+def move_indicator():
+    screen: Screen = ui.main_screen()
+    rect = screen.rect
+
+    if setting_radius.get() is not None:
+        radius = setting_radius.get() * screen.dpi
+    else:
+        radius = 0.1 * screen.dpi
+
+    if setting_x.get() is not None:
+        x = setting_x.get() * rect.width - radius
+    else:
+        x = rect.center.x - radius
+
+    if setting_y.get() is not None:
+        y = setting_y.get() * rect.height - radius
+    else:
+        y = rect.top
+
+    side = 2 * radius
+    canvas.move(x, y)
+    canvas.resize(side, side)
 
 
 def show_indicator():
     global canvas
-    screen: Screen = ui.main_screen()
-    radius = screen.dpi / 10
-    side = radius * 2
-    rect = Rect(screen.rect.center.x - radius, screen.rect.top, side, side)
-    canvas = Canvas.from_rect(rect)
+    canvas = Canvas.from_rect(Rect(0, 0, 0, 0))
     canvas.register("draw", on_draw)
 
 
@@ -95,6 +132,7 @@ def update_indicator():
     if setting_show.get():
         if not canvas:
             show_indicator()
+        move_indicator()
         canvas.freeze()
     elif canvas:
         hide_indicator()
@@ -126,7 +164,7 @@ def on_update_settings(updated_settings: set[str]):
 def on_ready():
     registry.register("update_contexts", on_update_contexts)
     registry.register("update_settings", on_update_settings)
-    ui.register("screen_change", update_indicator)
+    ui.register("screen_change", lambda _: update_indicator)
 
 
 app.register("ready", on_ready)
