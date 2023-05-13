@@ -13,54 +13,57 @@ mod = Module()
 setting_show = mod.setting(
     f"{prefix}_show",
     bool,
-    default=False,
+    False,
 )
-setting_radius = mod.setting(
-    f"{prefix}_radius",
+setting_size = mod.setting(
+    f"{prefix}_size",
     float,
-    default=None,
+    7.5,
+    "Mode indicator diameter in mm",
 )
 setting_x = mod.setting(
     f"{prefix}_x",
     float,
-    default=None,
+    None,
+    "Mode indicator center X-position in percentages(0-1)",
 )
 setting_y = mod.setting(
     f"{prefix}_y",
     float,
-    default=None,
+    None,
+    "Mode indicator center Y-position in percentages(0-1)",
 )
 setting_color_sleep = mod.setting(
     f"{prefix}_color_sleep",
     str,
-    default="808080",  # Grey
+    "808080",  # Grey
 )
 setting_color_dictation = mod.setting(
     f"{prefix}_color_dictation",
     str,
-    default="da70d6",  # Orchid
+    "da70d6",  # Orchid
 )
 setting_color_mixed = mod.setting(
     f"{prefix}_color_mixed",
     str,
-    default="6b8e23",  # OliveDrab
+    "6b8e23",  # OliveDrab
 )
 setting_color_other = mod.setting(
     f"{prefix}_color_other",
     str,
-    default="f8f8ff",  # GhostWhite
+    "f8f8ff",  # GhostWhite
 )
 setting_color_alpha = mod.setting(
     f"{prefix}_color_alpha",
     str,
-    default="aa",
+    "aa",
 )
 
 setting_paths = {
     s.path
     for s in [
         setting_show,
-        setting_radius,
+        setting_size,
         setting_x,
         setting_y,
         setting_color_sleep,
@@ -94,11 +97,7 @@ def on_draw(c: SkiaCanvas):
 def move_indicator():
     screen: Screen = ui.main_screen()
     rect = screen.rect
-
-    if setting_radius.get() is not None:
-        radius = setting_radius.get() * screen.dpi
-    else:
-        radius = 0.1 * screen.dpi
+    radius = setting_size.get() * screen.height / screen.mm_y / 2
 
     if setting_x.get() is not None:
         x = setting_x.get() * rect.width - radius
@@ -109,6 +108,11 @@ def move_indicator():
         y = setting_y.get() * rect.height - radius
     else:
         y = rect.top
+
+    print(screen.dpi, screen.dpi_x, screen.dpi_y)
+    print(screen.scale)
+    print(screen.mm_y)
+    print()
 
     side = 2 * radius
     canvas.move(x, y)
