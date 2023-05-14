@@ -103,7 +103,7 @@ class Actions:
 
 
 def scroll_continuous_helper():
-    acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 3)
+    acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
     y = (
         setting_scroll_speed.get()
         * setting_scroll_speed_multiplier.get()
