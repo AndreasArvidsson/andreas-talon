@@ -7,14 +7,13 @@ tag(): user.npm
 tag(): user.yarn
 tag(): user.pip
 
-vscode install:
-    "vsce package -o bundle.vsix && code --install-extension bundle.vsix --force\n"
+vscode install:             "vsce package -o bundle.vsix && code --install-extension bundle.vsix --force\n"
 
-vscode package:
-    "vsce package\n"
+vscode package:             "vsce package\n"
 
-talon user updates:
-    "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \;\n"
+talon user updates:         "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \;\n"
+
+watch talon log:            "tail -f {user.talon_home()}/talon.log\n"
 
 run talon deck:             "talon-deck\n"
 
