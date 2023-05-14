@@ -113,8 +113,9 @@ class EditActions:
     def line_insert_up():
         vscode("editor.action.insertLineBefore")
 
-    def line_insert_down():
-        vscode("editor.action.insertLineAfter")
+    # Don't use since some vscode extension(eg markdown) has specific behavior on enter
+    # def line_insert_down():
+    #     vscode("editor.action.insertLineAfter")
 
     def delete_line():
         vscode("editor.action.deleteLines")
