@@ -16,7 +16,7 @@ drop, insertEmptyLineBefore
 extract, extractVariable
 float, insertEmptyLineAfter
 folding, foldRegion
-form, applyFormatter
+format|form, applyFormatter
 follow, followLink
 follow type, revealTypeDefinition
 give, deselect
