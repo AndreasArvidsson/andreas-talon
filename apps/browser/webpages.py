@@ -19,6 +19,7 @@ ctx.lists["self.webpage"] = {
     "gmail":                "https://www.gmail.com",
     "goodreads":            "https://www.goodreads.com",
     "imdb":                 "https://www.imdb.com",
+    "json parser":          "http://json.parser.online.fr",
     "karlstad buss":        "https://www.karlstadsbuss.se",
     "kbab":                 "https://minasidor.kbab.se",
     "kivra":                "https://www.kivra.se",
