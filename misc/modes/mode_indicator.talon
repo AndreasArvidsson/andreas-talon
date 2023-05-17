@@ -8,7 +8,7 @@ settings():
     # Align top
     user.mode_indicator_y = 0
     # Slightly transparent
-    user.mode_indicator_color_alpha = 0.75
+    user.mode_indicator_color_alpha = 0.5
     # Grey gradient
     user.mode_indicator_color_gradient = 0.5
     # Grey color for sleep mode
