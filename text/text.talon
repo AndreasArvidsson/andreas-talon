@@ -11,10 +11,10 @@ say <user.prose> {user.phrase_ender}:
     user.insert_formatted("{prose}{phrase_ender}", formatter_prose)
 
 # Formatted code phrase: "camel hello there" -> helloThere
-<user.formatters_code> <user.text_code> [over]:
-    user.insert_formatted(text_code, formatters_code)
-strict <user.formatters_code> <user.text_code>$:
-    user.insert_formatted(text_code, formatters_code)
+{user.formatter_code} <user.text_code> [over]:
+    user.insert_formatted(text_code, formatter_code)
+strict {user.formatter_code} <user.text_code>$:
+    user.insert_formatted(text_code, formatter_code)
 
 # Only words, no symbols or numbers
 escape <user.words>$:       "{words}"

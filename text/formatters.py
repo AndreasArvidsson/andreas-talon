@@ -96,12 +96,6 @@ ctx.lists["self.phrase_ender"] = {
 }
 
 
-@mod.capture(rule="{self.formatter_code}+")
-def formatters_code(m) -> str:
-    "Returns a comma-separated string of formatters e.g. 'DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD'"
-    return ",".join(m.formatter_code_list)
-
-
 @mod.capture(
     rule="({self.formatter_code} | {self.formatter_prose} | {self.formatter_hidden})+"
 )
