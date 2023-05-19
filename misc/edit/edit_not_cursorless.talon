@@ -53,12 +53,12 @@ clone this:                 edit.selection_clone()
     user.navigation(navigation_action, navigation_direction, any_alphanumeric_key)
 
 # Reformat
-<user.formatters> format this:
+<user.formatters> (format|form) this:
     user.reformat_selection(formatters)
-<user.formatters> format token:
+<user.formatters> (format|form) token:
     edit.select_word()
     user.reformat_selection(formatters)
-<user.formatters> format line:
+<user.formatters> (format|form) line:
     edit.select_line()
     user.reformat_selection(formatters)
 
