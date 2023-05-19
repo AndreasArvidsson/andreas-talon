@@ -8,6 +8,11 @@ from ...imgui import imgui
 mod = Module()
 ctx = Context()
 
+ctx_visible = Context()
+ctx_visible.matches = r"""
+tag: user.clipboard_manager
+"""
+
 mod.tag("clipboard_manager", "Indicates that the clipboard manager is visible")
 
 setting_clipboard_manager_max_rows = mod.setting(
@@ -84,6 +89,17 @@ def gui(gui: imgui.GUI):
         else:
             if gui.text(item.text):
                 clicked_num = i + 1
+
+
+@ctx_visible.action_class("edit")
+class EditActions:
+    def paste():
+        actions.next()
+        hide_if_not_sticky()
+
+    def paste_match_style():
+        actions.next()
+        hide_if_not_sticky()
 
 
 @mod.action_class
