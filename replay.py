@@ -42,14 +42,18 @@ def on_pre_phrase(phrase):
         spoken = "[REJECTED]"
 
     if expected:
-        ext = expected[filename]
-        res += f"{ext}{delimiter}"
-        if ext == spoken:
-            match_expected += 1
+        if not filename in expected:
+            print("--- MISSING EXPECTED: {filename}")
         else:
-            res += spoken
+            ext = expected[filename]
+            res += f"{ext}{delimiter}"
+            if ext == spoken:
+                match_expected += 1
+            else:
+                res += spoken
     else:
         res += spoken
+
     phrase["phrase"] = []
     if "parsed" in phrase:
         phrase["parsed"]._sequence = []
@@ -99,6 +103,19 @@ def replay_dir(dir):
 #         "C:\\Users\\andre\AppData\\Roaming\\talon\\recordings d problems\\gust-8jKb5cdq.flac"
 #     ]
 # )
+
+# Rejected with speech (-604)
+# b108: 202 / 202
+# D-20: 64 / 202
+
+# Rejected only noises (-604)
+# b108: 71 / 500
+# D-20: 1 / 500
+
+# Problems (-604)
+# b108: 73 / 104
+# D-20: 64 / 104
+
 
 # Rejected with speech (-596)
 # b108: 202 / 202
