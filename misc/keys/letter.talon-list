@@ -25,8 +25,8 @@ pit:                        p
 quench:                     q
 # red:                        r
 risk:                       r
-sun:                        s
-# sam:                        s
+# sun:                        s
+sam:                        s
 trap:                       t
 # urge:                       u
 urn:                        u
