@@ -26,14 +26,14 @@ class UserActions:
         actions.user.mouse_scrolling("up")
 
     def noise_shush_stop():
-        actions.user.abort_current_phrase()
+        # actions.user.abort_current_phrase()
         actions.user.mouse_scroll_stop()
 
     def noise_hiss_start():
         actions.user.mouse_scrolling("down")
 
     def noise_hiss_stop():
-        actions.user.abort_current_phrase()
+        # actions.user.abort_current_phrase()
         actions.user.mouse_scroll_stop()
 
 
