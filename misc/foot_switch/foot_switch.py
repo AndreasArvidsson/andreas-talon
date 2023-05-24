@@ -127,7 +127,7 @@ class UserActions:
             actions.user.mouse_scroll_stop()
 
     def foot_switch_left_down():
-        actions.user.go_back()
+        actions.user.quick_pick_show()
 
     def foot_switch_left_up(held: bool):
         pass

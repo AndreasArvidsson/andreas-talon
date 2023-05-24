@@ -5,7 +5,8 @@ gamepad(dpad_right):        print("dpad_right")
 
 gamepad(north):             print("north/Y")
 gamepad(west):              print("west/X")
-gamepad(east):              print("east/B")
+# gamepad(east):              print("east/B")
+gamepad(east):              user.quick_pick_show()
 gamepad(south):             print("south/A")
 
 gamepad(select):            print("select/view")
