@@ -13,7 +13,7 @@ class Actions:
         """Perform gamepad scrolling"""
         global cron_job, _x, _y
         _x = x * multiplier
-        _y = y * -1 * multiplier
+        _y = y * multiplier
 
         if _x != 0 or _y != 0:
             if cron_job is None:
