@@ -13,6 +13,7 @@ HEIGHT = TEXT_SIZE * 2
 WIDTH = HEIGHT * 2.5
 RADIUS = WIDTH * 1.25
 CORNER_RADIUS = TEXT_SIZE / 2
+VERTICAL_OFFSET = HEIGHT * 1.25
 BACKGROUND_COLOR = "f8f8ff"
 BORDER_COLOR = "000000"
 TEXT_COLOR = "000000"
@@ -20,7 +21,8 @@ TEXT_COLOR = "000000"
 mod = Module()
 canvas: Canvas = None
 mouse_pos: Point2d = None
-rects: dict[str, Rect] = {}
+rects_options: dict[str, Rect] = {}
+rects_running: dict[str, Rect] = {}
 
 
 @dataclass
@@ -31,23 +33,25 @@ class Option:
 
 
 options = [
-    Option("Control", -135, lambda: mouse_click("control")),
-    Option("Right", -45, lambda: mouse_click("right")),
+    Option("Drag", -90, lambda: mouse_click("drag")),
+    Option("Control", -140, lambda: mouse_click("control")),
+    Option("Right", -40, lambda: mouse_click("right")),
     Option("Back", -180, actions.user.go_back),
     Option("Forward", 0, actions.user.go_forward),
     Option("Switcher", 45, lambda: actions.key("super-tab")),
-    # Option("135", 135),
-    # Option("-90", -90),
-    # Option("90", 90),
+    Option("Taskmgr", 135, lambda: actions.key("ctrl-shift-escape")),
 ]
 
 
 def mouse_click(action: str):
     actions.mouse_move(mouse_pos.x, mouse_pos.y)
+    actions.sleep("50ms")
+    if action == "drag":
+        actions.user.mouse_drag()
     actions.user.mouse_click(action)
 
 
-def add_option(c: SkiaCanvas, option: Option, rect: Rect):
+def add_option(c: SkiaCanvas, text: str, rect: Rect):
     rrect = RoundRect.from_rect(rect, x=CORNER_RADIUS, y=CORNER_RADIUS)
 
     c.paint.style = c.paint.Style.FILL
@@ -61,9 +65,9 @@ def add_option(c: SkiaCanvas, option: Option, rect: Rect):
     c.paint.style = c.paint.Style.FILL
     c.paint.color = TEXT_COLOR
     c.paint.textsize = TEXT_SIZE
-    text_rect = c.paint.measure_text(option.text)[1]
+    text_rect = c.paint.measure_text(text)[1]
     c.draw_text(
-        option.text,
+        text,
         rect.center.x + text_rect.x - text_rect.width / 2,
         rect.center.y - text_rect.y - text_rect.height / 2,
     )
@@ -77,27 +81,43 @@ def get_rect(c: SkiaCanvas, option: Option) -> Rect:
 
 
 def on_draw(c: SkiaCanvas):
-    global rects
-    rects = {}
+    global rects_options, rects_running
+    rects_options = {}
+    rects_running = {}
 
     for option in options:
         rect = get_rect(c, option)
-        rects[option.text] = rect
-        add_option(c, option, rect)
+        rects_options[option.text] = rect
+        add_option(c, option.text, rect)
 
-    c.paint.style = c.paint.Style.STROKE
-    c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
+    running = actions.user.get_running_applications()
+    x = c.rect.left + c.rect.width / 3
+    y = c.rect.center.y - (((len(running) - 1) * VERTICAL_OFFSET + HEIGHT) / 2)
+    for key, value in running.items():
+        rect = Rect(x, y, WIDTH, HEIGHT)
+        y += VERTICAL_OFFSET
+        rects_running[value] = rect
+        add_option(c, key, rect)
+
+    # c.paint.style = c.paint.Style.STROKE
+    # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
 
 
 def on_mouse(e: MouseEvent):
     if e.event == "mouseup":
         for option in options:
-            rect = rects[option.text]
+            rect = rects_options[option.text]
             if rect.contains(e.gpos):
-                print(option.text)
                 hide()
                 option.callback()
                 return
+
+        for name, rect in rects_running.items():
+            if rect.contains(e.gpos):
+                hide()
+                actions.user.window_focus_name(name)
+                return
+
         hide()
 
 
@@ -126,3 +146,5 @@ class Actions:
         """Show quick pick"""
         if canvas is None:
             show()
+        else:
+            hide()

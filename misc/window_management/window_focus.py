@@ -12,6 +12,7 @@ ctx.lists["self.running_application"] = {}
 
 # Mapping of current overrides
 overrides = {}
+running = {}
 
 
 def parse_name(name):
@@ -32,6 +33,7 @@ def parse_name(name):
 
 
 def update_running():
+    global running
     running = {}
     for app in ui.apps(background=False):
         name = parse_name(app.name)
@@ -80,6 +82,10 @@ class Actions:
         names = list(ctx.lists["user.running_application"].values())
         if number > 0 and number <= len(names):
             focus_name(names[number - 1])
+
+    def get_running_applications() -> dict[str, str]:
+        """Fetch a dict of running applications"""
+        return running
 
 
 def on_ready():
