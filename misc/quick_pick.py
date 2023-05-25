@@ -27,6 +27,7 @@ SNAP_COLORS = [
     "fa8072",  # Salmon
 ]
 BACKGROUND_COLOR = "fffafa"  # Snow
+HOVER_COLOR = "6495ed"  # CornflowerBlue
 BORDER_COLOR = "000000"  # Black
 TEXT_COLOR = "000000"  # Black
 
@@ -65,6 +66,7 @@ and mode: dictation
 mod = Module()
 canvas: Canvas = None
 mouse_pos: Point2d = None
+hover_rect: Rect = None
 last_callback: Callable[[], None] = None
 buttons: list[Button] = []
 
@@ -117,8 +119,11 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
     rrect = RoundRect.from_rect(rect, x=CORNER_RADIUS, y=CORNER_RADIUS)
 
     c.paint.style = c.paint.Style.FILL
-    c.paint.color = BACKGROUND_COLOR
+    c.paint.color = HOVER_COLOR if hover_rect == rect else BACKGROUND_COLOR
     c.draw_rrect(rrect)
+
+    if hover_rect == rect:
+        print(text)
 
     c.paint.style = c.paint.Style.STROKE
     c.paint.color = BORDER_COLOR
@@ -249,19 +254,34 @@ def on_draw(c: SkiaCanvas):
     # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
 
 
+def get_button_for_position(pos: Point2d):
+    for button in buttons:
+        if button.rect.contains(pos):
+            return button
+    return None
+
+
 def on_mouse(e: MouseEvent):
-    global last_callback
-    if e.event == "mouseup":
-        for button in buttons:
-            if button.rect.contains(e.gpos):
-                hide()
-                if button.move_mouse:
-                    actions.mouse_move(mouse_pos.x, mouse_pos.y)
-                actions.sleep("75ms")
-                button.callback()
-                last_callback = button.callback
-                return
-        hide()
+    global last_callback, hover_rect
+    #
+    if e.event == "mousemove":
+        button = get_button_for_position(e.gpos)
+        hover_rect_new = button.rect if button else None
+        if hover_rect != hover_rect_new:
+            hover_rect = hover_rect_new
+            canvas.freeze()
+
+    elif e.event == "mouseup":
+        button = get_button_for_position(e.gpos)
+        if button is not None:
+            hide()
+            if button.move_mouse:
+                actions.mouse_move(mouse_pos.x, mouse_pos.y)
+            actions.sleep("75ms")
+            button.callback()
+            last_callback = button.callback
+        else:
+            hide()
 
 
 def show():
