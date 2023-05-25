@@ -2,6 +2,7 @@ from talon import Module, Context, ui, speech_system, actions
 from talon.screen import Screen
 from talon.canvas import Canvas, MouseEvent
 from talon.skia import RoundRect
+from talon.skia.typeface import Typeface
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.types import Rect, Point2d
 from talon.grammar import Phrase
@@ -14,16 +15,23 @@ HEIGHT = TEXT_SIZE * 2
 WIDTH = HEIGHT * 2.5
 RADIUS = WIDTH * 1.25
 CORNER_RADIUS = TEXT_SIZE / 2
-VERTICAL_OFFSET = HEIGHT * 1.25
+OFFSET = HEIGHT * 0.25
 BACKGROUND_COLOR = "f8f8ff"
 BORDER_COLOR = "000000"
 TEXT_COLOR = "000000"
 
 
 @dataclass
-class Option:
+class CircleOption:
     text: str
     degrees: int
+    callback: Callable[[], None]
+    move_mouse: Optional[bool] = False
+
+
+@dataclass
+class Option:
+    text: str
     callback: Callable[[], None]
     move_mouse: Optional[bool] = False
 
@@ -51,15 +59,22 @@ last_callback: Callable[[], None] = None
 buttons: list[Button] = []
 
 
-options = [
-    Option("Drag", -90, actions.user.mouse_drag, True),
-    Option("Control", -145, lambda: actions.user.mouse_click("control"), True),
-    Option("Right", -35, lambda: actions.user.mouse_click("right"), True),
-    Option("Back", -180, actions.user.go_back),
-    Option("Forward", 0, actions.user.go_forward),
-    Option("Taskmgr", 145, lambda: actions.key("ctrl-shift-escape")),
-    Option("Switcher", 35, lambda: actions.key("super-tab")),
-    Option("Search", 90, actions.user.browser_search_selected),
+circle_options = [
+    CircleOption("Drag", -90, actions.user.mouse_drag, True),
+    CircleOption("Control", -145, lambda: actions.user.mouse_click("control"), True),
+    CircleOption("Right", -35, lambda: actions.user.mouse_click("right"), True),
+    CircleOption("Back", -180, actions.user.go_back),
+    CircleOption("Forward", 0, actions.user.go_forward),
+    CircleOption("Taskmgr", 145, lambda: actions.key("ctrl-shift-escape")),
+    CircleOption("Switcher", 35, lambda: actions.key("super-tab")),
+    CircleOption("Search", 90, actions.user.browser_search_selected),
+]
+
+media_options = [
+    # "\u23F5""⏵"
+    Option("Play", lambda: actions.key("play_pause")),
+    Option("Prev", lambda: actions.key("prev")),
+    Option("Next", lambda: actions.key("next")),
 ]
 
 
@@ -77,6 +92,8 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
     c.paint.style = c.paint.Style.FILL
     c.paint.color = TEXT_COLOR
     c.paint.textsize = TEXT_SIZE
+
+    # c.paint.typeface = Typeface.from_name("Arial")
     text_rect = c.paint.measure_text(text)[1]
     c.draw_text(
         text,
@@ -85,32 +102,66 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
     )
 
 
-def get_rect(c: SkiaCanvas, option: Option) -> Rect:
-    radians = math.radians(option.degrees)
-    x = c.rect.center.x + RADIUS * math.cos(radians)
-    y = c.rect.center.y + RADIUS * math.sin(radians)
-    return Rect(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT)
+def draw_horizontal(c: SkiaCanvas, options: list[Option], x: float, y: float):
+    x = x - ((len(options) - 1) * (WIDTH + OFFSET) + WIDTH) / 2
+    for option in options:
+        rect = Rect(x, y, WIDTH, HEIGHT)
+        x += WIDTH + OFFSET
+        buttons.append(Button(rect, option.callback, option.move_mouse))
+        add_button(c, option.text, rect)
+
+
+def draw_vertical(c: SkiaCanvas, options: list[Option], x: float, y: float):
+    y = y - ((len(options) - 1) * (HEIGHT + OFFSET) + HEIGHT) / 2
+    for option in options:
+        rect = Rect(x, y, WIDTH, HEIGHT)
+        y += HEIGHT + OFFSET
+        buttons.append(Button(rect, option.callback, option.move_mouse))
+        add_button(c, option.text, rect)
+
+
+def draw_circle(c: SkiaCanvas, options: list[CircleOption], cx: float, cy: float):
+    for option in options:
+        radians = math.radians(option.degrees)
+        x = cx + RADIUS * math.cos(radians)
+        y = cy + RADIUS * math.sin(radians)
+        rect = Rect(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT)
+        buttons.append(Button(rect, option.callback, option.move_mouse))
+        add_button(c, option.text, rect)
+
+
+def get_running_options() -> list[Option]:
+    running = actions.user.get_running_applications()
+    return [
+        Option(key, lambda key=key: actions.user.window_focus_name(running[key]))
+        for key in sorted(running)
+    ]
 
 
 def on_draw(c: SkiaCanvas):
     global buttons
     buttons = []
 
-    for option in options:
-        rect = get_rect(c, option)
-        buttons.append(Button(rect, option.callback, option.move_mouse))
-        add_button(c, option.text, rect)
+    draw_circle(
+        c,
+        circle_options,
+        c.rect.center.x,
+        c.rect.center.y,
+    )
 
-    running = actions.user.get_running_applications()
-    x = c.rect.left + c.rect.width / 3
-    y = c.rect.center.y - (((len(running) - 1) * VERTICAL_OFFSET + HEIGHT) / 2)
-    for key in sorted(running):
-        rect = Rect(x, y, WIDTH, HEIGHT)
-        y += VERTICAL_OFFSET
-        name = running[key]
-        callback = lambda name=name: actions.user.window_focus_name(name)
-        buttons.append(Button(rect, callback))
-        add_button(c, key, rect)
+    draw_vertical(
+        c,
+        get_running_options(),
+        c.rect.left + c.rect.width / 3,
+        c.rect.center.y,
+    )
+
+    draw_horizontal(
+        c,
+        media_options,
+        c.rect.center.x,
+        c.rect.bot - c.rect.height / 3,
+    )
 
     # c.paint.style = c.paint.Style.STROKE
     # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
