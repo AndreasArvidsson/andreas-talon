@@ -59,7 +59,7 @@ options = [
     Option("Forward", 0, actions.user.go_forward),
     Option("Taskmgr", 145, lambda: actions.key("ctrl-shift-escape")),
     Option("Switcher", 35, lambda: actions.key("super-tab")),
-    Option("Stuff", 90, lambda: actions.key("super-tab")),
+    Option("Search", 90, actions.user.browser_search_selected),
 ]
 
 

@@ -1,6 +1,5 @@
 search for <user.text>$:
-    user.browser_open(text)
+    user.browser_search(text)
 
 search for (this | dis | is):
-    text = edit.selected_text()
-    user.browser_open(text)
+    user.browser_search_selected()
