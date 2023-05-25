@@ -263,25 +263,22 @@ def get_button_for_position(pos: Point2d):
 
 def on_mouse(e: MouseEvent):
     global last_callback, hover_rect
-    #
+    button = get_button_for_position(e.gpos)
+
     if e.event == "mousemove":
-        button = get_button_for_position(e.gpos)
         hover_rect_new = button.rect if button else None
         if hover_rect != hover_rect_new:
             hover_rect = hover_rect_new
             canvas.freeze()
 
     elif e.event == "mouseup":
-        button = get_button_for_position(e.gpos)
-        if button is not None:
-            hide()
+        hide()
+        if button:
             if button.move_mouse:
                 actions.mouse_move(mouse_pos.x, mouse_pos.y)
             actions.sleep("75ms")
             button.callback()
             last_callback = button.callback
-        else:
-            hide()
 
 
 def show():
