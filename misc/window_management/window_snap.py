@@ -1,4 +1,5 @@
 from talon import ui, Module, Context, actions
+from talon.types import Rect
 from dataclasses import dataclass
 from typing import Union
 
@@ -26,8 +27,8 @@ snap_positions = {
     # .--.--.--.
     # |  |  |  |
     # '--'--'--'
-    "center small": RelativePosition(1 / 3, 0, 2 / 3, 1),
     "left small": RelativePosition(0, 0, 1 / 3, 1),
+    "center small": RelativePosition(1 / 3, 0, 2 / 3, 1),
     "right small": RelativePosition(2 / 3, 0, 1, 1),
     "left large": RelativePosition(0, 0, 2 / 3, 1),
     "right large": RelativePosition(1 / 3, 0, 1, 1),
@@ -44,15 +45,15 @@ snap_positions = {
     # |--|--|--|
     # '--'--'--'
     "top left small": RelativePosition(0, 0, 1 / 3, 0.5),
+    "top center small": RelativePosition(1 / 3, 0, 2 / 3, 0.5),
     "top right small": RelativePosition(2 / 3, 0, 1, 0.5),
+    "bottom left small": RelativePosition(0, 0.5, 1 / 3, 1),
+    "bottom center small": RelativePosition(1 / 3, 0.5, 2 / 3, 1),
+    "bottom right small": RelativePosition(2 / 3, 0.5, 1, 1),
     "top left large": RelativePosition(0, 0, 2 / 3, 0.5),
     "top right large": RelativePosition(1 / 3, 0, 1, 0.5),
-    "top center small": RelativePosition(1 / 3, 0, 2 / 3, 0.5),
-    "bottom left small": RelativePosition(0, 0.5, 1 / 3, 1),
-    "bottom right small": RelativePosition(2 / 3, 0.5, 1, 1),
     "bottom left large": RelativePosition(0, 0.5, 2 / 3, 1),
     "bottom right large": RelativePosition(1 / 3, 0.5, 1, 1),
-    "bottom center small": RelativePosition(1 / 3, 0.5, 2 / 3, 1),
     # Special
     "center": RelativePosition(1 / 6, 0, 5 / 6, 1),
     "top center": RelativePosition(1 / 6, 0, 5 / 6, 0.5),
@@ -178,6 +179,16 @@ class Actions:
             pos_name,
         )
 
+    def snap_apply_position_to_rect(rect: Rect, pos_name: str) -> Rect:
+        """Applies snap position <pos_name> to given rectangle"""
+        pos = snap_positions[pos_name]
+        return Rect(
+            rect.x + (rect.width * pos.left),
+            rect.y + (rect.height * pos.top),
+            rect.width * (pos.right - pos.left),
+            rect.height * (pos.bottom - pos.top),
+        )
+
 
 def snap_window_to_screen(window: ui.Window, screen: ui.Screen):
     dest = screen.visible_rect
@@ -196,15 +207,8 @@ def snap_window_to_screen(window: ui.Window, screen: ui.Screen):
 def snap_window_to_screen_and_position(
     window: ui.Window, screen: ui.Screen, pos_name: str
 ):
-    pos = snap_positions[pos_name]
-    rect = screen.visible_rect
-    actions.user.window_set_pos(
-        window,
-        x=rect.x + (rect.width * pos.left),
-        y=rect.y + (rect.height * pos.top),
-        width=rect.width * (pos.right - pos.left),
-        height=rect.height * (pos.bottom - pos.top),
-    )
+    rect = actions.user.snap_apply_position_to_rect(screen.visible_rect, pos_name)
+    actions.user.window_set_pos(window, rect.x, rect.y, rect.width, rect.height)
 
 
 def get_screen(screen_desc: Union[int, str]) -> ui.Screen:
