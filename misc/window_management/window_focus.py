@@ -70,7 +70,7 @@ class Actions:
         actions.key("alt-tab")
 
     def window_focus_name(name: str, phrase: Phrase = None):
-        """Focus application by name"""
+        """Focus application named <name>"""
         focus_name(name)
 
         if phrase:
