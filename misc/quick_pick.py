@@ -116,10 +116,8 @@ def on_mouse(e: MouseEvent):
         for button in buttons:
             if button.rect.contains(e.gpos):
                 hide()
-                print(button.rect)
                 button.callback()
                 return
-
         hide()
 
 
