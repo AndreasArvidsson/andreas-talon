@@ -1,11 +1,12 @@
-from talon import Module, ui, actions
+from talon import Module, Context, ui, speech_system, actions
 from talon.screen import Screen
 from talon.canvas import Canvas, MouseEvent
 from talon.skia import RoundRect
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.types import Rect, Point2d
+from talon.grammar import Phrase
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Optional
 import math
 
 TEXT_SIZE = 32
@@ -24,38 +25,42 @@ class Option:
     text: str
     degrees: int
     callback: Callable[[], None]
+    move_mouse: Optional[bool] = False
 
 
 @dataclass
 class Button:
     rect: Rect
     callback: Callable[[], None]
+    move_mouse: Optional[bool] = False
+
+
+ctx = Context()
+ctx.matches = r"""
+mode: all
+and mode: command
+mode: all
+and mode: dictation
+"""
 
 
 mod = Module()
 canvas: Canvas = None
 mouse_pos: Point2d = None
+last_callback: Callable[[], None] = None
 buttons: list[Button] = []
 
 
 options = [
-    Option("Drag", -90, lambda: mouse_click("drag")),
-    Option("Control", -145, lambda: mouse_click("control")),
-    Option("Right", -35, lambda: mouse_click("right")),
+    Option("Drag", -90, actions.user.mouse_drag, True),
+    Option("Control", -145, lambda: actions.user.mouse_click("control"), True),
+    Option("Right", -35, lambda: actions.user.mouse_click("right"), True),
     Option("Back", -180, actions.user.go_back),
     Option("Forward", 0, actions.user.go_forward),
     Option("Taskmgr", 145, lambda: actions.key("ctrl-shift-escape")),
     Option("Switcher", 35, lambda: actions.key("super-tab")),
     Option("Stuff", 90, lambda: actions.key("super-tab")),
 ]
-
-
-def mouse_click(action: str):
-    actions.mouse_move(mouse_pos.x, mouse_pos.y)
-    actions.sleep("50ms")
-    if action == "drag":
-        actions.user.mouse_drag()
-    actions.user.mouse_click(action)
 
 
 def add_button(c: SkiaCanvas, text: str, rect: Rect):
@@ -93,7 +98,7 @@ def on_draw(c: SkiaCanvas):
 
     for option in options:
         rect = get_rect(c, option)
-        buttons.append(Button(rect, option.callback))
+        buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
 
     running = actions.user.get_running_applications()
@@ -111,12 +116,21 @@ def on_draw(c: SkiaCanvas):
     # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
 
 
+def move_mouse():
+    actions.mouse_move(mouse_pos.x, mouse_pos.y)
+    actions.sleep("50ms")
+
+
 def on_mouse(e: MouseEvent):
+    global last_callback
     if e.event == "mouseup":
         for button in buttons:
             if button.rect.contains(e.gpos):
                 hide()
+                if button.move_mouse:
+                    move_mouse()
                 button.callback()
+                last_callback = button.callback
                 return
         hide()
 
@@ -140,6 +154,15 @@ def hide():
     canvas = None
 
 
+@ctx.action_class("user")
+class UserActions:
+    def noise_cluck():
+        if last_callback is not None:
+            last_callback()
+        else:
+            actions.next()
+
+
 @mod.action_class
 class Actions:
     def quick_pick_show():
@@ -148,3 +171,12 @@ class Actions:
             show()
         else:
             hide()
+
+
+def on_post_phrase(phrase: Phrase):
+    global last_callback
+    if last_callback is not None and actions.speech.enabled() and phrase.get("phrase"):
+        last_callback = None
+
+
+speech_system.register("post:phrase", on_post_phrase)
