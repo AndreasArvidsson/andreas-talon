@@ -18,12 +18,6 @@ BACKGROUND_COLOR = "f8f8ff"
 BORDER_COLOR = "000000"
 TEXT_COLOR = "000000"
 
-mod = Module()
-canvas: Canvas = None
-mouse_pos: Point2d = None
-rects_options: dict[str, Rect] = {}
-rects_running: dict[str, Rect] = {}
-
 
 @dataclass
 class Option:
@@ -32,14 +26,27 @@ class Option:
     callback: Callable[[], None]
 
 
+@dataclass
+class Button:
+    rect: Rect
+    callback: Callable[[], None]
+
+
+mod = Module()
+canvas: Canvas = None
+mouse_pos: Point2d = None
+buttons: list[Button] = []
+
+
 options = [
     Option("Drag", -90, lambda: mouse_click("drag")),
-    Option("Control", -140, lambda: mouse_click("control")),
-    Option("Right", -40, lambda: mouse_click("right")),
+    Option("Control", -145, lambda: mouse_click("control")),
+    Option("Right", -35, lambda: mouse_click("right")),
     Option("Back", -180, actions.user.go_back),
     Option("Forward", 0, actions.user.go_forward),
-    Option("Switcher", 45, lambda: actions.key("super-tab")),
-    Option("Taskmgr", 135, lambda: actions.key("ctrl-shift-escape")),
+    Option("Taskmgr", 145, lambda: actions.key("ctrl-shift-escape")),
+    Option("Switcher", 35, lambda: actions.key("super-tab")),
+    Option("Stuff", 90, lambda: actions.key("super-tab")),
 ]
 
 
@@ -51,7 +58,7 @@ def mouse_click(action: str):
     actions.user.mouse_click(action)
 
 
-def add_option(c: SkiaCanvas, text: str, rect: Rect):
+def add_button(c: SkiaCanvas, text: str, rect: Rect):
     rrect = RoundRect.from_rect(rect, x=CORNER_RADIUS, y=CORNER_RADIUS)
 
     c.paint.style = c.paint.Style.FILL
@@ -81,23 +88,24 @@ def get_rect(c: SkiaCanvas, option: Option) -> Rect:
 
 
 def on_draw(c: SkiaCanvas):
-    global rects_options, rects_running
-    rects_options = {}
-    rects_running = {}
+    global buttons
+    buttons = []
 
     for option in options:
         rect = get_rect(c, option)
-        rects_options[option.text] = rect
-        add_option(c, option.text, rect)
+        buttons.append(Button(rect, option.callback))
+        add_button(c, option.text, rect)
 
     running = actions.user.get_running_applications()
     x = c.rect.left + c.rect.width / 3
     y = c.rect.center.y - (((len(running) - 1) * VERTICAL_OFFSET + HEIGHT) / 2)
-    for key, value in running.items():
+    for key in sorted(running):
         rect = Rect(x, y, WIDTH, HEIGHT)
         y += VERTICAL_OFFSET
-        rects_running[value] = rect
-        add_option(c, key, rect)
+        name = running[key]
+        callback = lambda name=name: actions.user.window_focus_name(name)
+        buttons.append(Button(rect, callback))
+        add_button(c, key, rect)
 
     # c.paint.style = c.paint.Style.STROKE
     # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
@@ -105,17 +113,11 @@ def on_draw(c: SkiaCanvas):
 
 def on_mouse(e: MouseEvent):
     if e.event == "mouseup":
-        for option in options:
-            rect = rects_options[option.text]
-            if rect.contains(e.gpos):
+        for button in buttons:
+            if button.rect.contains(e.gpos):
                 hide()
-                option.callback()
-                return
-
-        for name, rect in rects_running.items():
-            if rect.contains(e.gpos):
-                hide()
-                actions.user.window_focus_name(name)
+                print(button.rect)
+                button.callback()
                 return
 
         hide()
