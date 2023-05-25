@@ -129,8 +129,9 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
     c.paint.textsize = TEXT_SIZE
 
     # c.paint.typeface = Typeface.from_name("Arial")
-    if len(text) > 12:
-        text = text[:12]
+    if len(text) > 10:
+        text = text[:10]
+
     text_rect = c.paint.measure_text(text)[1]
     c.draw_text(
         text,
