@@ -71,12 +71,13 @@ buttons: list[Button] = []
 
 circle_options = [
     CircleOption("Drag", -90, actions.user.mouse_drag, True),
-    CircleOption("Control", -145, lambda: actions.user.mouse_click("control"), True),
-    CircleOption("Right", -35, lambda: actions.user.mouse_click("right"), True),
-    CircleOption("Back", -180, actions.user.go_back),
-    CircleOption("Forward", 0, actions.user.go_forward),
-    CircleOption("Taskmgr", 145, lambda: actions.key("ctrl-shift-escape")),
-    CircleOption("Switcher", 35, lambda: actions.key("super-tab")),
+    CircleOption("Control", -140, lambda: actions.user.mouse_click("control"), True),
+    CircleOption("Right", -40, lambda: actions.user.mouse_click("right"), True),
+    CircleOption("Back", -170, actions.user.go_back),
+    CircleOption("Forward", -10, actions.user.go_forward),
+    CircleOption("Tab close", 13, actions.app.tab_close),
+    CircleOption("Taskmgr", 140, lambda: actions.key("ctrl-shift-escape")),
+    CircleOption("Switcher", 40, lambda: actions.key("super-tab")),
     CircleOption("Search", 90, actions.user.browser_search_selected),
 ]
 
@@ -160,7 +161,7 @@ def draw_circle(c: SkiaCanvas, options: list[CircleOption], cx: float, cy: float
     for option in options:
         radians = math.radians(option.degrees)
         x = cx + RADIUS * math.cos(radians)
-        y = cy + RADIUS * math.sin(radians)
+        y = cy + RADIUS * 1.25 * math.sin(radians)
         rect = Rect(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT)
         buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
@@ -247,20 +248,15 @@ def on_draw(c: SkiaCanvas):
     # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
 
 
-def move_mouse():
-    actions.mouse_move(mouse_pos.x, mouse_pos.y)
-    actions.sleep("50ms")
-
-
 def on_mouse(e: MouseEvent):
     global last_callback
     if e.event == "mouseup":
         for button in buttons:
             if button.rect.contains(e.gpos):
                 hide()
-                actions.sleep("75ms")
                 if button.move_mouse:
-                    move_mouse()
+                    actions.mouse_move(mouse_pos.x, mouse_pos.y)
+                actions.sleep("75ms")
                 button.callback()
                 last_callback = button.callback
                 return
