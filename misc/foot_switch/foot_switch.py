@@ -1,5 +1,5 @@
-import time
 from talon import Module, Context, actions, cron
+import time
 
 mod = Module()
 
@@ -16,6 +16,7 @@ last_state = [UP, UP, UP, UP]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
 hold_timeout = 0.2
+cron_job = None
 
 
 def on_interval():
@@ -127,10 +128,17 @@ class UserActions:
             actions.user.mouse_scroll_stop()
 
     def foot_switch_left_down():
-        actions.user.quick_pick_show()
+        global cron_job
+        cron_job = cron.after(
+            f"{int(hold_timeout*1000)}ms", actions.user.quick_pick_show
+        )
 
     def foot_switch_left_up(held: bool):
-        pass
+        global cron_job
+        cron.cancel(cron_job)
+        cron_job = None
+        if not held:
+            actions.user.go_back()
 
     def foot_switch_right_down():
         pass
@@ -148,7 +156,7 @@ tag: user.eye_tracker_frozen
 
 
 @ctx_eye_tracker.action_class("user")
-class NonSleepActions:
+class EyeTrackerActions:
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
 
