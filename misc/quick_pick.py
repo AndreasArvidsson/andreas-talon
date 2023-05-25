@@ -202,7 +202,7 @@ def draw_snap_positions(c: SkiaCanvas, positions: list[list[str]], x: float, y: 
                 )
             )
             buttons.append(Button(pos_rect, callback))
-            c.paint.color = SNAP_COLORS[j]
+            c.paint.color = BORDER_COLOR if hover_rect == pos_rect else SNAP_COLORS[j]
             c.draw_rect(pos_rect)
 
         c.paint.style = c.paint.Style.STROKE
