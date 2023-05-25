@@ -14,7 +14,9 @@ Gnome-terminal, Terminal
 Google Chrome, Chrome
 Google-chrome, Chrome
 Kodi, Codi
+Microsoft Edge, Edge
 Microsoft Visual Studio 2019, Visual Studio
+MongoDB Database Server, Mongo
 netbeans64.exe, Netbeans
 obs studio, OBS
 Org.gnome.Nautilus, Nautilus
@@ -25,7 +27,6 @@ vscodium, Code
 Windows Command Processor, Command
 Windows Explorer, Explorer
 WindowsTerminal.exe, Terminal
-
 
 # Exclude these applications
 
