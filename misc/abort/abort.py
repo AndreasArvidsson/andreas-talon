@@ -55,10 +55,14 @@ class Actions:
                     start <= abort_specific_phrases.start
                     and end >= abort_specific_phrases.end
                 ):
-                    actions.user.debug(f"Aborted phrase. {current_phrase}")
+                    actions.user.debug(f"Aborted phrase: {current_phrase}")
                     abort_entire_phrase(phrase)
                     abort_specific_phrases = None
                     return True, ""
+                else:
+                    print("Matching aboard specific phrase but not timestamps")
+                    print(abort_specific_phrases)
+                    print(current_phrase, start, end)
             abort_specific_phrases = None
 
         if ts_threshold is not None:
