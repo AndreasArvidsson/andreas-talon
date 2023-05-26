@@ -48,19 +48,21 @@ class Actions:
 
         if abort_specific_phrases is not None:
             if current_phrase in abort_specific_phrases.phrases:
-                ts = getattr(words[-1], "end", 0)
-                if abort_specific_phrases.ts <= ts:
+                # Abort timestamp is before or equal end of phrase
+                end = getattr(words[-1], "end", 0)
+                if abort_specific_phrases.ts <= end:
                     actions.user.debug(f"Aborted phrase: {current_phrase}")
                     abort_entire_phrase(phrase)
                     abort_specific_phrases = None
                     return True, ""
                 else:
-                    print("Matching aboard specific phrase but not timestamps")
+                    print("Matching abort specific phrase but not timestamps")
                     print(abort_specific_phrases)
-                    print(current_phrase, ts)
+                    print(current_phrase, end)
             abort_specific_phrases = None
 
         if ts_threshold is not None:
+            # Start of phrase is before timestamp threshold
             delta = ts_threshold - phrase["_ts"]
             ts_threshold = None
             if delta > 0:
