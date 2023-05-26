@@ -29,7 +29,9 @@ class UserActions:
         actions.user.mouse_scrolling("up")
 
     def noise_shush_stop():
-        actions.user.abort_specific_phrase("hash", shush_start, time.perf_counter())
+        actions.user.abort_specific_phrase(
+            ["hash", "ssh"], shush_start, time.perf_counter()
+        )
         actions.user.mouse_scroll_stop()
 
     def noise_hiss_start():

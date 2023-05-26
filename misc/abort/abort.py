@@ -16,15 +16,15 @@ language: sv
 
 
 @dataclass
-class AbortPhrase:
-    phrase: str
+class AbortPhrases:
+    phrases: list[str]
     start: float
     end: float
 
 
 abort_phrases = ["cancel", "canceled", "avbryt"]
 
-abort_specific_phrase: AbortPhrase = None
+abort_specific_phrases: AbortPhrases = None
 ts_threshold: float = None
 
 
@@ -35,31 +35,31 @@ class Actions:
         global ts_threshold
         ts_threshold = time.perf_counter()
 
-    def abort_specific_phrase(phrase: str, start: float, end: float):
-        """Abort the specified phrase"""
-        global abort_specific_phrase
-        abort_specific_phrase = AbortPhrase(phrase, start, end)
+    def abort_specific_phrase(phrases: list[str], start: float, end: float):
+        """Abort the specified phrases"""
+        global abort_specific_phrases
+        abort_specific_phrases = AbortPhrases(phrases, start, end)
 
     def abort_phrase(phrase: Phrase) -> tuple[bool, str]:
         """Possibly abort current spoken phrase"""
-        global ts_threshold, abort_specific_phrase
+        global ts_threshold, abort_specific_phrases
 
         words = phrase["phrase"]
         current_phrase = " ".join(words)
 
-        if abort_specific_phrase is not None:
-            if abort_specific_phrase.phrase == current_phrase:
+        if abort_specific_phrases is not None:
+            if current_phrase in abort_specific_phrases.phrases:
                 start = getattr(words[0], "start", 0)
                 end = getattr(words[-1], "end", 0)
                 if (
-                    start <= abort_specific_phrase.start
-                    and end >= abort_specific_phrase.end
+                    start <= abort_specific_phrases.start
+                    and end >= abort_specific_phrases.end
                 ):
                     actions.user.debug(f"Aborted phrase. {current_phrase}")
                     abort_entire_phrase(phrase)
-                    abort_specific_phrase = None
+                    abort_specific_phrases = None
                     return True, ""
-            abort_specific_phrase = None
+            abort_specific_phrases = None
 
         if ts_threshold is not None:
             delta = ts_threshold - phrase["_ts"]
