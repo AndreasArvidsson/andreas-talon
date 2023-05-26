@@ -24,7 +24,7 @@ class AbortPhrase:
 
 abort_phrases = ["cancel", "canceled", "avbryt"]
 
-abort_phrase: AbortPhrase = None
+abort_specific_phrase: AbortPhrase = None
 ts_threshold: float = None
 
 
@@ -37,26 +37,29 @@ class Actions:
 
     def abort_specific_phrase(phrase: str, start: float, end: float):
         """Abort the specified phrase"""
-        global abort_phrase
-        abort_phrase = AbortPhrase(phrase, start, end)
+        global abort_specific_phrase
+        abort_specific_phrase = AbortPhrase(phrase, start, end)
 
     def abort_phrase(phrase: Phrase) -> tuple[bool, str]:
         """Possibly abort current spoken phrase"""
-        global ts_threshold, abort_phrase
+        global ts_threshold, abort_specific_phrase
 
         words = phrase["phrase"]
         current_phrase = " ".join(words)
 
-        if abort_phrase is not None:
-            if abort_phrase.phrase == current_phrase:
+        if abort_specific_phrase is not None:
+            if abort_specific_phrase.phrase == current_phrase:
                 start = getattr(words[0], "start", 0)
                 end = getattr(words[-1], "end", 0)
-                if start <= abort_phrase.start and end >= abort_phrase.end:
+                if (
+                    start <= abort_specific_phrase.start
+                    and end >= abort_specific_phrase.end
+                ):
                     actions.user.debug(f"Aborted phrase. {current_phrase}")
                     abort_entire_phrase(phrase)
-                    abort_phrase = None
+                    abort_specific_phrase = None
                     return True, ""
-            abort_phrase = None
+            abort_specific_phrase = None
 
         if ts_threshold is not None:
             delta = ts_threshold - phrase["_ts"]
