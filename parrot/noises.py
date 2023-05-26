@@ -1,11 +1,9 @@
 from talon import Module, Context, cron, actions
-import time
 
 mod = Module()
 state = {}
 cron_jobs = {}
 callbacks = {}
-shush_start: float = 0
 
 ctx = Context()
 ctx.matches = r"""
@@ -24,14 +22,10 @@ class UserActions:
             actions.core.repeat_phrase()
 
     def noise_shush_start():
-        global shush_start
-        shush_start = time.perf_counter()
         actions.user.mouse_scrolling("up")
 
     def noise_shush_stop():
-        actions.user.abort_specific_phrases(
-            ["hash", "ssh"], shush_start, time.perf_counter()
-        )
+        actions.user.abort_specific_phrases(["hash", "ssh"])
         actions.user.mouse_scroll_stop()
 
     def noise_hiss_start():

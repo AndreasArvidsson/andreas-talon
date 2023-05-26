@@ -18,8 +18,7 @@ language: sv
 @dataclass
 class AbortPhrases:
     phrases: list[str]
-    start: float
-    end: float
+    ts: float
 
 
 abort_phrases = ["cancel", "canceled", "avbryt"]
@@ -35,10 +34,10 @@ class Actions:
         global ts_threshold
         ts_threshold = time.perf_counter()
 
-    def abort_specific_phrases(phrases: list[str], start: float, end: float):
+    def abort_specific_phrases(phrases: list[str]):
         """Abort the specified phrases"""
         global abort_specific_phrases
-        abort_specific_phrases = AbortPhrases(phrases, start, end)
+        abort_specific_phrases = AbortPhrases(phrases, time.perf_counter())
 
     def abort_phrase(phrase: Phrase) -> tuple[bool, str]:
         """Possibly abort current spoken phrase"""
@@ -49,12 +48,8 @@ class Actions:
 
         if abort_specific_phrases is not None:
             if current_phrase in abort_specific_phrases.phrases:
-                start = phrase["_ts"]
-                end = getattr(words[-1], "end", 0)
-                if (
-                    start <= abort_specific_phrases.start
-                    and end >= abort_specific_phrases.end
-                ):
+                ts = getattr(words[-1], "end", 0)
+                if abort_specific_phrases.ts <= ts:
                     actions.user.debug(f"Aborted phrase: {current_phrase}")
                     abort_entire_phrase(phrase)
                     abort_specific_phrases = None
@@ -62,14 +57,14 @@ class Actions:
                 else:
                     print("Matching aboard specific phrase but not timestamps")
                     print(abort_specific_phrases)
-                    print(current_phrase, start, end)
+                    print(current_phrase, ts)
             abort_specific_phrases = None
 
         if ts_threshold is not None:
             delta = ts_threshold - phrase["_ts"]
             ts_threshold = None
             if delta > 0:
-                actions.user.debug(f"Aborted phrase. {delta:.2f}s")
+                actions.user.debug(f"Aborted phrase: {delta:.2f}s")
                 abort_entire_phrase(phrase)
                 return True, ""
 
