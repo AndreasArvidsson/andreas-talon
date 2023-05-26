@@ -49,7 +49,7 @@ class Actions:
 
         if abort_specific_phrases is not None:
             if current_phrase in abort_specific_phrases.phrases:
-                start = getattr(words[0], "start", 0)
+                start = phrase["_ts"]
                 end = getattr(words[-1], "end", 0)
                 if (
                     start <= abort_specific_phrases.start
