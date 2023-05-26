@@ -35,7 +35,7 @@ class Actions:
         global ts_threshold
         ts_threshold = time.perf_counter()
 
-    def abort_specific_phrase(phrases: list[str], start: float, end: float):
+    def abort_specific_phrases(phrases: list[str], start: float, end: float):
         """Abort the specified phrases"""
         global abort_specific_phrases
         abort_specific_phrases = AbortPhrases(phrases, start, end)
