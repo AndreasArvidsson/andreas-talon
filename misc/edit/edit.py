@@ -147,7 +147,7 @@ class Actions:
         """Return current selected mime"""
         try:
             actions.user.clipboard_manager_stop_updating()
-            with clip.capture() as c:
+            with clip.capture(0.1) as c:
                 actions.edit.copy()
             return c.mime()
         except clip.NoChange:
