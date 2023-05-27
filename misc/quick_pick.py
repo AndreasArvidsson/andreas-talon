@@ -75,14 +75,14 @@ repeater_callback: Callable[[], None] = None
 buttons: list[Button] = []
 
 circle_options = [
-    CircleOption("Drag", -90, actions.user.mouse_drag, True),
-    CircleOption("Control", -140, lambda: actions.user.mouse_click("control"), True),
-    CircleOption("Right", -40, lambda: actions.user.mouse_click("right"), True),
+    CircleOption("🖑", -90, actions.user.mouse_drag, True),
+    CircleOption("🖖", -140, lambda: actions.user.mouse_click("control"), True),
+    CircleOption("🖙", -40, lambda: actions.user.mouse_click("right"), True),
     CircleOption("🡨", -170, actions.user.go_back),
     CircleOption("🡪", -10, actions.user.go_forward),
-    CircleOption("Tab close", 13, actions.app.tab_close),
-    CircleOption("Taskmgr", 140, lambda: actions.key("ctrl-shift-escape")),
-    CircleOption("Switcher", 40, lambda: actions.key("super-tab")),
+    CircleOption("╳", 13, actions.app.tab_close),
+    CircleOption("🖳", 140, lambda: actions.key("ctrl-shift-escape")),
+    CircleOption("🗗", 40, lambda: actions.key("super-tab")),
     CircleOption("🔍", 90, actions.user.browser_search_selected),
 ]
 
