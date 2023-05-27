@@ -7,6 +7,7 @@ from talon.ui import Rect
 from typing import Callable, Optional
 from dataclasses import dataclass
 
+FONT_FAMILY = "Segoe UI Symbol"
 background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
@@ -315,6 +316,7 @@ class GUI:
         self._elements.append(Image(image))
 
     def _draw(self, canvas):
+        canvas.paint.typeface = FONT_FAMILY
         self._elements = []
         self._callback(self)
         self._draw_background(canvas)
