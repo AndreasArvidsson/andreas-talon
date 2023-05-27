@@ -112,7 +112,7 @@ def get_capture(phrase: Phrase, abort_phrase: str) -> Capture:
 
     # Last capture is not a cancel command. Probably a back anchored phrase.
     # eg: "sentence foo bar cancel"
-    # To get around this is to actually construct the cancel capture.
+    # The way to get around this is to actually construct the cancel capture.
 
     name = "__cancel_ra__"
     sequence = [DecodeWord(abort_phrase)]
