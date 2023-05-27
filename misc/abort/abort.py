@@ -18,7 +18,8 @@ language: sv
 @dataclass
 class AbortPhrases:
     phrases: list[str]
-    ts: float
+    start: float
+    end: float
 
 
 abort_phrases = ["cancel", "canceled", "avbryt"]
@@ -34,10 +35,10 @@ class Actions:
         global ts_threshold
         ts_threshold = time.perf_counter()
 
-    def abort_specific_phrases(phrases: list[str]):
+    def abort_specific_phrases(phrases: list[str], start: float, end: float):
         """Abort the specified phrases"""
         global abort_specific_phrases
-        abort_specific_phrases = AbortPhrases(phrases, time.perf_counter())
+        abort_specific_phrases = AbortPhrases(phrases, start, end)
 
     def abort_phrase(phrase: Phrase) -> tuple[bool, str]:
         """Possibly abort current spoken phrase"""
@@ -48,9 +49,12 @@ class Actions:
 
         if abort_specific_phrases is not None:
             if current_phrase in abort_specific_phrases.phrases:
-                # Abort timestamp is before or equal end of phrase
+                # Abort phrase if timestamps overlap with aborted phrases
+                start = getattr(words[0], "start", 0)
                 end = getattr(words[-1], "end", 0)
-                if abort_specific_phrases.ts <= end:
+                if intersects(
+                    abort_specific_phrases.start, abort_specific_phrases.end, start, end
+                ):
                     actions.user.debug(f"Aborted phrase: {current_phrase}")
                     abort_entire_phrase(phrase)
                     abort_specific_phrases = None
@@ -58,7 +62,7 @@ class Actions:
                 else:
                     print("Matching abort specific phrase but not timestamps")
                     print(abort_specific_phrases)
-                    print(current_phrase, end)
+                    print(current_phrase, start, end)
             abort_specific_phrases = None
 
         if ts_threshold is not None:
@@ -114,3 +118,8 @@ def get_capture(phrase: Phrase, abort_phrase: str) -> Capture:
     sequence = [DecodeWord(abort_phrase)]
     vmc = VMCapture(name=name, data=sequence)
     return Capture(vm_capture=vmc, sequence=sequence, mapping={})
+
+
+def intersects(t1_start: float, t1_end: float, t2_start: float, t2_end: float) -> bool:
+    """Returns true if the two time intervals intersects"""
+    return (t1_start <= t2_start <= t1_end) or (t2_start <= t1_start <= t2_end)
