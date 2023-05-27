@@ -4,6 +4,7 @@ list: user.vocabulary
 # Words that should be added to Talon's vocabulary.
 
 # Portmanteaus containing trailing commands
+
 backup
 countdown
 setup
@@ -12,12 +13,14 @@ for each
 to string
 
 # Without these "word down" and similar commands can get misinterpreted
+
 up
 down
 left
 right
 
 # Names
+
 Administratum
 Aegis
 Andreas
@@ -26,6 +29,7 @@ Arvidsson
 Bitwarden
 curse less: Cursorless
 Cursorless
+focus right: Focusrite
 Highcharts
 Izabel
 Karlstad
@@ -50,6 +54,7 @@ Wildfly
 xbox
 
 # Abbreviations
+
 admin
 api
 auto
@@ -70,6 +75,7 @@ util
 vpn
 
 # Misc words
+
 cheat sheet
 local host: localhost
 yeah

@@ -1,4 +1,4 @@
-from talon import Module, actions
+from talon import Module
 from talon.grammar import Phrase
 
 mod = Module()

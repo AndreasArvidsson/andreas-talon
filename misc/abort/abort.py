@@ -2,6 +2,7 @@ from talon import Module, Context, actions
 from talon.grammar import Phrase, Capture
 from talon.grammar.vm import VMCapture
 from talon.engines.w2l import DecodeWord
+from dataclasses import dataclass
 import time
 
 mod = Module()
@@ -13,9 +14,17 @@ ctx_sv.matches = r"""
 language: sv
 """
 
+
+@dataclass
+class AbortPhrases:
+    phrases: list[str]
+    ts: float
+
+
 abort_phrases = ["cancel", "canceled", "avbryt"]
 
-ts_threshold = None
+abort_specific_phrases: AbortPhrases = None
+ts_threshold: float = None
 
 
 @mod.action_class
@@ -25,21 +34,41 @@ class Actions:
         global ts_threshold
         ts_threshold = time.perf_counter()
 
+    def abort_specific_phrases(phrases: list[str]):
+        """Abort the specified phrases"""
+        global abort_specific_phrases
+        abort_specific_phrases = AbortPhrases(phrases, time.perf_counter())
+
     def abort_phrase(phrase: Phrase) -> tuple[bool, str]:
         """Possibly abort current spoken phrase"""
-        global ts_threshold
+        global ts_threshold, abort_specific_phrases
+
+        words = phrase["phrase"]
+        current_phrase = " ".join(words)
+
+        if abort_specific_phrases is not None:
+            if current_phrase in abort_specific_phrases.phrases:
+                # Abort timestamp is before or equal end of phrase
+                end = getattr(words[-1], "end", 0)
+                if abort_specific_phrases.ts <= end:
+                    actions.user.debug(f"Aborted phrase: {current_phrase}")
+                    abort_entire_phrase(phrase)
+                    abort_specific_phrases = None
+                    return True, ""
+                else:
+                    print("Matching abort specific phrase but not timestamps")
+                    print(abort_specific_phrases)
+                    print(current_phrase, end)
+            abort_specific_phrases = None
 
         if ts_threshold is not None:
+            # Start of phrase is before timestamp threshold
             delta = ts_threshold - phrase["_ts"]
             ts_threshold = None
             if delta > 0:
-                actions.user.debug(f"Aborted phrase. {delta:.2f}s")
-                phrase["phrase"] = []
-                if "parsed" in phrase:
-                    phrase["parsed"]._sequence = []
+                actions.user.debug(f"Aborted phrase: {delta:.2f}s")
+                abort_entire_phrase(phrase)
                 return True, ""
-
-        words = phrase["phrase"]
 
         for abort_phrase in abort_phrases:
             if words[-1] == abort_phrase:
@@ -58,11 +87,17 @@ class Actions:
                     return True, f"... {abort_phrase}"
                 return True, abort_phrase
 
-        return False, " ".join(words)
+        return False, current_phrase
 
     def abort_phrase_command():
         """Abort current spoken phrase"""
         return ""
+
+
+def abort_entire_phrase(phrase: Phrase):
+    phrase["phrase"] = []
+    if "parsed" in phrase:
+        phrase["parsed"]._sequence = []
 
 
 def get_capture(phrase: Phrase, abort_phrase: str) -> Capture:

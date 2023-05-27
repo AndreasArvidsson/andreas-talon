@@ -1,7 +1,6 @@
 from talon import Module, Context, cron, actions
 
 mod = Module()
-
 state = {}
 cron_jobs = {}
 callbacks = {}
@@ -26,14 +25,13 @@ class UserActions:
         actions.user.mouse_scrolling("up")
 
     def noise_shush_stop():
-        # actions.user.abort_current_phrase()
+        actions.user.abort_specific_phrases(["hash", "ssh"])
         actions.user.mouse_scroll_stop()
 
     def noise_hiss_start():
         actions.user.mouse_scrolling("down")
 
     def noise_hiss_stop():
-        # actions.user.abort_current_phrase()
         actions.user.mouse_scroll_stop()
 
 

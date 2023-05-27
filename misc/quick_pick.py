@@ -2,8 +2,6 @@ from talon import Module, Context, ui, speech_system, actions
 from talon.screen import Screen
 from talon.canvas import Canvas, MouseEvent
 from talon.skia import RoundRect
-
-# from talon.skia.typeface import Typeface
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.types import Rect, Point2d
 from talon.grammar import Phrase
@@ -11,13 +9,10 @@ from dataclasses import dataclass
 from typing import Callable, Optional
 import math
 
-TEXT_SIZE = 32
-HEIGHT = TEXT_SIZE * 2
-WIDTH = HEIGHT * 2.5
-RADIUS = WIDTH * 1.25
-CORNER_RADIUS = TEXT_SIZE / 2
-OFFSET = HEIGHT * 0.25
-SNAP_WIDTH = WIDTH * 1.5
+BACKGROUND_COLOR = "fffafa"  # Snow
+HOVER_COLOR = "6495ed"  # CornflowerBlue
+BORDER_COLOR = "000000"  # Black
+TEXT_COLOR = "000000"  # Black
 SNAP_COLORS = [
     "cd5c5c",  #  IndianRed
     "1e90ff",  # DodgerBlue
@@ -26,10 +21,6 @@ SNAP_COLORS = [
     "ba55d3",  # MediumOrchid
     "fa8072",  # Salmon
 ]
-BACKGROUND_COLOR = "fffafa"  # Snow
-HOVER_COLOR = "6495ed"  # CornflowerBlue
-BORDER_COLOR = "000000"  # Black
-TEXT_COLOR = "000000"  # Black
 
 
 @dataclass
@@ -54,6 +45,17 @@ class Button:
     move_mouse: Optional[bool] = False
 
 
+class Size:
+    def __init__(self, scale: float):
+        self.text = 24 * scale
+        self.height = self.text * 2
+        self.width = self.height * 2.5
+        self.radius = self.width * 1.25
+        self.corner_radius = self.text / 2
+        self.offset = self.height * 0.25
+        self.snap_width = self.width * 1.5
+
+
 ctx = Context()
 ctx.matches = r"""
 mode: all
@@ -62,14 +64,13 @@ mode: all
 and mode: dictation
 """
 
-
 mod = Module()
+size: Size = None
 canvas: Canvas = None
 mouse_pos: Point2d = None
 hover_rect: Rect = None
-last_callback: Callable[[], None] = None
+repeater_callback: Callable[[], None] = None
 buttons: list[Button] = []
-
 
 circle_options = [
     CircleOption("Drag", -90, actions.user.mouse_drag, True),
@@ -115,14 +116,11 @@ snap_positions = [
 
 
 def add_button(c: SkiaCanvas, text: str, rect: Rect):
-    rrect = RoundRect.from_rect(rect, x=CORNER_RADIUS, y=CORNER_RADIUS)
+    rrect = RoundRect.from_rect(rect, x=size.corner_radius, y=size.corner_radius)
 
     c.paint.style = c.paint.Style.FILL
     c.paint.color = HOVER_COLOR if hover_rect == rect else BACKGROUND_COLOR
     c.draw_rrect(rrect)
-
-    if hover_rect == rect:
-        print(text)
 
     c.paint.style = c.paint.Style.STROKE
     c.paint.color = BORDER_COLOR
@@ -130,9 +128,8 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
 
     c.paint.style = c.paint.Style.FILL
     c.paint.color = TEXT_COLOR
-    c.paint.textsize = TEXT_SIZE
+    c.paint.textsize = size.text
 
-    # c.paint.typeface = Typeface.from_name("Arial")
     if len(text) > 10:
         text = text[:10]
 
@@ -145,19 +142,21 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
 
 
 def draw_horizontal(c: SkiaCanvas, options: list[Option], x: float, y: float):
-    x = x - ((len(options) - 1) * (WIDTH + OFFSET) + WIDTH) / 2
+    x = x - ((len(options) - 1) * (size.width + size.offset) + size.width) / 2
+    y -= size.height / 2
     for option in options:
-        rect = Rect(x, y, WIDTH, HEIGHT)
-        x += WIDTH + OFFSET
+        rect = Rect(x, y, size.width, size.height)
+        x += size.width + size.offset
         buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
 
 
 def draw_vertical(c: SkiaCanvas, options: list[Option], x: float, y: float):
-    y = y - ((len(options) - 1) * (HEIGHT + OFFSET) + HEIGHT) / 2
+    x -= size.width / 2
+    y = y - ((len(options) - 1) * (size.height + size.offset) + size.height) / 2
     for option in options:
-        rect = Rect(x, y, WIDTH, HEIGHT)
-        y += HEIGHT + OFFSET
+        rect = Rect(x, y, size.width, size.height)
+        y += size.height + size.offset
         buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
 
@@ -165,26 +164,26 @@ def draw_vertical(c: SkiaCanvas, options: list[Option], x: float, y: float):
 def draw_circle(c: SkiaCanvas, options: list[CircleOption], cx: float, cy: float):
     for option in options:
         radians = math.radians(option.degrees)
-        x = cx + RADIUS * math.cos(radians)
-        y = cy + RADIUS * 1.25 * math.sin(radians)
-        rect = Rect(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT)
+        x = cx + size.radius * math.cos(radians)
+        y = cy + size.radius * 1.25 * math.sin(radians)
+        rect = Rect(x - size.width / 2, y - size.height / 2, size.width, size.height)
         buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
 
 
 def draw_snap_positions(c: SkiaCanvas, positions: list[list[str]], x: float, y: float):
-    height = SNAP_WIDTH / (c.width / c.height)
-    org_x = x - SNAP_WIDTH / 2
-    x = org_x
-    y = y - ((len(positions) / 3 - 1) * (height + OFFSET) + height) / 2
+    height = size.snap_width / (c.width / c.height)
+    # org_x = x - SNAP_WIDTH / 2
+    org_x = x
+    y = y - ((len(positions) / 3 - 1) * (height + size.offset) + height) / 2
 
     for i, group in enumerate(positions):
-        rect = Rect(x, y, SNAP_WIDTH, height)
+        rect = Rect(x, y, size.snap_width, height)
         if i % 3 == 2:
             x = org_x
-            y += height + OFFSET
+            y += height + size.offset
         else:
-            x += SNAP_WIDTH + OFFSET
+            x += size.snap_width + size.offset
 
         if len(group) == 0:
             continue
@@ -220,6 +219,7 @@ def get_running_options() -> list[Option]:
 def on_draw(c: SkiaCanvas):
     global buttons
     buttons = []
+    offset = 2 * size.radius
 
     c.paint.typeface = "Segoe UI Symbol"
 
@@ -233,7 +233,7 @@ def on_draw(c: SkiaCanvas):
     draw_vertical(
         c,
         get_running_options(),
-        c.rect.left + c.rect.width / 3,
+        c.rect.center.x - offset - size.width / 2,
         c.rect.center.y,
     )
 
@@ -241,18 +241,15 @@ def on_draw(c: SkiaCanvas):
         c,
         media_options,
         c.rect.center.x,
-        c.rect.bot - c.rect.height / 3,
+        c.rect.center.y + offset + size.height / 2,
     )
 
     draw_snap_positions(
         c,
         snap_positions,
-        c.rect.right + -c.rect.width / 3,
+        c.rect.center.x + offset,
         c.rect.center.y,
     )
-
-    # c.paint.style = c.paint.Style.STROKE
-    # c.draw_circle(c.rect.center.x, c.rect.center.y, RADIUS)
 
 
 def get_button_for_position(pos: Point2d):
@@ -263,7 +260,7 @@ def get_button_for_position(pos: Point2d):
 
 
 def on_mouse(e: MouseEvent):
-    global last_callback, hover_rect
+    global repeater_callback, hover_rect
     button = get_button_for_position(e.gpos)
 
     if e.event == "mousemove":
@@ -279,13 +276,14 @@ def on_mouse(e: MouseEvent):
                 actions.mouse_move(mouse_pos.x, mouse_pos.y)
             actions.sleep("75ms")
             button.callback()
-            last_callback = button.callback
+            repeater_callback = button.callback
 
 
 def show():
-    global canvas, mouse_pos
+    global canvas, mouse_pos, size
     mouse_pos = Point2d(actions.mouse_x(), actions.mouse_y())
     screen: Screen = ui.main_screen()
+    size = Size(screen.scale)
     canvas = Canvas.from_screen(screen)
     canvas.blocks_mouse = True
     canvas.register("draw", on_draw)
@@ -304,8 +302,9 @@ def hide():
 @ctx.action_class("user")
 class UserActions:
     def noise_cluck():
-        if last_callback is not None:
-            last_callback()
+        # If available the repeat noise repeats the last quick pick callback
+        if repeater_callback:
+            repeater_callback()
         else:
             actions.next()
 
@@ -314,16 +313,17 @@ class UserActions:
 class Actions:
     def quick_pick_show():
         """Show quick pick"""
-        if canvas is None:
+        if not canvas:
             show()
         else:
             hide()
 
 
 def on_post_phrase(phrase: Phrase):
-    global last_callback
-    if last_callback is not None and actions.speech.enabled() and phrase.get("phrase"):
-        last_callback = None
+    global repeater_callback
+    # On each spoken phrase the repeater noise returns to default implementation
+    if repeater_callback and phrase.get("phrase"):
+        repeater_callback = None
 
 
 speech_system.register("post:phrase", on_post_phrase)

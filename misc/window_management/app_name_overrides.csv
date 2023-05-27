@@ -4,7 +4,6 @@ Application name, Spoken form
 # Add spoken forms to these applications
 
 "Robo 3T, MongoDB management tool", Robomongo
-Application Frame Host, Netflix
 Codium, Code
 Diablo III Retail, Diablo
 Diablo IV Retail, Diablo
@@ -30,6 +29,7 @@ WindowsTerminal.exe, Terminal
 
 # Exclude these applications
 
+Application Frame Host,
 ApplicationFrameHost.exe,
 ConEmuC64.exe,
 conhost.exe,
@@ -38,6 +38,7 @@ csrss.exe,
 dllhost.exe,
 Git for Windows,
 Host Process for Windows Services,
+LockApp.exe,
 Logi Overlay,
 LogiOptions.exe (UNICODE),
 LogiOptionsMgr.exe (UNICODE),
@@ -69,4 +70,5 @@ Windows Shell Experience Host,
 Windows Start Experience Host,
 wslhost.exe,
 WWAHost.exe,
+Xbox Game Bar,
 XboxGameBarSpotify.exe,
