@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from typing import Callable, Optional
 import math
 
+FONT_FAMILY = "Segoe UI Symbol"
 BACKGROUND_COLOR = "fffafa"  # Snow
 HOVER_COLOR = "6495ed"  # CornflowerBlue
 BORDER_COLOR = "000000"  # Black
@@ -52,7 +53,8 @@ class Size:
         self.width = self.height * 2.5
         self.radius = self.width * 1.25
         self.corner_radius = self.text / 2
-        self.offset = self.height * 0.25
+        self.margin = self.height * 0.25
+        self.offset = 2 * self.radius
         self.snap_width = self.width * 1.5
 
 
@@ -115,6 +117,10 @@ snap_positions = [
 ]
 
 
+def get_midpoint(length: int, value: float):
+    return (length * value + (length - 1) * size.margin) / 2
+
+
 def add_button(c: SkiaCanvas, text: str, rect: Rect):
     rrect = RoundRect.from_rect(rect, x=size.corner_radius, y=size.corner_radius)
 
@@ -142,21 +148,21 @@ def add_button(c: SkiaCanvas, text: str, rect: Rect):
 
 
 def draw_horizontal(c: SkiaCanvas, options: list[Option], x: float, y: float):
-    x = x - ((len(options) - 1) * (size.width + size.offset) + size.width) / 2
+    x -= get_midpoint(len(options), size.width)
     y -= size.height / 2
     for option in options:
         rect = Rect(x, y, size.width, size.height)
-        x += size.width + size.offset
+        x += size.width + size.margin
         buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
 
 
 def draw_vertical(c: SkiaCanvas, options: list[Option], x: float, y: float):
     x -= size.width / 2
-    y = y - ((len(options) - 1) * (size.height + size.offset) + size.height) / 2
+    y -= get_midpoint(len(options), size.height)
     for option in options:
         rect = Rect(x, y, size.width, size.height)
-        y += size.height + size.offset
+        y += size.height + size.margin
         buttons.append(Button(rect, option.callback, option.move_mouse))
         add_button(c, option.text, rect)
 
@@ -171,19 +177,20 @@ def draw_circle(c: SkiaCanvas, options: list[CircleOption], cx: float, cy: float
         add_button(c, option.text, rect)
 
 
-def draw_snap_positions(c: SkiaCanvas, positions: list[list[str]], x: float, y: float):
-    height = size.snap_width / (c.width / c.height)
-    # org_x = x - SNAP_WIDTH / 2
-    org_x = x
-    y = y - ((len(positions) / 3 - 1) * (height + size.offset) + height) / 2
+def draw_snap_positions(
+    c: SkiaCanvas, positions: list[list[str]], org_x: float, y: float
+):
+    height = size.snap_width * c.height / c.width
+    x = org_x
+    y -= get_midpoint(math.ceil(len(positions) / 3), height)
 
     for i, group in enumerate(positions):
         rect = Rect(x, y, size.snap_width, height)
         if i % 3 == 2:
             x = org_x
-            y += height + size.offset
+            y += height + size.margin
         else:
-            x += size.snap_width + size.offset
+            x += size.snap_width + size.margin
 
         if len(group) == 0:
             continue
@@ -219,9 +226,8 @@ def get_running_options() -> list[Option]:
 def on_draw(c: SkiaCanvas):
     global buttons
     buttons = []
-    offset = 2 * size.radius
 
-    c.paint.typeface = "Segoe UI Symbol"
+    c.paint.typeface = FONT_FAMILY
 
     draw_circle(
         c,
@@ -233,7 +239,7 @@ def on_draw(c: SkiaCanvas):
     draw_vertical(
         c,
         get_running_options(),
-        c.rect.center.x - offset - size.width / 2,
+        c.rect.center.x - size.offset - size.width / 2,
         c.rect.center.y,
     )
 
@@ -241,13 +247,13 @@ def on_draw(c: SkiaCanvas):
         c,
         media_options,
         c.rect.center.x,
-        c.rect.center.y + offset + size.height / 2,
+        c.rect.center.y + size.offset + size.height / 2,
     )
 
     draw_snap_positions(
         c,
         snap_positions,
-        c.rect.center.x + offset,
+        c.rect.center.x + size.offset,
         c.rect.center.y,
     )
 
