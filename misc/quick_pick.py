@@ -84,10 +84,9 @@ circle_options = [
 ]
 
 media_options = [
-    # "\u23F5""⏵"
-    Option("Play", lambda: actions.key("play_pause")),
-    Option("Prev", lambda: actions.key("prev")),
-    Option("Next", lambda: actions.key("next")),
+    Option("⏮", lambda: actions.key("prev")),
+    Option("⏯", lambda: actions.key("play_pause")),
+    Option("⏭", lambda: actions.key("next")),
 ]
 
 snap_positions = [
@@ -221,6 +220,8 @@ def get_running_options() -> list[Option]:
 def on_draw(c: SkiaCanvas):
     global buttons
     buttons = []
+
+    c.paint.typeface = "Segoe UI Symbol"
 
     draw_circle(
         c,
