@@ -83,7 +83,7 @@ circle_options = [
     CircleOption("Tab close", 13, actions.app.tab_close),
     CircleOption("Taskmgr", 140, lambda: actions.key("ctrl-shift-escape")),
     CircleOption("Switcher", 40, lambda: actions.key("super-tab")),
-    CircleOption("Search", 90, actions.user.browser_search_selected),
+    CircleOption("🔍", 90, actions.user.browser_search_selected),
 ]
 
 media_options = [
