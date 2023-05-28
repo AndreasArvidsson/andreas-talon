@@ -236,15 +236,12 @@ class Actions:
 
     def gamepad_tester_button(id: str, is_pressed: bool):
         """Indicates that a gamepad button has changed state"""
-        print(id, is_pressed)
         buttons[id] = is_pressed
 
     def gamepad_tester_trigger(id: str, value: float):
         """Indicates that a gamepad trigger has changed state"""
-        print(id, value)
         triggers[id] = value
 
     def gamepad_tester_stick(id: str, x: float, y: float):
         """Indicates that a gamepad stick has changed state"""
-        print(id, x, y)
         sticks[id] = (x, y)

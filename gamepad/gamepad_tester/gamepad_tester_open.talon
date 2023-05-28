@@ -1,7 +1,6 @@
 tag: user.gamepad_tester
 -
 
-
 gamepad(dpad_up:up):        user.gamepad_tester_button("dpad_up", false)
 gamepad(dpad_up:down):      user.gamepad_tester_button("dpad_up", true)
 gamepad(dpad_down:up):      user.gamepad_tester_button("dpad_down", false)
@@ -40,5 +39,3 @@ gamepad(r2:change):         user.gamepad_tester_trigger("r2", value)
 
 gamepad(left_xy):           user.gamepad_tester_stick("left", x, y*-1)
 gamepad(right_xy):          user.gamepad_tester_stick("right", x, y*-1)
-
-gamepad tester:             user.gamepad_tester_toggle()
