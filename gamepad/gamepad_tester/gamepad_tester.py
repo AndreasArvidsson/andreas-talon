@@ -1,6 +1,6 @@
 from talon import Module, Context, ui
 from talon.screen import Screen
-from talon.canvas import Canvas
+from talon.canvas import Canvas, MouseEvent
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.types import Rect
 
@@ -206,19 +206,36 @@ def on_draw(c: SkiaCanvas):
     render_stick(c, c.rect.center.x + offset, y, *sticks["right"])
 
 
+def on_mouse(e: MouseEvent):
+    global last_mouse_pos
+    if e.event == "mousedown" and e.button == 0:
+        last_mouse_pos = e.gpos
+    elif e.event == "mousemove" and last_mouse_pos:
+        dx = e.gpos.x - last_mouse_pos.x
+        dy = e.gpos.y - last_mouse_pos.y
+        last_mouse_pos = e.gpos
+        canvas.move(canvas.rect.x + dx, canvas.rect.y + dy)
+    elif e.event == "mouseup" and e.button == 0:
+        last_mouse_pos = None
+
+
 def show():
     global canvas
     screen: Screen = ui.main_screen()
     x = screen.rect.center.x
     y = screen.rect.center.y
     canvas = Canvas.from_rect(Rect(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT))
+    canvas.draggle = True
+    canvas.blocks_mouse = True
     canvas.register("draw", on_draw)
+    canvas.register("mouse", on_mouse)
     ctx.tags = ["user.gamepad_tester"]
 
 
 def hide():
     global canvas
     canvas.unregister("draw", on_draw)
+    canvas.unregister("mouse", on_mouse)
     canvas.close()
     canvas = None
     ctx.tags = []
