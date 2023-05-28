@@ -19,7 +19,6 @@ buttons = {
     "west": False,
     "east": False,
     "south": False,
-    "south": False,
     "select": False,
     "start": False,
     "l1": False,
