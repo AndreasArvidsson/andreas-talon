@@ -1,3 +1,6 @@
+not tag: user.gamepad_tester
+-
+
 gamepad(dpad_up):           print("dpad_up")
 gamepad(dpad_down):         print("dpad_down")
 gamepad(dpad_left):         print("dpad_left")
@@ -28,3 +31,5 @@ gamepad(left_xy):           user.gamepad_scroll(x, y*-1)
 gamepad(right_xy):          print("right_xy: {x}, {y}")
 # gamepad(right_x):           print("right_x: {value}")
 # gamepad(right_y):           print("right_y: {value}")
+
+gamepad tester:             user.gamepad_tester_toggle()

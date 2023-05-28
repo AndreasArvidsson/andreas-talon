@@ -15,7 +15,7 @@ HOVER_COLOR = "6495ed"  # CornflowerBlue
 BORDER_COLOR = "000000"  # Black
 TEXT_COLOR = "000000"  # Black
 SNAP_COLORS = [
-    "cd5c5c",  #  IndianRed
+    "cd5c5c",  # IndianRed
     "1e90ff",  # DodgerBlue
     "556b2f",  # DarkOliveGreen
     "c0c0c0",  # Silver
