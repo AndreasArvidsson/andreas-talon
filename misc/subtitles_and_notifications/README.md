@@ -4,9 +4,9 @@ Custom subtitles and notifications with settings to tweak color, position and ti
 
 Talons default subtitles needs to be disabled to avoid duplicates.
 
-![Subtitle](./subtitle.png)
+![Subtitle](./images/subtitle.png)
 
-![Notification](./notification.png)
+![Notification](./images/notification.png)
 
 ## Use subtitles
 
