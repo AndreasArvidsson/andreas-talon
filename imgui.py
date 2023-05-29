@@ -1,5 +1,5 @@
 from talon import Module, skia, ui, settings
-from talon.skia.image import Image
+from talon.skia.image import Image as SkiaImage
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
@@ -214,12 +214,12 @@ class Spacer:
 
 
 class Image:
-    def __init__(self, image: Image):
+    def __init__(self, image: SkiaImage):
         self.numbered = True
         self._image = image
         self.rect = None
 
-    def _resize(self, width: int, height: int) -> Image:
+    def _resize(self, width: int, height: int) -> SkiaImage:
         aspect_ratio = self._image.width / self._image.height
         if self._image.width < self._image.height:
             height = round(width / aspect_ratio)
