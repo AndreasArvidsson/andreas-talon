@@ -1,17 +1,10 @@
-from talon import Module, Context, actions, registry
-from talon.grammar import Phrase
+from talon import Module, Context, registry
 from talon_init import TALON_HOME
 from typing import Union
 import re
 import os
 import inspect
-from .types import (
-    AnalyzedPhrase,
-    AnalyzedCommand,
-    AnalyzedPhraseWithActions,
-    AnalyzedCommandWithActions,
-    AnalyzedAction,
-)
+from .types import AnalyzedAction
 
 mod = Module()
 
@@ -31,101 +24,78 @@ default_descs = {
 }
 
 
-@mod.action_class
-class Actions:
-    def analyze_phrase_with_actions(phrase: Phrase) -> AnalyzedPhraseWithActions:
-        """Analyze spoken phrase. Include actions"""
-        analyzed_phrase: AnalyzedPhrase = actions.user.analyze_phrase(phrase)
+def calc_command_actions(
+    code: str, capture_mapping: dict[str, any]
+) -> list[AnalyzedAction]:
+    """Calculate command actions from a analyzed phrase"""
+    lines = [l for l in code.splitlines() if l and not l.startswith("#")]
+    parameters_map = get_parameters(capture_mapping)
+    actions = []
 
-        return AnalyzedPhraseWithActions(
-            analyzed_phrase.phrase,
-            analyzed_phrase.words,
-            analyzed_phrase.metadata,
-            [
-                AnalyzedCommandWithActions(
-                    cmd.phrase,
-                    cmd.rule,
-                    cmd.code,
-                    cmd.path,
-                    cmd.line,
-                    cmd.captures,
-                    cmd.captureMapping,
-                    actions.user.calc_command_actions(cmd),
-                )
-                for cmd in analyzed_phrase.commands
-            ],
+    for line in lines:
+        match = ACTION_RE.match(line)
+
+        if match:
+            action_name = match.group(1)
+            action_params = match.group(2) or None
+        elif is_string(line):
+            action_name = "auto_insert"
+            action_params = line
+        else:
+            continue
+
+        if action_name in ignore_actions:
+            continue
+
+        if action_name not in registry.actions:
+            raise Exception(f"Can't find action {action_name}")
+
+        action = registry.actions[action_name][-1]
+        action_args = inspect.getfullargspec(action.func).args
+        path = get_path(inspect.getsourcefile(action.func))
+
+        try:
+            line_number = inspect.getsourcelines(action.func)[1]
+        except:
+            line_number = None
+
+        mod_desc = action.type_decl.desc
+        ctx_desc = (
+            inspect.getdoc(action.func) if isinstance(action.ctx, Context) else None
         )
 
-    def calc_command_actions(command: AnalyzedCommand) -> list[AnalyzedAction]:
-        """Calculate command actions from a analyzed phrase"""
-        lines = [l for l in command.code.splitlines() if l and not l.startswith("#")]
-        parameters_map = get_parameters(command)
-        actions = []
-
-        for line in lines:
-            match = ACTION_RE.match(line)
-
-            if match:
-                action_name = match.group(1)
-                action_params = match.group(2) or None
-            elif is_string(line):
-                action_name = "auto_insert"
-                action_params = line
-            else:
-                continue
-
-            if action_name in ignore_actions:
-                continue
-
-            if action_name not in registry.actions:
-                raise Exception(f"Can't find action {action_name}")
-
-            action = registry.actions[action_name][-1]
-            action_args = inspect.getfullargspec(action.func).args
-            path = get_path(inspect.getsourcefile(action.func))
-
-            try:
-                line_number = inspect.getsourcelines(action.func)[1]
-            except:
-                line_number = None
-
-            mod_desc = action.type_decl.desc
-            ctx_desc = (
-                inspect.getdoc(action.func) if isinstance(action.ctx, Context) else None
+        if action_params:
+            explanation = get_action_explanation(
+                action_name,
+                action_params,
+                action_args,
+                mod_desc,
+                ctx_desc,
+                parameters_map,
             )
+        else:
+            explanation = None
 
-            if action_params:
-                explanation = get_action_explanation(
-                    action_name,
-                    action_params,
-                    action_args,
-                    mod_desc,
-                    ctx_desc,
-                    parameters_map,
-                )
-            else:
-                explanation = None
-
-            actions.append(
-                AnalyzedAction(
-                    line,
-                    action_name,
-                    action_params,
-                    path,
-                    line_number,
-                    mod_desc,
-                    ctx_desc,
-                    explanation,
-                )
+        actions.append(
+            AnalyzedAction(
+                line,
+                action_name,
+                action_params,
+                path,
+                line_number,
+                mod_desc,
+                ctx_desc,
+                explanation,
             )
+        )
 
-        return actions
+    return actions
 
 
-def get_parameters(command: AnalyzedCommand):
+def get_parameters(capture_mapping: dict[str, any]):
     parameters = {}
 
-    for capture, values in command.captureMapping.items():
+    for capture, values in capture_mapping.items():
         parameters[f"{capture}_list"] = values
         parameters[capture] = values[0]
         for i, value in enumerate(values):

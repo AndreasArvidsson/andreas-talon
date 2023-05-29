@@ -8,6 +8,7 @@ from typing import Optional
 import os
 import re
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
+from .calc_command_actions import calc_command_actions
 
 SIM_RE = re.compile(r"""(?:\[\d+] "[^"]+"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
 
@@ -54,19 +55,24 @@ def get_metadata(phrase: Phrase) -> Optional[dict]:
 def get_commands(phrase: Phrase, phrase_text: str) -> list[AnalyzedCommand]:
     captures = phrase["parsed"]
     commands = get_commands_impl(captures, phrase_text)
-
     return [
-        AnalyzedCommand(
-            " ".join(capture._unmapped),
-            command.rule.rule,
-            command.script.code,
-            get_path(command.script.filename),
-            command.script.start_line,
-            get_captures(capture),
-            get_capture_mapping(capture),
-        )
-        for command, capture in zip(commands, captures)
+        get_command(command, capture) for command, capture in zip(commands, captures)
     ]
+
+
+def get_command(command: CommandImpl, capture: Capture) -> AnalyzedCommand:
+    code = command.script.code
+    capture_mapping = get_capture_mapping(capture)
+    return AnalyzedCommand(
+        " ".join(capture._unmapped),
+        command.rule.rule,
+        code,
+        get_path(command.script.filename),
+        command.script.start_line,
+        get_captures(capture),
+        capture_mapping,
+        calc_command_actions(code, capture_mapping),
+    )
 
 
 def get_commands_impl(captures: list[Capture], phrase_text: str) -> list[CommandImpl]:
@@ -151,7 +157,7 @@ def get_captures(capture: Capture) -> AnalyzedCapture:
     return captures
 
 
-def get_capture_mapping(capture: Capture):
+def get_capture_mapping(capture: Capture) -> dict[str, any]:
     mapping = {}
 
     for k, v in capture._mapping.items():

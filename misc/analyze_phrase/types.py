@@ -49,13 +49,6 @@ class AnalyzedCommand:
     line: int
     captures: list[AnalyzedCapture]
     captureMapping: dict
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.__dict__})"
-
-
-@dataclass
-class AnalyzedCommandWithActions(AnalyzedCommand):
     actions: list[AnalyzedAction]
 
     def __repr__(self):
@@ -63,26 +56,11 @@ class AnalyzedCommandWithActions(AnalyzedCommand):
 
 
 @dataclass
-class AnalyzedPhraseBase:
+class AnalyzedPhrase:
     phrase: str
     words: list[AnalyzedWord]
     metadata: Optional[dict]
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.__dict__})"
-
-
-@dataclass
-class AnalyzedPhrase(AnalyzedPhraseBase):
     commands: list[AnalyzedCommand]
-
-    def __repr__(self):
-        return f"{self.__class__.__name__}({self.__dict__})"
-
-
-@dataclass
-class AnalyzedPhraseWithActions(AnalyzedPhraseBase):
-    commands: list[AnalyzedCommandWithActions]
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"

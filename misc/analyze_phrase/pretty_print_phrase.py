@@ -1,5 +1,5 @@
 from talon import Module
-from .types import AnalyzedPhraseWithActions
+from .types import AnalyzedPhrase
 
 mod = Module()
 
@@ -13,7 +13,7 @@ settings_pretty = mod.setting(
 
 @mod.action_class
 class Actions:
-    def pretty_print_phrase(analyzed_phrase: AnalyzedPhraseWithActions):
+    def pretty_print_phrase(analyzed_phrase: AnalyzedPhrase):
         """Pretty prints the analyzed phrase and its commands"""
         if not settings_pretty.get():
             return

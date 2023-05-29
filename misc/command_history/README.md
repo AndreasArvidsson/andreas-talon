@@ -6,14 +6,14 @@ Command history with description of performed commands and their actions
 
 ## Usage
 
-Dependent on [Analyze phrase](../analyze_phrase/)
+Dependent on [Analyze phrase](../analyze_phrase)
 
 ```py
 from talon import speech_system, actions
 
 def on_post_phrase(phrase):
-    # Get an analyzed phrase with actions
-    analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
+    # Get an analyzed phrase
+    analyzed_phrase = actions.user.analyzed_phrase(phrase)
 
     # Append analyzed phrase to command history
     actions.user.command_history_append(analyzed_phrase)

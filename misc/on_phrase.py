@@ -22,7 +22,7 @@ def on_post_phrase(phrase: Phrase):
     if skip_phrase(phrase):
         return
 
-    analyzed_phrase = actions.user.analyze_phrase_with_actions(phrase)
+    analyzed_phrase = actions.user.analyze_phrase(phrase)
     actions.user.command_history_append(analyzed_phrase)
     actions.user.pretty_print_phrase(analyzed_phrase)
 

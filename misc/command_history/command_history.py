@@ -1,7 +1,7 @@
 from talon import Module, ui
 from dataclasses import dataclass
 import time
-from ..analyze_phrase.types import AnalyzedPhraseWithActions
+from ..analyze_phrase.types import AnalyzedPhrase
 from ...imgui import imgui
 
 mod = Module()
@@ -41,7 +41,7 @@ def gui(gui: imgui.GUI):
 
 @mod.action_class
 class Actions:
-    def command_history_append(analyzed_phrase: AnalyzedPhraseWithActions):
+    def command_history_append(analyzed_phrase: AnalyzedPhrase):
         """Append command to history"""
         global history
         ttl = ttl_setting.get()

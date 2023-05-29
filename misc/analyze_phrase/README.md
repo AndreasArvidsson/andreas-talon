@@ -14,18 +14,11 @@ One of the use cases for analyzing phrases is to provide description of commands
 from talon import speech_system, actions
 
 def on_post_phrase(phrase):
-    # Get an analyzed phrase without actions
+    # Get an analyzed phrase
     analyzed_phrase = actions.user.analyze_phrase(phrase)
 
-    # Calculate actions for each command
-    for cmd in analyzed_phrase.commands:
-        cmd_actions = actions.user.calc_command_actions(cmd)
-
-    # Get an analyzed phrase with actions
-    analyzed_phrase_with_actions = actions.user.analyze_phrase_with_actions(phrase)
-
-    # Pretty print analyzed phrase with actions
-    actions.user.pretty_print_phrase(analyzed_phrase_with_actions)
+    # Pretty print analyzed phrase
+    actions.user.pretty_print_phrase(analyzed_phrase)
 
 speech_system.register("post:phrase", on_post_phrase)
 ```
