@@ -13,13 +13,13 @@ mod.tag("gamepad_tester", "Gamepad tester gui is showing")
 
 buttons = {
     "dpad_up": False,
+    "dpad_right": False,
     "dpad_down": False,
     "dpad_left": False,
-    "dpad_right": False,
     "north": False,
-    "west": False,
     "east": False,
     "south": False,
+    "west": False,
     "select": False,
     "start": False,
     "l1": False,
@@ -172,19 +172,19 @@ def on_draw(c: SkiaCanvas):
 
     offset = CIRCLE_RADIUS * 2.5
 
-    # Render trigger buttons
+    # Draw trigger buttons
     y = y_center - ROW_OFFSET * 2.5
     render_trigger(c, c.rect.center.x - offset, y, triggers["l2"])
     render_trigger(c, c.rect.center.x + offset, y, triggers["r2"])
 
-    # Render shoulder buttons
+    # Draw bumper buttons
     y = y_center - ROW_OFFSET * 2.15
     render_flat_button(c, c.rect.center.x - offset, y, buttons["l1"])
     render_flat_button(c, c.rect.center.x + offset, y, buttons["r1"])
 
     y = y_center - ROW_OFFSET
 
-    # Render d-pad
+    # Draw D-pad buttons
     render_buttons(
         c,
         c.rect.center.x - offset,
@@ -193,7 +193,7 @@ def on_draw(c: SkiaCanvas):
         ["dpad_up", "dpad_right", "dpad_down", "dpad_left"],
     )
 
-    # Render compass buttons
+    # Draw compass buttons
     render_buttons(
         c,
         c.rect.center.x + offset,
@@ -202,13 +202,13 @@ def on_draw(c: SkiaCanvas):
         ["north", "east", "south", "west"],
     )
 
-    # Render middle buttons
+    # Draw select/start buttons
     offset = CIRCLE_RADIUS * 0.75
     y = y_center - ROW_OFFSET / 3
     render_round_button(c, c.rect.center.x - offset, y, buttons["select"])
     render_round_button(c, c.rect.center.x + offset, y, buttons["start"])
 
-    # Render sticks
+    # Draw sticks
     offset = CIRCLE_RADIUS * 1.5
     y = y_center + ROW_OFFSET
     render_stick(c, c.rect.center.x - offset, y, buttons["l3"], *sticks["left"])
