@@ -1,8 +1,12 @@
-# Sub titles and notifications
+# Subtitles and notifications
 
 Custom subtitles and notifications with settings to tweak color, position and timeout.
 
 Talons default subtitles needs to be disabled to avoid duplicates.
+
+![Subtitle](./subtitle.png)
+
+![Notification](./notification.png)
 
 ## Use subtitles
 
