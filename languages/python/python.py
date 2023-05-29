@@ -1,5 +1,4 @@
 from talon import Module, Context, actions
-from ...merge import merge
 
 mod = Module()
 ctx = Context()
@@ -47,20 +46,19 @@ ctx.lists["self.code_function"] = {
     "isinstance",
     "enumerate",
 }
-ctx.lists["self.code_insert"] = merge(
-    {"None", "self"},
-    {
-        "from": "from ",
-        "import": "import ",
-        "regex": "re",
-        "def": "def ",
-        "class": "class ",
-        "lambda": "lambda: ",
-        "global": "global ",
-        "pass": "pass",
-        "raise": "raise ",
-    },
-)
+ctx.lists["self.code_insert"] = {
+    "None": "None",
+    "self": "self",
+    "pass": "pass",
+    "from": "from ",
+    "regex": "re",
+    "import": "import ",
+    "def": "def ",
+    "class": "class ",
+    "lambda": "lambda: ",
+    "global": "global ",
+    "raise": "raise ",
+}
 ctx.lists["self.code_snippet"] = {
     "item": '"$1": $0,',
     "ternary": "$1 if $2 else $0",

@@ -1,6 +1,5 @@
 from talon import app, Module, Context, actions, app
 from os import path, environ
-from ...merge import merge
 
 mod = Module()
 mod.tag("file_manager", desc="Tag for enabling generic file management commands")
@@ -127,17 +126,18 @@ def on_ready():
         "talon user": str(actions.path.talon_user()),
         "talon recordings": path.join(str(actions.path.talon_home()), "recordings"),
     }
-    os_paths = {}
     if app.platform == "windows":
         os_paths = get_windows_paths()
     elif app.platform == "linux":
         os_paths = get_linux_paths()
+    else:
+        os_paths = {}
 
-    ctx.lists["self.path"] = merge(
-        {p.lower(): path.join(user_path, p) for p in user_dirs},
-        common_paths,
-        os_paths,
-    )
+    ctx.lists["self.path"] = {
+        **{p.lower(): path.join(user_path, p) for p in user_dirs},
+        **common_paths,
+        **os_paths,
+    }
 
     # for k, v in sorted(ctx.lists["self.path"].items(), key=lambda i: i[1]):
     #     print(f"{k.ljust(20)}{v}")

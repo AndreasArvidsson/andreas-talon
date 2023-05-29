@@ -1,5 +1,4 @@
 from talon import Module, Context, actions
-from ...merge import merge
 
 mod = Module()
 
@@ -27,34 +26,35 @@ ctx.lists["self.code_function"] = {
     "join",
     "require",
 }
-javascript_inserts = merge(
-    {"null", "undefined", "this"},
-    {
-        "from": " from ",
-        "import": "import ",
-        "export": "export ",
-        "default": "default ",
-        "extends": " extends ",
-        "abstract": "abstract ",
-        "implements": "implements ",
-        "async": "async ",
-        "await": "await ",
-        "function": "function ",
-        "spread": "...",
-        "new": "new ",
-        "const": "const ",
-        "let": "let ",
-        "throw": "throw ",
-        "static": "static ",
-        "get": "get ",
-        "set": "set ",
-        "nullish": " ?? ",
-        "instance of": " instanceof ",
-        "type of": "typeof ",
-        "yield": "yield ",
-        "delete": "delete ",
-    },
-)
+javascript_inserts = {
+    "null": "null",
+    "undefined": "undefined",
+    "this": "this",
+    "from": " from ",
+    "import": "import ",
+    "export": "export ",
+    "default": "default ",
+    "extends": " extends ",
+    "abstract": "abstract ",
+    "implements": "implements ",
+    "async": "async ",
+    "await": "await ",
+    "function": "function ",
+    "spread": "...",
+    "new": "new ",
+    "const": "const ",
+    "let": "let ",
+    "throw": "throw ",
+    "static": "static ",
+    "get": "get ",
+    "set": "set ",
+    "nullish": " ?? ",
+    "instance of": " instanceof ",
+    "type of": "typeof ",
+    "yield": "yield ",
+    "delete": "delete ",
+}
+
 ctx.lists["self.code_insert"] = javascript_inserts
 
 for_in_loop = """for (const $1 in $2) {

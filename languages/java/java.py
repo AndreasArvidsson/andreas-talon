@@ -1,5 +1,4 @@
 from talon import Module, Context, actions
-from ...merge import merge
 
 mod = Module()
 ctx = Context()
@@ -26,43 +25,42 @@ ctx.lists["self.code_function_modifier"] = {
     *static,
 }
 ctx.lists["self.code_variable_modifier"] = {*access_modifiers, *final, *static}
-ctx.lists["self.code_data_type"] = merge(
-    {
-        "int",
-        "long",
-        "short",
-        "char",
-        "byte",
-        "float",
-        "double",
-        "String",
-        "Map",
-        "List",
-        "Set",
-        "Object",
-    },
-    {
-        "bool": "boolean",
-        "array list": "ArrayList",
-        "hash set": "HashSet",
-        "hash map": "HashMap",
-    },
-)
+code_data_type_simple = {
+    "int",
+    "long",
+    "short",
+    "char",
+    "byte",
+    "float",
+    "double",
+    "String",
+    "Map",
+    "List",
+    "Set",
+    "Object",
+}
+ctx.lists["self.code_data_type"] = {
+    **{t: t for t in code_data_type_simple},
+    "bool": "boolean",
+    "array list": "ArrayList",
+    "hash set": "HashSet",
+    "hash map": "HashMap",
+}
+
 ctx.lists["self.code_function"] = {"toString"}
-ctx.lists["self.code_insert"] = merge(
-    {k: f"{k} " for k in all_keywords},
-    {"null", "this"},
-    {
-        "import": "import ",
-        "new": "new ",
-        "extends": "extends ",
-        "implements": "implements ",
-        "class": "class ",
-        "void": "void ",
-        "throw": "throw ",
-        "instance of": " instanceof ",
-    },
-)
+ctx.lists["self.code_insert"] = {
+    **{k: f"{k} " for k in all_keywords},
+    "null": "null",
+    "this": "this",
+    "import": "import ",
+    "new": "new ",
+    "extends": "extends ",
+    "implements": "implements ",
+    "class": "class ",
+    "void": "void ",
+    "throw": "throw ",
+    "instance of": " instanceof ",
+}
 ctx.lists["self.code_snippet"] = {
     "arrow function": """() -> {
         \t$0
