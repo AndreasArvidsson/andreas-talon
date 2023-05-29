@@ -52,13 +52,13 @@ TRIGGER_HEIGHT = CIRCLE_RADIUS
 BUTTON_OFFSETS = [(0, -1), (1, 0), (0, 1), (-1, 0)]
 
 
-def render_round_button(c: SkiaCanvas, x: float, y: float, isPressed: bool):
-    c.paint.style = c.paint.Style.FILL if isPressed else c.paint.Style.STROKE
+def render_round_button(c: SkiaCanvas, x: float, y: float, is_pressed: bool):
+    c.paint.style = c.paint.Style.FILL if is_pressed else c.paint.Style.STROKE
     c.draw_circle(x, y, BUTTON_RADIUS)
 
 
-def render_square_button(c: SkiaCanvas, x: float, y: float, isPressed: bool):
-    c.paint.style = c.paint.Style.FILL if isPressed else c.paint.Style.STROKE
+def render_square_button(c: SkiaCanvas, x: float, y: float, is_pressed: bool):
+    c.paint.style = c.paint.Style.FILL if is_pressed else c.paint.Style.STROKE
     c.draw_rect(
         Rect(
             x - BUTTON_RADIUS,
@@ -69,8 +69,8 @@ def render_square_button(c: SkiaCanvas, x: float, y: float, isPressed: bool):
     )
 
 
-def render_flat_button(c: SkiaCanvas, x: float, y: float, isPressed: bool):
-    c.paint.style = c.paint.Style.FILL if isPressed else c.paint.Style.STROKE
+def render_flat_button(c: SkiaCanvas, x: float, y: float, is_pressed: bool):
+    c.paint.style = c.paint.Style.FILL if is_pressed else c.paint.Style.STROKE
     c.draw_rect(
         Rect(
             x - BUTTON_FLAT_WIDTH / 2,
@@ -90,11 +90,11 @@ def render_buttons(
         (offset_x, offset_y) = BUTTON_OFFSETS[i]
         button_x = x + offset_x * BUTTON_OFFSET
         button_y = y + offset_y * BUTTON_OFFSET
-        isPressed = buttons[button_id]
+        is_pressed = buttons[button_id]
         if useCircle:
-            render_round_button(c, button_x, button_y, isPressed)
+            render_round_button(c, button_x, button_y, is_pressed)
         else:
-            render_square_button(c, button_x, button_y, isPressed)
+            render_square_button(c, button_x, button_y, is_pressed)
 
 
 def render_trigger(c: SkiaCanvas, x: float, y: float, value: float):
@@ -129,7 +129,15 @@ def render_trigger(c: SkiaCanvas, x: float, y: float, value: float):
     )
 
 
-def render_stick(c: SkiaCanvas, x: float, y: float, value_x: float, value_y: float):
+def render_stick(
+    c: SkiaCanvas, x: float, y: float, is_pressed: bool, value_x: float, value_y: float
+):
+    # Stick click
+    if is_pressed:
+        c.paint.style = c.paint.Style.FILL
+        c.draw_circle(x, y, CIRCLE_RADIUS)
+        return
+
     c.paint.style = c.paint.Style.STROKE
     # Draw outer circle
     c.draw_circle(x, y, CIRCLE_RADIUS)
@@ -203,8 +211,8 @@ def on_draw(c: SkiaCanvas):
     # Render sticks
     offset = CIRCLE_RADIUS * 1.5
     y = y_center + ROW_OFFSET
-    render_stick(c, c.rect.center.x - offset, y, *sticks["left"])
-    render_stick(c, c.rect.center.x + offset, y, *sticks["right"])
+    render_stick(c, c.rect.center.x - offset, y, buttons["l3"], *sticks["left"])
+    render_stick(c, c.rect.center.x + offset, y, buttons["r3"], *sticks["right"])
 
 
 def on_mouse(e: MouseEvent):
