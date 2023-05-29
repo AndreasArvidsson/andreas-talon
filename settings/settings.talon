@@ -21,11 +21,6 @@ settings():
     # Mouse scroll speed
     user.scroll_speed = 0.7
 
-    # Subtitles
-    user.subtitles_show = true
-    # Show subtitles on all screens
-    user.subtitles_all_screens = true
-
     # General gui
     # imgui.scale = 1.25
     user.gui_max_rows = 5
