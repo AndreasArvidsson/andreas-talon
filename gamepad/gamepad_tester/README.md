@@ -6,3 +6,6 @@
 1. Say `"gamepad tester"` to open gamepad tester UI. 
 1. Press buttons on actual gamepad and see interaction in UI.
 1. Close gamepad tester by saying `"gamepad tester"` again.
+
+## Conflict with existing gamepad implementations
+The gamepad tester doesn't disable your existing gamepad implementations. If you don't want your existing gamepad implementations to trigger during the testing phase you can add `not tag: user.gamepad_tester` at the top of your gamepad Talon files.
