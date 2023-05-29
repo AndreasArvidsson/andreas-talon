@@ -1,3 +1,15 @@
+# Analyze phrase
+
+Analyzes a spoke in Talon phrase returning metadata and description for actions.
+
+## Pretty print phrase
+
+One of the use cases for analyzing phrases is to provide description of commands within the phrase.
+
+![Pretty printed phrase](./pretty_printed_phrase.png)
+
+## Usage
+
 ```py
 from talon import speech_system, actions
 
@@ -17,6 +29,8 @@ def on_post_phrase(phrase):
 
 speech_system.register("post:phrase", on_post_phrase)
 ```
+
+## Format
 
 ```js
 AnalyzedPhraseWithActions({
