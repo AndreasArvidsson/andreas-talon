@@ -3,7 +3,7 @@ from talon.skia.image import Image as SkiaImage
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
-from talon.ui import Rect
+from talon.types import Rect
 from typing import Callable, Optional
 from dataclasses import dataclass
 

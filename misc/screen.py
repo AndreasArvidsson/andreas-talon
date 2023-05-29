@@ -1,5 +1,6 @@
 from talon import Module, ui, cron
 from talon.canvas import Canvas
+from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
 
 mod = Module()
@@ -31,30 +32,28 @@ class Actions:
 
 
 def show_screen_number(screen: ui.Screen, number: int):
-    def on_draw(c):
-        c.paint.typeface = "arial"
-        # The min(width, height) is to not get gigantic size on portrait screens
-        height = min(c.width, c.height)
-        c.paint.textsize = round(height / 2)
-        text = f"{number}"
-        rect = c.paint.measure_text(text)[1]
-        x = c.rect.center.x - rect.center.x
-        y = c.rect.center.y + rect.height / 2
-        draw_text(c, text, x, y)
-        cron.after("3s", canvas.close)
-
     canvas = Canvas.from_screen(screen)
-    canvas.register("draw", on_draw)
+    canvas.register("draw", lambda c: on_draw(c, number))
     canvas.freeze()
+    cron.after("3s", canvas.close)
 
 
-def draw_text(c, text: str, x: int, y: int):
+def on_draw(c: SkiaCanvas, number: int):
+    c.paint.typeface = "arial"
+    # The min(width, height) is to not get gigantic size on portrait screens
+    size = min(c.width, c.height)
+    c.paint.textsize = round(size / 2)
+    text = f"{number}"
+    rect = c.paint.measure_text(text)[1]
+    x = c.rect.center.x - rect.center.x
+    y = c.rect.center.y + rect.height / 2
+
     c.paint.imagefilter = ImageFilter.drop_shadow(2, 2, 1, 1, "000000")
     c.paint.style = c.paint.Style.FILL
     c.paint.color = "ffffff"
     c.draw_text(text, x, y)
 
-    # Border / outline
+    # Outline
     c.paint.imagefilter = None
     c.paint.style = c.paint.Style.STROKE
     c.paint.color = "aaaaaa"
