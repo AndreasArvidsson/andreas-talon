@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, registry
+from talon import Module, Context, actions
 from ...imgui import imgui
 
 mod = Module()
@@ -11,8 +11,7 @@ mod.tag("help_running_apps", "Help running applications gui is showing")
 def gui(gui: imgui.GUI):
     gui.header("Running apps")
     gui.line(bold=True)
-    running_apps = registry.lists["user.running_application"][0]
-    for name in running_apps:
+    for name in actions.user.get_running_applications():
         gui.text(name)
     gui.spacer()
     if gui.button("Hide"):
@@ -26,7 +25,7 @@ class Actions:
         if gui.showing:
             actions.user.help_running_apps_hide()
         else:
-            ctx.tags = ["user.help_running_apps"]
+            ctx.tags = ["self.help_running_apps"]
             gui.show()
 
     def help_running_apps_hide():
