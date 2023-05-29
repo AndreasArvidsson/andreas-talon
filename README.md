@@ -18,44 +18,46 @@ This is a list of features that I have implemented that I think is of more inter
     - [Gamepad tester](./gamepad/gamepad_tester)
 5. **Clipboard manager** - Clipboard manager built in Talon
     - [Clipboard manager](./misc/clipboard_manager)
-6. **Foot switch support** - Add support for scrolling, navigating and more
-    - [Foot switch](./misc/foot_switch)
+6. **Quick pick** - UI for quick access to useful features by clicking buttons
+    - [Quick pick](./misc/quick_pick)
 7. **Command history** - Improved command history with description of commands
     - [Command history](./misc/command_history)
 8. **Analyze phrase** - Analyze a Talon phrase and retrieve metadata and description of commands
     - [Analyze phrase](./misc/analyze_phrase)
-9. **RePhrase** - Reevaluate spoken phrase after Talon context change. Can for example be used to change to another application/window and execute commands to that window in the same utterance. `"focus firefox tab new"`
+9. **Foot switch support** - Add support for scrolling, navigating and more
+    - [Foot switch](./misc/foot_switch)
+10. **RePhrase** - Reevaluate spoken phrase after Talon context change. Can for example be used to change to another application/window and execute commands to that window in the same utterance. `"focus firefox tab new"`
     - [window_management.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/misc/window_management/window_management.talon#L1-L5)
     - [window_focus.py](https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/misc/window_management/window_focus.py#L111-L117)
     - [rephrase.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/rephrase.py)
-10. **Scroll on hiss noise** - Use the Talon hiss noise to scroll
+11. **Scroll on hiss noise** - Use the Talon hiss noise to scroll
     - [on_hiss.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/on_hiss.py)
     - [mouse.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/mouse/mouse.py#L97-L112)
-11. **Wake Talon on double pop noise** - When Talon is in sleep mode a rapid double pop noise will wake Talon
+12. **Wake Talon on double pop noise** - When Talon is in sleep mode a rapid double pop noise will wake Talon
     - [on_pop.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/on_pop.py)
     - [sleep.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/sleep/sleep.py#L23-L29)
-12. **<user.text> with abbreviations, spelling and numbers** - `"say foo forty four brief address air bat cap bar"` => `foo 44 addr abc bar`
+13. **<user.text> with abbreviations, spelling and numbers** - `"say foo forty four brief address air bat cap bar"` => `foo 44 addr abc bar`
     - [dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/cbe580f5c6984afe31c76c3a3feb9229b1ede1d1/text/dictation.py#L44-L60)
-13. **Smarter homophones** - Talon remembers recently used homophones and automatically replaces/reuses your chosen version
+14. **Smarter homophones** - Talon remembers recently used homophones and automatically replaces/reuses your chosen version
     - [dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/523c5086950459fac4ff044b1f2509684c9e14fa/text/dictation.py#L136)
     - [homophones.py](https://github.com/AndreasArvidsson/andreas-talon/blob/523c5086950459fac4ff044b1f2509684c9e14fa/text/homophones/homophones.py#L101-L109)
-14. **Lorem ipsum generator** - `"lorem ipsum thirty"` => `Lorem ipsum dolor sit amet...`
+15. **Lorem ipsum generator** - `"lorem ipsum thirty"` => `Lorem ipsum dolor sit amet...`
     - [lorem_ipsum.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/lorem_ipsum/lorem_ipsum.talon)
     - [lorem_ipsum.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/lorem_ipsum/lorem_ipsum.py)
-15. **Snippet insertion** - Generic textual snippet support with override for VSCode
+16. **Snippet insertion** - Generic textual snippet support with override for VSCode
     - [javascript.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/langs/javascript/javascript.py#L139-L144)
     - [snippets.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/text/snippets.py)
-16. **Imports fix** - Add missing and remove unused imports for VSCode
+17. **Imports fix** - Add missing and remove unused imports for VSCode
     - [vscode.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/cc2f5ecd5f696addd1d8df60207337e295fa800e/apps/vscode/vscode.talon#L32-L35)
     - [vscode.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/apps/vscode/vscode.py#L391-L396)
-17. **Copy command ID** - Copy command ID for the selected command in the VSCode command palette
+18. **Copy command ID** - Copy command ID for the selected command in the VSCode command palette
     - [vscode.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/apps/vscode/vscode.talon#L252)
     - [vscode.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/apps/vscode/vscode.py#L382-L389)
-18. **VSCode auto formatter for Talonscript** - Automatically format Talonscript files using VSCode extension.
+19. **VSCode auto formatter for Talonscript** - Automatically format Talonscript files using VSCode extension.
     - [vscode.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/11cd0cebefacd60bea51b58ebe5e7b2cf4d54b06/apps/vscode/vscode.talon#L20)
     - [vscode.py](https://github.com/AndreasArvidsson/andreas-talon/blob/11cd0cebefacd60bea51b58ebe5e7b2cf4d54b06/apps/vscode/vscode.py#L255-L256)
     - [registerLanguageFormatter.ts](https://github.com/AndreasArvidsson/andreas-talon-vscode/blob/master/src/registerLanguageFormatter.ts)
-19. **VSCode language definition for Talon actions** - Jump from Talonscript action invocation to Python definition using VSCode extension.
+20. **VSCode language definition for Talon actions** - Jump from Talonscript action invocation to Python definition using VSCode extension.
     - [registerLanguageDefinitions.ts](https://github.com/AndreasArvidsson/andreas-talon-vscode/blob/master/src/registerLanguageDefinitions.ts)
 
 ## Dependencies
