@@ -39,17 +39,18 @@ def gui(gui: imgui.GUI):
                 gui.text(f"  {action.get_explanation_or_desc()}")
 
 
+def command_history_append(analyzed_phrase: AnalyzedPhrase):
+    """Append command to history"""
+    global history
+    ttl = ttl_setting.get()
+    ttl = time.monotonic() + ttl if ttl > -1 else -1
+    for i, cmd in enumerate(analyzed_phrase.commands):
+        history.append(HistoryEntry(cmd.phrase, cmd.actions, ttl, i == 0))
+    history = history[-size_setting.get() :]
+
+
 @mod.action_class
 class Actions:
-    def command_history_append(analyzed_phrase: AnalyzedPhrase):
-        """Append command to history"""
-        global history
-        ttl = ttl_setting.get()
-        ttl = time.monotonic() + ttl if ttl > -1 else -1
-        for i, cmd in enumerate(analyzed_phrase.commands):
-            history.append(HistoryEntry(cmd.phrase, cmd.actions, ttl, i == 0))
-        history = history[-size_setting.get() :]
-
     def command_history_toggle():
         """Toggles viewing the history"""
         global display_size

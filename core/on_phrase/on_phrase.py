@@ -1,8 +1,12 @@
 from talon import speech_system, actions
 from talon.grammar import Phrase
 from .abort.abort import abort_update_phrase
-from .sleep_update_phrase import sleep_update_phrase
+from .analyze_phrase.analyze_phrase import analyze_phrase
+from .command_history.command_history import command_history_append
+from .subtitles_and_notifications.subtitles_and_notifications import show_subtitle
+from .pretty_print_phrase import pretty_print_phrase
 from .print_phrase_timings import print_phrase_timings
+from .sleep_update_phrase import sleep_update_phrase
 
 
 def on_pre_phrase(phrase: Phrase):
@@ -15,7 +19,7 @@ def on_pre_phrase(phrase: Phrase):
         is_sleep, text = sleep_update_phrase(phrase)
 
     if text:
-        actions.user.subtitle(text)
+        show_subtitle(text)
         print_phrase_timings(phrase)
 
 
@@ -23,9 +27,9 @@ def on_post_phrase(phrase: Phrase):
     if skip_phrase(phrase):
         return
 
-    analyzed_phrase = actions.user.analyze_phrase(phrase)
-    actions.user.command_history_append(analyzed_phrase)
-    actions.user.pretty_print_phrase(analyzed_phrase)
+    analyzed_phrase = analyze_phrase(phrase)
+    command_history_append(analyzed_phrase)
+    pretty_print_phrase(analyzed_phrase)
 
 
 def skip_phrase(phrase: Phrase) -> bool:

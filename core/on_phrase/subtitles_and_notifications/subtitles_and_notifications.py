@@ -49,21 +49,22 @@ setting_y = setting(
 )
 
 
+def show_subtitle(text: str):
+    """Show subtitle"""
+    # Override take precedence
+    if show_override is not None:
+        if show_override:
+            show_text(text, is_subtitle=True)
+    else:
+        possibly_show_text(text, is_subtitle=True)
+
+
 @mod.action_class
 class Actions:
     def toggle_subtitles():
         """Toggle subtitles"""
         global show_override
         show_override = not show_override
-
-    def subtitle(text: str):
-        """Show subtitle"""
-        # Override take precedence
-        if show_override is not None:
-            if show_override:
-                show_text(text, is_subtitle=True)
-        else:
-            possibly_show_text(text, is_subtitle=True)
 
     def notify(text: str):
         """Show notification"""

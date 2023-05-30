@@ -9,8 +9,8 @@ settings():
     # Set log level
     user.log_level = "debug"
 
-    # Log timing statistics for spoken phrases
-    user.timings_log = false
+    # Print timings for spoken phrases
+    user.print_phrase_timings = false
 
     # Pretty print spoken phrases
     user.pretty_print_phrase = true

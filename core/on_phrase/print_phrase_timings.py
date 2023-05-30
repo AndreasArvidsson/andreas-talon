@@ -4,7 +4,7 @@ from talon.grammar import Phrase
 mod = Module()
 
 settings_log = mod.setting(
-    "timings_log",
+    "print_phrase_timings",
     type=bool,
     default=False,
     desc="If true phrase timings will be printed to the log",

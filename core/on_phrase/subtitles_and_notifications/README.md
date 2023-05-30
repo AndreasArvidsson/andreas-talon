@@ -18,7 +18,7 @@ def on_pre_phrase(phrase):
 
     if words and actions.speech.enabled():
         text = " ".join(words)
-        actions.user.subtitle(text)
+        show_subtitle(text)
 
 speech_system.register("pre:phrase", on_pre_phrase)
 ```

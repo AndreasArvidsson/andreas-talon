@@ -1,4 +1,4 @@
-from talon import Module, actions, speech_system, registry
+from talon import actions, speech_system, registry
 from talon.grammar import Phrase, Capture
 from talon.grammar.vm import VMListCapture, VMCapture
 from talon.engines.w2l import DecodeWord, WordMeta
@@ -12,20 +12,16 @@ from .calc_command_actions import calc_command_actions
 
 SIM_RE = re.compile(r"""(?:\[\d+] "[^"]+"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
 
-mod = Module()
 
-
-@mod.action_class
-class Actions:
-    def analyze_phrase(phrase: Phrase) -> AnalyzedPhrase:
-        """Analyze spoken phrase"""
-        phrase_text = get_phrase(phrase)
-        return AnalyzedPhrase(
-            phrase_text,
-            get_words(phrase),
-            get_metadata(phrase),
-            get_commands(phrase, phrase_text),
-        )
+def analyze_phrase(phrase: Phrase) -> AnalyzedPhrase:
+    """Analyze spoken phrase"""
+    phrase_text = get_phrase(phrase)
+    return AnalyzedPhrase(
+        phrase_text,
+        get_words(phrase),
+        get_metadata(phrase),
+        get_commands(phrase, phrase_text),
+    )
 
 
 def get_phrase(phrase: Phrase) -> str:
