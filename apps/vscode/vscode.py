@@ -54,7 +54,7 @@ def vscode_panel(m) -> dict:
 class WinActions:
     def filename():
         filename = actions.win.title().split(" - ")[0]
-        if "." in filename:
+        if "." in filename or is_untitled(filename):
             return filename
         return ""
 
@@ -84,6 +84,12 @@ class CodeActions:
 
     def complete():
         vscode("editor.action.triggerSuggest")
+
+    def language() -> str:
+        # New untitled files are markdown in vscode
+        if is_untitled(actions.win.filename()):
+            return "markdown"
+        return actions.next()
 
 
 @ctx.action_class("edit")
@@ -403,3 +409,7 @@ class Actions:
 def empty_selection():
     if actions.edit.selected_text():
         actions.edit.right()
+
+
+def is_untitled(filename: str):
+    return re.match(r"^Untitled-\d$", filename)
