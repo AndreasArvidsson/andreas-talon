@@ -4,5 +4,4 @@ language: en
 language: sv
 -
 
-{user.sleep_phrase} [<phrase>]$:
-    user.talon_sleep()
+{user.abort_phrase}$:       user.abort_phrase_command()

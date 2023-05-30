@@ -23,3 +23,6 @@ ny (paragraf | graf):
 # Switch to command mode
 (command mode | over | över)$:
     user.command_mode()
+
+# Switch to sleep mode
+{user.sleep_phrase} [<phrase>]$: user.talon_sleep()

@@ -27,3 +27,6 @@ new [graph | block]:
 # Switch to command mode and insert a phrase
 (command mode | over) [<phrase>]$:
     user.command_mode(phrase or "")
+
+# Switch to sleep mode
+{user.sleep_phrase} [<phrase>]$: user.talon_sleep()

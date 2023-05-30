@@ -1,21 +1,22 @@
-from talon import Module, speech_system, actions
+from talon import speech_system, actions
 from talon.grammar import Phrase
-
-mod = Module()
+from .abort.abort import abort_update_phrase
+from .sleep_update_phrase import sleep_update_phrase
+from .print_phrase_timings import print_phrase_timings
 
 
 def on_pre_phrase(phrase: Phrase):
     if skip_phrase(phrase):
         return
 
-    is_aborted, text = actions.user.abort_phrase(phrase)
+    is_aborted, text = abort_update_phrase(phrase)
 
     if not is_aborted:
-        is_sleep, text = actions.user.talon_sleep_update_phrase(phrase)
+        is_sleep, text = sleep_update_phrase(phrase)
 
     if text:
         actions.user.subtitle(text)
-        actions.user.print_phrase_timings(phrase)
+        print_phrase_timings(phrase)
 
 
 def on_post_phrase(phrase: Phrase):

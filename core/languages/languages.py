@@ -4,7 +4,8 @@ from dataclasses import dataclass
 mod = Module()
 ctx = Context()
 
-ctx.matches = r"""
+ctx_cmd = Context()
+ctx_cmd.matches = r"""
 mode: command
 """
 
@@ -47,14 +48,14 @@ languages = [
 ]
 
 mod.list("code_extension", desc="List of file programming languages file extensions")
-ctx.lists["self.code_extension"] = {
+ctx_cmd.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
     "pie": "py",
     "talon list": "talon-list",
 }
 
 mod.list("code_language", desc="List of file programming language identifiers")
-ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
+ctx_cmd.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
 
 extension_lang_map = {
     **{f".{l.extension}": l.id for l in languages},
@@ -80,11 +81,17 @@ for lang in extension_lang_map.values():
 
 # Create a mode for the automated language detection. This is active when no lang is forced.
 mod.tag("auto_lang")
-ctx.tags = ["user.auto_lang"]
+ctx_cmd.tags = ["user.auto_lang"]
 
 
 @ctx.action_class("code")
 class CodeActions:
+    def language() -> str:
+        return ""
+
+
+@ctx_cmd.action_class("code")
+class CodeCommandActions:
     def language() -> str:
         file_extension = actions.win.file_ext()
         if file_extension in extension_lang_map:
@@ -108,12 +115,12 @@ class AutoUserActions:
 class Actions:
     def code_set_language(language: str):
         """Sets the active language, and disables extension matching"""
-        ctx.tags = [f"user.{language}_forced"]
+        ctx_cmd.tags = [f"user.{language}_forced"]
         actions.user.notify(f"Enabled {language}")
 
     def code_automatic_language():
         """Clears the active forced language, and re-enables code.language: extension matching"""
-        ctx.tags = ["user.auto_lang"]
+        ctx_cmd.tags = ["user.auto_lang"]
         actions.user.notify("Automatic language")
 
     def code_language() -> str:
