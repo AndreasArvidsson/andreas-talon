@@ -78,8 +78,8 @@ class tab_actions:
     def code_return():
         """return statement"""
 
-    def code_link():
-        """Insert link"""
+    def code_link(text: str = ""):
+        """Insert link <text>"""
 
     # ----- Print statements -----
     def code_print(text: str = None):
