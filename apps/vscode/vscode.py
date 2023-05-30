@@ -2,6 +2,7 @@ from talon import Module, Context, actions
 import json
 import re
 
+PATTERN_RE = re.compile(r"Untitled-\d$")
 vscode = actions.user.vscode
 
 mod = Module()
@@ -412,4 +413,4 @@ def empty_selection():
 
 
 def is_untitled(filename: str):
-    return re.match(r"^Untitled-\d$", filename)
+    return PATTERN_RE.search(filename) is not None
