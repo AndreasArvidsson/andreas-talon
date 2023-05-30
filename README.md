@@ -9,23 +9,23 @@ In constant development. Things will break!
 This is a list of features that I have implemented that I think is of more interest to other Talon users. Things I have already upstreamed to [knausj](https://github.com/knausj85/knausj_talon) are omitted. Since I don't actually use a fork of knausj some modifications (often different names) might be required.
 
 1. **Custom subtitles** - User customizable subtitles for Talon
-    - [Subtitles and notifications](./misc/subtitles_and_notifications)
-2. **Mode indicator** - Graphical indicator to show you which Talon mode your currently are in
-    - [Mode indicator](./misc/mode_indicator)
-3. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
+    - [Subtitles and notifications](./core/on_phrase/subtitles_and_notifications)
+2. **Command history** - Improved command history with description of commands
+    - [Command history](./core/on_phrase/command_history)
+3. **Analyze phrase** - Analyze a Talon phrase and retrieve metadata and description of commands
+    - [Analyze phrase](./core/on_phrase/analyze_phrase)
+4. **Mode indicator** - Graphical indicator to show you which Talon mode your currently are in
+    - [Mode indicator](./plugins/mode_indicator)
+5. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
     - [Talon Deck](https://github.com/AndreasArvidsson/talon-deck)
-4. **Gamepad tester** - Builtin UI for visualizing interaction with Talon `gamepad()` api
-    - [Gamepad tester](./gamepad/gamepad_tester)
-5. **Clipboard manager** - Clipboard manager built in Talon
-    - [Clipboard manager](./misc/clipboard_manager)
-6. **Quick pick** - UI for quick access to useful features by clicking buttons
-    - [Quick pick](./misc/quick_pick)
-7. **Command history** - Improved command history with description of commands
-    - [Command history](./misc/command_history)
-8. **Analyze phrase** - Analyze a Talon phrase and retrieve metadata and description of commands
-    - [Analyze phrase](./misc/analyze_phrase)
+6. **Gamepad tester** - Builtin UI for visualizing interaction with Talon `gamepad()` api
+    - [Gamepad tester](./plugins/gamepad_tester)
+7. **Clipboard manager** - Clipboard manager built in Talon
+    - [Clipboard manager](./plugins/clipboard_manager)
+8. **Quick pick** - UI for quick access to useful features by clicking buttons
+    - [Quick pick](./plugins/quick_pick)
 9. **Foot switch support** - Add support for scrolling, navigating and more
-    - [Foot switch](./misc/foot_switch)
+    - [Foot switch](./core/foot_switch)
 10. **RePhrase** - Reevaluate spoken phrase after Talon context change. Can for example be used to change to another application/window and execute commands to that window in the same utterance. `"focus firefox tab new"`
     - [window_management.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/misc/window_management/window_management.talon#L1-L5)
     - [window_focus.py](https://github.com/AndreasArvidsson/andreas-talon/blob/f84a1aed3a11608eafcacd12ce37244a6cc07502/misc/window_management/window_focus.py#L111-L117)
