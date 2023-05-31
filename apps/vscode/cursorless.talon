@@ -21,15 +21,6 @@ tag(): user.cursorless_custom_number_small
 ^cursorless record resume$:
     user.vscode("cursorless.resumeRecording")
 
-# Copy / paste
-copy <user.cursorless_target>:
-    user.cursorless_command("copyToClipboard", cursorless_target)
-cut <user.cursorless_target>:
-    user.cursorless_command("cutToClipboard", cursorless_target)
-paste <number_small> [and <number_small>]* <user.cursorless_positional_target>:
-    user.clipboard_manager_copy(number_small_list)
-    user.cursorless_command("pasteFromClipboard", cursorless_positional_target)
-
 # Git
 git open <user.cursorless_target>:
     user.cursorless_command("setSelection", cursorless_target)

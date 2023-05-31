@@ -1,4 +1,5 @@
 Spoken form, Cursorless identifier
+
 bottom, scrollToBottom
 breakpoint, toggleLineBreakpoint
 bring, replaceWithTarget
@@ -9,17 +10,20 @@ clear, clearAndSetSelection
 clone up, insertCopyBefore
 clone, insertCopyAfter
 comment, toggleLineComment
+copy, copyToClipboard
 crown, scrollToTop
+cut, cutToClipboard
 dedent, outdentLine
 drink, editNewLineBefore
 drop, insertEmptyLineBefore
 extract, extractVariable
 float, insertEmptyLineAfter
 folding, foldRegion
-format|form, applyFormatter
-follow, followLink
 follow type, revealTypeDefinition
+follow, followLink
+format|form, applyFormatter
 give, deselect
+highlight, highlight
 hover, showHover
 indent, indentLine
 inspect, showDebugHover
@@ -43,10 +47,7 @@ switch, rewrap
 take, setSelection
 unfold, unfoldRegion
 wrap, wrapWithPairedDelimiter
-highlight, highlight
 
--copy, copyToClipboard
--cut, cutToClipboard
 # `revealDefinition` is already part of `followLink`
 -define, revealDefinition
 -snippet, insertSnippet
