@@ -1,8 +1,38 @@
-from talon import Module, actions
+from talon import Module, Context, actions
 import os
 
-
 mod = Module()
+ctx = Context()
+
+
+@ctx.action_class("user")
+class UseActions:
+    def cursorless_command(action_id: str, target: dict):
+        if target_is_selection(target) and not focused_element_is_text_editor():
+            perform_fallback_command(action_id, target)
+        else:
+            actions.next(action_id, target)
+
+
+def perform_fallback_command(action_id: str, target: dict):
+    """Perform non Cursorless fallback command"""
+    print(
+        "Current command targets selection and is not in a text editor. Perform fallback command"
+    )
+    print(action_id)
+    print(target)
+
+
+def focused_element_is_text_editor() -> bool:
+    element_type = actions.user.vscode_get("command-server.getFocusedElementType")
+    return element_type == "textEditor"
+
+
+def target_is_selection(target: dict) -> bool:
+    if target["type"] != "primitive":
+        return False
+    mark = target.get("mark")
+    return not mark or mark["type"] == "cursor"
 
 
 @mod.action_class
