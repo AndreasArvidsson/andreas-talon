@@ -6,7 +6,7 @@ ctx = Context()
 
 
 @ctx.action_class("user")
-class UseActions:
+class UserActions:
     def cursorless_command(action_id: str, target: dict):
         if target_is_selection(target) and not focused_element_is_text_editor():
             perform_fallback_command(action_id, target)
