@@ -82,7 +82,7 @@ circle_options = [
     CircleOption("🡪", -10, actions.user.go_forward),
     CircleOption("╳", 13, actions.app.tab_close),
     CircleOption("🖳", 140, lambda: actions.key("ctrl-shift-escape")),
-    CircleOption("🗗", 40, lambda: actions.key("super-tab")),
+    CircleOption("🗗", 40, lambda: actions.user.app_switcher()),
     CircleOption("🔍", 90, actions.user.browser_search_selected),
 ]
 

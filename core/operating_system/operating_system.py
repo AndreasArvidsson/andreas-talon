@@ -30,3 +30,6 @@ class Actions:
 
     def system_lock():
         """Lock operating system"""
+
+    def app_switcher():
+        """Show system application switcher"""

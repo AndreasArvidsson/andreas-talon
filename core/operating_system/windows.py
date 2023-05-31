@@ -36,6 +36,10 @@ class UserActions:
     def system_lock():
         actions.user.exec("rundll32.exe user32.dll,LockWorkStation")
 
+    def app_switcher():
+        """Show system application switcher"""
+        actions.key("super-tab")
+
 
 def shutdown(flag: str):
     actions.key("super-r")
