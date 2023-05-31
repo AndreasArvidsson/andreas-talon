@@ -2,7 +2,7 @@ from collections import defaultdict
 import math
 from typing import Iterable, Tuple
 from talon import Module, Context, actions, Module, registry, ui, app
-from ..imgui import imgui
+from ...core.imgui import imgui
 import re
 
 mod = Module()

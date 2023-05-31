@@ -1,5 +1,5 @@
 from talon import Module, actions, Module, scope
-from ..imgui import imgui
+from ...core.imgui import imgui
 
 mod = Module()
 
