@@ -203,7 +203,7 @@ class Actions:
 
 
 def hide_if_not_sticky():
-    if not sticky:
+    if not sticky and not stopped:
         actions.user.clipboard_manager_hide()
 
 
