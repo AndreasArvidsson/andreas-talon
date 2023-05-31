@@ -16,7 +16,7 @@ def on_pre_phrase(phrase: Phrase):
     is_aborted, text = abort_update_phrase(phrase)
 
     if not is_aborted:
-        is_sleep, text = sleep_update_phrase(phrase)
+        text = sleep_update_phrase(phrase)
 
     if text:
         show_subtitle(text)
