@@ -1,8 +1,8 @@
 Spoken form, Cursorless identifier
-else, ifElseStatement.alternative
-if, ifStatement.consequence
-if else, ifElseStatement.consequence
-try, tryCatchStatement.body
 
--link, link.text
--funk, functionDeclaration.body
+else, ifElseStatement.alternative
+funk, functionDeclaration.body
+if else, ifElseStatement.consequence
+if, ifStatement.consequence
+link, link.text
+try, tryCatchStatement.body
