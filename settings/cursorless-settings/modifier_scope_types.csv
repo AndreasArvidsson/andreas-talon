@@ -1,7 +1,9 @@
 Spoken form, Cursorless identifier
+
 arg, argumentOrParameter
 attribute, attribute
 block | graph, paragraph
+branch, branch
 call, functionCall
 callee, functionCallee
 car, character
@@ -17,6 +19,7 @@ funk name, functionName
 funk, namedFunction
 ident, identifier
 if state, ifStatement
+instance, instance
 item, collectionItem
 key, collectionKey
 lambda, anonymousFunction
@@ -33,12 +36,11 @@ selector, selector
 start tag, xmlStartTag
 state, statement
 string, string
+sub, word
 tags, xmlBothTags
 token, token
 type, type
 value, value
-sub, word
-branch, branch
 
 -chapter, chapter
 -environment, environment
