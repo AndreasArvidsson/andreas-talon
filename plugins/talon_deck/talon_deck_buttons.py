@@ -1,7 +1,5 @@
-from talon import Module, Context, actions, scope, app, cron
+from talon import Module, Context, actions, scope
 
-current_microphone = None
-current_eye_tracker = None
 
 mod = Module()
 ctx = Context()
@@ -53,8 +51,12 @@ app: vscode
 
 @ctx.action_class("user")
 class Actions:
+    def sound_microphone_enable_event():
+        actions.user.talon_deck_update()
+        actions.next()
+
     def talon_deck_get_buttons():
-        return [*get_microphone_buttons()]
+        return get_microphone_buttons()
 
 
 @ctx_command.action_class("user")
@@ -147,28 +149,13 @@ def get_code_language_buttons():
 
 
 def get_microphone_buttons():
-    if current_microphone and actions.speech.enabled():
+    microphone_enabled = actions.user.sound_microphone_enabled()
+    if microphone_enabled and actions.speech.enabled():
         return []
-    icon = "On" if current_microphone else "Off"
+    icon = "On" if microphone_enabled else "Off"
     return [
         {
             "icon": f"microphone{icon}",
-            "action": f"user.sound_microphone_enable({not current_microphone})",
+            "action": f"user.sound_microphone_enable({not microphone_enabled})",
         }
     ]
-
-
-def poll_microphone():
-    global current_microphone
-    active_microphone = actions.user.sound_microphone_enabled()
-    if active_microphone != current_microphone:
-        current_microphone = active_microphone
-        actions.user.talon_deck_update()
-
-
-def run_poll():
-    poll_microphone()
-
-
-# Use poll for features that are not updating the context
-app.register("ready", lambda: cron.interval("100ms", run_poll))

@@ -36,6 +36,11 @@ class Actions:
         else:
             actions.sound.set_microphone("None")
             actions.user.notify("Deactivating microphone")
+        actions.user.sound_microphone_enable_event()
+
+    def sound_microphone_enable_event():
+        """Event that triggers when the microphone is enabled or disabled"""
+        actions.skip()
 
 
 # ----- WINDOWS -----

@@ -21,3 +21,5 @@ settings():
     user.mode_indicator_color_command = "6495ed"
     # GhostWhite color for other modes
     user.mode_indicator_color_other = "f8f8ff"
+    # Black color for disabled microphone
+    user.mode_indicator_color_off = "000000"

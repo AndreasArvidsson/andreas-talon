@@ -1,4 +1,4 @@
-from talon import Module, app, registry, scope, skia, ui
+from talon import Module, Context, app, registry, scope, skia, ui, actions
 from talon.canvas import Canvas
 from talon.screen import Screen
 from talon.skia.canvas import Canvas as SkiaCanvas
@@ -8,6 +8,7 @@ from talon.types import Rect
 canvas: Canvas = None
 current_mode = ""
 mod = Module()
+ctx = Context()
 
 setting_show = mod.setting(
     "mode_indicator_show",
@@ -45,6 +46,7 @@ setting_color_dictation = mod.setting("mode_indicator_color_dictation", str)
 setting_color_mixed = mod.setting("mode_indicator_color_mixed", str)
 setting_color_command = mod.setting("mode_indicator_color_command", str)
 setting_color_other = mod.setting("mode_indicator_color_other", str)
+setting_color_off = mod.setting("mode_indicator_color_off", str)
 
 setting_paths = {
     s.path
@@ -60,11 +62,14 @@ setting_paths = {
         setting_color_mixed,
         setting_color_command,
         setting_color_other,
+        setting_color_off,
     ]
 }
 
 
 def get_mode_color() -> str:
+    if not actions.user.sound_microphone_enabled():
+        return setting_color_off.get()
     if current_mode == "sleep":
         return setting_color_sleep.get()
     elif current_mode == "dictation":
@@ -155,6 +160,13 @@ def update_indicator():
         canvas.freeze()
     elif canvas:
         hide_indicator()
+
+
+@ctx.action_class("user")
+class Actions:
+    def sound_microphone_enable_event():
+        update_indicator()
+        actions.next()
 
 
 def on_update_contexts():
