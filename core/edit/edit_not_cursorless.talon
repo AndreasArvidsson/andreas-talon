@@ -48,10 +48,6 @@ paste to file:              user.paste_all()
 # Selection
 clone this:                 edit.selection_clone()
 
-# Navigate to specified text/symbol: go right paren
-{user.navigation_action} {user.navigation_direction} to <user.any_alphanumeric_key>:
-    user.navigation(navigation_action, navigation_direction, any_alphanumeric_key)
-
 # Reformat
 <user.formatters> (format|form) this:
     user.reformat_selection(formatters)
