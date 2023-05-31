@@ -1,6 +1,5 @@
 from talon import Context, Module, actions
 
-
 mod = Module()
 ctx = Context()
 
@@ -23,9 +22,6 @@ class Actions:
         if actions.user.scroll_stop():
             return
         actions.key("escape")
-
-    def mute_microphone():
-        """Mute microphone"""
 
     def pick_item(number: int):
         """Pick list item number <number>"""
