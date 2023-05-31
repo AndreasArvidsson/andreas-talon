@@ -1,5 +1,4 @@
 from talon import Context, Module, actions, clip
-from talon.clip import MimeData
 import re
 
 mod = Module()
@@ -18,9 +17,9 @@ PASTE_RE = re.compile(r"\s|[ /-]")
 class MainActions:
     def insert(text: str):
         if re.search(PASTE_RE, text):
-            if paste_text(text):
-                return
-        actions.next(text)
+            actions.user.paste_text(text)
+        else:
+            actions.next(text)
 
 
 @ctx.action_class("edit")
@@ -123,8 +122,12 @@ class EditActions:
 
     # ----- Miscellaneous -----
     def selected_text() -> str:
-        mime = actions.user.selected_mime()
-        return mime.text if mime else ""
+        with clip.capture(0.1) as c:
+            actions.edit.copy()
+        try:
+            return c.text()
+        except clip.NoChange:
+            return ""
 
 
 @mod.action_class
@@ -143,34 +146,15 @@ class Actions:
         actions.key(symbol)
         actions.edit.line_insert_down()
 
-    def selected_mime() -> MimeData or None:
-        """Return current selected mime"""
-        try:
-            actions.user.clipboard_manager_stop_updating()
-            with clip.capture(0.1) as c:
-                actions.edit.copy()
-            return c.mime()
-        except clip.NoChange:
-            return None
-        finally:
-            actions.user.clipboard_manager_resume_updating()
-
-
-def paste_text(text: str) -> bool:
-    """Pastes text and preserves clipboard"""
-    try:
-        actions.user.clipboard_manager_stop_updating()
+    def paste_text(text: str):
+        """Pastes text and preserves clipboard"""
         with clip.revert():
             clip.set_text(text)
 
             if clip.text() != text:
                 actions.user.notify("Failed to set clipboard")
-                return False
+                return
 
             actions.edit.paste()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("150ms")
-
-        return True
-    finally:
-        actions.user.clipboard_manager_resume_updating()

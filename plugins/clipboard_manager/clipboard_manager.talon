@@ -1,3 +1,7 @@
+settings():
+    user.clipboard_manager_max_rows = 20
+
+
 clippy:                     user.clipboard_manager_toggle()
 
 paste <number_small> [and <number_small>]*:

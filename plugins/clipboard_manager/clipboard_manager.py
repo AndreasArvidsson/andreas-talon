@@ -92,7 +92,7 @@ def gui(gui: imgui.GUI):
 
 
 @ctx_visible.action_class("edit")
-class EditActions:
+class VisibleEditActions:
     def paste():
         actions.next()
         hide_if_not_sticky()
@@ -100,6 +100,24 @@ class EditActions:
     def paste_match_style():
         actions.next()
         hide_if_not_sticky()
+
+
+@ctx.action_class("edit")
+class EditActions:
+    def selected_text() -> str:
+        try:
+            actions.user.clipboard_manager_stop_updating()
+            return actions.next()
+        finally:
+            actions.user.clipboard_manager_resume_updating()
+
+
+@ctx.action_class("user")
+class UserActions:
+    def paste_text(text: str):
+        actions.user.clipboard_manager_stop_updating()
+        actions.next(text)
+        actions.user.clipboard_manager_resume_updating()
 
 
 @mod.action_class

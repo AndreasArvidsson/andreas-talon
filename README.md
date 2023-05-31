@@ -21,7 +21,7 @@ This is a list of features that I have implemented that I think is of more inter
 6. **Gamepad tester** - Builtin UI for visualizing interaction with Talon `gamepad()` api
     - [Gamepad tester](./plugins/gamepad_tester)
 7. **Clipboard manager** - Clipboard manager built in Talon
-    - [Clipboard manager](./core/clipboard_manager)
+    - [Clipboard manager](./plugins/clipboard_manager)
 8. **Quick pick** - UI for quick access to useful features by clicking buttons
     - [Quick pick](./plugins/quick_pick)
 9. **Foot switch support** - Add support for scrolling, navigating and more
