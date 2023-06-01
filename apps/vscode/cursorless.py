@@ -12,9 +12,11 @@ fallback_action_callbacks = {
     "clearAndSetSelection": actions.edit.delete,
     "remove": actions.edit.delete,
     "applyFormatter": actions.user.reformat_selection,
+    "wrapWithPairedDelimiter.pairedDelimiter": actions.user.delimiters_pair_wrap_selection_with,
 }
 
 fallback_target_callbacks = {
+    "selection": actions.skip,
     "extendThroughStartOf": actions.user.select_line_start,
     "extendThroughEndOf": actions.user.select_line_end,
     "containing_document": actions.edit.select_all,
@@ -38,8 +40,15 @@ class UserActions:
         else:
             actions.next(targets, formatters)
 
-    # def cursorless_wrap(action_type: str, targets: dict, cursorless_wrapper: Wrapper):
-    # pairedDelimiter
+    def cursorless_wrap(action_type: str, targets: dict, cursorless_wrapper):
+        if use_fallback(targets):
+            perform_fallback_command(
+                f"{action_type}.{cursorless_wrapper.type}",
+                targets,
+                cursorless_wrapper.extra_args,
+            )
+        else:
+            actions.next(action_type, targets, cursorless_wrapper)
 
 
 def perform_fallback_command(action_id: str, target: dict, args: any = None):
@@ -66,6 +75,8 @@ def get_fallback_action_callback(action_id: str):
 
 
 def get_fallback_target_callback(target: dict):
+    if "modifiers" not in target:
+        return fallback_target_callbacks["selection"]
     if len(target["modifiers"]) == 1:
         modifier = target["modifiers"][0]
         modifier_type = modifier["type"]
@@ -73,7 +84,7 @@ def get_fallback_target_callback(target: dict):
             modifier_type = f"containing_{modifier['scopeType']['type']}"
         if modifier_type in fallback_target_callbacks:
             return fallback_target_callbacks[modifier_type]
-        raise Exception(f"Unknown Cursorless fallback target type: {modifier_type}")
+        raise Exception(f"Unknown Cursorless fallback modifier type: {modifier_type}")
     raise Exception(f"Unknown Cursorless fallback target: {target}")
 
 
