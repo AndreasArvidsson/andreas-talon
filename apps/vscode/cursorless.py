@@ -11,8 +11,8 @@ fallback_action_callbacks = {
     "pasteFromClipboard": actions.edit.paste,
     "clearAndSetSelection": actions.edit.delete,
     "remove": actions.edit.delete,
+    "applyFormatter": actions.user.reformat_selection,
 }
-# paste to line
 
 fallback_target_callbacks = {
     "extendThroughStartOf": actions.user.select_line_start,
@@ -20,20 +20,29 @@ fallback_target_callbacks = {
     "containing_document": actions.edit.select_all,
     "containing_paragraph": actions.edit.select_paragraph,
     "containing_line": actions.edit.select_line,
-    "containing_word": actions.edit.select_word,
+    "containing_token": actions.edit.select_word,
 }
 
 
 @ctx.action_class("user")
 class UserActions:
     def cursorless_command(action_id: str, target: dict):
-        if target_is_selection(target) and not focused_element_is_text_editor():
+        if use_fallback(target):
             perform_fallback_command(action_id, target)
         else:
             actions.next(action_id, target)
 
+    def cursorless_reformat(targets: dict, formatters: str):
+        if use_fallback(targets):
+            perform_fallback_command("applyFormatter", targets, formatters)
+        else:
+            actions.next(targets, formatters)
 
-def perform_fallback_command(action_id: str, target: dict):
+    # def cursorless_wrap(action_type: str, targets: dict, cursorless_wrapper: Wrapper):
+    # pairedDelimiter
+
+
+def perform_fallback_command(action_id: str, target: dict, args: any = None):
     """Perform non Cursorless fallback command"""
     actions.user.debug(
         "Current command targets selection and is not in a text editor. Perform fallback command."
@@ -42,7 +51,10 @@ def perform_fallback_command(action_id: str, target: dict):
         action_callback = get_fallback_action_callback(action_id)
         target_callback = get_fallback_target_callback(target)
         target_callback()
-        action_callback()
+        if args is not None:
+            action_callback(args)
+        else:
+            action_callback()
     except Exception as ex:
         actions.app.notify(str(ex))
 
@@ -65,9 +77,8 @@ def get_fallback_target_callback(target: dict):
     raise Exception(f"Unknown Cursorless fallback target: {target}")
 
 
-def focused_element_is_text_editor() -> bool:
-    element_type = actions.user.vscode_get("command-server.getFocusedElementType")
-    return element_type == "textEditor"
+def use_fallback(target: dict) -> bool:
+    return target_is_selection(target) and not focused_element_is_text_editor()
 
 
 def target_is_selection(target: dict) -> bool:
@@ -75,6 +86,11 @@ def target_is_selection(target: dict) -> bool:
         return False
     mark = target.get("mark")
     return not mark or mark["type"] == "cursor"
+
+
+def focused_element_is_text_editor() -> bool:
+    element_type = actions.user.vscode_get("command-server.getFocusedElementType")
+    return element_type == "textEditor"
 
 
 @mod.action_class
