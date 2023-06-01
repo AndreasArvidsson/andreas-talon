@@ -42,8 +42,7 @@ This is a list of features that I have implemented that I think is of more inter
     - [dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/523c5086950459fac4ff044b1f2509684c9e14fa/text/dictation.py#L136)
     - [homophones.py](https://github.com/AndreasArvidsson/andreas-talon/blob/523c5086950459fac4ff044b1f2509684c9e14fa/text/homophones/homophones.py#L101-L109)
 15. **Lorem ipsum generator** - `"lorem ipsum thirty"` => `Lorem ipsum dolor sit amet...`
-    - [lorem_ipsum.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/lorem_ipsum/lorem_ipsum.talon)
-    - [lorem_ipsum.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/misc/lorem_ipsum/lorem_ipsum.py)
+    - [Lorem ipsum](https://github.com/AndreasArvidsson/andreas-talon/blob/c30bef1bb8dea6e69a717c2038fa57b0c4afc2d6/plugins/lorem_ipsum)
 16. **Snippet insertion** - Generic textual snippet support with override for VSCode
     - [javascript.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/langs/javascript/javascript.py#L139-L144)
     - [snippets.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/text/snippets.py)
