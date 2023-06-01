@@ -34,21 +34,21 @@ class UserActions:
         else:
             actions.next(action_id, target)
 
-    def cursorless_reformat(targets: dict, formatters: str):
-        if use_fallback(targets):
-            perform_fallback_command("applyFormatter", targets, formatters)
+    def cursorless_reformat(target: dict, formatters: str):
+        if use_fallback(target):
+            perform_fallback_command("applyFormatter", target, formatters)
         else:
-            actions.next(targets, formatters)
+            actions.next(target, formatters)
 
-    def cursorless_wrap(action_type: str, targets: dict, cursorless_wrapper):
-        if use_fallback(targets):
+    def cursorless_wrap(action_type: str, target: dict, cursorless_wrapper):
+        if use_fallback(target):
             perform_fallback_command(
                 f"{action_type}.{cursorless_wrapper.type}",
-                targets,
+                target,
                 cursorless_wrapper.extra_args,
             )
         else:
-            actions.next(action_type, targets, cursorless_wrapper)
+            actions.next(action_type, target, cursorless_wrapper)
 
 
 def perform_fallback_command(action_id: str, target: dict, args: any = None):
