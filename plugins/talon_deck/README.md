@@ -8,4 +8,4 @@ Exposes a responsive webpage where the user can monitor and control Talon. The p
 
 ## Usage
 
-For extraction please visit the [Talon deck repository](https://github.com/AndreasArvidsson/talon-deck)
+For instructions please visit the [Talon deck repository](https://github.com/AndreasArvidsson/talon-deck)
