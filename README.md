@@ -56,7 +56,7 @@ This is a list of features that I have implemented that I think is of more inter
     - [vscode.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/11cd0cebefacd60bea51b58ebe5e7b2cf4d54b06/apps/vscode/vscode.talon#L20)
     - [vscode.py](https://github.com/AndreasArvidsson/andreas-talon/blob/11cd0cebefacd60bea51b58ebe5e7b2cf4d54b06/apps/vscode/vscode.py#L255-L256)
     - [registerLanguageFormatter.ts](https://github.com/AndreasArvidsson/andreas-talon-vscode/blob/master/src/registerLanguageFormatter.ts)
-20. **VSCode language definition for Talon actions** - Jump from Talonscript action invocation to Python definition using VSCode extension.
+20. **VSCode language definition for Talon** - Supports `on hover` and `go to definition` for Talon lists, captures and actions.
     - [registerLanguageDefinitions.ts](https://github.com/AndreasArvidsson/andreas-talon-vscode/blob/master/src/registerLanguageDefinitions.ts)
 
 ## Dependencies
