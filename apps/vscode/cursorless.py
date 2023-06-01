@@ -4,6 +4,25 @@ import os
 mod = Module()
 ctx = Context()
 
+fallback_action_callbacks = {
+    "setSelection": actions.skip,
+    "copyToClipboard": actions.edit.copy,
+    "cutToClipboard": actions.edit.cut,
+    "pasteFromClipboard": actions.edit.paste,
+    "clearAndSetSelection": actions.edit.delete,
+    "remove": actions.edit.delete,
+}
+# paste to line
+
+fallback_target_callbacks = {
+    "extendThroughStartOf": actions.user.select_line_start,
+    "extendThroughEndOf": actions.user.select_line_end,
+    "containing_document": actions.edit.select_all,
+    "containing_paragraph": actions.edit.select_paragraph,
+    "containing_line": actions.edit.select_line,
+    "containing_word": actions.edit.select_word,
+}
+
 
 @ctx.action_class("user")
 class UserActions:
@@ -16,11 +35,34 @@ class UserActions:
 
 def perform_fallback_command(action_id: str, target: dict):
     """Perform non Cursorless fallback command"""
-    print(
-        "Current command targets selection and is not in a text editor. Perform fallback command"
+    actions.user.debug(
+        "Current command targets selection and is not in a text editor. Perform fallback command."
     )
-    print(action_id)
-    print(target)
+    try:
+        action_callback = get_fallback_action_callback(action_id)
+        target_callback = get_fallback_target_callback(target)
+        target_callback()
+        action_callback()
+    except Exception as ex:
+        actions.app.notify(str(ex))
+
+
+def get_fallback_action_callback(action_id: str):
+    if action_id in fallback_action_callbacks:
+        return fallback_action_callbacks[action_id]
+    raise Exception(f"Unknown Cursorless fallback action: {action_id}")
+
+
+def get_fallback_target_callback(target: dict):
+    if len(target["modifiers"]) == 1:
+        modifier = target["modifiers"][0]
+        modifier_type = modifier["type"]
+        if modifier_type == "containingScope":
+            modifier_type = f"containing_{modifier['scopeType']['type']}"
+        if modifier_type in fallback_target_callbacks:
+            return fallback_target_callbacks[modifier_type]
+        raise Exception(f"Unknown Cursorless fallback target type: {modifier_type}")
+    raise Exception(f"Unknown Cursorless fallback target: {target}")
 
 
 def focused_element_is_text_editor() -> bool:
