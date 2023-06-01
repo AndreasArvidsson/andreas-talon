@@ -2,14 +2,20 @@ from talon import Module, actions
 
 mod = Module()
 
+print("hello"[:-1])
+
 
 @mod.action_class
 class Actions:
     def lorem_ipsum(num_words: int):
-        """Inserts a lorem ipsum"""
+        """Inserts a lorem ipsum with <num_words> words"""
         res = words[:num_words]
-        if not res[len(res) - 1].endswith("."):
-            res[len(res) - 1] = res[len(res) - 1] + "."
+        last_word = res[-1]
+        if last_word[-1] == ",":
+            last_word = last_word[:-1]
+        if last_word[-1] != ".":
+            last_word += "."
+        res[-1] = last_word
         res = " ".join(res)
         actions.insert(res)
 
