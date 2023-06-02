@@ -16,7 +16,7 @@ Mixed mode
 Sleep mode  
 ![Sleep mode](./images/sleep.png)
 
-Othe modes  
+Other modes  
 ![Others mode](./images/other.png)
 
 ## Usage
