@@ -11,11 +11,11 @@ language: sv
 ^(indrag | in drag):        edit.indent_more()
 ^utdrag:                    edit.indent_less()
 
-ny rad:
+(ny | nu) rad:
     edit.line_insert_down()
     user.dictation_format_reset()
 
-ny (paragraf | graf):
+(ny | nu) (paragraf | graf):
     edit.line_insert_down()
     edit.line_insert_down()
     user.dictation_format_reset()
