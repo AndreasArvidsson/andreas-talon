@@ -1,6 +1,9 @@
 app: youtube
 -
 
+settings():
+    user.mode_indicator_show = false
+
 speed down:                 key(shift-,)
 speed up:                   key(shift-.)
 closed captions:            key(c)

@@ -42,5 +42,4 @@ settings():
     # Notifications are centered vertically
     user.notifications_y = 0.5
 
-
 subtitles (show | hide):    user.toggle_subtitles()
