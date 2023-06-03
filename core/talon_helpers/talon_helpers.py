@@ -128,7 +128,7 @@ class Actions:
     def talon_was_restart() -> bool:
         """Returns true if Talon was just restarted"""
         restart_event = storage.get("talon_restart_event", 0)
-        return time.monotonic() - restart_event < 20
+        return time.time() - restart_event < 15
 
     def as_dict(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
@@ -152,7 +152,7 @@ class Actions:
 @ctx_win.action_class("user")
 class WinUserActions:
     def talon_restart():
-        storage.set("talon_restart_event", time.monotonic())
+        storage.set("talon_restart_event", time.time())
         talon_app = ui.apps(pid=os.getpid())[0]
         os.startfile(talon_app.exe)
         talon_app.quit()
