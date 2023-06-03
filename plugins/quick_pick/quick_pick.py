@@ -275,7 +275,7 @@ def on_mouse(e: MouseEvent):
             hover_rect = hover_rect_new
             canvas.freeze()
 
-    elif e.event == "mouseup":
+    elif e.event == "mouseup" and e.button == 0:
         hide()
         if button:
             if button.move_mouse:
