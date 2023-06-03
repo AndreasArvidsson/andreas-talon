@@ -8,6 +8,7 @@ from typing import Callable, Optional
 from dataclasses import dataclass
 
 FONT_FAMILY = "Segoe UI Symbol"
+FONT_SIZE = 14
 background_color = "ffffff"
 border_color = "000000"
 text_color = "444444"
@@ -31,11 +32,11 @@ setting_max_col = mod.setting(
 
 
 class State:
-    def __init__(self, canvas: skia.Canvas, dpi: float, numbered: bool):
+    def __init__(self, canvas: skia.Canvas, font_size: float, numbered: bool):
         self.max_rows = setting_max_rows.get()
         self.max_cols = setting_max_col.get()
         self.canvas = canvas
-        self.font_size = round(dpi * settings.get("imgui.scale") / 10)
+        self.font_size = font_size
         self.padding = self.rem(0.5)
         self.image_height = self.max_rows * self.font_size
         self.image_width = 5 * self.image_height
@@ -260,9 +261,9 @@ class GUI:
         return self._showing
 
     def show(self):
-        self._screen_current = self._get_screen()
+        self._screen_current = self._get_active_screen()
         # Initializes at minimum size so to calculate and set correct size later
-        self._canvas = Canvas(0, 0, 1, 1)
+        self._canvas = Canvas(self._screen_current.x, self._screen_current.y, 1, 1)
         self._showing = True
         self._canvas.draggle = True
         self._canvas.blocks_mouse = True
@@ -320,7 +321,8 @@ class GUI:
         self._elements = []
         self._callback(self)
         self._draw_background(canvas)
-        state = State(canvas, self._screen_current.dpi, self._numbered)
+        font_size = FONT_SIZE * settings.get("imgui.scale") * self._screen_current.scale
+        state = State(canvas, font_size, self._numbered)
         number = 1
 
         if self._elements:
@@ -355,6 +357,14 @@ class GUI:
         if self._showing:
             self._canvas.rect = Rect(x, y, width, height)
 
+    def _move(self, dx: float, dy: float):
+        self._x_moved = self._canvas.rect.x + dx
+        self._y_moved = self._canvas.rect.y + dy
+        center_x = self._canvas.rect.center.x + dx
+        center_y = self._canvas.rect.center.y + dy
+        self._screen_current = self._get_screen_for_pos(center_x, center_y)
+        self._canvas.move(self._x_moved, self._y_moved)
+
     def _draw_background(self, canvas):
         rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
 
@@ -374,10 +384,7 @@ class GUI:
             dx = e.gpos.x - self._last_mouse_pos.x
             dy = e.gpos.y - self._last_mouse_pos.y
             self._last_mouse_pos = e.gpos
-            self._x_moved = self._canvas.rect.x + dx
-            self._y_moved = self._canvas.rect.y + dy
-            self._canvas.move(self._x_moved, self._y_moved)
-            self._dont_center = True
+            self._move(dx, dy)
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
             element = self._get_element(e.gpos)
@@ -390,13 +397,21 @@ class GUI:
                 return el
         return None
 
-    def _get_screen(self) -> Screen:
+    def _get_active_screen(self) -> Screen:
         if self._screen is not None:
             return self._screen
         try:
             return ui.active_window().screen
         except:
             return ui.main_screen()
+
+    def _get_screen_for_pos(self, x: float, y: float) -> Screen:
+        if self._screen_current.contains(x, y):
+            return self._screen_current
+        for screen in ui.screens():
+            if screen.contains(x, y):
+                return screen
+        raise Exception("Can't find screen for position {x}, {y}")
 
 
 @dataclass
