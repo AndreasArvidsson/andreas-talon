@@ -124,7 +124,7 @@ class Actions:
         actions.user.browser_open(text)
 
     def cursorless_wrap_target_with_symbol(target: dict, symbol: str):
-        """Wrap the target with the given symbol"""
+        """Wrap the target with <symbol>"""
         if symbol == "space":
             symbol = " "
         delimiters = [symbol, symbol]
