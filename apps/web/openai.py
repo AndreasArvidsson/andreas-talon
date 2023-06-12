@@ -3,13 +3,13 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.mattermost = """
+mod.apps.openai = """
 tag: browser
-browser.host: mattermost.redpill-linpro.com
+browser.host: chat.openai.com
 """
 
 ctx.matches = r"""
-app: mattermost
+app: openai
 """
 
 
