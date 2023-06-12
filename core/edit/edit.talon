@@ -52,6 +52,7 @@ cut (this | dis):           edit.cut()
 copy (this | dis):          edit.copy()
 paste it:                   edit.paste()
 paste special:              edit.paste_match_style()
+paste insert:               user.insert_clipboard_with_keys()
 
 remove:                     user.delete_word_left()
 wipe:                       user.delete_word_right()
