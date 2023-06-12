@@ -104,7 +104,6 @@ def scroll_continuous_helper():
         * acceleration_speed
         * scroll_dir
     )
-    print(y)
     actions.mouse_scroll(y, by_lines=True)
 
 
