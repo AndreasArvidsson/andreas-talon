@@ -280,7 +280,7 @@ def on_mouse(e: MouseEvent):
         if button:
             if button.move_mouse:
                 actions.mouse_move(mouse_pos.x, mouse_pos.y)
-            actions.sleep("75ms")
+            actions.sleep("100ms")
             button.callback()
             repeater_callback = button.callback
 
