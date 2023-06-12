@@ -11,7 +11,7 @@ vscode install:             "vsce package -o bundle.vsix && code --install-exten
 
 vscode package:             "vsce package\n"
 
-talon user updates:         "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \;\n"
+talon user updates:         "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \\;\n"
 
 watch talon log:            "tail -f {user.talon_home()}/talon.log\n"
 
