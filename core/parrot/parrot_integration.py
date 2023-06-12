@@ -32,7 +32,7 @@ class PatternMatcher:
 @dataclass
 class NoiseTimestamps:
     last_detected_at:  float = 0.0
-    duration_start:    float =  0.0
+    duration_start:    float = 0.0
     detection_after:   float = 0.0
     graceperiod_until: float = 0.0
     throttled_at:      float = 0.0
@@ -189,7 +189,7 @@ class PatternBuilder:
         if '<probability' in thresholds:
             detection_calls.append( lambda self, frame, threshold=thresholds['<probability'], sounds=sounds: sum( frame.classes[sound] for sound in sounds) < threshold )
         if '<power' in thresholds:
-            detection_calls.append( lambda self, frame, threshold=thresholds['<power']: frame.power >= threshold )
+            detection_calls.append( lambda self, frame, threshold=thresholds['<power']: frame.power < threshold )
         if '<ratio' in thresholds and len(sounds) > 1:
             detection_calls.append( lambda self, frame, threshold=thresholds['<ratio'], sounds=sounds: ( frame.classes[sounds[0]] / frame.classes[sounds[1]] < threshold ) )
         if '<f0' in thresholds:
