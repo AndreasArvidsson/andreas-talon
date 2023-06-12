@@ -9,12 +9,6 @@ setting_scroll_speed = mod.setting(
     default=1,
     desc="Base scroll speed",
 )
-setting_scroll_speed_multiplier = mod.setting(
-    "scroll_speed_multiplier",
-    type=float,
-    default=1,
-    desc="Context specific scroll speed multiplier",
-)
 
 gaze_job = None
 gaze_origin_y = None
@@ -106,11 +100,11 @@ def scroll_continuous_helper():
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
     y = (
         setting_scroll_speed.get()
-        * setting_scroll_speed_multiplier.get()
         * scroll_speed_dynamic
         * acceleration_speed
         * scroll_dir
     )
+    print(y)
     actions.mouse_scroll(y, by_lines=True)
 
 

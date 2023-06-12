@@ -8,7 +8,7 @@ tag(): user.find
 tag(): user.comments
 
 settings():
-    user.scroll_speed_multiplier = 1.25
+    user.scroll_speed = 0.9
 
 # Language features
 jest:                       code.complete()
