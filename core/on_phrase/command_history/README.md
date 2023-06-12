@@ -20,3 +20,7 @@ def on_post_phrase(phrase):
 
 speech_system.register("post:phrase", on_post_phrase)
 ```
+
+## Demo
+
+[YouTube - Command history demo](https://youtu.be/Qv0bhLw68pU)

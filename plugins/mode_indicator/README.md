@@ -23,3 +23,7 @@ Other modes
 
 The mode indicator is enabled with the following setting  
 `user.mode_indicator_show = true`
+
+## Demo
+
+[YouTube - Mode indicator demo](https://youtu.be/1lqtfM4vvH4)

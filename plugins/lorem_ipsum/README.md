@@ -9,3 +9,7 @@
 ### Example
 
 `"lorem ipsum ten"` => `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.`
+
+## Demo
+
+[YouTube - Lorem ipsum demo](https://youtu.be/2SncQ55J5hc)

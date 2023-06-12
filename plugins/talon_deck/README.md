@@ -9,3 +9,7 @@ Exposes a responsive webpage where the user can monitor and control Talon. The p
 ## Usage
 
 For instructions please visit the [Talon deck repository](https://github.com/AndreasArvidsson/talon-deck)
+
+## Demo
+
+[YouTube - Talon deck demo](https://youtu.be/7kcd4frRnUs)
