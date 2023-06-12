@@ -38,7 +38,7 @@ This is a list of features that I have implemented that I think is of more inter
     - [dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/b21c9eb553950ff9b3c137a98e8c705a3e8cb393/core/text/text_and_dictation.py#L127)
     - [homophones.py](https://github.com/AndreasArvidsson/andreas-talon/blob/b21c9eb553950ff9b3c137a98e8c705a3e8cb393/core/homophones/homophones.py#L99-L108)
 1. **Lorem ipsum generator** - `"lorem ipsum thirty"` => `Lorem ipsum dolor sit amet...`
-    - [Lorem ipsum](https://github.com/AndreasArvidsson/andreas-talon/blob/c30bef1bb8dea6e69a717c2038fa57b0c4afc2d6/plugins/lorem_ipsum)
+    - [Lorem ipsum](./plugins/lorem_ipsum)
 1. **Snippet insertion** - Generic textual snippet support with override for VSCode
     - [javascript.py](https://github.com/AndreasArvidsson/andreas-talon/blob/ef049e9cf50b2694ee1b2f039fc102bd488ca1ae/langs/javascript/javascript.py#L139-L144)
     - [snippets.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/text/snippets.py)
