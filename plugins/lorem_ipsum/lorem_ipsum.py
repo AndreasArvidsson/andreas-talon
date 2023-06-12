@@ -2,8 +2,6 @@ from talon import Module, actions
 
 mod = Module()
 
-print("hello"[:-1])
-
 
 @mod.action_class
 class Actions:
