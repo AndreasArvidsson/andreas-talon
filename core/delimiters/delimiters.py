@@ -22,8 +22,8 @@ matching_pairs_all = {
 
 # fmt: on
 
-ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
 mod.list("delimiter_pair", desc="List of matching pair delimiters")
+ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
 
 mod.list(
     "delimiter_pair_wrap",
