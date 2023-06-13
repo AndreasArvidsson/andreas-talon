@@ -12,7 +12,9 @@ fallback_action_callbacks = {
     "clearAndSetSelection": actions.edit.delete,
     "remove": actions.edit.delete,
     "applyFormatter": actions.user.reformat_selection,
-    "wrapWithPairedDelimiter.pairedDelimiter": actions.user.delimiters_pair_wrap_selection_with,
+    "wrapWithPairedDelimiter.pairedDelimiter": lambda pair: actions.user.delimiters_pair_wrap_selection_with(
+        pair[0], pair[1]
+    ),
 }
 
 fallback_target_callbacks = {

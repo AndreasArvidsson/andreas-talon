@@ -35,21 +35,22 @@ ctx.lists["self.delimiter_pair_wrap"] = matching_pairs_all.keys()
 @mod.action_class
 class Actions:
     def delimiters_pair_insert_by_name(pair_name: str):
-        """Insert matching pair delimiters by name"""
-        pair = matching_pairs_all[pair_name]
-        actions.user.delimiters_pair_insert(pair[0], pair[1])
+        """Insert matching delimiters pair <pair_name>"""
+        [left, right] = matching_pairs_all[pair_name]
+        actions.user.delimiters_pair_insert(left, right)
 
     def delimiters_pair_insert(left: str, right: str, middle: str = ""):
-        """Insert matching pair delimiters"""
+        """Insert delimiter pair <left> and <right> with interior <middle>"""
         actions.insert(f"{left}{middle}{right}")
-        actions.edit.left()
+        for _ in right:
+            actions.edit.left()
 
     def delimiters_pair_wrap_selection(pair_name: str):
-        """Wrap selection with matching pair delimiters"""
-        pair = matching_pairs_all[pair_name]
-        actions.user.delimiters_pair_wrap_selection_with(pair)
+        """Wrap selection with matching delimiter pair <pair_name>"""
+        [left, right] = matching_pairs_all[pair_name]
+        actions.user.delimiters_pair_wrap_selection_with(left, right)
 
-    def delimiters_pair_wrap_selection_with(pair: list[str]):
-        """Wrap selection with given delimiter pair"""
+    def delimiters_pair_wrap_selection_with(left: str, right: str):
+        """Wrap selection with delimiters <left> and <right>"""
         selected = actions.edit.selected_text()
-        actions.user.delimiters_pair_insert(pair[0], pair[1], selected)
+        actions.user.delimiters_pair_insert(left, right, selected)
