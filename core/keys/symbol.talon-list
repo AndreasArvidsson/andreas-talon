@@ -1,47 +1,47 @@
 list: user.symbol
 -
 
-void:                       space
-dot:                        .
-point:                      .
-drip:                       ,
-stack:                      :
-semi:                       ;
-score:                      _
-dash:                       -
+void:              space
+dot:               .
+point:             .
+drip:              ,
+stack:             :
+semi:              ;
+score:             _
+dash:              -
 
-minus:                      -
-plus:                       +
-equal:                      =
-equals:                     =
-caret:                      ^
-tilde:                      ~
-bang:                       !
-hash:                       #
-star:                       *
-dollar:                     $
-percent:                    %
-question:                   ?
-question mark:              ?
-amper:                      &
-at sign:                    @
-pound sign:                 £
-euro sign:                  €
+minus:             -
+plus:              +
+equal:             =
+equals:            =
+caret:             ^
+tilde:             ~
+bang:              !
+hash:              #
+star:              *
+dollar:            $
+percent:           %
+question:          ?
+question mark:     ?
+amper:             &
+at sign:           @
+pound sign:        £
+euro sign:         €
 
-single:                     '
-double:                     "
-quote:                      "
-brick:                      `
+single:            '
+double:            "
+quote:             "
+brick:             `
 
-slash:                      /
-pipe:                       |
-pike:                       \
+slash:             /
+pipe:              |
+pike:              \
 
-paren:                      (
-raren:                      )
-brace:                      {
-race:                       }
-square:                     [
-rare:                       ]
-angle:                      <
-rangle:                     >
+paren:             (
+raren:             )
+brace:             {
+race:              }
+square:            [
+rare:              ]
+angle:             <
+rangle:            >
