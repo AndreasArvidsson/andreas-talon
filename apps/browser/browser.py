@@ -96,7 +96,8 @@ class Actions:
 
     def browser_search(text: str):
         """Focus browser and search for <text>"""
-        actions.user.browser_open(text)
+        # Prefix with space to avoid matching search text with history
+        actions.user.browser_open(f" {text}")
 
     def browser_search_selected():
         """Focus browser and search for selected text"""
