@@ -92,11 +92,12 @@ class UserActions:
         pass
 
     def foot_switch_right_down():
-        actions.user.mouse_freeze_toggle(True)
+        actions.user.mouse_freeze_toggle()
 
     def foot_switch_right_up(held: bool):
         actions.key("alt:up")
-        actions.user.mouse_freeze_toggle(False)
+        if held:
+            actions.user.mouse_freeze_toggle()
 
 
 @ctx_frozen_mouse.action_class("user")
