@@ -10,6 +10,9 @@ app: diablo4
 # ---------- Discord ----------
 discord:                    key(ctrl-shift-´)
 
+# ---------- Toggle fps meter ----------
+show fps:                   key(ctrl-r)
+
 # ---------- Keys ----------
 
 {user.letter}:              key(letter)
