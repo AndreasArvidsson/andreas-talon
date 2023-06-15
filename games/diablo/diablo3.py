@@ -89,7 +89,8 @@ class UserActions:
         actions.user.game_toggle_mute()
 
     def foot_switch_left_up(held: bool):
-        pass
+        if held:
+            actions.user.game_toggle_mute()
 
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
