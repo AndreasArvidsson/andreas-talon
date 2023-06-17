@@ -17,7 +17,7 @@ fixtures_format = [
     ["CAMEL_CASE", input_raw, "why?andItsNice!"],
     ["PASCAL_CASE", input_raw, "Why?AndItsNice!"],
     ["SNAKE_CASE", input_raw, "why?and_its_nice!"],
-    ["ALL_UPPERCASE_SNAKE_CASE", input_raw, "WHY?AND_ITS_NICE!"],
+    ["ALL_UPPERCASE,SNAKE_CASE", input_raw, "WHY?AND_ITS_NICE!"],
     ["DASH_SEPARATED", input_raw, "why?and-its-nice!"],
     ["DOT_SEPARATED", input_raw, "why?and.its.nice!"],
     ["SLASH_SEPARATED", input_raw, "why?and/its/nice!"],

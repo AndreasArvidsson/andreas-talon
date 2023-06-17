@@ -58,12 +58,10 @@ formatters = [
     Formatter(
         "CAPITALIZE_FIRST_WORD",
         lambda text: first_and_rest(text, capitalize),
-        unformat_text,
     ),
     Formatter(
         "CAPITALIZE_ALL_WORDS",
         lambda text: first_and_rest(text, capitalize, capitalize),
-        unformat_text,
     ),
     # Delimited formatters
     Formatter(
@@ -79,11 +77,6 @@ formatters = [
     Formatter(
         "SNAKE_CASE",
         lambda text: format_delim(text, "_", lower, lower),
-        unformat_text,
-    ),
-    Formatter(
-        "ALL_UPPERCASE_SNAKE_CASE",
-        lambda text: format_delim(text, "_", upper, upper),
         unformat_text,
     ),
     Formatter(
@@ -133,7 +126,7 @@ ctx.lists["self.formatter_code"] = {
     "camel": "CAMEL_CASE",
     "pascal": "PASCAL_CASE",
     "snake": "SNAKE_CASE",
-    "constant": "ALL_UPPERCASE_SNAKE_CASE",
+    "constant": "ALL_UPPERCASE,SNAKE_CASE",
     "kebab": "DASH_SEPARATED",
     "dotted": "DOT_SEPARATED",
     "slasher": "SLASH_SEPARATED",
