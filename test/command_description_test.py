@@ -92,12 +92,12 @@ def test_get_action_explanation():
         [
             "formatter",
             "my_action",
-            'prose, "ALL_CAPS"',
+            'prose, "ALL_UPPERCASE"',
             ["text", "formatters"],
             "Module description",
             "Insert text <text> formatted as <formatters>",
             {"prose": "hello world"},
-            "Insert text 'hello world' formatted as 'ALL_CAPS'",
+            "Insert text 'hello world' formatted as 'ALL_UPPERCASE'",
         ],
     ]
 

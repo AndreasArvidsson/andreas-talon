@@ -1,51 +1,139 @@
 from talon import Module, Context, actions
+from dataclasses import dataclass
+from typing import Callable, Optional
 import re
 
 mod = Module()
 ctx = Context()
 
 
-formatters_dict = {
-    # Simple formatters
-    "NOOP": lambda text: text,
-    "TRAILING_PADDING": lambda text: f"{text} ",
-    "ALL_CAPS": lambda text: text.upper(),
-    "ALL_LOWERCASE": lambda text: text.lower(),
-    # Splitting formatters
-    "CAPITALIZE_ALL_WORDS": lambda text: first_and_rest(text, capitalize, capitalize),
-    "CAPITALIZE_FIRST_WORD": lambda text: first_and_rest(text, capitalize),
-    # Delimited formatters
-    "CAMEL_CASE": lambda text: format_delim(text, "", lower, capitalize),
-    "PASCAL_CASE": lambda text: format_delim(text, "", capitalize, capitalize),
-    "SNAKE_CASE": lambda text: format_delim(text, "_", lower, lower),
-    "ALL_CAPS_SNAKE_CASE": lambda text: format_delim(text, "_", upper, upper),
-    "DASH_SEPARATED": lambda text: format_delim(text, "-", lower, lower),
-    "DOT_SEPARATED": lambda text: format_delim(text, ".", lower, lower),
-    "SLASH_SEPARATED": lambda text: format_delim(text, "/", lower, lower),
-    "DOUBLE_UNDERSCORE": lambda text: format_delim(text, "__", lower, lower),
-    "DOUBLE_COLON_SEPARATED": lambda text: format_delim(text, "::", lower, lower),
-    "NO_SPACES": lambda text: format_delim(text, ""),
-    # Re formatters
-    "REMOVE_FORMATTING": lambda text: text.lower(),
-    "COMMA_SEPARATED": lambda text: ", ".join(text.split()),
-}
+@dataclass
+class Formatter:
+    id: str
+    format: Callable[[str], str]
+    unformat: Optional[Callable[[str], str]] = None
 
-formatters_no_unformat = {
-    "ALL_CAPS",
-    "ALL_LOWERCASE",
-    "DOUBLE_QUOTED_STRING",
-    "SINGLE_QUOTED_STRING",
-    "COMMA_SEPARATED",
-}
+
+def no_apostrophe(text: str) -> str:
+    return text.replace("'", "")
+
+
+def unformat_text(text: str) -> str:
+    """Remove format from text"""
+    # Remove quotes
+    text = de_string(text)
+    # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
+    result = re.sub(r"[-_.:/](?!\s)+", " ", text)
+    # Split camel case. Including numbers
+    result = actions.user.de_camel(result)
+    # Delimiter/camel case successfully split. Lower case to restore "original" text.
+    if text != result:
+        result = result.lower()
+    return result
+
+
+formatters = [
+    # Simple formatters
+    Formatter(
+        "NOOP",
+        lambda text: text,
+    ),
+    Formatter(
+        "TRAILING_SPACE",
+        lambda text: f"{text} ",
+    ),
+    Formatter(
+        "ALL_UPPERCASE",
+        lambda text: text.upper(),
+    ),
+    Formatter(
+        "ALL_LOWERCASE",
+        lambda text: text.lower(),
+    ),
+    Formatter(
+        "NO_SPACES",
+        lambda text: no_apostrophe(text).replace(" ", ""),
+    ),
+    # Splitting formatters
+    Formatter(
+        "CAPITALIZE_FIRST_WORD",
+        lambda text: first_and_rest(text, capitalize),
+        unformat_text,
+    ),
+    Formatter(
+        "CAPITALIZE_ALL_WORDS",
+        lambda text: first_and_rest(text, capitalize, capitalize),
+        unformat_text,
+    ),
+    # Delimited formatters
+    Formatter(
+        "CAMEL_CASE",
+        lambda text: format_delim(text, "", lower, capitalize),
+        unformat_text,
+    ),
+    Formatter(
+        "PASCAL_CASE",
+        lambda text: format_delim(text, "", capitalize, capitalize),
+        unformat_text,
+    ),
+    Formatter(
+        "SNAKE_CASE",
+        lambda text: format_delim(text, "_", lower, lower),
+        unformat_text,
+    ),
+    Formatter(
+        "ALL_UPPERCASE_SNAKE_CASE",
+        lambda text: format_delim(text, "_", upper, upper),
+        unformat_text,
+    ),
+    Formatter(
+        "DASH_SEPARATED",
+        lambda text: format_delim(text, "-", lower, lower),
+        unformat_text,
+    ),
+    Formatter(
+        "DOT_SEPARATED",
+        lambda text: format_delim(text, ".", lower, lower),
+        unformat_text,
+    ),
+    Formatter(
+        "DOUBLE_UNDERSCORE",
+        lambda text: format_delim(text, "__", lower, lower),
+        unformat_text,
+    ),
+    Formatter(
+        "DOUBLE_COLON_SEPARATED",
+        lambda text: format_delim(text, "::", lower, lower),
+        unformat_text,
+    ),
+    Formatter(
+        "SLASH_SEPARATED",
+        lambda text: format_delim(text, "/", lower, lower),
+        unformat_text,
+    ),
+    # Re formatters
+    Formatter(
+        "REMOVE_FORMATTING",
+        lambda text: text.lower(),
+        unformat_text,
+    ),
+    Formatter(
+        "COMMA_SEPARATED",
+        lambda text: ", ".join(text.split()),
+    ),
+]
+
+
+formatters_dict = {f.id: f for f in formatters}
+
 
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", desc="List of code formatters")
 ctx.lists["self.formatter_code"] = {
-    # Splitting formatters
     "camel": "CAMEL_CASE",
     "pascal": "PASCAL_CASE",
     "snake": "SNAKE_CASE",
-    "constant": "ALL_CAPS_SNAKE_CASE",
+    "constant": "ALL_UPPERCASE_SNAKE_CASE",
     "kebab": "DASH_SEPARATED",
     "dotted": "DOT_SEPARATED",
     "slasher": "SLASH_SEPARATED",
@@ -59,7 +147,7 @@ ctx.lists["self.formatter_prose"] = {
     "say": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",
-    "upper": "ALL_CAPS",
+    "upper": "ALL_UPPERCASE",
     "lower": "ALL_LOWERCASE",
 }
 
@@ -67,31 +155,20 @@ ctx.lists["self.formatter_prose"] = {
 mod.list("formatter_word", desc="List of word formatters")
 ctx.lists["self.formatter_word"] = {
     "word": "ALL_LOWERCASE",
-    "trot": "TRAILING_PADDING,ALL_LOWERCASE",
+    "trot": "TRAILING_SPACE,ALL_LOWERCASE",
     "proud": "CAPITALIZE_FIRST_WORD",
-    "leap": "TRAILING_PADDING,CAPITALIZE_FIRST_WORD",
+    "leap": "TRAILING_SPACE,CAPITALIZE_FIRST_WORD",
 }
 
-mod.list(
-    "formatter_hidden", desc="List of hidden formatters. Are only used for reformat"
-)
-ctx.lists["self.formatter_hidden"] = {
+mod.list("formatter_reformat", desc="List of formatters only used for reformatting")
+ctx.lists["self.formatter_reformat"] = {
     "list": "COMMA_SEPARATED",
     "un": "REMOVE_FORMATTING",
 }
 
 
-mod.list("phrase_ender", desc="List of commands that can be used to end a phrase")
-ctx.lists["self.phrase_ender"] = {
-    "void": " ",
-    "slap": "\n",
-    "question": "?",
-    "over": "",
-}
-
-
 @mod.capture(
-    rule="({self.formatter_code} | {self.formatter_prose} | {self.formatter_hidden})+"
+    rule="({self.formatter_code} | {self.formatter_prose} | {self.formatter_reformat})+"
 )
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
@@ -106,42 +183,19 @@ class Actions:
         actions.insert(formatted)
 
     def format_text(text: str, formatters: str) -> str:
-        """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,DOUBLE_QUOTED_STRING')"""
-        for fmtr in reversed(formatters.split(",")):
-            text = formatters_dict[fmtr](text)
-        return text
+        """Formats <text> as <formatters>"""
+        return format_text(text, formatters, unformat=False)
 
     def reformat_text(text: str, formatters: str) -> str:
-        """Reformat the text. Used by Cursorless"""
-        lines = text.split("\n")
-        for i in range(len(lines)):
-            unformatted = actions.user.unformat_text(lines[i], formatters)
-            lines[i] = actions.user.format_text(unformatted, formatters)
-        return "\n".join(lines)
+        """Re-formats <text> as <formatters>"""
+        return format_text(text, formatters, unformat=True)
 
     def reformat_selection(formatters: str):
-        """Reformats the current selection."""
+        """Reformats the current selection as <formatters>"""
         selected = actions.edit.selected_text()
-        if not selected:
-            return
-        formatted = actions.user.reformat_text(selected, formatters)
-        actions.insert(formatted)
-
-    def unformat_text(text: str, formatters: str = None) -> str:
-        """Remove format from text"""
-        # Some formatters don't use unformat before
-        if formatters in formatters_no_unformat:
-            return text
-        # Remove quotes
-        text = de_string(text)
-        # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
-        result = re.sub(r"[-_.:/](?!\s)+", " ", text)
-        # Split camel case. Including numbers
-        result = actions.user.de_camel(result)
-        # Delimiter/camel case successfully split. Lower case to restore "original" text.
-        if text != result:
-            result = result.lower()
-        return result
+        if selected:
+            formatted = actions.user.reformat_text(selected, formatters)
+            actions.insert(formatted)
 
     def de_camel(text: str) -> str:
         """Replacing camelCase boundaries with blank space"""
@@ -157,6 +211,16 @@ class Actions:
             " ",
             text,
         )
+
+
+def format_text(text: str, formatters: str, unformat: bool) -> str:
+    """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,SNAKE_CASE')"""
+    for i, formatter_name in enumerate(reversed(formatters.split(","))):
+        formatter = formatters_dict[formatter_name]
+        if unformat and i == 0 and formatter.unformat:
+            text = formatter.unformat(text)
+        text = formatter.format(text)
+    return text
 
 
 def format_delim(

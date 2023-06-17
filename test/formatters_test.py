@@ -7,8 +7,8 @@ import_unicode = "Hej på dig åäö"
 fixtures_format = [
     # Simple formatters
     ["NOOP", input_raw, input_raw],
-    ["TRAILING_PADDING", input_raw, f"{input_raw} "],
-    ["ALL_CAPS", input_raw, input_raw.upper()],
+    ["TRAILING_SPACE", input_raw, f"{input_raw} "],
+    ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     # Splitting formatters
     ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And It's Nice!"],
@@ -17,7 +17,7 @@ fixtures_format = [
     ["CAMEL_CASE", input_raw, "why?andItsNice!"],
     ["PASCAL_CASE", input_raw, "Why?AndItsNice!"],
     ["SNAKE_CASE", input_raw, "why?and_its_nice!"],
-    ["ALL_CAPS_SNAKE_CASE", input_raw, "WHY?AND_ITS_NICE!"],
+    ["ALL_UPPERCASE_SNAKE_CASE", input_raw, "WHY?AND_ITS_NICE!"],
     ["DASH_SEPARATED", input_raw, "why?and-its-nice!"],
     ["DOT_SEPARATED", input_raw, "why?and.its.nice!"],
     ["SLASH_SEPARATED", input_raw, "why?and/its/nice!"],
