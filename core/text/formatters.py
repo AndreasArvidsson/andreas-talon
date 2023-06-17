@@ -266,7 +266,7 @@ def first_and_rest(text, format_first=None, format_rest=None):
         elif format_rest:
             words[i] = format_rest(word)
 
-    return " ".join(words) + get_trailing_whitespace(text)
+    return " ".join(words)
 
 
 def capitalize(text: str) -> str:
@@ -283,8 +283,3 @@ def upper(text: str) -> str:
 
 def de_string(text: str) -> str:
     return text.strip('"').strip("'")
-
-
-def get_trailing_whitespace(text: str) -> str:
-    match = re.search(r"\s+$", text)
-    return match.group() if match else ""
