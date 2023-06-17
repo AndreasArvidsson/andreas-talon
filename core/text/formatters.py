@@ -11,8 +11,6 @@ formatters_dict = {
     "TRAILING_PADDING": lambda text: f"{text} ",
     "ALL_CAPS": lambda text: text.upper(),
     "ALL_LOWERCASE": lambda text: text.lower(),
-    "DOUBLE_QUOTED_STRING": lambda text: f'"{text}"',
-    "SINGLE_QUOTED_STRING": lambda text: f"'{text}'",
     # Splitting formatters
     "CAPITALIZE_ALL_WORDS": lambda text: first_and_rest(text, capitalize, capitalize),
     "CAPITALIZE_FIRST_WORD": lambda text: first_and_rest(text, capitalize),
@@ -43,8 +41,6 @@ formatters_no_unformat = {
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", desc="List of code formatters")
 ctx.lists["self.formatter_code"] = {
-    # "string": "DOUBLE_QUOTED_STRING",
-    # "twin": "SINGLE_QUOTED_STRING",
     # Splitting formatters
     "camel": "CAMEL_CASE",
     "pascal": "PASCAL_CASE",
@@ -60,13 +56,11 @@ ctx.lists["self.formatter_code"] = {
 
 mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
-    # "say": "NOOP",
+    "say": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",
     "upper": "ALL_CAPS",
     "lower": "ALL_LOWERCASE",
-    # "string sentence": "DOUBLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
-    # "twin sentence": "SINGLE_QUOTED_STRING,CAPITALIZE_FIRST_WORD",
 }
 
 

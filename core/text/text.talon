@@ -1,9 +1,3 @@
-# Un-formatted prose phrase: "say hello there" -> hello there
-say <user.prose>$:
-    "{prose}"
-say <user.prose> {user.phrase_ender}:
-    "{prose}{phrase_ender}"
-
 # Formatted prose phrase: "sentence hello there" -> Hello there
 {user.formatter_prose} <user.prose>$:
     user.insert_formatted(prose, formatter_prose)
