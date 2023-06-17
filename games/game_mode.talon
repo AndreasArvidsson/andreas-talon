@@ -7,4 +7,4 @@ tag: user.game_voip_muted
 ^game mode$:                skip()
 
 {user.sleep_phrase} [<phrase>]$:
-    user.talon_sleep_command()
+    user.talon_sleep()
