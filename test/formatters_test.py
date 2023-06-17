@@ -59,6 +59,10 @@ fixtures_reformat = [
     ["Camel to snake", "SNAKE_CASE", input_camel, "hello_there_my_ip_address_2_x_3"],
     ["Camel to snake unicode", "SNAKE_CASE", input_camel_unicode, input_snake_unicode],
     ["Snake to camel unicode", "CAMEL_CASE", input_snake_unicode, input_camel_unicode],
+    ["Upper to sentence", "CAPITALIZE_FIRST_WORD", "HELLO WORLD", "Hello world"],
+    ["Upper to title", "CAPITALIZE_ALL_WORDS", "HELLO WORLD", "Hello World"],
+    ["Snake to upper", "ALL_UPPERCASE", "hello_world", "HELLO_WORLD"],
+    ["Constant to lower", "ALL_LOWERCASE", "HELLO_WORLD", "hello_world"],
 ]
 
 

@@ -14,8 +14,11 @@ class Formatter:
     unformat: Optional[Callable[[str], str]] = None
 
 
-def no_apostrophe(text: str) -> str:
-    return text.replace("'", "")
+
+
+
+def unformat_upper(text: str) -> str:
+    return text.lower() if text.isupper() else text
 
 
 def unformat_text(text: str) -> str:
@@ -57,11 +60,13 @@ formatters = [
     # Splitting formatters
     Formatter(
         "CAPITALIZE_FIRST_WORD",
-        lambda text: first_and_rest(text, capitalize),
+        lambda text: first_and_rest(text, capitalizeSoft),
+        unformat_upper,
     ),
     Formatter(
         "CAPITALIZE_ALL_WORDS",
-        lambda text: first_and_rest(text, capitalize, capitalize),
+        lambda text: first_and_rest(text, capitalizeSoft, capitalizeSoft),
+        unformat_upper,
     ),
     # Delimited formatters
     Formatter(
@@ -269,8 +274,16 @@ def first_and_rest(text, format_first=None, format_rest=None):
     return " ".join(words)
 
 
+def no_apostrophe(text: str) -> str:
+    return text.replace("'", "")
+
+
+def capitalizeSoft(text: str) -> str:
+    return f"{text[0].upper()}{text[1:]}"
+
+
 def capitalize(text: str) -> str:
-    return text.lower().capitalize()
+    return text.capitalize()
 
 
 def lower(text: str) -> str:
