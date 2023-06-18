@@ -30,7 +30,7 @@ def pretty_print_phrase(analyzed_phrase: AnalyzedPhrase):
         for action in cmd.actions:
             printLine(
                 f"  {bcolors.BOLD}{action.name}{bcolors.ENDC}:",
-                f"{action.get_explanation_or_desc()}",
+                f"{action.explanation}",
             )
 
     print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")

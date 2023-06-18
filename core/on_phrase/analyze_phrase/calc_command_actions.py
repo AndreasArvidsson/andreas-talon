@@ -1,6 +1,5 @@
 from talon import Module, Context, registry
 from talon_init import TALON_HOME
-from typing import Union
 import re
 import os
 import inspect
@@ -21,6 +20,7 @@ default_descs = {
     "insert": "Insert text <text>",
     "auto_insert": "Insert text <text>",
     "print": "Log text <obj>",
+    "user.cursorless_action_or_ide_command": "Execute single-target cursorless command",
 }
 
 
@@ -64,17 +64,14 @@ def calc_command_actions(
             inspect.getdoc(action.func) if isinstance(action.ctx, Context) else None
         )
 
-        if action_params:
-            explanation = get_action_explanation(
-                action_name,
-                action_params,
-                action_args,
-                mod_desc,
-                ctx_desc,
-                parameters_map,
-            )
-        else:
-            explanation = None
+        explanation = get_action_explanation(
+            action_name,
+            action_params or "",
+            action_args,
+            mod_desc,
+            ctx_desc,
+            parameters_map,
+        )
 
         actions.append(
             AnalyzedAction(
@@ -111,7 +108,7 @@ def get_action_explanation(
     mod_desc: str,
     ctx_desc: str,
     parameters_map: dict,
-) -> Union[str, None]:
+) -> str:
     if action_name == "key":
         keys = update_parameter(action_params, parameters_map)
         is_plural = len(keys) > 1 and " " in keys or "-" in keys
@@ -120,20 +117,13 @@ def get_action_explanation(
 
     action_params = [x.strip() for x in action_params.split(",")]
     action_desc = ctx_desc or default_descs.get(action_name) or mod_desc
-
-    result = action_desc
     length = min(len(action_params), len(action_args))
 
     for param, arg in zip(action_params[:length], action_args[:length]):
         value = update_parameter(param, parameters_map)
-        result = result.replace(f"<{arg}>", f"'{value}'")
+        action_desc = action_desc.replace(f"<{arg}>", f"'{value}'")
 
-    result = result.replace("\n", "\\n")
-
-    if result != action_desc:
-        return result
-
-    return None
+    return action_desc.replace("\n", "\\n")
 
 
 def update_parameter(param: str, map: dict) -> str:

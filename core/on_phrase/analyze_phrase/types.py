@@ -11,10 +11,7 @@ class AnalyzedAction:
     line: Optional[float]
     modDesc: str
     ctxDesc: Optional[str]
-    explanation: Optional[str]
-
-    def get_explanation_or_desc(self):
-        return self.explanation or self.ctxDesc or self.modDesc
+    explanation: str
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"

@@ -36,7 +36,7 @@ def gui(gui: imgui.GUI):
             add_line = True
             gui.header(entry.phrase)
             for action in entry.actions:
-                gui.text(f"  {action.get_explanation_or_desc()}")
+                gui.text(f"  {action.explanation}")
 
 
 def command_history_append(analyzed_phrase: AnalyzedPhrase):
