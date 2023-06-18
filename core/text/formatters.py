@@ -14,9 +14,6 @@ class Formatter:
     unformat: Optional[Callable[[str], str]] = None
 
 
-
-
-
 def unformat_upper(text: str) -> str:
     return text.lower() if text.isupper() else text
 
@@ -52,6 +49,14 @@ formatters = [
     Formatter(
         "ALL_LOWERCASE",
         lambda text: text.lower(),
+    ),
+    Formatter(
+        "DOUBLE_QUOTED_STRING",
+        lambda text: f'"{text}"',
+    ),
+    Formatter(
+        "SINGLE_QUOTED_STRING",
+        lambda text: f"'{text}'",
     ),
     Formatter(
         "NO_SPACES",
@@ -142,6 +147,8 @@ ctx.lists["self.formatter_code"] = {
 
 mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
+    "string": "DOUBLE_QUOTED_STRING",
+    # "twin": "SINGLE_QUOTED_STRING",
     "say": "NOOP",
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",

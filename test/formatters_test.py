@@ -10,6 +10,8 @@ fixtures_format = [
     ["TRAILING_SPACE", input_raw, f"{input_raw} "],
     ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
+    ["DOUBLE_QUOTED_STRING", input_raw, '"why? and it\'s nice!"'],
+    ["SINGLE_QUOTED_STRING", input_raw, "'why? and it's nice!'"],
     # Splitting formatters
     ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And It's Nice!"],
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and it's nice!"],
