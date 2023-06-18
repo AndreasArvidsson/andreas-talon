@@ -247,16 +247,16 @@ def format_delim(
     format_first=None,
     format_rest=None,
 ):
-    # Strip apostrophes, hyphens and quotes
-    text = re.sub(r"['`\-\"]+", "", text)
-    # Split on anything that is not alpha-num or dot
-    words = re.split(r"[^\w\d.]+", text)
+    # Strip anything that is not alpha-num, whitespace or dot
+    text = re.sub(r"[^\w\d\s.]+", "", text)
+    # Split on anything that is not alpha-num
+    words = re.split(r"([^\w\d]+)", text)
     groups = []
     group = []
     first = True
 
     for word in words:
-        if not word:
+        if word.isspace():
             continue
         # Word is number
         if bool(re.match(r"\d+", word)):

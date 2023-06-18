@@ -1,7 +1,7 @@
 from talon import actions
 
-input_raw = "why? and it's nice!"
-input_raw_numbers = "why? and it's nice 123.0!"
+input_raw = "why? and. It's nice!"
+input_raw_numbers = "why? and. It's nice 123.0!"
 import_unicode = "Hej på dig åäö"
 
 fixtures_format = [
@@ -10,25 +10,25 @@ fixtures_format = [
     ["TRAILING_SPACE", input_raw, f"{input_raw} "],
     ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
-    ["DOUBLE_QUOTED_STRING", input_raw, '"why? and it\'s nice!"'],
-    ["SINGLE_QUOTED_STRING", input_raw, "'why? and it's nice!'"],
-    ["NO_SPACES", "why?\nand\tit's  nice`!", "why?anditsnice!"],
+    ["DOUBLE_QUOTED_STRING", input_raw, '"why? and. It\'s nice!"'],
+    ["SINGLE_QUOTED_STRING", input_raw, "'why? and. It's nice!'"],
+    ["NO_SPACES", "why?\nand.\tIt's  nice`!", "why?and.Itsnice!"],
     # Splitting formatters
-    ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And It's Nice!"],
-    ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and it's nice!"],
+    ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And. It's Nice!"],
+    ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
     # Delimited formatters
-    ["CAMEL_CASE", input_raw, "whyAndItsNice"],
-    ["PASCAL_CASE", input_raw, "WhyAndItsNice"],
-    ["SNAKE_CASE", input_raw, "why_and_its_nice"],
-    ["ALL_UPPERCASE,SNAKE_CASE", input_raw, "WHY_AND_ITS_NICE"],
-    ["DASH_SEPARATED", input_raw, "why-and-its-nice"],
+    ["CAMEL_CASE", input_raw, "whyAnd.itsNice"],
+    ["PASCAL_CASE", input_raw, "WhyAnd.ItsNice"],
+    ["SNAKE_CASE", input_raw, "why_and.its_nice"],
+    ["ALL_UPPERCASE,SNAKE_CASE", input_raw, "WHY_AND.ITS_NICE"],
+    ["DASH_SEPARATED", input_raw, "why-and.its-nice"],
     ["DOT_SEPARATED", input_raw, "why.and.its.nice"],
-    ["SLASH_SEPARATED", input_raw, "why/and/its/nice"],
-    ["DOUBLE_UNDERSCORE", input_raw, "why__and__its__nice"],
-    ["DOUBLE_COLON_SEPARATED", input_raw, "why::and::its::nice"],
+    ["SLASH_SEPARATED", input_raw, "why/and.its/nice"],
+    ["DOUBLE_UNDERSCORE", input_raw, "why__and.its__nice"],
+    ["DOUBLE_COLON_SEPARATED", input_raw, "why::and.its::nice"],
     # Symbols
-    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "whyAndItsNice123.0"],
-    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why_and_its_nice_123.0"],
+    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "whyAnd.itsNice123.0"],
+    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why_and.its_nice_123.0"],
     # Unicode characters
     ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
     ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],
@@ -42,7 +42,7 @@ output_raw = "hello there my ip address 2 x 3"
 output_raw_unicode = "hej på dig åäö"
 
 fixtures_reformat = [
-    ["COMMA_SEPARATED", input_raw, "why?, and, it's, nice!"],
+    ["COMMA_SEPARATED", input_raw, "why?, and., It's, nice!"],
     ["Unformat snake", "REMOVE_FORMATTING", input_snake, output_raw],
     [
         "Unformat unicode snake",
