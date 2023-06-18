@@ -6,12 +6,13 @@ import_unicode = "Hej på dig åäö"
 
 fixtures_format = [
     # Simple formatters
-    ["NOOP", input_raw, input_raw],
+    ["NO_FORMAT", input_raw, input_raw],
     ["TRAILING_SPACE", input_raw, f"{input_raw} "],
     ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["DOUBLE_QUOTED_STRING", input_raw, '"why? and it\'s nice!"'],
     ["SINGLE_QUOTED_STRING", input_raw, "'why? and it's nice!'"],
+    ["NO_SPACES", input_raw, "why?anditsnice!"],
     # Splitting formatters
     ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And It's Nice!"],
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and it's nice!"],
@@ -25,7 +26,6 @@ fixtures_format = [
     ["SLASH_SEPARATED", input_raw, "why?and/its/nice!"],
     ["DOUBLE_UNDERSCORE", input_raw, "why?and__its__nice!"],
     ["DOUBLE_COLON_SEPARATED", input_raw, "why?and::its::nice!"],
-    ["NO_SPACES", input_raw, "why?anditsnice!"],
     # Symbols
     ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "why?andItsNice123.0!"],
     ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why?and_its_nice_123.0!"],

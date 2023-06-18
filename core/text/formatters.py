@@ -35,7 +35,7 @@ def unformat_text(text: str) -> str:
 formatters = [
     # Simple formatters
     Formatter(
-        "NOOP",
+        "NO_FORMAT",
         lambda text: text,
     ),
     Formatter(
@@ -158,7 +158,7 @@ mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
     **formatters_prose,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
-    "say": "NOOP",
+    "say": "NO_FORMAT",
     "string": "DOUBLE_QUOTED_STRING",
     # "twin": "SINGLE_QUOTED_STRING",
 }
