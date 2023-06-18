@@ -225,12 +225,15 @@ class Actions:
 
 def format_text(text: str, formatters: str, unformat: bool) -> str:
     """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,SNAKE_CASE')"""
+    text, pre, post = shrink_to_string_inside(text)
+
     for i, formatter_name in enumerate(reversed(formatters.split(","))):
         formatter = formatters_dict[formatter_name]
         if unformat and i == 0 and formatter.unformat:
             text = formatter.unformat(text)
         text = formatter.format(text)
-    return text
+
+    return f"{pre}{text}{post}"
 
 
 def format_delim(
@@ -288,6 +291,20 @@ def first_and_rest(text, format_first=None, format_rest=None):
             words[i] = format_rest(word)
 
     return "".join(words)
+
+
+string_delimiters = [
+    ['"""', '"""'],
+    ['"', '"'],
+    ["'", "'"],
+]
+
+
+def shrink_to_string_inside(text: str) -> (str, str, str):
+    for [left, right] in string_delimiters:
+        if text.startswith(left) and text.endswith(right):
+            return text[len(left) : -len(right)], left, right
+    return text, "", ""
 
 
 def capitalizeSoft(text: str) -> str:

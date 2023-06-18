@@ -32,13 +32,6 @@ fixtures_format = [
     # Unicode characters
     ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
     ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],
-    # Keep white space
-    [
-        "Keep white space",
-        "CAPITALIZE_ALL_WORDS",
-        "\thello\nworld ",
-        "\tHello\nWorld ",
-    ],
 ]
 
 input_camel = "helloThere.myIPAddress2x3"
@@ -72,6 +65,15 @@ fixtures_reformat = [
     ["Upper to title", "CAPITALIZE_ALL_WORDS", "HELLO WORLD", "Hello World"],
     ["Snake to upper", "ALL_UPPERCASE", "hello_world", "HELLO_WORLD"],
     ["Constant to lower", "ALL_LOWERCASE", "HELLO_WORLD", "hello_world"],
+    ["Twin to snake", "SNAKE_CASE", "'hello world'", "'hello_world'"],
+    ["Quad to snake", "SNAKE_CASE", '"hello world"', '"hello_world"'],
+    ["Docstring to snake", "SNAKE_CASE", '"""hello world"""', '"""hello_world"""'],
+    [
+        "Preserve whitespace",
+        "CAPITALIZE_ALL_WORDS",
+        "\thello\nworld ",
+        "\tHello\nWorld ",
+    ],
 ]
 
 
@@ -90,22 +92,3 @@ def test_formatters():
     actions.user.test_run_suite(
         "reformat", fixtures_reformat, lambda f: test(f, actions.user.reformat_text)
     )
-
-
-# # Test unformat_text
-# tests = {
-#     "say": "hello, I'm ip address 2!",
-#     "sentence": "Hello, I'm ip address 2!",
-#     "allcaps": "HELLO, I'M IP ADDRESS 2!",
-#     "camel": "helloThereIPAddressA2a2",
-#     "Pascal": "HelloThereIPAddressA2a2",
-#     "snake": "hello_there_ip_address_2",
-#     "kebab": "hello-there-ip-address-2",
-#     "packed": "hello::there::ip::address::2",
-#     "dotted": "hello.there.ip.address.2",
-#     "slasher": "hello/there/ip/address/2",
-#     "dunder": "hello__there__ip_address__2"
-# }
-# for key, value in tests.items():
-#     text = actions.user.unformat_text(value)
-#     print(f"{key.ljust(15)}{value.ljust(35)}{text}")
