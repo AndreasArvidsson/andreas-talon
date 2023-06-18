@@ -29,7 +29,7 @@ def unformat_text_for_code(text: str) -> str:
         result = actions.user.de_camel(result)
         # Delimiter/camel case successfully split. Lower case to restore "original" text.
         if text != result:
-            text = result.lower()
+            return result.lower()
 
     return text
 
