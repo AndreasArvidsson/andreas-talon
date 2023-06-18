@@ -40,4 +40,4 @@ talon check updates:        menu.check_for_updates()
 
 talon sim <phrase>$:        user.talon_sim_phrase(phrase)
 
-talon restart:              user.talon_restart()
+^talon restart$:            user.talon_restart()
