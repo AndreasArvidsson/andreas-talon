@@ -100,6 +100,11 @@ formatters = [
         unformat_text,
     ),
     Formatter(
+        "SLASH_SEPARATED",
+        lambda text: format_delim(text, "/", lower, lower),
+        unformat_text,
+    ),
+    Formatter(
         "DOUBLE_UNDERSCORE",
         lambda text: format_delim(text, "__", lower, lower),
         unformat_text,
@@ -109,12 +114,7 @@ formatters = [
         lambda text: format_delim(text, "::", lower, lower),
         unformat_text,
     ),
-    Formatter(
-        "SLASH_SEPARATED",
-        lambda text: format_delim(text, "/", lower, lower),
-        unformat_text,
-    ),
-    # Re formatters
+    # Re-formatters
     Formatter(
         "REMOVE_FORMATTING",
         lambda text: text.lower(),
