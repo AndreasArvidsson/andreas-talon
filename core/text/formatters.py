@@ -58,10 +58,7 @@ formatters = [
         "SINGLE_QUOTED_STRING",
         lambda text: f"'{text}'",
     ),
-    Formatter(
-        "NO_SPACES",
-        lambda text: no_apostrophe(text).replace(" ", ""),
-    ),
+    Formatter("NO_SPACES", lambda text: re.sub(r"[\s']", "", text)),
     # Splitting formatters
     Formatter(
         "CAPITALIZE_FIRST_WORD",
@@ -291,10 +288,6 @@ def first_and_rest(text, format_first=None, format_rest=None):
             words[i] = format_rest(word)
 
     return "".join(words)
-
-
-def no_apostrophe(text: str) -> str:
-    return text.replace("'", "")
 
 
 def capitalizeSoft(text: str) -> str:
