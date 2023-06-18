@@ -6,8 +6,8 @@ mode: dictation
 
 # Insert the actual words
 # Only words, no symbols or numbers
-escape <user.words>$:       "{words}"
-escape <user.words> over:   "{words}"
+escape <user.phrase>$:      "{phrase}"
+escape <user.phrase> over:  "{phrase}"
 
 ^bullet:                    "* "
 ^task:                      "- [ ] "

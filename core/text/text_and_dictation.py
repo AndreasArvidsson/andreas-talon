@@ -30,8 +30,8 @@ def word(m) -> str:
 
 # Used to escape numbers and symbols
 @mod.capture(rule="({user.vocabulary} | <phrase>)+")
-def words(m) -> str:
-    """A sequence of words, including user-defined vocabulary."""
+def phrase(m) -> str:
+    """A phrase(sequence of words), including user-defined vocabulary."""
     return format_phrase(m)
 
 

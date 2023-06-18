@@ -11,8 +11,8 @@
     user.insert_formatted("{text_code}{phrase_ender}", formatter_code)
 
 # Only words, no symbols or numbers
-escape <user.words>$:       "{words}"
-escape <user.words> over:   "{words}"
+escape <user.phrase>$:      "{phrase}"
+escape <user.phrase> over:  "{phrase}"
 
 # Single word: "word up" => up, "proud up" => Up
 {user.formatter_word} <user.word>:
