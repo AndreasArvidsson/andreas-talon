@@ -129,10 +129,8 @@ formatters = [
 
 formatters_dict = {f.id: f for f in formatters}
 
-
-# This is the mapping from spoken phrases to formatters
-mod.list("formatter_code", desc="List of code formatters")
-ctx.lists["self.formatter_code"] = {
+formatters_code = {
+    "smash": "NO_SPACES",
     "camel": "CAMEL_CASE",
     "pascal": "PASCAL_CASE",
     "snake": "SNAKE_CASE",
@@ -140,22 +138,40 @@ ctx.lists["self.formatter_code"] = {
     "kebab": "DASH_SEPARATED",
     "dotted": "DOT_SEPARATED",
     "slasher": "SLASH_SEPARATED",
-    "dunder": "DOUBLE_UNDERSCORE",
-    "packed": "DOUBLE_COLON_SEPARATED",
-    "smash": "NO_SPACES",
+    # "dunder": "DOUBLE_UNDERSCORE",
+    # "packed": "DOUBLE_COLON_SEPARATED",
 }
 
-mod.list("formatter_prose", desc="List of prose formatters")
-ctx.lists["self.formatter_prose"] = {
-    "string": "DOUBLE_QUOTED_STRING",
-    # "twin": "SINGLE_QUOTED_STRING",
-    "say": "NOOP",
+formatters_prose = {
     "sentence": "CAPITALIZE_FIRST_WORD",
     "title": "CAPITALIZE_ALL_WORDS",
     "upper": "ALL_UPPERCASE",
     "lower": "ALL_LOWERCASE",
 }
 
+
+# This is the mapping from spoken phrases to formatters
+mod.list("formatter_code", desc="List of code formatters")
+ctx.lists["self.formatter_code"] = formatters_code
+
+mod.list("formatter_prose", desc="List of prose formatters")
+ctx.lists["self.formatter_prose"] = {
+    **formatters_prose,
+    # I don't want these formatters in the formatter list/capture since they are not for reformatting
+    "say": "NOOP",
+    "string": "DOUBLE_QUOTED_STRING",
+    # "twin": "SINGLE_QUOTED_STRING",
+}
+
+
+mod.list("formatter", desc="List of formatters only used for reformatting")
+ctx.lists["self.formatter"] = {
+    **formatters_code,
+    **formatters_prose,
+    # These formatters are only for reformatting and neither code or prose
+    "list": "COMMA_SEPARATED",
+    "un": "REMOVE_FORMATTING",
+}
 
 mod.list("formatter_word", desc="List of word formatters")
 ctx.lists["self.formatter_word"] = {
@@ -165,16 +181,8 @@ ctx.lists["self.formatter_word"] = {
     "leap": "TRAILING_SPACE,CAPITALIZE_FIRST_WORD",
 }
 
-mod.list("formatter_reformat", desc="List of formatters only used for reformatting")
-ctx.lists["self.formatter_reformat"] = {
-    "list": "COMMA_SEPARATED",
-    "un": "REMOVE_FORMATTING",
-}
 
-
-@mod.capture(
-    rule="({self.formatter_code} | {self.formatter_prose} | {self.formatter_reformat})+"
-)
+@mod.capture(rule="{self.formatter}+")
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m)
