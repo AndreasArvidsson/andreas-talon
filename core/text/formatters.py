@@ -277,16 +277,20 @@ def format_delim(
 
 
 def first_and_rest(text, format_first=None, format_rest=None):
-    words = text.split()
+    words = [x for x in re.split(r"(\s+)", text) if x]
+    first = True
 
     for i, word in enumerate(words):
-        if i == 0:
+        if word.isspace():
+            continue
+        if first:
+            first = False
             if format_first:
                 words[i] = format_first(word)
         elif format_rest:
             words[i] = format_rest(word)
 
-    return " ".join(words)
+    return "".join(words)
 
 
 def no_apostrophe(text: str) -> str:
