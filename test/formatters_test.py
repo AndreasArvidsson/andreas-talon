@@ -12,23 +12,23 @@ fixtures_format = [
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["DOUBLE_QUOTED_STRING", input_raw, '"why? and it\'s nice!"'],
     ["SINGLE_QUOTED_STRING", input_raw, "'why? and it's nice!'"],
-    ["NO_SPACES", "why?\nand\tit's nice!", "why?anditsnice!"],
+    ["NO_SPACES", "why?\nand\tit's  nice`!", "why?anditsnice!"],
     # Splitting formatters
     ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And It's Nice!"],
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and it's nice!"],
     # Delimited formatters
-    ["CAMEL_CASE", input_raw, "why?andItsNice!"],
-    ["PASCAL_CASE", input_raw, "Why?AndItsNice!"],
-    ["SNAKE_CASE", input_raw, "why?and_its_nice!"],
-    ["ALL_UPPERCASE,SNAKE_CASE", input_raw, "WHY?AND_ITS_NICE!"],
-    ["DASH_SEPARATED", input_raw, "why?and-its-nice!"],
-    ["DOT_SEPARATED", input_raw, "why?and.its.nice!"],
-    ["SLASH_SEPARATED", input_raw, "why?and/its/nice!"],
-    ["DOUBLE_UNDERSCORE", input_raw, "why?and__its__nice!"],
-    ["DOUBLE_COLON_SEPARATED", input_raw, "why?and::its::nice!"],
+    ["CAMEL_CASE", input_raw, "whyAndItsNice"],
+    ["PASCAL_CASE", input_raw, "WhyAndItsNice"],
+    ["SNAKE_CASE", input_raw, "why_and_its_nice"],
+    ["ALL_UPPERCASE,SNAKE_CASE", input_raw, "WHY_AND_ITS_NICE"],
+    ["DASH_SEPARATED", input_raw, "why-and-its-nice"],
+    ["DOT_SEPARATED", input_raw, "why.and.its.nice"],
+    ["SLASH_SEPARATED", input_raw, "why/and/its/nice"],
+    ["DOUBLE_UNDERSCORE", input_raw, "why__and__its__nice"],
+    ["DOUBLE_COLON_SEPARATED", input_raw, "why::and::its::nice"],
     # Symbols
-    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "why?andItsNice123.0!"],
-    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why?and_its_nice_123.0!"],
+    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "whyAndItsNice123.0"],
+    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why_and_its_nice_123.0"],
     # Unicode characters
     ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
     ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],
@@ -73,6 +73,12 @@ fixtures_reformat = [
         "CAPITALIZE_ALL_WORDS",
         "\thello\nworld ",
         "\tHello\nWorld ",
+    ],
+    [
+        "Sentence to snake",
+        "SNAKE_CASE",
+        "foo shortterm bar iPhone baz",
+        "foo_shortterm_bar_iphone_baz",
     ],
 ]
 

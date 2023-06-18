@@ -18,18 +18,20 @@ def unformat_upper(text: str) -> str:
     return text.lower() if text.isupper() else text
 
 
-def unformat_text(text: str) -> str:
+def unformat_text_for_code(text: str) -> str:
     """Remove format from text"""
-    # Remove quotes
-    text = de_string(text)
-    # Split on delimiters. A delimiter char followed by a blank space is no delimiter.
-    result = re.sub(r"[-_.:/](?!\s)+", " ", text)
-    # Split camel case. Including numbers
-    result = actions.user.de_camel(result)
-    # Delimiter/camel case successfully split. Lower case to restore "original" text.
-    if text != result:
-        result = result.lower()
-    return result
+    # Don't split delimited sequences in a string with whitespaces.
+    # Could for example be: short-term or iPhone
+    if re.search(r"\s", text) is None:
+        # Split on delimiters.
+        result = re.sub(r"[-_.:/]+", " ", text)
+        # Split camel case. Including numbers
+        result = actions.user.de_camel(result)
+        # Delimiter/camel case successfully split. Lower case to restore "original" text.
+        if text != result:
+            text = result.lower()
+
+    return text
 
 
 formatters = [
@@ -74,48 +76,48 @@ formatters = [
     Formatter(
         "CAMEL_CASE",
         lambda text: format_delim(text, "", lower, capitalize),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "PASCAL_CASE",
         lambda text: format_delim(text, "", capitalize, capitalize),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "SNAKE_CASE",
         lambda text: format_delim(text, "_", lower, lower),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "DASH_SEPARATED",
         lambda text: format_delim(text, "-", lower, lower),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "DOT_SEPARATED",
         lambda text: format_delim(text, ".", lower, lower),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "SLASH_SEPARATED",
         lambda text: format_delim(text, "/", lower, lower),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "DOUBLE_UNDERSCORE",
         lambda text: format_delim(text, "__", lower, lower),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "DOUBLE_COLON_SEPARATED",
         lambda text: format_delim(text, "::", lower, lower),
-        unformat_text,
+        unformat_text_for_code,
     ),
     # Re-formatters
     Formatter(
         "REMOVE_FORMATTING",
         lambda text: text.lower(),
-        unformat_text,
+        unformat_text_for_code,
     ),
     Formatter(
         "COMMA_SEPARATED",
@@ -244,14 +246,14 @@ def format_delim(
 ):
     # Strip apostrophes and quotes
     text = re.sub(r"['`\"]+", "", text)
-    # Split on anything that is not alpha-num
-    words = re.split(r"([^\w\d]+)", text)
+    # Split on anything that is not alpha-num or dot
+    words = re.split(r"[^\w\d.]+", text)
     groups = []
     group = []
     first = True
 
     for word in words:
-        if not word.strip():
+        if not word:
             continue
         # Word is number
         if bool(re.match(r"\d+", word)):
@@ -321,7 +323,3 @@ def lower(text: str) -> str:
 
 def upper(text: str) -> str:
     return text.upper()
-
-
-def de_string(text: str) -> str:
-    return text.strip('"').strip("'")
