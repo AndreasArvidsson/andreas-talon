@@ -21,7 +21,7 @@ def unformat_upper(text: str) -> str:
 def unformat_text_for_code(text: str) -> str:
     """Remove format from text"""
     # Don't split delimited sequences in a string with whitespaces.
-    # Could for example be: short-term or iPhone
+    # Could for example be: `short-term` or `iPhone` in a sentence
     if re.search(r"\s", text) is None:
         # Split on delimiters.
         result = re.sub(r"[-_.:/]+", " ", text)
@@ -60,7 +60,10 @@ formatters = [
         "SINGLE_QUOTED_STRING",
         lambda text: f"'{text}'",
     ),
-    Formatter("NO_SPACES", lambda text: re.sub(r"[\s']", "", text)),
+    Formatter(
+        "NO_SPACES",
+        lambda text: re.sub(r"['`\s]", "", text),
+    ),
     # Splitting formatters
     Formatter(
         "CAPITALIZE_FIRST_WORD",
@@ -244,8 +247,8 @@ def format_delim(
     format_first=None,
     format_rest=None,
 ):
-    # Strip apostrophes and quotes
-    text = re.sub(r"['`\"]+", "", text)
+    # Strip apostrophes, hyphens and quotes
+    text = re.sub(r"['`\-\"]+", "", text)
     # Split on anything that is not alpha-num or dot
     words = re.split(r"[^\w\d.]+", text)
     groups = []
