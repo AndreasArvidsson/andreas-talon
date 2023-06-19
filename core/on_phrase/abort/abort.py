@@ -74,7 +74,8 @@ def abort_update_phrase(phrase: Phrase) -> tuple[bool, str]:
 
     if ts_threshold is not None:
         # Start of phrase is before timestamp threshold
-        delta = ts_threshold - phrase["_ts"]
+        start = getattr(words[0], "start", phrase["_ts"])
+        delta = ts_threshold - start
         ts_threshold = None
         if delta > 0:
             actions.user.debug(f"Aborted phrase: {delta:.2f}s")
