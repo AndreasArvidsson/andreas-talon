@@ -154,15 +154,18 @@ formatters_prose = {
 
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", desc="List of code formatters")
-ctx.lists["self.formatter_code"] = formatters_code
+ctx.lists["self.formatter_code"] = {
+    **formatters_code,
+    # I don't want these formatters in the formatter list/capture since they are not for reformatting
+    "string": "DOUBLE_QUOTED_STRING",
+    # "twin": "SINGLE_QUOTED_STRING",
+}
 
 mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
     **formatters_prose,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
     "say": "NO_FORMAT",
-    "string": "DOUBLE_QUOTED_STRING",
-    # "twin": "SINGLE_QUOTED_STRING",
 }
 
 
