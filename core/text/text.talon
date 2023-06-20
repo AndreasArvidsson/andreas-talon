@@ -36,4 +36,4 @@ swe {user.swedish_phrase}:  "{swedish_phrase}"
 
 # Upper case characters
 ship <user.letters> [over]:
-    user.insert_formatted(letters, "ALL_CAPS")
+    user.insert_formatted(letters, "ALL_UPPERCASE")
