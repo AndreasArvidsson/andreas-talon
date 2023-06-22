@@ -12,6 +12,8 @@ fallback_action_callbacks = {
     "clearAndSetSelection": actions.edit.delete,
     "remove": actions.edit.delete,
     "applyFormatter": actions.user.reformat_selection,
+    "editNewLineBefore": actions.edit.line_insert_up,
+    "editNewLineAfter": actions.edit.line_insert_down,
     "wrapWithPairedDelimiter.pairedDelimiter": lambda pair: actions.user.delimiters_pair_wrap_selection_with(
         pair[0], pair[1]
     ),
