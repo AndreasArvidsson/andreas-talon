@@ -1,6 +1,8 @@
 os: windows
 and app.exe: cmd.exe
 os: windows
+and app.exe: conhost.exe
+os: windows
 and app.exe: WindowsTerminal.exe
 title: Talon - REPL
 -
