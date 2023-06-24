@@ -118,8 +118,9 @@ class Actions:
 
     def talon_sim_phrase(phrase: Union[str, Phrase]):
         """Sims the phrase in the active app and dumps to the log"""
-        print("**** Simulated Phrase **** ")
-        print(speech_system._sim(str(phrase)))
+        print("**** Simulated phrase **** ")
+        sim = speech_system._sim(str(phrase))
+        print(f" \n{sim}")
         print("*************************")
 
     def talon_restart():
