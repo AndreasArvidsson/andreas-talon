@@ -25,7 +25,7 @@ class Actions:
         if gui.showing:
             actions.user.help_running_apps_hide()
         else:
-            ctx.tags = ["self.help_running_apps"]
+            ctx.tags = ["user.help_running_apps"]
             gui.show()
 
     def help_running_apps_hide():

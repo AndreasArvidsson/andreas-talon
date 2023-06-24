@@ -1,4 +1,4 @@
-from talon import Module, actions, fs
+from talon import Module, actions, resource
 from typing import Callable, Tuple
 from pathlib import Path
 import csv
@@ -23,13 +23,9 @@ class Actions:
         if not path.is_file():
             raise Exception(f"{path} is not a file")
 
-        def on_watch(p: str, flags):
-            if path.match(p):
-                callback(*read_csv_file(p))
-
-        fs.watch(str(path.parent), on_watch)
-
-        callback(*read_csv_file(str(path)))
+        @resource.watch(path)
+        def on_watch(f):
+            callback(*read_csv_file(f))
 
     def watch_csv_as_dict(
         path: Path,
@@ -69,23 +65,19 @@ def list_to_dict_of_lists(values: ListType) -> dict[str, RowType]:
     return result
 
 
-def read_csv_file(path: str) -> TupleType:
+def read_csv_file(file) -> TupleType:
     """Read csv file and return tuple with values and headers"""
     result = []
-    with open(path, "r") as csv_file:
-        # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
-        csv_reader = csv.reader(csv_file, skipinitialspace=True)
-        for row in csv_reader:
-            # Remove trailing whitespaces for each cell
-            row = [x.rstrip() for x in row]
-            # Exclude empty or comment rows
-            if (
-                len(row) == 0
-                or (len(row) == 1 and row[0] == "")
-                or row[0].startswith("#")
-            ):
-                continue
-            result.append(row)
+
+    # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
+    csv_reader = csv.reader(file, skipinitialspace=True)
+    for row in csv_reader:
+        # Remove trailing whitespaces for each cell
+        row = [x.rstrip() for x in row]
+        # Exclude empty or comment rows
+        if len(row) == 0 or (len(row) == 1 and row[0] == "") or row[0].startswith("#"):
+            continue
+        result.append(row)
     return parse_headers(result)
 
 
