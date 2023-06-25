@@ -3,7 +3,6 @@ import json
 import re
 
 PATTERN_RE = re.compile(r"Untitled-\d$")
-vscode = actions.user.vscode
 
 mod = Module()
 mod.tag("vscode_notebook")
@@ -63,28 +62,28 @@ class WinActions:
 @ctx.action_class("app")
 class AppActions:
     def window_open():
-        vscode("workbench.action.newWindow")
+        actions.user.vscode("workbench.action.newWindow")
 
     def tab_open():
-        vscode("workbench.action.files.newUntitledFile")
+        actions.user.vscode("workbench.action.files.newUntitledFile")
 
     def tab_previous():
-        vscode("workbench.action.previousEditorInGroup")
+        actions.user.vscode("workbench.action.previousEditorInGroup")
 
     def tab_next():
-        vscode("workbench.action.nextEditorInGroup")
+        actions.user.vscode("workbench.action.nextEditorInGroup")
 
     def preferences():
-        vscode("workbench.action.openGlobalSettings")
+        actions.user.vscode("workbench.action.openGlobalSettings")
 
 
 @ctx.action_class("code")
 class CodeActions:
     def toggle_comment():
-        vscode("editor.action.commentLine")
+        actions.user.vscode("editor.action.commentLine")
 
     def complete():
-        vscode("editor.action.triggerSuggest")
+        actions.user.vscode("editor.action.triggerSuggest")
 
     def language() -> str:
         # New untitled files are markdown in vscode
@@ -96,7 +95,7 @@ class CodeActions:
 @ctx.action_class("edit")
 class EditActions:
     def save():
-        vscode("hideSuggestWidget")
+        actions.user.vscode("hideSuggestWidget")
         actions.next()
 
     def select_none():
@@ -109,65 +108,65 @@ class EditActions:
 
     # ----- Line commands -----
     def line_swap_up():
-        vscode("editor.action.moveLinesUpAction")
+        actions.user.vscode("editor.action.moveLinesUpAction")
 
     def line_swap_down():
-        vscode("editor.action.moveLinesDownAction")
+        actions.user.vscode("editor.action.moveLinesDownAction")
 
     def line_clone():
-        vscode("editor.action.copyLinesDownAction")
+        actions.user.vscode("editor.action.copyLinesDownAction")
 
     def line_insert_up():
-        vscode("editor.action.insertLineBefore")
+        actions.user.vscode("editor.action.insertLineBefore")
 
     # Don't use since some vscode extension(eg markdown) has specific behavior on enter
     # def line_insert_down():
-    #     vscode("editor.action.insertLineAfter")
+    #     actions.user.vscode("editor.action.insertLineAfter")
 
     def delete_line():
-        vscode("editor.action.deleteLines")
+        actions.user.vscode("editor.action.deleteLines")
 
     def extend_line(n: int):
-        vscode("andreas.selectTo", n)
+        actions.user.vscode("andreas.selectTo", n)
 
     def jump_line(n: int):
-        vscode("workbench.action.gotoLine")
+        actions.user.vscode("workbench.action.gotoLine")
         actions.insert(n)
         actions.key("enter")
 
     # ----- Indent -----
     def indent_more():
-        vscode("editor.action.indentLines")
+        actions.user.vscode("editor.action.indentLines")
 
     def indent_less():
-        vscode("editor.action.outdentLines")
+        actions.user.vscode("editor.action.outdentLines")
 
     # ----- Zoom -----
     def zoom_reset():
-        vscode("workbench.action.zoomReset")
+        actions.user.vscode("workbench.action.zoomReset")
 
 
 @ctx.action_class("user")
 class UserActions:
     # ----- Navigation -----
     def go_back():
-        vscode("workbench.action.navigateBack")
+        actions.user.vscode("workbench.action.navigateBack")
 
     def go_forward():
-        vscode("workbench.action.navigateForward")
+        actions.user.vscode("workbench.action.navigateForward")
 
     def line_middle():
-        vscode("andreas.lineMiddle")
+        actions.user.vscode("andreas.lineMiddle")
 
     # ----- Find / Replace -----
     def find_everywhere(text: str = None):
-        vscode("workbench.action.findInFiles")
+        actions.user.vscode("workbench.action.findInFiles")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
 
     def find_file(text: str = None):
-        vscode("workbench.action.quickOpen")
+        actions.user.vscode("workbench.action.quickOpen")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
@@ -192,16 +191,16 @@ class UserActions:
 
     # ----- Tabs -----
     def tab_back():
-        vscode("workbench.action.openPreviousRecentlyUsedEditorInGroup")
+        actions.user.vscode("workbench.action.openPreviousRecentlyUsedEditorInGroup")
 
     def tab_final():
-        vscode("workbench.action.lastEditorInGroup")
+        actions.user.vscode("workbench.action.lastEditorInGroup")
 
     def tab_jump(number: int):
-        vscode("andreas.openEditorAtIndex", number - 1)
+        actions.user.vscode("andreas.openEditorAtIndex", number - 1)
 
     def tab_jump_from_back(number: int):
-        vscode("andreas.openEditorAtIndex", -number)
+        actions.user.vscode("andreas.openEditorAtIndex", -number)
 
     # ----- Scroll -----
     def scroll_up():
@@ -217,10 +216,10 @@ class UserActions:
         actions.key("alt-pagedown")
 
     def scroll_up_half_page():
-        vscode("editorScroll", {"to": "up", "by": "halfPage"})
+        actions.user.vscode("editorScroll", {"to": "up", "by": "halfPage"})
 
     def scroll_down_half_page():
-        vscode("editorScroll", {"to": "down", "by": "halfPage"})
+        actions.user.vscode("editorScroll", {"to": "down", "by": "halfPage"})
 
     # ----- Word -----
     def cut_word():
@@ -250,7 +249,7 @@ class UserActions:
 #             print(f"'{text}'")
 #             print(f"'{text[0:-1]}'")
 #             actions.next(text[0:-1])
-#             vscode("notebook.cell.executeAndInsertBelow")
+#             actions.user.vscode("notebook.cell.executeAndInsertBelow")
 #         else:
 #             actions.next(text)
 
@@ -266,32 +265,32 @@ class NotebookUserActions:
 class NotebookEditActions:
     # ----- Line commands -----
     def line_swap_up():
-        vscode("notebook.cell.moveUp")
+        actions.user.vscode("notebook.cell.moveUp")
 
     def line_swap_down():
-        vscode("notebook.cell.moveDown")
+        actions.user.vscode("notebook.cell.moveDown")
 
 
 @mod.action_class
 class Actions:
     def jump_line_character(l: int, c: int):
         """Move cursor to line <l> and character <c>"""
-        vscode("workbench.action.gotoLine")
+        actions.user.vscode("workbench.action.gotoLine")
         actions.insert(f"{l}:{c}")
         actions.key("enter")
 
     def save_without_formatting():
         """Save current document without formatting"""
-        vscode("hideSuggestWidget")
-        vscode("workbench.action.files.saveWithoutFormatting")
+        actions.user.vscode("hideSuggestWidget")
+        actions.user.vscode("workbench.action.files.saveWithoutFormatting")
 
     def format_document():
         """Format document"""
-        vscode("editor.action.formatDocument")
+        actions.user.vscode("editor.action.formatDocument")
 
     def vscode_find_recent(text: str = None):
         """Find recent session, directory or file"""
-        vscode("workbench.action.openRecent")
+        actions.user.vscode("workbench.action.openRecent")
         if text:
             actions.sleep("150ms")
             actions.insert(text)
@@ -348,7 +347,7 @@ class Actions:
 
     def git_find_branch(text: str = None):
         """Fined git branch"""
-        vscode("git.checkout")
+        actions.user.vscode("git.checkout")
         if text:
             actions.insert(text)
 
@@ -364,15 +363,15 @@ class Actions:
 
         # Select number of next instances
         for _ in range(repeats):
-            vscode("editor.action.addSelectionToNextFindMatch")
+            actions.user.vscode("editor.action.addSelectionToNextFindMatch")
 
         # Select all instances
         if repeats < 0:
-            vscode("editor.action.selectHighlights")
+            actions.user.vscode("editor.action.selectHighlights")
 
     def change_language(language: str = ""):
         """Change language mode"""
-        vscode("workbench.action.editor.changeLanguageMode")
+        actions.user.vscode("workbench.action.editor.changeLanguageMode")
         if language:
             actions.insert(language)
 
@@ -387,7 +386,7 @@ class Actions:
 
     def vscode_add_missing_imports():
         """Add all missing imports"""
-        vscode(
+        actions.user.vscode(
             "editor.action.sourceAction",
             {"kind": "source.addMissingImports", "apply": "first"},
         )
