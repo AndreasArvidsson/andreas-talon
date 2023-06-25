@@ -226,7 +226,7 @@ class Image:
             height = round(width / aspect_ratio)
         else:
             width = round(height * aspect_ratio)
-        return self._image.reshape(width, height)
+        return self._image.reshape(int(width), int(height))
 
     def draw(self, state: State):
         image = self._resize(state.image_width, state.image_height)
