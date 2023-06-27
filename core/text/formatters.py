@@ -37,7 +37,7 @@ def unformat_text_for_code(text: str) -> str:
 formatters = [
     # Simple formatters
     Formatter(
-        "NO_FORMAT",
+        "KEEP_FORMAT",
         lambda text: text,
     ),
     Formatter(
@@ -165,7 +165,7 @@ mod.list("formatter_prose", desc="List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
     **formatters_prose,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
-    "say": "NO_FORMAT",
+    "say": "KEEP_FORMAT",
 }
 
 

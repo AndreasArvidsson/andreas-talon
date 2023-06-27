@@ -6,7 +6,7 @@ import_unicode = "Hej på dig åäö"
 
 fixtures_format = [
     # Simple formatters
-    ["NO_FORMAT", input_raw, input_raw],
+    ["KEEP_FORMAT", input_raw, input_raw],
     ["TRAILING_SPACE", input_raw, f"{input_raw} "],
     ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
