@@ -62,7 +62,7 @@ formatters = [
     ),
     Formatter(
         "NO_SPACES",
-        lambda text: re.sub(r"['`\s]", "", text),
+        lambda text: re.sub(r"['`\s]", "", text).lower(),
     ),
     # Splitting formatters
     Formatter(
