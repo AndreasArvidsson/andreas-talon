@@ -33,13 +33,6 @@ class CodeFormatter(Formatter):
         self.format_rest = format_rest
         self.unformat = unformat_text_for_code
 
-        # Formatter.__init__(
-        #     self,
-        #     id,
-        #     lambda text: self.format_delim(text, delimiter, format_first, format_rest),
-        #     unformat_text_for_code,
-        # )
-
     def format(self, text: str) -> str:
         return self._format_delim(
             text, self.delimiter, self.format_first, self.format_rest
