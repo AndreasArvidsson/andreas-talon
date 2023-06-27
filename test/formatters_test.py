@@ -5,18 +5,18 @@ input_raw_numbers = "why? and. It's nice 123.0!"
 import_unicode = "Hej på dig åäö"
 
 fixtures_format = [
-    # Simple formatters
-    ["KEEP_FORMAT", input_raw, input_raw],
+    # Special formatters
     ["TRAILING_SPACE", input_raw, f"{input_raw} "],
-    ["ALL_UPPERCASE", input_raw, input_raw.upper()],
-    ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["DOUBLE_QUOTED_STRING", input_raw, '"why? and. It\'s nice!"'],
     ["SINGLE_QUOTED_STRING", input_raw, "'why? and. It's nice!'"],
-    ["NO_SPACES", "why?\nand.\tIt's  nice`!", "why?and.itsnice!"],
-    # Splitting formatters
+    # Prose formatters
+    ["KEEP_FORMAT", input_raw, input_raw],
+    ["ALL_UPPERCASE", input_raw, input_raw.upper()],
+    ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And. It's Nice!"],
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
-    # Delimited formatters
+    # Code formatters
+    ["NO_SPACES", "why?\nand.\tIt's  nice`!", "whyand.itsnice"],
     ["CAMEL_CASE", input_raw, "whyAnd.itsNice"],
     ["PASCAL_CASE", input_raw, "WhyAnd.ItsNice"],
     ["SNAKE_CASE", input_raw, "why_and.its_nice"],

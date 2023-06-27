@@ -7,11 +7,99 @@ mod = Module()
 ctx = Context()
 
 
-@dataclass
 class Formatter:
-    id: str
-    format: Callable[[str], str]
-    unformat: Optional[Callable[[str], str]] = None
+    def __init__(
+        self,
+        id: str,
+        format: Callable[[str], str],
+        unformat: Optional[Callable[[str], str]] = None,
+    ):
+        self.id = id
+        self.format = format
+        self.unformat = unformat
+
+
+class CodeFormatter(Formatter):
+    def __init__(
+        self,
+        id: str,
+        delimiter: str,
+        format_first: Callable[[str], str] = None,
+        format_rest: Callable[[str], str] = None,
+    ):
+        self.id = id
+        self.delimiter = delimiter
+        self.format_first = format_first
+        self.format_rest = format_rest
+        self.unformat = unformat_text_for_code
+
+        # Formatter.__init__(
+        #     self,
+        #     id,
+        #     lambda text: self.format_delim(text, delimiter, format_first, format_rest),
+        #     unformat_text_for_code,
+        # )
+
+    def format(self, text: str) -> str:
+        return self._format_delim(
+            text, self.delimiter, self.format_first, self.format_rest
+        )
+
+    def _format_delim(
+        self,
+        text: str,
+        delimiter: str,
+        format_first: Callable[[str], str] = None,
+        format_rest: Callable[[str], str] = None,
+    ):
+        # Strip anything that is not alpha-num, whitespace or dot
+        text = re.sub(r"[^\w\d\s.]+", "", text)
+        # Split on anything that is not alpha-num
+        words = re.split(r"([^\w\d]+)", text)
+        groups = []
+        group = []
+        first = True
+
+        for word in words:
+            if word.isspace():
+                continue
+            # Word is number
+            if bool(re.match(r"\d+", word)):
+                first = True
+            # Word is symbol
+            elif bool(re.match(r"\W+", word)):
+                groups.append(delimiter.join(group))
+                word = word.strip()
+                first = True
+                groups.append(word)
+                group = []
+                continue
+            elif first:
+                first = False
+                if format_first:
+                    word = format_first(word)
+            elif format_rest:
+                word = format_rest(word)
+            group.append(word)
+
+        groups.append(delimiter.join(group))
+        return "".join(groups)
+
+
+def capitalizeSoft(text: str) -> str:
+    return f"{text[0].upper()}{text[1:]}"
+
+
+def capitalize(text: str) -> str:
+    return text.capitalize()
+
+
+def lower(text: str) -> str:
+    return text.lower()
+
+
+def upper(text: str) -> str:
+    return text.upper()
 
 
 def unformat_upper(text: str) -> str:
@@ -35,36 +123,14 @@ def unformat_text_for_code(text: str) -> str:
 
 
 formatters = [
-    # Simple formatters
-    Formatter(
-        "KEEP_FORMAT",
-        lambda text: text,
-    ),
-    Formatter(
-        "TRAILING_SPACE",
-        lambda text: f"{text} ",
-    ),
-    Formatter(
-        "ALL_UPPERCASE",
-        lambda text: text.upper(),
-    ),
-    Formatter(
-        "ALL_LOWERCASE",
-        lambda text: text.lower(),
-    ),
-    Formatter(
-        "DOUBLE_QUOTED_STRING",
-        lambda text: f'"{text}"',
-    ),
-    Formatter(
-        "SINGLE_QUOTED_STRING",
-        lambda text: f"'{text}'",
-    ),
-    Formatter(
-        "NO_SPACES",
-        lambda text: re.sub(r"['`\s]", "", text).lower(),
-    ),
-    # Splitting formatters
+    # Special formatters
+    Formatter("TRAILING_SPACE", lambda text: f"{text} "),
+    Formatter("DOUBLE_QUOTED_STRING", lambda text: f'"{text}"'),
+    Formatter("SINGLE_QUOTED_STRING", lambda text: f"'{text}'"),
+    # Prose formatters
+    Formatter("KEEP_FORMAT", lambda text: text),
+    Formatter("ALL_UPPERCASE", lambda text: text.upper()),
+    Formatter("ALL_LOWERCASE", lambda text: text.lower()),
     Formatter(
         "CAPITALIZE_FIRST_WORD",
         lambda text: first_and_rest(text, capitalizeSoft),
@@ -75,59 +141,20 @@ formatters = [
         lambda text: first_and_rest(text, capitalizeSoft, capitalizeSoft),
         unformat_upper,
     ),
-    # Delimited formatters
-    Formatter(
-        "CAMEL_CASE",
-        lambda text: format_delim(text, "", lower, capitalize),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "PASCAL_CASE",
-        lambda text: format_delim(text, "", capitalize, capitalize),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "SNAKE_CASE",
-        lambda text: format_delim(text, "_", lower, lower),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "DASH_SEPARATED",
-        lambda text: format_delim(text, "-", lower, lower),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "DOT_SEPARATED",
-        lambda text: format_delim(text, ".", lower, lower),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "SLASH_SEPARATED",
-        lambda text: format_delim(text, "/", lower, lower),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "DOUBLE_UNDERSCORE",
-        lambda text: format_delim(text, "__", lower, lower),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "DOUBLE_COLON_SEPARATED",
-        lambda text: format_delim(text, "::", lower, lower),
-        unformat_text_for_code,
-    ),
+    # Code formatters
+    CodeFormatter("NO_SPACES", "", lower, lower),
+    CodeFormatter("CAMEL_CASE", "", lower, capitalize),
+    CodeFormatter("PASCAL_CASE", "", capitalize, capitalize),
+    CodeFormatter("SNAKE_CASE", "_", lower, lower),
+    CodeFormatter("DASH_SEPARATED", "-", lower, lower),
+    CodeFormatter("DOT_SEPARATED", ".", lower, lower),
+    CodeFormatter("SLASH_SEPARATED", "/", lower, lower),
+    CodeFormatter("DOUBLE_UNDERSCORE", "__", lower, lower),
+    CodeFormatter("DOUBLE_COLON_SEPARATED", "::", lower, lower),
     # Re-formatters
-    Formatter(
-        "REMOVE_FORMATTING",
-        lambda text: text.lower(),
-        unformat_text_for_code,
-    ),
-    Formatter(
-        "COMMA_SEPARATED",
-        lambda text: ", ".join(text.split()),
-    ),
+    Formatter("COMMA_SEPARATED", lambda text: re.sub(r"\s+", ", ", text)),
+    Formatter("REMOVE_FORMATTING", lambda text: unformat_text_for_code(text).lower()),
 ]
-
 
 formatters_dict = {f.id: f for f in formatters}
 
@@ -244,47 +271,11 @@ def format_text(text: str, formatters: str, unformat: bool) -> str:
     return f"{pre}{text}{post}"
 
 
-def format_delim(
-    text,
-    delimiter,
-    format_first=None,
-    format_rest=None,
+def first_and_rest(
+    text: str,
+    format_first: Callable[[str], str] = None,
+    format_rest: Callable[[str], str] = None,
 ):
-    # Strip anything that is not alpha-num, whitespace or dot
-    text = re.sub(r"[^\w\d\s.]+", "", text)
-    # Split on anything that is not alpha-num
-    words = re.split(r"([^\w\d]+)", text)
-    groups = []
-    group = []
-    first = True
-
-    for word in words:
-        if word.isspace():
-            continue
-        # Word is number
-        if bool(re.match(r"\d+", word)):
-            first = True
-        # Word is symbol
-        elif bool(re.match(r"\W+", word)):
-            groups.append(delimiter.join(group))
-            word = word.strip()
-            first = True
-            groups.append(word)
-            group = []
-            continue
-        elif first:
-            first = False
-            if format_first:
-                word = format_first(word)
-        elif format_rest:
-            word = format_rest(word)
-        group.append(word)
-
-    groups.append(delimiter.join(group))
-    return "".join(groups)
-
-
-def first_and_rest(text, format_first=None, format_rest=None):
     words = [x for x in re.split(r"(\s+)", text) if x]
     first = True
 
@@ -313,19 +304,3 @@ def shrink_to_string_inside(text: str) -> (str, str, str):
         if text.startswith(left) and text.endswith(right):
             return text[len(left) : -len(right)], left, right
     return text, "", ""
-
-
-def capitalizeSoft(text: str) -> str:
-    return f"{text[0].upper()}{text[1:]}"
-
-
-def capitalize(text: str) -> str:
-    return text.capitalize()
-
-
-def lower(text: str) -> str:
-    return text.lower()
-
-
-def upper(text: str) -> str:
-    return text.upper()
