@@ -28,9 +28,9 @@ at sign:           @
 pound sign:        £
 euro sign:         €
 
-single:            '
-double:            "
-quote:             "
+single:            "'"
+double:            '"'
+quote:             '"'
 brick:             `
 
 slash:             /
