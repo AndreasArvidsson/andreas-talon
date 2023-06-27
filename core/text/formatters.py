@@ -1,6 +1,5 @@
 from talon import Module, Context, actions
-from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Callable
 import re
 
 mod = Module()
@@ -12,7 +11,7 @@ class Formatter:
         self,
         id: str,
         format: Callable[[str], str],
-        unformat: Optional[Callable[[str], str]] = None,
+        unformat: Callable[[str], str] = None,
     ):
         self.id = id
         self.format = format
