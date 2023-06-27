@@ -33,6 +33,7 @@ class Actions:
                 failed += 1
                 print(f"FAIL | {test_name}")
                 print(ex)
+                print("")
         print(f"---- END | {suite_name} | succeeded: {succeeded} | failed: {failed}\n")
         if failed:
             actions.app.notify(f"{failed} tests failed")

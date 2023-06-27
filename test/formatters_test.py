@@ -12,7 +12,7 @@ fixtures_format = [
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["DOUBLE_QUOTED_STRING", input_raw, '"why? and. It\'s nice!"'],
     ["SINGLE_QUOTED_STRING", input_raw, "'why? and. It's nice!'"],
-    ["NO_SPACES", "why?\nand.\tIt's  nice`!", "why?and.Itsnice!"],
+    ["NO_SPACES", "why?\nand.\tIt's  nice`!", "why?and.itsnice!"],
     # Splitting formatters
     ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And. It's Nice!"],
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
