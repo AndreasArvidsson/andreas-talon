@@ -28,15 +28,17 @@ class CodeFormatter(Formatter):
         format_rest: Callable[[str], str] = None,
     ):
         self.id = id
-        self.delimiter = delimiter
-        self.format_first = format_first
-        self.format_rest = format_rest
-        self.unformat = unformat_text_for_code
+        self._delimiter = delimiter
+        self._format_first = format_first
+        self._format_rest = format_rest
 
     def format(self, text: str) -> str:
         return self._format_delim(
-            text, self.delimiter, self.format_first, self.format_rest
+            text, self._delimiter, self._format_first, self._format_rest
         )
+
+    def unformat(self, text: str) -> str:
+        return unformat_text_for_code(text)
 
     def _format_delim(
         self,
