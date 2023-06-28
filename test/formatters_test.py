@@ -7,14 +7,22 @@ import_unicode = "Hej på dig åäö"
 fixtures_format = [
     # Special formatters
     ["TRAILING_SPACE", input_raw, f"{input_raw} "],
-    ["DOUBLE_QUOTED_STRING", input_raw, '"why? and. It\'s nice!"'],
-    ["SINGLE_QUOTED_STRING", input_raw, "'why? and. It's nice!'"],
+    ["DOUBLE_QUOTED_STRING", input_raw, f'"{input_raw}"'],
+    ["SINGLE_QUOTED_STRING", input_raw, f"'{input_raw}'"],
     # Prose formatters
     ["KEEP_FORMAT", input_raw, input_raw],
     ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
-    ["CAPITALIZE_ALL_WORDS", input_raw, "Why? And. It's Nice!"],
-    ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
+    ["TITLE_CASE", input_raw, "Why? And. It's Nice!"],
+    ["TITLE_CASE", "abc    abc", "Abc    Abc"],
+    ["TITLE_CASE", "\tabc\nabc ", "\tAbc\nAbc "],
+    ["TITLE_CASE", "aBc aBc aBc", "aBc aBc aBc"],
+    ["TITLE_CASE", "and and and", "And and And"],
+    ["TITLE_CASE", "and. and and", "And. And And"],
+    ["TITLE_CASE", "abc and-and-and abc", "Abc And-and-And Abc"],
+    ["TITLE_CASE", "1st 2nd 3rd", "1st 2nd 3rd"],
+    ["SENTENCE", input_raw, "Why? and. It's nice!"],
+    ["SENTENCE", "aBc abc", "aBc abc"],
     # Code formatters
     ["NO_SPACES", "why?\nand.\tIt's  nice`!", "whyand.itsnice"],
     ["CAMEL_CASE", input_raw, "whyAnd.itsNice"],
@@ -42,7 +50,10 @@ output_raw = "hello there my ip address 2 x 3"
 output_raw_unicode = "hej på dig åäö"
 
 fixtures_reformat = [
+    ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
+    ["CAPITALIZE_FIRST_WORD", "aBc abc", "Abc abc"],
     ["COMMA_SEPARATED", input_raw, "why?, and., It's, nice!"],
+    ["COMMA_SEPARATED", "a b  c", "a, b, c"],
     ["Unformat snake", "REMOVE_FORMATTING", input_snake, output_raw],
     [
         "Unformat unicode snake",
@@ -61,19 +72,13 @@ fixtures_reformat = [
     ["Camel to snake", "SNAKE_CASE", input_camel, "hello_there_my_ip_address_2_x_3"],
     ["Camel to snake unicode", "SNAKE_CASE", input_camel_unicode, input_snake_unicode],
     ["Snake to camel unicode", "CAMEL_CASE", input_snake_unicode, input_camel_unicode],
-    ["Upper to sentence", "CAPITALIZE_FIRST_WORD", "HELLO WORLD", "Hello world"],
-    ["Upper to title", "CAPITALIZE_ALL_WORDS", "HELLO WORLD", "Hello World"],
+    ["Upper to sentence", "SENTENCE", "HELLO WORLD", "Hello world"],
+    ["Upper to title", "TITLE_CASE", "HELLO WORLD", "Hello World"],
     ["Snake to upper", "ALL_UPPERCASE", "hello_world", "HELLO_WORLD"],
     ["Constant to lower", "ALL_LOWERCASE", "HELLO_WORLD", "hello_world"],
     ["Twin to snake", "SNAKE_CASE", "'hello world'", "'hello_world'"],
     ["Quad to snake", "SNAKE_CASE", '"hello world"', '"hello_world"'],
     ["Docstring to snake", "SNAKE_CASE", '"""hello world"""', '"""hello_world"""'],
-    [
-        "Preserve whitespace",
-        "CAPITALIZE_ALL_WORDS",
-        "\thello\nworld ",
-        "\tHello\nWorld ",
-    ],
     [
         "Sentence to snake",
         "SNAKE_CASE",

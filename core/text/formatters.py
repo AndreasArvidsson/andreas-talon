@@ -23,8 +23,8 @@ class CodeFormatter(Formatter):
         self,
         id: str,
         delimiter: str,
-        format_first: Callable[[str], str] = None,
-        format_rest: Callable[[str], str] = None,
+        format_first: Callable[[str], str],
+        format_rest: Callable[[str], str],
     ):
         self.id = id
         self._delimiter = delimiter
@@ -43,8 +43,8 @@ class CodeFormatter(Formatter):
         self,
         text: str,
         delimiter: str,
-        format_first: Callable[[str], str] = None,
-        format_rest: Callable[[str], str] = None,
+        format_first: Callable[[str], str],
+        format_rest: Callable[[str], str],
     ):
         # Strip anything that is not alpha-num, whitespace or dot
         text = re.sub(r"[^\w\d\s.]+", "", text)
@@ -58,10 +58,10 @@ class CodeFormatter(Formatter):
             if word.isspace():
                 continue
             # Word is number
-            if bool(re.match(r"\d+", word)):
+            if word.isnumeric():
                 first = True
             # Word is symbol
-            elif bool(re.match(r"\W+", word)):
+            elif not word.isalpha():
                 groups.append(delimiter.join(group))
                 word = word.strip()
                 first = True
@@ -80,12 +80,59 @@ class CodeFormatter(Formatter):
         return "".join(groups)
 
 
-def capitalizeSoft(text: str) -> str:
-    return f"{text[0].upper()}{text[1:]}"
+class TitleFormatter(Formatter):
+    _words_to_keep_lowercase = (
+        "a an and as at but by en for if in nor of on or per the to v via vs".split()
+    )
+
+    def __init__(self, id: str):
+        self.id = id
+
+    def format(self, text: str) -> str:
+        words = [x for x in re.split(r"(\s+)", text) if x]
+        words = self._title_case_words(words)
+        return "".join(words)
+
+    def unformat(self, text: str) -> str:
+        return unformat_upper(text)
+
+    def _title_case_word(
+        self, word: str, is_first: bool, is_last: bool, following_symbol: bool
+    ) -> str:
+        if not word.islower() or (
+            word in self._words_to_keep_lowercase
+            and not is_first
+            and not is_last
+            and not following_symbol
+        ):
+            return word
+
+        if "-" in word:
+            words = word.split("-")
+            words = self._title_case_words(words)
+            return "-".join(words)
+
+        return word.capitalize()
+
+    def _title_case_words(self, words: list[str]) -> list[str]:
+        following_symbol = False
+        for i, word in enumerate(words):
+            if word.isspace():
+                continue
+            is_first = i == 0
+            is_last = i == len(words) - 1
+            words[i] = self._title_case_word(word, is_first, is_last, following_symbol)
+            following_symbol = not word[-1].isalnum()
+        return words
 
 
 def capitalize(text: str) -> str:
     return text.capitalize()
+
+
+def capitalizeSoft(text: str) -> str:
+    """Capitalizes first character of text without touching case on the rest of the text"""
+    return f"{text[0].upper()}{text[1:]}"
 
 
 def lower(text: str) -> str:
@@ -116,6 +163,14 @@ def unformat_text_for_code(text: str) -> str:
     return text
 
 
+def sentence_case(text: str) -> str:
+    """Capitalize first word if it's already all lower case"""
+    words = [x for x in re.split(r"(\s+)", text) if x]
+    if words[0].islower():
+        words[0] = words[0].capitalize()
+    return "".join(words)
+
+
 formatters = [
     # Special formatters
     Formatter("TRAILING_SPACE", lambda text: f"{text} "),
@@ -125,16 +180,8 @@ formatters = [
     Formatter("KEEP_FORMAT", lambda text: text),
     Formatter("ALL_UPPERCASE", lambda text: text.upper()),
     Formatter("ALL_LOWERCASE", lambda text: text.lower()),
-    Formatter(
-        "CAPITALIZE_FIRST_WORD",
-        lambda text: first_and_rest(text, capitalizeSoft),
-        unformat_upper,
-    ),
-    Formatter(
-        "CAPITALIZE_ALL_WORDS",
-        lambda text: first_and_rest(text, capitalizeSoft, capitalizeSoft),
-        unformat_upper,
-    ),
+    TitleFormatter("TITLE_CASE"),
+    Formatter("SENTENCE", sentence_case, unformat_upper),
     # Code formatters
     CodeFormatter("NO_SPACES", "", lower, lower),
     CodeFormatter("CAMEL_CASE", "", lower, capitalize),
@@ -146,6 +193,7 @@ formatters = [
     CodeFormatter("DOUBLE_UNDERSCORE", "__", lower, lower),
     CodeFormatter("DOUBLE_COLON_SEPARATED", "::", lower, lower),
     # Re-formatters
+    Formatter("CAPITALIZE_FIRST_WORD", capitalizeSoft, unformat_upper),
     Formatter("COMMA_SEPARATED", lambda text: re.sub(r"\s+", ", ", text)),
     Formatter("REMOVE_FORMATTING", lambda text: unformat_text_for_code(text).lower()),
 ]
@@ -167,7 +215,7 @@ formatters_code = {
 
 formatters_prose = {
     "sentence": "CAPITALIZE_FIRST_WORD",
-    "title": "CAPITALIZE_ALL_WORDS",
+    "title": "TITLE_CASE",
     "upper": "ALL_UPPERCASE",
     "lower": "ALL_LOWERCASE",
 }
@@ -253,7 +301,7 @@ class Actions:
 
 
 def format_text(text: str, formatters: str, unformat: bool) -> str:
-    """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'CAPITALIZE_ALL_WORDS,SNAKE_CASE')"""
+    """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'TITLE_CASE,SNAKE_CASE')"""
     text, pre, post = shrink_to_string_inside(text)
 
     for i, formatter_name in enumerate(reversed(formatters.split(","))):
@@ -263,27 +311,6 @@ def format_text(text: str, formatters: str, unformat: bool) -> str:
         text = formatter.format(text)
 
     return f"{pre}{text}{post}"
-
-
-def first_and_rest(
-    text: str,
-    format_first: Callable[[str], str] = None,
-    format_rest: Callable[[str], str] = None,
-):
-    words = [x for x in re.split(r"(\s+)", text) if x]
-    first = True
-
-    for i, word in enumerate(words):
-        if word.isspace():
-            continue
-        if first:
-            first = False
-            if format_first:
-                words[i] = format_first(word)
-        elif format_rest:
-            words[i] = format_rest(word)
-
-    return "".join(words)
 
 
 string_delimiters = [
