@@ -145,7 +145,7 @@ git checkout branch [<user.text>]:
 git commit [<user.text>]:
     user.vscode("git.commit")
     sleep(300ms)
-    text = user.format_text(text or "", "CAPITALIZE_FIRST_WORD")
+    text = user.format_text(text or "", "SENTENCE")
     "{text}"
 
 # Folding

@@ -37,7 +37,7 @@ class CodeFormatter(Formatter):
         )
 
     def unformat(self, text: str) -> str:
-        return unformat_text_for_code(text)
+        return remove_code_formatting(text)
 
     def _format_delim(
         self,
@@ -126,28 +126,45 @@ class TitleFormatter(Formatter):
         return words
 
 
+class CapitalizeFormatter(Formatter):
+    def __init__(self, id: str):
+        self.id = id
+
+    def format(self, text: str) -> str:
+        return re.sub(r"^\S+", lambda m: m.group().capitalize(), text)
+
+    def unformat(self, text: str) -> str:
+        return unformat_upper(text)
+
+
+class SentenceFormatter(Formatter):
+    def __init__(self, id: str):
+        self.id = id
+
+    def format(self, text: str) -> str:
+        """Capitalize first word if it's already all lower case"""
+        words = [x for x in re.split(r"(\s+)", text) if x]
+        if words[0].islower():
+            words[0] = words[0].capitalize()
+        return "".join(words)
+
+    def unformat(self, text: str) -> str:
+        return unformat_upper(text)
+
+
 def capitalize(text: str) -> str:
     return text.capitalize()
-
-
-def capitalizeSoft(text: str) -> str:
-    """Capitalizes first character of text without touching case on the rest of the text"""
-    return f"{text[0].upper()}{text[1:]}"
 
 
 def lower(text: str) -> str:
     return text.lower()
 
 
-def upper(text: str) -> str:
-    return text.upper()
-
-
 def unformat_upper(text: str) -> str:
     return text.lower() if text.isupper() else text
 
 
-def unformat_text_for_code(text: str) -> str:
+def remove_code_formatting(text: str) -> str:
     """Remove format from text"""
     # Don't split delimited sequences in a string with whitespaces.
     # Could for example be: `short-term` or `iPhone` in a sentence
@@ -163,14 +180,6 @@ def unformat_text_for_code(text: str) -> str:
     return text
 
 
-def sentence_case(text: str) -> str:
-    """Capitalize first word if it's already all lower case"""
-    words = [x for x in re.split(r"(\s+)", text) if x]
-    if words[0].islower():
-        words[0] = words[0].capitalize()
-    return "".join(words)
-
-
 formatters = [
     # Special formatters
     Formatter("TRAILING_SPACE", lambda text: f"{text} "),
@@ -181,7 +190,7 @@ formatters = [
     Formatter("ALL_UPPERCASE", lambda text: text.upper()),
     Formatter("ALL_LOWERCASE", lambda text: text.lower()),
     TitleFormatter("TITLE_CASE"),
-    Formatter("SENTENCE", sentence_case, unformat_upper),
+    SentenceFormatter("SENTENCE"),
     # Code formatters
     CodeFormatter("NO_SPACES", "", lower, lower),
     CodeFormatter("CAMEL_CASE", "", lower, capitalize),
@@ -193,9 +202,9 @@ formatters = [
     CodeFormatter("DOUBLE_UNDERSCORE", "__", lower, lower),
     CodeFormatter("DOUBLE_COLON_SEPARATED", "::", lower, lower),
     # Re-formatters
-    Formatter("CAPITALIZE_FIRST_WORD", capitalizeSoft, unformat_upper),
+    CapitalizeFormatter("CAPITALIZE_FIRST_WORD"),
     Formatter("COMMA_SEPARATED", lambda text: re.sub(r"\s+", ", ", text)),
-    Formatter("REMOVE_FORMATTING", lambda text: unformat_text_for_code(text).lower()),
+    Formatter("REMOVE_FORMATTING", lambda text: remove_code_formatting(text)),
 ]
 
 formatters_dict = {f.id: f for f in formatters}
@@ -214,7 +223,7 @@ formatters_code = {
 }
 
 formatters_prose = {
-    "sentence": "CAPITALIZE_FIRST_WORD",
+    "sentence": "SENTENCE",
     "title": "TITLE_CASE",
     "upper": "ALL_UPPERCASE",
     "lower": "ALL_LOWERCASE",
@@ -243,6 +252,7 @@ ctx.lists["self.formatter"] = {
     **formatters_code,
     **formatters_prose,
     # These formatters are only for reformatting and neither code or prose
+    "cap": "CAPITALIZE_FIRST_WORD",
     "list": "COMMA_SEPARATED",
     "un": "REMOVE_FORMATTING",
 }

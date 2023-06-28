@@ -51,7 +51,7 @@ git commit:
     'git commit -m ""'
     key(left)
 git commit <user.text>$:
-    text = user.format_text(text, "CAPITALIZE_FIRST_WORD")
+    text = user.format_text(text, "SENTENCE")
     'git commit -m "{text}"'
     key(left)
 git commit amend:           "git commit --amend "
