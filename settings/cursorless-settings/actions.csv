@@ -6,7 +6,7 @@ bring, replaceWithTarget
 call, callAsFunction
 center, scrollToCenter
 chuck, remove
-change, clearAndSetSelection
+clear, clearAndSetSelection
 clone up, insertCopyBefore
 clone, insertCopyAfter
 comment, toggleLineComment
