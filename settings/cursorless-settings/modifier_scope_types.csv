@@ -17,7 +17,7 @@ end tag, xmlEndTag
 file, document
 funk name, functionName
 funk, namedFunction
-ident, identifier
+alpha, identifier
 if state, ifStatement
 instance, instance
 item, collectionItem
