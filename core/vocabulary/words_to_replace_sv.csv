@@ -1,6 +1,8 @@
 Original, Replacement (If different)
 -
 
+# Default words that need to be remapped.
+
 stödstruktur en, Stödstrukturen
 provisions underlag, provisionsunderlag
 produktionsunderlag, provisionsunderlag
@@ -8,5 +10,5 @@ SKL, SKR
 Isabelle, Izabel
 Isabel, Izabel
 
-# This is actually a name, but more used with the lower case spelling
+# This is actually a name, but more often used with the lower case spelling
 Per, per
