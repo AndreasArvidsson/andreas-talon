@@ -48,7 +48,7 @@ def gui_commands(gui: imgui.GUI):
 
 def show_gui(text: str, type: str):
     global search_text, search_type
-    search_text = text
+    search_text = text.lower()
     search_type = type
     if not gui.showing:
         ctx.tags = ["user.help_search"]
