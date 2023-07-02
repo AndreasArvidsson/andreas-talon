@@ -14,6 +14,7 @@ fallback_action_callbacks = {
     "applyFormatter": actions.user.reformat_selection,
     "editNewLineBefore": actions.edit.line_insert_up,
     "editNewLineAfter": actions.edit.line_insert_down,
+    "nextHomophone": actions.user.homophones_cycle_selected,
     "wrapWithPairedDelimiter.pairedDelimiter": lambda pair: actions.user.delimiters_pair_wrap_selection_with(
         pair[0], pair[1]
     ),
