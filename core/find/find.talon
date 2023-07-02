@@ -27,7 +27,7 @@ replace confirm:            user.find_replace_confirm()
 replace confirm all:        user.find_replace_confirm_all()
 
 scout file for clip:        user.find_file(clip.text())
-scout file [<user.filename>]$:
+scout (file|files|filed) [<user.filename>]$:
     user.find_file(filename or "")
 
 # TODO:
@@ -35,7 +35,7 @@ scout file [<user.filename>]$:
 #     edit.find(text)
 #     key(enter)
 
-pop file <user.filename>$:
+pop (file|files|filed) <user.filename>$:
     user.find_file(filename)
     sleep(300ms)
     key(enter)
