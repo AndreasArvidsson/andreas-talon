@@ -93,6 +93,7 @@ file new [<user.filename>]:
     "{filename or ''}"
 file open folder:           user.vscode("revealFileInOS")
 file reveal:                user.vscode("workbench.files.action.showActiveFileInExplorer")
+file revert:                user.vscode("workbench.action.files.revert")
 file copy path:             user.vscode("copyFilePath")
 file copy relative:         user.vscode("copyRelativeFilePath")
 file copy name:             user.vscode("andreas.copyFilename")
@@ -243,7 +244,6 @@ trim trailing:              user.vscode("editor.action.trimTrailingWhitespace")
 inspect scope:              user.vscode("editor.action.inspectTMScopes")
 disk raw:                   user.save_without_formatting()
 disk files:                 user.vscode("workbench.action.files.saveFiles")
-revert everything:          user.vscode("workbench.action.files.revert")
 copy command id:            user.copy_command_id()
 scout again:                user.vscode("rerunSearchEditorSearch")
 generate range [from <number_small>]:
