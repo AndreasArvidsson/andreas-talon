@@ -6,6 +6,6 @@ git revert, git.revertSelectedRanges
 git add, git.stageSelectedRanges
 git reset, git.unstageSelectedRanges
 join, editor.action.joinLines
-update tag, editor.emmet.action.updateTag
+rename tag, editor.emmet.action.updateTag
 split tag | join tag, editor.emmet.action.splitJoinTag
 reflow, rewrap.rewrapComment
