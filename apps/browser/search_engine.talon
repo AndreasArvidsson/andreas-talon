@@ -6,3 +6,6 @@ search for (this | dis | is):
 
 define word <user.word>$:
     user.browser_search("https://www.merriam-webster.com/dictionary/{word}")
+
+define phrase <user.text>$:
+    user.browser_search("https://www.merriam-webster.com/dictionary/{text}")
