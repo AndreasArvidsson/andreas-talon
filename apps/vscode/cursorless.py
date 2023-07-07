@@ -113,11 +113,11 @@ def focused_element_is_text_editor() -> bool:
 class Actions:
     def cursorless_use_release():
         """Use main branch of cursorless-talon"""
-        switch_folder(f"{actions.path.user_home()}\\cursorless-talon")
+        switch_folder(True)
 
     def cursorless_use_develop():
         """Use developed folder of cursorless-talon"""
-        switch_folder(f"{actions.path.user_home()}\\cursorless\\cursorless-talon")
+        switch_folder(False)
 
     def cursorless_browser_open_target(target: dict):
         """Search for target text in browser"""
@@ -138,10 +138,17 @@ class Actions:
         )
 
 
-def switch_folder(target: str):
+def switch_folder(useRelease: bool):
+    if useRelease:
+        targetPath = "cursorless-talon"
+    else:
+        targetPath = "cursorless\\cursorless-talon"
+    target = f"{actions.path.user_home()}\\repositories\\{targetPath}"
     link = f"{actions.path.talon_user()}\\cursorless-talon"
     actions.user.debug(f"cmd /c mklink /d {link} {target}")
     os.system(f"cmd /c rmdir {link}")
-    os.system(f"cmd /c mklink /d {link} {target}")
-    actions.sleep("500ms")
-    actions.user.talon_restart()
+    actions.clip.set_text(f"mklink /d {link} {target}")
+    actions.app.notify("mklink command added to clipboard")
+    # os.system(f"cmd /c mklink /d {link} {target}")
+    # actions.sleep("500ms")
+    # actions.user.talon_restart()
