@@ -38,6 +38,7 @@ ctx.lists["self.code_insert"] = {
         "interface": "interface ",
         "type": "type ",
         "key of": "keyof ",
+        "as": " as ",
     },
 }
 
