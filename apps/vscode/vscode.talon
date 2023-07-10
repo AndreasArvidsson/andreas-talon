@@ -130,7 +130,7 @@ git create tag:             user.vscode("git.createTag")
 git push tags:              user.vscode("git.pushTags")
 git open:                   user.vscode("git.openFile")
 git stash:                  user.vscode("git.stash")
-git pop stash:              user.vscode("git.stashPop")
+git stash pop:              user.vscode("git.stashPop")
 git branch deli:            user.vscode("git.deleteBranch")
 git merge:                  user.vscode("git.merge")
 git merge {user.git_branch}:
