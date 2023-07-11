@@ -1,5 +1,6 @@
 Spoken form, Cursorless identifier
 
+alpha, identifier
 argue, argumentOrParameter
 attribute, attribute
 block | graph, paragraph
@@ -17,7 +18,6 @@ end tag, xmlEndTag
 file, document
 funk name, functionName
 funk, namedFunction
-alpha, identifier
 if state, ifStatement
 instance, instance
 item, collectionItem
@@ -33,6 +33,7 @@ paint, boundedNonWhitespaceSequence
 regex, regularExpression
 section, section
 selector, selector
+sentence, sentence
 start tag, xmlStartTag
 state, statement
 string, string
