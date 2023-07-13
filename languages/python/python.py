@@ -20,11 +20,10 @@ ctx.lists["self.code_data_type"] = {
     "dict": "dict",
     "set": "set",
     "list": "list",
-    "tuple": "tuple",
     "range": "range",
     "none": "None",
     "any": "any",
-    "tuple": "Tuple",
+    "tuple": "tuple",
     "union": "Union",
     "optional": "Optional",
 }
@@ -58,6 +57,7 @@ ctx.lists["self.code_insert"] = {
     "lambda": "lambda: ",
     "global": "global ",
     "raise": "raise ",
+    "yield": "yield ",
 }
 ctx.lists["self.code_snippet"] = {
     "item": '"$1": $0,',
