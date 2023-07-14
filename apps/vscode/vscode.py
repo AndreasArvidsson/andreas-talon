@@ -98,6 +98,13 @@ class EditActions:
         actions.user.vscode("hideSuggestWidget")
         actions.next()
 
+    def selected_text() -> str:
+        selectedTexts = actions.user.vscode_get("andreas.getSelectedText")
+        print(selectedTexts)
+        if selectedTexts is not None:
+            return "\n".join(selectedTexts)
+        return actions.next()
+
     def select_none():
         actions.key("escape")
 
