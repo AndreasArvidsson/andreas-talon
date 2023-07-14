@@ -60,7 +60,11 @@ def close_editor(submit_draft: bool):
     if submit_draft:
         last_draft = actions.user.vscode_get("andreas.getDocumentText")
 
-        if last_draft and "PLACEHOLDER" in last_draft:
+        if last_draft is None:
+            actions.user.notify("Failed to get document text")
+            return
+
+        if "PLACEHOLDER" in last_draft:
             actions.user.notify("Placeholder text found")
             return
     else:
