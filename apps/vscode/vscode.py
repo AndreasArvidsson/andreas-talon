@@ -2,7 +2,7 @@ from talon import Module, Context, actions
 import json
 import re
 
-PATTERN_RE = re.compile(r"Untitled-\d$")
+UNTITLED_RE = re.compile(r"Untitled-\d$")
 
 mod = Module()
 mod.tag("vscode_notebook")
@@ -54,8 +54,10 @@ def vscode_panel(m) -> dict:
 class WinActions:
     def filename():
         filename = actions.win.title().split(" - ")[0]
-        if "." in filename or is_untitled(filename):
+        if "." in filename:
             return filename
+        if is_untitled(filename):
+            return get_untitled_name(filename)
         return ""
 
 
@@ -420,4 +422,8 @@ def empty_selection():
 
 
 def is_untitled(filename: str):
-    return PATTERN_RE.search(filename) is not None
+    return UNTITLED_RE.search(filename) is not None
+
+
+def get_untitled_name(filename: str):
+    return UNTITLED_RE.search(filename).group()
