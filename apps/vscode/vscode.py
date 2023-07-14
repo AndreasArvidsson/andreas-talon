@@ -237,7 +237,9 @@ class UserActions:
     # ----- Dictation -----
     def dictation_get_context() -> tuple[str, str]:
         context = actions.user.vscode_get("andreas.getDictationContext")
-        return (context["before"], context["after"])
+        if context is not None:
+            return (context["before"], context["after"])
+        return (None, None)
 
 
 # @ctx_notebook.action_class("main")
