@@ -54,7 +54,6 @@ def get_editor_app() -> ui.App:
 def close_editor(submit_draft: bool):
     global last_draft
 
-    print(actions.win.filename())
     if not actions.win.filename().startswith("Untitled-"):
         return
 
