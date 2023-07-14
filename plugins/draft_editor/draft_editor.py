@@ -53,21 +53,22 @@ def get_editor_app() -> ui.App:
 
 def close_editor(submit_draft: bool):
     global last_draft
-    actions.edit.select_all()
+
+    print(actions.win.filename())
+    if not actions.win.filename().startswith("Untitled-"):
+        return
 
     if submit_draft:
-        last_draft = actions.edit.selected_text()
+        last_draft = actions.user.vscode_get("andreas.getDocumentText")
 
         if last_draft and "PLACEHOLDER" in last_draft:
-            actions.edit.select_none()
             actions.user.notify("Placeholder text found")
             return
     else:
         last_draft = None
 
     ctx.tags = []
-    actions.edit.delete()
-    actions.app.tab_close()
+    actions.user.vscode("workbench.action.revertAndCloseActiveEditor")
     actions.user.focus_window(original_window)
 
     if submit_draft:
