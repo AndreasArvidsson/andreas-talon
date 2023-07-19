@@ -7,3 +7,4 @@
 #     user.subtitles_show = false
 #     user.print_phrase_timings = false
 #     user.pretty_print_phrase = false
+#     user.analyze_phrase = false
