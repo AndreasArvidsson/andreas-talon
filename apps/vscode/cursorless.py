@@ -148,7 +148,7 @@ def switch_folder(useRelease: bool):
     actions.user.debug(f"cmd /c mklink /d {link} {target}")
     os.system(f"cmd /c rmdir {link}")
     actions.clip.set_text(f"mklink /d {link} {target}")
-    actions.app.notify("mklink command added to clipboard")
+    actions.user.notify("mklink command added to clipboard")
     # os.system(f"cmd /c mklink /d {link} {target}")
     # actions.sleep("500ms")
     # actions.user.talon_restart()
