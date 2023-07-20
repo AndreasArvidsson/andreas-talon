@@ -2,7 +2,11 @@ from talon import Module, Context, actions
 import os
 
 mod = Module()
+
 ctx = Context()
+ctx.matches = r"""
+mode: command
+"""
 
 fallback_action_callbacks = {
     "setSelection": actions.skip,
