@@ -1,14 +1,14 @@
 from talon import Module, actions, registry, cron, app
-from talon_init import TALON_HOME
+from talon_init import VENV_BIN
 import tempfile
 import json
 from pathlib import Path
 
 config_path = Path(tempfile.gettempdir()) / "talonDeck.json"
 repl_path = (
-    f'{Path(TALON_HOME) / ".venv" / "Scripts" / "repl.bat"}'
+    f'{Path(VENV_BIN) / "repl.bat"}'
     if app.platform == "windows"
-    else f'{Path(TALON_HOME) / "bin" / "repl"}'
+    else f'{Path(VENV_BIN) /"repl"}'
 )
 cron_job = None
 current_file_content = ""
