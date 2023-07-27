@@ -16,7 +16,11 @@ app: facebook
 @ctx.action_class("edit")
 class EditActions:
     def line_insert_up():
-        actions.key("home ctrl-enter up")
+        actions.key("home")
+        actions.sleep("10ms")
+        actions.key("ctrl-enter up")
 
     def line_insert_down():
-        actions.key("end ctrl-enter")
+        actions.key("end")
+        actions.sleep("10ms")
+        actions.key("ctrl-enter")
