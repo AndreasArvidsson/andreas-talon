@@ -7,6 +7,8 @@ settings():
     user.subtitles_show = true
     # Show subtitles on all screens
     user.subtitles_all_screens = true
+    # 100px subtitles font size
+    user.subtitles_size = 100
     # White subtitles color
     user.subtitles_color = "ffffff"
     # Slightly dark subtitle outline
@@ -29,6 +31,8 @@ settings():
     user.notifications_show = true
     # Show notifications on all screens
     user.notifications_all_screens = true
+    # 100px notifications font size
+    user.notifications_size = 100
     # Blue notifications color
     user.notifications_color = "6495ED"
     # Slightly dark notification outline

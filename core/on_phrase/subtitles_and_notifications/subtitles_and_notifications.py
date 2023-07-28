@@ -1,4 +1,4 @@
-from talon import Module, ui, cron
+from talon import Module, app, ui, cron
 from talon.canvas import Canvas
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
@@ -33,6 +33,7 @@ setting_show = setting("show", bool, "If true show")
 setting_all_screens = setting(
     "all_screens", bool, "If true show on all screens instead of just the main screen"
 )
+setting_size = setting("size", int, "Font size")
 setting_color = setting("color", str, "Text color")
 setting_color_outline = setting("color_outline", str, "Text outline color")
 setting_timeout_per_char = setting(
@@ -96,15 +97,15 @@ def show_text(text: str, is_subtitle: bool):
 def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
     timeout = calculate_timeout(text, is_subtitle)
     canvas = Canvas.from_screen(screen)
-    canvas.register("draw", lambda c: on_draw(c, text, is_subtitle))
+    canvas.register("draw", lambda c: on_draw(c, screen, text, is_subtitle))
     canvas.freeze()
     cron.after(f"{timeout}ms", canvas.close)
     return canvas
 
 
-def on_draw(c: SkiaCanvas, text: str, is_subtitle: bool):
-    # The min(width, height) is to not get gigantic size on portrait height
-    size = min(c.width, c.height)
+def on_draw(c: SkiaCanvas, screen: ui.Screen, text: str, is_subtitle: bool):
+    scale = screen.scale if app.platform != "mac" else 1
+    size = setting_size(is_subtitle) * scale
     rect = set_text_size_and_get_rect(c, size, text)
     x = c.rect.center.x - rect.center.x
     # Clamp coordinate to make sure entire text is visible
@@ -135,14 +136,13 @@ def calculate_timeout(text: str, is_subtitle: bool) -> int:
     return min(ms_max, max(ms_min, len(text) * ms_per_char))
 
 
-def set_text_size_and_get_rect(c: SkiaCanvas, height: int, text: str) -> Rect:
-    height_div = 14
+def set_text_size_and_get_rect(c: SkiaCanvas, size: int, text: str) -> Rect:
     while True:
-        c.paint.textsize = round(height / height_div)
+        c.paint.textsize = size
         rect = c.paint.measure_text(text)[1]
-        if rect.width < c.width * 0.75:
+        if rect.width < c.width * 0.8:
             return rect
-        height_div += 2
+        size *= 0.9
 
 
 def clear_canvases(canvas_list: list[Canvas]):
