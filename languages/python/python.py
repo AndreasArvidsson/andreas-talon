@@ -22,7 +22,7 @@ ctx.lists["self.code_data_type"] = {
     "list": "list",
     "range": "range",
     "none": "None",
-    "any": "any",
+    "any": "Any",
     "tuple": "tuple",
     "union": "Union",
     "optional": "Optional",
