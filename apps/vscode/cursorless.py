@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+from typing import Any
 import os
 
 mod = Module()
@@ -60,7 +61,7 @@ class UserActions:
             actions.next(action_type, target, cursorless_wrapper)
 
 
-def perform_fallback_command(action_id: str, target: dict, args: any = None):
+def perform_fallback_command(action_id: str, target: dict, args: Any = None):
     """Perform non Cursorless fallback command"""
     actions.user.debug(
         "Current command targets selection and is not in a text editor. Perform fallback command."
@@ -123,7 +124,7 @@ class Actions:
         """Use developed folder of cursorless-talon"""
         switch_folder(False)
 
-    def cursorless_browser_open_target(target: dict):
+    def cursorless_browser_open_target(target: Any):
         """Search for target text in browser"""
         texts = actions.user.cursorless_single_target_command_get(
             "getText",
@@ -132,7 +133,7 @@ class Actions:
         text = " + ".join(texts)
         actions.user.browser_open(text)
 
-    def cursorless_wrap_target_with_symbol(target: dict, symbol: str):
+    def cursorless_wrap_target_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""
         if symbol == "space":
             symbol = " "
