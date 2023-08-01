@@ -318,6 +318,7 @@ setting_patterns = mod.setting(
 
 
 def on_ready():
+    global system
     pattern_path = str(PARROT_HOME / setting_patterns.get())
     parrot_delegate = Delegate(debug=False)
     system = ParrotSystem(model_path, parrot_delegate)
