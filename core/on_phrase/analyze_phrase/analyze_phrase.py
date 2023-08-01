@@ -4,7 +4,7 @@ from talon.grammar.vm import VMListCapture, VMCapture
 from talon.engines.w2l import DecodeWord, WordMeta
 from talon.scripting.types import CommandImpl
 from talon_init import TALON_HOME
-from typing import Optional
+from typing import Optional, Any
 import os
 import re
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
@@ -153,7 +153,7 @@ def get_captures(capture: Capture) -> AnalyzedCapture:
     return captures
 
 
-def get_capture_mapping(capture: Capture) -> dict[str, any]:
+def get_capture_mapping(capture: Capture) -> dict[str, Any]:
     mapping = {}
 
     for k, v in capture._mapping.items():

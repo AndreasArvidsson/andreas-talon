@@ -3,7 +3,7 @@ from talon.canvas import Canvas
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
 from talon.types import Rect
-from typing import Type, Callable, Optional
+from typing import Type, Callable, Optional, Any
 
 mod = Module()
 subtitle_canvas = []
@@ -12,7 +12,7 @@ show_override = None
 
 
 def setting(
-    name: str, type: Type, desc: str, default: Optional[any] = None
+    name: str, type: Type, desc: str, default: Optional[Any] = None
 ) -> Callable[[bool], Type]:
     setting_subtitle = mod.setting(
         f"subtitles_{name}", type, default=default, desc=f"Subtitles: {desc}"

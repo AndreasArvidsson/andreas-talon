@@ -1,5 +1,6 @@
 from talon import Module, Context, registry
 from talon_init import TALON_HOME
+from typing import Any
 import re
 import os
 import inspect
@@ -25,7 +26,7 @@ default_descs = {
 
 
 def calc_command_actions(
-    code: str, capture_mapping: dict[str, any]
+    code: str, capture_mapping: dict[str, Any]
 ) -> list[AnalyzedAction]:
     """Calculate command actions from a analyzed phrase"""
     lines = [l for l in code.splitlines() if l and not l.startswith("#")]
@@ -89,7 +90,7 @@ def calc_command_actions(
     return actions
 
 
-def get_parameters(capture_mapping: dict[str, any]):
+def get_parameters(capture_mapping: dict[str, Any]):
     parameters = {}
 
     for capture, values in capture_mapping.items():
