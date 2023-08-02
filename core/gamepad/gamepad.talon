@@ -14,6 +14,7 @@ gamepad(south):             print("south/A")
 
 gamepad(select):            print("select/view")
 gamepad(start):             print("start/menu")
+gamepad(mode):              print("mode")
 
 gamepad(l1):                print("l1/Left bumper")
 gamepad(r1):                print("r1/Right bumper")
