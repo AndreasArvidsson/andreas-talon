@@ -1,13 +1,18 @@
 not tag: user.gamepad_tester
 -
 
-gamepad(dpad_up):           print("dpad_up")
-gamepad(dpad_down):         print("dpad_down")
-gamepad(dpad_left):         print("dpad_left")
-gamepad(dpad_right):        print("dpad_right")
+# gamepad(dpad_up):           print("dpad_up")
+# gamepad(dpad_down):         print("dpad_down")
+# gamepad(dpad_left):         print("dpad_left")
+# gamepad(dpad_right):        print("dpad_right")
+gamepad(dpad_up):           edit.up()
+gamepad(dpad_down):         edit.down()
+gamepad(dpad_left):         edit.left()
+gamepad(dpad_right):        edit.right()
 
 gamepad(north):             print("north/Y")
-gamepad(west):              print("west/X")
+# gamepad(west):              print("west/X")
+gamepad(west):              core.repeat_phrase()
 # gamepad(east):              print("east/B")
 gamepad(east):              user.quick_pick_show()
 gamepad(south):             print("south/A")

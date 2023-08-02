@@ -44,6 +44,12 @@ panels = {
 }
 ctx.lists["self.vscode_panel"] = panels.keys()
 
+mod.list("vscode_sessions", desc="Known vscode sessions/workspaces")
+ctx.lists["self.vscode_sessions"] = {
+    "andreas": "andreas-talon",
+    "cursor less":"cursorless",
+}
+
 
 @mod.capture(rule="{self.vscode_panel}")
 def vscode_panel(m) -> dict:
