@@ -21,8 +21,10 @@ gamepad(select):            print("select/view")
 gamepad(start):             print("start/menu")
 gamepad(mode):              print("mode")
 
-gamepad(l1):                print("l1/Left bumper")
-gamepad(r1):                print("r1/Right bumper")
+# gamepad(l1):                print("l1/Left bumper")
+# gamepad(r1):                print("r1/Right bumper")
+gamepad(l1):                user.go_back()
+gamepad(r1):                user.go_forward()
 
 # gamepad(l2:change):         print("l2/Left trigger {value}")
 # gamepad(r2:change):         print("r2/Right trigger {value}")
