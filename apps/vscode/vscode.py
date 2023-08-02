@@ -56,6 +56,11 @@ def vscode_panel(m) -> dict:
     return panels[m.vscode_panel]
 
 
+@mod.capture(rule="{self.letter} [{self.letter}]")
+def vscode_tab_hint(m) -> str:
+    return "".join(m)
+
+
 @ctx.action_class("win")
 class WinActions:
     def filename():
