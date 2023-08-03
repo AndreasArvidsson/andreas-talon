@@ -9,12 +9,10 @@ gamepad(dpad_right):        edit.right()
 gamepad(north):             user.mouse_click("control")
 gamepad(west):              user.mouse_drag()
 gamepad(east):              user.mouse_click("right")
-gamepad(south):             print("south/A")
+gamepad(south):             user.mouse_freeze_toggle()
 
-# gamepad(south): dictation mode toggle?
-
-gamepad(select):            print("select/view")
-gamepad(start):             user.quick_pick_show()
+gamepad(select):            user.quick_pick_show()
+gamepad(start):             user.command_dictation_mode_toggle()
 
 gamepad(l1):                user.go_back()
 gamepad(r1):                user.go_forward()

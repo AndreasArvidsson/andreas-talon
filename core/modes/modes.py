@@ -5,6 +5,11 @@ from typing import Union
 mod = Module()
 ctx = Context()
 
+ctx_dictation = Context()
+ctx_dictation.matches = r"""
+mode: dictation
+"""
+
 ctx_sv = Context()
 ctx_sv.matches = r"""
 language: sv
@@ -14,6 +19,18 @@ mod.list("sleep_phrase", desc="Phrase used to sleep Talon")
 sleep_phrases = ["drowse", "sömnig"]
 ctx.lists["self.sleep_phrase"] = {sleep_phrases[0]}
 ctx_sv.lists["self.sleep_phrase"] = sleep_phrases
+
+
+@ctx.action_class("user")
+class UserActions:
+    def command_dictation_mode_toggle():
+        actions.user.dictation_mode()
+
+
+@ctx_dictation.action_class("user")
+class DictationUserActions:
+    def command_dictation_mode_toggle():
+        actions.user.command_mode()
 
 
 @mod.action_class
@@ -33,6 +50,9 @@ class Actions:
         actions.mode.enable("dictation")
         if phrase:
             actions.user.rephrase(phrase, run_async=True)
+
+    def command_dictation_mode_toggle():
+        """Toggle between command and dictation mode"""
 
     def swedish_dictation_mode(phrase: Union[Phrase, str] = None):
         """Enter swedish dictation mode and re-evaluate phrase"""
