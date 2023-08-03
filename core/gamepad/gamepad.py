@@ -11,12 +11,9 @@ class Actions:
     def gamepad_scroll(x: float, y: float):
         """Perform gamepad scrolling"""
         global cron_job, _x, _y
-        if slow_mode:
-            _x = x * 1.5
-            _y = y * 1.5
-        else:
-            _x = x * 3
-            _y = y * 3
+        multiplier = 1.5 if slow_mode else 3
+        _x = x * multiplier
+        _y = y * multiplier
 
         if _x != 0 or _y != 0:
             if cron_job is None:
@@ -26,7 +23,7 @@ class Actions:
             cron_job = None
 
     def gamepad_scroll_slow_toggle():
-        """Toggle gamepad scroll slow mode"""
+        """Toggle gamepad slow scroll mode"""
         global slow_mode
         slow_mode = not slow_mode
         actions.user.notify(f"Gamepad slow scroll: {slow_mode}")

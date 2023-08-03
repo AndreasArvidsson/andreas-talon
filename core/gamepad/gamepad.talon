@@ -15,7 +15,6 @@ gamepad(south):             print("south/A")
 
 gamepad(select):            print("select/view")
 gamepad(start):             user.quick_pick_show()
-gamepad(mode):              print("mode")
 
 gamepad(l1):                user.go_back()
 gamepad(r1):                user.go_forward()
