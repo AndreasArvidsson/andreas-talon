@@ -218,8 +218,6 @@ dev tools:                  user.vscode("workbench.action.toggleDevTools")
 select element:             key(ctrl-shift-c)
 
 # Find session
-scout sesh {user.vscode_sessions}:
-    user.vscode_find_recent(vscode_sessions)
 scout (sesh | recent) [<user.text>]$:
     user.vscode_find_recent(text or "")
 pop sesh {user.vscode_sessions}$:
