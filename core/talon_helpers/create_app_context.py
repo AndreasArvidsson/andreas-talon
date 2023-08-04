@@ -1,11 +1,14 @@
-from talon import Module, app, actions, ui
-from pathlib import Path
+from talon import Module, actions, app, ui
 from itertools import islice
-import os, re
+from pathlib import Path
+import re
+import os
+
 
 APPS_DIR = Path(__file__).parent.parent.parent / "apps"
 
 mod = Module()
+
 
 @mod.action_class
 class Actions:
@@ -18,7 +21,7 @@ class Actions:
         python_file = app_dir / f"{app_name}.py"
 
         if app_dir.is_dir():
-            raise Exception(f"Application directory '{app_name}' already exists")
+            raise OSError(f"Application directory '{app_name}' already exists")
 
         talon_context = get_talon_context(app_name)
         python_context = get_python_context(active_app, app_name)
@@ -51,20 +54,18 @@ app: {app_name}
 # @mod.action_class
 # class Actions:
 '''.format(
-        app_name=app_name, 
+        app_name=app_name,
         os=app.platform,
         app_context=get_app_context(active_app),
     )
 
 
 def get_talon_context(app_name: str) -> str:
-    return '''\
+    return f"""\
 app: {app_name}
 -
 
-'''.format(
-        app_name=app_name,
-    )
+"""
 
 
 def get_app_context(active_app: ui.App) -> str:
@@ -77,4 +78,6 @@ def get_app_context(active_app: ui.App) -> str:
 
 def create_name(text: str, max_len=20) -> str:
     pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
-    return "_".join(list(islice(pattern.findall(text.replace(".exe", "")), max_len))).lower()
+    return "_".join(
+        list(islice(pattern.findall(text.replace(".exe", "")), max_len))
+    ).lower()
