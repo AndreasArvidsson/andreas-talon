@@ -9,8 +9,8 @@ def gui(gui: imgui.GUI):
     gui.header("Formatters")
     gui.line(bold=True)
     formatters = {
-        **registry.lists["user.formatter_code"][0],
-        **registry.lists["user.formatter_prose"][0],
+        **registry.lists["user.formatter_code"][-1],
+        **registry.lists["user.formatter_prose"][-1],
     }
     for name in sorted(formatters):
         gui.text(
