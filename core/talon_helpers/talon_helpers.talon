@@ -32,6 +32,8 @@ talon copy python context:  user.talon_add_context_clipboard_python()
 talon copy context:         user.talon_add_context_clipboard()
 talon copy commands:        user.help_copy_all_commands()
 
+talon create app context:   user.talon_create_app_context()
+
 talon open log:             menu.open_log()
 talon open repl:            menu.open_repl()
 talon open home:            menu.open_talon_home()

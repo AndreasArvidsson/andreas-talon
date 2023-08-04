@@ -23,12 +23,6 @@ ctx_win.matches = r"""
 os: windows
 """
 
-pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
-
-
-def create_name(text, max_len=20):
-    return "_".join(list(islice(pattern.findall(text), max_len))).lower()
-
 
 @mod.action_class
 class Actions:
@@ -36,7 +30,7 @@ class Actions:
         """Adds os-specific context info to the clipboard for the focused app for .py files. Assumes you've a Module named mod declared."""
         friendly_name = actions.app.name()
         executable = actions.app.executable().split(os.path.sep)[-1]
-        app_name = create_name(friendly_name.replace(".exe", ""))
+        app_name = create_name(friendly_name)
         if app.platform == "mac":
             result = 'mod.apps.{} = """\nos: {}\nand app.bundle: {}\n"""'.format(
                 app_name, app.platform, actions.app.bundle()
@@ -188,3 +182,8 @@ def filter_search(values: dict, text: str) -> dict:
         if text in k:
             result[k] = values[k]
     return result
+
+
+def create_name(text, max_len=20):
+    pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
+    return "_".join(list(islice(pattern.findall(text.replace(".exe", "")), max_len))).lower()

@@ -1,6 +1,4 @@
 {
-    "python.defaultInterpreterPath": "~\\AppData\\Roaming\\talon\\.venv\\Scripts\\python.exe",
-    "python.analysis.stubPath": "~\\AppData\\Roaming\\talon\\.venv\\Lib\\site-packages",
-    "python.formatting.provider": "black",
-    "python.linting.pylintEnabled": true
+    "python.defaultInterpreterPath": "~\\AppData\\Roaming\\talon\\venv\\3.11\\Scripts\\python.exe",
+    "python.analysis.stubPath": "~\\AppData\\Roaming\\talon\\venv\\3.11\\Lib\\site-packages"
 }

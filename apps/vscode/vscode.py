@@ -7,9 +7,7 @@ UNTITLED_RE = re.compile(r"Untitled-\d$")
 mod = Module()
 mod.tag("vscode_notebook")
 
-mod.apps.vscode = """
-os: windows
-and app.name: Visual Studio Code
+mod.apps.vscode = r"""
 os: windows
 and app.exe: Code.exe
 os: linux
