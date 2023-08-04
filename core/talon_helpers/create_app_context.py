@@ -32,9 +32,6 @@ class Actions:
             file.write(python_context)
 
 
-
-
-
 def get_python_context(active_app: ui.App, app_name: str) -> str:
     return '''\
 from talon import Module, Context, actions
