@@ -165,8 +165,8 @@ pop forward:                user.vscode("workbench.action.openNextRecentlyUsedEd
 focus editor:               user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Tabs
-tab <user.vscode_tab_hint>:
-    user.vscode("andreas.focusTab", vscode_tab_hint)
+tab {self.letter} [{self.letter}]:
+    user.vscode("andreas.focusTab", "{letter_1}{letter_2 or ''}")
 
 # Cursor
 cursor back:                user.vscode("cursorUndo")
