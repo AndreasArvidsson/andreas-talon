@@ -224,6 +224,7 @@ formatters_code = {
 
 formatters_prose = {
     "sentence": "SENTENCE",
+    "sense": "SENTENCE",
     "title": "TITLE_CASE",
     "upper": "ALL_UPPERCASE",
     "lower": "ALL_LOWERCASE",
