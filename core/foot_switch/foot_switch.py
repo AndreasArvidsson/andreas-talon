@@ -1,7 +1,7 @@
 from talon import Module, Context, actions, cron
 import time
 
-mod = Module()
+HOLD_TIMEOUT = 0.2
 
 LEFT = 0
 CENTER = 1
@@ -11,11 +11,11 @@ TOP = 3
 DOWN = 0
 UP = 1
 
+mod = Module()
 current_state = [UP, UP, UP, UP]
 last_state = [UP, UP, UP, UP]
 timestamps = [0, 0, 0, 0]
 scroll_reversed = False
-hold_timeout = 0.2
 cron_job = None
 
 
@@ -27,7 +27,7 @@ def on_interval():
             if current_state[key] == DOWN:
                 call_down(key)
             else:
-                held = time.perf_counter() - timestamps[key] > hold_timeout
+                held = time.perf_counter() - timestamps[key] > HOLD_TIMEOUT
                 call_up(key, held)
 
 
@@ -130,7 +130,7 @@ class UserActions:
     def foot_switch_left_down():
         global cron_job
         cron_job = cron.after(
-            f"{int(hold_timeout*1000)}ms", actions.user.quick_pick_show
+            f"{int(HOLD_TIMEOUT*1000)}ms", actions.user.quick_pick_show
         )
 
     def foot_switch_left_up(held: bool):

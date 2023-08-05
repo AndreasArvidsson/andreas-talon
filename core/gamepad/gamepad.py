@@ -1,8 +1,12 @@
 from talon import Module, actions, cron
+import time
+
+HOLD_TIMEOUT = 0.2
 
 mod = Module()
 cron_job = None
 slow_mode = False
+mouse_freeze_time = 0
 _x = 0
 _y = 0
 
@@ -21,6 +25,15 @@ class Actions:
         elif cron_job is not None:
             cron.cancel(cron_job)
             cron_job = None
+
+    def gamepad_mouse_freeze(button_down: bool):
+        """Toggle gamepad mouse freeze"""
+        global mouse_freeze_time
+        if button_down:
+            mouse_freeze_time = time.perf_counter()
+            actions.user.mouse_freeze_toggle()
+        elif time.perf_counter() - mouse_freeze_time > HOLD_TIMEOUT:
+            actions.user.mouse_freeze_toggle()
 
     def gamepad_scroll_slow_toggle():
         """Toggle gamepad slow scroll mode"""
