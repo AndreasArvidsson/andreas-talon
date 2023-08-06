@@ -131,9 +131,9 @@ class EditActions:
     def line_insert_up():
         actions.user.vscode("editor.action.insertLineBefore")
 
-    # Don't use since some vscode extension(eg markdown) has specific behavior on enter
-    # def line_insert_down():
-    #     actions.user.vscode("editor.action.insertLineAfter")
+    def line_insert_down():
+        # Don't use RPC since some vscode extension(eg markdown) has specific behavior on enter
+        actions.key("ctrl-enter")
 
     def delete_line():
         actions.user.vscode("editor.action.deleteLines")
