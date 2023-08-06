@@ -16,6 +16,7 @@ button_bg_color = "aaaaaa"
 button_text_color = "000000"
 border_radius = 8
 button_radius = 4
+MAX_IMAGE_HEIGHT = 500
 
 mod = Module()
 
@@ -222,7 +223,10 @@ class Image:
 
     def _resize(self, width: int, height: int) -> SkiaImage:
         aspect_ratio = self._image.width / self._image.height
-        if self._image.width < self._image.height:
+        if self._image.height > MAX_IMAGE_HEIGHT:
+            height = MAX_IMAGE_HEIGHT
+            width = round(height * aspect_ratio)
+        elif self._image.height > self._image.width:
             height = round(width / aspect_ratio)
         else:
             width = round(height * aspect_ratio)
