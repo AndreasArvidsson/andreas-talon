@@ -22,7 +22,6 @@ settings():
     # Subtitles are positioned at the bottom of the screen
     user.subtitles_y = 0.93
 
-
     # ==============================
     # NOTIFICATION SETTINGS
     # ==============================

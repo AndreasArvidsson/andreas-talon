@@ -13,9 +13,6 @@
 1. Change shortcut keys to: F13, F14, F15, F16
     - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml)
     - On Windows F-keys above F12 won't be visible in the tool, but works if imported
-    ![Foot Switch Configuration Tool](foot_switch_configuration.png)
-2. Add [foot_switch.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/foot_switch/foot_switch.talon) and [foot_switch.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/foot_switch/foot_switch.py) to your Talon user directory
-3. My mouse scroll actions are not Knausj default. To utilize my implementation of mouse scroll with the foot switch you will need [mouse_scroll.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/mouse/mouse_scroll.py) 
-
-
-
+      ![Foot Switch Configuration Tool](foot_switch_configuration.png)
+1. Add [foot_switch.talon](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/foot_switch/foot_switch.talon) and [foot_switch.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/foot_switch/foot_switch.py) to your Talon user directory
+1. My mouse scroll actions are not Knausj default. To utilize my implementation of mouse scroll with the foot switch you will need [mouse_scroll.py](https://github.com/AndreasArvidsson/andreas-talon/blob/master/misc/mouse/mouse_scroll.py)
