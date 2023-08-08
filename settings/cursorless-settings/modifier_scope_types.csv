@@ -11,6 +11,7 @@ car, character
 cell, notebookCell
 class name, className
 class, class
+command, command
 comment, comment
 condition, condition
 element, xmlElement
