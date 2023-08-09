@@ -64,4 +64,4 @@ search for <user.cursorless_target>:
     user.cursorless_browser_open_target(cursorless_target)
 
 {user.symbol} wrap <user.cursorless_target>:
-    user.cursorless_wrap_target_with_symbol(cursorless_target, symbol)
+    user.cursorless_wrap_with_symbol(cursorless_target, symbol)

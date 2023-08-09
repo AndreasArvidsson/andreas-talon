@@ -1,10 +1,6 @@
-from talon import app
-from pathlib import Path
 from dataclasses import dataclass
 from typing import Union
 import glob
-
-SNIPPETS_DIR = Path(__file__).parent / "snippets"
 
 
 @dataclass
@@ -15,34 +11,41 @@ class SnippetVariable:
 
 @dataclass
 class Snippet:
-    name: str
     body: str
+    name: str = None
     phrase: str = None
     wrapperScope: str = None
     languages: list[str] = None
     variables: list[SnippetVariable] = None
 
 
-def parse_snippet_file(path):
+def get_snippets(dir) -> list[Snippet]:
+    files = glob.glob(f"{dir}/*.snippet")
+    result = []
+
+    for file in files:
+        result.extend(parse_snippet_file(file))
+
+    return result
+
+
+def parse_snippet_file(path) -> list[Snippet]:
     with open(path) as f:
         content = f.read()
 
     sections = content.split("---")
 
-    default_context = parse_default_context(sections)
+    default_context = get_default_context(sections)
 
     if default_context:
         sections = sections[1:]
     else:
         sections = {}
 
-    snippets = [parse_section(s, default_context) for s in sections]
-
-    for s in snippets:
-        print(s)
+    return [parse_section(s, default_context) for s in sections]
 
 
-def parse_default_context(sections: list[str]) -> Union[dict, None]:
+def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
     if sections:
         parts = sections[0].split("-")
         if len(parts) == 1:
@@ -63,24 +66,20 @@ def parse_section(section: str, default_context: dict) -> Snippet:
         **parse_context(context_str),
     }
 
-    if not "name" in context:
-        raise Exception(f"Missing name: {section}")
-
     snippet = Snippet(
-        name=context["name"],
         body=body.strip(),
     )
 
     for key, value in context.items():
         match key:
             case "name":
-                pass
+                snippet.name = value
             case "phrase":
                 snippet.phrase = value
             case "wrapperScope":
                 snippet.wrapperScope = value
             case "language":
-                snippet.languages = [v.strip() for v in value.split(",")]
+                snippet.languages = get_languages(value)
             case _:
                 if not key.startswith("$") and key.endswith(".phrase"):
                     raise Exception(f"Unknown context: '{key}: {value}'")
@@ -96,7 +95,26 @@ def parse_section(section: str, default_context: dict) -> Snippet:
     return snippet
 
 
-def parse_context(context: str) -> dict:
+def get_languages(language: str) -> list[str]:
+    languages_raw = [v.strip() for v in language.split(",")]
+    languages = set()
+    for lang in languages_raw:
+        languages.add(lang)
+        match lang:
+            case "javascript":
+                languages.update({"javascriptreact", "typescript", "typescriptreact"})
+            case "javascriptreact":
+                languages.add("typescriptreact")
+            case "typescript":
+                languages.add("typescriptreact")
+            case "html":
+                languages.update({"javascriptreact", "typescriptreact"})
+    result = list(languages)
+    result.sort()
+    return result
+
+
+def parse_context(context: str) -> dict[str, str]:
     result = {}
     lines = [l for l in context.splitlines() if l.strip()]
 
@@ -110,13 +128,3 @@ def parse_context(context: str) -> dict:
         result[key] = value
 
     return result
-
-
-def on_ready():
-    files = glob.glob(f"{SNIPPETS_DIR}/*.snippet")
-
-    for file in files:
-        parse_snippet_file(file)
-
-
-app.register("ready", on_ready)

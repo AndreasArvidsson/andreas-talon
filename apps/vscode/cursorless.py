@@ -27,7 +27,7 @@ class Actions:
         text = " + ".join(texts)
         actions.user.browser_open(text)
 
-    def cursorless_wrap_target_with_symbol(target: Any, symbol: str):
+    def cursorless_wrap_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""
         if symbol == "space":
             symbol = " "
