@@ -1,0 +1,24 @@
+name: try catch
+phrase: try catch
+wrapperScope: statement
+
+$try.phrase: try
+$catch.phrase: catch
+---
+
+language: javascript, typescript, javascriptreact, typescriptreact
+-
+try {
+    $try
+}
+catch(error) {
+    $catch
+}
+---
+
+language: python
+-
+try:
+    $try
+except Exception as ex:
+    $catch
