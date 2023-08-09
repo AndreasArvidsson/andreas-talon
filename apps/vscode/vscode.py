@@ -45,7 +45,7 @@ ctx.lists["self.vscode_panel"] = panels.keys()
 mod.list("vscode_sessions", desc="Known vscode sessions/workspaces")
 ctx.lists["self.vscode_sessions"] = {
     "mine": "andreas-talon",
-    "cursor less":"cursorless",
+    "cursor less": "cursorless",
 }
 
 
@@ -133,7 +133,7 @@ class EditActions:
 
     # Don't use RPC since some vscode extension(eg markdown) has specific behavior on enter
     # def line_insert_down():
-        # actions.user.vscode("editor.action.insertLineAfter")
+    # actions.user.vscode("editor.action.insertLineAfter")
 
     def delete_line():
         actions.user.vscode("editor.action.deleteLines")

@@ -186,4 +186,6 @@ def filter_search(values: dict, text: str) -> dict:
 
 def create_name(text, max_len=20):
     pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
-    return "_".join(list(islice(pattern.findall(text.replace(".exe", "")), max_len))).lower()
+    return "_".join(
+        list(islice(pattern.findall(text.replace(".exe", "")), max_len))
+    ).lower()

@@ -10,6 +10,7 @@ mouse_freeze_time = 0
 _x = 0
 _y = 0
 
+
 @mod.action_class
 class Actions:
     def gamepad_scroll(x: float, y: float):

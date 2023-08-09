@@ -1,3 +1,4 @@
+# fmt: off
 # The default ``config.py``
 # flake8: noqa
 

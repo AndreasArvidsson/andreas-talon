@@ -17,10 +17,12 @@ class Actions:
 
     def cursorless_browser_open_target(target: Any):
         """Search for target text in browser"""
-        texts = actions.user.private_cursorless_command_get({
-            "name": "getText",
-            "target": target,
-        })
+        texts = actions.user.private_cursorless_command_get(
+            {
+                "name": "getText",
+                "target": target,
+            }
+        )
 
         text = " + ".join(texts)
         actions.user.browser_open(text)
@@ -30,12 +32,14 @@ class Actions:
         if symbol == "space":
             symbol = " "
 
-        actions.user.private_cursorless_command_and_wait({
-            "name": "wrapWithPairedDelimiter",
-            "left": symbol,
-            "right": symbol,
-            "target": target,
-        })
+        actions.user.private_cursorless_command_and_wait(
+            {
+                "name": "wrapWithPairedDelimiter",
+                "left": symbol,
+                "right": symbol,
+                "target": target,
+            }
+        )
 
 
 def switch_folder(useRelease: bool):
