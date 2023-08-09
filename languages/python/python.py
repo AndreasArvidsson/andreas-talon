@@ -163,6 +163,24 @@ class UserActions:
     def code_else():
         actions.user.insert_snippet("else:\n\t$0")
 
+    def code_switch():
+        actions.user.insert_snippet(
+            """match $1:
+                \t$0"""
+        )
+
+    def code_case():
+        actions.user.insert_snippet(
+            """case $1:
+                \t$0"""
+        )
+
+    def code_default():
+        actions.user.insert_snippet(
+            """case _:
+                \t$0"""
+        )
+
     def code_try():
         actions.user.insert_snippet(
             """try:
