@@ -56,9 +56,11 @@ class Actions:
 class VscodeActions:
     # Vscode has proper support for snippets
     def insert_snippet(snippet: Union[str, list[str]]):
-        lines = split_snippet(snippet)
-        snippet = "\n".join(lines)
+        if isinstance(snippet, list):
+            snippet = "\n".join(snippet)
+
         actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
+        # actions.user.cursorless_insert_snippet(snippet)
 
 
 def split_snippet(snippet: Union[str, list[str]]) -> list[str]:
