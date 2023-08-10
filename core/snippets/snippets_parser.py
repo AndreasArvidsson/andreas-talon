@@ -1,22 +1,6 @@
-from dataclasses import dataclass
 from typing import Union
 import glob
-
-
-@dataclass
-class SnippetVariable:
-    name: str
-    phrase: str
-
-
-@dataclass
-class Snippet:
-    body: str
-    name: str = None
-    phrase: str = None
-    wrapperScope: str = None
-    languages: list[str] = None
-    variables: list[SnippetVariable] = None
+from .snippet_types import Snippet, SnippetVariable
 
 
 def get_snippets(dir) -> list[Snippet]:
@@ -34,14 +18,12 @@ def parse_snippet_file(path) -> list[Snippet]:
         content = f.read()
 
     sections = content.split("---")
-
     default_context = get_default_context(sections)
 
-    if default_context:
+    if default_context is not None:
         sections = sections[1:]
     else:
-        sections = {}
-
+        default_context = {}
     return [parse_section(s, default_context) for s in sections]
 
 
@@ -66,14 +48,18 @@ def parse_section(section: str, default_context: dict) -> Snippet:
         **parse_context(context_str),
     }
 
+    if not "name" in context:
+        raise Exception(f"Missing name: {section}")
+
     snippet = Snippet(
+        name=context["name"],
         body=body.strip(),
     )
 
     for key, value in context.items():
         match key:
             case "name":
-                snippet.name = value
+                pass
             case "phrase":
                 snippet.phrase = value
             case "wrapperScope":
@@ -90,7 +76,8 @@ def parse_section(section: str, default_context: dict) -> Snippet:
                     )
                 if snippet.variables is None:
                     snippet.variables = []
-                snippet.variables.append(SnippetVariable(variable_name, value))
+                short_name = variable_name[1:]
+                snippet.variables.append(SnippetVariable(short_name, value))
 
     return snippet
 

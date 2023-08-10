@@ -1,6 +1,7 @@
 from talon import Module, Context, actions
 from typing import Union
 import re
+from .snippet_types import Snippet
 
 mod = Module()
 
@@ -14,7 +15,7 @@ app: vscode
 class Actions:
     # Default implementation inserts snippets as normal text
     def insert_snippet(snippet: Union[str, list[str]]):
-        """Inserts a snippet"""
+        """Insert snippet"""
         lines = split_snippet(snippet)
         found_stop = False
         for i, line in enumerate(lines):
@@ -44,6 +45,11 @@ class Actions:
             up(len(lines) - stop_row - 1)
             actions.edit.line_start()
             right(stop_col)
+
+    def insert_snippet_by_name(name: str):
+        """Insert snippet by name"""
+        snippet: Snippet = actions.user.get_snippet(name)
+        actions.user.insert_snippet(snippet.body)
 
 
 @ctx_vscode.action_class("user")

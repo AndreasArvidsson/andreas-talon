@@ -71,3 +71,6 @@ stacker:                    ": "
 period:                     ". "
 dasher:                     " - "
 arrow:                      user.insert_arrow()
+
+snip {user.snippet_insert}:
+    user.insert_snippet_by_name(snippet_insert)

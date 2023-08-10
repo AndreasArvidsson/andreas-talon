@@ -65,3 +65,6 @@ search for <user.cursorless_target>:
 
 {user.symbol} wrap <user.cursorless_target>:
     user.cursorless_wrap_with_symbol(cursorless_target, symbol)
+
+{user.snippet_wrap} wrap <user.cursorless_target>:
+    user.cursorless_my_wrap_with_snippet(cursorless_target, snippet_wrap)

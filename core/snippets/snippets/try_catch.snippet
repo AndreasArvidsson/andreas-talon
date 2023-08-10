@@ -1,24 +1,24 @@
-name: try catch
+name: tryCatchStatement
 phrase: try catch
 wrapperScope: statement
 
-$try.phrase: try
-$catch.phrase: catch
+$1.phrase: try
+$0.phrase: catch
 ---
 
 language: javascript
 -
 try {
-    $try
+    $1
 }
 catch(error) {
-    $catch
+    $0
 }
 ---
 
 language: python
 -
 try:
-    $try
+    $1
 except Exception as ex:
-    $catch
+    $0

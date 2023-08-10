@@ -41,6 +41,14 @@ class Actions:
             }
         )
 
+    def cursorless_my_wrap_with_snippet(target: Any, id: str):
+        """Wrap the target with snippet <id>"""
+        snippet = actions.user.get_snippet(id)
+        variable_name = id.split(".")[-1]
+        body = snippet.body.replace(f"${variable_name}", f"$TM_SELECTED_TEXT")
+        scope = snippet.wrapperScope if snippet.wrapperScope is not None else None
+        actions.user.cursorless_wrap_with_snippet(body, target, None, scope)
+
 
 def switch_folder(useRelease: bool):
     if useRelease:
