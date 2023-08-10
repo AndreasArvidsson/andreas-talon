@@ -28,13 +28,15 @@ def update_snippets():
     )
 
     global_map = {}
+    _, global_insertion, global_wrapper = create_lists("_", grouped.get("_", []))
 
     for lang, snippets in grouped.items():
-        if lang != "_" and "_" in grouped:
-            snippets = [*grouped["_"], *snippets]
-
         gm, insertion, wrapper = create_lists(lang, snippets)
         global_map.update(gm)
+
+        if lang != "_":
+            insertion = {**global_insertion, **insertion}
+            wrapper = {**global_wrapper, **wrapper}
 
         if not lang in context_map:
             ctx = Context()
