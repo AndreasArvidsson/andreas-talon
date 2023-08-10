@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class SnippetVariable:
     name: str
     phrase: str
+    wrapperScope: str = None
 
 
 @dataclass
@@ -12,6 +13,5 @@ class Snippet:
     name: str
     body: str
     phrase: str = None
-    wrapperScope: str = None
     languages: list[str] = None
     variables: list[SnippetVariable] = None

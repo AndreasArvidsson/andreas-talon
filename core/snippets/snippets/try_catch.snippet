@@ -1,9 +1,10 @@
 name: tryCatchStatement
 phrase: try catch
-wrapperScope: statement
 
 $1.phrase: try
+$1.wrapperScope: statement
 $0.phrase: catch
+$0.wrapperScope: statement
 ---
 
 language: javascript

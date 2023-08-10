@@ -67,17 +67,37 @@ def parse_section(section: str, default_context: dict) -> Snippet:
             case "language":
                 snippet.languages = get_languages(value)
             case _:
-                if not key.startswith("$") and key.endswith(".phrase"):
+                parts = key.split(".")
+                var_name, var_field = parts
+
+                if len(parts) != 2 or len(var_name) < 2 or not var_name.startswith("$"):
                     raise Exception(f"Unknown context: '{key}: {value}'")
-                variable_name = key[:-7]
-                if not variable_name in body:
-                    raise Exception(
-                        f"Variable '{variable_name}' missing in body '{body}'"
-                    )
+
+                if not var_name in body:
+                    raise Exception(f"Variable '{var_name}' missing in body '{body}'")
+
                 if snippet.variables is None:
                     snippet.variables = []
-                short_name = variable_name[1:]
-                snippet.variables.append(SnippetVariable(short_name, value))
+
+                match var_field:
+                    case "phrase":
+                        snippet.variables.append(
+                            SnippetVariable(
+                                name=var_name[1:],
+                                phrase=value,
+                                wrapperScope=context.get(f"{var_name}.wrapperScope"),
+                            )
+                        )
+                    case "wrapperScope":
+                        phrase_field = f"{var_name}.phrase"
+                        if not phrase_field in context:
+                            raise Exception(
+                                f"Variable field '{phrase_field}' expected with '{key}'"
+                            )
+                    case _:
+                        raise Exception(
+                            f"Unknown variable field '{var_field}' in '{key}'"
+                        )
 
     return snippet
 
