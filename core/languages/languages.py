@@ -35,6 +35,7 @@ languages = [
     Language("shellscript", "sh", "shell script"),
     Language("scm", "scm", "tree sitter"),
     Language("talon", "talon", "talon"),
+    Language("talon-list", "talon-list", "talon list"),
     Language("typescript", "ts", "type script"),
     Language("typescriptreact", "tsx", "type script react"),
     Language("xml", "xml", "xml"),
@@ -65,7 +66,6 @@ mode: command
 ctx.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
     "pie": "py",
-    "talon list": "talon-list",
 }
 
 ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
