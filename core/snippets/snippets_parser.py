@@ -18,14 +18,14 @@ def parse_snippet_file(path) -> list[Snippet]:
     with open(path) as f:
         content = f.read()
 
-    sections = re.split(r"^---$", content, flags=re.MULTILINE)
-    default_context = get_default_context(sections)
+    documents = re.split(r"^---$", content, flags=re.MULTILINE)
+    default_context = get_default_context(documents)
 
     if default_context is not None:
-        sections = sections[1:]
+        documents = documents[1:]
     else:
         default_context = {}
-    return [parse_section(s, default_context) for s in sections]
+    return [parse_document(s, default_context) for s in documents]
 
 
 def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
@@ -36,11 +36,11 @@ def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
     return None
 
 
-def parse_section(section: str, default_context: dict) -> Snippet:
-    parts = re.split(r"^-$", section, flags=re.MULTILINE)
+def parse_document(document: str, default_context: dict) -> Snippet:
+    parts = re.split(r"^-$", document, flags=re.MULTILINE)
 
     if len(parts) != 2:
-        raise Exception(f"Malformed section: {section}")
+        raise Exception(f"Malformed document: {document}")
 
     context_str, body = parts
 
@@ -50,7 +50,7 @@ def parse_section(section: str, default_context: dict) -> Snippet:
     }
 
     if not "name" in context:
-        raise Exception(f"Missing name: {section}")
+        raise Exception(f"Missing name: {document}")
 
     snippet = Snippet(
         name=context["name"],
