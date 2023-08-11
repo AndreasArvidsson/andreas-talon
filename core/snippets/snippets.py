@@ -75,16 +75,15 @@ def create_lists(
     prefix = "" if lang == "_" else f"{lang}."
 
     for snippet in snippets:
+        snippet_id = f"{prefix}{snippet.name}"
+        global_map[snippet_id] = snippet
+
         if snippet.phrase is not None:
-            id = f"{prefix}{snippet.name}"
-            global_map[id] = snippet
-            insertion[snippet.phrase] = id
+            insertion[snippet.phrase] = snippet_id
 
         if snippet.variables is not None:
             for var in snippet.variables:
-                id = f"{prefix}{snippet.name}.{var.name}"
-                global_map[id] = snippet
-                wrapper[var.phrase] = id
+                wrapper[var.phrase] = f"{snippet_id}.{var.name}"
 
     return global_map, insertion, wrapper
 

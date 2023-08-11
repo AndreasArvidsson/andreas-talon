@@ -1,5 +1,6 @@
 from typing import Union
 import glob
+import re
 from .snippet_types import Snippet, SnippetVariable
 
 
@@ -17,7 +18,7 @@ def parse_snippet_file(path) -> list[Snippet]:
     with open(path) as f:
         content = f.read()
 
-    sections = content.split("---")
+    sections = re.split(r"^---$", content, flags=re.MULTILINE)
     default_context = get_default_context(sections)
 
     if default_context is not None:
@@ -29,14 +30,15 @@ def parse_snippet_file(path) -> list[Snippet]:
 
 def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
     if sections:
-        parts = sections[0].split("-")
+        parts = re.split(r"^-$", sections[0], flags=re.MULTILINE)
+        print(parts)
         if len(parts) == 1:
             return parse_context(parts[0])
     return None
 
 
 def parse_section(section: str, default_context: dict) -> Snippet:
-    parts = section.split("-")
+    parts = re.split(r"^-$", section, flags=re.MULTILINE)
 
     if len(parts) != 2:
         raise Exception(f"Malformed section: {section}")
