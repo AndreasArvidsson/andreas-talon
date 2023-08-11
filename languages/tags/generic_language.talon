@@ -7,7 +7,7 @@ make false:                 user.code_false()
 make break:                 user.code_break()
 make continue:              user.code_continue()
 make return:                user.code_return()
-make link [<user.text>]:    user.code_link(text or "")
+snip link [<user.text>]:    user.code_link(text or "")
 
 # ----- Insert language specific text -----
 make <user.code_inserts>:   "{code_inserts}"
