@@ -19,7 +19,7 @@ snippets_map = {}
 # Create a context for each defined language
 for lang in language_ids:
     ctx = Context()
-    ctx.matches = f"tag: user.{lang}"
+    ctx.matches = f"code.language: {lang}"
     context_map[lang] = ctx
 
 

@@ -84,9 +84,7 @@ class CodeActions:
         if forced_language:
             return forced_language
         file_extension = actions.win.file_ext()
-        if file_extension in extension_lang_map:
-            return extension_lang_map[file_extension]
-        return ""
+        return extension_lang_map.get(file_extension, "")
 
 
 @mod.action_class
