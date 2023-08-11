@@ -1,4 +1,5 @@
 from talon import Context, Module, actions
+from urllib.parse import urlparse
 
 mod = Module()
 ctx = Context()
@@ -26,4 +27,4 @@ class UserActions:
 
 def is_valid_link(link: str) -> bool:
     # Multiline strings can't be a link
-    return link and "\n" not in link
+    return link and "\n" not in link and "." in urlparse(link).netloc
