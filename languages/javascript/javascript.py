@@ -76,18 +76,18 @@ class UserActions:
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        insert_snippet("classDeclaration", {"name": name})
+        actions.user.code_insert_snippet("classDeclaration", {"name": name})
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        insert_snippet("constructorDeclaration")
+        actions.user.code_insert_snippet("constructorDeclaration")
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        insert_snippet("functionDeclaration", {"name": name})
+        actions.user.code_insert_snippet("functionDeclaration", {"name": name})
 
     def code_method(name: str, modifiers: list[str]):
-        insert_snippet("methodDeclaration", {"name": name})
+        actions.user.code_insert_snippet("methodDeclaration", {"name": name})
 
     # Variable statement
     def code_variable(
@@ -107,7 +107,7 @@ class UserActions:
 
 @mod.action_class
 class Actions:
-    def arrowify_line():
+    def js_arrowify_line():
         """Arrowify line"""
         actions.edit.select_line()
         text = actions.edit.selected_text()
@@ -118,9 +118,8 @@ class Actions:
         text = text.replace(")", ") =>")
         actions.insert(text)
 
-
-def insert_snippet(name: str, substitutions: dict[str, str] = None):
-    actions.user.insert_snippet_by_name(
-        f"javascript.{name}",
-        substitutions,
-    )
+    def js_arrow_function(name: str):
+        """Insert arrow function"""
+        format = actions.user.code_get_function_format()
+        name = actions.user.format_text(name, format)
+        actions.user.code_insert_snippet("namedLambdaExpression", {"name": name})

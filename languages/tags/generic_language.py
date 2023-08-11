@@ -10,7 +10,6 @@ mod.list("code_variable_modifier", desc="Variable modifiers")
 mod.list("code_data_type", desc="Names of data types")
 mod.list("code_function", desc="Names of functions")
 mod.list("code_insert", desc="Names of miscellaneous text insertions")
-mod.list("code_snippet", desc="Names of miscellaneous text snippets")
 
 
 @mod.capture(rule="{user.code_insert}+")
@@ -42,13 +41,13 @@ class tab_actions:
 
     # ----- Class statement -----
     def code_class_wrapper(name: str, modifiers: Union[list[str], str]):
-        """Class declaration wrapper"""
+        """Declare class <name>"""
         format = actions.user.code_get_class_format()
         name = actions.user.format_text(name, format)
         actions.user.code_class(name, modifiers or [])
 
     def code_class(name: str, modifiers: list[str]):
-        """Class declaration"""
+        """Declare class <name>"""
 
     # ----- Constructor statement -----
     def code_constructor_wrapper(modifiers: Union[list[str], str]):
@@ -61,20 +60,20 @@ class tab_actions:
 
     # ----- Function statement -----
     def code_function_wrapper(name: str, modifiers: Union[list[str], str]):
-        """Function declaration wrapper"""
+        """Declare function <name>"""
         name = parse_function_name(name)
         actions.user.code_function(name, modifiers or [])
 
     def code_method_wrapper(name: str, modifiers: Union[list[str], str]):
-        """Method declaration wrapper"""
+        """Declare method <name>"""
         name = parse_function_name(name)
         actions.user.code_method(name, modifiers or [])
 
     def code_function(name: str, modifiers: list[str]):
-        """Function declaration"""
+        """Declare function <name>"""
 
     def code_method(name: str, modifiers: list[str]):
-        """Method declaration"""
+        """Declare method <name>"""
         actions.user.code_function(name, modifiers)
 
     def code_function_main():
@@ -97,14 +96,21 @@ class tab_actions:
 
     # ----- Function call -----
     def code_call_function(name: str):
-        """Function call"""
+        """Call function <name>"""
+        actions.user.code_insert_snippet("functionCall", {"name": name})
+
+        # ----- New instance  -----
+
+    def code_new_instance(name: str):
+        """Create new instance of <name>"""
+        actions.user.code_insert_snippet("newInstance", {"name": name})
 
     # ----- Insert types -----
     def code_insert_type_annotation(type: str):
-        """Insert type annotation"""
+        """Insert type annotation <type>"""
 
     def code_insert_return_type(type: str):
-        """Insert return type"""
+        """Insert return type <type>"""
 
     # ----- Formatting getters -----
     def code_get_class_format() -> str:

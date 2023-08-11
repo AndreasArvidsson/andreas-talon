@@ -158,15 +158,15 @@ class UserActions:
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        insert_snippet("classDeclaration", {"name": name})
+        actions.user.code_insert_snippet("classDeclaration", {"name": name})
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        insert_snippet("constructorDeclaration")
+        actions.user.code_insert_snippet("constructorDeclaration")
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        insert_snippet(
+        actions.user.code_insert_snippet(
             "functionDeclaration",
             {"name": f"{''.join(modifiers)}{name}"},
         )
@@ -184,10 +184,6 @@ class UserActions:
             text += " = "
         actions.insert(text)
 
-    # Function call
-    def code_call_function(name: str):
-        insert_snippet("functionCall", {"name": name})
-
     # Insert types
     def code_insert_type_annotation(type: str):
         actions.insert(f": {type}")
@@ -204,10 +200,3 @@ class UserActions:
 
     def code_get_variable_format() -> str:
         return "SNAKE_CASE"
-
-
-def insert_snippet(name: str, substitutions: dict[str, str] = None):
-    actions.user.insert_snippet_by_name(
-        f"python.{name}",
-        substitutions,
-    )

@@ -79,7 +79,7 @@ class UserActions:
 
     # Class declaration
     def code_class(name: str, modifiers: list[str]):
-        insert_snippet(
+        actions.user.code_insert_snippet(
             "classDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
         )
@@ -89,20 +89,20 @@ class UserActions:
         name = actions.user.vscode_get("andreas.getClassName")
         if not name:
             return
-        insert_snippet(
+        actions.user.code_insert_snippet(
             "constructorDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
         )
 
     # Function declaration
     def code_function(name: str, modifiers: list[str]):
-        insert_snippet(
+        actions.user.code_insert_snippet(
             "functionDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
         )
 
     def code_function_main():
-        insert_snippet(
+        actions.user.code_insert_snippet(
             "functionDeclaration",
             {
                 "name": "main",
@@ -130,10 +130,3 @@ def get_modifiers(modifiers: list[str]):
         return " ".join(modifiers)
     else:
         return "public"
-
-
-def insert_snippet(name: str, substitutions: dict[str, str] = None):
-    actions.user.insert_snippet_by_name(
-        f"java.{name}",
-        substitutions,
-    )

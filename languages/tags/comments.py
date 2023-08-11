@@ -1,4 +1,4 @@
-from talon import Module, actions, settings
+from talon import Module, actions
 
 mod = Module()
 mod.tag("comments")
@@ -21,8 +21,7 @@ class Actions:
 
 def insert_comment(name: str, text: str):
     text = actions.user.format_text(text, "SENTENCE")
-    lang = settings.get("user.code_lang")
-    actions.user.insert_snippet_by_name(
-        f"{lang}.{name}",
+    actions.user.code_insert_snippet(
+        name,
         {"0": f"{text}$0"},
     )

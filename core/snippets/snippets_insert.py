@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, Context, actions, settings
 from typing import Union
 import re
 from .snippet_types import Snippet
@@ -47,13 +47,18 @@ class Actions:
             right(stop_col)
 
     def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
-        """Insert snippet with name <name>"""
+        """Insert snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
         body = snippet.body
         if substitutions:
             for k, v in substitutions.items():
                 body = body.replace(f"${k}", v)
         actions.user.insert_snippet(body)
+
+    def code_insert_snippet(name: str, substitutions: dict[str, str] = None):
+        """Insert snippet <name> for the current programming language"""
+        lang = settings.get("user.code_lang")
+        actions.user.insert_snippet_by_name(f"{lang}.{name}", substitutions)
 
 
 @ctx_vscode.action_class("user")

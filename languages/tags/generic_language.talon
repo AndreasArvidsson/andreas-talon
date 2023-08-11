@@ -9,9 +9,8 @@ make continue:              user.code_continue()
 make return:                user.code_return()
 make link [<user.text>]:    user.code_link(text or "")
 
-# ----- Insert language specific text and snippets -----
+# ----- Insert language specific text -----
 make <user.code_inserts>:   "{code_inserts}"
-make {user.code_snippet}:   user.insert_snippet("{code_snippet}")
 
 # ----- Class statement -----
 {user.code_class_modifier}* class <user.text>$:

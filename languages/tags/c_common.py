@@ -101,10 +101,6 @@ class UserActions:
     def code_return():
         actions.insert("return ")
 
-    # Function call
-    def code_call_function(name: str):
-        insert_snippet("functionCall", {"name": name})
-
     # Formatting getters
     def code_get_class_format() -> str:
         return "PASCAL_CASE"
@@ -114,10 +110,3 @@ class UserActions:
 
     def code_get_variable_format() -> str:
         return "CAMEL_CASE"
-
-
-def insert_snippet(name: str, substitutions: dict[str, str] = None):
-    actions.user.insert_snippet_by_name(
-        f"c.{name}",
-        substitutions,
-    )

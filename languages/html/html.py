@@ -80,11 +80,8 @@ class Actions:
 
     def code_insert_element(name: str):
         """Insert element <name>"""
-        insert_snippet("element", {"name": name})
+        actions.user.code_insert_snippet("element", {"name": name})
 
-
-def insert_snippet(name: str, substitutions: dict[str, str] = None):
-    actions.user.insert_snippet_by_name(
-        f"html.{name}",
-        substitutions,
-    )
+    def code_insert_attribute(name: str):
+        """Insert attribute <name>"""
+        actions.user.code_insert_snippet("attribute", {"name": f" {name}"})

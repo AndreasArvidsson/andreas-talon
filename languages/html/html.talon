@@ -20,7 +20,7 @@ closed tag <user.text>:     "<{text}/>"
 close tag | tag close:      user.code_close_tag()
 
 attr <user.text>:
-    user.insert_snippet(" {text}=$0")
+    user.code_insert_attribute(text)
 
 make doctype:               "<!DOCTYPE html>\n"
 make blank:                 "&nbsp;"
