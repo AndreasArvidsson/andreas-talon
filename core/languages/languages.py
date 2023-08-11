@@ -116,7 +116,7 @@ class CodeCommandActions:
 @mod.action_class
 class Actions:
     def code_set_language(language: str):
-        """Sets the active language, and disables extension matching"""
+        """Sets the active language to <language>, and disables extension matching"""
         ctx_cmd.tags = [f"user.{language}_forced"]
         actions.user.notify(f"Enabled {language}")
 
