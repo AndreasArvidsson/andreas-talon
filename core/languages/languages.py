@@ -2,6 +2,13 @@ from talon import Context, Module, actions, scope
 from dataclasses import dataclass
 
 mod = Module()
+
+mod.setting(
+    "code_lang",
+    str,
+    desc="The identifier of the current active programming language",
+)
+
 ctx = Context()
 
 ctx_cmd = Context()
@@ -67,7 +74,7 @@ extension_lang_map = {
 language_ids = {l.id for l in languages}
 
 # Create a context for each defined language
-for lang in extension_lang_map.values():
+for lang in set(extension_lang_map.values()):
     mod.tag(lang)
     mod.tag(f"{lang}_forced")
     c = Context()
@@ -78,6 +85,7 @@ for lang in extension_lang_map.values():
     and code.language: {lang}
     """
     c.tags = [f"user.{lang}"]
+    c.settings = {"user.code_lang": lang}
 
 # Create a mode for the automated language detection. This is active when no lang is forced.
 mod.tag("auto_lang")

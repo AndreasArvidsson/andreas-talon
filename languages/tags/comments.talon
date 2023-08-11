@@ -1,17 +1,14 @@
 tag: user.comments
 -
 
-comment:                    code.toggle_comment()
-make comment:               user.comments_insert()
+comment:
+    code.toggle_comment()
 
-make comment <user.text>$:
-    text = user.format_text(text, "SENTENCE")
-    user.comments_insert(text)
+snip comment <user.text>$:
+    user.comment_insert(text)
 
-make block comment:         user.comments_insert_block()
+snip block comment <user.text>$:
+    user.comment_insert_block(text)
 
-make block comment <user.text>$:
-    text = user.format_text(text, "SENTENCE")
-    user.comments_insert_block(text)
-
-make dock string:           user.comments_insert_docstring()
+snip dock comment <user.text>:
+    user.comment_insert_docstring(text)

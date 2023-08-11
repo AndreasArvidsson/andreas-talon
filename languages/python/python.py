@@ -137,16 +137,6 @@ class UserActions:
     def op_or():
         actions.insert(" or ")
 
-    # Comments
-    def comments_insert(text: str = ""):
-        actions.insert(f"# {text}")
-
-    def comments_insert_block(text: str = ""):
-        actions.user.insert_snippet(f'"""{text}$0"""')
-
-    def comments_insert_docstring(text: str = ""):
-        actions.user.comments_insert_block(text)
-
     # Miscellaneous statements
     def code_break():
         actions.insert("break")

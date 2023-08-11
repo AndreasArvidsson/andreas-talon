@@ -75,7 +75,3 @@ class UserActions:
 
     def op_not():
         actions.insert("not ")
-
-    # Comments
-    def comments_insert(text: str = ""):
-        actions.insert(f"# {text}")
