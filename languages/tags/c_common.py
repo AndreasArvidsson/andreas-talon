@@ -95,53 +95,6 @@ class UserActions:
     def comments_insert_docstring(text: str = ""):
         actions.user.insert_snippet(f"/** {text}$0 */")
 
-    # Selection statements
-    def code_if():
-        snip_func("if")
-
-    def code_elif():
-        snip_func("else if")
-
-    def code_else():
-        actions.user.insert_snippet(
-            """else {
-                \t$0
-            }"""
-        )
-
-    def code_switch():
-        snip_func("switch")
-
-    def code_case():
-        actions.user.insert_snippet(
-            """case $1:
-                \t$0"""
-        )
-
-    def code_default():
-        actions.user.insert_snippet(
-            """default:
-                \t$0"""
-        )
-
-    def code_try():
-        actions.user.insert_snippet(
-            """try {
-                \t$0
-            }"""
-        )
-
-    # Iteration statements
-    def code_while():
-        snip_func("while")
-
-    def code_do_while():
-        actions.user.insert_snippet(
-            """do {
-                \t$0
-            } while ($1);"""
-        )
-
     # Miscellaneous statements
     def code_break():
         actions.insert("break;")
@@ -160,7 +113,7 @@ class UserActions:
 
     # Function call
     def code_call_function(name: str):
-        actions.user.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
+        insert_snippet("functionCall", {"name": name})
 
     # Formatting getters
     def code_get_class_format() -> str:
@@ -173,9 +126,8 @@ class UserActions:
         return "CAMEL_CASE"
 
 
-def snip_func(name):
-    actions.user.insert_snippet(
-        f"""{name}($1) {{
-            \t$0
-        }}"""
+def insert_snippet(name: str, substitutions: dict[str, str] = None):
+    actions.user.insert_snippet_by_name(
+        f"c.{name}",
+        substitutions,
     )

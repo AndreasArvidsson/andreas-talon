@@ -21,47 +21,6 @@ def code_inserts(m) -> str:
 
 @mod.action_class
 class tab_actions:
-    # ----- Selection statements -----
-    def code_if():
-        """If statement"""
-
-    def code_elif():
-        """Else if statement"""
-
-    def code_else():
-        """Else statement"""
-
-    def code_switch():
-        """Switch statement"""
-
-    def code_case():
-        """Case statement"""
-
-    def code_default():
-        """Switch default statement"""
-
-    def code_try():
-        """Try statement"""
-
-    def code_catch():
-        """Catch statement"""
-
-    def code_try_catch():
-        """Try catch statement"""
-
-    # ----- Iteration statements -----
-    def code_for():
-        """For loop statement"""
-
-    def code_while():
-        """while statement"""
-
-    def code_do_while():
-        """Do while loop statements"""
-
-    def code_foreach():
-        """Code foreach"""
-
     # ----- Miscellaneous statements -----
     def code_true():
         """Boolean true"""
@@ -81,13 +40,6 @@ class tab_actions:
     def code_link(text: str = ""):
         """Insert link <text>"""
 
-    # ----- Print statements -----
-    def code_print(text: str = None):
-        """Print statement"""
-
-    def code_format_string():
-        """Format string statement"""
-
     # ----- Class statement -----
     def code_class_wrapper(name: str, modifiers: Union[list[str], str]):
         """Class declaration wrapper"""
@@ -105,6 +57,7 @@ class tab_actions:
 
     def code_constructor(modifiers: list[str]):
         """Constructor declaration"""
+        actions.user.code_function("constructor", [])
 
     # ----- Function statement -----
     def code_function_wrapper(name: str, modifiers: Union[list[str], str]):
@@ -126,6 +79,7 @@ class tab_actions:
 
     def code_function_main():
         """Main function declaration"""
+        actions.user.code_function("main", [])
 
     # ----- Variable statement -----
     def code_variable_wrapper(
