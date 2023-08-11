@@ -31,7 +31,6 @@ def parse_snippet_file(path) -> list[Snippet]:
 def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
     if sections:
         parts = re.split(r"^-$", sections[0], flags=re.MULTILINE)
-        print(parts)
         if len(parts) == 1:
             return parse_context(parts[0])
     return None

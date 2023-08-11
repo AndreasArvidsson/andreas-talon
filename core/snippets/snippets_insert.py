@@ -46,10 +46,14 @@ class Actions:
             actions.edit.line_start()
             right(stop_col)
 
-    def insert_snippet_by_name(name: str):
-        """Insert snippet by name"""
+    def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
+        """Insert snippet with name <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
-        actions.user.insert_snippet(snippet.body)
+        body = snippet.body
+        if substitutions:
+            for k, v in substitutions.items():
+                body = body.replace(f"${k}", v)
+        actions.user.insert_snippet(body)
 
 
 @ctx_vscode.action_class("user")

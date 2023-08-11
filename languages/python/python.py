@@ -58,13 +58,7 @@ ctx.lists["self.code_insert"] = {
     "global": "global ",
     "raise": "raise ",
     "yield": "yield ",
-}
-ctx.lists["self.code_snippet"] = {
-    "item": '"$1": $0,',
-    "ternary": "$1 if $2 else $0",
-    "exception": "Exception($0)",
-    "raise exception": "raise Exception($0)",
-    "finally": "finally:\n\t$0",
+    "exception": "Exception",
 }
 
 
@@ -153,73 +147,6 @@ class UserActions:
     def comments_insert_docstring(text: str = ""):
         actions.user.comments_insert_block(text)
 
-    # Selection statements
-    def code_if():
-        actions.user.insert_snippet("if $1:\n\t$0")
-
-    def code_elif():
-        actions.user.insert_snippet("elif $1:\n\t$0")
-
-    def code_else():
-        actions.user.insert_snippet("else:\n\t$0")
-
-    def code_switch():
-        actions.user.insert_snippet(
-            """match $1:
-                \t$0"""
-        )
-
-    def code_case():
-        actions.user.insert_snippet(
-            """case $1:
-                \t$0"""
-        )
-
-    def code_default():
-        actions.user.insert_snippet(
-            """case _:
-                \t$0"""
-        )
-
-    def code_try():
-        actions.user.insert_snippet(
-            """try:
-                \t$0"""
-        )
-
-    def code_catch():
-        actions.user.insert_snippet(
-            """except:
-                \t$0"""
-        )
-
-    def code_try_catch():
-        actions.user.insert_snippet(
-            """try:
-                \t$1
-            except Exception as ex:
-                \t$0"""
-        )
-
-    # Iteration statements
-    def code_for():
-        actions.user.insert_snippet(
-            """for i in range($1):
-                \t$0"""
-        )
-
-    def code_foreach():
-        actions.user.insert_snippet(
-            """for $1 in $2:
-                \t$0"""
-        )
-
-    def code_while():
-        actions.user.insert_snippet(
-            """while $1:
-                \t$0"""
-        )
-
     # Miscellaneous statements
     def code_break():
         actions.insert("break")
@@ -239,34 +166,19 @@ class UserActions:
     def insert_arrow():
         actions.insert(" -> ")
 
-    def code_print(text: str = None):
-        if text:
-            actions.insert(f'print("{text}")')
-        else:
-            actions.user.insert_snippet("print($0)")
-
-    def code_format_string():
-        actions.user.insert_snippet('f"$0"')
-
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        actions.user.insert_snippet(
-            f"""class {name}:
-                \t$0"""
-        )
+        insert_snippet("classDeclaration", {"name": name})
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        actions.user.insert_snippet(
-            """def __init__(self$1):
-                \t$0"""
-        )
+        insert_snippet("constructorDeclaration")
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        actions.user.insert_snippet(
-            f"""def {''.join(modifiers)}{name}($1):
-                \t$0"""
+        insert_snippet(
+            "functionDeclaration",
+            {"name": f"{''.join(modifiers)}{name}"},
         )
 
     # Variable statement
@@ -284,7 +196,7 @@ class UserActions:
 
     # Function call
     def code_call_function(name: str):
-        actions.user.insert_snippet(f"{name}($TM_SELECTED_TEXT$0)")
+        insert_snippet("functionCall", {"name": name})
 
     # Insert types
     def code_insert_type_annotation(type: str):
@@ -302,3 +214,10 @@ class UserActions:
 
     def code_get_variable_format() -> str:
         return "SNAKE_CASE"
+
+
+def insert_snippet(name: str, substitutions: dict[str, str] = None):
+    actions.user.insert_snippet_by_name(
+        f"python.{name}",
+        substitutions,
+    )
