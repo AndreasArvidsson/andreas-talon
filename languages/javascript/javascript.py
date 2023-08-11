@@ -4,9 +4,10 @@ mod = Module()
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.javascript
-# Make javascript have precedence over c common
-mode: command
+code.language: javascript
+code.language: typescript
+code.language: javascriptreact
+code.language: typescriptreact
 """
 
 ctx.lists["self.code_class_modifier"] = {}

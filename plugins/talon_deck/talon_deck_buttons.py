@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, scope, settings
+from talon import Module, Context, actions, scope
 
 
 mod = Module()
@@ -142,7 +142,7 @@ def get_language():
 
 
 def get_code_language_buttons():
-    lang = settings.get("user.code_language", None)
+    lang = actions.code.language()
     if lang:
         return [{"icon": lang}]
     return []

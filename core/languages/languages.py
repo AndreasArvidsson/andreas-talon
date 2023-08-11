@@ -48,65 +48,43 @@ extension_lang_map = {
 }
 
 language_ids = set(extension_lang_map.values())
+forced_language = None
 
 mod = Module()
 
-mod.setting(
-    "code_language",
-    str,
-    desc="The identifier of the current active programming language",
-)
-
-mod.tag(
-    "auto_language",
-    desc="If active code language will be automatically detected by file extension",
-)
 mod.list("code_extension", desc="List of file programming languages file extensions")
 mod.list("code_language", desc="List of file programming language identifiers")
 
 ctx_other = Context()
 
-ctx_cmd = Context()
-ctx_cmd.matches = r"""
+ctx = Context()
+ctx.matches = r"""
 mode: command
 """
 
-ctx_cmd.tags = ["user.auto_language"]
+ctx.tags = ["user.auto_language"]
 
-ctx_cmd.lists["self.code_extension"] = {
+ctx.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
     "pie": "py",
     "talon list": "talon-list",
 }
 
-ctx_cmd.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
-
-
-# Create a context for each defined language
-for lang in language_ids:
-    mod.tag(lang)
-    mod.tag(f"{lang}_forced")
-    ctx = Context()
-    # Context is active if language is forced or auto language matches
-    ctx.matches = f"""
-    tag: user.{lang}_forced
-    tag: user.auto_language
-    and code.language: {lang}
-    """
-    ctx.tags = [f"user.{lang}"]
-    ctx.settings = {"user.code_language": lang}
+ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
 
 
 # Disable `code.language` when not in command mode
 @ctx_other.action_class("code")
-class CodeActions:
+class CodeOtherActions:
     def language() -> str:
         return ""
 
 
-@ctx_cmd.action_class("code")
-class CodeCommandActions:
+@ctx.action_class("code")
+class CodeActions:
     def language() -> str:
+        if forced_language:
+            return forced_language
         file_extension = actions.win.file_ext()
         if file_extension in extension_lang_map:
             return extension_lang_map[file_extension]
@@ -116,11 +94,17 @@ class CodeCommandActions:
 @mod.action_class
 class Actions:
     def code_set_language(language: str):
-        """Sets the active language to <language>, and disables extension matching"""
-        ctx_cmd.tags = [f"user.{language}_forced"]
+        """Forces the active language to <language> and disables extension matching"""
+        global forced_language
+        forced_language = language
+        # Update tags to force a context refresh. Otherwise `code.language` will not update.
+        ctx.tags = []
         actions.user.notify(f"Enabled {language}")
 
     def code_automatic_language():
-        """Clears the active forced language, and re-enables code.language: extension matching"""
-        ctx_cmd.tags = ["user.auto_language"]
+        """Clears the forced language and re-enables code.language: extension matching"""
+        global forced_language
+        forced_language = None
+        # Update tags to force a context refresh. Otherwise `code.language` will not update.
+        ctx.tags = []
         actions.user.notify("Automatic language")

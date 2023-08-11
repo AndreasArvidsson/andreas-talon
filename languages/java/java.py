@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-tag: user.java
+code.language: java
 """
 
 access_modifiers = {

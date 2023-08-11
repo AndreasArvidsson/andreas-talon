@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-tag: user.python
+code.language: python
 """
 
 access_modifiers = {"public": "", "protected": "_", "private": "__"}

@@ -1,4 +1,6 @@
-tag: user.html
+code.language: html
+code.language: javascriptreact
+code.language: typescriptreact
 -
 tag(): user.comments
 

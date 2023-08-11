@@ -1,4 +1,4 @@
-tag: user.json
+code.language: json
 -
 tag(): user.comments
 

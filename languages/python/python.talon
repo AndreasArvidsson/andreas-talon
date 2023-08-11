@@ -1,4 +1,4 @@
-tag: user.python
+code.language: python
 -
 tag(): user.generic_language
 tag(): user.operators

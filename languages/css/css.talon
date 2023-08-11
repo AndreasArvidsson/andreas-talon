@@ -1,4 +1,4 @@
-tag: user.css
+code.language: css
 -
 
 # ----- Variable statement -----

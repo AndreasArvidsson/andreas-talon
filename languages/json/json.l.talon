@@ -1,3 +1,3 @@
-tag: user.jsonl
+code.language: jsonl
 -
 tag(): user.json

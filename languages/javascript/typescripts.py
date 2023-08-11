@@ -5,9 +5,8 @@ mod = Module()
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.typescript
-# Make typescript have precedence over c common
-mode: command
+code.language: typescript
+code.language: typescriptreact
 """
 
 types = {

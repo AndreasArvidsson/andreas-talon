@@ -1,4 +1,4 @@
-tag: user.markdown
+code.language: markdown
 -
 tag(): user.generic_language
 

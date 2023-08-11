@@ -5,7 +5,7 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-tag: user.markdown
+code.language: markdown
 """
 
 mod.list("markdown_pair", desc="List of markdown format delimiters")

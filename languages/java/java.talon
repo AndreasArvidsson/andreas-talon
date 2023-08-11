@@ -1,4 +1,4 @@
-tag: user.java
+code.language: java
 -
 tag(): user.generic_language
 tag(): user.c_common

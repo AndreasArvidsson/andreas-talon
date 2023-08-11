@@ -3,7 +3,7 @@ from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.css
+code.language: css
 """
 
 

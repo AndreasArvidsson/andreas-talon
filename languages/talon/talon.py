@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-tag: user.talon
+code.language: talon
 """
 
 ctx.lists["self.code_function"] = {

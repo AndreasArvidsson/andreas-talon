@@ -1,4 +1,4 @@
-tag: user.talon
+code.language: talon
 -
 tag(): user.operators
 tag(): user.comments

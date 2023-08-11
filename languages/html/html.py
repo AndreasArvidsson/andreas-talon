@@ -4,7 +4,9 @@ mod = Module()
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.html
+code.language: html
+code.language: javascriptreact
+code.language: typescriptreact
 """
 
 tag_names_list = {
