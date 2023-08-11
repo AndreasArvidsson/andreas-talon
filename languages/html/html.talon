@@ -3,9 +3,9 @@ tag: user.html
 tag(): user.comments
 
 element {user.code_tag}:
-    user.insert_snippet("<{code_tag}>\n\t$0\n</{code_tag}>")
+    user.code_insert_element(code_tag)
 element <user.text>:
-    user.insert_snippet("<{text}>\n\t$0\n</{text}>")
+    user.code_insert_element(text)
 
 tag {user.code_tag}:
     "<{code_tag}>"

@@ -68,7 +68,7 @@ tags = []
 @mod.action_class
 class Actions:
     def code_push_tag_name(name: str):
-        """Push tag name"""
+        """Push tag <name>"""
         tags.append(name)
 
     def code_close_tag():
@@ -77,3 +77,14 @@ class Actions:
             return
         name = tags.pop()
         actions.insert(f"</{name}>")
+
+    def code_insert_element(name: str):
+        """Insert element <name>"""
+        insert_snippet("element", {"name": name})
+
+
+def insert_snippet(name: str, substitutions: dict[str, str] = None):
+    actions.user.insert_snippet_by_name(
+        f"html.{name}",
+        substitutions,
+    )

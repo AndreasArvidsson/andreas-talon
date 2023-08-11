@@ -108,7 +108,7 @@ file clone [<user.filename>]:
 
 pop sibling:
     user.find_sibling_file()
-    sleep(150ms)
+    sleep(200ms)
     key(enter)
 
 # Git
