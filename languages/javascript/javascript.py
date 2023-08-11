@@ -11,7 +11,10 @@ mode: command
 
 ctx.lists["self.code_class_modifier"] = {}
 ctx.lists["self.code_function_modifier"] = {}
-ctx.lists["self.code_variable_modifier"] = {"const", "let"}
+ctx.lists["self.code_variable_modifier"] = {
+    "const",
+    "let",
+}
 ctx.lists["self.code_data_type"] = {}
 ctx.lists["self.code_function"] = {
     "forEach",
@@ -57,28 +60,6 @@ javascript_inserts = {
 
 ctx.lists["self.code_insert"] = javascript_inserts
 
-for_in_loop = """for (const $1 in $2) {
-    \t$0
-}"""
-arrow_function = """($1) => {
-    \t$0
-}"""
-
-ctx.lists["self.code_snippet"] = {
-    "item": "$1: $0,",
-    "for in loop": for_in_loop,
-    "for in": for_in_loop,
-    "arrow function": arrow_function,
-    "lambda": arrow_function,
-    "self calling": """(() => {
-        \t$0
-    })();""",
-    "error": "throw Error($0)",
-    "tertiary": "$1 ? $2 : $0",
-    "import star": 'import * as $0 from "$0";',
-    "import from": 'import $0 from "$0";',
-}
-
 
 @ctx.action_class("user")
 class UserActions:
@@ -93,67 +74,20 @@ class UserActions:
     def op_not_equal():
         actions.insert(" !== ")
 
-    # Selection statements
-    def code_catch():
-        actions.user.insert_snippet(
-            """catch(error) {
-                \t$0
-            }"""
-        )
-
-    def code_try_catch():
-        actions.user.insert_snippet(
-            """try {
-                \t$1
-            }
-            catch(error) {
-                \t$0
-            }"""
-        )
-
-    # Iteration statements
-    def code_for():
-        actions.user.insert_snippet(
-            """for (let i = 0; i < $1; ++i) {
-                \t$0
-            }"""
-        )
-
-    def code_foreach():
-        actions.user.insert_snippet(
-            """for (const $1 of $2) {
-                \t$0
-            }"""
-        )
-
-    # Miscellaneous statements
-    def code_print(text: str = None):
-        if text:
-            actions.insert(f'console.log("{text}")')
-        else:
-            actions.user.insert_snippet("console.log($0)")
-
-    def code_format_string():
-        actions.user.insert_snippet("`$0`")
-
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        actions.user.insert_snippet(
-            f"""class {name} {{
-                \t$0
-            }}"""
-        )
+        insert_snippet("classDeclaration", {"name": name})
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        snip_func("constructor")
+        insert_snippet("constructorDeclaration")
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        snip_func(f"function {name}")
+        insert_snippet("functionDeclaration", {"name": name})
 
     def code_method(name: str, modifiers: list[str]):
-        snip_func(f"{name}")
+        insert_snippet("methodDeclaration", {"name": name})
 
     # Variable statement
     def code_variable(
@@ -185,9 +119,8 @@ class Actions:
         actions.insert(text)
 
 
-def snip_func(name):
-    actions.user.insert_snippet(
-        f"""{name}($1) {{
-            \t$0
-        }}"""
+def insert_snippet(name: str, substitutions: dict[str, str] = None):
+    actions.user.insert_snippet_by_name(
+        f"javascript.{name}",
+        substitutions,
     )
