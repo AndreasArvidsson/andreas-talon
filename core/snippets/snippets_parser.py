@@ -104,7 +104,7 @@ def parse_document(document: str, default_context: dict) -> Snippet:
 
 
 def get_languages(language: str) -> list[str]:
-    languages_raw = [v.strip() for v in language.split(",")]
+    languages_raw = [v.strip() for v in language.split("|")]
     languages = set()
     for lang in languages_raw:
         languages.add(lang)

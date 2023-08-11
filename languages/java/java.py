@@ -7,7 +7,11 @@ ctx.matches = r"""
 tag: user.java
 """
 
-access_modifiers = {"public", "private", "protected"}
+access_modifiers = {
+    "public",
+    "private",
+    "protected",
+}
 abstract = {"abstract"}
 final = {"final"}
 static = {"static"}
@@ -61,14 +65,6 @@ ctx.lists["self.code_insert"] = {
     "throw": "throw ",
     "instance of": " instanceof ",
 }
-ctx.lists["self.code_snippet"] = {
-    "arrow function": """() -> {
-        \t$0
-    }""",
-    "finally": """finally {
-        \t$0
-    }""",
-}
 
 
 @ctx.action_class("user")
@@ -77,81 +73,43 @@ class UserActions:
     def op_exp():
         actions.skip()
 
-    # Selection statements
-    def code_catch():
-        actions.user.insert_snippet(
-            """catch(Exception ex) {
-                \t$0
-            }"""
-        )
-
-    def code_try_catch():
-        actions.user.insert_snippet(
-            """try {
-                \t$1
-            }
-            catch(Exception ex) {
-                \t$0
-            }"""
-        )
-
-    # Iteration statements
-    def code_for():
-        actions.user.insert_snippet(
-            """for (int i = 0; i < $1; ++i) {
-                \t$0
-            }"""
-        )
-
-    def code_foreach():
-        actions.user.insert_snippet(
-            """for (final $1 : $2) {
-                \t$0
-            }"""
-        )
-
     # Miscellaneous statements
     def insert_arrow():
         actions.insert(" -> ")
 
-    def code_print(text: str = None):
-        if text:
-            actions.insert(f'System.out.println("{text}");')
-        else:
-            actions.user.insert_snippet("System.out.println($0);")
-
-    def code_format_string():
-        actions.user.insert_snippet('String.format("$0")')
-
     # Class declaration
     def code_class(name: str, modifiers: list[str]):
-        text = f"class {name} {{\n\t$0\n}}"
-        if modifiers:
-            text = f"{' '.join(modifiers)} {text}"
-        else:
-            text = f"public {text}"
-        actions.user.insert_snippet(text)
+        insert_snippet(
+            "classDeclaration",
+            {"name": name, "modifiers": get_modifiers(modifiers)},
+        )
 
     # Constructor declaration
     def code_constructor(modifiers: list[str]):
         name = actions.user.vscode_get("andreas.getClassName")
         if not name:
             return
-        if modifiers:
-            text = f"{' '.join(modifiers)} {name}"
-        else:
-            text = f"public {name}"
-        snip_func(text)
+        insert_snippet(
+            "constructorDeclaration",
+            {"name": name, "modifiers": get_modifiers(modifiers)},
+        )
 
     # Function declaration
     def code_function(name: str, modifiers: list[str]):
-        text = f"void {name}"
-        if modifiers:
-            text = f"{' '.join(modifiers)} {text}"
-        snip_func(text)
+        insert_snippet(
+            "functionDeclaration",
+            {"name": name, "modifiers": get_modifiers(modifiers)},
+        )
 
     def code_function_main():
-        snip_func("public static void main", "String[] args")
+        insert_snippet(
+            "functionDeclaration",
+            {
+                "name": "main",
+                "modifiers": "public static",
+                "1": "String[] args",
+            },
+        )
 
     # Variable declaration
     def code_variable(
@@ -167,11 +125,15 @@ class UserActions:
         actions.insert(text)
 
 
-def snip_func(name, args=""):
-    if not args:
-        args = "$1"
-    actions.user.insert_snippet(
-        f"""{name}({args}) {{
-            \t$0
-        }}"""
+def get_modifiers(modifiers: list[str]):
+    if modifiers:
+        return " ".join(modifiers)
+    else:
+        return "public"
+
+
+def insert_snippet(name: str, substitutions: dict[str, str] = None):
+    actions.user.insert_snippet_by_name(
+        f"java.{name}",
+        substitutions,
     )
