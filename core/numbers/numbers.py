@@ -168,7 +168,7 @@ for ten in tens:
     number_small_list.extend(f"{ten} {digit}" for digit in digits[1:])
 number_small_map = {n: i for i, n in enumerate(number_small_list)}
 
-mod.list("number_small", desc="List of small numbers")
+mod.list("number_small", "List of small numbers")
 ctx.lists["self.number_small"] = number_small_map.keys()
 
 

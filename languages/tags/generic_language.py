@@ -4,12 +4,12 @@ from talon import Module, actions
 mod = Module()
 mod.tag("generic_language")
 
-mod.list("code_class_modifier", desc="Class modifiers")
-mod.list("code_function_modifier", desc="Function modifiers")
-mod.list("code_variable_modifier", desc="Variable modifiers")
-mod.list("code_data_type", desc="Names of data types")
-mod.list("code_function", desc="Names of functions")
-mod.list("code_insert", desc="Names of miscellaneous text insertions")
+mod.list("code_class_modifier", "Class modifiers")
+mod.list("code_function_modifier", "Function modifiers")
+mod.list("code_variable_modifier", "Variable modifiers")
+mod.list("code_data_type", "Names of data types")
+mod.list("code_function", "Names of functions")
+mod.list("code_insert", "Names of miscellaneous text insertions")
 
 
 @mod.capture(rule="{user.code_insert}+")

@@ -3,7 +3,7 @@ from talon import Module, Context
 mod = Module()
 ctx = Context()
 
-mod.list("emoticon", desc="List of emoticons")
+mod.list("emoticon", "List of emoticons")
 
 ctx.lists["self.emoticon"] = {
     "smile": ":)",

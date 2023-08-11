@@ -6,7 +6,7 @@ import re
 mod = Module()
 ctx = Context()
 
-mod.list("running_application", desc="All running applications")
+mod.list("running_application", "All running applications")
 ctx.lists["self.running_application"] = {}
 
 # Mapping of current overrides

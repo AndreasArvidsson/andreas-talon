@@ -15,7 +15,7 @@ ctx_sv.matches = r"""
 language: sv
 """
 
-mod.list("sleep_phrase", desc="Phrase used to sleep Talon")
+mod.list("sleep_phrase", "Phrase used to sleep Talon")
 sleep_phrases = ["drowse", "sömnig"]
 ctx.lists["self.sleep_phrase"] = {sleep_phrases[0]}
 ctx_sv.lists["self.sleep_phrase"] = sleep_phrases

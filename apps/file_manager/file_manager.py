@@ -2,8 +2,8 @@ from talon import app, Module, Context, actions, app
 from os import path, environ
 
 mod = Module()
-mod.tag("file_manager", desc="Tag for enabling generic file management commands")
-mod.list("path", desc="List of the users favorite paths")
+mod.tag("file_manager", "Tag for enabling generic file management commands")
+mod.list("path", "List of the users favorite paths")
 
 ctx = Context()
 

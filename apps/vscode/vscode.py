@@ -27,7 +27,7 @@ tag: user.vscode_notebook
 """
 
 
-mod.list("vscode_panel", desc="Available panels for resizing in vscode")
+mod.list("vscode_panel", "Available panels for resizing in vscode")
 panels = {
     "bar": {
         "filename": "vscode_bar_ellipses.png",
@@ -42,7 +42,7 @@ panels = {
 }
 ctx.lists["self.vscode_panel"] = panels.keys()
 
-mod.list("vscode_sessions", desc="Known vscode sessions/workspaces")
+mod.list("vscode_sessions", "Known vscode sessions/workspaces")
 ctx.lists["self.vscode_sessions"] = {
     "mine": "andreas-talon",
     "cursor less": "cursorless",

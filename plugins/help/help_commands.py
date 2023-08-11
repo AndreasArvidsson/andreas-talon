@@ -6,7 +6,7 @@ from ...core.imgui import imgui
 import re
 
 mod = Module()
-mod.list("help_contexts", desc="list of available contexts")
+mod.list("help_contexts", "list of available contexts")
 mod.tag("help_commands", "Help commands gui is showing")
 
 setting_help_max_contexts_per_page = mod.setting(

@@ -29,13 +29,13 @@ def domain(m) -> str:
 
 # fmt: off
 
-mod.list("file_extension", desc="List of (non-code) file extensions")
+mod.list("file_extension", "List of (non-code) file extensions")
 ctx.lists["self.file_extension"] = {
     "exe":            "exe",
     "bin":            "bin",
 }
 
-mod.list("domain", desc="List of top level domains")
+mod.list("domain", "List of top level domains")
 ctx.lists["self.domain"] = {
     "com":            "com",
     "net":            "net",

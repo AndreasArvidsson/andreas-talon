@@ -52,8 +52,8 @@ forced_language = None
 
 mod = Module()
 
-mod.list("code_extension", desc="List of file programming languages file extensions")
-mod.list("code_language", desc="List of file programming language identifiers")
+mod.list("code_extension", "List of file programming languages file extensions")
+mod.list("code_language", "List of file programming language identifiers")
 
 ctx_other = Context()
 
@@ -61,8 +61,6 @@ ctx = Context()
 ctx.matches = r"""
 mode: command
 """
-
-ctx.tags = ["user.auto_language"]
 
 ctx.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},

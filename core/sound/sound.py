@@ -3,9 +3,9 @@ from subprocess import call
 import os
 
 mod = Module()
-mod.list("playback_device", desc="Playback devices")
-mod.list("microhpone_device", desc="Microphone devices")
-mod.list("playback_microphone_pair", desc="Playback / microphone device pair")
+mod.list("playback_device", "Playback devices")
+mod.list("microhpone_device", "Microphone devices")
+mod.list("playback_microphone_pair", "Playback / microphone device pair")
 
 
 @mod.action_class

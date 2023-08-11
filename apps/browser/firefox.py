@@ -15,10 +15,8 @@ ctx.matches = r"""
 app: firefox
 """
 
-mod.list("rango_with_target_action", desc="List of Rango actions used WITH a target")
-mod.list(
-    "rango_without_target_action", desc="List of Rango actions used WITHOUT a target"
-)
+mod.list("rango_with_target_action", "List of Rango actions used WITH a target")
+mod.list("rango_without_target_action", "List of Rango actions used WITHOUT a target")
 
 # https://github.com/david-tejada/rango
 ctx.lists["user.rango_with_target_action"] = {

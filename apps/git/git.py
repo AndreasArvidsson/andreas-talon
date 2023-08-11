@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 mod.tag("git")
 
-mod.list("git_branch", desc="List of common git branches")
+mod.list("git_branch", "List of common git branches")
 ctx.lists["user.git_branch"] = {
     "master",
     "main",

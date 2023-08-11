@@ -2,7 +2,7 @@ from talon import Context, Module
 import subprocess
 
 mod = Module()
-mod.list("launch_command", desc="List of applications to launch")
+mod.list("launch_command", "List of applications to launch")
 
 ctx = Context()
 ctx.lists["self.launch_command"] = {}

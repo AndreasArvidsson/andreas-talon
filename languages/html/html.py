@@ -57,7 +57,7 @@ tag_names = {
 }
 # fmt: on
 
-mod.list("code_tag", desc="Predefined tag names")
+mod.list("code_tag", "Predefined tag names")
 ctx.lists["self.code_tag"] = {
     **{n: n for n in tag_names_list},
     **tag_names,

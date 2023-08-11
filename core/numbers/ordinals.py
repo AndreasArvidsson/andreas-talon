@@ -54,8 +54,8 @@ for n in range(1, 100):
 mod = Module()
 ctx = Context()
 
-mod.list("ordinals", desc="List of ordinals [1, 99]")
-mod.list("ordinals_small", desc="List of small ordinals [1, 20]")
+mod.list("ordinals", "List of ordinals [1, 99]")
+mod.list("ordinals_small", "List of small ordinals [1, 20]")
 
 ctx.lists["self.ordinals"] = ordinal_numbers.keys()
 ctx.lists["self.ordinals_small"] = ordinal_small.keys()

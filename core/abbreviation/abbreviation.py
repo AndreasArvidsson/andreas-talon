@@ -3,7 +3,7 @@ from pathlib import Path
 
 mod = Module()
 ctx = Context()
-mod.list("abbreviation", desc="Common abbreviation")
+mod.list("abbreviation", "Common abbreviation")
 
 
 @mod.capture(rule="brief {self.abbreviation}")

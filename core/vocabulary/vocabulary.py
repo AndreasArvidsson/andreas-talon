@@ -5,7 +5,7 @@ from .phrase_replacer import PhraseReplacer
 
 mod = Module()
 
-mod.list("vocabulary", desc="Additional vocabulary words")
+mod.list("vocabulary", "Additional vocabulary words")
 
 ctx_en = Context()
 

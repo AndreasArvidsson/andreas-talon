@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 
-mod.list("phrase_ender", desc="List of commands that can be used to end a phrase")
+mod.list("phrase_ender", "List of commands that can be used to end a phrase")
 ctx.lists["self.phrase_ender"] = {
     "over": "",
     "question": "?",

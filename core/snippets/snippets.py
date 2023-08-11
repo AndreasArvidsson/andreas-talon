@@ -8,8 +8,8 @@ SNIPPETS_DIR = Path(__file__).parent / "snippets"
 
 mod = Module()
 
-mod.list("snippet_insert", desc="List of insertion snippets")
-mod.list("snippet_wrap", desc="List of wrapper snippets")
+mod.list("snippet_insert", "List of insertion snippets")
+mod.list("snippet_wrap", "List of wrapper snippets")
 
 context_map = {
     "_": Context(),

@@ -232,7 +232,7 @@ formatters_prose = {
 
 
 # This is the mapping from spoken phrases to formatters
-mod.list("formatter_code", desc="List of code formatters")
+mod.list("formatter_code", "List of code formatters")
 ctx.lists["self.formatter_code"] = {
     **formatters_code,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
@@ -240,7 +240,7 @@ ctx.lists["self.formatter_code"] = {
     # "twin": "SINGLE_QUOTED_STRING",
 }
 
-mod.list("formatter_prose", desc="List of prose formatters")
+mod.list("formatter_prose", "List of prose formatters")
 ctx.lists["self.formatter_prose"] = {
     **formatters_prose,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
@@ -248,7 +248,7 @@ ctx.lists["self.formatter_prose"] = {
 }
 
 
-mod.list("formatter", desc="List of formatters only used for reformatting")
+mod.list("formatter", "List of formatters only used for reformatting")
 ctx.lists["self.formatter"] = {
     **formatters_code,
     **formatters_prose,
@@ -258,7 +258,7 @@ ctx.lists["self.formatter"] = {
     "un": "REMOVE_FORMATTING",
 }
 
-mod.list("formatter_word", desc="List of word formatters")
+mod.list("formatter_word", "List of word formatters")
 ctx.lists["self.formatter_word"] = {
     "word": "ALL_LOWERCASE",
     "trot": "TRAILING_SPACE,ALL_LOWERCASE",

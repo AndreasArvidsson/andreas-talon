@@ -8,7 +8,7 @@ ctx.matches = r"""
 code.language: markdown
 """
 
-mod.list("markdown_pair", desc="List of markdown format delimiters")
+mod.list("markdown_pair", "List of markdown format delimiters")
 ctx.lists["self.markdown_pair"] = {
     "bold": "**",
     "italic": "_",

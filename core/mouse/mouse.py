@@ -3,7 +3,7 @@ from talon import Context, Module, actions, ui, ctrl
 mod = Module()
 ctx = Context()
 
-mod.list("mouse_click", desc="Available mouse clicks")
+mod.list("mouse_click", "Available mouse clicks")
 ctx.lists["self.mouse_click"] = {
     "left": "left",
     "right": "right",
