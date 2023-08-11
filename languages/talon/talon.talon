@@ -15,6 +15,7 @@ require tag:                "tag: "
 make tag:                   "tag(): "
 make true:                  "true"
 make false:                 "false"
-make key:                   user.insert_snippet("key($0)")
-make print:                 user.insert_snippet("print($0)")
-make command:               user.insert_snippet('$0: user.vscode("$CLIPBOARD")')
+snip command:               user.code_insert_snippet("voiceCommandDeclaration")
+
+# ----- Function call -----
+call {user.code_function}:  user.code_call_function(code_function)

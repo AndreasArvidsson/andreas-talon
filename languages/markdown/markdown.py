@@ -7,9 +7,6 @@ ctx.matches = r"""
 tag: user.markdown
 """
 
-ctx.tags = ["user.generic_language"]
-
-
 mod.list("markdown_pair", desc="List of markdown format delimiters")
 ctx.lists["self.markdown_pair"] = {
     "bold": "**",

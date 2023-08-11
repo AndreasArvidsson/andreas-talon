@@ -7,6 +7,10 @@ ctx.matches = r"""
 tag: user.talon
 """
 
+ctx.lists["self.code_function"] = {
+    "key",
+}
+
 
 @ctx.action_class("user")
 class UserActions:

@@ -1,5 +1,6 @@
 tag: user.markdown
 -
+tag(): user.generic_language
 
 # Formatter wrappers
 {user.markdown_pair} this:
