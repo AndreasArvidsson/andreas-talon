@@ -57,7 +57,7 @@ class Actions:
 
     def code_insert_snippet(name: str, substitutions: dict[str, str] = None):
         """Insert snippet <name> for the current programming language"""
-        lang = settings.get("user.code_lang")
+        lang = settings.get("user.code_language")
         actions.user.insert_snippet_by_name(f"{lang}.{name}", substitutions)
 
 

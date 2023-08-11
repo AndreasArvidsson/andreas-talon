@@ -52,14 +52,15 @@ language_ids = set(extension_lang_map.values())
 mod = Module()
 
 mod.setting(
-    "code_lang",
+    "code_language",
     str,
     desc="The identifier of the current active programming language",
 )
 
-# Create a mode for the automated language detection. This is active when no lang is forced.
-mod.tag("auto_lang")
-
+mod.tag(
+    "auto_language",
+    desc="If active code language will be automatically detected by file extension",
+)
 mod.list("code_extension", desc="List of file programming languages file extensions")
 mod.list("code_language", desc="List of file programming language identifiers")
 
@@ -70,7 +71,7 @@ ctx_cmd.matches = r"""
 mode: command
 """
 
-ctx_cmd.tags = ["user.auto_lang"]
+ctx_cmd.tags = ["user.auto_language"]
 
 ctx_cmd.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
@@ -89,11 +90,11 @@ for lang in language_ids:
     # Context is active if language is forced or auto language matches
     ctx.matches = f"""
     tag: user.{lang}_forced
-    tag: user.auto_lang
+    tag: user.auto_language
     and code.language: {lang}
     """
     ctx.tags = [f"user.{lang}"]
-    ctx.settings = {"user.code_lang": lang}
+    ctx.settings = {"user.code_language": lang}
 
 
 # Disable `code.language` when not in command mode
@@ -121,5 +122,5 @@ class Actions:
 
     def code_automatic_language():
         """Clears the active forced language, and re-enables code.language: extension matching"""
-        ctx_cmd.tags = ["user.auto_lang"]
+        ctx_cmd.tags = ["user.auto_language"]
         actions.user.notify("Automatic language")

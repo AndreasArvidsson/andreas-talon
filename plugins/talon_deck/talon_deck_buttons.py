@@ -142,7 +142,7 @@ def get_language():
 
 
 def get_code_language_buttons():
-    lang = settings.get("user.code_lang", None)
+    lang = settings.get("user.code_language", None)
     if lang:
         return [{"icon": lang}]
     return []
