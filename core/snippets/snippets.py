@@ -1,5 +1,6 @@
 from talon import Module, Context, app, fs
 from pathlib import Path
+from ..languages.languages import language_ids
 from .snippets_parser import get_snippets
 from .snippet_types import Snippet
 
@@ -10,8 +11,16 @@ mod = Module()
 mod.list("snippet_insert", desc="List of insertion snippets")
 mod.list("snippet_wrap", desc="List of wrapper snippets")
 
-context_map = {}
+context_map = {
+    "_": Context(),
+}
 snippets_map = {}
+
+# Create a context for each defined language
+for lang in language_ids:
+    ctx = Context()
+    ctx.matches = f"tag: user.{lang}"
+    context_map[lang] = ctx
 
 
 @mod.action_class
@@ -37,12 +46,6 @@ def update_snippets():
         if lang != "_":
             insertion = {**global_insertion, **insertion}
             wrapper = {**global_wrapper, **wrapper}
-
-        if not lang in context_map:
-            ctx = Context()
-            if lang != "_":
-                ctx.matches = f"tag: user.{lang}"
-            context_map[lang] = ctx
 
         ctx = context_map[lang]
         ctx.lists["user.snippet_insert"] = insertion
