@@ -31,32 +31,25 @@ class Actions:
 
 
 def update_snippets():
-    global snippets_map
-    grouped = group_by_language(
-        get_snippets(SNIPPETS_DIR),
-    )
+    grouped = group_by_language(get_snippets(SNIPPETS_DIR))
 
-    global_map = {}
+    snippets_map.clear()
 
-    for lang in language_ids:
+    for lang, ctx in context_map.items():
         insertion_map = {}
         wrapper_map = {}
 
         for fl in get_fallback_languages(lang):
-            _, insertion, wrapper = create_lists(fl, grouped.get(fl, []))
-            insertion_map.update(insertion)
-            wrapper_map.update(wrapper)
+            _, insertions, wrappers = create_lists(fl, grouped.get(fl, []))
+            insertion_map.update(insertions)
+            wrapper_map.update(wrappers)
 
-        gm, insertion, wrapper = create_lists(lang, grouped.get(lang, []))
-        global_map.update(gm)
-        insertion_map.update(insertion)
-        wrapper_map.update(wrapper)
-
-        ctx = context_map[lang]
+        snippets, insertions, wrappers = create_lists(lang, grouped.get(lang, []))
+        snippets_map.update(snippets)
+        insertion_map.update(insertions)
+        wrapper_map.update(wrappers)
         ctx.lists["user.snippet_insert"] = insertion_map
         ctx.lists["user.snippet_wrap"] = wrapper_map
-
-    snippets_map = global_map
 
 
 def get_fallback_languages(language: str) -> list[str]:
@@ -91,23 +84,23 @@ def group_by_language(snippets: list[Snippet]) -> dict[str, list[Snippet]]:
 def create_lists(
     lang: str, snippets: list[Snippet]
 ) -> tuple[dict[str, list[Snippet]], dict[str, str], dict[str, str]]:
-    global_map = {}
-    insertion = {}
-    wrapper = {}
+    snippets_map = {}
+    insertions = {}
+    wrappers = {}
     prefix = "" if lang == "_" else f"{lang}."
 
     for snippet in snippets:
         snippet_id = f"{prefix}{snippet.name}"
-        global_map[snippet_id] = snippet
+        snippets_map[snippet_id] = snippet
 
         if snippet.phrase is not None:
-            insertion[snippet.phrase] = snippet_id
+            insertions[snippet.phrase] = snippet_id
 
         if snippet.variables is not None:
             for var in snippet.variables:
-                wrapper[var.phrase] = f"{snippet_id}.{var.name}"
+                wrappers[var.phrase] = f"{snippet_id}.{var.name}"
 
-    return global_map, insertion, wrapper
+    return snippets_map, insertions, wrappers
 
 
 def on_ready():
