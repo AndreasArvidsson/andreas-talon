@@ -3,6 +3,10 @@ import glob
 import re
 from .snippet_types import Snippet, SnippetVariable
 
+DOC_DELIMITER_RE = re.compile(r"^---$", re.MULTILINE)
+BODY_DELIMITER_RE = re.compile(r"^-$", re.MULTILINE)
+LEADING_EMPTY_LINES_RE = re.compile(r"^[ \t]*\S", re.MULTILINE)
+
 
 def get_snippets(dir) -> list[Snippet]:
     files = glob.glob(f"{dir}/*.snippet")
@@ -18,7 +22,7 @@ def parse_snippet_file(path) -> list[Snippet]:
     with open(path) as f:
         content = f.read()
 
-    documents = re.split(r"^---$", content, flags=re.MULTILINE)
+    documents = DOC_DELIMITER_RE.split(content)
     default_context = get_default_context(documents)
 
     if default_context is not None:
@@ -30,14 +34,14 @@ def parse_snippet_file(path) -> list[Snippet]:
 
 def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
     if sections:
-        parts = re.split(r"^-$", sections[0], flags=re.MULTILINE)
+        parts = BODY_DELIMITER_RE.split(sections[0])
         if len(parts) == 1:
             return parse_context(parts[0])
     return None
 
 
 def parse_document(document: str, default_context: dict) -> Snippet:
-    parts = re.split(r"^-$", document, flags=re.MULTILINE)
+    parts = BODY_DELIMITER_RE.split(document)
 
     if len(parts) != 2:
         raise Exception(f"Malformed document: {document}")
@@ -54,7 +58,7 @@ def parse_document(document: str, default_context: dict) -> Snippet:
 
     snippet = Snippet(
         name=context["name"],
-        body=body.strip(),
+        body=parse_body(body),
     )
 
     for key, value in context.items():
@@ -121,3 +125,12 @@ def parse_context(context: str) -> dict[str, str]:
         result[key] = value
 
     return result
+
+
+def parse_body(body: str) -> str:
+    match_leading = LEADING_EMPTY_LINES_RE.search(body)
+
+    if match_leading is None:
+        return ""
+
+    return body[match_leading.start() :].rstrip()
