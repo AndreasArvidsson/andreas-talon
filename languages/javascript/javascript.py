@@ -105,9 +105,6 @@ class UserActions:
             text += " = "
         actions.insert(text)
 
-    def code_insert_snippet(name: str, substitutions: dict[str, str] = None):
-        actions.user.insert_snippet_by_name(f"javascript.{name}", substitutions)
-
 
 @mod.action_class
 class Actions:

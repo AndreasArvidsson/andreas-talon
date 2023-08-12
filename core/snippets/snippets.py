@@ -40,14 +40,10 @@ def update_snippets():
         wrapper_map = {}
 
         for fl in get_fallback_languages(lang):
-            _, insertions, wrappers = create_lists(fl, grouped.get(fl, []))
+            snippets, insertions, wrappers = create_lists(lang, fl, grouped.get(fl, []))
+            snippets_map.update(snippets)
             insertion_map.update(insertions)
             wrapper_map.update(wrappers)
-
-        snippets, insertions, wrappers = create_lists(lang, grouped.get(lang, []))
-        snippets_map.update(snippets)
-        insertion_map.update(insertions)
-        wrapper_map.update(wrappers)
 
         ctx.lists["user.snippet_insert"] = insertion_map
         ctx.lists["user.snippet_wrap"] = wrapper_map
@@ -56,15 +52,22 @@ def update_snippets():
 def get_fallback_languages(language: str) -> list[str]:
     match language:
         case "_":
-            return []
-        case "typescript":
-            return ["_", "javascript"]
-        case "javascriptreact":
-            return ["_", "html", "javascript"]
-        case "typescriptreact":
-            return ["_", "html", "javascript", "typescript", "javascriptreact"]
-        case _:
             return ["_"]
+        case "typescript":
+            return ["_", "javascript", "typescript"]
+        case "javascriptreact":
+            return ["_", "html", "javascript", "javascriptreact"]
+        case "typescriptreact":
+            return [
+                "_",
+                "html",
+                "javascript",
+                "typescript",
+                "javascriptreact",
+                "typescriptreact",
+            ]
+        case _:
+            return ["_", language]
 
 
 def group_by_language(snippets: list[Snippet]) -> dict[str, list[Snippet]]:
@@ -83,23 +86,28 @@ def group_by_language(snippets: list[Snippet]) -> dict[str, list[Snippet]]:
 
 
 def create_lists(
-    lang: str, snippets: list[Snippet]
+    lang_snippets: str,
+    lang_lists: str,
+    snippets: list[Snippet],
 ) -> tuple[dict[str, list[Snippet]], dict[str, str], dict[str, str]]:
     snippets_map = {}
     insertions = {}
     wrappers = {}
-    prefix = "" if lang == "_" else f"{lang}."
+    prefix_snippets = "" if lang_snippets == "_" else f"{lang_snippets}."
+    prefix_lists = "" if lang_lists == "_" else f"{lang_lists}."
 
     for snippet in snippets:
-        snippet_id = f"{prefix}{snippet.name}"
+        snippet_id = f"{prefix_snippets}{snippet.name}"
+        list_id = f"{prefix_lists}{snippet.name}"
+
         snippets_map[snippet_id] = snippet
 
         if snippet.phrase is not None:
-            insertions[snippet.phrase] = snippet_id
+            insertions[snippet.phrase] = list_id
 
         if snippet.variables is not None:
             for var in snippet.variables:
-                wrappers[var.phrase] = f"{snippet_id}.{var.name}"
+                wrappers[var.phrase] = f"{list_id}.{var.name}"
 
     return snippets_map, insertions, wrappers
 
