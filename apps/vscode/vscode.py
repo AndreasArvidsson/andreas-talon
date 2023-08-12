@@ -253,6 +253,11 @@ class UserActions:
             return (context["before"], context["after"])
         return (None, None)
 
+    # ----- Snippets -----
+    def insert_snippet(snippet: str):
+        actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
+        # actions.user.cursorless_insert_snippet(snippet)
+
 
 # @ctx_notebook.action_class("main")
 # class NotebookMainActions:

@@ -5,11 +5,6 @@ from .snippet_types import Snippet
 
 mod = Module()
 
-ctx_vscode = Context()
-ctx_vscode.matches = r"""
-app: vscode
-"""
-
 
 @mod.action_class
 class Actions:
@@ -60,14 +55,6 @@ class Actions:
         """Insert snippet <name> for the current programming language"""
         lang = actions.code.language()
         actions.user.insert_snippet_by_name(f"{lang}.{name}", substitutions)
-
-
-@ctx_vscode.action_class("user")
-class VscodeActions:
-    # Vscode has proper support for snippets
-    def insert_snippet(snippet: str):
-        actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
-        # actions.user.cursorless_insert_snippet(snippet)
 
 
 def up(n: int):
