@@ -14,10 +14,11 @@ app: vscode
 @mod.action_class
 class Actions:
     # Default implementation inserts snippets as normal text
-    def insert_snippet(snippet: Union[str, list[str]]):
+    def insert_snippet(snippet: str):
         """Insert snippet"""
-        lines = split_snippet(snippet)
+        lines = snippet.split("\n")
         found_stop = False
+
         for i, line in enumerate(lines):
             # Some IM services will send the message on a tab
             line = re.sub(r"\t+", "    ", line)
@@ -64,20 +65,12 @@ class Actions:
 @ctx_vscode.action_class("user")
 class VscodeActions:
     # Vscode has proper support for snippets
-    def insert_snippet(snippet: Union[str, list[str]]):
+    def insert_snippet(snippet: str):
         if isinstance(snippet, list):
             snippet = "\n".join(snippet)
 
         actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
         # actions.user.cursorless_insert_snippet(snippet)
-
-
-def split_snippet(snippet: Union[str, list[str]]) -> list[str]:
-    if isinstance(snippet, list):
-        return snippet
-    lines = snippet.split("\n")
-    # Clean leading whitespaces(not tabs) in case this was a multiline string
-    return [line.lstrip(" ") for line in lines]
 
 
 def up(n: int):
