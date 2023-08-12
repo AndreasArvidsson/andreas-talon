@@ -5,7 +5,8 @@ from .snippet_types import Snippet, SnippetVariable
 
 DOC_DELIMITER_RE = re.compile(r"^---$", re.MULTILINE)
 BODY_DELIMITER_RE = re.compile(r"^-$", re.MULTILINE)
-LEADING_EMPTY_LINES_RE = re.compile(r"^[ \t]*\S", re.MULTILINE)
+# Find first line that is not empty. Preserve indentation.
+FIRST_CONTENT_LINE_RE = re.compile(r"^[ \t]*\S", re.MULTILINE)
 
 
 def get_snippets(dir) -> list[Snippet]:
@@ -128,7 +129,7 @@ def parse_context(context: str) -> dict[str, str]:
 
 
 def parse_body(body: str) -> str:
-    match_leading = LEADING_EMPTY_LINES_RE.search(body)
+    match_leading = FIRST_CONTENT_LINE_RE.search(body)
 
     if match_leading is None:
         return ""
