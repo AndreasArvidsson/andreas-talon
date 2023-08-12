@@ -48,6 +48,7 @@ def update_snippets():
         snippets_map.update(snippets)
         insertion_map.update(insertions)
         wrapper_map.update(wrappers)
+
         ctx.lists["user.snippet_insert"] = insertion_map
         ctx.lists["user.snippet_wrap"] = wrapper_map
 
