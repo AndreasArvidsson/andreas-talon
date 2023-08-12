@@ -66,9 +66,6 @@ class Actions:
 class VscodeActions:
     # Vscode has proper support for snippets
     def insert_snippet(snippet: str):
-        if isinstance(snippet, list):
-            snippet = "\n".join(snippet)
-
         actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
         # actions.user.cursorless_insert_snippet(snippet)
 
