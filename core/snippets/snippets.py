@@ -37,21 +37,40 @@ def update_snippets():
     )
 
     global_map = {}
-    _, global_insertion, global_wrapper = create_lists("_", grouped.get("_", []))
 
-    for lang, snippets in grouped.items():
-        gm, insertion, wrapper = create_lists(lang, snippets)
+    for lang in language_ids:
+        insertion_map = {}
+        wrapper_map = {}
+
+        for fl in get_fallback_languages(lang):
+            _, insertion, wrapper = create_lists(fl, grouped.get(fl, []))
+            insertion_map.update(insertion)
+            wrapper_map.update(wrapper)
+
+        gm, insertion, wrapper = create_lists(lang, grouped.get(lang, []))
         global_map.update(gm)
-
-        if lang != "_":
-            insertion = {**global_insertion, **insertion}
-            wrapper = {**global_wrapper, **wrapper}
+        insertion_map.update(insertion)
+        wrapper_map.update(wrapper)
 
         ctx = context_map[lang]
-        ctx.lists["user.snippet_insert"] = insertion
-        ctx.lists["user.snippet_wrap"] = wrapper
+        ctx.lists["user.snippet_insert"] = insertion_map
+        ctx.lists["user.snippet_wrap"] = wrapper_map
 
     snippets_map = global_map
+
+
+def get_fallback_languages(language: str) -> list[str]:
+    match language:
+        case "_":
+            return []
+        case "typescript":
+            return ["_", "javascript"]
+        case "javascriptreact":
+            return ["_", "html", "javascript"]
+        case "typescriptreact":
+            return ["_", "html", "javascript", "typescript", "javascriptreact"]
+        case _:
+            return ["_"]
 
 
 def group_by_language(snippets: list[Snippet]) -> dict[str, list[Snippet]]:

@@ -104,22 +104,7 @@ def parse_document(document: str, default_context: dict) -> Snippet:
 
 
 def get_languages(language: str) -> list[str]:
-    languages_raw = [v.strip() for v in language.split("|")]
-    languages = set()
-    for lang in languages_raw:
-        languages.add(lang)
-        match lang:
-            case "javascript":
-                languages.update({"javascriptreact", "typescript", "typescriptreact"})
-            case "javascriptreact":
-                languages.add("typescriptreact")
-            case "typescript":
-                languages.add("typescriptreact")
-            case "html":
-                languages.update({"javascriptreact", "typescriptreact"})
-    result = list(languages)
-    result.sort()
-    return result
+    return [v.strip() for v in language.split("|")]
 
 
 def parse_context(context: str) -> dict[str, str]:
