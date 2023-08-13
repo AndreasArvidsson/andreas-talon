@@ -7,6 +7,8 @@ ctx = Context()
 ctx.matches = r"""
 code.language: typescript
 code.language: typescriptreact
+# Make typescript win over javascript
+mode: command
 """
 
 types = {
