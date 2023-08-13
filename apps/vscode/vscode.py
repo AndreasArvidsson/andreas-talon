@@ -58,10 +58,10 @@ def vscode_panel(m) -> dict:
 class WinActions:
     def filename():
         filename = actions.win.title().split(" - ")[0]
-        if "." in filename:
-            return filename
         if is_untitled(filename):
             return get_untitled_name(filename)
+        if "." in filename:
+            return filename
         return ""
 
 
