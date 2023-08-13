@@ -45,6 +45,7 @@ ctx.lists["self.vscode_panel"] = panels.keys()
 mod.list("vscode_sessions", "Known vscode sessions/workspaces")
 ctx.lists["self.vscode_sessions"] = {
     "mine": "andreas-talon",
+    "extension": "andreas-vscode",
     "cursor less": "cursorless",
 }
 
