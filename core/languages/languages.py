@@ -56,6 +56,10 @@ mod = Module()
 mod.list("code_extension", "List of file programming languages file extensions")
 mod.list("code_language", "List of file programming language identifiers")
 
+# Add a tag for each forced language mode
+for lang in language_ids:
+    mod.tag(f"code_{lang}_forced")
+
 ctx_other = Context()
 
 ctx = Context()
@@ -90,17 +94,16 @@ class CodeActions:
 @mod.action_class
 class Actions:
     def code_set_language(language: str):
-        """Forces the active language to <language> and disables extension matching"""
+        """Forces the active programming language to <language> and disables extension matching"""
         global forced_language
         forced_language = language
         # Update tags to force a context refresh. Otherwise `code.language` will not update.
-        ctx.tags = []
+        ctx.tags = [f"user.code_{language}_forced"]
         actions.user.notify(f"Enabled {language}")
 
     def code_automatic_language():
         """Clears the forced language and re-enables code.language: extension matching"""
         global forced_language
         forced_language = None
-        # Update tags to force a context refresh. Otherwise `code.language` will not update.
         ctx.tags = []
         actions.user.notify("Automatic language")
