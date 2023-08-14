@@ -338,15 +338,13 @@ class Actions:
         if url:
             actions.user.browser_open(url)
 
-    def git_copy_markdown_remote_file_url(targets: list[dict]):
+    def git_copy_markdown_remote_file_url(targets: list):
         """Copy remote git file URL to clipboard as markdown link"""
         use_selection = False
 
         # The second target is optional and is used for getting the text
         if len(targets) == 2:
-            texts = actions.user.cursorless_single_target_command_get(
-                "getText", targets[1]
-            )
+            texts = texts = actions.user.c_get_texts(targets[1])
             text = "".join(texts)
             use_selection = True
 
