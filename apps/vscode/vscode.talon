@@ -18,7 +18,7 @@ jest first:
 jest param:                 user.vscode("editor.action.triggerParameterHints")
 format document:            user.format_document()
 refactor this:              user.vscode("editor.action.refactor")
-open preview:               user.vscode("markdown.showPreviewToSide")
+open preview:               user.vscode("markdown.showPreview")
 
 # Problems
 problem next:               user.vscode("editor.action.marker.nextInFiles")
