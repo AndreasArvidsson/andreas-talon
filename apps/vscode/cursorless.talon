@@ -1,13 +1,12 @@
 app: vscode
 -
-tag(): user.cursorless_experimental_snippets
 tag(): user.cursorless_custom_number_small
 
 # Cursorless command without targets
 ^cursorless use release$:
-    user.cursorless_use_release()
+    user.c_use_release()
 ^cursorless use develop$:
-    user.cursorless_use_develop()
+    user.c_use_develop()
 ^cursorless record$:
     user.vscode("cursorless.recordTestCase")
 ^cursorless record highlight$:
@@ -61,10 +60,10 @@ break line <user.cursorless_target>:
     key("enter")
 
 search for <user.cursorless_target>:
-    user.cursorless_browser_open_target(cursorless_target)
+    user.c_browser_open_target(cursorless_target)
 
 {user.symbol} wrap <user.cursorless_target>:
-    user.cursorless_wrap_with_symbol(cursorless_target, symbol)
+    user.c_wrap_with_symbol(cursorless_target, symbol)
 
 {user.snippet_wrap} wrap <user.cursorless_target>:
-    user.cursorless_my_wrap_with_snippet(cursorless_target, snippet_wrap)
+    user.c_wrap_with_snippet(cursorless_target, snippet_wrap)

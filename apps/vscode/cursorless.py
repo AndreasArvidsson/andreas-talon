@@ -7,15 +7,15 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def cursorless_use_release():
+    def c_use_release():
         """Use main branch of cursorless-talon"""
         switch_folder(True)
 
-    def cursorless_use_develop():
+    def c_use_develop():
         """Use developed folder of cursorless-talon"""
         switch_folder(False)
 
-    def cursorless_browser_open_target(target: Any):
+    def c_browser_open_target(target: Any):
         """Search for target text in browser"""
         texts = actions.user.private_cursorless_command_get(
             {
@@ -27,7 +27,7 @@ class Actions:
         text = " + ".join(texts)
         actions.user.browser_open(text)
 
-    def cursorless_wrap_with_symbol(target: Any, symbol: str):
+    def c_wrap_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""
         if symbol == "space":
             symbol = " "
@@ -41,7 +41,7 @@ class Actions:
             }
         )
 
-    def cursorless_my_wrap_with_snippet(target: Any, id: str):
+    def c_wrap_with_snippet(target: Any, id: str):
         """Wrap the target with snippet <id>"""
         index = id.rindex(".")
         snippet_id = id[:index]
