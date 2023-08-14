@@ -1,7 +1,8 @@
 from talon import Module, Context, app, fs
 from pathlib import Path
+import glob
 from ..languages.languages import language_ids
-from .snippets_parser import get_snippets
+from .snippets_parser import parse_snippet_file_from_disk
 from .snippet_types import Snippet
 
 SNIPPETS_DIR = Path(__file__).parent / "snippets"
@@ -31,7 +32,7 @@ class Actions:
 
 
 def update_snippets():
-    grouped = group_by_language(get_snippets(SNIPPETS_DIR))
+    grouped = group_by_language(get_snippets())
 
     snippets_map.clear()
 
@@ -47,6 +48,16 @@ def update_snippets():
 
         ctx.lists["user.snippet_insert"] = insertion_map
         ctx.lists["user.snippet_wrap"] = wrapper_map
+
+
+def get_snippets() -> list[Snippet]:
+    files = glob.glob(f"{SNIPPETS_DIR}/*.snippet")
+    result = []
+
+    for file in files:
+        result.extend(parse_snippet_file_from_disk(file))
+
+    return result
 
 
 def get_fallback_languages(language: str) -> list[str]:
@@ -102,8 +113,9 @@ def create_lists(
 
         snippets_map[id_snippets] = snippet
 
-        if snippet.phrase is not None:
-            insertions[snippet.phrase] = id_ctx
+        if snippet.phrases is not None:
+            for phrase in snippet.phrases:
+                insertions[phrase] = id_ctx
 
         if snippet.variables is not None:
             for var in snippet.variables:

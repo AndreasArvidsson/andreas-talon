@@ -1,137 +1,185 @@
 from typing import Union
-import glob
+from dataclasses import dataclass
 import re
 from .snippet_types import Snippet, SnippetVariable
 
-DOC_DELIMITER_RE = re.compile(r"^---$", re.MULTILINE)
-BODY_DELIMITER_RE = re.compile(r"^-$", re.MULTILINE)
-# Find first line that is not empty. Preserve indentation.
-FIRST_CONTENT_LINE_RE = re.compile(r"^[ \t]*\S", re.MULTILINE)
+
+@dataclass
+class SnippetDocumentVar:
+    name: str
+    phrase: str = None
+    wrapperScope: str = None
 
 
-def get_snippets(dir) -> list[Snippet]:
-    files = glob.glob(f"{dir}/*.snippet")
-    result = []
+@dataclass
+class SnippetDocument:
+    variables: list[SnippetDocumentVar]
+    name: str = None
+    phrase: str = None
+    language: list[str] = None
+    body: str = None
 
-    for file in files:
-        result.extend(parse_snippet_file(file))
 
-    return result
-
-
-def parse_snippet_file(path) -> list[Snippet]:
-    with open(path) as f:
+def parse_snippet_file_from_disk(file_path: str) -> list[Snippet]:
+    with open(file_path) as f:
         content = f.read()
+    documents = parse_snippet_file(content)
+    return create_snippets(documents)
 
-    documents = DOC_DELIMITER_RE.split(content)
-    default_context = get_default_context(documents)
 
-    if default_context is not None:
+def create_snippets(documents: list[SnippetDocument]) -> list[Snippet]:
+    if len(documents) == 0:
+        return []
+
+    if documents[0].body is None:
+        default_context = documents[0]
         documents = documents[1:]
     else:
-        default_context = {}
-    return [parse_document(s, default_context) for s in documents]
+        default_context = SnippetDocument([])
+
+    return [create_snippet(d, default_context) for d in documents]
 
 
-def get_default_context(sections: list[str]) -> Union[dict[str, str], None]:
-    if sections:
-        parts = BODY_DELIMITER_RE.split(sections[0])
-        if len(parts) == 1:
-            return parse_context(parts[0])
-    return None
+def create_snippet(
+    document: SnippetDocument, default_context: SnippetDocument
+) -> Snippet:
+    name = document.name if document.name else default_context.name
+    languages = document.language if document.language else default_context.language
+    phrases = document.phrase if document.phrase else default_context.phrase
+    body = document.body
 
+    if not name:
+        raise ValueError(f"Missing name: {document}")
+    if not body:
+        raise ValueError(f"Missing body: {document}")
 
-def parse_document(document: str, default_context: dict) -> Snippet:
-    parts = BODY_DELIMITER_RE.split(document)
+    variables_map = {}
 
-    if len(parts) != 2:
-        raise Exception(f"Malformed document: {document}")
+    for variable in [*document.variables, *default_context.variables]:
+        if variable.phrase is None:
+            raise ValueError(f"Missing variable phrase: {variable}")
+        if variable.name in variables_map:
+            continue
+        var_name = f"${variable.name}"
+        if not var_name in body:
+            raise Exception(f"Variable '{var_name}' missing in body '{body}'")
+        variables_map[variable.name] = SnippetVariable(
+            variable.name, variable.phrase, variable.wrapperScope
+        )
 
-    context_str, body = parts
+    variables = list(variables_map.values())
 
-    context = {
-        **default_context,
-        **parse_context(context_str),
-    }
-
-    if not "name" in context:
-        raise Exception(f"Missing name: {document}")
-
-    snippet = Snippet(
-        name=context["name"],
-        body=parse_body(body),
+    return Snippet(
+        name=name,
+        languages=languages,
+        phrases=phrases,
+        variables=variables,
+        body=body,
     )
 
-    for key, value in context.items():
+
+# ---------- Snippet file parser ----------
+
+
+def parse_snippet_file(content: str) -> list[SnippetDocument]:
+    document_content = re.split(r"^---$", content, flags=re.MULTILINE)
+    documents = [parse_document(d) for d in document_content]
+    return [d for d in documents if d is not None]
+
+
+def parse_document(text: str) -> Union[SnippetDocument, None]:
+    parts = re.split(r"^-$", text, flags=re.MULTILINE)
+    if len(parts) > 2:
+        raise ValueError(f"Found multiple '-' in snippet document '{text}'")
+    document = parse_context(parts[0])
+    if len(parts) == 2:
+        body = parse_body(parts[1])
+        if body is not None:
+            if document is None:
+                document = SnippetDocument([])
+            document.body = body
+    return document
+
+
+def parse_context(text: str) -> Union[SnippetDocument, None]:
+    document = SnippetDocument([])
+    pairs = parse_context_pairs(text)
+
+    if len(pairs) == 0:
+        return None
+
+    variables: dict[str, str] = {}
+
+    for key, value in pairs.items():
         match key:
             case "name":
-                pass
+                document.name = value
             case "phrase":
-                snippet.phrase = value
-            case "wrapperScope":
-                snippet.wrapperScope = value
+                document.phrase = parse_vector_value(value)
             case "language":
-                snippet.languages = get_languages(value)
+                document.language = parse_vector_value(value)
             case _:
-                parts = key.split(".")
-                var_name, var_field = parts
+                if not key.startswith("$"):
+                    raise ValueError(f"Invalid key '${key}'")
+                variables[key] = value
 
-                if len(parts) != 2 or len(var_name) < 2 or not var_name.startswith("$"):
-                    raise Exception(f"Unknown context: '{key}: {value}'")
+    document.variables = parse_variables(variables)
 
-                if not var_name in body:
-                    raise Exception(f"Variable '{var_name}' missing in body '{body}'")
-
-                if snippet.variables is None:
-                    snippet.variables = []
-
-                match var_field:
-                    case "phrase":
-                        snippet.variables.append(
-                            SnippetVariable(
-                                name=var_name[1:],
-                                phrase=value,
-                                wrapperScope=context.get(f"{var_name}.wrapperScope"),
-                            )
-                        )
-                    case "wrapperScope":
-                        phrase_field = f"{var_name}.phrase"
-                        if not phrase_field in context:
-                            raise Exception(
-                                f"Variable field '{phrase_field}' expected with '{key}'"
-                            )
-                    case _:
-                        raise Exception(
-                            f"Unknown variable field '{var_field}' in '{key}'"
-                        )
-
-    return snippet
+    return document
 
 
-def get_languages(language: str) -> list[str]:
-    return [v.strip() for v in language.split("|")]
-
-
-def parse_context(context: str) -> dict[str, str]:
-    result = {}
-    lines = [l for l in context.splitlines() if l.strip()]
+def parse_context_pairs(text: str) -> dict[str, str]:
+    lines = [l.strip() for l in re.split(r"\r?\n", text) if l.strip()]
+    pairs: dict[str, str] = {}
 
     for line in lines:
-        parts = [p.strip() for p in line.split(":")]
-
+        parts = line.split(":")
         if len(parts) != 2:
-            raise Exception(f"Malformed context: {line}")
+            raise ValueError(f"Invalid line '{line}'")
+        key = parts[0].strip()
+        value = parts[1].strip()
+        if len(key) == 0 or len(value) == 0:
+            raise ValueError(f"Invalid line '{line}'")
+        if key in pairs:
+            raise ValueError(f"Duplicate key '{key}' in '{text}'")
+        pairs[key] = value
 
-        key, value = parts
-        result[key] = value
-
-    return result
+    return pairs
 
 
-def parse_body(body: str) -> str:
-    match_leading = FIRST_CONTENT_LINE_RE.search(body)
+def parse_variables(variables: dict[str, str]) -> list[SnippetDocumentVar]:
+    map: dict[str, SnippetDocumentVar] = {}
+
+    def get_variable(name: str) -> SnippetDocumentVar:
+        if name not in map:
+            map[name] = SnippetDocumentVar(name)
+        return map[name]
+
+    for key, value in variables.items():
+        parts = key.split(".")
+        if len(parts) != 2:
+            raise ValueError(f"Invalid key '{key}'")
+        name = parts[0][1:]
+        field = parts[1]
+        match field:
+            case "phrase":
+                get_variable(name).phrase = value
+            case "wrapperScope":
+                get_variable(name).wrapperScope = value
+            case _:
+                raise ValueError(f"Invalid key '{key}'")
+
+    return list(map.values())
+
+
+def parse_body(text: str) -> Union[str, None]:
+    match_leading = re.search(r"^[ \t]*\S", text, flags=re.MULTILINE)
 
     if match_leading is None:
-        return ""
+        return None
 
-    return body[match_leading.start() :].rstrip()
+    return text[match_leading.start() :].rstrip()
+
+
+def parse_vector_value(value: str) -> list[str]:
+    return [v.strip() for v in value.split("|")]

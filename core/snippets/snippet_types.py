@@ -12,6 +12,6 @@ class SnippetVariable:
 class Snippet:
     name: str
     body: str
-    phrase: str = None
+    phrases: list[str] = None
     languages: list[str] = None
     variables: list[SnippetVariable] = None
