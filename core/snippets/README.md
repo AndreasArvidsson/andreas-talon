@@ -26,7 +26,7 @@ Custom formats to represent snippets.
 
 ### Variables
 
-Tab stops(`$0`) and variables(`$try`) Can be used to wrap with using the following fields.
+Tab stops(`$0`) and variables(`$try`) can be used to wrap with using the following fields.
 
 | Key          | Required | Multiple values | Example                        |
 | ------------ | -------- | --------------- | ------------------------------ |
