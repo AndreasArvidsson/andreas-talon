@@ -87,27 +87,27 @@ def group_by_language(snippets: list[Snippet]) -> dict[str, list[Snippet]]:
 
 def create_lists(
     lang_snippets: str,
-    lang_lists: str,
+    lang_ctx: str,
     snippets: list[Snippet],
 ) -> tuple[dict[str, list[Snippet]], dict[str, str], dict[str, str]]:
     snippets_map = {}
     insertions = {}
     wrappers = {}
     prefix_snippets = "" if lang_snippets == "_" else f"{lang_snippets}."
-    prefix_lists = "" if lang_lists == "_" else f"{lang_lists}."
+    prefix_ctx = "" if lang_ctx == "_" else f"{lang_ctx}."
 
     for snippet in snippets:
-        snippet_id = f"{prefix_snippets}{snippet.name}"
-        list_id = f"{prefix_lists}{snippet.name}"
+        id_snippets = f"{prefix_snippets}{snippet.name}"
+        id_ctx = f"{prefix_ctx}{snippet.name}"
 
-        snippets_map[snippet_id] = snippet
+        snippets_map[id_snippets] = snippet
 
         if snippet.phrase is not None:
-            insertions[snippet.phrase] = list_id
+            insertions[snippet.phrase] = id_ctx
 
         if snippet.variables is not None:
             for var in snippet.variables:
-                wrappers[var.phrase] = f"{list_id}.{var.name}"
+                wrappers[var.phrase] = f"{id_ctx}.{var.name}"
 
     return snippets_map, insertions, wrappers
 
