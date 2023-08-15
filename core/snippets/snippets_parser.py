@@ -46,7 +46,7 @@ def create_snippet(
     name = document.name if document.name else default_context.name
     languages = document.language if document.language else default_context.language
     phrases = document.phrase if document.phrase else default_context.phrase
-    body = document.body
+    body = normalize_snippet_body_tabs(document.body)
 
     if not name:
         raise ValueError(f"Missing name: {document}")
@@ -76,6 +76,44 @@ def create_snippet(
         variables=variables,
         body=body,
     )
+
+
+def normalize_snippet_body_tabs(body: str) -> str:
+    # If snippet body already contains tabs. No change.
+    if "\t" in body:
+        return body
+
+    lines = []
+    smallest_indentation = None
+
+    for line in re.split(r"\r?\n", body):
+        match = re.search(r"^\s+", line)
+        indentation = match.group() if match is not None else ""
+
+        # Keep track of smallest non-empty indentation
+        if len(indentation) > 0 and (
+            smallest_indentation is None or len(indentation) < len(smallest_indentation)
+        ):
+            smallest_indentation = indentation
+
+        lines.append({"indentation": indentation, "rest": line[len(indentation) :]})
+
+    # No indentation found in snippet body. No change.
+    if smallest_indentation is None:
+        return body
+
+    normalized_lines = [
+        reconstruct_line(smallest_indentation, line["indentation"], line["rest"])
+        for line in lines
+    ]
+
+    return "\n".join(normalized_lines)
+
+
+def reconstruct_line(smallest_indentation: str, indentation: str, rest: str) -> str:
+    # Update indentation by replacing each occurrent of smallest space indentation with a tab
+    indentation = indentation.replace(smallest_indentation, "\t")
+    return f"{indentation}{rest}"
 
 
 # ---------- Snippet file parser ----------
