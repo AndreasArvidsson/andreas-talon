@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class SnippetVariable:
     name: str
-    phrase: str
+    wrapperPhrase: str
     wrapperScope: str = None
 
 

@@ -28,10 +28,10 @@ Custom formats to represent snippets.
 
 Tab stops(`$0`) and variables(`$try`) can be used to wrap with using the following fields.
 
-| Key          | Required | Multiple values | Example                        |
-| ------------ | -------- | --------------- | ------------------------------ |
-| phrase       | Yes      | No              | `$0.phrase: try`               |
-| wrapperScope | No       | No              | `$try.wrapperScope: statement` |
+| Key           | Required | Multiple values | Example                        |
+| ------------- | -------- | --------------- | ------------------------------ |
+| wrapperPhrase | Yes      | No              | `$0.wrapperPhrase: try`        |
+| wrapperScope  | No       | No              | `$try.wrapperScope: statement` |
 
 ## Images
 

@@ -7,7 +7,7 @@ from .snippet_types import Snippet, SnippetVariable
 @dataclass
 class SnippetDocumentVar:
     name: str
-    phrase: str = None
+    wrapperPhrase: str = None
     wrapperScope: str = None
 
 
@@ -56,7 +56,7 @@ def create_snippet(
     variables_map = {}
 
     for variable in [*document.variables, *default_context.variables]:
-        if variable.phrase is None:
+        if variable.wrapperPhrase is None:
             raise ValueError(f"Missing variable phrase: {variable}")
         if variable.name in variables_map:
             continue
@@ -64,7 +64,7 @@ def create_snippet(
         if not var_name in body:
             raise Exception(f"Variable '{var_name}' missing in body '{body}'")
         variables_map[variable.name] = SnippetVariable(
-            variable.name, variable.phrase, variable.wrapperScope
+            variable.name, variable.wrapperPhrase, variable.wrapperScope
         )
 
     variables = list(variables_map.values())
@@ -162,8 +162,8 @@ def parse_variables(variables: dict[str, str]) -> list[SnippetDocumentVar]:
         name = parts[0][1:]
         field = parts[1]
         match field:
-            case "phrase":
-                get_variable(name).phrase = value
+            case "wrapperPhrase":
+                get_variable(name).wrapperPhrase = value
             case "wrapperScope":
                 get_variable(name).wrapperScope = value
             case _:
