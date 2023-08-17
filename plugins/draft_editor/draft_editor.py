@@ -74,6 +74,8 @@ def close_editor(submit_draft: bool):
     actions.user.vscode("workbench.action.revertAndCloseActiveEditor")
     actions.user.focus_window(original_window)
 
+    actions.sleep("100ms")
+
     if submit_draft:
         # Some applications like slack(browser) have a problem with pasting over selected text.
         if original_selected_text:
