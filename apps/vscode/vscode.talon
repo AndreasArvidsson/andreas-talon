@@ -236,7 +236,7 @@ scout symbol [<user.text>]$:
     user.insert_formatted(text or "", "CAMEL_CASE")
 
 # Settings
-open settings json:
+open settings (json | jason):
     user.vscode("workbench.action.openSettingsJson")
 open settings <user.text>:
     app.preferences()
