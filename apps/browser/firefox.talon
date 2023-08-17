@@ -35,11 +35,6 @@ rango direct:
 copy address:
     user.rango_command_without_target("copyLocationProperty", "href")
 
-hint {user.rango_hint_styles}:
-    user.rango_command_without_target("setHintStyle", user.rango_hint_styles)
-hint weight {user.rango_hint_weights}:
-    user.rango_command_without_target("setHintWeight", user.rango_hint_weights)
-
 # Miscellaneous
 copy image:
     mouse_click(1)
