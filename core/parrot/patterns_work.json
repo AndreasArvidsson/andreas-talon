@@ -2,18 +2,18 @@
     "pop": {
         "sounds": ["pop"],
         "threshold": {
-            ">power": 8,
-            ">probability": 0.98
+            ">power": 10,
+            ">probability": 0.96
         },
         "throttle": {
-            "pop": 0.2
+            "pop": 0.1
         }
     },
     "cluck": {
         "sounds": ["cluck"],
         "threshold": {
-            ">power": 50,
-            ">probability": 0.995
+            ">power": 40,
+            ">probability": 0.99
         },
         "throttle": {
             "cluck": 0.2,
@@ -50,7 +50,6 @@
         },
         "throttle": {
             "pop": 0.3,
-            "cluck": 0.3,
             "shush": 0.3,
             "hiss": 0.3
         }
