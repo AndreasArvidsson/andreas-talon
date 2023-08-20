@@ -4,6 +4,9 @@ All the scripts in my Talon user directory.
 
 In constant development. Things will break!
 
+> **Note**
+> If you find the scripts in this repository helpful, [consider sponsoring](https://github.com/sponsors/AndreasArvidsson)!
+
 ## Interesting features
 
 This is a list of features that I have implemented that I think is of more interest to other Talon users. Things I have already upstreamed to [knausj](https://github.com/knausj85/knausj_talon) are omitted. Since I don't actually use a fork of knausj some modifications (often different names) might be required.
