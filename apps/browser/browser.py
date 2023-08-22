@@ -84,13 +84,17 @@ class UserActions:
 
 @mod.action_class
 class Actions:
+    def browser_focus_default():
+        """Focus default browser"""
+        actions.user.window_focus_name(browser_name)
+
     def browser_open_new_tab(url: str):
         """Open url in new tab"""
 
     def browser_open(url: str):
         """Focus browser and open url"""
         if actions.app.name() != browser_name:
-            actions.user.window_focus_name(browser_name)
+            actions.user.browser_focus_default()
             actions.sleep("50ms")
         actions.user.browser_open_new_tab(url)
 
