@@ -1,4 +1,4 @@
-from talon import Module, skia, ui, settings
+from talon import Module, skia, ui, app, settings
 from talon.skia.image import Image as SkiaImage
 from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas, MouseEvent
@@ -16,7 +16,8 @@ button_bg_color = "aaaaaa"
 button_text_color = "000000"
 border_radius = 8
 button_radius = 4
-MAX_IMAGE_HEIGHT = 500
+MAX_IMAGE_WIDTH = 1 / 5
+MAX_IMAGE_HEIGHT = 1 / 10
 
 mod = Module()
 
@@ -33,9 +34,12 @@ setting_max_col = mod.setting(
 
 
 class State:
-    def __init__(self, canvas: skia.Canvas, font_size: float, numbered: bool):
+    def __init__(
+        self, screen: Screen, canvas: skia.Canvas, font_size: float, numbered: bool
+    ):
         self.max_rows = setting_max_rows.get()
         self.max_cols = setting_max_col.get()
+        self.screen = screen
         self.canvas = canvas
         self.font_size = font_size
         self.padding = self.rem(0.5)
@@ -221,19 +225,26 @@ class Image:
         self._image = image
         self.rect = None
 
-    def _resize(self, width: int, height: int) -> SkiaImage:
+    def _resize(self, state: State) -> SkiaImage:
+        max_width = state.screen.width * MAX_IMAGE_WIDTH
+        max_height = state.screen.height * MAX_IMAGE_HEIGHT
         aspect_ratio = self._image.width / self._image.height
-        if self._image.height > MAX_IMAGE_HEIGHT:
-            height = MAX_IMAGE_HEIGHT
-            width = round(height * aspect_ratio)
-        elif self._image.height > self._image.width:
-            height = round(width / aspect_ratio)
-        else:
-            width = round(height * aspect_ratio)
-        return self._image.reshape(int(width), int(height))
+
+        width = self._image.width
+        height = self._image.height
+
+        if width > max_width:
+            width = max_width
+            height = width / aspect_ratio
+
+        if height > max_height:
+            height = max_height
+            width = height * aspect_ratio
+
+        return self._image.reshape(int(round(width)), int(round(height)))
 
     def draw(self, state: State):
-        image = self._resize(state.image_width, state.image_height)
+        image = self._resize(state)
         state.canvas.draw_image(image, state.x_text, state.y)
         state.add_width(image.width, offset=True)
         state.add_height(image.height + state.padding)
@@ -325,8 +336,11 @@ class GUI:
         self._elements = []
         self._callback(self)
         self._draw_background(canvas)
-        font_size = FONT_SIZE * settings.get("imgui.scale") * self._screen_current.scale
-        state = State(canvas, font_size, self._numbered)
+        scale = settings.get("imgui.scale") * (
+            self._screen_current.scale if app.platform != "mac" else 1
+        )
+        font_size = FONT_SIZE * scale
+        state = State(self._screen_current, canvas, font_size, self._numbered)
         number = 1
 
         if self._elements:
