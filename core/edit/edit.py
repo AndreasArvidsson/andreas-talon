@@ -86,7 +86,10 @@ class EditActions:
         actions.key("ctrl-c")
 
     def paste():
+        # Sleeps are necessary when chaining commands before and after sleep
+        actions.sleep("10ms")
         actions.key("ctrl-v")
+        actions.sleep("10ms")
 
     def paste_match_style():
         actions.key("ctrl-shift-v")
