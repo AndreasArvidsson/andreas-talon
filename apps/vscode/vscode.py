@@ -92,12 +92,6 @@ class CodeActions:
     def complete():
         actions.user.vscode("editor.action.triggerSuggest")
 
-    def language() -> str:
-        # New untitled files are markdown in vscode
-        if is_untitled(actions.win.filename()):
-            return "markdown"
-        return actions.next()
-
 
 @ctx.action_class("edit")
 class EditActions:

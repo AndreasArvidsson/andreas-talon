@@ -1,5 +1,6 @@
 from talon import Context, Module, actions
 from dataclasses import dataclass
+from ...apps.vscode.vscode import is_untitled
 
 
 @dataclass
@@ -60,12 +61,20 @@ mod.list("code_language", "List of file programming language identifiers")
 for lang in language_ids:
     mod.tag(f"code_{lang}_forced")
 
-ctx_other = Context()
 
 ctx = Context()
 ctx.matches = r"""
 mode: command
 """
+
+ctx_vscode = Context()
+ctx_vscode.matches = r"""
+mode: command
+app: vscode
+"""
+
+ctx_other = Context()
+
 
 ctx.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
@@ -77,9 +86,19 @@ ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
 
 # Disable `code.language` when not in command mode
 @ctx_other.action_class("code")
-class CodeOtherActions:
+class OtherCodeActions:
     def language() -> str:
         return ""
+
+
+# Vscode specific `code.language`
+@ctx_vscode.action_class("code")
+class VscodeCodeActions:
+    def language() -> str:
+        # New untitled files are markdown in vscode
+        if not forced_language and is_untitled(actions.win.filename()):
+            return "markdown"
+        return actions.next()
 
 
 @ctx.action_class("code")
