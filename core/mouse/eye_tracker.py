@@ -5,7 +5,6 @@ from talon import (
     app,
     ctrl,
     storage,
-    tracking_system,
 )
 from typing import Optional
 
@@ -81,7 +80,7 @@ class Actions:
 
 
 def control_toggle(enable: bool) -> bool:
-    actions.tracking.control_toggle(enable and bool(tracking_system.trackers))
+    actions.tracking.control_toggle(enable)
     if actions.tracking.control_enabled():
         ctx.tags = ["user.eye_tracker"]
         return True
