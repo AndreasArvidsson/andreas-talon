@@ -1,8 +1,6 @@
 # Andreas Talon user scripts
 
-All the scripts in my Talon user directory.
-
-In constant development. Things will break!
+All the scripts in my Talon user directory. In constant development. Things may break!
 
 > **Note**
 > If you find the scripts in this repository helpful, [consider sponsoring](https://github.com/sponsors/AndreasArvidsson)!
