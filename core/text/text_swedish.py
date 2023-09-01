@@ -13,4 +13,5 @@ ctx.lists["self.swedish_phrase"] = {
     "correct": "Korrekt",
     "yes": "Ja",
     "no": "Nej",
+    "done": "Klart",
 }
