@@ -12,16 +12,17 @@ mode: command
 """
 
 types = {
-    "bool": "boolean",
-    "number": "number",
-    "string": "string",
     "any": "any",
+    "bool": "boolean",
     "never": "never",
-    "unknown": "unknown",
-    "object": "object",
-    "void": "void",
     "null": "null",
+    "number": "number",
+    "object": "object",
+    "regex": "RegExp",
+    "string": "string",
     "undefined": "undefined",
+    "unknown": "unknown",
+    "void": "void",
 }
 
 ctx.lists["self.code_data_type"] = {
