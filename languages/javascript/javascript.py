@@ -41,7 +41,7 @@ javascript_inserts = {
     "extends": " extends ",
     "abstract": "abstract ",
     "implements": "implements ",
-    "async": "async ",
+    "a sync": "async ",
     "await": "await ",
     "function": "function ",
     "spread": "...",
