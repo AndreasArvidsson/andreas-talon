@@ -145,9 +145,8 @@ class Actions:
                 text = " " + text
 
         if after is not None:
-            text = text.rstrip()
             if len(after) != 0 and not after[0].isspace():
-                text = text + " "
+                text = text.rstrip() + " "
 
         actions.insert(text)
 
