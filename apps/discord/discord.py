@@ -4,7 +4,7 @@ from talon import Module, Context, actions
 mod = Module()
 ctx = Context()
 
-mod.apps.discord = """
+mod.apps.discord = r"""
 os: windows
 and app.name: Discord
 os: windows

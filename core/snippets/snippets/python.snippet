@@ -1,0 +1,42 @@
+language: python
+---
+
+name: talonAppDeclaration
+phrase: module app
+-
+mod.apps.$1 = r"""
+$0
+"""
+---
+
+name: talonModuleClass
+phrase: module class
+-
+@mod.action_class
+class Actions:
+    $0
+---
+
+name: talonContextMatch
+phrase: context match
+-
+ctx.matches = r"""
+$0
+"""
+---
+
+name: talonContextList
+phrase: context list
+-
+ctx.lists["self.$1"] = {
+    $0
+}
+---
+
+name: talonContextClass
+phrase: context class
+-
+@ctx.action_class("$1")
+class $2Actions:
+    $0
+---
