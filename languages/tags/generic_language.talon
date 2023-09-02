@@ -1,9 +1,7 @@
 tag: user.generic_language
 -
 tag(): user.code_inserts
-
-# ----- Miscellaneous statements -----
-snip link [<user.text>]:    user.code_link(text or "")
+tag(): user.code_call_function
 
 # ----- Class statement -----
 {user.code_class_modifier}* class <user.text>$:
@@ -37,6 +35,3 @@ is type <user.text>:
     user.code_insert_type_annotation(data_type)
 returns type {user.code_data_type}:
     user.code_insert_return_type(code_data_type)
-
-# ----- Function call -----
-call {user.code_function}:  user.code_call_function(code_function)

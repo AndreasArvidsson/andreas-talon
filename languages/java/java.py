@@ -51,8 +51,8 @@ ctx.lists["self.code_data_type"] = {
     "hash map": "HashMap",
 }
 
-ctx.lists["self.code_function"] = {
-    "toString",
+ctx.lists["self.code_call_function"] = {
+    "to string": "toString",
 }
 ctx.lists["self.code_insert"] = {
     **{k: f"{k} " for k in all_keywords},

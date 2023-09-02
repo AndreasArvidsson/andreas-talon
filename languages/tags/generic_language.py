@@ -1,22 +1,18 @@
-from typing import Union
 from talon import Module, actions
+from typing import Union
 
 mod = Module()
+
 mod.tag("generic_language")
 
 mod.list("code_class_modifier", "Class modifiers")
 mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
 mod.list("code_data_type", "Names of data types")
-mod.list("code_function", "Names of functions")
 
 
 @mod.action_class
 class Actions:
-    # ----- Miscellaneous statements -----
-    def code_link(text: str = ""):
-        """Insert link <text>"""
-
     # ----- Class statement -----
     def code_class_wrapper(name: str, modifiers: Union[list[str], str]):
         """Declare class <name>"""
@@ -72,13 +68,7 @@ class Actions:
     ):
         """Variable statement"""
 
-    # ----- Function call -----
-    def code_call_function(name: str):
-        """Call function <name>"""
-        actions.user.code_insert_snippet("functionCall", {"name": name})
-
-        # ----- New instance  -----
-
+    # ----- New instance  -----
     def code_new_instance(name: str):
         """Create new instance of <name>"""
         actions.user.code_insert_snippet("newInstance", {"name": name})

@@ -17,7 +17,7 @@ ctx.lists["self.code_variable_modifier"] = {
     "let",
 }
 ctx.lists["self.code_data_type"] = {}
-ctx.lists["self.code_function"] = {
+ctx.lists["self.code_call_function"] = {
     "forEach",
     "map",
     "flatMap",

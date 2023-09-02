@@ -15,9 +15,10 @@ ctx.lists["self.markdown_pair"] = {
 }
 
 
-@ctx.action_class("user")
+@mod.action_class
 class UserActions:
-    def code_link(text: str = ""):
+    def code_markdown_link(text: str = ""):
+        """Insert link <text>"""
         link = actions.clip.text()
         if is_valid_link(link):
             actions.user.code_insert_snippet("linkWithUri", {"text": text, "uri": link})

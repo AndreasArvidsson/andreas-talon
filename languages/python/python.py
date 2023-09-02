@@ -27,7 +27,7 @@ ctx.lists["self.code_data_type"] = {
     "union": "Union",
     "optional": "Optional",
 }
-ctx.lists["self.code_function"] = {
+ctx.lists["self.code_call_function"] = {
     "format",
     "strip",
     "lstrip",

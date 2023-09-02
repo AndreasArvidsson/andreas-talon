@@ -7,13 +7,24 @@ ctx.matches = r"""
 code.language: talon
 """
 
-ctx.lists["self.code_function"] = {
+ctx.lists["self.code_call_function"] = {
     "key",
+    "insert",
 }
 ctx.lists["self.code_insert"] = {
     "true": "true",
     "false": "false",
     "tag": "tag(): ",
+}
+
+mod.list("code_talon_context", "List of Talon context matches")
+ctx.lists["self.code_talon_context"] = {
+    "win": "os: windows\n",
+    "mac": "os: mac\n",
+    "linux": "os: linux\n",
+    "title": "title: ",
+    "app": "app: ",
+    "tag": "tag: ",
 }
 
 
