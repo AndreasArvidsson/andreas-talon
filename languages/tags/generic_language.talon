@@ -10,7 +10,7 @@ make return:                user.code_return()
 snip link [<user.text>]:    user.code_link(text or "")
 
 # ----- Insert language specific text -----
-make <user.code_inserts>:   "{code_inserts}"
+make <user.code_inserts>:   user.insert_with_padding(code_inserts)
 
 # ----- Class statement -----
 {user.code_class_modifier}* class <user.text>$:

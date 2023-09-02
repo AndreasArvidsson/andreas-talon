@@ -19,7 +19,7 @@ def code_inserts(m) -> str:
 
 
 @mod.action_class
-class tab_actions:
+class Actions:
     # ----- Miscellaneous statements -----
     def code_true():
         """Boolean true"""

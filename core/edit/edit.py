@@ -135,6 +135,22 @@ class EditActions:
 
 @mod.action_class
 class Actions:
+    def insert_with_padding(text: str):
+        """Insert text with padding"""
+        before, after = actions.user.dictation_get_context()
+
+        if before is not None:
+            text = text.lstrip()
+            if len(before) != 0 and not before[-1].isspace():
+                text = " " + text
+
+        if after is not None:
+            text = text.rstrip()
+            if len(after) != 0 and not after[0].isspace():
+                text = text + " "
+
+        actions.insert(text)
+
     def delete_right():
         """Delete character to the right"""
         actions.key("delete")
