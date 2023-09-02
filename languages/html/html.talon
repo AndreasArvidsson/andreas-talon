@@ -3,6 +3,7 @@ code.language: javascriptreact
 code.language: typescriptreact
 -
 tag(): user.comments
+tag(): user.code_inserts
 
 element {user.code_tag}:
     user.code_insert_element(code_tag)
@@ -23,6 +24,3 @@ close tag | tag close:      user.code_close_tag()
 
 attr <user.text>:
     user.code_insert_attribute(text)
-
-make doctype:               "<!DOCTYPE html>\n"
-make blank:                 "&nbsp;"

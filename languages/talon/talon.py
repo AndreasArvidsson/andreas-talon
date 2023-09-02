@@ -10,6 +10,11 @@ code.language: talon
 ctx.lists["self.code_function"] = {
     "key",
 }
+ctx.lists["self.code_insert"] = {
+    "true": "true",
+    "false": "false",
+    "tag": "tag(): ",
+}
 
 
 @ctx.action_class("user")

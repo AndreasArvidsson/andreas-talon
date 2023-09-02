@@ -9,33 +9,11 @@ mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
 mod.list("code_data_type", "Names of data types")
 mod.list("code_function", "Names of functions")
-mod.list("code_insert", "Names of miscellaneous text insertions")
-
-
-@mod.capture(rule="{user.code_insert}+")
-def code_inserts(m) -> str:
-    """Returns multiple code inserts join together"""
-    return " ".join(m.code_insert_list).replace("  ", " ")
 
 
 @mod.action_class
 class Actions:
     # ----- Miscellaneous statements -----
-    def code_true():
-        """Boolean true"""
-
-    def code_false():
-        """Boolean false"""
-
-    def code_break():
-        """break statement"""
-
-    def code_continue():
-        """continue statement"""
-
-    def code_return():
-        """return statement"""
-
     def code_link(text: str = ""):
         """Insert link <text>"""
 

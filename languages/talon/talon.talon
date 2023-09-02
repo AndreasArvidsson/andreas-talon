@@ -2,6 +2,7 @@ code.language: talon
 -
 tag(): user.operators
 tag(): user.comments
+tag(): user.code_inserts
 
 # Context requirements
 require win:                "os: windows\n"
@@ -12,9 +13,6 @@ require app:                "app: "
 require tag:                "tag: "
 
 # Generic
-make tag:                   "tag(): "
-make true:                  "true"
-make false:                 "false"
 snip command:               user.code_insert_snippet("voiceCommandDeclaration")
 
 # ----- Function call -----

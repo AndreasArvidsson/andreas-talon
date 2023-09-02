@@ -1,16 +1,9 @@
 tag: user.generic_language
 -
+tag(): user.code_inserts
 
 # ----- Miscellaneous statements -----
-make true:                  user.code_true()
-make false:                 user.code_false()
-make break:                 user.code_break()
-make continue:              user.code_continue()
-make return:                user.code_return()
 snip link [<user.text>]:    user.code_link(text or "")
-
-# ----- Insert language specific text -----
-make <user.code_inserts>:   user.insert_with_padding(code_inserts)
 
 # ----- Class statement -----
 {user.code_class_modifier}* class <user.text>$:

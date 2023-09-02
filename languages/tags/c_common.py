@@ -83,22 +83,6 @@ class UserActions:
     def op_or():
         actions.insert(" || ")
 
-    # Miscellaneous statements
-    def code_break():
-        actions.insert("break;")
-
-    def code_true():
-        actions.insert("true")
-
-    def code_false():
-        actions.insert("false")
-
-    def code_continue():
-        actions.insert("continue;")
-
-    def code_return():
-        actions.insert("return ")
-
     # Formatting getters
     def code_get_class_format() -> str:
         return "PASCAL_CASE"

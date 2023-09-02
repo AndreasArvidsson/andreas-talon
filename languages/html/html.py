@@ -9,6 +9,11 @@ code.language: javascriptreact
 code.language: typescriptreact
 """
 
+ctx.lists["self.code_insert"] = {
+    "doctype": "<!DOCTYPE html>\n",
+    "blank": "&nbsp;",
+}
+
 tag_names_list = {
     "html",
     "head",

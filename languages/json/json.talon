@@ -1,6 +1,5 @@
 code.language: json
+code.language: jsonl
 -
 tag(): user.comments
-
-make true:                  "true"
-make false:                 "false"
+tag(): user.code_inserts

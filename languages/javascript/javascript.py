@@ -31,6 +31,8 @@ ctx.lists["self.code_function"] = {
     "require",
 }
 javascript_inserts = {
+    "true": "true",
+    "false": "false",
     "null": "null",
     "undefined": "undefined",
     "this": "this",
@@ -41,6 +43,7 @@ javascript_inserts = {
     "extends": " extends ",
     "abstract": "abstract ",
     "implements": "implements ",
+    "return": "return ",
     "a sync": "async ",
     "await": "await ",
     "function": "function ",
@@ -57,6 +60,8 @@ javascript_inserts = {
     "type of": "typeof ",
     "yield": "yield ",
     "delete": "delete ",
+    "continue": "continue;",
+    "break": "break;",
 }
 
 ctx.lists["self.code_insert"] = javascript_inserts

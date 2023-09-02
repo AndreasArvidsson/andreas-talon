@@ -51,19 +51,26 @@ ctx.lists["self.code_data_type"] = {
     "hash map": "HashMap",
 }
 
-ctx.lists["self.code_function"] = {"toString"}
+ctx.lists["self.code_function"] = {
+    "toString",
+}
 ctx.lists["self.code_insert"] = {
     **{k: f"{k} " for k in all_keywords},
+    "true": "true",
+    "false": "false",
     "null": "null",
     "this": "this",
     "import": "import ",
     "new": "new ",
+    "return": "return ",
     "extends": "extends ",
     "implements": "implements ",
     "class": "class ",
     "void": "void ",
     "throw": "throw ",
     "instance of": " instanceof ",
+    "continue": "continue;",
+    "break": "break;",
 }
 
 

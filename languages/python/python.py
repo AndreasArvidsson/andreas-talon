@@ -46,11 +46,14 @@ ctx.lists["self.code_function"] = {
     "enumerate",
 }
 ctx.lists["self.code_insert"] = {
+    "true": "True",
+    "false": "False",
     "None": "None",
     "self": "self",
     "pass": "pass",
     "from": "from ",
     "regex": "re",
+    "return": "return ",
     "import": "import ",
     "def": "def ",
     "class": "class ",
@@ -58,7 +61,9 @@ ctx.lists["self.code_insert"] = {
     "global": "global ",
     "raise": "raise ",
     "yield": "yield ",
+    "break": "break",
     "exception": "Exception",
+    "continue": "continue",
 }
 
 
@@ -138,20 +143,6 @@ class UserActions:
         actions.insert(" or ")
 
     # Miscellaneous statements
-    def code_break():
-        actions.insert("break")
-
-    def code_true():
-        actions.insert("True")
-
-    def code_false():
-        actions.insert("False")
-
-    def code_continue():
-        actions.insert("continue")
-
-    def code_return():
-        actions.insert("return ")
 
     def insert_arrow():
         actions.insert(" -> ")
