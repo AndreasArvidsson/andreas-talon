@@ -35,6 +35,7 @@ languages = [
     Language("ruby", "rb", "ruby"),
     Language("shellscript", "sh", "shell script"),
     Language("scm", "scm", "tree sitter"),
+    Language("snippet", "snippet", "snippet"),
     Language("talon", "talon", "talon"),
     Language("talon-list", "talon-list", "talon list"),
     Language("typescript", "ts", "type script"),
