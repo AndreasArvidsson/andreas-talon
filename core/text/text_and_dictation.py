@@ -9,6 +9,11 @@ language: en
 language: sv
 """
 
+ctx_sv = Context()
+ctx_sv.matches = r"""
+language: sv
+"""
+
 mod.list("phrase_ender", "List of commands that can be used to end a phrase")
 ctx.lists["self.phrase_ender"] = {
     "over": "",
@@ -120,6 +125,8 @@ def format_phrase(m):
     result = ""
     for i, word in enumerate(words):
         if i > 0 and needs_space_between(words[i - 1], word):
+            if actions.user.dictation_needs_comma_between(words[i - 1], word):
+                result += ","
             result += " "
         result += word
     return result
@@ -267,6 +274,12 @@ ui.register("app_deactivate", lambda app: dictation_formatter.reset())
 ui.register("win_focus", lambda win: dictation_formatter.reset())
 
 
+@ctx_sv.action_class("user")
+class SwedishUserActions:
+    def dictation_needs_comma_between(before: str, after: str) -> bool:
+        return after == "men" and before[-1].isalpha()
+
+
 @mod.action_class
 class Actions:
     def dictation_format_reset():
@@ -300,3 +313,7 @@ class Actions:
     def dictation_get_context() -> tuple[str, str]:
         """Returns the text before and after the current selection"""
         return (None, None)
+
+    def dictation_needs_comma_between(before: str, after: str) -> bool:
+        """Returns true if a `,` should be inserted between these words during dictation"""
+        return after == "but" and before[-1].isalpha()
