@@ -1,4 +1,4 @@
-tag: user.comments
+tag: user.code_comments
 -
 
 comment:

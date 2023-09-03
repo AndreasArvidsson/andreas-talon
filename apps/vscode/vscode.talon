@@ -5,7 +5,7 @@ tag(): user.navigation
 tag(): user.zoom
 tag(): user.tabs
 tag(): user.find
-tag(): user.comments
+tag(): user.code_comments
 
 settings():
     user.scroll_speed = 0.9

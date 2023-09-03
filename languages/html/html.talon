@@ -2,7 +2,7 @@ code.language: html
 code.language: javascriptreact
 code.language: typescriptreact
 -
-tag(): user.comments
+tag(): user.code_comments
 tag(): user.code_inserts
 
 element {user.code_tag}:

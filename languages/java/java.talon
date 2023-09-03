@@ -1,9 +1,8 @@
 code.language: java
 -
 tag(): user.generic_language
-tag(): user.c_common
 tag(): user.code_operators
-tag(): user.comments
+tag(): user.code_comments
 
 # ----- Java additional -----
 

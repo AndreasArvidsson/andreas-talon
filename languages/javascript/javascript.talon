@@ -4,13 +4,10 @@ code.language: javascriptreact
 code.language: typescriptreact
 -
 tag(): user.generic_language
-tag(): user.c_common
 tag(): user.code_operators
-tag(): user.comments
+tag(): user.code_comments
 
 # ----- JavaScript additional -----
-
-(op | is) in:               " in "
 
 convert to arrow:           user.js_arrowify_line()
 

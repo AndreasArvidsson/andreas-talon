@@ -27,11 +27,12 @@ ctx.lists["self.code_operator"] = CodeOperators(
     is_less          = " < ",
     is_greater       = " > ",
     is_less_equal    = " <= ",
-    is_greater_equal = " >= ",   
+    is_greater_equal = " >= ",
     is_not           = "not ",
     is_null          = " is None",
     is_not_null      = " is not None",
     is_in            = " in ",
+    op_in            = " in ",
     op_and           = " and ",
     op_or            = " or ",
 )

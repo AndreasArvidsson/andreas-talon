@@ -37,6 +37,7 @@ class CodeOperators(dict):
     is_in: str = None
 
     # ----- Logical operators -----
+    op_in: str = None
     op_and: str = None
     op_or: str = None
 

@@ -30,10 +30,11 @@ ctx.lists["self.code_operator"] = CodeOperators(
     is_less          = " < ",
     is_greater       = " > ",
     is_less_equal    = " <= ",
-    is_greater_equal = " >= ",   
+    is_greater_equal = " >= ",
     is_not           = "!",
     is_null          = " == null",
     is_not_null      = " != null",
+    op_in            = " in ",
     op_and           = " && ",
     op_or            = " || ",
 )
@@ -125,6 +126,16 @@ class UserActions:
         if assign:
             text += " = "
         actions.insert(text)
+
+    # Formatting getters
+    def code_get_class_format() -> str:
+        return "PASCAL_CASE"
+
+    def code_get_function_format() -> str:
+        return "CAMEL_CASE"
+
+    def code_get_variable_format() -> str:
+        return "CAMEL_CASE"
 
 
 @mod.action_class
