@@ -57,7 +57,7 @@ mod = Module()
 mod.list("code_extension", "List of file programming languages file extensions")
 mod.list("code_language", "List of file programming language identifiers")
 
-mod.tag(f"code_language_forced", "This tag is active when a language mode is forced")
+mod.tag("code_language_forced", "This tag is active when a language mode is forced")
 
 ctx = Context()
 
