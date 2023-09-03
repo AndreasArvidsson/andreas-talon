@@ -1,4 +1,5 @@
 code.language: css
+code.language: scss
 -
 
 # ----- Variable statement -----
