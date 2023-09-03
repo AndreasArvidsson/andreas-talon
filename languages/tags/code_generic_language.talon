@@ -1,4 +1,4 @@
-tag: user.generic_language
+tag: user.code_generic_language
 -
 tag(): user.code_inserts
 tag(): user.code_call_function
