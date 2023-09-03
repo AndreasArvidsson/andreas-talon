@@ -1,6 +1,5 @@
 from talon import Context, Module, actions
 from dataclasses import dataclass
-from ...apps.vscode.vscode import is_untitled
 
 
 @dataclass
@@ -51,31 +50,21 @@ extension_lang_map = {
 }
 
 language_ids = set(extension_lang_map.values())
-forced_language = None
+forced_language = ""
 
 mod = Module()
 
 mod.list("code_extension", "List of file programming languages file extensions")
 mod.list("code_language", "List of file programming language identifiers")
 
-# Add a tag for each forced language mode
-for lang in language_ids:
-    mod.tag(f"code_{lang}_forced")
-
+mod.tag(f"code_language_forced", "This tag is active when a language mode is forced")
 
 ctx = Context()
-ctx.matches = r"""
-mode: command
+
+ctx_forced = Context()
+ctx_forced.matches = r"""
+tag: user.code_language_forced
 """
-
-ctx_vscode = Context()
-ctx_vscode.matches = r"""
-mode: command
-app: vscode
-"""
-
-ctx_other = Context()
-
 
 ctx.lists["self.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
@@ -85,30 +74,17 @@ ctx.lists["self.code_extension"] = {
 ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
 
 
-# Disable `code.language` when not in command mode
-@ctx_other.action_class("code")
-class OtherCodeActions:
-    def language() -> str:
-        return ""
-
-
-# Vscode specific `code.language`
-@ctx_vscode.action_class("code")
-class VscodeCodeActions:
-    def language() -> str:
-        # New untitled files are markdown in vscode
-        if not forced_language and is_untitled(actions.win.filename()):
-            return "markdown"
-        return actions.next()
-
-
 @ctx.action_class("code")
 class CodeActions:
-    def language() -> str:
-        if forced_language:
-            return forced_language
+    def language():
         file_extension = actions.win.file_ext()
         return extension_lang_map.get(file_extension, "")
+
+
+@ctx_forced.action_class("code")
+class ForcedCodeActions:
+    def language():
+        return forced_language
 
 
 @mod.action_class
@@ -118,12 +94,14 @@ class Actions:
         global forced_language
         forced_language = language
         # Update tags to force a context refresh. Otherwise `code.language` will not update.
-        ctx.tags = [f"user.code_{language}_forced"]
+        # Necessary to first set an empty list otherwise you can't move from one forced language to another.
+        ctx.tags = []
+        ctx.tags = ["user.code_language_forced"]
         actions.user.notify(f"Enabled {language}")
 
     def code_automatic_language():
         """Clears the forced language and re-enables code.language: extension matching"""
         global forced_language
-        forced_language = None
+        forced_language = ""
         ctx.tags = []
         actions.user.notify("Automatic language")

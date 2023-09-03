@@ -20,6 +20,12 @@ ctx.matches = r"""
 app: vscode
 """
 
+ctx_lang = Context()
+ctx_lang.matches = r"""
+app: vscode
+not tag: user.code_language_forced
+"""
+
 ctx_notebook = Context()
 ctx_notebook.matches = r"""
 app: vscode
@@ -89,8 +95,14 @@ class CodeActions:
     def toggle_comment():
         actions.user.vscode("editor.action.commentLine")
 
-    def complete():
-        actions.user.vscode("editor.action.triggerSuggest")
+
+@ctx_lang.action_class("code")
+class LangCodeActions:
+    def language() -> str:
+        # New untitled files are markdown in vscode
+        if is_untitled(actions.win.filename()):
+            return "markdown"
+        return actions.next()
 
 
 @ctx.action_class("edit")
