@@ -1,5 +1,5 @@
 from talon import Module, Context
-from ..tags.operators import CodeOperators
+from ..tags.code_operators import CodeOperators
 
 mod = Module()
 ctx = Context()

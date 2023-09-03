@@ -1,6 +1,6 @@
 code.language: markdown
 -
-tag(): user.generic_language
+tag(): user.code_generic_language
 
 snip link [<user.text>]:    user.code_markdown_link(text or "")
 

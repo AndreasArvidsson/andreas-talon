@@ -3,7 +3,7 @@ from typing import Union
 
 mod = Module()
 
-mod.tag("generic_language")
+mod.tag("code_generic_language")
 
 mod.list("code_class_modifier", "Class modifiers")
 mod.list("code_function_modifier", "Function modifiers")
