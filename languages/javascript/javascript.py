@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+from ..tags.operators import CodeOperators
 
 mod = Module()
 
@@ -10,6 +11,32 @@ code.language: javascriptreact
 code.language: typescriptreact
 """
 
+# fmt: off
+ctx.lists["self.code_operator"] = CodeOperators(
+    op_assign        = " = ",
+    op_sub           = " - ",
+    op_sub_assign    = " -= ",
+    op_add           = " + ",
+    op_add_assign    = " += ",
+    op_mult          = " * ",
+    op_mult_assign   = " *= ",
+    op_div           = " / ",
+    op_div_assign    = " /= ",
+    op_mod           = " % ",
+    op_mod_assign    = " %= ",
+    op_pow           = " ** ",
+    is_equal         = " === ",
+    is_not_equal     = " !== ",
+    is_less          = " < ",
+    is_greater       = " > ",
+    is_less_equal    = " <= ",
+    is_greater_equal = " >= ",   
+    is_not           = "!",
+    is_null          = " == null",
+    is_not_null      = " != null",
+    op_and           = " && ",
+    op_or            = " || ",
+)
 ctx.lists["self.code_class_modifier"] = {}
 ctx.lists["self.code_function_modifier"] = {}
 ctx.lists["self.code_variable_modifier"] = {
@@ -63,23 +90,12 @@ javascript_inserts = {
     "continue": "continue;",
     "break": "break;",
 }
-
 ctx.lists["self.code_insert"] = javascript_inserts
+# fmt: on
 
 
 @ctx.action_class("user")
 class UserActions:
-    # Math operators
-    def op_exp():
-        actions.insert(" ** ")
-
-    # Comparison operators
-    def op_equal():
-        actions.insert(" === ")
-
-    def op_not_equal():
-        actions.insert(" !== ")
-
     # Class statement
     def code_class(name: str, modifiers: list[str]):
         actions.user.code_insert_snippet("classDeclaration", {"name": name})
