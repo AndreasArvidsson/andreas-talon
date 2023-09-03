@@ -1,80 +1,48 @@
 from talon import Module
+from dataclasses import dataclass, fields
 
 mod = Module()
-mod.tag("operators")
+mod.tag("code_operators", "Enable code operators")
+mod.list("code_operator", "List of code operators")
 
 
-@mod.action_class
-class Actions:
+@dataclass
+class CodeOperators(dict):
     # ----- Assignment operator -----
-    def op_assign():
-        """Assignment operator"""
+    op_assign: str = None
 
     # ----- Math operators -----
-    def op_sub():
-        """Subtraction operator"""
-
-    def op_sub_assign():
-        """Subtraction assign operator"""
-
-    def op_add():
-        """Addition operator"""
-
-    def op_add_assign():
-        """Addition assign operator"""
-
-    def op_mult():
-        """Multiplication operator"""
-
-    def op_mult_assign():
-        """Multiply assign operator"""
-
-    def op_div():
-        """Division operator"""
-
-    def op_div_assign():
-        """Division assign operator"""
-
-    def op_mod():
-        """Module operator"""
-
-    def op_mod_assign():
-        """Module assign operator"""
-
-    def op_exp():
-        """Exponent operator"""
+    op_sub: str = None
+    op_sub_assign: str = None
+    op_add: str = None
+    op_add_assign: str = None
+    op_mult: str = None
+    op_mult_assign: str = None
+    op_div: str = None
+    op_div_assign: str = None
+    op_mod: str = None
+    op_mod_assign: str = None
+    op_pow: str = None
 
     # ----- Comparison operators -----
-    def op_equal():
-        """Boolean equal operator"""
-
-    def op_not_equal():
-        """Boolean not equal operator"""
-
-    def op_less():
-        """Boolean is less operator"""
-
-    def op_greater():
-        """Boolean is greater operator"""
-
-    def op_less_or_eq():
-        """Boolean is less or equal operator"""
-
-    def op_greater_or_eq():
-        """Boolean is greater or equal operator"""
-
-    def op_not():
-        """Boolean not operator"""
-
-    def op_equal_null():
-        """Boolean equal null operator"""
-
-    def op_not_equal_null():
-        """Boolean not equal null operator"""
+    is_equal: str = None
+    is_not_equal: str = None
+    is_less: str = None
+    is_greater: str = None
+    is_less_equal: str = None
+    is_greater_equal: str = None
+    is_not: str = None
+    is_null: str = None
+    is_not_null: str = None
+    is_in: str = None
 
     # ----- Logical operators -----
-    def op_and():
-        """Boolean and operator"""
+    op_and: str = None
+    op_or: str = None
 
-    def op_or():
-        """Boolean or operator"""
+    def __post_init__(self):
+        for field in fields(self):
+            key = field.name.replace("_", " ").strip()
+            value = getattr(self, field.name)
+            if value is not None:
+                self[key] = value

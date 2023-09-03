@@ -1,6 +1,6 @@
 code.language: talon
 -
-tag(): user.operators
+tag(): user.code_operators
 tag(): user.comments
 tag(): user.code_inserts
 tag(): user.code_call_function

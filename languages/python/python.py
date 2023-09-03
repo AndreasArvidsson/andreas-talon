@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+from ..tags.operators import CodeOperators
 
 mod = Module()
 ctx = Context()
@@ -7,25 +8,59 @@ ctx.matches = r"""
 code.language: python
 """
 
-access_modifiers = {"public": "", "protected": "_", "private": "__"}
+# fmt: off
+ctx.lists["self.code_operator"] = CodeOperators(
+    op_assign        = " = ",
+    op_sub           = " - ",
+    op_sub_assign    = " -= ",
+    op_add           = " + ",
+    op_add_assign    = " += ",
+    op_mult          = " * ",
+    op_mult_assign   = " *= ",
+    op_div           = " / ",
+    op_div_assign    = " /= ",
+    op_mod           = " % ",
+    op_mod_assign    = " %= ",
+    op_pow           = " ** ",
+    is_equal         = " == ",
+    is_not_equal     = " != ",
+    is_less          = " < ",
+    is_greater       = " > ",
+    is_less_equal    = " <= ",
+    is_greater_equal = " >= ",   
+    is_not           = "not ",
+    is_null          = " is None",
+    is_not_null      = " is not None",
+    is_in            = " in ",
+    op_and           = " and ",
+    op_or            = " or ",
+)
+access_modifiers = {
+    "public": "",
+    "protected": "_",
+    "private": "__",
+}
 ctx.lists["self.code_class_modifier"] = {}
 ctx.lists["self.code_function_modifier"] = access_modifiers
-ctx.lists["self.code_variable_modifier"] = {**access_modifiers, "global": "global"}
+ctx.lists["self.code_variable_modifier"] = {
+    **access_modifiers,
+    "global": "global",
+}
 ctx.lists["self.code_data_type"] = {
-    "string": "str",
-    "int": "int",
-    "float": "float",
-    "complex": "complex",
-    "bool": "bool",
-    "dict": "dict",
-    "set": "set",
-    "list": "list",
-    "range": "range",
-    "none": "None",
-    "any": "Any",
-    "tuple": "tuple",
-    "union": "Union",
-    "optional": "Optional",
+    "string"   : "str",
+    "int"      : "int",
+    "float"    : "float",
+    "complex"  : "complex",
+    "bool"     : "bool",
+    "dict"     : "dict",
+    "set"      : "set",
+    "list"     : "list",
+    "range"    : "range",
+    "none"     : "None",
+    "any"      : "Any",
+    "tuple"    : "tuple",
+    "union"    : "Union",
+    "optional" : "Optional",
 }
 ctx.lists["self.code_call_function"] = {
     "format",
@@ -46,104 +81,31 @@ ctx.lists["self.code_call_function"] = {
     "enumerate",
 }
 ctx.lists["self.code_insert"] = {
-    "true": "True",
-    "false": "False",
-    "None": "None",
-    "self": "self",
-    "pass": "pass",
-    "from": "from ",
-    "regex": "re",
-    "return": "return ",
-    "import": "import ",
-    "def": "def ",
-    "class": "class ",
-    "lambda": "lambda: ",
-    "global": "global ",
-    "raise": "raise ",
-    "yield": "yield ",
-    "break": "break",
-    "exception": "Exception",
-    "continue": "continue",
+    "true"      : "True",
+    "false"     : "False",
+    "None"      : "None",
+    "self"      : "self",
+    "pass"      : "pass",
+    "from"      : "from ",
+    "regex"     : "re",
+    "return"    : "return ",
+    "import"    : "import ",
+    "def"       : "def ",
+    "class"     : "class ",
+    "lambda"    : "lambda: ",
+    "global"    : "global ",
+    "raise"     : "raise ",
+    "yield"     : "yield ",
+    "break"     : "break",
+    "exception" : "Exception",
+    "continue"  : "continue",
 }
+# fmt: on
 
 
 @ctx.action_class("user")
 class UserActions:
-    # Assignment operator
-    def op_assign():
-        actions.insert(" = ")
-
-    # Math operators
-    def op_sub():
-        actions.insert(" - ")
-
-    def op_sub_assign():
-        actions.insert(" -= ")
-
-    def op_add():
-        actions.insert(" + ")
-
-    def op_add_assign():
-        actions.insert(" += ")
-
-    def op_mult():
-        actions.insert(" * ")
-
-    def op_mult_assign():
-        actions.insert(" *= ")
-
-    def op_div():
-        actions.insert(" / ")
-
-    def op_div_assign():
-        actions.insert(" /= ")
-
-    def op_mod():
-        actions.insert(" % ")
-
-    def op_mod_assign():
-        actions.insert(" %= ")
-
-    def op_exp():
-        actions.insert(" ** ")
-
-    # Comparison operators
-    def op_equal():
-        actions.insert(" == ")
-
-    def op_not_equal():
-        actions.insert(" != ")
-
-    def op_less():
-        actions.insert(" < ")
-
-    def op_greater():
-        actions.insert(" > ")
-
-    def op_less_or_eq():
-        actions.insert(" <= ")
-
-    def op_greater_or_eq():
-        actions.insert(" >= ")
-
-    def op_not():
-        actions.insert("not ")
-
-    def op_equal_null():
-        actions.insert(" is None")
-
-    def op_not_equal_null():
-        actions.insert(" is not None")
-
-    # Logical operators
-    def op_and():
-        actions.insert(" and ")
-
-    def op_or():
-        actions.insert(" or ")
-
     # Miscellaneous statements
-
     def insert_arrow():
         actions.insert(" -> ")
 

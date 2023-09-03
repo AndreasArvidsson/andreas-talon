@@ -1,9 +1,5 @@
 code.language: python
 -
 tag(): user.generic_language
-tag(): user.operators
+tag(): user.code_operators
 tag(): user.comments
-
-# ----- Python additional -----
-
-(op | is) in:               " in "
