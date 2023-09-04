@@ -36,3 +36,17 @@ const $name = ($1) => {
     $0
 }
 ---
+
+name: reactUseState
+phrase: use state
+-
+const [$1, set $1] = useState($0);
+---
+
+name: reactUseEffect
+phrase: use effect
+-
+useEffect(() => {
+    $0
+}, []);
+---
