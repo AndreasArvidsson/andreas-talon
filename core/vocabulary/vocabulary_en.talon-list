@@ -38,6 +38,7 @@ knaus j: Knausj
 Knausj
 Linpro
 Linux
+lodash
 Orust
 Pokey
 Quarkus
@@ -46,9 +47,9 @@ Redpill
 Talon
 toby: Tobii
 Tree sitter
+v as code: vscode
 Vimium
 visual code: vscode
-v as code: vscode
 vosk
 vscode
 Wildfly
