@@ -11,38 +11,44 @@ code.language: typescriptreact
 mode: command
 """
 
+# fmt: off
 types = {
-    "any": "any",
-    "bool": "boolean",
-    "never": "never",
-    "null": "null",
-    "number": "number",
-    "object": "object",
-    "regex": "RegExp",
-    "string": "string",
-    "undefined": "undefined",
-    "unknown": "unknown",
-    "void": "void",
+    "any"       : "any",
+    "bool"      : "boolean",
+    "never"     : "never",
+    "null"      : "null",
+    "number"    : "number",
+    "object"    : "object",
+    "regex"     : "RegExp",
+    "string"    : "string",
+    "undefined" : "undefined",
+    "unknown"   : "unknown",
+    "void"      : "void",
 }
 
 ctx.lists["self.code_data_type"] = {
     **types,
     **{f"{k} list": f"{v}[]" for k, v in types.items()},
 }
-
+ctx.lists["self.code_function_modifier"] = {
+    "public",
+    "private",
+    "protected",
+}
 ctx.lists["self.code_insert"] = {
     **javascript_inserts,
     **{
-        "public": "public ",
-        "private": "private ",
-        "protected": "protected ",
-        "readonly": "readonly ",
-        "interface": "interface ",
-        "type": "type ",
-        "key of": "keyof ",
-        "as": " as ",
+        "public"    : "public ",
+        "private"   : "private ",
+        "protected" : "protected ",
+        "readonly"  : "readonly ",
+        "interface" : "interface ",
+        "type"      : "type ",
+        "key of"    : "keyof ",
+        "as"        : " as ",
     },
 }
+# fmt: on
 
 
 @ctx.action_class("user")

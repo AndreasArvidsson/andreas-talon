@@ -110,6 +110,8 @@ class UserActions:
         actions.user.code_insert_snippet("functionDeclaration", {"name": name})
 
     def code_method(name: str, modifiers: list[str]):
+        if modifiers:
+            name = f"{''.join(modifiers)} {name}"
         actions.user.code_insert_snippet("methodDeclaration", {"name": name})
 
     # Variable statement
