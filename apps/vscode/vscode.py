@@ -95,6 +95,9 @@ class CodeActions:
     def toggle_comment():
         actions.user.vscode("editor.action.commentLine")
 
+    def complete():
+        actions.user.vscode("editor.action.triggerSuggest")
+
 
 @ctx_lang.action_class("code")
 class LangCodeActions:
