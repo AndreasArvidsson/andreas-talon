@@ -24,6 +24,7 @@ types = {
     "undefined" : "undefined",
     "unknown"   : "unknown",
     "void"      : "void",
+    "funk"      : "() => void",
 }
 
 ctx.lists["self.code_data_type"] = {
