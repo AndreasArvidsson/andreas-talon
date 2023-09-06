@@ -118,6 +118,7 @@ def on_ready():
         "Pictures",
         "Videos",
         "Dropbox",
+        "repositories",
     ]
     common_paths = {
         "user": user_path,
@@ -125,6 +126,7 @@ def on_ready():
         "talon home": str(actions.path.talon_home()),
         "talon user": str(actions.path.talon_user()),
         "talon recordings": path.join(str(actions.path.talon_home()), "recordings"),
+        "gss": path.join(user_path, "repositories", "gss-dev-environment"),
     }
     if app.platform == "windows":
         os_paths = get_windows_paths()
