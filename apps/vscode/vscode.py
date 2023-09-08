@@ -258,7 +258,11 @@ class UserActions:
 
     # ----- Dictation -----
     def dictation_get_context() -> tuple[str, str]:
-        context = actions.user.vscode_get("andreas.getDictationContext")
+        try:
+            context = actions.user.vscode_get("andreas.getDictationContext")
+        except Exception:
+            context = None
+
         if context is not None:
             return (context["before"], context["after"])
         return (None, None)
