@@ -10,7 +10,7 @@ import uuid
 
 import requests
 from typing import Optional
-from talon import Context, Module, actions, ui
+from talon import Module
 
 # ================================================================================
 # SET UP INSTRUCTIONS:
@@ -116,7 +116,7 @@ class DiscordClient:
                 decoded_header = struct.unpack("<ii", encoded_header)
                 encoded_data = recived_data[8:]
         except socket.timeout as e:
-            raise DiscordError(f"Socket timeout: {e}")
+            raise DiscordError(f"Socket timeout: {e}") from e
 
         result = json.loads(encoded_data.decode("utf-8"))
         if VERBOSE_LOGGING:
@@ -134,7 +134,7 @@ class DiscordClient:
             else:
                 self.socket.sendall(encoded_payload)
         except Exception as e:
-            raise DiscordError(f"Can't send data to Discord via IPC: {e}")
+            raise DiscordError(f"Can't send data to Discord via IPC: {e}") from e
 
     def connect(self):
         """Connect to Discord Client via IPC."""
@@ -150,7 +150,7 @@ class DiscordClient:
                 self.socket.settimeout(0.25)
                 self.socket.connect(self.ipc_path)
         except Exception as e:
-            raise DiscordError(f"Can't connect to Discord Client: {e}")
+            raise DiscordError(f"Can't connect to Discord Client: {e}") from e
 
         # Handshake
         self._send(0, {"v": 1, "client_id": self.client_id})
@@ -173,7 +173,7 @@ class DiscordClient:
     def authorize_if_needed(self):
         if os.path.exists(OAUTH2_CACHE_PATH):
             # Just use the cached OAuth2 details:
-            with open(OAUTH2_CACHE_PATH) as f:
+            with open(OAUTH2_CACHE_PATH, encoding="utf-8") as f:
                 obj = json.load(f)
                 self.access_token = obj["access_token"]
                 self.refresh_token = obj["refresh_token"]
@@ -213,7 +213,7 @@ class DiscordClient:
         )
         http_resp.raise_for_status()
 
-        with open(OAUTH2_CACHE_PATH, "w") as f:
+        with open(OAUTH2_CACHE_PATH, "w", encoding="utf-8") as f:
             f.write(json.dumps(http_resp.json(), indent=4))
 
         self.access_token = http_resp.json()["access_token"]
@@ -237,7 +237,7 @@ class DiscordClient:
 
         http_resp.raise_for_status()
 
-        with open(OAUTH2_CACHE_PATH, "w") as f:
+        with open(OAUTH2_CACHE_PATH, "w", encoding="utf-8") as f:
             f.write(json.dumps(http_resp.json(), indent=4))
 
         self.access_token = http_resp.json()["access_token"]
@@ -325,7 +325,7 @@ class DiscordClient:
 
 def create_discord_client() -> DiscordClient:
     if os.path.exists(OAUTH2_CREDENTIALS_PATH):
-        with open(OAUTH2_CREDENTIALS_PATH) as f:
+        with open(OAUTH2_CREDENTIALS_PATH, encoding="utf-8") as f:
             obj = json.load(f)
             client_id = obj["client_id"]
             client_secret = obj["client_secret"]

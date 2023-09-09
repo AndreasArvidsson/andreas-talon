@@ -10,4 +10,5 @@ code.language: jsonl
 ctx.lists["self.code_insert"] = {
     "true": "true",
     "false": "false",
+    "null": "null",
 }

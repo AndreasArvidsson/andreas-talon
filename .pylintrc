@@ -1,13 +1,13 @@
 [MESSAGES CONTROL]
 disable=
-no-method-argument,
-import-error,
-missing-module-docstring,
-no-self-argument,
-missing-function-docstring,
-invalid-name,
-missing-class-docstring,
-too-few-public-methods,
-self-cls-assignment,
-too-many-public-methods,
-wrong-import-order
+    missing-module-docstring,
+    import-error,
+    relative-beyond-top-level,
+    wrong-import-order,
+    missing-class-docstring,
+    missing-function-docstring,
+    no-method-argument,
+    no-self-argument,
+    global-statement,
+    invalid-name,
+    line-too-long
