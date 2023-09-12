@@ -2,24 +2,33 @@ from talon import Context, Module, actions, clip
 import re
 
 mod = Module()
-ctx = Context()
-ctx_no_terminal = Context()
 
-ctx_no_terminal.matches = r"""
-not tag: terminal
+# ---------- Paste insert ------
+
+mod.tag("insert_paste_disabled", "Never use paste to insert text")
+
+ctx_insert_paste = Context()
+ctx_insert_paste.matches = r"""
+not tag: user.insert_paste_disabled
 """
 
 # Matching strings that cannot be undone in a single step
 PASTE_RE = re.compile(r"\s|[ /-]")
 
 
-@ctx_no_terminal.action_class("main")
+@ctx_insert_paste.action_class("main")
 class MainActions:
     def insert(text: str):
         if re.search(PASTE_RE, text):
             actions.user.paste_text(text)
         else:
             actions.next(text)
+
+
+# ----------------------
+
+
+ctx = Context()
 
 
 @ctx.action_class("edit")

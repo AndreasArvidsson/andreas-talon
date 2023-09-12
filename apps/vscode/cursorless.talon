@@ -67,3 +67,6 @@ search for <user.cursorless_target>:
 
 {user.snippet_wrap} wrap <user.cursorless_target>:
     user.c_wrap_with_snippet(cursorless_target, snippet_wrap)
+
+place ({user.symbol} | <user.text>) <user.cursorless_destination>:
+    user.cursorless_insert(cursorless_destination, symbol or text)

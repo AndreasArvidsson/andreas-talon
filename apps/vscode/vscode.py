@@ -258,15 +258,19 @@ class UserActions:
 
     # ----- Dictation -----
     def dictation_get_context() -> tuple[str, str]:
-        context = actions.user.vscode_get("andreas.getDictationContext")
+        try:
+            context = actions.user.vscode_get("andreas.getDictationContext")
+        except Exception:
+            context = None
+
         if context is not None:
             return (context["before"], context["after"])
         return (None, None)
 
     # ----- Snippets -----
     def insert_snippet(snippet: str):
-        # actions.user.cursorless_insert_snippet(snippet)
-        actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
+        actions.user.cursorless_insert_snippet(snippet)
+        # actions.user.vscode("editor.action.insertSnippet", {"snippet": snippet})
 
 
 # @ctx_notebook.action_class("main")

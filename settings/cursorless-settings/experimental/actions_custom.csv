@@ -5,7 +5,7 @@ run cell, notebook.cell.executeAndFocusContainer
 git revert, git.revertSelectedRanges
 git add, git.stageSelectedRanges
 git reset, git.unstageSelectedRanges
-join, editor.action.joinLines
+join line, editor.action.joinLines
 rename tag, editor.emmet.action.updateTag
 split tag | join tag, editor.emmet.action.splitJoinTag
 reflow, rewrap.rewrapComment

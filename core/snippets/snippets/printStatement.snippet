@@ -1,18 +1,20 @@
 name: printStatement
 phrase: print
+
+$0.wrapperPhrase: print
 ---
 
 language: javascript
 -
-console.log($TM_SELECTED_TEXT$0)
+console.log($0)
 ---
 
 language: java
 -
-System.out.println($TM_SELECTED_TEXT$0);
+System.out.println($0);
 ---
 
 language: python | talon
 -
-print($TM_SELECTED_TEXT$0)
+print($0)
 ---
