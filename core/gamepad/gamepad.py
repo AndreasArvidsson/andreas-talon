@@ -1,11 +1,14 @@
-from talon import Module, actions, cron
+from talon import Module, actions, cron, ui
+from talon.screen import Screen
 import time
 
 HOLD_TIMEOUT = 0.2
 
+screen: Screen = ui.main_screen()
 mod = Module()
 cron_job = None
-slow_mode = False
+slow_scroll = False
+slow_mouse_move = False
 mouse_freeze_time = 0
 _x = 0
 _y = 0
@@ -16,7 +19,7 @@ class Actions:
     def gamepad_scroll(x: float, y: float):
         """Perform gamepad scrolling"""
         global cron_job, _x, _y
-        multiplier = 1.5 if slow_mode else 3
+        multiplier = 1.5 if slow_scroll else 3
         _x = x * multiplier
         _y = y * multiplier
 
@@ -26,6 +29,13 @@ class Actions:
         elif cron_job is not None:
             cron.cancel(cron_job)
             cron_job = None
+
+    def gamepad_mouse_move(x: float, y: float):
+        """Perform gamepad mouse cursor movement"""
+        multiplier = 0.05 if slow_mouse_move else 0.2
+        dx = x * screen.dpi * multiplier
+        dy = y * screen.dpi * multiplier
+        actions.user.mouse_move_delta(dx, dy)
 
     def gamepad_mouse_freeze(button_down: bool):
         """Toggle gamepad mouse freeze"""
@@ -38,9 +48,15 @@ class Actions:
 
     def gamepad_scroll_slow_toggle():
         """Toggle gamepad slow scroll mode"""
-        global slow_mode
-        slow_mode = not slow_mode
-        actions.user.notify(f"Gamepad slow scroll: {slow_mode}")
+        global slow_scroll
+        slow_scroll = not slow_scroll
+        # actions.user.notify(f"Gamepad slow scroll: {slow_scroll}")
+
+    def gamepad_mouse_move_slow_toggle():
+        """Toggle gamepad slow mouse move mode"""
+        global slow_mouse_move
+        slow_mouse_move = not slow_mouse_move
+        # actions.user.notify(f"Gamepad slow move: {slow_move}")
 
 
 def scroll_continuous_helper():

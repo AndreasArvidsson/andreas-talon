@@ -69,6 +69,11 @@ class Actions:
         """Mouse position (X, Y)"""
         return ctrl.mouse_pos()
 
+    def mouse_move_delta(dx: float, dy: float):
+        """Move mouse delta"""
+        x, y = ctrl.mouse_pos()
+        actions.mouse_move(x + dx, y + dy)
+
     def mouse_drag():
         """Press and hold/release button 0 depending on state for dragging"""
         if 0 in ctrl.mouse_buttons_down():

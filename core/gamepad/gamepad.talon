@@ -26,5 +26,5 @@ gamepad(r2:change):         user.gamepad_scroll(0, value)
 gamepad(left_xy):           user.gamepad_scroll(x, y*-1)
 gamepad(l3):                user.gamepad_scroll_slow_toggle()
 
-gamepad(right_xy):          user.gamepad_scroll(x, y*-1)
-gamepad(r3):                user.gamepad_scroll_slow_toggle()
+gamepad(right_xy:repeat):   user.gamepad_mouse_move(x, y*-1)
+gamepad(r3):                user.gamepad_mouse_move_slow_toggle()
