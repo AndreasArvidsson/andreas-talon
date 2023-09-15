@@ -46,8 +46,11 @@ class Actions:
         snippet: Snippet = actions.user.get_snippet(name)
         body = snippet.body
         if substitutions:
-            for k, v in substitutions.items():
-                body = body.replace(f"${k}", v)
+            for var_name, value in substitutions.items():
+                variable = snippet.get_variable(var_name)
+                if variable and variable.formatter:
+                    value = actions.user.format_text(value, variable.formatter)
+                body = body.replace(f"${var_name}", value)
         actions.user.insert_snippet(body)
 
     def code_insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):

@@ -20,7 +20,6 @@ class Actions:
 
 
 def insert_comment(name: str, text: str):
-    text = actions.user.format_text(text, "SENTENCE")
     actions.user.code_insert_snippet_by_name(
         name,
         {"0": f"{text}$0"},
