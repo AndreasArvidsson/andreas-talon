@@ -7,7 +7,7 @@ from .snippet_types import Snippet, SnippetVariable
 @dataclass
 class SnippetDocumentVar:
     name: str
-    wrapperPhrase: str = None
+    wrapperPhrases: list[str] = None
     wrapperScope: str = None
 
 
@@ -15,13 +15,14 @@ class SnippetDocumentVar:
 class SnippetDocument:
     variables: list[SnippetDocumentVar]
     name: str = None
-    phrase: str = None
-    language: list[str] = None
+    phrases: list[str] = None
+    insertionScopes: list[str] = None
+    languages: list[str] = None
     body: str = None
 
 
 def parse_snippet_file_from_disk(file_path: str) -> list[Snippet]:
-    with open(file_path) as f:
+    with open(file_path, encoding="utf-8") as f:
         content = f.read()
     documents = parse_snippet_file(content)
     return create_snippets(documents)
@@ -44,8 +45,8 @@ def create_snippet(
     document: SnippetDocument, default_context: SnippetDocument
 ) -> Snippet:
     name = document.name if document.name else default_context.name
-    languages = document.language if document.language else default_context.language
-    phrases = document.phrase if document.phrase else default_context.phrase
+    languages = document.languages if document.languages else default_context.languages
+    phrases = document.phrases if document.phrases else default_context.phrases
     body = normalize_snippet_body_tabs(document.body)
 
     if not name:
@@ -53,27 +54,25 @@ def create_snippet(
     if not body:
         raise ValueError(f"Missing body: {document}")
 
-    variables_map = {}
+    variables: dict[str, SnippetVariable] = {}
 
-    for variable in [*document.variables, *default_context.variables]:
-        if variable.wrapperPhrase is None:
+    for variable in [*default_context.variables, *document.variables]:
+        if variable.wrapperPhrases is None:
             raise ValueError(f"Missing variable phrase: {variable}")
-        if variable.name in variables_map:
+        if variable.name in variables:
             continue
         var_name = f"${variable.name}"
         if not var_name in body:
-            raise Exception(f"Variable '{var_name}' missing in body '{body}'")
-        variables_map[variable.name] = SnippetVariable(
-            variable.name, variable.wrapperPhrase, variable.wrapperScope
+            raise ValueError(f"Variable '{var_name}' missing in body '{body}'")
+        variables[variable.name] = SnippetVariable(
+            variable.name, variable.wrapperPhrases, variable.wrapperScope
         )
-
-    variables = list(variables_map.values())
 
     return Snippet(
         name=name,
         languages=languages,
         phrases=phrases,
-        variables=variables,
+        variables=list(variables.values()),
         body=body,
     )
 
@@ -153,12 +152,14 @@ def parse_context(text: str) -> Union[SnippetDocument, None]:
             case "name":
                 document.name = value
             case "phrase":
-                document.phrase = parse_vector_value(value)
+                document.phrases = parse_vector_value(value)
+            case "insertionScope":
+                document.insertionScopes = parse_vector_value(value)
             case "language":
-                document.language = parse_vector_value(value)
+                document.languages = parse_vector_value(value)
             case _:
                 if not key.startswith("$"):
-                    raise ValueError(f"Invalid key '${key}'")
+                    raise ValueError(f"Invalid key '{key}'")
                 variables[key] = value
 
     document.variables = parse_variables(variables)
@@ -186,12 +187,12 @@ def parse_context_pairs(text: str) -> dict[str, str]:
 
 
 def parse_variables(variables: dict[str, str]) -> list[SnippetDocumentVar]:
-    map: dict[str, SnippetDocumentVar] = {}
+    variables_map: dict[str, SnippetDocumentVar] = {}
 
     def get_variable(name: str) -> SnippetDocumentVar:
-        if name not in map:
-            map[name] = SnippetDocumentVar(name)
-        return map[name]
+        if name not in variables_map:
+            variables_map[name] = SnippetDocumentVar(name)
+        return variables_map[name]
 
     for key, value in variables.items():
         parts = key.split(".")
@@ -201,13 +202,13 @@ def parse_variables(variables: dict[str, str]) -> list[SnippetDocumentVar]:
         field = parts[1]
         match field:
             case "wrapperPhrase":
-                get_variable(name).wrapperPhrase = value
+                get_variable(name).wrapperPhrases = parse_vector_value(value)
             case "wrapperScope":
                 get_variable(name).wrapperScope = value
             case _:
                 raise ValueError(f"Invalid key '{key}'")
 
-    return list(map.values())
+    return list(variables_map.values())
 
 
 def parse_body(text: str) -> Union[str, None]:

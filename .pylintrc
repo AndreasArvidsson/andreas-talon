@@ -10,4 +10,6 @@ disable=
     no-self-argument,
     global-statement,
     invalid-name,
+    redefined-builtin,
+    redefined-outer-name,
     line-too-long

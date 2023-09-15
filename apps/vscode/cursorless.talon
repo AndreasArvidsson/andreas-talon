@@ -54,13 +54,12 @@ clear <user.cursorless_target> <user.repeater_phrase_all>:
     user.vscode_take_word(cursorless_target, repeater_phrase_all)
     edit.delete()
 
-# Misc
-break line <user.cursorless_target>:
-    user.cursorless_command("setSelectionBefore", cursorless_target)
-    key("enter")
+# Text insertion
+place ({user.symbol} | <user.text>) <user.cursorless_destination>:
+    user.cursorless_insert(cursorless_destination, symbol or text)
 
-search for <user.cursorless_target>:
-    user.c_browser_open_target(cursorless_target)
+snip {user.snippet_insert} <user.cursorless_destination>:
+    user.c_insert_snippet(snippet_insert, cursorless_destination)
 
 {user.symbol} wrap <user.cursorless_target>:
     user.c_wrap_with_symbol(cursorless_target, symbol)
@@ -68,5 +67,10 @@ search for <user.cursorless_target>:
 {user.snippet_wrap} wrap <user.cursorless_target>:
     user.c_wrap_with_snippet(cursorless_target, snippet_wrap)
 
-place ({user.symbol} | <user.text>) <user.cursorless_destination>:
-    user.cursorless_insert(cursorless_destination, symbol or text)
+# Misc
+break line <user.cursorless_target>:
+    user.cursorless_command("setSelectionBefore", cursorless_target)
+    key("enter")
+
+search for <user.cursorless_target>:
+    user.c_browser_open_target(cursorless_target)

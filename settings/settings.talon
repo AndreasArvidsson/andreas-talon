@@ -7,7 +7,7 @@ settings():
     speech.record_all = true
 
     # Set log level
-    user.log_level = "info"
+    user.log_level = "debug"
 
     # Print timings for spoken phrases
     user.print_phrase_timings = false

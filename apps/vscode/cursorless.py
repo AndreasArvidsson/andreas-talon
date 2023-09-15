@@ -1,6 +1,8 @@
 from talon import Module, actions
 from typing import Any
 import os
+from ...core.snippets.snippet_types import Snippet
+
 
 mod = Module()
 
@@ -44,12 +46,19 @@ class Actions:
             }
         )
 
+    def c_insert_snippet(name: str, destination: Any):
+        """Insert cursorless snippet <name>"""
+        snippet: Snippet = actions.user.get_snippet(name)
+        actions.user.cursorless_insert_snippet(
+            snippet.body, destination, snippet.insertionScopes
+        )
+
     def c_wrap_with_snippet(target: Any, id: str):
         """Wrap the target with snippet <id>"""
         index = id.rindex(".")
         snippet_id = id[:index]
         var_name = id[index + 1]
-        snippet = actions.user.get_snippet(snippet_id)
+        snippet: Snippet = actions.user.get_snippet(snippet_id)
         variable = next(v for v in snippet.variables if v.name == var_name)
         body = snippet.body.replace(f"${var_name}", "$TM_SELECTED_TEXT")
         actions.user.cursorless_wrap_with_snippet(

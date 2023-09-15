@@ -90,7 +90,7 @@ def group_by_language(snippets: list[Snippet]) -> dict[str, list[Snippet]]:
                     result[lang] = []
                 result[lang].append(snippet)
         else:
-            if not "_" in result:
+            if "_" not in result:
                 result["_"] = []
             result["_"].append(snippet)
     return result
@@ -119,7 +119,8 @@ def create_lists(
 
         if snippet.variables is not None:
             for var in snippet.variables:
-                wrappers[var.wrapperPhrase] = f"{id_ctx}.{var.name}"
+                for phrase in var.wrapperPhrases:
+                    wrappers[phrase] = f"{id_ctx}.{var.name}"
 
     return snippets_map, insertions, wrappers
 
