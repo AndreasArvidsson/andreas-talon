@@ -3,6 +3,7 @@ language: python
 
 name: talonAppDeclaration
 phrase: module app
+insertionScope: statement
 -
 mod.apps.$1 = r"""
 $0
@@ -11,6 +12,7 @@ $0
 
 name: talonModuleClass
 phrase: module class
+insertionScope: class | statement
 -
 @mod.action_class
 class Actions:
@@ -19,6 +21,7 @@ class Actions:
 
 name: talonContextMatch
 phrase: context match
+insertionScope: statement
 -
 ctx.matches = r"""
 $0
@@ -27,6 +30,7 @@ $0
 
 name: talonContextList
 phrase: context list
+insertionScope: statement
 -
 ctx.lists["self.$1"] = {
     $0
@@ -35,6 +39,7 @@ ctx.lists["self.$1"] = {
 
 name: talonContextClass
 phrase: context class
+insertionScope: class | statement
 -
 @ctx.action_class("$1")
 class $2Actions:
