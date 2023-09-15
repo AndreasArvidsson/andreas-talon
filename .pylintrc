@@ -8,6 +8,7 @@ disable=
     missing-function-docstring,
     no-method-argument,
     no-self-argument,
+    self-cls-assignment,
     global-statement,
     invalid-name,
     redefined-builtin,

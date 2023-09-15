@@ -99,20 +99,20 @@ ctx.lists["self.code_insert"] = javascript_inserts
 class UserActions:
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        actions.user.code_insert_snippet("classDeclaration", {"name": name})
+        actions.user.code_insert_snippet_by_name("classDeclaration", {"name": name})
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        actions.user.code_insert_snippet("constructorDeclaration")
+        actions.user.code_insert_snippet_by_name("constructorDeclaration")
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        actions.user.code_insert_snippet("functionDeclaration", {"name": name})
+        actions.user.code_insert_snippet_by_name("functionDeclaration", {"name": name})
 
     def code_method(name: str, modifiers: list[str]):
         if modifiers:
             name = f"{''.join(modifiers)} {name}"
-        actions.user.code_insert_snippet("methodDeclaration", {"name": name})
+        actions.user.code_insert_snippet_by_name("methodDeclaration", {"name": name})
 
     # Variable statement
     def code_variable(
@@ -157,4 +157,6 @@ class Actions:
         """Insert arrow function"""
         format = actions.user.code_get_function_format()
         name = actions.user.format_text(name, format)
-        actions.user.code_insert_snippet("namedLambdaExpression", {"name": name})
+        actions.user.code_insert_snippet_by_name(
+            "namedLambdaExpression", {"name": name}
+        )

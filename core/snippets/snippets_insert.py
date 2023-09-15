@@ -50,7 +50,7 @@ class Actions:
                 body = body.replace(f"${k}", v)
         actions.user.insert_snippet(body)
 
-    def code_insert_snippet(name: str, substitutions: dict[str, str] = None):
+    def code_insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
         """Insert snippet <name> for the current programming language"""
         lang = actions.code.language()
         actions.user.insert_snippet_by_name(f"{lang}.{name}", substitutions)

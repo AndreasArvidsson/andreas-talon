@@ -21,9 +21,11 @@ class UserActions:
         """Insert link <text>"""
         link = actions.clip.text()
         if is_valid_link(link):
-            actions.user.code_insert_snippet("linkWithUri", {"text": text, "uri": link})
+            actions.user.code_insert_snippet_by_name(
+                "linkWithUri", {"text": text, "uri": link}
+            )
         else:
-            actions.user.code_insert_snippet("link", {"text": text})
+            actions.user.code_insert_snippet_by_name("link", {"text": text})
 
 
 def is_valid_link(link: str) -> bool:

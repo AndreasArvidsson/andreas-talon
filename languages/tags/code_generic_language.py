@@ -71,7 +71,7 @@ class Actions:
     # ----- New instance  -----
     def code_new_instance(name: str):
         """Create new instance of <name>"""
-        actions.user.code_insert_snippet("newInstance", {"name": name})
+        actions.user.code_insert_snippet_by_name("newInstance", {"name": name})
 
     # ----- Insert types -----
     def code_insert_type_annotation(type: str):

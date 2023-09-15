@@ -9,4 +9,4 @@ tag(): user.code_call_function
 require {user.code_talon_context}: "{code_talon_context}"
 
 # Generic
-snip command:               user.code_insert_snippet("voiceCommandDeclaration")
+snip command:               user.code_insert_snippet_by_name("voiceCommandDeclaration")
