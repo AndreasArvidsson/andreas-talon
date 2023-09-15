@@ -206,7 +206,7 @@ def parse_variables(variables: dict[str, str]) -> list[SnippetDocumentVar]:
             case "wrapperScope":
                 get_variable(name).wrapperScope = value
             case _:
-                raise ValueError(f"Invalid key '{key}'")
+                raise ValueError(f"Invalid variable key '{key}'")
 
     return list(variables_map.values())
 
