@@ -197,7 +197,7 @@ def parse_variables(variables: dict[str, str]) -> list[SnippetDocumentVar]:
     for key, value in variables.items():
         parts = key.split(".")
         if len(parts) != 2:
-            raise ValueError(f"Invalid key '{key}'")
+            raise ValueError(f"Invalid variable key '{key}'")
         name = parts[0][1:]
         field = parts[1]
         match field:
