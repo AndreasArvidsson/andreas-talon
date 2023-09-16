@@ -10,7 +10,7 @@ class Actions:
     # Default implementation inserts snippets as normal text
     def insert_snippet(snippet: str):
         """Insert snippet"""
-        lines = snippet.split("\n")
+        lines = snippet.splitlines()
         found_stop = False
 
         for i, line in enumerate(lines):
@@ -31,10 +31,11 @@ class Actions:
             line = re.sub(r"\$\{\d+:(.*?)\}", r"\1", line)
             # Remove tab stops
             line = re.sub(r"\$\d+", "", line)
+            # Update existing line
+            lines[i] = line
 
-            if i > 0:
-                actions.edit.line_insert_down()
-            actions.insert(line)
+        updated_snippet = "\n".join(lines)
+        actions.insert(updated_snippet)
 
         if found_stop:
             up(len(lines) - stop_row - 1)
