@@ -85,9 +85,10 @@ def gui(gui: imgui.GUI):
     for i, item in enumerate(clip_history):
         gui.line(bold=i == 0)
         if item.image:
-            gui.image(item.image)
+            if gui.image(item.image, clickable=True):
+                clicked_num = i + 1
         else:
-            if gui.text(item.text):
+            if gui.text(item.text, clickable=True):
                 clicked_num = i + 1
 
 

@@ -73,11 +73,12 @@ class State:
 
 
 class Text:
-    def __init__(self, text: str, header: bool):
+    def __init__(self, text: str, clickable: bool, header: bool):
         self.numbered = not header
         self.text = text
         self.header = header
         self.rect = None
+        self.clickable = clickable
         self._is_clicked = False
 
     def is_clicked(self):
@@ -86,7 +87,7 @@ class Text:
         return is_clicked
 
     def click(self):
-        self._is_clicked = True
+        self._is_clicked = self.clickable
 
     def draw(self, state: State):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
@@ -149,6 +150,7 @@ class Button:
         self.numbered = False
         self.text = text
         self.rect = None
+        self.clickable = True
         self._is_clicked = False
 
     def is_clicked(self):
@@ -157,7 +159,7 @@ class Button:
         return is_clicked
 
     def click(self):
-        self._is_clicked = True
+        self._is_clicked = self.clickable
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
@@ -193,37 +195,22 @@ class Button:
         state.add_height(height + state.padding)
 
 
-class Line:
-    def __init__(self, bold: bool):
-        self.numbered = False
-        self.bold = bold
-        self.rect = None
-
-    def draw(self, state: State):
-        y = state.y + state.padding - 1
-        state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.paint.color = text_color if self.bold else button_bg_color
-        state.canvas.draw_line(
-            state.x, y, state.x + state.canvas.width - state.font_size, y
-        )
-        state.add_height(state.font_size)
-
-
-class Spacer:
-    def __init__(self):
-        self.numbered = False
-        self.rect = None
-
-    def draw(self, state: State):
-        state.add_height(state.font_size)
-
-
 class Image:
-    def __init__(self, image: SkiaImage):
+    def __init__(self, image: SkiaImage, clickable: bool):
         self.numbered = True
         self._imageOriginal = image
         self._image = image
         self.rect = None
+        self.clickable = clickable
+        self._is_clicked = False
+
+    def is_clicked(self):
+        is_clicked = self._is_clicked
+        self._is_clicked = False
+        return is_clicked
+
+    def click(self):
+        self._is_clicked = self.clickable
 
     def _resize(self, state: State):
         max_width = state.screen.width * MAX_IMAGE_WIDTH
@@ -249,9 +236,42 @@ class Image:
 
     def draw(self, state: State):
         self._resize(state)
+
+        self.rect = Rect(
+            state.x_text,
+            state.y,
+            self._image.width,
+            self._image.height,
+        )
+
         state.canvas.draw_image(self._image, state.x_text, state.y)
         state.add_width(self._image.width, offset=True)
         state.add_height(self._image.height + state.padding)
+
+
+class Line:
+    def __init__(self, bold: bool):
+        self.numbered = False
+        self.bold = bold
+        self.rect = None
+
+    def draw(self, state: State):
+        y = state.y + state.padding - 1
+        state.canvas.paint.style = state.canvas.paint.Style.FILL
+        state.canvas.paint.color = text_color if self.bold else button_bg_color
+        state.canvas.draw_line(
+            state.x, y, state.x + state.canvas.width - state.font_size, y
+        )
+        state.add_height(state.font_size)
+
+
+class Spacer:
+    def __init__(self):
+        self.numbered = False
+        self.rect = None
+
+    def draw(self, state: State):
+        state.add_height(state.font_size)
 
 
 class GUI:
@@ -274,6 +294,7 @@ class GUI:
         self._screen_current = None
         self._buttons: dict[str, Button] = {}
         self._texts: dict[str, Text] = {}
+        self._images: dict[int, Image] = {}
         self._canvas = None
         self._last_mouse_pos = None
         self._elements = []
@@ -303,19 +324,20 @@ class GUI:
             self._canvas.close()
             self._buttons = {}
             self._texts = {}
+            self._images = {}
             self._showing = False
 
-    def text(self, text: str) -> bool:
-        return self._text(text, header=False)
+    def text(self, text: str, clickable=False) -> bool:
+        return self._text(text, clickable, header=False)
 
-    def header(self, text: str) -> bool:
-        return self._text(text, header=True)
+    def header(self, text: str, clickable=False) -> bool:
+        return self._text(text, clickable, header=True)
 
-    def _text(self, text: str, header: bool) -> bool:
+    def _text(self, text: str, clickable: bool, header: bool) -> bool:
         if text in self._texts:
             element = self._texts[text]
         else:
-            element = Text(text, header)
+            element = Text(text, clickable, header)
             self._texts[text] = element
         self._elements.append(element)
         return element.is_clicked()
@@ -329,14 +351,20 @@ class GUI:
         self._elements.append(element)
         return element.is_clicked()
 
+    def image(self, image, clickable=False):
+        if image.unique_id in self._images:
+            element = self._images[image.unique_id]
+        else:
+            element = Image(image, clickable)
+            self._images[image.unique_id] = element
+        self._elements.append(element)
+        return element.is_clicked()
+
     def line(self, bold: Optional[bool] = False):
         self._elements.append(Line(bold))
 
     def spacer(self):
         self._elements.append(Spacer())
-
-    def image(self, image):
-        self._elements.append(Image(image))
 
     def _draw(self, canvas):
         canvas.paint.typeface = FONT_FAMILY
@@ -403,7 +431,8 @@ class GUI:
 
     def _mouse(self, e: MouseEvent):
         if e.event == "mousedown" and e.button == 0:
-            if not self._get_element(e.gpos):
+            element = self._get_element(e.gpos)
+            if not element or not element.clickable:
                 self._last_mouse_pos = e.gpos
         elif e.event == "mousemove" and self._last_mouse_pos:
             dx = e.gpos.x - self._last_mouse_pos.x
@@ -413,7 +442,7 @@ class GUI:
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
             element = self._get_element(e.gpos)
-            if element:
+            if element and element.clickable:
                 element.click()
 
     def _get_element(self, pos):
