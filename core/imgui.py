@@ -221,16 +221,17 @@ class Spacer:
 class Image:
     def __init__(self, image: SkiaImage):
         self.numbered = True
+        self._imageOriginal = image
         self._image = image
         self.rect = None
 
-    def _resize(self, state: State) -> SkiaImage:
+    def _resize(self, state: State):
         max_width = state.screen.width * MAX_IMAGE_WIDTH
         max_height = state.screen.height * MAX_IMAGE_HEIGHT
-        aspect_ratio = self._image.width / self._image.height
+        aspect_ratio = self._imageOriginal.width / self._imageOriginal.height
 
-        width = self._image.width
-        height = self._image.height
+        width = self._imageOriginal.width
+        height = self._imageOriginal.height
 
         if width > max_width:
             width = max_width
@@ -240,13 +241,17 @@ class Image:
             height = max_height
             width = height * aspect_ratio
 
-        return self._image.reshape(int(round(width)), int(round(height)))
+        width = int(round(width))
+        height = int(round(height))
+
+        if width != self._image.width or height != self._image.height:
+            self._image = self._imageOriginal.reshape(width, height)
 
     def draw(self, state: State):
-        image = self._resize(state)
-        state.canvas.draw_image(image, state.x_text, state.y)
-        state.add_width(image.width, offset=True)
-        state.add_height(image.height + state.padding)
+        self._resize(state)
+        state.canvas.draw_image(self._image, state.x_text, state.y)
+        state.add_width(self._image.width, offset=True)
+        state.add_height(self._image.height + state.padding)
 
 
 class GUI:
