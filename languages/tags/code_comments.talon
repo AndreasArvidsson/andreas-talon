@@ -10,5 +10,5 @@ snip comment <user.text>$:
 snip block comment <user.text>$:
     user.code_comment_insert_block(text)
 
-snip dock [comment | string] <user.text>:
+snip dock (comment | string) <user.text>:
     user.code_comment_insert_docstring(text)
