@@ -1,6 +1,4 @@
 from talon import ui, Module, Context, actions
-from dataclasses import dataclass
-
 
 mod = Module()
 ctx = Context()

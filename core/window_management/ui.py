@@ -7,7 +7,7 @@ ctx = Context()
 
 
 @ctx.action_class("app")
-class AppActionsWin:
+class AppActions:
     def window_previous():
         cycle_windows(ui.active_app(), -1)
 
@@ -50,7 +50,7 @@ class Actions:
             if w.rect.contains(x, y) and is_window_valid(w) and is_app_valid(w.app)
         ]
         if not windows:
-            raise Exception("Can't find window under the mouse cursor")
+            raise ValueError("Can't find window under the mouse cursor")
         return windows[0]
 
     def focus_app(app: ui.App):
@@ -84,6 +84,7 @@ class Actions:
 
 
 def cycle_windows(app: ui.App, diff: int):
+    """Cycle windows backwards or forwards for the given application"""
     active = app.active_window
     windows = [w for w in app.windows() if w == active or is_window_valid(w)]
     windows.sort(key=lambda w: w.id)
@@ -95,11 +96,12 @@ def cycle_windows(app: ui.App, diff: int):
         try:
             actions.user.focus_window(windows[i])
             break
-        except:
+        except Exception:
             i = cycle(i + diff, 0, max)
 
 
 def is_app_valid(app: ui.App) -> bool:
+    """Returns true if this application is valid for focusing"""
     return (
         not app.background
         and not is_system_app(app)
@@ -108,6 +110,7 @@ def is_app_valid(app: ui.App) -> bool:
 
 
 def is_window_valid(window: ui.Window) -> bool:
+    """Returns true if this window is valid for focusing"""
     return (
         not window.hidden
         and window.title != ""
