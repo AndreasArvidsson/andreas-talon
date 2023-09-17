@@ -60,14 +60,14 @@ def update():
 
     try:
         image = mime.image
-    except:
+    except Exception:
         image = None
 
     if not text:
         if image is not None:
             text = f"Image(width={image.width}, height={image.height})"
         elif is_image(mime):
-            text = f"Image(UNKNOWN)"
+            text = "Image(UNKNOWN)"
         else:
             text = "UNKNOWN"
 

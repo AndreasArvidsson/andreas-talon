@@ -1,6 +1,5 @@
 from talon import Module, skia, ui, app, settings
 from talon.skia.image import Image as SkiaImage
-from talon.skia.imagefilter import ImageFilter as ImageFilter
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.types import Rect
@@ -270,6 +269,9 @@ class GUI:
         self._screen_current = None
         self._buttons: dict[str, Button] = {}
         self._texts: dict[str, Text] = {}
+        self._canvas = None
+        self._last_mouse_pos = None
+        self._elements = []
 
     @property
     def showing(self):
@@ -420,7 +422,7 @@ class GUI:
             return self._screen
         try:
             return ui.active_window().screen
-        except:
+        except Exception:
             return ui.main_screen()
 
     def _get_screen_for_pos(self, x: float, y: float) -> Screen:
@@ -429,7 +431,7 @@ class GUI:
         for screen in ui.screens():
             if screen.contains(x, y):
                 return screen
-        raise Exception("Can't find screen for position {x}, {y}")
+        raise ValueError("Can't find screen for position {x}, {y}")
 
 
 @dataclass
