@@ -27,8 +27,8 @@ snap_positions = {
     # .--.--.--.
     # |  |  |  |
     # '--'--'--'
-    "left small": RelativePosition(0, 0, 1 / 3, 1),
     "center small": RelativePosition(1 / 3, 0, 2 / 3, 1),
+    "left small": RelativePosition(0, 0, 1 / 3, 1),
     "right small": RelativePosition(2 / 3, 0, 1, 1),
     "left large": RelativePosition(0, 0, 2 / 3, 1),
     "right large": RelativePosition(1 / 3, 0, 1, 1),
@@ -44,14 +44,14 @@ snap_positions = {
     # .--.--.--.
     # |--|--|--|
     # '--'--'--'
-    "top left small": RelativePosition(0, 0, 1 / 3, 0.5),
     "top center small": RelativePosition(1 / 3, 0, 2 / 3, 0.5),
+    "top left small": RelativePosition(0, 0, 1 / 3, 0.5),
     "top right small": RelativePosition(2 / 3, 0, 1, 0.5),
-    "bottom left small": RelativePosition(0, 0.5, 1 / 3, 1),
-    "bottom center small": RelativePosition(1 / 3, 0.5, 2 / 3, 1),
-    "bottom right small": RelativePosition(2 / 3, 0.5, 1, 1),
     "top left large": RelativePosition(0, 0, 2 / 3, 0.5),
     "top right large": RelativePosition(1 / 3, 0, 1, 0.5),
+    "bottom center small": RelativePosition(1 / 3, 0.5, 2 / 3, 1),
+    "bottom left small": RelativePosition(0, 0.5, 1 / 3, 1),
+    "bottom right small": RelativePosition(2 / 3, 0.5, 1, 1),
     "bottom left large": RelativePosition(0, 0.5, 2 / 3, 1),
     "bottom right large": RelativePosition(1 / 3, 0.5, 1, 1),
     # Special
