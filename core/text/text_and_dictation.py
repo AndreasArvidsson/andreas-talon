@@ -98,7 +98,7 @@ def prose() -> str:
 
 # The prose capture needs to be defined on the context to work with Swedish dictation.
 @ctx.capture("user.prose", rule=prose_role)
-def prose(m) -> str:
+def prose_ctx(m) -> str:
     text, _state = auto_capitalize(format_phrase(m))
     return text
 
