@@ -46,8 +46,8 @@ class CodeFormatter(Formatter):
         format_first: Callable[[str], str],
         format_rest: Callable[[str], str],
     ):
-        # Strip anything that is not alpha-num, whitespace or dot
-        text = re.sub(r"[^\w\d\s.]+", "", text)
+        # Strip anything that is not alpha-num, whitespace, dot or comma
+        text = re.sub(r"[^\w\d\s.,]+", "", text)
         # Split on anything that is not alpha-num
         words = re.split(r"([^\w\d]+)", text)
         groups = []
@@ -63,7 +63,8 @@ class CodeFormatter(Formatter):
             # Word is symbol
             elif not word.isalpha():
                 groups.append(delimiter.join(group))
-                word = word.strip()
+                if word.startswith("."):
+                    word = word.rstrip()
                 first = True
                 groups.append(word)
                 group = []
@@ -204,7 +205,7 @@ formatters = [
     # Re-formatters
     CapitalizeFormatter("CAPITALIZE_FIRST_WORD"),
     Formatter("COMMA_SEPARATED", lambda text: re.sub(r"\s+", ", ", text)),
-    Formatter("REMOVE_FORMATTING", lambda text: remove_code_formatting(text)),
+    Formatter("REMOVE_FORMATTING", remove_code_formatting),
 ]
 
 formatters_dict = {f.id: f for f in formatters}
