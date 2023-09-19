@@ -1,7 +1,7 @@
 from talon import actions
 
 input_raw = "why? and. It's nice!"
-input_raw_numbers = "why? and. It's nice 123.0!"
+input_raw_symbols = "why? and. It's nice 123.0!,hello"
 import_unicode = "Hej på dig åäö"
 
 fixtures_format = [
@@ -35,8 +35,8 @@ fixtures_format = [
     ["DOUBLE_UNDERSCORE", input_raw, "why__and.its__nice"],
     ["DOUBLE_COLON_SEPARATED", input_raw, "why::and.its::nice"],
     # Symbols
-    ["Numbers camel", "CAMEL_CASE", input_raw_numbers, "whyAnd.itsNice123.0"],
-    ["Numbers snake", "SNAKE_CASE", input_raw_numbers, "why_and.its_nice_123.0"],
+    ["Numbers camel", "CAMEL_CASE", input_raw_symbols, "whyAnd.itsNice123.0, hello"],
+    ["Numbers snake", "SNAKE_CASE", input_raw_symbols, "why_and.its_nice_123.0, hello"],
     # Unicode characters
     ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
     ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],

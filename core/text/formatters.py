@@ -63,8 +63,9 @@ class CodeFormatter(Formatter):
             # Word is symbol
             elif not word.isalpha():
                 groups.append(delimiter.join(group))
-                if word.startswith("."):
-                    word = word.rstrip()
+                word = word.strip()
+                if word != ".":
+                    word += " "
                 first = True
                 groups.append(word)
                 group = []
