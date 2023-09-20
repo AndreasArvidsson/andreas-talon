@@ -53,7 +53,7 @@ class Actions:
 
     def scroll_speed_show():
         """Show scroll speed"""
-        actions.user.notify("Scroll speed: {}%".format(scroll_speed))
+        actions.user.notify(f"Scroll speed: {scroll_speed}%")
 
     def scroll_speed(speed: int):
         """Set scroll speed"""

@@ -50,15 +50,14 @@ class Actions:
         global scroll_job, scroll_dir, scroll_ts
         new_scroll_dir = -1 if direction == "up" else 1
 
-        if scroll_job != None:
+        if scroll_job is not None:
             # Issuing a scroll in the same direction as existing aborts it
             if scroll_dir == new_scroll_dir:
                 actions.user.mouse_scroll_stop()
                 return
             # Issuing a scroll in the reverse direction resets acceleration
-            else:
-                scroll_dir = new_scroll_dir
-                scroll_ts = time.perf_counter()
+            scroll_dir = new_scroll_dir
+            scroll_ts = time.perf_counter()
 
         if scroll_job is None:
             scroll_dir = new_scroll_dir
