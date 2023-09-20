@@ -20,8 +20,8 @@ class Actions:
         """Perform gamepad scrolling"""
         global cron_job, _x, _y
         multiplier = 1.5 if slow_scroll else 3
-        _x = x * multiplier
-        _y = y * multiplier
+        _x = x**3 * multiplier
+        _y = y**3 * multiplier
 
         if _x != 0 or _y != 0:
             if cron_job is None:
@@ -32,9 +32,9 @@ class Actions:
 
     def gamepad_mouse_move(x: float, y: float):
         """Perform gamepad mouse cursor movement"""
-        multiplier = 0.05 if slow_mouse_move else 0.2
-        dx = x * screen.dpi * multiplier
-        dy = y * screen.dpi * multiplier
+        multiplier = 0.2 if slow_mouse_move else 0.5
+        dx = x**3 * screen.dpi * multiplier
+        dy = y**3 * screen.dpi * multiplier
         actions.user.mouse_move_delta(dx, dy)
 
     def gamepad_mouse_freeze(button_down: bool):
