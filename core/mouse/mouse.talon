@@ -25,7 +25,7 @@ tracking:                   user.mouse_control_toggle()
 ^track debug$:              tracking.control_debug_toggle()
 
 # Cursor
-cursor center:              user.mouse_center_window()
+cursor center:              user.mouse_move_center_window()
 cursor print:               print("{mouse_x()}, {mouse_y()}")
 cursor copy:                clip.set_text("{mouse_x()}, {mouse_y()}")
 # ^cursor show$:              user.mouse_show_cursor()

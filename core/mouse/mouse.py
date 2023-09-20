@@ -62,7 +62,7 @@ class Actions:
             actions.mouse_click()
             actions.key("shift:up")
         elif action == "center":
-            actions.user.mouse_center_window()
+            actions.user.mouse_move_center_window()
             actions.mouse_click()
 
     def mouse_pos() -> tuple[float, float]:
@@ -83,8 +83,8 @@ class Actions:
             actions.mouse_drag()
             actions.user.notify("Mouse drag: True")
 
-    def mouse_center_window():
-        """Move the mouse cursor to the center of the currently active window"""
+    def mouse_move_center_window():
+        """Move the mouse cursor to the center of the active window"""
         rect = ui.active_window().rect
         actions.mouse_move(rect.center.x, rect.center.y)
 

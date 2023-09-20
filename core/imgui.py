@@ -415,7 +415,7 @@ class GUI:
         self._y_moved = self._canvas.rect.y + dy
         center_x = self._canvas.rect.center.x + dx
         center_y = self._canvas.rect.center.y + dy
-        self._screen_current = self._get_screen_for_pos(center_x, center_y)
+        self._screen_current = ui.screen_containing(center_x, center_y)
         self._canvas.move(self._x_moved, self._y_moved)
 
     def _draw_background(self, canvas):
@@ -458,14 +458,6 @@ class GUI:
             return ui.active_window().screen
         except Exception:
             return ui.main_screen()
-
-    def _get_screen_for_pos(self, x: float, y: float) -> Screen:
-        if self._screen_current.contains(x, y):
-            return self._screen_current
-        for screen in ui.screens():
-            if screen.contains(x, y):
-                return screen
-        raise ValueError("Can't find screen for position {x}, {y}")
 
 
 @dataclass
