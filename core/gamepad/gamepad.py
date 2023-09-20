@@ -32,7 +32,7 @@ class Actions:
 
     def gamepad_mouse_move(x: float, y: float):
         """Perform gamepad mouse cursor movement"""
-        multiplier = 0.2 if slow_mouse_move else 0.5
+        multiplier = 0.15 if slow_mouse_move else 0.3
         dx = x**3 * screen.dpi * multiplier
         dy = y**3 * screen.dpi * multiplier
         actions.user.mouse_move_delta(dx, dy)
@@ -57,6 +57,35 @@ class Actions:
         global slow_mouse_move
         slow_mouse_move = not slow_mouse_move
         # actions.user.notify(f"Gamepad slow move: {slow_move}")
+
+    def gamepad_mouse_jump(direction: str):
+        """Move the mouse cursor to the specified quadrant of the active screen"""
+        x, y = actions.user.mouse_pos()
+        rect = ui.screen_containing(x, y).rect
+
+        # Half distance between cursor and screen edge
+        match direction:
+            case "up":
+                y = rect.top + (y - rect.top) / 2
+            case "down":
+                y = rect.bot - (rect.bot - y) / 2
+            case "left":
+                x = rect.left + (x - rect.left) / 2
+            case "right":
+                x = rect.right - (rect.right - x) / 2
+
+        # # Move one fourth of screen width/height
+        # match direction:
+        #     case "up":
+        #         y -= rect.height / 4
+        #     case "down":
+        #         y += rect.height / 4
+        #     case "left":
+        #         x -= rect.width / 4
+        #     case "right":
+        #         x += rect.width / 4
+
+        actions.mouse_move(x, y)
 
 
 def scroll_continuous_helper():
