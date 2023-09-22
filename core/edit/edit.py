@@ -146,16 +146,16 @@ class EditActions:
 class Actions:
     def insert_with_padding(text: str):
         """Insert text with padding"""
-        before, after = actions.user.dictation_get_context()
+        if text[0].isspace() or text[-1].isspace():
+            before, after = actions.user.dictation_get_context()
 
-        if before is not None:
-            text = text.lstrip()
-            if len(before) != 0 and not before[-1].isspace():
-                text = " " + text
+            # At start of line or has leading whitespace
+            if before is not None and (len(before) == 0 or before[-1].isspace()):
+                text = text.lstrip()
 
-        if after is not None:
-            if len(after) != 0 and not after[0].isspace():
-                text = text.rstrip() + " "
+            # Has trailing whitespace
+            if after is not None and len(after) != 0 and after[0].isspace():
+                text = text.rstrip()
 
         actions.insert(text)
 
