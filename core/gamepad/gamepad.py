@@ -30,12 +30,14 @@ class Actions:
             cron.cancel(cron_job)
             cron_job = None
 
-    def gamepad_mouse_move(x: float, y: float):
+    def gamepad_mouse_move(dx: float, dy: float):
         """Perform gamepad mouse cursor movement"""
         multiplier = 0.15 if slow_mouse_move else 0.3
-        dx = x**3 * screen.dpi * multiplier
-        dy = y**3 * screen.dpi * multiplier
-        actions.user.mouse_move_delta(dx, dy)
+        x, y = actions.user.mouse_pos()
+        screen = get_screen(x, y)
+        dx = dx**3 * screen.dpi * multiplier
+        dy = dy**3 * screen.dpi * multiplier
+        actions.mouse_move(x + dx, y + dy)
 
     def gamepad_mouse_freeze(button_down: bool):
         """Toggle gamepad mouse freeze"""
@@ -90,3 +92,10 @@ class Actions:
 
 def scroll_continuous_helper():
     actions.mouse_scroll(x=_x, y=_y, by_lines=True)
+
+
+def get_screen(x: float, y: float) -> Screen:
+    global screen
+    if not screen.contains(x, y):
+        screen = ui.screen_containing(x, y)
+    return screen
