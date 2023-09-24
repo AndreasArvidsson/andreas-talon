@@ -1,4 +1,4 @@
-from talon import app, Module, Context, actions, app
+from talon import app, Module, Context, actions
 from os import path, environ
 
 mod = Module()
