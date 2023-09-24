@@ -1,6 +1,6 @@
 from talon import Module, Context, registry
 from talon_init import TALON_HOME
-from typing import Any
+from typing import Any, Union
 import re
 import os
 import inspect
@@ -122,15 +122,18 @@ def get_action_explanation(
 
     for param, arg in zip(action_params[:length], action_args[:length]):
         value = update_parameter(param, parameters_map)
-        action_desc = action_desc.replace(f"<{arg}>", f"'{value}'")
+        if value is not None:
+            action_desc = action_desc.replace(f"<{arg}>", f"'{value}'")
 
     return action_desc.replace("\n", "\\n")
 
 
-def update_parameter(param: str, map: dict) -> str:
+def update_parameter(param: str, map: dict) -> Union[str, None]:
     if is_string(param):
         for p in set(PARAM_RE.findall(param)):
-            param = param.replace(f"{{{p}}}", update_parameter(p, map))
+            value = update_parameter(p, map)
+            if value is not None:
+                param = param.replace(f"{{{p}}}", value)
         return destring(param)
 
     if param in map:
@@ -144,7 +147,7 @@ def update_parameter(param: str, map: dict) -> str:
             return str(map[param])
         return update_parameter(default_value, map)
 
-    return param
+    return None
 
 
 def is_string(text: str) -> bool:
