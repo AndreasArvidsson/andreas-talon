@@ -9,6 +9,7 @@ disable=
     no-method-argument,
     no-self-argument,
     self-cls-assignment,
+    too-many-arguments,
     no-member,
     global-statement,
     invalid-name,
