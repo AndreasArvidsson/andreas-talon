@@ -49,7 +49,7 @@ def calc_command_actions(
             continue
 
         if action_name not in registry.actions:
-            raise Exception(f"Can't find action {action_name}")
+            raise ValueError(f"Can't find action {action_name}")
 
         action = registry.actions[action_name][-1]
         action_args = inspect.getfullargspec(action.func).args
@@ -57,7 +57,7 @@ def calc_command_actions(
 
         try:
             line_number = inspect.getsourcelines(action.func)[1]
-        except:
+        except Exception:
             line_number = None
 
         mod_desc = action.type_decl.desc
