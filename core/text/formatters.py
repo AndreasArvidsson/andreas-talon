@@ -1,21 +1,43 @@
 from talon import Module, Context, actions
 from typing import Callable
+from abc import ABC, abstractmethod
 import re
 
 mod = Module()
 ctx = Context()
 
 
-class Formatter:
+class Formatter(ABC):
+    def __init__(self, id: str):
+        self.id = id
+
+    @abstractmethod
+    def format(self, text: str) -> str:
+        pass
+
+    @abstractmethod
+    def unformat(self, text: str) -> str:
+        pass
+
+
+class CustomFormatter(Formatter):
     def __init__(
         self,
         id: str,
         format: Callable[[str], str],
         unformat: Callable[[str], str] = None,
     ):
-        self.id = id
-        self.format = format
-        self.unformat = unformat
+        super().__init__(id)
+        self._format = format
+        self._unformat = unformat
+
+    def format(self, text: str) -> str:
+        return self._format(text)
+
+    def unformat(self, text: str) -> str:
+        if self._unformat:
+            return self._unformat(text)
+        return text
 
 
 class CodeFormatter(Formatter):
@@ -26,7 +48,7 @@ class CodeFormatter(Formatter):
         format_first: Callable[[str], str],
         format_rest: Callable[[str], str],
     ):
-        self.id = id
+        super().__init__(id)
         self._delimiter = delimiter
         self._format_first = format_first
         self._format_rest = format_rest
@@ -87,9 +109,6 @@ class TitleFormatter(Formatter):
         "a an and as at but by en for if in nor of on or per the to v via vs".split()
     )
 
-    def __init__(self, id: str):
-        self.id = id
-
     def format(self, text: str) -> str:
         words = [x for x in re.split(r"(\s+)", text) if x]
         words = self._title_case_words(words)
@@ -129,9 +148,6 @@ class TitleFormatter(Formatter):
 
 
 class CapitalizeFormatter(Formatter):
-    def __init__(self, id: str):
-        self.id = id
-
     def format(self, text: str) -> str:
         return re.sub(r"^\S+", lambda m: m.group().capitalize(), text)
 
@@ -140,9 +156,6 @@ class CapitalizeFormatter(Formatter):
 
 
 class SentenceFormatter(Formatter):
-    def __init__(self, id: str):
-        self.id = id
-
     def format(self, text: str) -> str:
         """Capitalize first word if it's already all lower case"""
         words = [x for x in re.split(r"(\s+)", text) if x]
@@ -182,15 +195,15 @@ def remove_code_formatting(text: str) -> str:
     return text
 
 
-formatters = [
+formatter_list = [
     # Special formatters
-    Formatter("TRAILING_SPACE", lambda text: f"{text} "),
-    Formatter("DOUBLE_QUOTED_STRING", lambda text: f'"{text}"'),
-    Formatter("SINGLE_QUOTED_STRING", lambda text: f"'{text}'"),
+    CustomFormatter("TRAILING_SPACE", lambda text: f"{text} "),
+    CustomFormatter("DOUBLE_QUOTED_STRING", lambda text: f'"{text}"'),
+    CustomFormatter("SINGLE_QUOTED_STRING", lambda text: f"'{text}'"),
     # Prose formatters
-    Formatter("KEEP_FORMAT", lambda text: text),
-    Formatter("ALL_UPPERCASE", lambda text: text.upper()),
-    Formatter("ALL_LOWERCASE", lambda text: text.lower()),
+    CustomFormatter("KEEP_FORMAT", lambda text: text),
+    CustomFormatter("ALL_UPPERCASE", lambda text: text.upper()),
+    CustomFormatter("ALL_LOWERCASE", lambda text: text.lower()),
     TitleFormatter("TITLE_CASE"),
     SentenceFormatter("SENTENCE"),
     # Code formatters
@@ -205,11 +218,11 @@ formatters = [
     CodeFormatter("DOUBLE_COLON_SEPARATED", "::", lower, lower),
     # Re-formatters
     CapitalizeFormatter("CAPITALIZE_FIRST_WORD"),
-    Formatter("COMMA_SEPARATED", lambda text: re.sub(r"\s+", ", ", text)),
-    Formatter("REMOVE_FORMATTING", remove_code_formatting),
+    CustomFormatter("COMMA_SEPARATED", lambda text: re.sub(r"\s+", ", ", text)),
+    CustomFormatter("REMOVE_FORMATTING", remove_code_formatting),
 ]
 
-formatters_dict = {f.id: f for f in formatters}
+formatters_dict = {f.id: f for f in formatter_list}
 
 formatters_code = {
     "smash": "NO_SPACES",
@@ -270,7 +283,7 @@ ctx.lists["self.formatter_word"] = {
 
 
 @mod.capture(rule="{self.formatter}+")
-def formatters(m) -> str:
+def formatter(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m)
 
@@ -319,7 +332,7 @@ def format_text(text: str, formatters: str, unformat: bool) -> str:
 
     for i, formatter_name in enumerate(reversed(formatters.split(","))):
         formatter = formatters_dict[formatter_name]
-        if unformat and i == 0 and formatter.unformat:
+        if unformat and i == 0:
             text = formatter.unformat(text)
         text = formatter.format(text)
 
