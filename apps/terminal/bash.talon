@@ -7,7 +7,9 @@ flag <user.letters>:        " -{letters} "
 
 cd:                         "cd "
 cd <user.text>$:            "cd {text}"
+cd <user.letters>$:         "cd {letters}"
 cd <user.text> tab$:        "cd {text}\t"
+cd <user.letters> tab$:     "cd {letters}\t"
 
 list:                       "ls\n"
 list all:                   "ls -a\n"
