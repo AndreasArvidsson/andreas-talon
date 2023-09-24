@@ -111,7 +111,7 @@ def get_action_explanation(
     parameters_map: dict,
 ) -> str:
     if action_name == "key":
-        keys = update_parameter(action_params, parameters_map)
+        keys = update_parameter(action_params, parameters_map) or "<key>"
         is_plural = len(keys) > 1 and " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
