@@ -146,7 +146,7 @@ class SentenceFormatter(Formatter):
     def format(self, text: str) -> str:
         """Capitalize first word if it's already all lower case"""
         words = [x for x in re.split(r"(\s+)", text) if x]
-        if words[0].islower():
+        if words and words[0].islower():
             words[0] = words[0].capitalize()
         return "".join(words)
 
