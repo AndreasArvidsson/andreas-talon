@@ -68,6 +68,7 @@ code_data_type_simple = {
     "List",
     "Set",
     "Object",
+    "void"
 }
 ctx.lists["self.code_data_type"] = {
     **{t: t for t in code_data_type_simple},
