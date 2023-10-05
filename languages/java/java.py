@@ -80,6 +80,7 @@ ctx.lists["self.code_data_type"] = {
 
 ctx.lists["self.code_call_function"] = {
     "to string": "toString",
+    "equals":    "equals",
 }
 ctx.lists["self.code_insert"] = {
     **{k: f"{k} " for k in all_keywords},
