@@ -181,16 +181,13 @@ def unformat_upper(text: str) -> str:
 
 def remove_code_formatting(text: str) -> str:
     """Remove format from text"""
-    # Don't split delimited sequences in a string with whitespaces.
-    # Could for example be: `short-term` or `iPhone` in a sentence
-    if re.search(r"\s", text) is None:
-        # Split on delimiters.
-        result = re.sub(r"[-_.:/]+", " ", text)
-        # Split camel case. Including numbers
-        result = actions.user.de_camel(result)
-        # Delimiter/camel case successfully split. Lower case to restore "original" text.
-        if text != result:
-            return result.lower()
+    # Split on delimiters.
+    result = re.sub(r"[-_.:/]+", " ", text)
+    # Split camel case. Including numbers
+    result = actions.user.de_camel(result)
+    # Delimiter/camel case successfully split. Lower case to restore "original" text.
+    if text != result:
+        return result.lower()
 
     return text
 

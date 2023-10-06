@@ -36,7 +36,7 @@ def test_get_action_explanation():
             "Execute vscode command <command_id>" + expected,
             None,
             {},
-            f"Execute vscode command 'edit.command'" + expected,
+            "Execute vscode command 'edit.command'" + expected,
         ]
 
     def get_desc(name: str, mod: str, ctx: str, expected: str):

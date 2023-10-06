@@ -79,11 +79,12 @@ fixtures_reformat = [
     ["Twin to snake", "SNAKE_CASE", "'hello world'", "'hello_world'"],
     ["Quad to snake", "SNAKE_CASE", '"hello world"', '"hello_world"'],
     ["Docstring to snake", "SNAKE_CASE", '"""hello world"""', '"""hello_world"""'],
+    ["Append camel case", "CAMEL_CASE", "set userAccounts", "setUserAccounts"],
     [
         "Sentence to snake",
         "SNAKE_CASE",
         "foo shortterm bar iPhone baz",
-        "foo_shortterm_bar_iphone_baz",
+        "foo_shortterm_bar_i_phone_baz",
     ],
 ]
 

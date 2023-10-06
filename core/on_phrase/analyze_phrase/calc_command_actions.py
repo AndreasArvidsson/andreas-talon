@@ -1,6 +1,6 @@
 from talon import Module, Context, registry
 from talon_init import TALON_HOME
-from typing import Any, Union
+from typing import Any
 import re
 import os
 import inspect
@@ -111,7 +111,7 @@ def get_action_explanation(
     parameters_map: dict,
 ) -> str:
     if action_name == "key":
-        keys = update_parameter(action_params, parameters_map) or "<key>"
+        keys = update_parameter(action_params, parameters_map)
         is_plural = len(keys) > 1 and " " in keys or "-" in keys
         label = "keys" if is_plural else "key"
         return f"Press {label} '{keys}'"
@@ -122,18 +122,16 @@ def get_action_explanation(
 
     for param, arg in zip(action_params[:length], action_args[:length]):
         value = update_parameter(param, parameters_map)
-        if value is not None:
-            action_desc = action_desc.replace(f"<{arg}>", f"'{value}'")
+        action_desc = action_desc.replace(f"<{arg}>", f"'{value}'")
 
     return action_desc.replace("\n", "\\n")
 
 
-def update_parameter(param: str, map: dict) -> Union[str, None]:
+def update_parameter(param: str, map: dict) -> str:
     if is_string(param):
         for p in set(PARAM_RE.findall(param)):
             value = update_parameter(p, map)
-            if value is not None:
-                param = param.replace(f"{{{p}}}", value)
+            param = param.replace(f"{{{p}}}", value)
         return destring(param)
 
     if param in map:
@@ -147,7 +145,7 @@ def update_parameter(param: str, map: dict) -> Union[str, None]:
             return str(map[param])
         return update_parameter(default_value, map)
 
-    return None
+    return param
 
 
 def is_string(text: str) -> bool:
