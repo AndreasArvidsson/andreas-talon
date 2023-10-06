@@ -4,7 +4,8 @@ from dataclasses import dataclass
 @dataclass
 class SnippetVariable:
     name: str
-    wrapperPhrases: list[str]
+    insertionFormatters: list[str] = None
+    wrapperPhrases: list[str] = None
     wrapperScope: str = None
 
 

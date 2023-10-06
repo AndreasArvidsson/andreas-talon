@@ -42,13 +42,28 @@ class Actions:
             actions.edit.line_start()
             right(stop_col)
 
+    def insert_snippet_with_phrase(name: str, phrase: str):
+        """Insert snippet <name> with phrase <phrase>"""
+        snippet: Snippet = actions.user.get_snippet(name)
+        substitutions = {}
+
+        for variable in snippet.variables:
+            if variable.insertionFormatters is not None:
+                formatters = ",".join(variable.insertionFormatters)
+                formatted_phrase = actions.user.format_text(phrase, formatters)
+                substitutions[variable.name] = formatted_phrase
+
+        actions.user.insert_snippet_by_name(name, substitutions)
+
     def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
         """Insert snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
         body = snippet.body
+
         if substitutions:
             for k, v in substitutions.items():
                 body = body.replace(f"${k}", v)
+
         actions.user.insert_snippet(body)
 
     def code_insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):

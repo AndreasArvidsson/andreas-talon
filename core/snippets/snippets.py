@@ -10,6 +10,9 @@ SNIPPETS_DIR = Path(__file__).parent / "snippets"
 mod = Module()
 
 mod.list("snippet_insert", "List of insertion snippets")
+mod.list(
+    "snippet_insert_with_phrase", "List of insertion snippets containing a text phrase"
+)
 mod.list("snippet_wrap", "List of wrapper snippets")
 
 context_map = {
@@ -38,15 +41,20 @@ def update_snippets():
 
     for lang, ctx in context_map.items():
         insertion_map = {}
+        insertions_phrase_map = {}
         wrapper_map = {}
 
         for fl in get_fallback_languages(lang):
-            snippets, insertions, wrappers = create_lists(lang, fl, grouped.get(fl, []))
+            snippets, insertions, insertions_phrase, wrappers = create_lists(
+                lang, fl, grouped.get(fl, [])
+            )
             snippets_map.update(snippets)
             insertion_map.update(insertions)
+            insertions_phrase_map.update(insertions_phrase)
             wrapper_map.update(wrappers)
 
         ctx.lists["user.snippet_insert"] = insertion_map
+        ctx.lists["user.snippet_insert_with_phrase"] = insertions_phrase_map
         ctx.lists["user.snippet_wrap"] = wrapper_map
 
 
@@ -103,6 +111,7 @@ def create_lists(
 ) -> tuple[dict[str, list[Snippet]], dict[str, str], dict[str, str]]:
     snippets_map = {}
     insertions = {}
+    insertions_phrase = {}
     wrappers = {}
     prefix_snippets = "" if lang_snippets == "_" else f"{lang_snippets}."
     prefix_ctx = "" if lang_ctx == "_" else f"{lang_ctx}."
@@ -119,10 +128,15 @@ def create_lists(
 
         if snippet.variables is not None:
             for var in snippet.variables:
-                for phrase in var.wrapperPhrases:
-                    wrappers[phrase] = f"{id_ctx}.{var.name}"
+                if var.insertionFormatters is not None and snippet.phrases is not None:
+                    for phrase in snippet.phrases:
+                        insertions_phrase[phrase] = id_ctx
 
-    return snippets_map, insertions, wrappers
+                if var.wrapperPhrases is not None:
+                    for phrase in var.wrapperPhrases:
+                        wrappers[phrase] = f"{id_ctx}.{var.name}"
+
+    return snippets_map, insertions, insertions_phrase, wrappers
 
 
 def on_ready():
