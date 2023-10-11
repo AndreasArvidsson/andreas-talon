@@ -37,7 +37,7 @@ def update_file():
     }
     file_content = json.dumps(config)
     if file_content != current_file_content:
-        with open(config_path, "w") as f:
+        with open(config_path, "w", encoding="utf-8") as f:
             f.write(file_content)
             current_file_content = file_content
 
@@ -55,7 +55,7 @@ def on_ready():
     # Listen for context updates
     registry.register("update_contexts", update_signal)
     # Send heartbeat signal
-    cron.interval("1s", lambda: config_path.touch())
+    cron.interval("1s", config_path.touch)
 
 
 app.register("ready", on_ready)
