@@ -1,9 +1,10 @@
 # Click
 click {user.mouse_click}:   user.mouse_click(mouse_click)
 drag:                       user.mouse_drag()
-con:                        user.mouse_click("control")
+touch:                      user.mouse_click("left")
 righter:                    user.mouse_click("right")
 midd:                       user.mouse_click("middle")
+con:                        user.mouse_click("control")
 
 # Scroll
 climb:                      user.mouse_scrolling("up")
