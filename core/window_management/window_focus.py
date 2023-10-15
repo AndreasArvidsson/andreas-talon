@@ -8,10 +8,11 @@ ctx = Context()
 
 def focus_name(name: str):
     app = actions.user.get_app(name)
+
     # Focus next window on same app
     if app == ui.active_app():
         actions.app.window_next()
-    # Focus app
+    # Focus new app
     else:
         actions.user.focus_app(app)
     actions.user.help_running_apps_hide()
