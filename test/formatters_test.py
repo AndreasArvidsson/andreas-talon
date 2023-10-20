@@ -51,7 +51,8 @@ output_raw_unicode = "hej på dig åäö"
 
 fixtures_reformat = [
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
-    ["CAPITALIZE_FIRST_WORD", "aBc abc", "Abc abc"],
+    ["CAPITALIZE_FIRST_WORD", "aBc abc", "ABc abc"],
+    ["CAPITALIZE_FIRST_WORD", "ABC", "Abc"],
     ["COMMA_SEPARATED", input_raw, "why?, and., It's, nice!"],
     ["COMMA_SEPARATED", "a b  c", "a, b, c"],
     ["Unformat snake", "REMOVE_FORMATTING", input_snake, output_raw],
