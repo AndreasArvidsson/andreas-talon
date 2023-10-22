@@ -183,8 +183,9 @@ class Actions:
                 return
 
             actions.edit.paste()
-            # sleep here so that clip.revert doesn't revert the clipboard too soon
-            actions.sleep("150ms")
+
+            # Sleep here so that clip.revert doesn't revert the clipboard too soon
+            actions.sleep("200ms")
 
     def insert_clipboard_with_keys():
         """Insert clipboard content by key presses"""
