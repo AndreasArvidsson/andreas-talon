@@ -20,7 +20,7 @@ class BrowserActions:
 
     def go(url: str):
         actions.browser.focus_address()
-        actions.sleep("50ms")
+        actions.sleep("100ms")
         actions.insert(url)
         actions.key("enter")
 
