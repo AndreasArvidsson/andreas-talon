@@ -3,13 +3,14 @@ Original, Replacement (If different)
 
 # Default words that need to be remapped.
 
-stödstruktur en, Stödstrukturen
-provisions underlag, provisionsunderlag
-produktionsunderlag, provisionsunderlag
-schysst, juste
-SKL, SKR
-Isabelle, Izabel
 Isabel, Izabel
+Isabelle, Izabel
+produktionsunderlag, provisionsunderlag
+provisions underlag, provisionsunderlag
+schysst, juste
+skär, SKR
+SKL, SKR
+stödstruktur en, Stödstrukturen
 
 # This is actually a name, but more often used with the lower case spelling
 
