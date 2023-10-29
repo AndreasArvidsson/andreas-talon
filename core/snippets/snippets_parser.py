@@ -262,6 +262,9 @@ def parse_context_line(
         error(file, line, f"Invalid line '{text}'")
         return
 
+    if key in keys:
+        error(file, line, f"Duplicate key '{key}'")
+
     valid_key = True
 
     match key:
@@ -275,16 +278,14 @@ def parse_context_line(
             document.languages = parse_vector_value(value)
         case _:
             if key.startswith("$"):
-                parse_variable(file, line, get_variable, key, value)
+                if not parse_variable(file, line, get_variable, key, value):
+                    valid_key = False
             else:
                 error(file, line, f"Invalid key '{key}'")
                 valid_key = False
 
     if valid_key:
-        if key in keys:
-            error(file, line, f"Duplicate key '{key}'")
-        else:
-            keys.add(key)
+        keys.add(key)
 
 
 def parse_variable(
@@ -293,12 +294,12 @@ def parse_variable(
     get_variable: Callable[[str], SnippetVariable],
     key: str,
     value: str,
-):
+) -> bool:
     parts = key.split(".")
 
     if len(parts) != 2:
         error(file, line_numb, f"Invalid variable key '{key}'")
-        return
+        return False
 
     name = parts[0][1:]
     field = parts[1]
@@ -312,6 +313,9 @@ def parse_variable(
             get_variable(name).wrapperScope = value
         case _:
             error(file, line_numb, f"Invalid variable key '{key}'")
+            return False
+
+    return True
 
 
 def parse_body(text: str) -> Union[str, None]:
