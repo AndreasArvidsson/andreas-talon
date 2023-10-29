@@ -10,20 +10,21 @@ expected = {}
 accepted = 0
 match_expected = 0
 res = ""
+filename = ""
 
 
 def store_results():
     out_file = path.join(actions.path.user_home(), "Downloads", "replay.csv")
-    with open(out_file, "a") as f:
+    with open(out_file, "a", encoding="utf-8") as f:
         f.write(res)
 
 
 def read_expected(dir):
     expected_file = path.join(dir, "expected.json")
     try:
-        with open(expected_file) as f:
+        with open(expected_file, encoding="utf-8") as f:
             return json.load(f)
-    except:
+    except Exception:
         return {}
 
 
@@ -42,7 +43,7 @@ def on_pre_phrase(phrase):
         spoken = "[REJECTED]"
 
     if expected:
-        if not filename in expected:
+        if filename not in expected:
             print("--- MISSING EXPECTED: {filename}")
         else:
             ext = expected[filename]
