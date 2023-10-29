@@ -14,7 +14,6 @@ class SnippetDocument:
     insertionScopes: list[str] = None
     languages: list[str] = None
     body: str = None
-    errors: list[str] = []
 
     def __init__(self, file: str, line_doc: int, line_body: int):
         self.file = file
