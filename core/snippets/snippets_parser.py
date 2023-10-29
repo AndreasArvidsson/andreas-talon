@@ -1,23 +1,32 @@
-from typing import Union
-from dataclasses import dataclass
+from typing import Callable, Union
+from pathlib import Path
 import re
 from .snippet_types import Snippet, SnippetVariable
 
 
-@dataclass
 class SnippetDocument:
-    variables: list[SnippetVariable]
+    file: str
+    line_doc: int
+    line_body: int
+    variables: list[SnippetVariable] = []
     name: str = None
     phrases: list[str] = None
     insertionScopes: list[str] = None
     languages: list[str] = None
     body: str = None
+    errors: list[str] = []
+
+    def __init__(self, file: str, line_doc: int, line_body: int):
+        self.file = file
+        self.line_doc = line_doc
+        self.line_body = line_body
 
 
 def parse_snippet_file_from_disk(file_path: str) -> list[Snippet]:
     with open(file_path, encoding="utf-8") as f:
         content = f.read()
-    documents = parse_snippet_file(content)
+    file_name = Path(file_path).name
+    documents = parse_file(file_name, content)
     return create_snippets(documents)
 
 
@@ -29,9 +38,16 @@ def create_snippets(documents: list[SnippetDocument]) -> list[Snippet]:
         default_context = documents[0]
         documents = documents[1:]
     else:
-        default_context = SnippetDocument([])
+        default_context = SnippetDocument("", -1, -1)
 
-    return [create_snippet(d, default_context) for d in documents]
+    snippets: list[Snippet] = []
+
+    for doc in documents:
+        snippet = create_snippet(doc, default_context)
+        if snippet:
+            snippets.append(snippet)
+
+    return snippets
 
 
 def create_snippet(
@@ -45,36 +61,51 @@ def create_snippet(
         body=normalize_snippet_body_tabs(document.body),
     )
 
-    validate_snippet(snippet)
+    if not validate_snippet(document, snippet):
+        return None
 
     return snippet
 
 
-def validate_snippet(snippet: Snippet):
-    if not snippet.name:
-        raise ValueError(f"Missing name: {snippet}")
+def validate_snippet(document: SnippetDocument, snippet: Snippet) -> bool:
+    is_valid = True
 
-    if not snippet.body:
-        raise ValueError(f"Missing body: {snippet}")
+    if not snippet.name:
+        error(document.file, document.line_doc, "Missing snippet name")
+        is_valid = False
 
     for variable in snippet.variables:
         var_name = f"${variable.name}"
         if not var_name in snippet.body:
-            raise ValueError(f"Variable '{var_name}' missing in body '{snippet.body}'")
+            error(
+                document.file,
+                document.line_body,
+                f"Variable '{var_name}' missing in body '{snippet.body}'",
+            )
+            is_valid = False
 
         if variable.insertionFormatters is not None and snippet.phrases is None:
-            raise ValueError(
-                f"Snippet phrase required when using variable insertion formatter: {variable}"
+            error(
+                document.file,
+                document.line_doc,
+                f"Snippet phrase required when using '{var_name}.insertionFormatter'",
             )
+            is_valid = False
 
         if variable.wrapperScope is not None and variable.wrapperPhrases is None:
-            raise ValueError(
-                f"Variable wrapper phrase required when using wrapper scope: {variable}"
+            error(
+                document.file,
+                document.line_doc,
+                f"'{var_name}.wrapperPhrase' required when using '{var_name}.wrapperScope'",
             )
+            is_valid = False
+
+    return is_valid
 
 
 def combine_variables(
-    default_variables: list[SnippetVariable], document_variables: list[SnippetVariable]
+    default_variables: list[SnippetVariable],
+    document_variables: list[SnippetVariable],
 ) -> list[SnippetVariable]:
     variables: dict[str, SnippetVariable] = {}
 
@@ -98,7 +129,7 @@ def combine_variables(
 
 def normalize_snippet_body_tabs(body: str) -> str:
     # If snippet body already contains tabs. No change.
-    if "\t" in body:
+    if not body or "\t" in body:
         return body
 
     lines = []
@@ -137,99 +168,150 @@ def reconstruct_line(smallest_indentation: str, indentation: str, rest: str) -> 
 # ---------- Snippet file parser ----------
 
 
-def parse_snippet_file(content: str) -> list[SnippetDocument]:
-    document_content = re.split(r"^---$", content, flags=re.MULTILINE)
-    documents = [parse_document(d) for d in document_content]
-    return [d for d in documents if d is not None]
+def parse_file(file: str, text: str) -> list[SnippetDocument]:
+    doc_texts = re.split(r"^---\r?\n?$", text, flags=re.MULTILINE)
+    documents: list[SnippetDocument] = []
+    line = 0
+
+    for i, doc_text in enumerate(doc_texts):
+        optional_body = i == 0 and len(doc_texts)
+        document = parse_document(file, line, optional_body, doc_text)
+        if document is not None:
+            documents.append(document)
+        line += doc_text.count("\n") + 1
+
+    return documents
 
 
-def parse_document(text: str) -> Union[SnippetDocument, None]:
-    parts = re.split(r"^-$", text, flags=re.MULTILINE)
+def parse_document(
+    file: str, line: int, optional_body: bool, text: str
+) -> Union[SnippetDocument, None]:
+    parts = re.split(r"^-\r?\n?$", text, flags=re.MULTILINE)
+
     if len(parts) > 2:
-        raise ValueError(f"Found multiple '-' in snippet document '{text}'")
-    document = parse_context(parts[0])
+        error(file, line, f"Found multiple '-' in snippet document '{text}'")
+        return None
+
+    line_body = line + parts[0].count("\n") + 1
+    org_doc = SnippetDocument(file, line, line_body)
+    document = parse_context(file, line, org_doc, parts[0])
+
     if len(parts) == 2:
         body = parse_body(parts[1])
         if body is not None:
-            if document is None:
-                document = SnippetDocument([])
+            if org_doc is None:
+                document = org_doc
             document.body = body
-    return document
 
-
-def parse_context(text: str) -> Union[SnippetDocument, None]:
-    document = SnippetDocument([])
-    pairs = parse_context_pairs(text)
-
-    if len(pairs) == 0:
+    if document and not document.body and not optional_body:
+        error(file, line, f"Missing body in snippet document '{text}'")
         return None
 
-    variables: dict[str, str] = {}
+    return document
 
-    for key, value in pairs.items():
-        match key:
-            case "name":
-                document.name = value
-            case "phrase":
-                document.phrases = parse_vector_value(value)
-            case "insertionScope":
-                document.insertionScopes = parse_vector_value(value)
-            case "language":
-                document.languages = parse_vector_value(value)
-            case _:
-                if not key.startswith("$"):
-                    raise ValueError(f"Invalid key '{key}'")
-                variables[key] = value
 
-    document.variables = parse_variables(variables)
+def parse_context(
+    file: str, line: int, document: SnippetDocument, text: str
+) -> Union[SnippetDocument, None]:
+    lines = [l.strip() for l in re.split(r"\r?\n", text)]
+    keys: set[str] = set()
+    variables: dict[str, SnippetVariable] = {}
+
+    def get_variable(name: str) -> SnippetVariable:
+        if name not in variables:
+            variables[name] = SnippetVariable(name)
+        return variables[name]
+
+    for i, line_text in enumerate(lines):
+        if line_text:
+            parse_context_line(
+                file,
+                line + i,
+                document,
+                keys,
+                get_variable,
+                line_text,
+            )
+
+    if len(keys) == 0:
+        return None
+
+    document.variables = list(variables.values())
 
     return document
 
 
-def parse_context_pairs(text: str) -> dict[str, str]:
-    lines = [l.strip() for l in re.split(r"\r?\n", text) if l.strip()]
-    pairs: dict[str, str] = {}
+def parse_context_line(
+    file: str,
+    line: int,
+    document: SnippetDocument,
+    keys: set[str],
+    get_variable: Callable[[str], SnippetVariable],
+    text: str,
+):
+    parts = text.split(":")
 
-    for line in lines:
-        parts = line.split(":")
-        if len(parts) != 2:
-            raise ValueError(f"Invalid line '{line}'")
-        key = parts[0].strip()
-        value = parts[1].strip()
-        if len(key) == 0 or len(value) == 0:
-            raise ValueError(f"Invalid line '{line}'")
-        if key in pairs:
-            raise ValueError(f"Duplicate key '{key}' in '{text}'")
-        pairs[key] = value
+    if len(parts) != 2:
+        error(file, line, f"Invalid line '{text}'")
+        return
 
-    return pairs
+    key = parts[0].strip()
+    value = parts[1].strip()
+
+    if not key or not value:
+        error(file, line, f"Invalid line '{text}'")
+        return
+
+    valid_key = True
+
+    match key:
+        case "name":
+            document.name = value
+        case "phrase":
+            document.phrases = parse_vector_value(value)
+        case "insertionScope":
+            document.insertionScopes = parse_vector_value(value)
+        case "language":
+            document.languages = parse_vector_value(value)
+        case _:
+            if key.startswith("$"):
+                parse_variable(file, line, get_variable, key, value)
+            else:
+                error(file, line, f"Invalid key '{key}'")
+                valid_key = False
+
+    if valid_key:
+        if key in keys:
+            error(file, line, f"Duplicate key '{key}'")
+        else:
+            keys.add(key)
 
 
-def parse_variables(variables: dict[str, str]) -> list[SnippetVariable]:
-    variables_map: dict[str, SnippetVariable] = {}
+def parse_variable(
+    file: str,
+    line_numb: int,
+    get_variable: Callable[[str], SnippetVariable],
+    key: str,
+    value: str,
+):
+    parts = key.split(".")
 
-    def get_variable(name: str) -> SnippetVariable:
-        if name not in variables_map:
-            variables_map[name] = SnippetVariable(name)
-        return variables_map[name]
+    if len(parts) != 2:
+        error(file, line_numb, f"Invalid variable key '{key}'")
+        return
 
-    for key, value in variables.items():
-        parts = key.split(".")
-        if len(parts) != 2:
-            raise ValueError(f"Invalid variable key '{key}'")
-        name = parts[0][1:]
-        field = parts[1]
-        match field:
-            case "insertionFormatter":
-                get_variable(name).insertionFormatters = parse_vector_value(value)
-            case "wrapperPhrase":
-                get_variable(name).wrapperPhrases = parse_vector_value(value)
-            case "wrapperScope":
-                get_variable(name).wrapperScope = value
-            case _:
-                raise ValueError(f"Invalid variable key '{key}'")
+    name = parts[0][1:]
+    field = parts[1]
 
-    return list(variables_map.values())
+    match field:
+        case "insertionFormatter":
+            get_variable(name).insertionFormatters = parse_vector_value(value)
+        case "wrapperPhrase":
+            get_variable(name).wrapperPhrases = parse_vector_value(value)
+        case "wrapperScope":
+            get_variable(name).wrapperScope = value
+        case _:
+            error(file, line_numb, f"Invalid variable key '{key}'")
 
 
 def parse_body(text: str) -> Union[str, None]:
@@ -243,3 +325,7 @@ def parse_body(text: str) -> Union[str, None]:
 
 def parse_vector_value(value: str) -> list[str]:
     return [v.strip() for v in value.split("|")]
+
+
+def error(file: str, line: int, message: str):
+    print(f"ERROR | {file}:{line+1} | {message}")
