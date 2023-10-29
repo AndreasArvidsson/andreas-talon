@@ -2,7 +2,7 @@ from talon import Module, Context, app, fs
 from pathlib import Path
 import glob
 from ..languages.languages import language_ids
-from .snippets_parser import parse_snippet_file_from_disk
+from .snippets_parser import create_snippets_from_file
 from .snippet_types import Snippet
 
 SNIPPETS_DIR = Path(__file__).parent / "snippets"
@@ -63,7 +63,7 @@ def get_snippets() -> list[Snippet]:
     result = []
 
     for file in files:
-        result.extend(parse_snippet_file_from_disk(file))
+        result.extend(create_snippets_from_file(file))
 
     return result
 

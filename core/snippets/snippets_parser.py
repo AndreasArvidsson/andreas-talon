@@ -21,11 +21,8 @@ class SnippetDocument:
         self.line_body = line_body
 
 
-def parse_snippet_file_from_disk(file_path: str) -> list[Snippet]:
-    with open(file_path, encoding="utf-8") as f:
-        content = f.read()
-    file_name = Path(file_path).name
-    documents = parse_file(file_name, content)
+def create_snippets_from_file(file_path: str) -> list[Snippet]:
+    documents = parse_file(file_path)
     return create_snippets(documents)
 
 
@@ -167,7 +164,14 @@ def reconstruct_line(smallest_indentation: str, indentation: str, rest: str) -> 
 # ---------- Snippet file parser ----------
 
 
-def parse_file(file: str, text: str) -> list[SnippetDocument]:
+def parse_file(file_path: str) -> list[SnippetDocument]:
+    with open(file_path, encoding="utf-8") as f:
+        content = f.read()
+    file_name = Path(file_path).name
+    return parse_file_content(file_name, content)
+
+
+def parse_file_content(file: str, text: str) -> list[SnippetDocument]:
     doc_texts = re.split(r"^---\r?\n?$", text, flags=re.MULTILINE)
     documents: list[SnippetDocument] = []
     line = 0
