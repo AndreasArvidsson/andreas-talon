@@ -271,3 +271,14 @@ change language [<user.text>]:
 please [<user.text>]$:
     user.vscode("workbench.action.showCommands")
     "{user.text or ''}"
+
+# Copilot
+pilot jest:                 user.vscode("editor.action.inlineSuggest.trigger")
+pilot next:                 user.vscode("editor.action.inlineSuggest.showNext")
+pilot last:                 user.vscode("editor.action.inlineSuggest.showPrevious")
+pilot yes:                  user.vscode("editor.action.inlineSuggest.commit")
+pilot yes word:             user.vscode("editor.action.inlineSuggest.acceptNextWord")
+pilot undo:                 user.vscode("editor.action.inlineSuggest.undo")
+pilot stop:                 user.vscode("editor.action.inlineSuggest.hide")
+pilot block last:           user.vscode("workbench.action.chat.previousCodeBlock")
+pilot block next:           user.vscode("workbench.action.chat.nextCodeBlock")
