@@ -8,6 +8,7 @@ Custom formats to represent snippets.
 -   VSCode syntax highlights.
 -   VSCode document formatter.
 -   Support for insertion and wrapper snippets.
+-   Support for phrase formatters.
 
 ## Format
 
@@ -18,20 +19,22 @@ Custom formats to represent snippets.
 
 ### Context fields
 
-| Key      | Required | Multiple values | Example                        |
-| -------- | -------- | --------------- | ------------------------------ |
-| name     | Yes      | No              | `name: ifStatement`            |
-| language | No       | Yes             | `language: javascript \| java` |
-| phrase   | No       | Yes             | `phrase: if \| if state`       |
+| Key            | Required | Multiple values | Example                        |
+| -------------- | -------- | --------------- | ------------------------------ |
+| name           | Yes      | No              | `name: ifStatement`            |
+| language       | No       | Yes             | `language: javascript \| java` |
+| phrase         | No       | Yes             | `phrase: if \| if state`       |
+| insertionScope | No       | Yes             | `insertionScope: statement`    |
 
 ### Variables
 
 Tab stops(`$0`) and variables(`$try`) can be used to wrap with using the following fields.
 
-| Key           | Required | Multiple values | Example                        |
-| ------------- | -------- | --------------- | ------------------------------ |
-| wrapperPhrase | Yes      | No              | `$0.wrapperPhrase: try`        |
-| wrapperScope  | No       | No              | `$try.wrapperScope: statement` |
+| Key                | Required | Multiple values | Example                             |
+| ------------------ | -------- | --------------- | ----------------------------------- |
+| insertionFormatter | No       | Yes             | `$0.insertionFormatter: SNAKE_CASE` |
+| wrapperPhrase      | No       | Yes             | `$0.wrapperPhrase: try \| trying`   |
+| wrapperScope       | No       | No              | `$0.wrapperScope: statement`        |
 
 ## Images
 
