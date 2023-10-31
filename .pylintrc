@@ -16,4 +16,5 @@ disable=
     redefined-builtin,
     redefined-outer-name,
     line-too-long,
-    broad-exception-caught
+    broad-exception-caught,
+    too-few-public-methods
