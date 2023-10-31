@@ -29,9 +29,9 @@ for lang in language_ids:
 
 @mod.action_class
 class Actions:
-    def get_snippet(id: str) -> Snippet:
-        """Get snippet by <id>"""
-        return snippets_map[id]
+    def get_snippet(name: str) -> Snippet:
+        """Get snippet by <name>"""
+        return snippets_map[name]
 
 
 def update_snippets():
