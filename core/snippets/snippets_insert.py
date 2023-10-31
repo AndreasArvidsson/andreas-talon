@@ -11,6 +11,17 @@ class Actions:
         """Insert snippet"""
         insert_snippet_raw_text(body)
 
+    def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
+        """Insert snippet <name>"""
+        snippet: Snippet = actions.user.get_snippet(name)
+        body = snippet.body
+
+        if substitutions:
+            for k, v in substitutions.items():
+                body = body.replace(f"${k}", v)
+
+        actions.user.insert_snippet(body)
+
     def insert_snippet_by_name_with_phrase(name: str, phrase: str):
         """Insert snippet <name> with phrase <phrase>"""
         snippet: Snippet = actions.user.get_snippet(name)
@@ -23,17 +34,6 @@ class Actions:
                 substitutions[variable.name] = formatted_phrase
 
         actions.user.insert_snippet_by_name(name, substitutions)
-
-    def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
-        """Insert snippet <name>"""
-        snippet: Snippet = actions.user.get_snippet(name)
-        body = snippet.body
-
-        if substitutions:
-            for k, v in substitutions.items():
-                body = body.replace(f"${k}", v)
-
-        actions.user.insert_snippet(body)
 
     def code_insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
         """Insert snippet <name> for the current programming language"""
