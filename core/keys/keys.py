@@ -26,7 +26,9 @@ default_digits = (
 )
 
 mod.list("digit", "All number/digit keys")
-ctx.lists["self.digit"] = {default_digits[i]: str(i) for i in range(10)}
+digits_map = {default_digits[i]: str(i) for i in range(10)}
+digits_map["oh"] = "0"
+ctx.lists["self.digit"] = digits_map
 
 mod.list("key_function", "All function keys")
 ctx.lists["self.key_function"] = {
