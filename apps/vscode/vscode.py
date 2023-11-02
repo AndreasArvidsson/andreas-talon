@@ -5,7 +5,7 @@ import re
 UNTITLED_RE = re.compile(r"Untitled-\d$")
 
 mod = Module()
-mod.tag("vscode_notebook")
+mod.tag("vscode_notebook", desc="Vscode is in a notebook")
 
 mod.apps.vscode = r"""
 os: windows
