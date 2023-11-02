@@ -40,7 +40,7 @@ def parse_snippet(body: str):
     for i, line in enumerate(lines):
         match = RE_STOP.search(line)
 
-        if match:
+        while match:
             stops.append(
                 Stop(
                     name=match.group(1) or match.group(2) or match.group(3),
@@ -53,7 +53,10 @@ def parse_snippet(body: str):
             # Remove tab stops and variables.
             stop_text = match.group(0)
             default_value = match.group(4) or ""
-            line = line.replace(stop_text, default_value)
+            line = line.replace(stop_text, default_value, 1)
+
+            # Might have multiple stops on the same line
+            match = RE_STOP.search(line)
 
         # Update existing line
         lines[i] = line

@@ -8,6 +8,7 @@ fixtures = [
     ["var {}", "if ${condition}\n\t$0", "if \n    ", 0, 3],
     ["defaults", "if ${condition:True}\n\t${0:return}", "if True\n    return", 0, 3],
     ["order", "if $condition\n\t$1", "if \n    ", 1, 4],
+    ["multiple sl", "a $0 $1", "a  ", 0, 3],
 ]
 
 
