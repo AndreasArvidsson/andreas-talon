@@ -50,7 +50,7 @@ class Actions:
         """Insert cursorless snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
         actions.user.cursorless_insert_snippet(
-            snippet.body, destination, snippet.insertionScopes
+            snippet.body, destination, snippet.insertion_scopes
         )
 
     def c_wrap_with_snippet(target: Any, id: str):
@@ -59,10 +59,10 @@ class Actions:
         snippet_name = id[:index]
         var_name = id[index + 1]
         snippet: Snippet = actions.user.get_snippet(snippet_name)
-        variable = snippet.assert_get_variable(var_name)
+        variable = snippet.get_variable_strict(var_name)
         body = snippet.body.replace(f"${var_name}", "$TM_SELECTED_TEXT")
         actions.user.cursorless_wrap_with_snippet(
-            body, target, None, variable.wrapperScope
+            body, target, None, variable.wrapper_scope
         )
 
 
