@@ -1,5 +1,7 @@
 from talon import Module, actions, app
 from typing import Any
+
+from .snippets_insert_raw_test import test_snippets_insert_raw
 from .formatters_test import test_formatters
 from .command_description_test import test_get_action_explanation
 
@@ -8,6 +10,7 @@ def run_tests():
     print("")
     test_formatters()
     test_get_action_explanation()
+    test_snippets_insert_raw()
 
 
 # app.register("ready", run_tests)
