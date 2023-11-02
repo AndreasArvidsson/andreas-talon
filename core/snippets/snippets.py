@@ -16,6 +16,7 @@ mod.list(
 mod.list("snippet_wrap", "List of wrapper snippets")
 
 context_map = {
+    # `_` represents the global context, ie snippets available regardless of language
     "_": Context(),
 }
 snippets_map = {}
@@ -30,7 +31,7 @@ for lang in language_ids:
 @mod.action_class
 class Actions:
     def get_snippet(name: str) -> Snippet:
-        """Get snippet by <name>"""
+        """Get snippet named <name>"""
         return snippets_map[name]
 
 
