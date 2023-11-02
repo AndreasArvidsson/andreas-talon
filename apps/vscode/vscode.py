@@ -53,6 +53,7 @@ ctx.lists["self.vscode_sessions"] = {
     "mine": "andreas-talon",
     "extension": "andreas-vscode",
     "cursor less": "cursorless",
+    "cursor": "cursorless",
 }
 
 
