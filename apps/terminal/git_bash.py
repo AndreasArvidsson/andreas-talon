@@ -21,6 +21,9 @@ win.file_ext: .bashbook
 ctx = Context()
 ctx.matches = """
 app: git_bash
+
+app: vscode
+and tag: terminal
 """
 
 ctx.tags = ["user.bash"]
