@@ -1,6 +1,7 @@
 from talon import Module, actions
 from .snippet_types import Snippet
 from .snippets_insert_raw_text import insert_snippet_raw_text
+import re
 
 mod = Module()
 
@@ -18,7 +19,7 @@ class Actions:
 
         if substitutions:
             for k, v in substitutions.items():
-                body = body.replace(f"${k}", v)
+                body = re.sub(rf"\${k}|\$\{{{k}\}}", v, body)
 
         actions.user.insert_snippet(body)
 
