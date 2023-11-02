@@ -111,7 +111,7 @@ class UserActions:
 
     # Class declaration
     def code_class(name: str, modifiers: list[str]):
-        actions.user.code_insert_snippet_by_name(
+        actions.user.insert_snippet_by_name(
             "classDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
         )
@@ -121,20 +121,20 @@ class UserActions:
         name = actions.user.vscode_get("andreas.getClassName")
         if not name:
             return
-        actions.user.code_insert_snippet_by_name(
+        actions.user.insert_snippet_by_name(
             "constructorDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
         )
 
     # Function declaration
     def code_function(name: str, modifiers: list[str]):
-        actions.user.code_insert_snippet_by_name(
+        actions.user.insert_snippet_by_name(
             "functionDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
         )
 
     def code_function_main():
-        actions.user.code_insert_snippet_by_name(
+        actions.user.insert_snippet_by_name(
             "functionDeclaration",
             {
                 "name": "main",

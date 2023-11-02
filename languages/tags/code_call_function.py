@@ -11,4 +11,4 @@ mod.list("code_call_function", "Names of functions to call")
 class Action:
     def code_call_function(name: str):
         """Call function <name>"""
-        actions.user.code_insert_snippet_by_name("functionCall", {"name": name})
+        actions.user.insert_snippet_by_name("functionCall", {"name": name})

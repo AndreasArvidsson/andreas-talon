@@ -87,8 +87,8 @@ class Actions:
 
     def code_insert_element(name: str):
         """Insert element <name>"""
-        actions.user.code_insert_snippet_by_name("element", {"name": name})
+        actions.user.insert_snippet_by_name("element", {"name": name})
 
     def code_insert_attribute(name: str):
         """Insert attribute <name>"""
-        actions.user.code_insert_snippet_by_name("attribute", {"name": f" {name}"})
+        actions.user.insert_snippet_by_name("attribute", {"name": f" {name}"})

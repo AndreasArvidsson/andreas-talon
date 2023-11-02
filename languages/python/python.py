@@ -117,15 +117,15 @@ class UserActions:
 
     # Class statement
     def code_class(name: str, modifiers: list[str]):
-        actions.user.code_insert_snippet_by_name("classDeclaration", {"name": name})
+        actions.user.insert_snippet_by_name("classDeclaration", {"name": name})
 
     # Constructor statement
     def code_constructor(modifiers: list[str]):
-        actions.user.code_insert_snippet_by_name("constructorDeclaration")
+        actions.user.insert_snippet_by_name("constructorDeclaration")
 
     # Function statement
     def code_function(name: str, modifiers: list[str]):
-        actions.user.code_insert_snippet_by_name(
+        actions.user.insert_snippet_by_name(
             "functionDeclaration",
             {"name": f"{''.join(modifiers)}{name}"},
         )
