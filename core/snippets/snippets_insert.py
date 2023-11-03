@@ -39,4 +39,9 @@ class Actions:
                 formatted_phrase = actions.user.format_text(phrase, formatters)
                 substitutions[variable.name] = formatted_phrase
 
+        if not substitutions:
+            raise ValueError(
+                f"Can't use snippet phrase. No variable with insertion formatter in snippet '{name}'"
+            )
+
         actions.user.insert_snippet_by_name(name, substitutions)
