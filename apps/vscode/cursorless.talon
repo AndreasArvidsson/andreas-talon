@@ -64,8 +64,8 @@ snip {user.snippet} <user.cursorless_destination>:
 {user.symbol} wrap <user.cursorless_target>:
     user.c_wrap_with_symbol(cursorless_target, symbol)
 
-{user.snippet_wrap} wrap <user.cursorless_target>:
-    user.c_wrap_with_snippet(cursorless_target, snippet_wrap)
+{user.snippet_wrapper} wrap <user.cursorless_target>:
+    user.c_wrap_with_snippet(cursorless_target, snippet_wrapper)
 
 # Misc
 break line <user.cursorless_target>:
