@@ -23,7 +23,7 @@ ctx.matches = """
 app: git_bash
 
 app: vscode
-and tag: terminal
+and win.title: /\[Terminal\]$/
 """
 
 ctx.tags = ["user.bash"]
