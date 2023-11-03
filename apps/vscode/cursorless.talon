@@ -58,8 +58,8 @@ clear <user.cursorless_target> <user.repeater_phrase_all>:
 place ({user.symbol} | <user.text>) <user.cursorless_destination>:
     user.cursorless_insert(cursorless_destination, symbol or text)
 
-snip {user.snippet_insert} <user.cursorless_destination>:
-    user.c_insert_snippet(cursorless_destination, snippet_insert)
+snip {user.snippet} <user.cursorless_destination>:
+    user.c_insert_snippet(cursorless_destination, snippet)
 
 {user.symbol} wrap <user.cursorless_target>:
     user.c_wrap_with_symbol(cursorless_target, symbol)
