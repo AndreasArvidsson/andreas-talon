@@ -12,7 +12,7 @@ code.language: typescriptreact
 """
 
 # fmt: off
-ctx.lists["self.code_operator"] = CodeOperators(
+ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
     op_sub_assign    = " -= ",
@@ -38,14 +38,14 @@ ctx.lists["self.code_operator"] = CodeOperators(
     op_and           = " && ",
     op_or            = " || ",
 )
-ctx.lists["self.code_class_modifier"] = {}
-ctx.lists["self.code_function_modifier"] = {}
-ctx.lists["self.code_variable_modifier"] = {
+ctx.lists["user.code_class_modifier"] = {}
+ctx.lists["user.code_function_modifier"] = {}
+ctx.lists["user.code_variable_modifier"] = {
     "const",
     "let",
 }
-ctx.lists["self.code_data_type"] = {}
-ctx.lists["self.code_call_function"] = {
+ctx.lists["user.code_data_type"] = {}
+ctx.lists["user.code_call_function"] = {
     "forEach",
     "map",
     "flatMap",
@@ -92,7 +92,7 @@ javascript_inserts = {
     "continue":     "continue;",
     "break":        "break;",
 }
-ctx.lists["self.code_insert"] = javascript_inserts
+ctx.lists["user.code_insert"] = javascript_inserts
 # fmt: on
 
 

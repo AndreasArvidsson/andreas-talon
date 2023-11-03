@@ -5,7 +5,7 @@ ctx.matches = r"""
 os: windows
 """
 
-ctx.lists["self.launch_command"] = {
+ctx.lists["user.launch_command"] = {
     "control panel": "control",
     "sound settings": "control mmsys.cpl sounds",
     "system settings": "start ms-settings:",

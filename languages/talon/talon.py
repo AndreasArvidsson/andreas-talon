@@ -11,7 +11,7 @@ code.language: talon
 mod.list("code_talon_context", "List of Talon context matches")
 
 # fmt: off
-ctx.lists["self.code_operator"] = CodeOperators(
+ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
     op_sub_assign    = " -= ",
@@ -37,16 +37,16 @@ ctx.lists["self.code_operator"] = CodeOperators(
     op_and           = " and ",
     op_or            = " or ",
 )
-ctx.lists["self.code_call_function"] = {
+ctx.lists["user.code_call_function"] = {
     "key",
     "insert",
 }
-ctx.lists["self.code_insert"] = {
+ctx.lists["user.code_insert"] = {
     "true"  : "true",
     "false" : "false",
     "tag"   : "tag(): ",
 }
-ctx.lists["self.code_talon_context"] = {
+ctx.lists["user.code_talon_context"] = {
     "win"   : "os: windows\n",
     "mac"   : "os: mac\n",
     "linux" : "os: linux\n",

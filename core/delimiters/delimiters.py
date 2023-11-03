@@ -24,13 +24,13 @@ matching_pairs_all = {
 # fmt: on
 
 mod.list("delimiter_pair", "List of matching pair delimiters")
-ctx.lists["self.delimiter_pair"] = matching_pairs.keys()
+ctx.lists["user.delimiter_pair"] = matching_pairs.keys()
 
 mod.list(
     "delimiter_pair_wrap",
     "List of matching pair delimiters use specifically for wrapping",
 )
-ctx.lists["self.delimiter_pair_wrap"] = matching_pairs_all.keys()
+ctx.lists["user.delimiter_pair_wrap"] = matching_pairs_all.keys()
 
 
 @mod.action_class

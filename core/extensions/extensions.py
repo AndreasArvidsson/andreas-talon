@@ -30,13 +30,13 @@ def domain(m) -> str:
 # fmt: off
 
 mod.list("file_extension", "List of (non-code) file extensions")
-ctx.lists["self.file_extension"] = {
+ctx.lists["user.file_extension"] = {
     "exe":            "exe",
     "bin":            "bin",
 }
 
 mod.list("domain", "List of top level domains")
-ctx.lists["self.domain"] = {
+ctx.lists["user.domain"] = {
     "com":            "com",
     "net":            "net",
     "org":            "org",

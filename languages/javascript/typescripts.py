@@ -27,16 +27,16 @@ types = {
     "funk"      : "() => void",
 }
 
-ctx.lists["self.code_data_type"] = {
+ctx.lists["user.code_data_type"] = {
     **types,
     **{f"{k} list": f"{v}[]" for k, v in types.items()},
 }
-ctx.lists["self.code_function_modifier"] = {
+ctx.lists["user.code_function_modifier"] = {
     "public",
     "private",
     "protected",
 }
-ctx.lists["self.code_insert"] = {
+ctx.lists["user.code_insert"] = {
     **javascript_inserts,
     **{
         "public"    : "public ",

@@ -5,7 +5,7 @@ ctx = Context()
 
 mod.list("emoticon", "List of emoticons")
 
-ctx.lists["self.emoticon"] = {
+ctx.lists["user.emoticon"] = {
     "smile": ":)",
     "grin": ":D",
     "wink": ";)",

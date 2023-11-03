@@ -15,7 +15,7 @@ language: sv
 """
 
 mod.list("phrase_ender", "List of commands that can be used to end a phrase")
-ctx.lists["self.phrase_ender"] = {
+ctx.lists["user.phrase_ender"] = {
     "over": "",
     "void": " ",
     "question": "?",
@@ -41,7 +41,7 @@ def phrase(m) -> str:
     return format_phrase(m)
 
 
-@mod.capture(rule="(spell | {self.letter}) {self.letter}+")
+@mod.capture(rule="(spell | {user.letter}) {user.letter}+")
 def spell(m) -> str:
     """Spell word phoneticly"""
     return "".join(m.letter_list)

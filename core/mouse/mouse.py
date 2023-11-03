@@ -4,7 +4,7 @@ mod = Module()
 ctx = Context()
 
 mod.list("mouse_click", "Available mouse clicks")
-ctx.lists["self.mouse_click"] = {
+ctx.lists["user.mouse_click"] = {
     "left": "left",
     "right": "right",
     "middle": "middle",

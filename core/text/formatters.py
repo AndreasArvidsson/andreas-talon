@@ -249,7 +249,7 @@ formatters_prose = {
 
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", "List of code formatters")
-ctx.lists["self.formatter_code"] = {
+ctx.lists["user.formatter_code"] = {
     **formatters_code,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
     "string": "DOUBLE_QUOTED_STRING",
@@ -257,7 +257,7 @@ ctx.lists["self.formatter_code"] = {
 }
 
 mod.list("formatter_prose", "List of prose formatters")
-ctx.lists["self.formatter_prose"] = {
+ctx.lists["user.formatter_prose"] = {
     **formatters_prose,
     # I don't want these formatters in the formatter list/capture since they are not for reformatting
     "say": "KEEP_FORMAT",
@@ -265,7 +265,7 @@ ctx.lists["self.formatter_prose"] = {
 
 
 mod.list("formatter", "List of formatters only used for reformatting")
-ctx.lists["self.formatter"] = {
+ctx.lists["user.formatter"] = {
     **formatters_code,
     **formatters_prose,
     # These formatters are only for reformatting and neither code or prose
@@ -275,7 +275,7 @@ ctx.lists["self.formatter"] = {
 }
 
 mod.list("formatter_word", "List of word formatters")
-ctx.lists["self.formatter_word"] = {
+ctx.lists["user.formatter_word"] = {
     "word": "ALL_LOWERCASE",
     "trot": "TRAILING_SPACE,ALL_LOWERCASE",
     "proud": "CAPITALIZE_FIRST_WORD",
@@ -283,7 +283,7 @@ ctx.lists["self.formatter_word"] = {
 }
 
 
-@mod.capture(rule="{self.formatter}+")
+@mod.capture(rule="{user.formatter}+")
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m)

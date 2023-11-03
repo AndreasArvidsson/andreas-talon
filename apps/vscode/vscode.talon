@@ -164,7 +164,7 @@ pop forward:                user.vscode("workbench.action.openNextRecentlyUsedEd
 focus editor:               user.vscode("workbench.action.focusActiveEditorGroup")
 
 # Tabs
-tab {self.letter} [{self.letter}]:
+tab {user.letter} [{user.letter}]:
     user.vscode("andreas.focusTab", "{letter_1}{letter_2 or ''}")
 
 # Cursor

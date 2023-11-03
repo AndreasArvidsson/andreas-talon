@@ -174,18 +174,18 @@ def gui_context_help(gui: imgui.GUI):
         current_item_index = 1
         current_selection_index = 1
         for key in sorted_context_map_keys:
-            if key in ctx.lists["self.help_contexts"]:
+            if key in ctx.lists["user.help_contexts"]:
                 target_page = get_context_page(current_item_index)
 
                 if current_context_page == target_page:
                     button_name = format_context_button(
                         current_selection_index,
                         key,
-                        ctx.lists["self.help_contexts"][key],
+                        ctx.lists["user.help_contexts"][key],
                     )
 
                     if gui.button(button_name):
-                        selected_context = ctx.lists["self.help_contexts"][key]
+                        selected_context = ctx.lists["user.help_contexts"][key]
                     current_selection_index = current_selection_index + 1
 
                 current_item_index += 1
@@ -396,7 +396,7 @@ def refresh_context_command_map(enabled_only=False):
 
     refresh_rule_word_map(context_command_map)
 
-    ctx.lists["self.help_contexts"] = cached_short_context_names
+    ctx.lists["user.help_contexts"] = cached_short_context_names
     sorted_context_map_keys = sorted(cached_short_context_names)
 
 
@@ -498,7 +498,7 @@ class Actions:
                 < len(sorted_context_map_keys)
             ):
                 if selected_context is None:
-                    selected_context = ctx.lists["self.help_contexts"][
+                    selected_context = ctx.lists["user.help_contexts"][
                         sorted_context_map_keys[
                             (current_context_page - 1)
                             * setting_help_max_contexts_per_page.get()
@@ -559,7 +559,7 @@ class Actions:
     def help_copy_all_commands():
         """Copy all commands to clipboard"""
         commands = {}
-        for name, context in ctx.lists["self.help_contexts"].items():
+        for name, context in ctx.lists["user.help_contexts"].items():
             for command in context_command_map[context].keys():
                 names = commands.get(command, [])
                 names.append(name)

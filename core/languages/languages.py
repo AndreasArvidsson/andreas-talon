@@ -67,12 +67,12 @@ ctx_forced.matches = r"""
 tag: user.code_language_forced
 """
 
-ctx.lists["self.code_extension"] = {
+ctx.lists["user.code_extension"] = {
     **{l.spoken_form: l.extension for l in languages},
     "pie": "py",
 }
 
-ctx.lists["self.code_language"] = {l.spoken_form: l.id for l in languages}
+ctx.lists["user.code_language"] = {l.spoken_form: l.id for l in languages}
 
 
 @ctx.action_class("code")

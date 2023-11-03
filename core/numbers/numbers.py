@@ -169,7 +169,7 @@ for ten in tens:
 number_small_map = {n: i for i, n in enumerate(number_small_list)}
 
 mod.list("number_small", "List of small numbers")
-ctx.lists["self.number_small"] = number_small_map.keys()
+ctx.lists["user.number_small"] = number_small_map.keys()
 
 
 @mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")

@@ -6,7 +6,7 @@ ctx = Context()
 mod.list("abbreviation", "Common abbreviation")
 
 
-@mod.capture(rule="brief {self.abbreviation}")
+@mod.capture(rule="brief {user.abbreviation}")
 def abbreviation(m) -> str:
     """Abbreviated words"""
     return m.abbreviation

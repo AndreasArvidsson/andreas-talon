@@ -17,8 +17,8 @@ language: sv
 
 mod.list("sleep_phrase", "Phrase used to sleep Talon")
 sleep_phrases = ["drowse", "sömnig"]
-ctx.lists["self.sleep_phrase"] = {sleep_phrases[0]}
-ctx_sv.lists["self.sleep_phrase"] = sleep_phrases
+ctx.lists["user.sleep_phrase"] = {sleep_phrases[0]}
+ctx_sv.lists["user.sleep_phrase"] = sleep_phrases
 
 
 @ctx.action_class("user")

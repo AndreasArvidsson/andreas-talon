@@ -57,17 +57,17 @@ ctx = Context()
 mod.list("ordinals", "List of ordinals [1, 99]")
 mod.list("ordinals_small", "List of small ordinals [1, 20]")
 
-ctx.lists["self.ordinals"] = ordinal_numbers.keys()
-ctx.lists["self.ordinals_small"] = ordinal_small.keys()
+ctx.lists["user.ordinals"] = ordinal_numbers.keys()
+ctx.lists["user.ordinals_small"] = ordinal_small.keys()
 
 
-@mod.capture(rule="{self.ordinals}")
+@mod.capture(rule="{user.ordinals}")
 def ordinals(m) -> int:
     """Returns a single ordinal as a integer"""
     return int(ordinal_numbers[m.ordinals])
 
 
-@mod.capture(rule="{self.ordinals_small}")
+@mod.capture(rule="{user.ordinals_small}")
 def ordinals_small(m) -> int:
     """Returns a single small ordinal as a integer"""
     return int(ordinal_numbers[m.ordinals_small])

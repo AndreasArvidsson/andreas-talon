@@ -135,13 +135,13 @@ def on_ready():
     else:
         os_paths = {}
 
-    ctx.lists["self.path"] = {
+    ctx.lists["user.path"] = {
         **{p.lower(): path.join(user_path, p) for p in user_dirs},
         **common_paths,
         **os_paths,
     }
 
-    # for k, v in sorted(ctx.lists["self.path"].items(), key=lambda i: i[1]):
+    # for k, v in sorted(ctx.lists["user.path"].items(), key=lambda i: i[1]):
     #     print(f"{k.ljust(20)}{v}")
 
 

@@ -15,8 +15,8 @@ language: sv
 
 mod.list("abort_phrase", "Phrase used to abort/cancel current spoken phrase")
 abort_phrases = ["cancel", "canceled", "avbryt"]
-ctx.lists["self.abort_phrase"] = abort_phrases[:-1]
-ctx_sv.lists["self.abort_phrase"] = abort_phrases
+ctx.lists["user.abort_phrase"] = abort_phrases[:-1]
+ctx_sv.lists["user.abort_phrase"] = abort_phrases
 
 
 @dataclass

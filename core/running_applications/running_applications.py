@@ -7,10 +7,12 @@ mod = Module()
 ctx = Context()
 
 mod.list("running_application", "All running applications")
-ctx.lists["self.running_application"] = {}
+ctx.lists["user.running_application"] = {}
 
 # Mapping of current overrides
 overrides = {}
+# List of running applications
+running_applications = {}
 
 
 def parse_name(name):
@@ -31,12 +33,14 @@ def parse_name(name):
 
 
 def update_running():
+    global running_applications
     running = {}
     for app in ui.apps(background=False):
         name = parse_name(app.name)
         if name:
             running[name] = app.name
-    ctx.lists["self.running_application"] = running
+    running_applications = running
+    ctx.lists["user.running_application"] = running
 
 
 def update_overrides(csv_dict: dict):
@@ -50,7 +54,7 @@ def update_overrides(csv_dict: dict):
 class Actions:
     def get_running_applications() -> dict[str, str]:
         """Fetch a dict of running applications"""
-        return ctx.lists["self.running_application"]
+        return running_applications
 
 
 def on_ready():

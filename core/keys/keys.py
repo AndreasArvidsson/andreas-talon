@@ -26,22 +26,22 @@ default_digits = (
 )
 
 mod.list("digit", "All number/digit keys")
-ctx.lists["self.digit"] = {default_digits[i]: str(i) for i in range(10)}
+ctx.lists["user.digit"] = {default_digits[i]: str(i) for i in range(10)}
 
 mod.list("key_function", "All function keys")
-ctx.lists["self.key_function"] = {
+ctx.lists["user.key_function"] = {
     f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)
 }
 
 
-@mod.capture(rule="{self.key_modifier}+")
+@mod.capture(rule="{user.key_modifier}+")
 def key_modifiers(m) -> str:
     "One or more modifier keys"
     return "-".join(m)
 
 
 @mod.capture(
-    rule="{self.letter} | {self.digit} | {self.symbol} | {self.key_special} | {self.key_arrow} | {self.key_function}"
+    rule="{user.letter} | {user.digit} | {user.symbol} | {user.key_special} | {user.key_arrow} | {user.key_function}"
 )
 def key_unmodified(m) -> str:
     "A single key with no modifiers"
@@ -50,13 +50,13 @@ def key_unmodified(m) -> str:
     return m[0]
 
 
-@mod.capture(rule="{self.key_modifier} | <self.key_unmodified>")
+@mod.capture(rule="{user.key_modifier} | <user.key_unmodified>")
 def key_any(m) -> str:
     "A single key"
     return m[0]
 
 
-@mod.capture(rule="{self.letter} | {self.digit} | {self.symbol}")
+@mod.capture(rule="{user.letter} | {user.digit} | {user.symbol}")
 def any_alphanumeric_key(m) -> str:
     "A single alphanumeric key"
     if m[0] == " ":
@@ -70,13 +70,13 @@ def any_alphanumeric_keys(m) -> str:
     return " ".join(m)
 
 
-@mod.capture(rule="{self.letter}")
+@mod.capture(rule="{user.letter}")
 def letter(m) -> str:
     """One letter in the alphabet"""
     return m[0]
 
 
-@mod.capture(rule="{self.letter}+")
+@mod.capture(rule="{user.letter}+")
 def letters(m) -> str:
     """One or more letters in the alphabet"""
     return "".join(m)

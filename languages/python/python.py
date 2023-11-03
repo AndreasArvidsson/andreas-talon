@@ -9,7 +9,7 @@ code.language: python
 """
 
 # fmt: off
-ctx.lists["self.code_operator"] = CodeOperators(
+ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
     op_sub_assign    = " -= ",
@@ -41,13 +41,13 @@ access_modifiers = {
     "protected": "_",
     "private": "__",
 }
-ctx.lists["self.code_class_modifier"] = {}
-ctx.lists["self.code_function_modifier"] = access_modifiers
-ctx.lists["self.code_variable_modifier"] = {
+ctx.lists["user.code_class_modifier"] = {}
+ctx.lists["user.code_function_modifier"] = access_modifiers
+ctx.lists["user.code_variable_modifier"] = {
     **access_modifiers,
     "global": "global",
 }
-ctx.lists["self.code_data_type"] = {
+ctx.lists["user.code_data_type"] = {
     "string"   : "str",
     "int"      : "int",
     "float"    : "float",
@@ -63,7 +63,7 @@ ctx.lists["self.code_data_type"] = {
     "union"    : "Union",
     "optional" : "Optional",
 }
-ctx.lists["self.code_call_function"] = {
+ctx.lists["user.code_call_function"] = {
     "format"      : "format",
     "strip"       : "strip",
     "replace"     : "replace",
@@ -86,7 +86,7 @@ ctx.lists["self.code_call_function"] = {
     "update"      : "update",
     "append"      : "append",
 }
-ctx.lists["self.code_insert"] = {
+ctx.lists["user.code_insert"] = {
     "true"      : "True",
     "false"     : "False",
     "None"      : "None",

@@ -9,7 +9,7 @@ code.language: markdown
 """
 
 mod.list("markdown_pair", "List of markdown format delimiters")
-ctx.lists["self.markdown_pair"] = {
+ctx.lists["user.markdown_pair"] = {
     "bold": "**",
     "italic": "_",
 }

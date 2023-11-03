@@ -9,7 +9,7 @@ code.language: javascriptreact
 code.language: typescriptreact
 """
 
-ctx.lists["self.code_insert"] = {
+ctx.lists["user.code_insert"] = {
     "doctype": "<!DOCTYPE html>\n",
     "blank": "&nbsp;",
 }
@@ -63,7 +63,7 @@ tag_names = {
 # fmt: on
 
 mod.list("code_tag", "Predefined tag names")
-ctx.lists["self.code_tag"] = {
+ctx.lists["user.code_tag"] = {
     **{n: n for n in tag_names_list},
     **tag_names,
 }

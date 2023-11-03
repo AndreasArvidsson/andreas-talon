@@ -9,7 +9,7 @@ code.language: java
 """
 
 # fmt: off
-ctx.lists["self.code_operator"] = CodeOperators(
+ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
     op_sub_assign    = " -= ",
@@ -47,14 +47,14 @@ all_keywords = {
     *final,
     *static,
 }
-ctx.lists["self.code_class_modifier"] = {*access_modifiers, *abstract, *final}
-ctx.lists["self.code_function_modifier"] = {
+ctx.lists["user.code_class_modifier"] = {*access_modifiers, *abstract, *final}
+ctx.lists["user.code_function_modifier"] = {
     *access_modifiers,
     *abstract,
     *final,
     *static,
 }
-ctx.lists["self.code_variable_modifier"] = {*access_modifiers, *final, *static}
+ctx.lists["user.code_variable_modifier"] = {*access_modifiers, *final, *static}
 code_data_type_simple = {
     "int",
     "long",
@@ -70,7 +70,7 @@ code_data_type_simple = {
     "Object",
     "void"
 }
-ctx.lists["self.code_data_type"] = {
+ctx.lists["user.code_data_type"] = {
     **{t: t for t in code_data_type_simple},
     "bool"       : "boolean",
     "array list" : "ArrayList",
@@ -78,11 +78,11 @@ ctx.lists["self.code_data_type"] = {
     "hash map"   : "HashMap",
 }
 
-ctx.lists["self.code_call_function"] = {
+ctx.lists["user.code_call_function"] = {
     "to string": "toString",
     "equals":    "equals",
 }
-ctx.lists["self.code_insert"] = {
+ctx.lists["user.code_insert"] = {
     **{k: f"{k} " for k in all_keywords},
     "true"        : "true",
     "false"       : "false",
