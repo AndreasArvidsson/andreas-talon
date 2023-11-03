@@ -71,7 +71,7 @@ def update_snippets():
 
 
 def get_snippets() -> list[Snippet]:
-    files = glob.glob(f"{SNIPPETS_DIR}/*.snippet")
+    files = glob.glob(f"{SNIPPETS_DIR}/**/*.snippet", recursive=True)
     result = []
 
     for file in files:
