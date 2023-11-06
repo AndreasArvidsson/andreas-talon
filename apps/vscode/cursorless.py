@@ -60,9 +60,8 @@ class Actions:
         var_name = id[index + 1]
         snippet: Snippet = actions.user.get_snippet(snippet_name)
         variable = snippet.get_variable_strict(var_name)
-        body = snippet.body.replace(f"${var_name}", "$TM_SELECTED_TEXT")
         actions.user.cursorless_wrap_with_snippet(
-            body, target, None, variable.wrapper_scope
+            snippet.body, target, var_name, variable.wrapper_scope
         )
 
 
