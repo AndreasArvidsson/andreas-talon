@@ -31,6 +31,19 @@ class DictateActionsSv:
         return phrase_replacer_sv.replace(words)
 
 
+@mod.action_class
+class Actions:
+    def edit_words_to_replace():
+        """Edit words to replace csv"""
+        file = Path(__file__).parent / "words_to_replace_en.csv"
+        actions.user.edit_text_file(file.absolute())
+
+    def edit_vocabulary():
+        """Edit vocabulary Talon list"""
+        file = Path(__file__).parent / "vocabulary_en.talon-list"
+        actions.user.edit_text_file(file.absolute())
+
+
 # Words to replace is used by `actions.dictate.replace_words` to rewrite words
 # Talon recognized. Entries don't change the priority with which Talon
 # recognizes some words over others.

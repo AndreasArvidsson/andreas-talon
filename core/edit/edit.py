@@ -192,3 +192,7 @@ class Actions:
         text = actions.clip.text()
         for c in text:
             actions.key(c)
+
+    def edit_text_file(path: str):
+        """Edit text file <path>"""
+        actions.user.exec(f"code {path}")
