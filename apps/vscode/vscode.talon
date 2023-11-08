@@ -247,6 +247,7 @@ align columns:              user.vscode("rainbow-csv.Align")
 shrink columns:             user.vscode("rainbow-csv.Shrink")
 
 # Misc
+update extensions:          user.vscode("workbench.extensions.action.checkForUpdates")
 install extension:          user.vscode("workbench.extensions.action.installVSIX")
 window reload:              user.vscode("workbench.action.reloadWindow")
 trim trailing:              user.vscode("editor.action.trimTrailingWhitespace")
