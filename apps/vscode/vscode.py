@@ -270,7 +270,7 @@ class UserActions:
 
     # ----- Snippets -----
     def insert_snippet(body: str):
-        actions.user.vscode("editor.action.insertSnippet", {"snippet": body})
+        actions.user.cursorless_insert_snippet(body)
 
 
 # @ctx_notebook.action_class("main")
