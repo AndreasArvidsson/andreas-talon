@@ -22,5 +22,6 @@ closed tag <user.text>:     "<{text}/>"
 
 close tag | tag close:      user.code_close_tag()
 
-attr <user.text>:
+attribute <user.text>:
+    text = user.format_text(text, "CAMEL_CASE")
     user.code_insert_attribute(text)
