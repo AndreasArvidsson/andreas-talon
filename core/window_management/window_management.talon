@@ -5,8 +5,9 @@ window last:                app.window_previous()
 window next:                app.window_next()
 window back:                user.window_focus_last()
 
-focus web:
-    user.browser_focus_default()
+focus:                      user.window_switcher_menu()
+focus desktop:              user.focus_desktop()
+focus web:                  user.browser_focus_default()
 focus {user.running_application}:
     user.window_focus_name(running_application)
 

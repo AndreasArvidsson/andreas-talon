@@ -1,5 +1,4 @@
 open settings:              app.preferences()
-switcher:                   user.app_switcher()
 
 ^system shutdown$:          user.system_shutdown()
 ^system restart$:           user.system_restart()

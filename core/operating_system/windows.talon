@@ -1,7 +1,5 @@
 os: windows
 -
-
-show desktop:               key(super-d)
 start menu:                 key(super)
 context menu:               key(super-x)
 

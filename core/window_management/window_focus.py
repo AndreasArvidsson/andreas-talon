@@ -37,3 +37,9 @@ class Actions:
         names = list(actions.user.get_running_applications().values())
         if number > 0 and number <= len(names):
             focus_name(names[number - 1])
+
+    def window_switcher_menu():
+        """Show window switcher menu"""
+
+    def focus_desktop():
+        """Focus desktop"""
