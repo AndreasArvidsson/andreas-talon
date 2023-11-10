@@ -40,6 +40,8 @@ class Actions:
 
     def window_switcher_menu():
         """Show window switcher menu"""
+        actions.key("super-tab")
 
     def focus_desktop():
         """Focus desktop"""
+        actions.key("super-d")

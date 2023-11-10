@@ -36,12 +36,6 @@ class UserActions:
     def system_lock():
         actions.user.exec("rundll32.exe user32.dll,LockWorkStation")
 
-    def window_switcher_menu():
-        actions.key("super-tab")
-
-    def focus_desktop():
-        actions.key("super-d")
-
 
 def shutdown(flag: str):
     actions.key("super-r")
