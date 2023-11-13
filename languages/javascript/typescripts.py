@@ -44,7 +44,7 @@ ctx.lists["user.code_insert"] = {
         "protected" : "protected ",
         "readonly"  : "readonly ",
         "interface" : "interface ",
-        "type"      : "type ",
+        "type"      : " type ",
         "key of"    : "keyof ",
         "as"        : " as ",
     },
