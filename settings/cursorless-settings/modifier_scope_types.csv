@@ -44,6 +44,8 @@ token, token
 type, type
 value, value
 
+access, private.fieldAccess
+
 -chapter, chapter
 -environment, environment
 -five section, sectionLevelFive
