@@ -109,6 +109,7 @@ class UserActions:
         actions.browser.focus_address()
         actions.sleep("50ms")
         actions.insert(url)
+        actions.sleep("50ms")
         actions.key("alt-enter")
 
     # ----- Rango -----
