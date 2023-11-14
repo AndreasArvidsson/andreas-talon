@@ -5,11 +5,11 @@ tag(): terminal
 flag:                       " -"
 flag <user.letters>:        " -{letters} "
 
-cd:                         "cd "
-cd <user.text>$:            "cd {text}"
-cd <user.letters>$:         "cd {letters}"
-cd <user.text> tab$:        "cd {text}\t"
-cd <user.letters> tab$:     "cd {letters}\t"
+dir:                        "cd "
+dir <user.text>$:           "cd {text}"
+dir <user.letters>$:        "cd {letters}"
+dir <user.text> tab$:       "cd {text}\t"
+dir <user.letters> tab$:    "cd {letters}\t"
 
 list:                       "ls\n"
 list all:                   "ls -a\n"
