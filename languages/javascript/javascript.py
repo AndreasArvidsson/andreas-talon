@@ -158,4 +158,4 @@ class Actions:
         """Insert arrow function"""
         format = actions.user.code_get_function_format()
         name = actions.user.format_text(name, format)
-        actions.user.insert_snippet_by_name("namedLambdaExpression", {"name": name})
+        actions.user.insert_snippet_by_name("namedLambdaExpression", {"1": name})
