@@ -32,12 +32,6 @@ class Actions:
             gaze_job = None
         return return_value
 
-    def mouse_scroll_stop_for_click():
-        """Stop mouse scroll and wait"""
-        if actions.user.mouse_scroll_stop():
-            # Make sure scrolling has stopped so that click doesn't miss
-            actions.sleep("50ms")
-
     def mouse_scroll(direction: str, times: int):
         """Scrolls"""
         y = times

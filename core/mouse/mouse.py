@@ -26,20 +26,14 @@ class MainActions:
         ctrl.mouse_click(button=button, hold=16000)
 
 
-@ctx.action_class("user")
-class UserActions:
-    def mouse_on_pop():
-        pass
-
-
 @mod.action_class
 class Actions:
     def mouse_on_pop():
         """Mouse on pop handler"""
+        actions.skip()
 
     def mouse_click(action: str):
         """Click mouse button"""
-        actions.user.mouse_scroll_stop_for_click()
         if action == "left":
             actions.mouse_click()
         elif action == "right":
@@ -65,6 +59,16 @@ class Actions:
             actions.user.mouse_move_center_window()
             actions.mouse_click()
 
+    def mouse_click_with_conditions():
+        """Click left mouse button. If scrolling or dragging, stop instead."""
+        # Stop scrolling
+        stop_scroll = actions.user.mouse_scroll_stop()
+        # Release any held mouse buttons
+        stop_drag = actions.user.mouse_release_held_buttons()
+        # Normal left click
+        if not stop_scroll and not stop_drag:
+            actions.mouse_click()
+
     def mouse_pos() -> tuple[float, float]:
         """Mouse position (X, Y)"""
         return ctrl.mouse_pos()
@@ -88,7 +92,11 @@ class Actions:
         rect = ui.active_window().rect
         actions.mouse_move(rect.center.x, rect.center.y)
 
-    def mouse_release_held_buttons():
+    def mouse_release_held_buttons() -> bool:
         """Release held mouse buttons"""
-        for button in ctrl.mouse_buttons_down():
-            actions.mouse_release(button)
+        buttons = ctrl.mouse_buttons_down()
+        if buttons:
+            for button in buttons:
+                actions.mouse_release(button)
+            return True
+        return False

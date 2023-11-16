@@ -1,6 +1,6 @@
 # Click
 click {user.mouse_click}:   user.mouse_click(mouse_click)
-drag:                       user.mouse_drag()
+drag:                       mouse_drag()
 touch:                      user.mouse_click("left")
 righter:                    user.mouse_click("right")
 midd:                       user.mouse_click("middle")

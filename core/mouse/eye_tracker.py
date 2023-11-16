@@ -3,7 +3,6 @@ from talon import (
     Module,
     actions,
     app,
-    ctrl,
     storage,
 )
 from typing import Optional
@@ -33,14 +32,7 @@ tag: user.eye_tracker_frozen
 @ctx_eye_tracker.action_class("user")
 class EyeTrackerActions:
     def mouse_on_pop():
-        actions.user.mouse_scroll_stop_for_click()
-        # Left mouse button is held down: end drag
-        if 0 in ctrl.mouse_buttons_down():
-            actions.user.mouse_drag()
-        # Normal click when using control mouse
-        else:
-            # actions.user.stabilized_click()
-            actions.mouse_click()
+        actions.user.mouse_click_with_conditions()
 
     def mouse_control_toggle(enable: Optional[bool] = None):
         mouse_control_toggle(enable if enable is not None else False)
@@ -50,7 +42,7 @@ class EyeTrackerActions:
 class FrozenActions:
     def mouse_on_pop():
         """Frozen mouse on pop handler"""
-        actions.mouse_click()
+        actions.user.mouse_click_with_conditions()
 
     def mouse_freeze_toggle(freeze: Optional[bool] = None):
         """Toggle freeze cursor position updates for the eye tracker"""

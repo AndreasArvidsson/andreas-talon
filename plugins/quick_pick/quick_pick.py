@@ -75,7 +75,7 @@ repeater_callback: Callable[[], None] = None
 buttons: list[Button] = []
 
 circle_options = [
-    CircleOption("🖑", -90, actions.user.mouse_drag, True),
+    CircleOption("🖑", -90, actions.mouse_drag, True),
     CircleOption("🖖", -140, lambda: actions.user.mouse_click("control"), True),
     CircleOption("🖙", -40, lambda: actions.user.mouse_click("right"), True),
     CircleOption("🡨", -170, actions.user.go_back),
