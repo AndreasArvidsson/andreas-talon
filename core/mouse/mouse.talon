@@ -22,8 +22,10 @@ scroll speed down:          user.mouse_scroll_speed_decrease()
 track on:                   user.mouse_control_toggle(true)
 track off:                  user.mouse_control_toggle(false)
 tracking:                   user.mouse_control_toggle()
-^track calibrate$:          tracking.calibrate()
-^track debug$:              tracking.control_debug_toggle()
+track calibrate:            tracking.calibrate()
+track debug:                tracking.control_debug_toggle()
+track gaze:                 tracking.control_gaze_toggle(true)
+track head:                 tracking.control_gaze_toggle(false)
 
 # Cursor
 cursor center:              user.mouse_move_center_window()
