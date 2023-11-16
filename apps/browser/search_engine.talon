@@ -1,7 +1,7 @@
 search for <user.text>$:
     user.browser_search(text)
 
-search for (this | dis | is):
+search for (this | dis | is | ness):
     user.browser_search_selected()
 
 define word <user.word>$:
