@@ -147,7 +147,7 @@ git checkout branch [<user.text>]:
     user.insert_formatted(text or '', "SNAKE_CASE")
 git commit [<user.text>]:
     user.vscode("git.commit")
-    sleep(400ms)
+    sleep(100ms)
     user.insert_formatted(text or "", "SENTENCE")
 
 # Folding
