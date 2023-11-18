@@ -294,7 +294,7 @@ class Delegate(ParrotDelegate):
         if self.debug:
             winner_label, winner_prob = next(iter(frame.classes.items()))
             # Andreas changed
-            if winner_label != "background":
+            if winner_label != "background" and winner_label != "speech":
                 events.write('parrot', f"predict {winner_label} {winner_prob * 100:.2f}% pow={frame.power:.2f} f0={frame.f0:.3f} f1={frame.f1:.3f} f2={frame.f2:.3f}")
 
         active: set[str] = set()
