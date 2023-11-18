@@ -1,35 +1,48 @@
 not tag: user.gamepad_tester
 -
 
-# gamepad(dpad_up):           edit.up()
-# gamepad(dpad_down):         edit.down()
-# gamepad(dpad_left):         edit.left()
-# gamepad(dpad_right):        edit.right()
+# DPAD buttons
+gamepad(dpad_left:down):    user.gamepad_button_down("dpad_left")
+gamepad(dpad_left:up):      user.gamepad_button_up("dpad_left")
+gamepad(dpad_up:down):      user.gamepad_button_down("dpad_up")
+gamepad(dpad_up:up):        user.gamepad_button_up("dpad_up")
+gamepad(dpad_right:down):   user.gamepad_button_down("dpad_right")
+gamepad(dpad_right:up):     user.gamepad_button_up("dpad_right")
+gamepad(dpad_down:down):    user.gamepad_button_down("dpad_down")
+gamepad(dpad_down:up):      user.gamepad_button_up("dpad_down")
 
-gamepad(dpad_up):           user.gamepad_mouse_jump("up")
-gamepad(dpad_down):         user.gamepad_mouse_jump("down")
-gamepad(dpad_left):         user.gamepad_mouse_jump("left")
-gamepad(dpad_right):        user.gamepad_mouse_jump("right")
+# Compass / ABXY buttons
+gamepad(west:down):         user.gamepad_button_down("west")
+gamepad(west:up):           user.gamepad_button_up("west")
+gamepad(north:down):        user.gamepad_button_down("north")
+gamepad(north:up):          user.gamepad_button_up("north")
+gamepad(east:down):         user.gamepad_button_down("east")
+gamepad(east:up):           user.gamepad_button_up("east")
+gamepad(south:down):        user.gamepad_button_down("south")
+gamepad(south:up):          user.gamepad_button_up("south")
 
-gamepad(west:down):         mouse_drag()
-gamepad(west:up):           mouse_release()
-gamepad(north:down):        mouse_drag(1)
-gamepad(north:up):          mouse_release(1)
-gamepad(east):              user.mouse_click("control")
-gamepad(south:down):        user.gamepad_mouse_freeze(true)
-gamepad(south:up):          user.gamepad_mouse_freeze(false)
+# Select / Start buttons
+gamepad(select:down):       user.gamepad_button_down("select")
+gamepad(select:up):         user.gamepad_button_up("select")
+gamepad(start:down):        user.gamepad_button_down("start")
+gamepad(start:up):          user.gamepad_button_up("start")
 
-gamepad(select):            user.quick_pick_show()
-gamepad(start):             user.command_dictation_mode_toggle()
+# Shoulder buttons
+gamepad(l1:down):           user.gamepad_button_down("left_shoulder")
+gamepad(l1:up):             user.gamepad_button_up("left_shoulder")
+gamepad(r1:down):           user.gamepad_button_down("right_shoulder")
+gamepad(r1:up):             user.gamepad_button_up("right_shoulder")
 
-gamepad(l1):                user.go_back()
-gamepad(r1):                user.go_forward()
+# Stick buttons
+gamepad(l3:down):           user.gamepad_button_down("left_stick")
+gamepad(l3:up):             user.gamepad_button_up("left_stick")
+gamepad(r3:down):           user.gamepad_button_down("right_stick")
+gamepad(r3:up):             user.gamepad_button_up("right_stick")
 
-gamepad(l2:change):         user.gamepad_scroll(0, value*-1)
-gamepad(r2:change):         user.gamepad_scroll(0, value)
+# Analog triggers
+gamepad(l2:repeat):         user.gamepad_trigger_left(value)
+gamepad(r2:repeat):         user.gamepad_trigger_right(value)
 
-gamepad(left_xy):           user.gamepad_scroll(x, y*-1)
-gamepad(l3):                user.gamepad_scroll_slow_toggle()
-
-gamepad(right_xy:repeat):   user.gamepad_mouse_move(x, y*-1)
-gamepad(r3):                user.gamepad_mouse_move_slow_toggle()
+# Analog thumb sticks
+gamepad(left_xy:repeat):    user.gamepad_stick_left(x, y*-1)
+gamepad(right_xy:repeat):   user.gamepad_stick_right(x, y*-1)
