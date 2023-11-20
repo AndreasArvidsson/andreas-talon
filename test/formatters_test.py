@@ -40,6 +40,8 @@ fixtures_format = [
     # Unicode characters
     ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
     ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],
+    # Empty string
+    ["Empty string", "SNAKE_CASE", "", ""],
 ]
 
 input_camel = "helloThere.myIPAddress2x3"

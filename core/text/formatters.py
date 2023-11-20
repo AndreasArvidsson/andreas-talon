@@ -329,6 +329,9 @@ class Actions:
 
 def format_text(text: str, formatters: str, unformat: bool) -> str:
     """Formats a text according to formatters. formatters is a comma-separated string of formatters (e.g. 'TITLE_CASE,SNAKE_CASE')"""
+    if not text:
+        return text
+
     text, pre, post = shrink_to_string_inside(text)
 
     for i, formatter_name in enumerate(reversed(formatters.split(","))):
