@@ -145,7 +145,7 @@ git checkout [<user.text>]: user.git_find_branch(text or "")
 git checkout branch [<user.text>]:
     user.vscode("git.branch")
     sleep(50ms)
-    user.insert_formatted(text or '', "SNAKE_CASE")
+    user.insert_formatted(text or "", "SNAKE_CASE")
 git commit [<user.text>]:
     user.vscode("git.commit")
     sleep(100ms)
