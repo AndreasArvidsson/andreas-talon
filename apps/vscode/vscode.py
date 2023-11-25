@@ -153,9 +153,7 @@ class EditActions:
         actions.user.vscode("andreas.selectTo", n)
 
     def jump_line(n: int):
-        actions.user.vscode("workbench.action.gotoLine")
-        actions.insert(str(n))
-        actions.key("enter")
+        actions.user.vscode("andreas.goToLine", n)
 
     # ----- Indent -----
     def indent_more():
