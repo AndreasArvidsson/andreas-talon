@@ -66,7 +66,7 @@ git pull upstream:          "git pull upstream\n"
 git pull upstream master:   "git pull upstream master\n"
 git pull upstream main:     "git pull upstream main\n"
 
-git push:                   "git push\n"
+git push:                   "git push --follow-tags\n"
 git push tags:              "git push --tags\n"
 git push deli:              "git push origin -d "
 
