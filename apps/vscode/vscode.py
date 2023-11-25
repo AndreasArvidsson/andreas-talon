@@ -304,12 +304,6 @@ class NotebookEditActions:
 
 @mod.action_class
 class Actions:
-    def jump_line_character(l: int, c: int):
-        """Move cursor to line <l> and character <c>"""
-        actions.user.vscode("workbench.action.gotoLine")
-        actions.insert(f"{l}:{c}")
-        actions.key("enter")
-
     def save_without_formatting():
         """Save current document without formatting"""
         actions.user.vscode("hideSuggestWidget")
