@@ -205,7 +205,8 @@ class UserActions:
 
     # ----- Snippets -----
     def insert_snippet(body: str):
-        actions.user.cursorless_insert_snippet(body)
+        # actions.user.cursorless_insert_snippet(body)
+        actions.user.vscode("editor.action.insertSnippet", {"snippet": body})
 
 
 @mod.action_class
