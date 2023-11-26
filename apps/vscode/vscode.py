@@ -26,28 +26,6 @@ app: vscode
 not tag: user.code_language_forced
 """
 
-ctx_notebook = Context()
-ctx_notebook.matches = r"""
-app: vscode
-tag: user.vscode_notebook
-"""
-
-
-mod.list("vscode_panel", "Available panels for resizing in vscode")
-panels = {
-    "bar": {
-        "filename": "vscode_bar_ellipses.png",
-        "position": "right",
-        "xDirection": True,
-    },
-    "panel": {
-        "filename": "vscode_panel_terminal.png",
-        "position": "top",
-        "xDirection": False,
-    },
-}
-ctx.lists["user.vscode_panel"] = panels.keys()
-
 mod.list("vscode_sessions", "Known vscode sessions/workspaces")
 ctx.lists["user.vscode_sessions"] = {
     "mine": "andreas-talon",
@@ -55,11 +33,6 @@ ctx.lists["user.vscode_sessions"] = {
     "cursor less": "cursorless",
     "cursor": "cursorless",
 }
-
-
-@mod.capture(rule="{user.vscode_panel}")
-def vscode_panel(m) -> dict:
-    return panels[m.vscode_panel]
 
 
 @ctx.action_class("win")
@@ -269,37 +242,6 @@ class UserActions:
     # ----- Snippets -----
     def insert_snippet(body: str):
         actions.user.cursorless_insert_snippet(body)
-
-
-# @ctx_notebook.action_class("main")
-# class NotebookMainActions:
-#     def insert(text: str):
-#         if not text:
-#             return
-#         if text.endswith("\n"):
-#             print(f"'{text}'")
-#             print(f"'{text[0:-1]}'")
-#             actions.next(text[0:-1])
-#             actions.user.vscode("notebook.cell.executeAndInsertBelow")
-#         else:
-#             actions.next(text)
-
-
-@ctx_notebook.action_class("user")
-class NotebookUserActions:
-    def change_language(language: str = ""):
-        if language:
-            actions.insert(language)
-
-
-@ctx_notebook.action_class("edit")
-class NotebookEditActions:
-    # ----- Line commands -----
-    def line_swap_up():
-        actions.user.vscode("notebook.cell.moveUp")
-
-    def line_swap_down():
-        actions.user.vscode("notebook.cell.moveDown")
 
 
 @mod.action_class
