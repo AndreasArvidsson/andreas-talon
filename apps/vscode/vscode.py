@@ -2,10 +2,8 @@ from talon import Module, Context, actions
 import json
 import re
 
-UNTITLED_RE = re.compile(r"Untitled-\d$")
-
 mod = Module()
-mod.tag("vscode_notebook", desc="Vscode is in a notebook")
+mod.list("vscode_sessions", "Known vscode sessions/workspaces")
 
 mod.apps.vscode = r"""
 os: windows
@@ -19,31 +17,6 @@ ctx = Context()
 ctx.matches = r"""
 app: vscode
 """
-
-ctx_lang = Context()
-ctx_lang.matches = r"""
-app: vscode
-not tag: user.code_language_forced
-"""
-
-mod.list("vscode_sessions", "Known vscode sessions/workspaces")
-ctx.lists["user.vscode_sessions"] = {
-    "mine": "andreas-talon",
-    "extension": "andreas-vscode",
-    "cursor less": "cursorless",
-    "cursor": "cursorless",
-}
-
-
-@ctx.action_class("win")
-class WinActions:
-    def filename():
-        filename = actions.win.title().split(" - ")[0]
-        if is_untitled(filename):
-            return get_untitled_name(filename)
-        if "." in filename:
-            return filename
-        return ""
 
 
 @ctx.action_class("app")
@@ -71,15 +44,6 @@ class CodeActions:
 
     def complete():
         actions.user.vscode("editor.action.triggerSuggest")
-
-
-@ctx_lang.action_class("code")
-class LangCodeActions:
-    def language() -> str:
-        # New untitled files are markdown in vscode
-        if is_untitled(actions.win.filename()):
-            return "markdown"
-        return actions.next()
 
 
 @ctx.action_class("edit")
@@ -374,11 +338,3 @@ class Actions:
 def empty_selection():
     if actions.edit.selected_text():
         actions.edit.right()
-
-
-def is_untitled(filename: str):
-    return UNTITLED_RE.search(filename) is not None
-
-
-def get_untitled_name(filename: str):
-    return UNTITLED_RE.search(filename).group()

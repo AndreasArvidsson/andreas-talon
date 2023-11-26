@@ -1,4 +1,7 @@
-from talon import Context, actions
+from talon import Module, Context, actions
+
+mod = Module()
+mod.tag("vscode_notebook", desc="Vscode is in a notebook")
 
 ctx = Context()
 ctx.matches = r"""
