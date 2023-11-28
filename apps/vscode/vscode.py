@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Module, Context, actions
 import json
 import re
@@ -193,7 +194,7 @@ class UserActions:
         actions.next()
 
     # ----- Dictation -----
-    def dictation_get_context() -> tuple[str, str]:
+    def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
         try:
             context = actions.user.vscode_get("andreas.getDictationContext")
         except Exception:
@@ -220,7 +221,7 @@ class Actions:
         """Format document"""
         actions.user.vscode("editor.action.formatDocument")
 
-    def vscode_find_recent(text: str = None):
+    def vscode_find_recent(text: Optional[str] = None):
         """Find recent session, directory or file"""
         actions.user.vscode("workbench.action.openRecent")
         if text:
@@ -254,11 +255,11 @@ class Actions:
     def git_copy_markdown_remote_file_url(targets: list):
         """Copy remote git file URL to clipboard as markdown link"""
         use_selection = False
+        text = ""
 
         # The second target is optional and is used for getting the text
         if len(targets) == 2:
-            texts = texts = actions.user.c_get_texts(targets[1])
-            text = "".join(texts)
+            text = "".join(actions.user.c_get_texts(targets[1]))
             use_selection = True
 
         # The first target is the source of the git url
@@ -275,7 +276,7 @@ class Actions:
         if url and text:
             actions.clip.set_text(f"[`{text}`]({url})")
 
-    def git_find_branch(text: str = None):
+    def git_find_branch(text: Optional[str] = None):
         """Fined git branch"""
         actions.user.vscode("git.checkout")
         if text:

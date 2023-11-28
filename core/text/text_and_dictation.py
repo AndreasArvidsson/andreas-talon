@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Module, Context, ui, actions, grammar
 import re
 
@@ -168,11 +169,11 @@ no_space_before = re.compile(
 
 
 def omit_space_before(text: str) -> bool:
-    return not text or no_space_before.search(text)
+    return not text or no_space_before.search(text) is not None
 
 
 def omit_space_after(text: str) -> bool:
-    return not text or no_space_after.search(text)
+    return not text or no_space_after.search(text) is not None
 
 
 def needs_space_between(before: str, after: str) -> bool:
@@ -286,7 +287,7 @@ class Actions:
         """Resets the dictation formatter"""
         return dictation_formatter.reset()
 
-    def dictation_insert(text: str) -> str:
+    def dictation_insert(text: str):
         """Inserts dictated text, formatted appropriately."""
         before, after = actions.user.dictation_get_context()
 
@@ -310,7 +311,7 @@ class Actions:
         if add_space_after:
             actions.edit.left()
 
-    def dictation_get_context() -> tuple[str, str]:
+    def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
         """Returns the text before and after the current selection"""
         return (None, None)
 
