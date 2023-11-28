@@ -85,7 +85,7 @@ class Actions:
 def on_launch():
     """Disable not used modes and put Talon to sleep"""
     actions.mode.disable("face")
-    if not actions.user.talon_was_restart():
+    if not actions.user.talon_was_restarted():
         actions.user.talon_sleep()
 
 

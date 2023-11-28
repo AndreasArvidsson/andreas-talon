@@ -120,7 +120,7 @@ class Actions:
     def talon_restart():
         """Quit and relaunch the Talon app"""
 
-    def talon_was_restart() -> bool:
+    def talon_was_restarted() -> bool:
         """Returns true if Talon was just restarted"""
         restart_event = storage.get("talon_restart_event", 0)
         return time.time() - restart_event < 25

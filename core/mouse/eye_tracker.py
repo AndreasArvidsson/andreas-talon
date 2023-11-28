@@ -34,70 +34,67 @@ class EyeTrackerActions:
     def mouse_on_pop():
         actions.user.mouse_click_with_conditions()
 
-    def mouse_control_toggle(enable: Optional[bool] = None):
-        mouse_control_toggle(enable if enable is not None else False)
-
 
 @ctx_frozen.action_class("user")
 class FrozenActions:
     def mouse_on_pop():
-        """Frozen mouse on pop handler"""
         actions.user.mouse_click_with_conditions()
 
-    def mouse_freeze_toggle(freeze: Optional[bool] = None):
-        """Toggle freeze cursor position updates for the eye tracker"""
-        mouse_freeze_toggle(freeze if freeze is not None else False)
+    def mouse_freeze_toggle():
+        enable_tracker()
 
 
 @mod.action_class
 class Actions:
     def mouse_control_toggle(enable: Optional[bool] = None):
         """Toggle enable/disable for the eye tracker"""
-        mouse_control_toggle(enable if enable is not None else True)
+        if enable is None:
+            enable = not actions.tracking.control_enabled()
 
-    def mouse_freeze_toggle(freeze: Optional[bool] = None):
+        if enable:
+            enable_tracker()
+        else:
+            disable_tracker()
+
+        enabled = actions.tracking.control_enabled()
+        storage.set("tracking_control", enabled)
+        actions.user.notify(f"Control mouse: {enabled}")
+
+    def mouse_freeze_toggle():
         """Toggle freeze cursor position updates for the eye tracker"""
-        mouse_freeze_toggle(freeze if freeze is not None else True)
+        freeze_tracker()
 
     def mouse_wake():
         """Set control mouse to earlier state"""
-        tracking_control = storage.get("tracking_control", False)
-        control_toggle(tracking_control)
+        if storage.get("tracking_control", False):
+            enable_tracker()
 
     def mouse_sleep():
         """Disables control mouse and scroll"""
         actions.user.mouse_scroll_stop()
         actions.user.mouse_release_held_buttons()
-        control_toggle(False)
+        disable_tracker()
 
 
-def control_toggle(enable: bool) -> bool:
-    actions.tracking.control_toggle(enable)
+def enable_tracker():
+    actions.tracking.control_toggle(True)
     if actions.tracking.control_enabled():
         ctx.tags = ["user.eye_tracker"]
-        return True
-    else:
-        ctx.tags = []
-        return False
 
 
-def mouse_control_toggle(enable: bool):
-    enabled = control_toggle(enable)
-    storage.set("tracking_control", enabled)
-    actions.user.notify(f"Control mouse: {enabled}")
+def disable_tracker():
+    actions.tracking.control_toggle(False)
+    ctx.tags = []
 
 
-def mouse_freeze_toggle(freeze: bool):
-    if freeze:
-        control_toggle(False)
-        ctx.tags = ["user.eye_tracker_frozen"]
-    else:
-        control_toggle(True)
+def freeze_tracker():
+    actions.tracking.control_toggle(False)
+    ctx.tags = ["user.eye_tracker_frozen"]
 
 
 def on_launch():
     """Restore eye tracker after a Talon restart"""
-    if actions.user.talon_was_restart():
+    if actions.user.talon_was_restarted():
         actions.user.mouse_wake()
 
 
