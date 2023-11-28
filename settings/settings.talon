@@ -2,7 +2,7 @@
 
 settings():
     # Speech timeout
-    speech.timeout = 0.150
+    speech.timeout = 0.2
     # Record speech
     speech.record_all = true
 
