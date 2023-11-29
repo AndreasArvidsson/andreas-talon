@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Module, Context, actions
 
 mod = Module()
@@ -14,7 +15,86 @@ ctx.lists["user.git_branch"] = {
 
 @mod.action_class
 class Action:
-    def git_numstat(since: str or None):
+    def git_clone():
+        """Clone git repository"""
+        actions.insert(f"git clone ")
+
+    def git_status():
+        """Show git status"""
+        actions.insert("git status\n")
+
+    def git_stage_all():
+        """Stage all files"""
+        actions.insert("git add .\n")
+
+    def git_unstage_all():
+        """Unstage all files"""
+        actions.insert("git reset .\n")
+
+    def git_pull():
+        """Pull from remote"""
+        actions.insert("git pull\n")
+
+    def git_push():
+        """Push to remote"""
+        actions.insert("git push\n")
+
+    def git_push_tags():
+        """Push tags to remote"""
+        actions.insert("git push --tags\n")
+
+    def git_create_tag(tag: Optional[str] = None):
+        """Create tag <tag>"""
+        actions.insert(f"git tag {tag or ''}")
+
+    def git_stash():
+        """Stash changes"""
+        actions.insert("git stash ")
+
+    def git_stash_pop():
+        """Pop stash"""
+        actions.insert("git stash pop")
+
+    def git_merge(branch: Optional[str] = None):
+        """Merge branch <branch>"""
+        actions.insert(f"git merge {branch or ''}")
+
+    def git_checkout(branch: Optional[str] = None):
+        """Checkout branch <branch>"""
+        actions.insert(f"git checkout {branch or ''}")
+
+    def git_create_branch(branch: Optional[str] = None):
+        """Create branch <branch>"""
+        actions.insert(f"git checkout -b {branch or ''}")
+
+    def git_delete_branch(branch: Optional[str] = None):
+        """Delete branch <branch>"""
+        actions.insert(f"git branch -d {branch or ''}")
+
+    def git_commit(message: Optional[str] = None):
+        """Commit changes <message>"""
+        actions.insert(f'git commit -m "{message or ""}"')
+        actions.edit.left()
+
+    def git_diff():
+        """Show git diff"""
+        actions.insert("git diff\n")
+
+    def git_stash_show():
+        """Show git stashes"""
+        actions.insert("git stash show\n")
+
+    def git_stash_list():
+        """List git stashes"""
+        actions.insert("git stash list\n")
+
+    def git_log():
+        """Show git log"""
+        actions.insert(
+            "git log --graph --color=always --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'\n"
+        )
+
+    def git_numstat(since: Optional[str] = None):
         """Show git statistics"""
         args = "--author='Andreas Arvidsson'"
         if since:

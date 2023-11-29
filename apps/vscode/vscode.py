@@ -228,60 +228,6 @@ class Actions:
             actions.sleep("150ms")
             actions.insert(text)
 
-    def git_open_remote_file_url(use_selection: bool, use_branch: bool):
-        """Open remote git file in browser"""
-        url = actions.user.vscode_get(
-            "andreas.getGitFileURL",
-            {"useSelection": use_selection, "useBranch": use_branch},
-        )
-        if url:
-            actions.user.browser_open(url)
-
-    def git_copy_remote_file_url(use_selection: bool, use_branch: bool):
-        """Copy remote git file URL to clipboard"""
-        url = actions.user.vscode_get(
-            "andreas.getGitFileURL",
-            {"useSelection": use_selection, "useBranch": use_branch},
-        )
-        if url:
-            actions.clip.set_text(url)
-
-    def git_open_url(command: str):
-        """Open remote repository in browser"""
-        url = actions.user.vscode_get(f"andreas.getGit{command}URL")
-        if url:
-            actions.user.browser_open(url)
-
-    def git_copy_markdown_remote_file_url(targets: list):
-        """Copy remote git file URL to clipboard as markdown link"""
-        use_selection = False
-        text = ""
-
-        # The second target is optional and is used for getting the text
-        if len(targets) == 2:
-            text = "".join(actions.user.c_get_texts(targets[1]))
-            use_selection = True
-
-        # The first target is the source of the git url
-        actions.user.cursorless_command("setSelection", targets[0])
-
-        # If the second target is omitted used the selected text
-        if len(targets) == 1:
-            text = actions.edit.selected_text()
-
-        url = actions.user.vscode_get(
-            "andreas.getGitFileURL",
-            {"useSelection": use_selection, "useBranch": False},
-        )
-        if url and text:
-            actions.clip.set_text(f"[`{text}`]({url})")
-
-    def git_find_branch(text: Optional[str] = None):
-        """Fined git branch"""
-        actions.user.vscode("git.checkout")
-        if text:
-            actions.insert(text)
-
     def vscode_take_word(cursorless_target: dict, repeats: int):
         """Take word on cursorless target with number of repeats"""
         actions.user.cursorless_command("setSelection", cursorless_target)

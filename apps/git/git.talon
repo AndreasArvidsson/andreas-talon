@@ -1,85 +1,45 @@
 tag: user.git
 -
 
-git:                        "git "
-git verison:                "git --version\n"
-git init:                   "git init\n"
-git status:                 "git status\n"
-git log:                    "git log --graph --color=always --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'\n"
-git log original:           "git log\n"
-git reflog:                 "git reflog\n"
-git clean:                  "git clean "
-git remove:                 "git rm "
-git tag:                    "git tag "
-git branch:                 "git branch "
-git branch deli:            "git branch -d "
-git clone:                  "git clone "
-git cherry pick:            "git cherry-pick "
-git rebase:                 "git rebase "
-git revert:                 "git revert "
+git clone:                  user.git_clone()
 
-git merge:                  "git merge "
+git status:                 user.git_status()
+
+git add all:                user.git_stage_all()
+git reset all:              user.git_unstage_all()
+
+git pull:                   user.git_pull()
+git push:                   user.git_push()
+git push tags:              user.git_push_tags()
+
+git tag:                    user.git_create_tag()
+
+git stash:                  user.git_stash()
+git stash pop:              user.git_stash_pop()
+
+git merge:                  user.git_merge()
 git merge {user.git_branch}:
-    "git merge {git_branch}"
+    user.git_merge(git_branch)
 
-git remote:                 "git remote "
-git remote verbose:         "git remote -v\n"
-
-git reset:                  "git reset "
-git reset all:              "git reset .\n"
-git reset head:             "git reset --soft HEAD^"
-git reset soft:             "git reset --soft "
-git reset hard:             "git reset --hard "
-
-git fetch:                  "git fetch "
-git fetch all:              "git fetch -a\n"
-git fetch upstream:         "git fetch upstream\n"
-git fetch prune:            "git fetch --prune origin\n"
-
-git checkout:               "git checkout "
+git checkout [<user.text>]:
+    text = user.format_text(text or "", "SNAKE_CASE")
+    user.git_checkout(text)
 git checkout {user.git_branch}:
-    "git checkout {git_branch}\n"
-git checkout <user.text>:   "git checkout {text}"
+    user.git_checkout(git_branch)
+
 git checkout branch [<user.text>]:
-    text = user.format_text(text or '', "SNAKE_CASE")
-    "git checkout -b {text}"
-git checkout last:          "git checkout -\n"
+    text = user.format_text(text or "", "SNAKE_CASE")
+    user.git_create_branch(text)
 
-git add:                    "git add "
-git add all:                "git add .\n"
+git branch deli:            user.git_delete_branch()
 
-git commit:
-    'git commit -m ""'
-    key(left)
-git commit <user.text>$:
-    text = user.format_text(text, "SENTENCE")
-    'git commit -m "{text}"'
-    key(left)
-git commit amend:           "git commit --amend "
+git commit [<user.text>]$:
+    text = user.format_text(text or "", "SENTENCE")
+    user.git_commit(text)
 
-git diff:                   "git diff\n"
-git diff halt:              "git diff "
-git diff <user.text>:       "git diff {text}"
+git diff:                   user.git_diff()
 
-git pull:                   "git pull\n"
-git pull upstream:          "git pull upstream\n"
-git pull upstream master:   "git pull upstream master\n"
-git pull upstream main:     "git pull upstream main\n"
+git stash show:             user.git_stash_show()
+git stash list:             user.git_stash_list()
 
-git push:                   "git push --follow-tags\n"
-git push tags:              "git push --tags\n"
-git push deli:              "git push origin -d "
-
-git stash:                  "git stash "
-git stash show:             "git stash show\n"
-git stash list:             "git stash list\n"
-git stash pop:              "git stash pop"
-
-git merge quit:
-    ":q"
-    key(enter)
-
-git numstat:                user.git_numstat("")
-git numstat year:           user.git_numstat("1 year")
-git numstat month:          user.git_numstat("1 month")
-git numstat week:           user.git_numstat("1 week")
+git log:                    user.git_log()

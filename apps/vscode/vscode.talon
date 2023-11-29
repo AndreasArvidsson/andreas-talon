@@ -6,6 +6,7 @@ tag(): user.zoom
 tag(): user.tabs
 tag(): user.find
 tag(): user.code_comments
+tag(): user.git
 
 settings():
     user.scroll_speed = 0.9
@@ -122,34 +123,8 @@ git (repo | repository):    user.git_open_url("Repo")
 git issues:                 user.git_open_url("Issues")
 git new issue:              user.git_open_url("NewIssue")
 git pull requests:          user.git_open_url("PullRequests")
-git status:                 user.vscode("workbench.scm.focus")
-git (changes | diff):       user.vscode("git.openChange")
 git changed files:          user.vscode("git.openAllChanges")
-git add all:                user.vscode("git.stageAll")
-git reset all:              user.vscode("git.unstageAll")
-git pull:                   user.vscode("git.pull")
-git push:                   user.vscode("git.pushWithTags")
-git tag:                    user.vscode("git.createTag")
-git push tags:              user.vscode("git.pushTags")
 git open:                   user.vscode("git.openFile")
-git stash:                  user.vscode("git.stash")
-git stash pop:              user.vscode("git.stashPop")
-git branch deli:            user.vscode("git.deleteBranch")
-git merge:                  user.vscode("git.merge")
-git merge {user.git_branch}:
-    user.vscode("git.merge")
-    sleep(50ms)
-    "{git_branch}"
-git checkout {user.git_branch}: user.git_find_branch(git_branch)
-git checkout [<user.text>]: user.git_find_branch(text or "")
-git checkout branch [<user.text>]:
-    user.vscode("git.branch")
-    sleep(50ms)
-    user.insert_formatted(text or "", "SNAKE_CASE")
-git commit [<user.text>]:
-    user.vscode("git.commit")
-    sleep(200ms)
-    user.insert_formatted(text or "", "SENTENCE")
 
 # Folding
 fold recursive:             user.vscode("editor.foldRecursively")
