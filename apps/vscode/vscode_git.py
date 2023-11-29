@@ -34,6 +34,9 @@ class Actions:
     def git_create_tag(tag: Optional[str] = None):
         command_with_text("git.createTag", tag)
 
+    def git_show_tags():
+        actions.user.vscode("gitlens.showTagsView")
+
     def git_stash():
         actions.user.vscode("git.stash")
 
@@ -58,6 +61,12 @@ class Actions:
             actions.sleep("200ms")
             actions.insert(message)
 
+    def git_commit_amend(message: Optional[str] = None):
+        actions.user.vscode("git.commitAmend")
+        if message:
+            actions.sleep("200ms")
+            actions.insert(message)
+
     def git_diff():
         actions.user.vscode("git.openChange")
 
@@ -69,6 +78,12 @@ class Actions:
 
     def git_log():
         actions.user.vscode("gitlens.showCommitsView")
+
+    def git_remote():
+        actions.user.vscode("gitlens.showRemotesView")
+
+    def git_cherry_pick():
+        actions.user.vscode("git.cherryPick")
 
     def git_open_remote_file_url(use_selection: bool, use_branch: bool):
         """Open remote git file in browser"""

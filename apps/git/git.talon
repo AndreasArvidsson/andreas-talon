@@ -13,6 +13,7 @@ git push:                   user.git_push()
 git push tags:              user.git_push_tags()
 
 git tag:                    user.git_create_tag()
+git tag list:               user.git_show_tags()
 
 git stash:                  user.git_stash()
 git stash pop:              user.git_stash_pop()
@@ -36,6 +37,9 @@ git branch deli:            user.git_delete_branch()
 git commit [<user.text>]$:
     text = user.format_text(text or "", "SENTENCE")
     user.git_commit(text)
+git commit amend [<user.text>]$:
+    text = user.format_text(text or "", "SENTENCE")
+    user.git_commit_amend(text)
 
 git diff:                   user.git_diff()
 
@@ -43,3 +47,6 @@ git stash show:             user.git_stash_show()
 git stash list:             user.git_stash_list()
 
 git log:                    user.git_log()
+git remote:                 user.git_remote()
+
+git cherry pick:            user.git_cherry_pick()

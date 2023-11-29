@@ -47,6 +47,10 @@ class Action:
         """Create tag <tag>"""
         actions.insert(f"git tag {tag or ''}")
 
+    def git_show_tags():
+        """Show tags"""
+        actions.insert("git tag\n")
+
     def git_stash():
         """Stash changes"""
         actions.insert("git stash ")
@@ -76,6 +80,11 @@ class Action:
         actions.insert(f'git commit -m "{message or ""}"')
         actions.edit.left()
 
+    def git_commit_amend(message: Optional[str] = None):
+        """Commit changes <message>"""
+        actions.insert(f'git commit --amend -m "{message or ""}"')
+        actions.edit.left()
+
     def git_diff():
         """Show git diff"""
         actions.insert("git diff\n")
@@ -93,6 +102,14 @@ class Action:
         actions.insert(
             "git log --graph --color=always --format='%C(auto)%h%d %s %C(green)(%cr) %C(bold blue)<%an>%Creset'\n"
         )
+
+    def git_remote():
+        """Show git remote"""
+        actions.insert("git remote -v\n")
+
+    def git_cherry_pick():
+        """Cherry pick commit"""
+        actions.insert("git cherry-pick ")
 
     def git_numstat(since: Optional[str] = None):
         """Show git statistics"""
