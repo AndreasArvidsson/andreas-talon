@@ -1,5 +1,7 @@
 from typing import List, Optional
-from talon import Context, actions
+from talon import Context, Module, actions
+
+mod = Module()
 
 ctx = Context()
 ctx.matches = r"""
@@ -46,8 +48,11 @@ class Actions:
     def git_merge(branch: Optional[str] = None):
         command_with_text("git.merge", branch)
 
-    def git_checkout(branch: Optional[str] = None):
-        command_with_text("git.checkout", branch)
+    def git_checkout(branch: Optional[str] = None, submit: bool = False):
+        command_with_text("git.checkout", branch, submit)
+
+    def git_show_branches():
+        actions.user.vscode("gitlens.showBranchesView")
 
     def git_create_branch(branch: Optional[str] = None):
         command_with_text("git.branch", branch)
@@ -85,6 +90,9 @@ class Actions:
     def git_cherry_pick():
         actions.user.vscode("git.cherryPick")
 
+
+@mod.action_class
+class Actions:
     def git_open_remote_file_url(use_selection: bool, use_branch: bool):
         """Open remote git file in browser"""
         url = actions.user.vscode_get(
@@ -134,8 +142,10 @@ class Actions:
             actions.clip.set_text(f"[`{text}`]({url})")
 
 
-def command_with_text(command: str, text: Optional[str] = None):
+def command_with_text(command: str, text: Optional[str] = None, submits: bool = False):
     actions.user.vscode(command)
     if text:
         actions.sleep("50ms")
         actions.insert(text)
+    if submits:
+        actions.key("enter")

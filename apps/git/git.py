@@ -63,9 +63,15 @@ class Action:
         """Merge branch <branch>"""
         actions.insert(f"git merge {branch or ''}")
 
-    def git_checkout(branch: Optional[str] = None):
+    def git_checkout(branch: Optional[str] = None, submit: bool = False):
         """Checkout branch <branch>"""
         actions.insert(f"git checkout {branch or ''}")
+        if submit:
+            actions.insert("\n")
+
+    def git_show_branches():
+        """Show branches"""
+        actions.insert("git branch\n")
 
     def git_create_branch(branch: Optional[str] = None):
         """Create branch <branch>"""

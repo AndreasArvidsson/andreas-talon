@@ -18,7 +18,7 @@ git tag list:               user.git_show_tags()
 git stash:                  user.git_stash()
 git stash pop:              user.git_stash_pop()
 
-git merge:                  user.git_merge()
+git merge [<user.text>]:    user.git_merge(text or "")
 git merge {user.git_branch}:
     user.git_merge(git_branch)
 
@@ -26,13 +26,17 @@ git checkout [<user.text>]:
     text = user.format_text(text or "", "SNAKE_CASE")
     user.git_checkout(text)
 git checkout {user.git_branch}:
-    user.git_checkout(git_branch)
+    user.git_checkout(git_branch, true)
 
 git checkout branch [<user.text>]:
     text = user.format_text(text or "", "SNAKE_CASE")
     user.git_create_branch(text)
 
-git branch deli:            user.git_delete_branch()
+git branch deli [<user.text>]:
+    text = user.format_text(text or "", "SNAKE_CASE")
+    user.git_delete_branch(text)
+
+git branch:                 user.git_show_branches()
 
 git commit [<user.text>]$:
     text = user.format_text(text or "", "SENTENCE")

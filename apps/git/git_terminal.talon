@@ -9,7 +9,6 @@ git log original:           "git log\n"
 git reflog:                 "git reflog\n"
 git clean:                  "git clean "
 git remove:                 "git rm "
-git branch:                 "git branch "
 git rebase:                 "git rebase "
 git revert:                 "git revert "
 
