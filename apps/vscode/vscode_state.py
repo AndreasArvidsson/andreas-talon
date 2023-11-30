@@ -1,9 +1,16 @@
 from talon import Module, Context, resource, app, actions
+from dataclasses import dataclass
 from pathlib import Path
 import tempfile
 import json
 import glob
 import re
+
+
+@dataclass
+class State:
+    workspaceFolders: list[str]
+
 
 TYPE_PATTERN = r"[a-zA-Z_]{3,}"
 
@@ -21,8 +28,9 @@ def on_ready():
     @resource.watch(str(json_file))
     def on_watch(f):
         global workspaceFolders
-        state = json.loads(f.read())
-        workspaceFolders = [Path(p) for p in state["workspaceFolders"]]
+        state_json: dict = json.loads(f.read())
+        state = State(**state_json)
+        workspaceFolders = [Path(p) for p in state.workspaceFolders]
 
 
 # app.register("ready", on_ready)
