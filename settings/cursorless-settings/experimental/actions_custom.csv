@@ -1,11 +1,19 @@
 Spoken form, VSCode command
+
 increment, andreas.increment
 decrement, andreas.decrement
-run cell, notebook.cell.executeAndFocusContainer
-git revert, git.revertSelectedRanges
+join line, editor.action.joinLines
+reflow, rewrap.rewrapComment
+
+# Git
 git add, git.stageSelectedRanges
 git reset, git.unstageSelectedRanges
-join line, editor.action.joinLines
+git revert, git.revertSelectedRanges
+git accept, merge-conflict.accept.selection
+
+# Emmet / HTML
 rename tag, editor.emmet.action.updateTag
 split tag | join tag, editor.emmet.action.splitJoinTag
-reflow, rewrap.rewrapComment
+
+# Notebook
+run cell, notebook.cell.executeAndFocusContainer
