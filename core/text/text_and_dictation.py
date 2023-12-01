@@ -137,10 +137,11 @@ def capture_to_words(m):
     words = []
     for item in m:
         words.extend(
-            actions.dictate.replace_words(actions.dictate.parse_words(item))
+            actions.dictate.parse_words(item)
             if isinstance(item, grammar.vm.Phrase)
             else [item]
         )
+    words = actions.dictate.replace_words(words)
     words = actions.user.homophones_replace_words(words)
     return words
 
