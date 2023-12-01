@@ -63,15 +63,18 @@ class UserActions:
 
     def file_manager_focus_address():
         actions.key("alt-d")
+        actions.sleep("50ms")
 
     def file_manager_copy_address():
         actions.user.file_manager_focus_address()
         actions.edit.copy()
+        actions.sleep("100ms")
         actions.key("escape")
 
     def file_manager_go(path: str):
-        actions.key("ctrl-l")
+        actions.user.file_manager_focus_address()
         actions.insert(path)
+        actions.sleep("100ms")
         actions.key("enter")
 
     # ----- Create folders / files -----
@@ -93,9 +96,7 @@ class UserActions:
         actions.key("alt-enter")
 
     def file_manager_terminal_here():
-        actions.key("ctrl-l")
-        actions.insert("cmd.exe")
-        actions.key("enter")
+        actions.user.file_manager_go("cmd.exe")
 
     def pick_item(number: int):
         if number == 1:
