@@ -18,7 +18,7 @@ drink, editNewLineBefore
 drop, insertEmptyLineBefore
 extract, extractVariable
 float, insertEmptyLineAfter
-folding, foldRegion
+fold region, foldRegion
 falling type, revealTypeDefinition
 falling, followLink
 format|form, applyFormatter
@@ -45,7 +45,7 @@ sort, sortTargets
 swap, swapTargets
 switch, rewrap
 take, setSelection
-unfold, unfoldRegion
+unfold region, unfoldRegion
 wrap, wrapWithPairedDelimiter
 
 # `revealDefinition` is already part of `followLink`
