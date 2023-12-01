@@ -154,8 +154,9 @@ class Actions:
                 text = text.lstrip()
 
             # Has trailing whitespace
-            if after is not None and len(after) != 0 and after[0].isspace():
-                text = text.rstrip()
+            # Disabled for now because it's too annoying
+            # if after is not None and len(after) != 0 and after[0].isspace():
+            #     text = text.rstrip()
 
         actions.insert(text)
 
