@@ -5,6 +5,7 @@ import tempfile
 import json
 import glob
 import re
+import time
 
 
 @dataclass
@@ -22,6 +23,7 @@ mod.list("vscode_identifier", "Known identifiers and types in the vscode workspa
 json_file = Path(tempfile.gettempdir()) / "vscodeState.json"
 
 workspaceFolders: list[Path] = []
+spoken_map: dict[str, str] = {}
 
 
 def on_ready():
@@ -33,13 +35,20 @@ def on_ready():
         workspaceFolders = [Path(p) for p in state.workspaceFolders]
 
 
-# app.register("ready", on_ready)
-
-
 @ctx.dynamic_list("user.vscode_identifier")
-def vscode_identifier() -> dict[str, str]:
+def vscode_identifier_list() -> dict[str, str]:
+    global spoken_map
+    t = time.perf_counter()
     types = get_types_from_workspaces()
-    return generate_spoken_forms(types)
+    spoken_map = generate_spoken_forms(types)
+    print("Generating vscode_identifier_list", len(spoken_map))
+    print(f"{int((time.perf_counter()-t)*1000)}ms")
+    return spoken_map
+
+
+@mod.capture(rule="{user.vscode_identifier}")
+def vscode_identifier(m) -> str:
+    return spoken_map[m.vscode_identifier]
 
 
 def get_types_from_workspaces() -> set[str]:
@@ -80,3 +89,6 @@ def generate_spoken_form(type: str) -> str:
     type = actions.user.de_camel(type)
     # Finally lower case
     return type.lower()
+
+
+# app.register("ready", on_ready)
