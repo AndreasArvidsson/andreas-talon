@@ -13,7 +13,7 @@ class State:
     workspaceFolders: list[str]
 
 
-TYPE_PATTERN = r"[a-zA-Z_]{3,}"
+SYMBOL_PATTERN = r"[a-zA-Z_]{3,}"
 
 mod = Module()
 
@@ -76,7 +76,7 @@ def get_types_from_workspaces() -> set[str]:
 def get_types_from_file(file_path: Path) -> list[str]:
     try:
         with open(file_path, "r") as file:
-            return re.findall(TYPE_PATTERN, file.read())
+            return re.findall(SYMBOL_PATTERN, file.read())
     except Exception as ex:
         return []
 
