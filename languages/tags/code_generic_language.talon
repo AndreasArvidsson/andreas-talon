@@ -35,3 +35,6 @@ is type <user.text>:
     user.code_insert_type_annotation(data_type)
 returns type {user.code_data_type}:
     user.code_insert_return_type(code_data_type)
+
+# ----- Insert symbol -----
+symbol <user.code_symbol>:  insert(code_symbol)

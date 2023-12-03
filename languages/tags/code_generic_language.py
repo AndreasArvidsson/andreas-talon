@@ -9,6 +9,12 @@ mod.list("code_class_modifier", "Class modifiers")
 mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
 mod.list("code_data_type", "Names of data types")
+mod.list("code_symbol", "Known symbols in the code workspace")
+
+
+@mod.capture(rule="{user.code_symbol}")
+def code_symbol(m) -> str:
+    return m.code_symbol
 
 
 @mod.action_class

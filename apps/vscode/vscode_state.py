@@ -16,9 +16,12 @@ class State:
 TYPE_PATTERN = r"[a-zA-Z_]{3,}"
 
 mod = Module()
-ctx = Context()
 
-mod.list("vscode_identifier", "Known identifiers and types in the vscode workspace")
+ctx = Context()
+ctx.matches = r"""
+app: vscode
+"""
+
 
 json_file = Path(tempfile.gettempdir()) / "vscodeState.json"
 
@@ -35,20 +38,20 @@ def on_ready():
         workspaceFolders = [Path(p) for p in state.workspaceFolders]
 
 
-@ctx.dynamic_list("user.vscode_identifier")
-def vscode_identifier_list() -> dict[str, str]:
+@ctx.dynamic_list("user.code_symbol")
+def code_symbol_list() -> dict[str, str]:
     global spoken_map
     t = time.perf_counter()
     types = get_types_from_workspaces()
     spoken_map = generate_spoken_forms(types)
-    print("Generating vscode_identifier_list", len(spoken_map))
+    print("Generating code_symbol list: ", len(spoken_map))
     print(f"{int((time.perf_counter()-t)*1000)}ms")
     return spoken_map
 
 
-@mod.capture(rule="{user.vscode_identifier}")
-def vscode_identifier(m) -> str:
-    return spoken_map[m.vscode_identifier]
+@ctx.capture("user.code_symbol", rule="{user.code_symbol}")
+def code_symbol(m) -> str:
+    return spoken_map[m.code_symbol]
 
 
 def get_types_from_workspaces() -> set[str]:
@@ -91,4 +94,4 @@ def generate_spoken_form(type: str) -> str:
     return type.lower()
 
 
-# app.register("ready", on_ready)
+app.register("ready", on_ready)
