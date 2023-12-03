@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, Context
 
 mod = Module()
 
@@ -62,33 +62,7 @@ tag_names = {
 }
 # fmt: on
 
-mod.list("code_tag", "Predefined tag names")
 ctx.lists["user.code_tag"] = {
     **{n: n for n in tag_names_list},
     **tag_names,
 }
-
-
-tags = []
-
-
-@mod.action_class
-class Actions:
-    def code_push_tag_name(name: str):
-        """Push tag <name>"""
-        tags.append(name)
-
-    def code_close_tag():
-        """Close last tag"""
-        if len(tags) < 1:
-            return
-        name = tags.pop()
-        actions.insert(f"</{name}>")
-
-    def code_insert_element(name: str):
-        """Insert element <name>"""
-        actions.user.insert_snippet_by_name("element", {"name": name})
-
-    def code_insert_attribute(name: str):
-        """Insert attribute <name>"""
-        actions.user.insert_snippet_by_name("attribute", {"name": f" {name}"})

@@ -102,16 +102,19 @@ def get_super_languages(language: str) -> list[str]:
         case "typescript":
             return ["_", "javascript", "typescript"]
         case "javascriptreact":
-            return ["_", "html", "javascript", "javascriptreact"]
+            return ["_", "xml", "html", "javascript", "javascriptreact"]
         case "typescriptreact":
             return [
                 "_",
+                "xml",
                 "html",
                 "javascript",
                 "typescript",
                 "javascriptreact",
                 "typescriptreact",
             ]
+        case "html":
+            return ["_", "xml", "html"]
         case _:
             return ["_", language]
 

@@ -209,6 +209,13 @@ class UserActions:
         # actions.user.cursorless_insert_snippet(body)
         actions.user.vscode("editor.action.insertSnippet", {"snippet": body})
 
+    # ----- Text getters -----
+    def code_get_class_name() -> Optional[str]:
+        return actions.user.vscode_get("andreas.getClassName")
+
+    def code_get_open_tag_name() -> Optional[str]:
+        return actions.user.vscode_get("andreas.getOpenTagName")
+
 
 @mod.action_class
 class Actions:

@@ -118,7 +118,7 @@ class UserActions:
 
     # Constructor declaration
     def code_constructor(modifiers: list[str]):
-        name = actions.user.vscode_get("andreas.getClassName")
+        name = actions.user.code_get_class_name()
         if not name:
             return
         actions.user.insert_snippet_by_name(

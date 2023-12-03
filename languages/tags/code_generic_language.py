@@ -1,5 +1,5 @@
 from talon import Module, actions
-from typing import Union
+from typing import Optional, Union
 
 mod = Module()
 
@@ -89,6 +89,13 @@ class Actions:
 
     def code_get_variable_format() -> str:
         """Get variable format"""
+
+    # ----- Text getters -----
+    def code_get_class_name() -> Optional[str]:
+        """Get class name"""
+
+    def code_get_open_tag_name() -> Optional[str]:
+        """Get class name"""
 
 
 def parse_function_name(name: str) -> str:
