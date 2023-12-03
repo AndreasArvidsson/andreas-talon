@@ -1,5 +1,5 @@
 tag: user.git
-tag: terminal
+and tag: terminal
 -
 
 git:                        "git "
