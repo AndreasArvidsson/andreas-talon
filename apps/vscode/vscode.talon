@@ -123,7 +123,7 @@ git (repo | repository):    user.git_open_url("Repo")
 git issues:                 user.git_open_url("Issues")
 git new issue:              user.git_open_url("NewIssue")
 git pull requests:          user.git_open_url("PullRequests")
-git changed files:          user.vscode("git.openAllChanges")
+git diff files:             user.vscode("git.openAllChanges")
 git open:                   user.vscode("git.openFile")
 
 # Folding
