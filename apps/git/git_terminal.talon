@@ -39,3 +39,5 @@ git numstat:                user.git_numstat("")
 git numstat year:           user.git_numstat("1 year")
 git numstat month:          user.git_numstat("1 month")
 git numstat week:           user.git_numstat("1 week")
+
+git shortlog:               "git shortlog -sn\n"
