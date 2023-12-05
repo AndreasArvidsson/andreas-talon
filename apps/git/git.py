@@ -7,9 +7,10 @@ mod.tag("git")
 
 mod.list("git_branch", "List of common git branches")
 ctx.lists["user.git_branch"] = {
-    "master",
-    "main",
-    "develop",
+    "master": "master",
+    "main": "main",
+    "men": "main",
+    "develop": "develop",
 }
 
 
