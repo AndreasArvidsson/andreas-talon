@@ -22,10 +22,6 @@ escape <user.phrase> over:  "{phrase}"
 # Single abbreviated word. "proud brief app" => App
 {user.formatter_word} <user.abbreviation>:
     user.insert_formatted(abbreviation, formatter_word)
-# Single homophone word
-{user.formatter_word} <user.ordinals_small> <user.word>:
-    homophone = user.homophones_get_by_number(word, ordinals_small)
-    user.insert_formatted(homophone, formatter_word)
 # Abbreviated word without formatter: "breif application" => app, "breif app" => app
 <user.abbreviation>:        "{abbreviation}"
 

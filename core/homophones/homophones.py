@@ -1,8 +1,7 @@
-from talon import Context, Module, app, actions
+from talon import Module, app, actions
 import re
 import time
 from pathlib import Path
-from ..imgui import imgui
 
 # a list of homophones where each line is a comma separated list
 # e.g. where,wear,ware
@@ -10,25 +9,8 @@ from ..imgui import imgui
 # https://github.com/pimentel/homophones
 
 mod = Module()
-ctx = Context()
-
-mod.tag("homophones", "Pick homophones gui is showing")
 
 homophones_last_used = {}
-
-
-@imgui.open()
-def gui(gui: imgui.GUI):
-    gui.header("Homophones")
-    gui.line(bold=True)
-    index = 1
-    global active_word_list
-    for word in active_word_list:
-        gui.text(f"Choose {index} {word.strip()}")
-        index = index + 1
-    gui.spacer()
-    if gui.button("Hide"):
-        actions.user.homophones_hide()
 
 
 def update_used(word: str):
@@ -46,29 +28,6 @@ class Actions:
         update_used(get_next(word, homophones))
         return homophones
 
-    def homophones_get_by_number(word: str, number: int) -> str:
-        """Get homophone for the given word and number"""
-        list = get_list(word).copy()
-        list.remove(word)
-        list.insert(0, word)
-        homophone = get_from_list(list, number)
-        update_used(homophone)
-        return homophone
-
-    def homophones_show_selected():
-        """Show homophones selection if the selected word is a homophone"""
-        global active_word_list, active_word
-
-        word = actions.edit.selected_text()
-        if not word:
-            return
-
-        list = get_list(word)
-        active_word = word
-        active_word_list = format_list(word, list)
-        ctx.tags = ["user.homophones"]
-        gui.show()
-
     def homophones_cycle_selected():
         """Cycle homophones if the selected word is a homophone"""
         word = actions.edit.selected_text()
@@ -80,21 +39,6 @@ class Actions:
         update_used(homophone)
         new_word = format_homophone(word, homophone)
         actions.insert(new_word)
-
-    def homophones_hide():
-        """Hides the homophones display"""
-        ctx.tags = []
-        gui.hide()
-
-    def homophones_select(number: int) -> str:
-        """Selects the alternative by number"""
-        homophone = get_from_list(active_word_list, number)
-
-        if active_word != homophone:
-            update_used(homophone)
-            actions.insert(homophone)
-
-        actions.user.homophones_hide()
 
     def homophones_replace_words(words: list[str]) -> list[str]:
         """Replace words with recently chosen homophones"""
@@ -124,21 +68,6 @@ def get_list(word: str):
     if word_lower not in homophones:
         homophones = [word_lower, *homophones]
     return homophones
-
-
-def get_from_list(list: list[str], number: int) -> str:
-    if number < 1 or number > len(list):
-        msg = f"Homophones #{number} is out of range (1-{len(list)})"
-        actions.user.notify(msg)
-        raise ValueError(msg)
-    return list[number - 1]
-
-
-def format_list(word: str, list: list[str]) -> list[str]:
-    list = list[:]
-    for i in range(len(list)):
-        list[i] = format_homophone(word, list[i])
-    return list
 
 
 def format_homophone(word: str, homophone: str):
