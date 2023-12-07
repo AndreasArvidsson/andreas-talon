@@ -59,7 +59,7 @@ breakpoint, toggleLineBreakpoint
 call, callAsFunction
 comment, toggleLineComment
 extract, extractVariable
-format|form, applyFormatter
+format | form, applyFormatter
 highlight, highlight
 phones, nextHomophone
 quick fix, showQuickFix
