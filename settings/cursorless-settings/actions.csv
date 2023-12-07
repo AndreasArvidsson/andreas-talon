@@ -1,55 +1,72 @@
 Spoken form, Cursorless identifier
 
-bottom, scrollToBottom
-breakpoint, toggleLineBreakpoint
-bring, replaceWithTarget
-call, callAsFunction
-center, scrollToCenter
-chuck, remove
-clear, clearAndSetSelection
+take, setSelection
+pre, setSelectionBefore
+post, setSelectionAfter
+give, deselect
+
+puff, insertEmptyLinesAround
+drop, insertEmptyLineBefore
+float, insertEmptyLineAfter
+
+drink, editNewLineBefore
+pour, editNewLineAfter
+
 clone up, insertCopyBefore
 clone, insertCopyAfter
-comment, toggleLineComment
-copy, copyToClipboard
-crown, scrollToTop
+
 cut, cutToClipboard
-dedent, outdentLine
-drink, editNewLineBefore
-drop, insertEmptyLineBefore
-extract, extractVariable
-falling type, revealTypeDefinition
-falling, followLink
-float, insertEmptyLineAfter
-fold region, foldRegion
-format|form, applyFormatter
-give, deselect
-highlight, highlight
-hover, showHover
-indent, indentLine
-inspect, showDebugHover
-join line, joinLines
-move, moveToTarget
 paste, pasteFromClipboard
-phones, nextHomophone
-post, setSelectionAfter
-pour, editNewLineAfter
-pre, setSelectionBefore
-puff, insertEmptyLinesAround
-quick fix, showQuickFix
-reference, showReferences
-rename, rename
+copy, copyToClipboard
+
+bring, replaceWithTarget
+move, moveToTarget
+swap, swapTargets
+
+chuck, remove
+clear, clearAndSetSelection
+
+crown, scrollToTop
+center, scrollToCenter
+bottom, scrollToBottom
+
+indent, indentLine
+dedent, outdentLine
+join line, joinLines
+break line, breakLine
+
+wrap, wrapWithPairedDelimiter
+switch, rewrap
+
+sort, sortTargets
+shuffle, randomizeTargets
 reverse, reverseTargets
+
 scout all for, findInWorkspace
 scout for, findInDocument
-shuffle, randomizeTargets
-sort, sortTargets
-swap, swapTargets
-switch, rewrap
-take, setSelection
+
+falling type, revealTypeDefinition
+falling, followLink
+reference, showReferences
+
+fold region, foldRegion
 unfold region, unfoldRegion
-wrap, wrapWithPairedDelimiter
+
+hover, showHover
+inspect, showDebugHover
+
+breakpoint, toggleLineBreakpoint
+call, callAsFunction
+comment, toggleLineComment
+extract, extractVariable
+format|form, applyFormatter
+highlight, highlight
+phones, nextHomophone
+quick fix, showQuickFix
+rename, rename
 
 # `revealDefinition` is already part of `followLink`
 -define, revealDefinition
 -snippet, insertSnippet
 -snippet make, generateSnippet
+

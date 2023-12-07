@@ -68,9 +68,5 @@ snip {user.snippet} <user.cursorless_destination>:
     user.c_wrap_with_snippet(cursorless_target, snippet_wrapper)
 
 # Misc
-break line <user.cursorless_target>:
-    user.cursorless_command("setSelectionBefore", cursorless_target)
-    key("enter")
-
 search for <user.cursorless_target>:
     user.c_browser_open_target(cursorless_target)
