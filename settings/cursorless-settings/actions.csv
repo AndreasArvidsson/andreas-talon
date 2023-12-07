@@ -17,16 +17,17 @@ dedent, outdentLine
 drink, editNewLineBefore
 drop, insertEmptyLineBefore
 extract, extractVariable
-float, insertEmptyLineAfter
-fold region, foldRegion
 falling type, revealTypeDefinition
 falling, followLink
+float, insertEmptyLineAfter
+fold region, foldRegion
 format|form, applyFormatter
 give, deselect
 highlight, highlight
 hover, showHover
 indent, indentLine
 inspect, showDebugHover
+join line, joinLines
 move, moveToTarget
 paste, pasteFromClipboard
 phones, nextHomophone
