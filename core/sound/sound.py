@@ -1,6 +1,5 @@
 from talon import Context, Module, actions
 from subprocess import call
-import os
 
 mod = Module()
 mod.list("playback_device", "Playback devices")
@@ -88,5 +87,4 @@ class UserActionsWin:
 
 def change_sound_device_win(name: str, role: int):
     """Roles: 0: Console, 1: Multimedia, 2: Communications"""
-    program_files = os.environ["ProgramFiles"]
     call(["nircmd.exe", "setdefaultsounddevice", name, str(role)])
