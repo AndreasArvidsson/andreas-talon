@@ -51,22 +51,24 @@ ctx_win.matches = r"""
 os: windows
 """
 
-ctx_win.lists["user.playback_device"] = [
-    "Headphones",
-    "Speakers",
-    "TV",
-]
+ctx_win.lists["user.playback_device"] = {
+    "Headphones": "Headphones",
+    "Speakers": "Speakers",
+    "TV": "TV",
+    "razer": "Razer headphones",
+}
 
 ctx_win.lists["user.microhpone_device"] = {
-    "headphones": "Headphones_mic",
     "solo": "Focusrite",
     "internal": "Internal_mic",
-    "yeti": "Blue Yeti",
+    "razer": "Razer microphone",
+    # "yeti": "Blue Yeti",
 }
 
 playback_microphone_pair = {
     "headphones": ["Headphones", "Headphones_mic"],
     "solo": ["Speakers", "Focusrite"],
+    "razer": ["Razer headphones", "Razer microphone"],
 }
 ctx_win.lists["user.playback_microphone_pair"] = playback_microphone_pair.keys()
 
