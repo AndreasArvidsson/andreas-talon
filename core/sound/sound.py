@@ -61,6 +61,7 @@ ctx_win.lists["user.microhpone_device"] = {
     "headphones": "Headphones_mic",
     "solo": "Focusrite",
     "internal": "Internal_mic",
+    "yeti": "Blue Yeti",
 }
 
 playback_microphone_pair = {

@@ -19,6 +19,7 @@ end tag, xmlEndTag
 file, document
 funk name, functionName
 funk, namedFunction
+glyph, glyph
 if state, ifStatement
 instance, instance
 item, collectionItem
