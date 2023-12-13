@@ -58,15 +58,15 @@ ctx_win.lists["user.playback_device"] = {
 }
 
 ctx_win.lists["user.microhpone_device"] = {
-    "solo": "Focusrite",
     "internal": "Internal_mic",
+    "dpa": "DPA",
     "razer": "Razer microphone",
     # "yeti": "Blue Yeti",
 }
 
 playback_microphone_pair = {
     "headphones": ["Headphones", "Headphones_mic"],
-    "solo": ["Speakers", "Focusrite"],
+    "solo": ["Speakers", "DPA"],
     "razer": ["Razer headphones", "Razer microphone"],
 }
 ctx_win.lists["user.playback_microphone_pair"] = playback_microphone_pair.keys()
