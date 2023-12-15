@@ -2,6 +2,9 @@ app: vscode
 -
 tag(): user.cursorless_custom_number_small
 
+# ----- Cut, copy, paste -----
+paste it:                   user.c_edit_paste()
+
 # Cursorless command without targets
 ^cursorless use release$:
     user.c_use_release()

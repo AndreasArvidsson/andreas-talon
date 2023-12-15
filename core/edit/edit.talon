@@ -48,8 +48,6 @@ deli:                       edit.delete()
 drill:                      user.delete_right()
 
 # ----- Cut, copy, paste -----
-cut (this | dis):           edit.cut()
-copy (this | dis):          edit.copy()
 paste it:                   edit.paste()
 paste special:              edit.paste_match_style()
 paste insert:               user.insert_clipboard_with_keys()
