@@ -207,6 +207,6 @@ class Actions:
         """Copy selection to clipboard"""
         actions.edit.copy()
 
-    def edit_paste():
+    def edit_paste(expand: bool):
         """Paste clipboard at cursor"""
         actions.edit.paste()
