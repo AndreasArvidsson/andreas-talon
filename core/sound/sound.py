@@ -61,7 +61,7 @@ ctx_win.lists["user.microhpone_device"] = {
     "internal": "Internal_mic",
     "dpa": "DPA",
     "razer": "Razer microphone",
-    # "yeti": "Blue Yeti",
+    "blue yeti": "Blue Yeti",
 }
 
 playback_microphone_pair = {
