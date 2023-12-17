@@ -1,11 +1,6 @@
 not tag: user.cursorless
 -
 
-# ----- Cut, copy, paste -----
-cut (this | dis):           edit.cut()
-copy (this | dis):          edit.copy()
-paste to (this | dis):      edit.paste()
-
 # ----- Word -----
 take token:                 edit.select_word()
 cut token:                  user.cut_word()

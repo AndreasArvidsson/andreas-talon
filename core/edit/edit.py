@@ -197,3 +197,16 @@ class Actions:
     def edit_text_file(path: str):
         """Edit text file <path>"""
         actions.user.exec(f"code {path}")
+
+    # ----- Cut, copy, paste -----
+    def edit_cut():
+        """Cut selection to clipboard"""
+        actions.edit.cut()
+
+    def edit_copy():
+        """Copy selection to clipboard"""
+        actions.edit.copy()
+
+    def edit_paste():
+        """Paste clipboard at cursor"""
+        actions.edit.paste()
