@@ -18,3 +18,4 @@ slice, verticalRange
 tail, extendThroughEndOf
 trailing, trailing
 visible, visible
+grand, ancestor
