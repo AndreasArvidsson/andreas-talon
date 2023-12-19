@@ -19,18 +19,9 @@ class Actions:
 
     def c_browser_open_target(target: Any):
         """Search for target text in browser"""
-        texts = actions.user.c_get_texts(target)
+        texts = actions.user.cursorless_get_text_list(target)
         text = " + ".join(texts)
         actions.user.browser_open(text)
-
-    def c_get_texts(target: Any) -> list[str]:
-        """Get text for Cursorless target"""
-        return actions.user.private_cursorless_command_get(
-            {
-                "name": "getText",
-                "target": target,
-            }
-        )
 
     def c_wrap_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""

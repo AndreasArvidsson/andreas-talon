@@ -124,7 +124,7 @@ class Actions:
 
         # The second target is optional and is used for getting the text
         if len(targets) == 2:
-            text = "".join(actions.user.c_get_texts(targets[1]))
+            text = "".join(actions.user.cursorless_get_text_list(targets[1]))
             use_selection = True
 
         # The first target is the source of the git url
