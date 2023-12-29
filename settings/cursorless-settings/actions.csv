@@ -32,8 +32,8 @@ bottom, scrollToBottom
 
 indent, indentLine
 dedent, outdentLine
-join line, joinLines
-break line, breakLine
+join, joinLines
+break, breakLine
 
 wrap, wrapWithPairedDelimiter
 switch, rewrap
