@@ -3,7 +3,7 @@ from talon.skia.image import Image as SkiaImage
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.types import Rect
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 from dataclasses import dataclass
 
 FONT_FAMILY = "Segoe UI Symbol"
@@ -68,7 +68,7 @@ class State:
     def get_height(self):
         return round(self.height + self.padding)
 
-    def rem(self, number: int or float):
+    def rem(self, number: Union[int, float]):
         return round(self.font_size * number)
 
 

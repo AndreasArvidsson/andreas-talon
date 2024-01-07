@@ -1,22 +1,20 @@
-from talon import Module
+from talon import Module, settings
 
 mod = Module()
 
-setting_level = mod.setting(
-    "log_level",
-    type=str,
-    default="info",
-)
+setting = "log_level"
+
+mod.setting(setting, type=str, default="info")
 
 
 @mod.action_class
 class Actions:
     def debug(message: str):
         """Log debug message"""
-        if setting_level.get() == "debug":
+        if settings.get(setting) == "debug":
             print(f"DEBUG: {message}")
 
     def info(message: str):
         """Log info message"""
-        if setting_level.get() in ["debug", "info"]:
+        if settings.get(setting) in ["debug", "info"]:
             print(f"INFO: {message}")
