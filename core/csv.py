@@ -10,10 +10,6 @@ ListType = list[RowType]
 DictType = dict[str, str]
 TupleType = Tuple[ListType, RowType]
 
-csv_directory_setting = mod.setting(
-    "csv_directory", type=str, default="", desc="The directory to look for csv files"
-)
-
 
 @mod.action_class
 class Actions:
