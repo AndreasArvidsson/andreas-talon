@@ -1,5 +1,4 @@
-from talon import Module, Context, actions
-import re
+from talon import Module, Context
 
 mod = Module()
 ctx = Context()
@@ -80,21 +79,3 @@ def letter(m) -> str:
 def letters(m) -> str:
     """One or more letters in the alphabet"""
     return "".join(m)
-
-
-# Window specific context
-
-ctx_win = Context()
-ctx_win.matches = r"""
-os: windows
-"""
-
-KEY_REPLACEMENT_RE = re.compile(r"([`^~])")
-
-
-@ctx_win.action_class("main")
-class MainActions:
-    def key(key: str):
-        actions.next(
-            KEY_REPLACEMENT_RE.sub(r"\1 space", key),
-        )
