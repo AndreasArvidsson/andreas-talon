@@ -1,4 +1,4 @@
-from talon import Module, Context, app, registry, scope, skia, ui, actions
+from talon import Module, Context, app, registry, scope, skia, ui, actions, settings
 from talon.canvas import Canvas
 from talon.screen import Screen
 from talon.skia.canvas import Canvas as SkiaCanvas
@@ -69,25 +69,25 @@ setting_paths = {
 
 def get_mode_color() -> str:
     if not actions.user.sound_microphone_enabled():
-        return setting_color_off.get()
+        return settings.get("user.mode_indicator_color_off")
     if current_mode == "sleep":
-        return setting_color_sleep.get()
+        return settings.get("user.mode_indicator_color_sleep")
     elif current_mode == "dictation":
-        return setting_color_dictation.get()
+        return settings.get("user.mode_indicator_color_dictation")
     elif current_mode == "mixed":
-        return setting_color_mixed.get()
+        return settings.get("user.mode_indicator_color_mixed")
     elif current_mode == "command":
-        return setting_color_command.get()
+        return settings.get("user.mode_indicator_color_command")
     else:
-        return setting_color_other.get()
+        return settings.get("user.mode_indicator_color_other")
 
 
 def get_alpha_color() -> str:
-    return f"{int(setting_color_alpha.get() * 255):02x}"
+    return f"{int(settings.get('user.mode_indicator_color_alpha') * 255):02x}"
 
 
 def get_gradient_color(color: str) -> str:
-    factor = setting_color_gradient.get()
+    factor = settings.get("user.mode_indicator_color_gradient")
     # hex -> rgb
     (r, g, b) = tuple(int(color[i : i + 2], 16) for i in (0, 2, 4))
     # Darken rgb
@@ -123,15 +123,15 @@ def move_indicator():
     screen: Screen = ui.main_screen()
     rect = screen.rect
     scale = screen.scale if app.platform != "mac" else 1
-    radius = setting_size.get() * scale / 2
+    radius = settings.get("user.mode_indicator_size") * scale / 2
 
     x = rect.left + min(
-        max(setting_x.get() * rect.width - radius, 0),
+        max(settings.get("user.mode_indicator_x") * rect.width - radius, 0),
         rect.width - 2 * radius,
     )
 
     y = rect.top + min(
-        max(setting_y.get() * rect.height - radius, 0),
+        max(settings.get("user.mode_indicator_y") * rect.height - radius, 0),
         rect.height - 2 * radius,
     )
 
@@ -154,7 +154,7 @@ def hide_indicator():
 
 
 def update_indicator():
-    if setting_show.get():
+    if settings.get("user.mode_indicator_show"):
         if not canvas:
             show_indicator()
         move_indicator()

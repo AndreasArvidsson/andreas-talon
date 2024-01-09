@@ -36,8 +36,8 @@ class State:
     def __init__(
         self, screen: Screen, canvas: skia.Canvas, font_size: float, numbered: bool
     ):
-        self.max_rows = setting_max_rows.get()
-        self.max_cols = setting_max_col.get()
+        self.max_rows = settings.get("user.gui_max_rows")
+        self.max_cols = settings.get("user.gui_max_cols")
         self.screen = screen
         self.canvas = canvas
         self.font_size = font_size

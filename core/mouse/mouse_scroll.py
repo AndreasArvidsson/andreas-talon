@@ -1,4 +1,4 @@
-from talon import Module, actions, app, ui, cron
+from talon import Module, actions, app, ui, cron, settings
 import time
 
 mod = Module()
@@ -92,7 +92,7 @@ class Actions:
 def scroll_continuous_helper():
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
     y = (
-        setting_scroll_speed.get()
+        settings.get("user.scroll_speed")
         * scroll_speed_dynamic
         * acceleration_speed
         * scroll_dir

@@ -7,7 +7,7 @@ import logging
 import time
 
 # Andreas changed
-from talon import Module, resource, events, app
+from talon import Module, resource, events, app, settings
 from talon.debug import log_exception
 from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
 from pathlib import Path
@@ -319,7 +319,7 @@ setting_patterns = mod.setting(
 
 def on_ready():
     global system
-    pattern_path = str(PARROT_HOME / setting_patterns.get())
+    pattern_path = str(PARROT_HOME / settings.get("user.parrot_patterns"))
     parrot_delegate = Delegate(debug=False)
     system = ParrotSystem(model_path, parrot_delegate)
 

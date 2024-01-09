@@ -1,4 +1,4 @@
-from talon import Module, ui
+from talon import Module, ui, settings
 from dataclasses import dataclass
 import time
 from ...imgui import imgui
@@ -42,11 +42,11 @@ def gui(gui: imgui.GUI):
 def command_history_append(analyzed_phrase: AnalyzedPhrase):
     """Append command to history"""
     global history
-    ttl = ttl_setting.get()
+    ttl = settings.get("user.command_history_ttl")
     ttl = time.monotonic() + ttl if ttl > -1 else -1
     for i, cmd in enumerate(analyzed_phrase.commands):
         history.append(HistoryEntry(cmd.phrase, cmd.actions, ttl, i == 0))
-    history = history[-size_setting.get() :]
+    history = history[-settings.get("user.command_history_size") :]
 
 
 @mod.action_class
@@ -55,7 +55,7 @@ class Actions:
         """Toggles viewing the history"""
         global display_size
         if not display_size:
-            display_size = display_size_setting.get()
+            display_size = settings.get("user.command_history_display")
         if gui.showing:
             gui.hide()
         else:
