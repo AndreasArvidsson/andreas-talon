@@ -128,7 +128,6 @@ def hide_indicator():
 
 
 def update_indicator():
-    print("update_indicator", settings.get("user.mode_indicator_show"))
     if settings.get("user.mode_indicator_show"):
         if not canvas:
             show_indicator()

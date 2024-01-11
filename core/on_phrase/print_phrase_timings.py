@@ -1,9 +1,9 @@
-from talon import Module
+from talon import Module, settings
 from talon.grammar import Phrase
 
 mod = Module()
 
-settings_log = mod.setting(
+mod.setting(
     "print_phrase_timings",
     type=bool,
     default=False,
@@ -13,7 +13,7 @@ settings_log = mod.setting(
 
 def print_phrase_timings(phrase: Phrase):
     """Print phrase timings"""
-    if not settings_log.get():
+    if not settings.get("user.print_phrase_timings"):
         return
     try:
         meta = phrase["_metadata"]

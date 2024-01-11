@@ -1,4 +1,4 @@
-from talon import Module, app, ui, cron
+from talon import Module, app, ui, cron, settings
 from talon.canvas import Canvas
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
@@ -14,17 +14,15 @@ show_override = None
 def setting(
     name: str, type: Type, desc: str, default: Optional[Any] = None
 ) -> Callable[[bool], Type]:
-    setting_subtitle = mod.setting(
-        f"subtitles_{name}", type, default=default, desc=f"Subtitles: {desc}"
-    )
-    setting_notify = mod.setting(
+    mod.setting(f"subtitles_{name}", type, default=default, desc=f"Subtitles: {desc}")
+    mod.setting(
         f"notifications_{name}", type, default=default, desc=f"Notifications: {desc}"
     )
 
     def callback(is_subtitle: bool):
         if is_subtitle:
-            return setting_subtitle.get()
-        return setting_notify.get()
+            return settings.get(f"user.subtitles_{name}")
+        return settings.get(f"user.notifications_{name}")
 
     return callback
 

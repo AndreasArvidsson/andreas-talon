@@ -7,14 +7,15 @@ import logging
 import time
 
 # Andreas changed
-from talon import Module, resource, events, app
+from talon import resource, events, app
 from talon.debug import log_exception
 from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
 from pathlib import Path
 
 # Andreas changed
 PARROT_HOME = Path(__file__).parent
-model_path = str(PARROT_HOME / 'model.pkl')
+model_path = str(PARROT_HOME / "model.pkl")
+pattern_path = str(PARROT_HOME / "patterns.json")
 
 ## START PARROT CLASSES ##
 class PatternMatcher:
@@ -305,21 +306,9 @@ class Delegate(ParrotDelegate):
 
         return active
 
-# Andreas changed
-# fmt: on
-mod = Module()
-
-setting_patterns = mod.setting(
-    "parrot_patterns",
-    type=str,
-    default="patterns.json",
-    desc="File name for parrot patterns.json",
-)
-
 
 def on_ready():
     global system
-    pattern_path = str(PARROT_HOME / setting_patterns.get())
     parrot_delegate = Delegate(debug=False)
     system = ParrotSystem(model_path, parrot_delegate)
 

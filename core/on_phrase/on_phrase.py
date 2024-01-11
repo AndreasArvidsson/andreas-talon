@@ -1,4 +1,4 @@
-from talon import Module, speech_system, actions
+from talon import Module, speech_system, actions, settings
 from talon.grammar import Phrase
 from .abort.abort import abort_update_phrase
 from .analyze_phrase.analyze_phrase import analyze_phrase
@@ -10,7 +10,7 @@ from .sleep_update_phrase import sleep_update_phrase
 
 mod = Module()
 
-settings_analyze_phrase = mod.setting(
+mod.setting(
     "analyze_phrase",
     type=bool,
     default=True,
@@ -33,7 +33,7 @@ def on_pre_phrase(phrase: Phrase):
 
 
 def on_post_phrase(phrase: Phrase):
-    if not settings_analyze_phrase.get() or skip_phrase(phrase):
+    if not settings.get("user.analyze_phrase") or skip_phrase(phrase):
         return
 
     analyzed_phrase = analyze_phrase(phrase)

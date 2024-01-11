@@ -1,22 +1,11 @@
-from talon import Module, Context, screen, ui, cron, app, actions
+from talon import Module, Context, screen, ui, cron, actions
 from talon.canvas import Canvas
 from datetime import datetime
 import os
 
+screenshot_folder = os.path.expanduser(os.path.join("~", "Pictures"))
+
 mod = Module()
-
-default_folder = ""
-if app.platform == "windows":
-    default_folder = os.path.expanduser(os.path.join("~", r"OneDrive\\Pictures"))
-if not os.path.isdir(default_folder):
-    default_folder = os.path.join("~", "Pictures")
-
-screenshot_folder = mod.setting(
-    "screenshot_folder",
-    type=str,
-    default=default_folder,
-    desc="Where to save screenshots. Note this folder must exist.",
-)
 
 
 @mod.action_class
@@ -67,9 +56,7 @@ def get_screenshot_path(title: str = ""):
         title = f" - {title.replace('.', '_')}"
     date = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     filename = f"Screenshot {date}{title}.png"
-    folder_path = screenshot_folder.get()
-    path = os.path.expanduser(os.path.join(folder_path, filename))
-    return os.path.normpath(path)
+    return os.path.join(screenshot_folder, filename)
 
 
 def flash_rect(rect: ui.Rect):
