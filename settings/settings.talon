@@ -21,6 +21,9 @@ settings():
     # Mouse scroll speed
     user.scroll_speed = 0.7
 
+    # Show mode indicator
+    user.mode_indicator_show = true
+
     # General gui
     # imgui.scale = 1.25
     user.gui_max_rows = 5

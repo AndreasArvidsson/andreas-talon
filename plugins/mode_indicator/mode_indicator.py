@@ -1,93 +1,67 @@
-from talon import Module, Context, app, registry, scope, skia, ui, actions
+from talon import Module, Context, app, registry, scope, skia, ui, actions, settings
 from talon.canvas import Canvas
 from talon.screen import Screen
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
-from talon.types import Rect
+from talon.types import Rect, Point2d
 
 canvas: Canvas = None
 current_mode = ""
 mod = Module()
 ctx = Context()
 
-setting_show = mod.setting(
+mod.setting(
     "mode_indicator_show",
     bool,
     desc="If true the mode indicator is shown",
     default=False,
 )
-setting_size = mod.setting(
-    "mode_indicator_size",
-    float,
-    desc="Mode indicator diameter in pixels",
-)
-setting_x = mod.setting(
-    "mode_indicator_x",
-    float,
-    desc="Mode indicator center X-position in percentages(0-1). 0=left, 1=right",
-)
-setting_y = mod.setting(
-    "mode_indicator_y",
-    float,
-    desc="Mode indicator center Y-position in percentages(0-1). 0=top, 1=bottom",
-)
-setting_color_alpha = mod.setting(
-    "mode_indicator_color_alpha",
-    float,
-    desc="Mode indicator alpha/opacity in percentages(0-1). 0=fully transparent, 1=fully opaque",
-)
-setting_color_gradient = mod.setting(
-    "mode_indicator_color_gradient",
-    float,
-    desc="Mode indicator gradient brightness in percentages(0-1). 0=darkest, 1=brightest",
-)
-setting_color_sleep = mod.setting("mode_indicator_color_sleep", str)
-setting_color_dictation = mod.setting("mode_indicator_color_dictation", str)
-setting_color_mixed = mod.setting("mode_indicator_color_mixed", str)
-setting_color_command = mod.setting("mode_indicator_color_command", str)
-setting_color_other = mod.setting("mode_indicator_color_other", str)
-setting_color_off = mod.setting("mode_indicator_color_off", str)
 
-setting_paths = {
-    s.path
-    for s in [
-        setting_show,
-        setting_size,
-        setting_x,
-        setting_y,
-        setting_color_alpha,
-        setting_color_gradient,
-        setting_color_sleep,
-        setting_color_dictation,
-        setting_color_mixed,
-        setting_color_command,
-        setting_color_other,
-        setting_color_off,
-    ]
-}
+# 30pixels diameter
+setting_size = 30
+# Center horizontally
+setting_x = 0.5
+# Align top
+setting_y = 0
+# Slightly transparent
+setting_color_alpha = 0.75
+# Grey gradient
+setting_color_gradient = 0.5
+# Grey color for sleep mode
+setting_color_sleep = "808080"
+# Gold color for dictation mode
+setting_color_dictation = "ffd700"
+# MediumSeaGreen color for mixed mode
+setting_color_mixed = "3cb371"
+# CornflowerBlue color for command mode
+setting_color_command = "6495ed"
+# GhostWhite color for other modes
+setting_color_other = "f8f8ff"
+# Black color for disabled microphone
+setting_color_off = "000000"
 
 
 def get_mode_color() -> str:
     if not actions.user.sound_microphone_enabled():
-        return setting_color_off.get()
+        return setting_color_off
     if current_mode == "sleep":
-        return setting_color_sleep.get()
+        return setting_color_sleep
     elif current_mode == "dictation":
-        return setting_color_dictation.get()
+        return setting_color_dictation
     elif current_mode == "mixed":
-        return setting_color_mixed.get()
+        return setting_color_mixed
     elif current_mode == "command":
-        return setting_color_command.get()
+        return setting_color_command
     else:
-        return setting_color_other.get()
+        return setting_color_other
 
 
 def get_alpha_color() -> str:
-    return f"{int(setting_color_alpha.get() * 255):02x}"
+    return f"{int(setting_color_alpha * 255):02x}"
 
 
 def get_gradient_color(color: str) -> str:
-    factor = setting_color_gradient.get()
+    factor = setting_color_gradient
     # hex -> rgb
     (r, g, b) = tuple(int(color[i : i + 2], 16) for i in (0, 2, 4))
     # Darken rgb
@@ -109,7 +83,7 @@ def on_draw(c: SkiaCanvas):
     radius = c.rect.height / 2 - 2
 
     c.paint.shader = skia.Shader.radial_gradient(
-        (x, y), radius, [color_mode, color_gradient]
+        Point2d(x, y), radius, [color_mode, color_gradient]
     )
 
     c.paint.imagefilter = ImageFilter.drop_shadow(1, 1, 1, 1, color_gradient)
@@ -123,15 +97,15 @@ def move_indicator():
     screen: Screen = ui.main_screen()
     rect = screen.rect
     scale = screen.scale if app.platform != "mac" else 1
-    radius = setting_size.get() * scale / 2
+    radius = setting_size * scale / 2
 
     x = rect.left + min(
-        max(setting_x.get() * rect.width - radius, 0),
+        max(setting_x * rect.width - radius, 0),
         rect.width - 2 * radius,
     )
 
     y = rect.top + min(
-        max(setting_y.get() * rect.height - radius, 0),
+        max(setting_y * rect.height - radius, 0),
         rect.height - 2 * radius,
     )
 
@@ -154,7 +128,8 @@ def hide_indicator():
 
 
 def update_indicator():
-    if setting_show.get():
+    print("update_indicator", settings.get("user.mode_indicator_show"))
+    if settings.get("user.mode_indicator_show"):
         if not canvas:
             show_indicator()
         move_indicator()
@@ -191,7 +166,7 @@ def on_update_contexts():
 
 
 def on_update_settings(updated_settings: set[str]):
-    if setting_paths & updated_settings:
+    if "user.mode_indicator_show" in updated_settings:
         update_indicator()
 
 
