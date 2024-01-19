@@ -1,6 +1,6 @@
 # Analyze phrase
 
-Analyzes a spoke in Talon phrase returning metadata and description for actions.
+Analyzes a spoken Talon phrase, returning metadata and description of actions.
 
 ## Pretty print phrase
 
