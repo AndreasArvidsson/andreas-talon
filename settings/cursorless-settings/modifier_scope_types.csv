@@ -46,6 +46,7 @@ type, type
 value, value
 
 access, private.fieldAccess
+subject, private.switchStatementSubject
 
 -chapter, chapter
 -environment, environment
