@@ -5,6 +5,8 @@ tag(): user.tabs
 tag(): user.find
 tag(): user.navigation
 
+dot {user.domain}:          ".{domain}"
+
 go address:                 browser.focus_address()
 go home:                    browser.go_home()
 go {user.webpage}:          browser.go(webpage)

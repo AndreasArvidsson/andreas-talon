@@ -1,2 +1,4 @@
+tag: user.extensions
+-
+
 <user.extension>:           "{extension}"
-<user.domain>:              "{domain}"

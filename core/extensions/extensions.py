@@ -3,6 +3,8 @@ from talon import Context, Module, actions
 mod = Module()
 ctx = Context()
 
+mod.tag("extensions", desc="Enable extension commands")
+
 
 @mod.capture(rule="dot ({user.code_extension} | {user.file_extension})")
 def extension(m) -> str:
@@ -22,26 +24,12 @@ def filename(m) -> str:
     return f"{text}{extension}"
 
 
-@mod.capture(rule="dot {user.domain}")
-def domain(m) -> str:
-    return f".{m.domain}"
-
-
 # fmt: off
 
 mod.list("file_extension", "List of (non-code) file extensions")
 ctx.lists["user.file_extension"] = {
     "exe":            "exe",
     "bin":            "bin",
-}
-
-mod.list("domain", "List of top level domains")
-ctx.lists["user.domain"] = {
-    "com":            "com",
-    "net":            "net",
-    "org":            "org",
-    "sweden":         "se",
-    "s e":           "se",
 }
 
 extension_siblings = {
