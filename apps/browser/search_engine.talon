@@ -6,11 +6,13 @@ search for (this | dis | is | ness):
 search for line:
     edit.select_line()
     user.browser_search_selected()
-search for (word | token):
+search for token:
     edit.select_word()
     user.browser_search_selected()
 
 define word <user.word>$:
-    user.browser_search("https://www.merriam-webster.com/dictionary/{word}")
+    user.browser_define(word)
 define phrase <user.text>$:
-    user.browser_search("https://www.merriam-webster.com/dictionary/{text}")
+    user.browser_define(text)
+define (this | dis):
+    user.browser_define_selected()

@@ -109,3 +109,12 @@ class Actions:
         """Focus browser and search for selected text"""
         text = actions.edit.selected_text()
         actions.user.browser_search(text)
+
+    def browser_define(text: str):
+        """Focus browser and define phrase <text>"""
+        actions.user.browser_open(f"https://www.merriam-webster.com/dictionary/{text}")
+
+    def browser_define_selected():
+        """Focus browser and define selected text"""
+        text = actions.edit.selected_text()
+        actions.user.browser_define(text)
