@@ -74,7 +74,7 @@ class UserActions:
     def file_manager_go(path: str):
         actions.user.file_manager_focus_address()
         actions.insert(path)
-        actions.sleep("100ms")
+        actions.sleep("300ms")
         actions.key("enter")
 
     # ----- Create folders / files -----
