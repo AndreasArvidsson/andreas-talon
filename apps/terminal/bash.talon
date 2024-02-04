@@ -1,6 +1,5 @@
 tag: user.bash
 -
-tag(): terminal
 
 flag:                       " -"
 flag <user.letters>:        " -{letters} "
