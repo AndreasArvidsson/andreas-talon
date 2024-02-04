@@ -83,3 +83,9 @@ ssh:                        "ssh "
 # cat /etc/os-release
 #cat /proc/version
 # fc last command in editor.
+
+talon user update:
+    "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \\;\n"
+    "git -C {user.user_home()}/repositories/cursorless-talon pull\n"
+
+watch talon log:            "tail -f {user.talon_home()}/talon.log\n"
