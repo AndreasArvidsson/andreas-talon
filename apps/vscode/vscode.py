@@ -8,7 +8,7 @@ mod.list("vscode_sessions", "Known vscode sessions/workspaces")
 
 mod.apps.vscode = r"""
 os: windows
-and app.exe: Code.exe
+and app.name: Visual Studio Code
 os: linux
 and app.name: Code
 """
