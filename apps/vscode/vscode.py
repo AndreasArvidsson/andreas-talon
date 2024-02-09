@@ -87,9 +87,6 @@ class EditActions:
     def delete_line():
         actions.user.vscode("editor.action.deleteLines")
 
-    def extend_line(n: int):
-        actions.user.vscode("andreas.selectTo", n)
-
     def jump_line(n: int):
         actions.user.vscode("andreas.goToLine", n)
 
