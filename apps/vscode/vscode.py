@@ -54,9 +54,13 @@ class EditActions:
         actions.next()
 
     def selected_text() -> str:
-        selectedTexts = actions.user.vscode_get("andreas.getSelectedText")
-        if selectedTexts is not None:
-            return "\n".join(selectedTexts)
+        try:
+            selectedTexts = actions.user.vscode_get("andreas.getSelectedText")
+            if selectedTexts is not None:
+                return "\n".join(selectedTexts)
+        except Exception as ex:
+            print(f"EXCEPTION: {ex}")
+
         return actions.next()
 
     def select_none():
