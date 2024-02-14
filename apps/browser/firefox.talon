@@ -2,7 +2,7 @@ app: firefox
 -
 tag(): browser
 tag(): user.scroll
-tag(): user.rango_direct_clicking
+# tag(): user.rango_direct_clicking
 
 # Tabs
 tab search:
@@ -27,11 +27,6 @@ password generate:
     user.rango_command_with_target(rango_with_target_action, rango_target)
 {user.rango_without_target_action}:
     user.rango_command_without_target(rango_without_target_action)
-
-rango explicit:
-    user.rango_disable_direct_clicking()
-rango direct:
-    user.rango_enable_direct_clicking()
 
 copy address:
     user.rango_command_without_target("copyLocationProperty", "href")
