@@ -94,9 +94,12 @@ class Actions:
         """Search for non alpha keys in meta lists"""
         for n, l in registry.lists.items():
             for ml in l:
-                for v in ml:
-                    if re.search(r"[^a-zA-Z' ]", v):
-                        print(f"{n}: {v}")
+                try:
+                    for v in ml:
+                        if re.search(r"[^a-zA-Z' ]", v):
+                            print(f"{n}: {v}")
+                except Exception as ex:
+                    pass
 
     def talon_get_lists() -> str:
         """Get lists as text"""
