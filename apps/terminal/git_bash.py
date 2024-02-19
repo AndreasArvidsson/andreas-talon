@@ -2,24 +2,22 @@ from talon import Module, Context, actions
 
 mod = Module()
 
-mod.apps.git_bash = """
+mod.apps.git_bash = r"""
 app: windows_terminal
 and win.title: /MINGW64:/i
 """
-mod.apps.git_bash = """
-os: windows
-and app.name: mintty.exe
+mod.apps.git_bash = r"""
 os: windows
 and app.exe: mintty.exe
 """
-mod.apps.git_bash = """
+mod.apps.git_bash = r"""
 os: windows
 app: vscode
 win.file_ext: .bashbook
 """
 
 ctx = Context()
-ctx.matches = """
+ctx.matches = r"""
 app: git_bash
 
 app: vscode

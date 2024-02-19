@@ -3,9 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.notepad = """
-os: windows
-and app.name: Notepad
+mod.apps.notepad = r"""
 os: windows
 and app.exe: notepad.exe
 """

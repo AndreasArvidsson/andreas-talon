@@ -2,7 +2,7 @@ from talon import Module, Context, actions
 
 mod = Module()
 
-mod.apps.kodi = """
+mod.apps.kodi = r"""
 os: windows
 and app.exe: kodi.exe
 """

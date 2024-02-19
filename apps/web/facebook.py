@@ -3,12 +3,12 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.facebook = """
+mod.apps.facebook = r"""
 tag: browser
 browser.host: www.facebook.com
 """
 
-ctx.matches = """
+ctx.matches = r"""
 app: facebook
 """
 

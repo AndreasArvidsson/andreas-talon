@@ -3,14 +3,12 @@ from talon import Module, Context
 ctx = Context()
 mod = Module()
 
-mod.apps.edge = """
-os: windows
-and app.name: Microsoft Edge
+mod.apps.edge = r"""
 os: windows
 and app.exe: msedge.exe
 """
 
-ctx.matches = """
+ctx.matches = r"""
 app: edge
 """
 

@@ -4,11 +4,9 @@ from talon import Module, Context, actions
 mod = Module()
 ctx = Context()
 
-mod.apps.spotify = """
+mod.apps.spotify = r"""
 os: windows
-and app.name: Spotify.exe
-os: windows
-and app.exe: Spotify.exe
+and app.exe: spotify.exe
 """
 
 ctx.matches = r"""

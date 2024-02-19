@@ -3,9 +3,7 @@ from talon import Context, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.libre_office = """
-os: windows
-and app.name: LibreOffice
+mod.apps.libre_office = r"""
 os: windows
 and app.exe: soffice.bin
 os: linux

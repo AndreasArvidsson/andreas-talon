@@ -2,13 +2,12 @@ from talon import Module, Context
 
 mod = Module()
 
-mod.apps.netflix = """
+mod.apps.netflix = r"""
 os: windows
-and app.exe: ApplicationFrameHost.exe
+and app.exe: applicationframehost.exe
 and win.title: Netflix
 
-os: windows
-and tag: browser
+tag: browser
 and browser.host: www.netflix.com
 """
 

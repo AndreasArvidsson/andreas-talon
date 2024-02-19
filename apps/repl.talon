@@ -3,7 +3,7 @@ and app.exe: cmd.exe
 os: windows
 and app.exe: conhost.exe
 os: windows
-and app.exe: WindowsTerminal.exe
+and app.exe: windowsterminal.exe
 title: Talon - REPL
 -
 

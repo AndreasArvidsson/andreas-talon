@@ -3,16 +3,16 @@ from talon import Context, Module, actions
 ctx = Context()
 mod = Module()
 
-mod.apps.teams = """
+mod.apps.teams = r"""
+os: windows
+and app.exe: teams.exe
+"""
+mod.apps.teams = r"""
 tag: browser
 browser.host: teams.microsoft.com
 """
-mod.apps.teams = """
-os: windows
-and app.exe: Teams.exe
-"""
 
-ctx.matches = """
+ctx.matches = r"""
 app: teams
 """
 

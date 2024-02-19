@@ -3,11 +3,9 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.skype = """
+mod.apps.skype = r"""
 os: windows
-and app.name: Skype
-os: windows
-and app.exe: Skype.exe
+and app.exe: skype.exe
 """
 
 ctx.matches = r"""

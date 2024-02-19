@@ -6,15 +6,13 @@ mod.apps.wsl = r"""
 app: windows_terminal
 and win.title: /\w+@\w+: /i
 """
-mod.apps.wsl = """
-os: windows
-and app.name: Microsoft Windows Subsystem for Linux Launcher
+mod.apps.wsl = r"""
 os: windows
 and app.exe: wsl.exe
 """
 
 ctx = Context()
-ctx.matches = """
+ctx.matches = r"""
 app: wsl
 """
 

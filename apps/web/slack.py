@@ -6,12 +6,12 @@ import re
 ctx = Context()
 mod = Module()
 
-mod.apps.slack = """
+mod.apps.slack = r"""
 tag: browser
 browser.host: app.slack.com
 """
 
-ctx.matches = """
+ctx.matches = r"""
 app: slack
 """
 

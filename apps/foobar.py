@@ -5,9 +5,7 @@ key = actions.key
 mod = Module()
 ctx = Context()
 
-mod.apps.foobar = """
-os: windows
-and app.name: foobar2000
+mod.apps.foobar = r"""
 os: windows
 and app.exe: foobar2000.exe
 """

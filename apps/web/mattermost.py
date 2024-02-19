@@ -3,7 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.mattermost = """
+mod.apps.mattermost = r"""
 tag: browser
 browser.host: mattermost.redpill-linpro.com
 """

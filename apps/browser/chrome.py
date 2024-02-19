@@ -3,14 +3,12 @@ from talon import Module, Context, actions
 ctx = Context()
 mod = Module()
 
-mod.apps.chrome = """
-os: windows
-and app.name: Google Chrome
+mod.apps.chrome = r"""
 os: windows
 and app.exe: chrome.exe
 """
 
-ctx.matches = """
+ctx.matches = r"""
 app: chrome
 """
 

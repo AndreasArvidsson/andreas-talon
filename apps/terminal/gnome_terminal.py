@@ -2,13 +2,13 @@ from talon import Module, Context, actions
 
 mod = Module()
 
-mod.apps.gnome_terminal = """
+mod.apps.gnome_terminal = r"""
 os: linux
 and app.name: Gnome-terminal
 """
 
 ctx = Context()
-ctx.matches = """
+ctx.matches = r"""
 app: gnome_terminal
 """
 

@@ -3,7 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.google_meet = """
+mod.apps.google_meet = r"""
 tag: browser
 browser.host: meet.google.com
 """

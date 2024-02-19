@@ -2,25 +2,25 @@ from talon import Module, Context, actions
 
 mod = Module()
 
-mod.apps.diablo3 = """
+mod.apps.diablo3 = r"""
 os: windows
-and app.exe: Diablo III64.exe
+and app.exe: diablo iii64.exe
 """
 
-mod.apps.diablo4 = """
+mod.apps.diablo4 = r"""
 os: windows
-and app.exe: Diablo IV.exe
+and app.exe: diablo iv.exe
 """
 
 ctx = Context()
-ctx.matches = """
+ctx.matches = r"""
 mode: user.game
 app: diablo3
 app: diablo4
 """
 
 ctx_frozen_mouse = Context()
-ctx_frozen_mouse.matches = """
+ctx_frozen_mouse.matches = r"""
 mode: user.game
 app: diablo3
 app: diablo4

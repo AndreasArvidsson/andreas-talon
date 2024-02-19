@@ -1,5 +1,5 @@
 os: windows
-app.exe: Explorer.EXE
+app.exe: explorer.exe
 title: Task Switching
 title: Task View
 -

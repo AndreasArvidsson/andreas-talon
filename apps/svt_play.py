@@ -2,7 +2,7 @@ from talon import Module, Context
 
 mod = Module()
 
-mod.apps.svt_play = """
+mod.apps.svt_play = r"""
 tag: browser
 and browser.host: www.svtplay.se
 """

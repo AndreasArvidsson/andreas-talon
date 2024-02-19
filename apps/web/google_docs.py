@@ -3,7 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-ctx.matches = """
+ctx.matches = r"""
 tag: browser
 title: /Links - /
 """

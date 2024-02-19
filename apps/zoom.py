@@ -3,11 +3,9 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.zoom = """
+mod.apps.zoom = r"""
 os: windows
-and app.name: Zoom Meetings
-os: windows
-and app.exe: Zoom.exe
+and app.exe: zoom.exe
 """
 
 ctx.matches = r"""

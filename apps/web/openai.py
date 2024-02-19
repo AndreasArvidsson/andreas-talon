@@ -3,7 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.openai = """
+mod.apps.openai = r"""
 tag: browser
 browser.host: chat.openai.com
 """

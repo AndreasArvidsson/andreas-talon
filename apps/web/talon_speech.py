@@ -3,12 +3,12 @@ from talon import Module, Context, actions
 mod = Module()
 ctx = Context()
 
-mod.apps.talon_speech = """
+mod.apps.talon_speech = r"""
 tag: browser
 browser.host: speech.talonvoice.com
 """
 
-ctx.matches = """
+ctx.matches = r"""
 mode: sleep
 app: talon_speech
 """

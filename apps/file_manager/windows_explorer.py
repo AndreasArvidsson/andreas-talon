@@ -3,9 +3,7 @@ from talon import Context, Module, actions
 
 mod = Module()
 
-mod.apps.windows_explorer = """
-os: windows
-and app.name: Windows Explorer
+mod.apps.windows_explorer = r"""
 os: windows
 and app.exe: explorer.exe
 """
@@ -13,13 +11,13 @@ and app.exe: explorer.exe
 # many commands should work in most save/open dialog.
 # note the "show options" stuff won"t work unless work
 # unless the path is displayed in the title, which is rare for those
-mod.apps.windows_file_browser = """
+mod.apps.windows_file_browser = r"""
 os: windows
 title: /(Save|Open|Browse|Select|Install from|File Upload)/
 """
 
 ctx = Context()
-ctx.matches = """
+ctx.matches = r"""
 app: windows_explorer
 app: windows_file_browser
 """

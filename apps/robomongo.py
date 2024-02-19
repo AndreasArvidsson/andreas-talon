@@ -3,9 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.robomongo = """
-os: windows
-and app.name: Robo 3T, MongoDB management tool
+mod.apps.robomongo = r"""
 os: windows
 and app.exe: robo3t.exe
 """

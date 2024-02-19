@@ -4,11 +4,9 @@ ctx = Context()
 mod = Module()
 
 
-mod.apps.windows_terminal = """
+mod.apps.windows_terminal = r"""
 os: windows
-and app.name: WindowsTerminal.exe
-os: windows
-and app.exe: WindowsTerminal.exe
+and app.exe: windowsterminal.exe
 """
 
 ctx.matches = r"""

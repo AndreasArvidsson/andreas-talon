@@ -6,9 +6,7 @@ ctx = Context()
 
 mod.apps.discord = r"""
 os: windows
-and app.name: Discord
-os: windows
-and app.exe: Discord.exe
+and app.exe: discord.exe
 """
 
 ctx.matches = r"""

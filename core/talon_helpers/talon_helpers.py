@@ -32,15 +32,15 @@ class Actions:
         executable = actions.app.executable().split(os.path.sep)[-1]
         app_name = create_name(friendly_name)
         if app.platform == "mac":
-            result = 'mod.apps.{} = """\nos: {}\nand app.bundle: {}\n"""'.format(
+            result = 'mod.apps.{} = r"""\nos: {}\nand app.bundle: {}\n"""'.format(
                 app_name, app.platform, actions.app.bundle()
             )
         elif app.platform == "windows":
-            result = 'mod.apps.{} = """\nos: windows\nand app.name: {}\nos: windows\nand app.exe: {}\n"""'.format(
+            result = 'mod.apps.{} = r"""\nos: windows\nand app.name: {}\nos: windows\nand app.exe: {}\n"""'.format(
                 app_name, friendly_name, executable
             )
         else:
-            result = 'mod.apps.{} = """\nos: {}\nand app.name: {}\n"""'.format(
+            result = 'mod.apps.{} = r"""\nos: {}\nand app.name: {}\n"""'.format(
                 app_name, app.platform, friendly_name
             )
 

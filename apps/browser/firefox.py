@@ -4,9 +4,7 @@ import re
 mod = Module()
 ctx = Context()
 
-mod.apps.firefox = """
-os: windows
-and app.name: Firefox
+mod.apps.firefox = r"""
 os: windows
 and app.exe: firefox.exe
 """

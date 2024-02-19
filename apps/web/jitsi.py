@@ -3,7 +3,7 @@ from talon import Context, actions, Module
 ctx = Context()
 mod = Module()
 
-mod.apps.jitsi = """
+mod.apps.jitsi = r"""
 tag: browser
 browser.host: meet.jit.si
 browser.host: meet.redpill-linpro.com

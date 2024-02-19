@@ -2,13 +2,13 @@ from talon import Context, Module, actions, app
 
 mod = Module()
 
-mod.apps.nautilus = """
+mod.apps.nautilus = r"""
 os: linux
 and app.name: Org.gnome.Nautilus
 """
 
 ctx = Context()
-ctx.matches = """
+ctx.matches = r"""
 app: nautilus
 """
 
