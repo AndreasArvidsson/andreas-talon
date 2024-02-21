@@ -1,7 +1,5 @@
 Spoken form, VSCode command
 
-increment, andreas.increment
-decrement, andreas.decrement
 reflow, rewrap.rewrapComment
 undo, undo
 redo, redo

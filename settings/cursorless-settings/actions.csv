@@ -55,6 +55,9 @@ unfold region, unfoldRegion
 hover, showHover
 inspect, showDebugHover
 
+decrement, decrement
+increment, increment
+
 breakpoint, toggleLineBreakpoint
 call, callAsFunction
 comment, toggleLineComment
@@ -69,4 +72,3 @@ rename, rename
 -define, revealDefinition
 -snippet, insertSnippet
 -snippet make, generateSnippet
-
