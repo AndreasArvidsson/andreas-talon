@@ -36,9 +36,12 @@ def on_post_phrase(phrase: Phrase):
     if not settings.get("user.analyze_phrase") or skip_phrase(phrase):
         return
 
-    analyzed_phrase = analyze_phrase(phrase)
-    command_history_append(analyzed_phrase)
-    pretty_print_phrase(analyzed_phrase)
+    try:
+        analyzed_phrase = analyze_phrase(phrase)
+        command_history_append(analyzed_phrase)
+        pretty_print_phrase(analyzed_phrase)
+    except Exception as ex:
+        print(ex)
 
 
 def skip_phrase(phrase: Phrase) -> bool:

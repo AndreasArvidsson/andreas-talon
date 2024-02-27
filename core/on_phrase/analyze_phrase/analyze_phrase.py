@@ -130,7 +130,7 @@ def get_path(filename: str) -> str:
     return os.path.relpath(filename, TALON_HOME)
 
 
-def get_captures(capture: Capture) -> AnalyzedCapture:
+def get_captures(capture: Capture) -> list[AnalyzedCapture]:
     captures = []
 
     for i, value in enumerate(capture):
