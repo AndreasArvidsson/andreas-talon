@@ -144,7 +144,7 @@ class Actions:
         actions.next()
 
 
-def on_update_contexts():
+def on_mode_change(_):
     global current_mode
     modes = scope.get("mode")
     if "sleep" in modes:
@@ -170,9 +170,10 @@ def on_update_settings(updated_settings: set[str]):
 
 
 def on_ready():
-    registry.register("update_contexts", on_update_contexts)
+    registry._modes.register("mode_change", on_mode_change)
     registry.register("update_settings", on_update_settings)
     ui.register("screen_change", lambda _: update_indicator)
+    on_mode_change({})
 
 
 app.register("ready", on_ready)
