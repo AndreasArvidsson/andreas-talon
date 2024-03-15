@@ -51,9 +51,11 @@ class EditActions:
         actions.key("end enter")
 
     def line_clone():
-        actions.user.copy_line()
+        actions.edit.select_line()
+        text = actions.edit.selected_text()
         actions.edit.line_insert_down()
-        actions.edit.paste()
+        actions.sleep("50ms")
+        actions.insert(text)
 
     def line_swap_up():
         actions.user.cut_line()
