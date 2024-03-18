@@ -55,6 +55,7 @@ ctx_win.lists["user.microhpone_device"] = {
     "internal": "Internal_mic",
     "dpa": "DPA",
     "blue yeti": "Blue Yeti",
+    "camera": "Webcam",
 }
 
 
