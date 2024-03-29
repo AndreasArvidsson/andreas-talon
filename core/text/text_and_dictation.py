@@ -279,7 +279,7 @@ ui.register("win_focus", lambda win: dictation_formatter.reset())
 @ctx_sv.action_class("user")
 class SwedishUserActions:
     def dictation_needs_comma_between(before: str, after: str) -> bool:
-        return after == "men" and before[-1].isalpha()
+        return after.lower() == "men" and before[-1].isalpha()
 
 
 @mod.action_class
