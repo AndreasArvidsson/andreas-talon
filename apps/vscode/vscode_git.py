@@ -72,6 +72,9 @@ class Actions:
             actions.sleep("200ms")
             actions.insert(message)
 
+    def git_commit_empty():
+        actions.user.vscode("git.commitEmpty")
+
     def git_diff():
         actions.user.vscode("git.openChange")
 

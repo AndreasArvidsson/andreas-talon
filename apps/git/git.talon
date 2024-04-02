@@ -44,6 +44,8 @@ git commit [<user.text>]$:
 git commit amend [<user.text>]$:
     text = user.format_text(text or "", "SENTENCE")
     user.git_commit_amend(text)
+git commit empty:
+    user.git_commit_empty()
 
 git diff:                   user.git_diff()
 

@@ -92,6 +92,11 @@ class Action:
         actions.insert(f'git commit --amend -m "{message or ""}"')
         actions.edit.left()
 
+    def git_commit_empty():
+        """Commit empty"""
+        actions.insert(f'git commit --allow-empty -m "Empty commit"')
+        actions.edit.left()
+
     def git_diff():
         """Show git diff"""
         actions.insert("git diff\n")
