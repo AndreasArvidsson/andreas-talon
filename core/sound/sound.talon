@@ -14,3 +14,5 @@ media stop:                 key(stop)
 ^microphone {user.microhpone_device}:
     user.notify("Microphone: {microhpone_device}")
     user.change_sound_device(microhpone_device)
+
+key(mute):                  user.sound_microphone_toggle()

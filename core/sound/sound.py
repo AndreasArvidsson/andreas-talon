@@ -20,7 +20,7 @@ class Actions:
         """Change sound device."""
 
     def sound_microphone_enabled() -> bool:
-        """Returns true if the microphone is not set to 'None'"""
+        """Returns true if the microphone is NOT set to 'None'"""
         return actions.sound.active_microphone() != "None"
 
     def sound_microphone_enable(enable: bool):
@@ -32,6 +32,12 @@ class Actions:
             actions.sound.set_microphone("None")
             actions.user.notify("Deactivating microphone")
         actions.user.sound_microphone_enable_event()
+
+    def sound_microphone_toggle():
+        """Toggle the microphone"""
+        actions.user.sound_microphone_enable(
+            not actions.user.sound_microphone_enabled()
+        )
 
     def sound_microphone_enable_event():
         """Event that triggers when the microphone is enabled or disabled"""
