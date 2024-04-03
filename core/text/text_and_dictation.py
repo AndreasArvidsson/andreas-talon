@@ -5,10 +5,6 @@ import re
 mod = Module()
 
 ctx = Context()
-ctx.matches = r"""
-language: en
-language: sv
-"""
 
 ctx_sv = Context()
 ctx_sv.matches = r"""
@@ -92,15 +88,17 @@ def text_code(m) -> str:
     return format_phrase(m)
 
 
-@mod.capture
-def prose() -> str:
+@mod.capture(rule=prose_role)
+def prose(m) -> str:
     """Same as <user.text>, but auto-spaced & capitalized."""
+    text, _ = auto_capitalize(format_phrase(m))
+    return text
 
 
-# The prose capture needs to be defined on the context to work with Swedish dictation.
-@ctx.capture("user.prose", rule=prose_role)
-def prose_ctx(m) -> str:
-    text, _state = auto_capitalize(format_phrase(m))
+@ctx_sv.capture("user.prose", rule=prose_role)
+def prose_ctx_sv(m) -> str:
+    # Web speech capitalizes words in the middle of sentences, so we need to lowercase them.
+    text, _ = auto_capitalize(format_phrase(m).lower())
     return text
 
 
@@ -121,7 +119,7 @@ class main_action:
 
 
 # ---------- FORMATTING ---------- #
-def format_phrase(m):
+def format_phrase(m) -> str:
     words = capture_to_words(m)
     result = ""
     for i, word in enumerate(words):
