@@ -69,6 +69,9 @@ phones this:                user.homophones_cycle_selected()
 phones token:
     edit.select_word()
     user.homophones_cycle_selected()
+phones line:
+    edit.select_line()
+    user.homophones_cycle_selected()
 
 # Wrappers
 {user.delimiter_pair_wrap} wrap this:
