@@ -16,7 +16,7 @@ scout expression:           user.find_toggle_match_by_regex()
 replace case:               user.find_replace_toggle_preserve_case()
 
 scout last:                 edit.find_previous()
-scout next:                 edit.find_next()
+scout (next | mixed):       edit.find_next()
 
 scout hide:
     edit.find("")
