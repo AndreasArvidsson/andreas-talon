@@ -2,6 +2,7 @@ list: user.symbol
 -
 
 void:              space
+step:              space
 dot:               .
 point:             .
 drip:              ,
