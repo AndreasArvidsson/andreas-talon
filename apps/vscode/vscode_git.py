@@ -150,5 +150,6 @@ def command_with_text(command: str, text: Optional[str] = None, submits: bool = 
     if text:
         actions.sleep("50ms")
         actions.insert(text)
+        actions.sleep("50ms")
     if submits:
         actions.key("enter")
