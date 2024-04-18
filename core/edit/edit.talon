@@ -71,6 +71,7 @@ spam:                       ", "
 stacker:                    ": "
 period:                     ". "
 dasher:                     " - "
+piper:                      " | "
 arrow:                      user.insert_arrow()
 
 snip {user.snippet}:

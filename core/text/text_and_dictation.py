@@ -15,6 +15,7 @@ mod.list("phrase_ender", "List of commands that can be used to end a phrase")
 ctx.lists["user.phrase_ender"] = {
     "over": "",
     "void": " ",
+    "step": " ",
     "question": "?",
     "bang": "!",
     "slap": "\n",
