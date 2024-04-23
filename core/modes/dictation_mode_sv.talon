@@ -2,9 +2,6 @@ mode: dictation
 language: sv
 -
 
-settings():
-    speech.engine = webspeech
-
 # Freely dictate text
 <user.prose>:               "{prose}"
 
