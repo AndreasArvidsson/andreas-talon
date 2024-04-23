@@ -37,7 +37,7 @@ class DictationUserActions:
 class Actions:
     def command_mode(phrase: Union[Phrase, str] = None):
         """Enter command mode and re-evaluate phrase"""
-        ctx.tags = []
+        ctx.settings = {}
         actions.mode.disable("dictation")
         actions.mode.enable("command")
         if phrase:
@@ -56,7 +56,9 @@ class Actions:
 
     def swedish_dictation_mode(phrase: Union[Phrase, str] = None):
         """Enter swedish dictation mode and re-evaluate phrase"""
-        ctx.tags = ["user.swedish"]
+        ctx.settings = {
+            "speech.language": "sv_SE",
+        }
         actions.user.dictation_mode(phrase)
 
     def mixed_mode(phrase: Union[Phrase, str] = None):
