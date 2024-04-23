@@ -1,6 +1,9 @@
 mode: dictation
 -
 
+settings():
+    speech.engine = "wav2letter-wisp"
+
 # Freely dictate text
 <user.prose>:               "{prose}"
 
