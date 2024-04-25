@@ -20,8 +20,8 @@ ctx_sv.settings = {
 }
 
 mod.list("sleep_phrase", "Phrase used to sleep Talon")
-sleep_phrases = ["drowse", "sleep", "sömnig"]
-ctx.lists["user.sleep_phrase"] = sleep_phrases[:2]
+sleep_phrases = ["drowse", "sömnig"]
+ctx.lists["user.sleep_phrase"] = sleep_phrases[:-1]
 ctx_sv.lists["user.sleep_phrase"] = sleep_phrases
 
 
