@@ -11,7 +11,8 @@ from .robust_unlink import robust_unlink
 
 
 class RpcClient:
-    def __init__(self, name: str):
+    def __init__(self, name: str, key: str):
+        self.key = key
         self.dir_path = get_communication_dir_path(name)
         self.request_path = self.dir_path / "request.json"
         self.response_path = self.dir_path / "response.json"
@@ -38,14 +39,16 @@ class RpcClient:
             uuid=uuid,
         )
 
+        # First, write the request to the request file, which makes us the sole
+        # owner because all other processes will try to open it with 'x'
+        write_request(request, self.request_path)
+
         # We clear the response file if it does exist, though it shouldn't
         if self.response_path.exists():
             print("WARNING: Found old response file")
             robust_unlink(self.response_path)
 
-        # First, write the request to the request file, which makes us the sole
-        # owner because all other processes will try to open it with 'x'
-        write_request(request, self.request_path)
+        actions.key(self.key)
 
         try:
             decoded_contents = read_json_with_timeout(self.response_path)
@@ -66,4 +69,7 @@ class RpcClient:
 
         actions.sleep("25ms")
 
-        return decoded_contents["returnValue"]
+        if "returnValue" in decoded_contents:
+            return decoded_contents["returnValue"]
+
+        return None

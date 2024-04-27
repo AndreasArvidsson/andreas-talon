@@ -20,6 +20,7 @@ languages = [
     Language("html", "html", "html"),
     Language("java", "java", "java"),
     Language("javascript", "mjs", "java script"),
+    Language("javascript", "cjs", "java script"),
     Language("javascript", "js", "java script"),
     Language("javascriptreact", "jsx", "java script react"),
     Language("json", "json", "json"),
