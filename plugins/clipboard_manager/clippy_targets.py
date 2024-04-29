@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Optional, Union
 from talon import Module
 from dataclasses import dataclass
 
@@ -7,7 +7,7 @@ from dataclasses import dataclass
 class ClippyPrimitiveTarget:
     type = "primitive"
     hint: str
-    count: int
+    count: Optional[int] = None
 
 
 @dataclass
@@ -32,11 +32,12 @@ def clippy_hint(m) -> str:
 
 @mod.capture(rule="[<number_small> items] <user.clippy_hint>")
 def clippy_primitive_target(m) -> ClippyPrimitiveTarget:
+    target = ClippyPrimitiveTarget(m.clippy_hint)
     try:
-        count = m.number_small
+        target.count = m.number_small
     except AttributeError:
-        count = 1
-    return ClippyPrimitiveTarget(m.clippy_hint, count)
+        pass
+    return target
 
 
 @mod.capture(rule="<user.clippy_hint> past <user.clippy_hint>")

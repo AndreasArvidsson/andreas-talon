@@ -3,7 +3,7 @@ from typing import Any
 from talon import Module, Context, actions
 
 from ...core.rpc_client.rpc_client import RpcClient
-from .clippy_targets import ClippyTarget
+from .clippy_targets import ClippyPrimitiveTarget, ClippyTarget
 
 rpc = RpcClient("Clippy", "ctrl-shift-alt-o")
 
@@ -37,11 +37,20 @@ class Actions:
 
     def clippy_command_with_targets(command_id: str, targets: list[ClippyTarget]):
         """Send a command with targets to the clipboard manager"""
-        command = {"id": command_id, "targets": targets}
-        send(command)
-
         if command_id == "pasteItems":
+            command = {"id": "copyItems", "targets": targets}
+            send(command)
             actions.edit.paste()
+        else:
+            command = {"id": command_id, "targets": targets}
+            send(command)
+
+    def clippy_paste_indices(indices: list[int]):
+        """Paste items from the clipboard manager at the given indices"""
+        targets = [ClippyPrimitiveTarget(str(i)) for i in indices]
+        command = {"id": "copyItems", "targets": targets}
+        send(command)
+        actions.edit.paste()
 
     def clippy_search(text: str):
         """Search for <text> in the clipboard manager"""
