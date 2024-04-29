@@ -18,7 +18,6 @@ ctx = Context()
 ctx.lists["user.clippy_command_with_targets"] = {
     "chuck": "removeItems",
     "copy": "copyItems",
-    "paste": "pasteItems",
 }
 
 ctx.lists["user.clippy_command_no_targets"] = {
