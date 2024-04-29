@@ -21,4 +21,4 @@ def get_communication_dir_path(name: str) -> Path:
 
 
 def clean_name(name: str) -> str:
-    return re.sub(r"[^a-zA-Z0-9_]", "-", name)
+    return re.sub(r"[^a-zA-Z0-9_]", "-", name).lower()
