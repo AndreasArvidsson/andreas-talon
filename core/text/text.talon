@@ -29,6 +29,12 @@ escape <user.phrase> over:  "{phrase}"
 swe {user.swedish_phrase}:  "{swedish_phrase}"
 {user.formatter_word} swe {user.swedish_phrase}:
     user.insert_formatted(swedish_phrase, formatter_word)
+{user.formatter_prose} swe <user.prose>$:
+    translated = user.translate_english_to_swedish(prose)
+    user.insert_formatted(translated, formatter_prose)
+swe <user.prose>$:
+    translated = user.translate_english_to_swedish(prose)
+    insert(translated)
 
 # Upper case characters
 ship <user.letters> [over]:
