@@ -1,4 +1,3 @@
-import dataclasses
 from typing import Any
 from talon import Module, Context, actions
 
@@ -31,8 +30,7 @@ ctx.lists["user.clippy_command_no_targets"] = {
 class Actions:
     def clippy_command_no_targets(command_id: str):
         """Send command without targets to the clipboard manager"""
-        command = {"id": command_id}
-        send(command)
+        send({"id": command_id})
 
     def clippy_command_with_targets(command_id: str, targets: list[ClippyTarget]):
         """Send a command with targets to the clipboard manager"""
@@ -42,8 +40,7 @@ class Actions:
             actions.sleep("50ms")
             actions.edit.paste()
         else:
-            command = {"id": command_id, "targets": targets}
-            send(command)
+            send({"id": command_id, "targets": targets})
 
     def clippy_paste_indices(indices: list[int]):
         """Paste items from the clipboard manager at the given indices"""
@@ -52,8 +49,7 @@ class Actions:
 
     def clippy_search(text: str):
         """Search for <text> in the clipboard manager"""
-        command = {"id": "search", "text": text}
-        send(command)
+        send({"id": "search", "text": text})
 
 
 def send(command: Any):
