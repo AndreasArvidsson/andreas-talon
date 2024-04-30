@@ -57,33 +57,4 @@ class Actions:
 
 
 def send(command: Any):
-    rpc.send(
-        make_serializable(command),
-        wait_for_finish=True,
-    )
-
-
-def make_serializable(value: Any) -> Any:
-    """
-    Converts a dataclass into a serializable dict
-
-    Note that we don't use the built-in asdict() function because it will
-    ignore the static `type` field.
-
-    Args:
-        value (any): The value to convert
-
-    Returns:
-        _type_: The converted value, ready for serialization
-    """
-    if isinstance(value, dict):
-        return {k: make_serializable(v) for k, v in value.items()}
-    if isinstance(value, list):
-        return [make_serializable(v) for v in value]
-    if dataclasses.is_dataclass(value):
-        items = {
-            **{k: v for k, v in value.__class__.__dict__.items() if k[0] != "_"},
-            **value.__dict__,
-        }
-        return {k: make_serializable(v) for k, v in items.items() if v is not None}
-    return value
+    rpc.send(command, wait_for_finish=True)

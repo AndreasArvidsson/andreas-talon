@@ -41,7 +41,8 @@ def write_json_exclusive(path: Path, body: Any):
         body (Any): The object to convert to json and write
     """
     with path.open("x") as out_file:
-        out_file.write(json.dumps(body))
+        json_body = json.dumps(body, default=lambda x: x.to_dict())
+        out_file.write(json_body)
 
 
 def handle_existing_request_file(path):

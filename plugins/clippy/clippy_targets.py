@@ -9,12 +9,18 @@ class ClippyPrimitiveTarget:
     hint: str
     count: Optional[int] = None
 
+    def to_dict(self):
+        return {"type": self.type, **self.__dict__}
+
 
 @dataclass
 class ClippyRangeTarget:
     type = "range"
     start: str
     end: str
+
+    def to_dict(self):
+        return {"type": self.type, **self.__dict__}
 
 
 ClippyTarget = Union[ClippyPrimitiveTarget, ClippyRangeTarget]
