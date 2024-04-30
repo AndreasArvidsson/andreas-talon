@@ -26,6 +26,11 @@ ctx.lists["user.clippy_command_no_targets"] = {
     "dev tools": "toggleDevTools",
 }
 
+mod.apps.clippy = r"""
+app.name: Electron
+title: /Clippy/
+"""
+
 
 @mod.action_class
 class Actions:
