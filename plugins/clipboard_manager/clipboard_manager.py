@@ -259,4 +259,4 @@ def is_image(mime: MimeData):
     return False
 
 
-app.register("ready", lambda: cron.interval("100ms", update))
+# app.register("ready", lambda: cron.interval("100ms", update))
