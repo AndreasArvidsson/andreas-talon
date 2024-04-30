@@ -23,6 +23,7 @@ ctx.lists["user.clippy_command_no_targets"] = {
     "clear": "clear",
     "pin": "togglePinned",
     "search": "toggleSearch",
+    "dev tools": "toggleDevTools",
 }
 
 

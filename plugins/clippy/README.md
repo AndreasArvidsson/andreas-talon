@@ -4,15 +4,17 @@ Clipboard manager with RPC and Talon support. Supports copying and pasting multi
 
 ## Examples
 
--   `copy air`
--   `paste air`
--   `chuck air`
+`"clippy"` to open Clippy UI
+
+-   `"clippy copy air"`
+-   `"clippy paste air"`
+-   `"clippy chuck air"`
 
 ### Multiple targets
 
--   `copy air and bat`
--   `copy air past bat`
--   `copy 2 items air`
+-   `"clippy copy air and bat"`
+-   `"clippy copy air past bat"`
+-   `"clippy copy 2 items air"`
 
 ## Images
 
