@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 from talon import Module, Context, actions
 
 from ...core.rpc_client.rpc_client import RpcClient
@@ -56,6 +56,10 @@ class Actions:
     def clippy_search(text: str):
         """Search for <text> in the clipboard manager"""
         send({"id": "search", "text": text})
+
+    def clippy_rename(targets: list[ClippyTarget], text: Optional[str] = None):
+        """Rename clipboard targets to <text>"""
+        send({"id": "renameItems", "targets": targets, "text": text})
 
 
 def send(command: Any):

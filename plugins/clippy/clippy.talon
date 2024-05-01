@@ -10,6 +10,12 @@ clippy {user.clippy_command_no_targets}:
 clippy {user.clippy_command_with_targets} <user.clippy_targets>:
     user.clippy_command_with_targets(clippy_command_with_targets, clippy_targets)
 
+clippy rename <user.clippy_targets>:
+    user.clippy_rename(clippy_targets)
+
+clippy rename <user.clippy_targets> as <user.text>:
+    user.clippy_rename(clippy_targets, text)
+
 [clippy] paste <user.clippy_targets>:
     user.clippy_command_with_targets("pasteItems", clippy_targets)
 
