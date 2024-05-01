@@ -20,7 +20,7 @@ ctx.lists["user.clippy_command_with_targets"] = {
 }
 
 ctx.lists["user.clippy_command_no_targets"] = {
-    "clear": "clear",
+    "clear": "removeAllItems",
     "pin": "togglePinned",
     "search": "toggleSearch",
     "dev tools": "toggleDevTools",
