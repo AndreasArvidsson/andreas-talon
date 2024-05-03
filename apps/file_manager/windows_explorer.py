@@ -13,7 +13,7 @@ and app.exe: explorer.exe
 # unless the path is displayed in the title, which is rare for those
 mod.apps.windows_file_browser = r"""
 os: windows
-title: /(Save|Open|Browse|Select|Install from|File Upload)/
+title: /^(Save As|Open|Open Folder|Open File|File Upload|Install from.*)$/i
 """
 
 ctx = Context()
