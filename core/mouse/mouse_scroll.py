@@ -1,3 +1,4 @@
+from typing import Literal
 from talon import Module, actions, app, ui, cron, settings
 import time
 
@@ -13,9 +14,9 @@ mod.setting(
 gaze_job = None
 gaze_origin_y = None
 scroll_job = None
-scroll_speed_dynamic = 1
-scroll_dir = 1
-scroll_ts = None
+scroll_speed_dynamic: float = 1
+scroll_dir: Literal[-1, 1] = 1
+scroll_ts: float = 0
 
 
 @mod.action_class
@@ -91,12 +92,8 @@ class Actions:
 
 def scroll_continuous_helper():
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
-    y = (
-        settings.get("user.scroll_speed")
-        * scroll_speed_dynamic
-        * acceleration_speed
-        * scroll_dir
-    )
+    scroll_speed: float = settings.get("user.scroll_speed", 0)  # type: ignore
+    y = scroll_speed * scroll_speed_dynamic * acceleration_speed * scroll_dir
     actions.mouse_scroll(y, by_lines=True)
 
 
