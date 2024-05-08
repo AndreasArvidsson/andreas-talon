@@ -3,7 +3,7 @@ curly, curlyBrackets
 diamond, angleBrackets
 quad | string, doubleQuotes
 round, parentheses
-skis, backtickQuotes
+ski | skis, backtickQuotes
 index, squareBrackets
 twin, singleQuotes
 void | step, whitespace
