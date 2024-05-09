@@ -110,6 +110,17 @@ class Actions:
         text = actions.edit.selected_text()
         actions.user.browser_search(text)
 
+    def browser_translate(text: str):
+        """Focus browser and translate <text>"""
+        actions.user.browser_open(
+            f"https://translate.google.com/?sl=en&tl=sv&text={text}"
+        )
+
+    def browser_translate_selected():
+        """Focus browser and translate selected text"""
+        text = actions.edit.selected_text()
+        actions.user.browser_translate(text)
+
     def browser_define(text: str):
         """Focus browser and define phrase <text>"""
         actions.user.browser_open(f"https://www.merriam-webster.com/dictionary/{text}")

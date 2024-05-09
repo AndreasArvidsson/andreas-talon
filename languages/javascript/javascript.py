@@ -91,7 +91,6 @@ javascript_inserts = {
     "void":         "void ",
     "continue":     "continue;",
     "break":        "break;",
-    "delete":       "delete ",
 }
 ctx.lists["user.code_insert"] = javascript_inserts
 # fmt: on

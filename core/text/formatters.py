@@ -1,10 +1,7 @@
 from talon import Module, Context, actions
-from typing import Callable
+from typing import Callable, Optional
 from abc import ABC, abstractmethod
 import re
-
-mod = Module()
-ctx = Context()
 
 
 class Formatter(ABC):
@@ -25,7 +22,7 @@ class CustomFormatter(Formatter):
         self,
         id: str,
         format: Callable[[str], str],
-        unformat: Callable[[str], str] = None,
+        unformat: Optional[Callable[[str], str]] = None,
     ):
         super().__init__(id)
         self._format = format
@@ -192,7 +189,6 @@ def remove_code_formatting(text: str) -> str:
     # Delimiter/camel case successfully split. Lower case to restore "original" text.
     if text != result:
         return result.lower()
-
     return text
 
 
@@ -245,6 +241,9 @@ formatters_prose = {
     "upper": "ALL_UPPERCASE",
     "lower": "ALL_LOWERCASE",
 }
+
+mod = Module()
+ctx = Context()
 
 
 # This is the mapping from spoken phrases to formatters
@@ -350,7 +349,7 @@ string_delimiters = [
 ]
 
 
-def shrink_to_string_inside(text: str) -> (str, str, str):
+def shrink_to_string_inside(text: str) -> tuple[str, str, str]:
     for [left, right] in string_delimiters:
         if text.startswith(left) and text.endswith(right):
             return text[len(left) : -len(right)], left, right
