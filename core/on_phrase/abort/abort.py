@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Module, Context, actions
 from talon.grammar import Phrase, Capture
 from talon.grammar.vm import VMCapture
@@ -26,8 +27,8 @@ class AbortPhrases:
     end: float
 
 
-abort_specific_phrases: AbortPhrases = None
-ts_threshold: float = None
+abort_specific_phrases: Optional[AbortPhrases] = None
+ts_threshold: float = 0
 
 
 @mod.action_class
@@ -72,11 +73,11 @@ def abort_update_phrase(phrase: Phrase) -> tuple[bool, str]:
                 print(current_phrase, start, end)
         abort_specific_phrases = None
 
-    if ts_threshold is not None:
+    if ts_threshold != 0:
         # Start of phrase is before timestamp threshold
         start = getattr(words[0], "start", phrase["_ts"])
         delta = ts_threshold - start
-        ts_threshold = None
+        ts_threshold = 0
         if delta > 0:
             actions.user.debug(f"Aborted phrase: {delta:.2f}s")
             abort_entire_phrase(phrase)
