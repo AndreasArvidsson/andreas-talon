@@ -61,6 +61,15 @@ class Actions:
         """Rename clipboard targets to <text>"""
         send({"id": "renameItems", "targets": targets, "text": text})
 
+    def clippy_get(targets: list[ClippyTarget]):
+        """Get clipboard targets"""
+        result = get({"id": "getItems", "targets": targets})
+        print(result)
+
 
 def send(command: Any):
     rpc.send(command, wait_for_finish=True)
+
+
+def get(command: Any):
+    return rpc.send(command, return_command_output=True)

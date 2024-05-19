@@ -22,5 +22,8 @@ clippy rename <user.clippy_targets> as <user.text>:
 [clippy] paste <user.ordinals_small> [and <user.ordinals_small>]*:
     user.clippy_paste_indices(ordinals_small_list)
 
+clippy get <user.clippy_targets>:
+    user.clippy_get(clippy_targets)
+
 # clippy split <number_small> [and <number_small>]*:
 #     user.clipboard_manager_split(number_small_list)
