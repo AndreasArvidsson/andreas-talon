@@ -1,0 +1,13 @@
+list: user.edit_action
+-
+
+take: setSelection
+pre: setSelectionBefore
+post: setSelectionAfter
+clear: clearAndSetSelection
+chuck: remove
+copy: copy
+cut: cut
+drink: editNewLineBefore
+pour: editNewLineAfter
+paste to: paste

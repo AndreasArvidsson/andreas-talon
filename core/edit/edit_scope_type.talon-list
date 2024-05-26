@@ -1,0 +1,7 @@
+list: user.edit_scope_type
+-
+
+token: token
+line: line
+block: paragraph
+file: document
