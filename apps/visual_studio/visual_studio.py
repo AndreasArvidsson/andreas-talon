@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, Context, actions, ui
 
 mod = Module()
 
@@ -14,10 +14,25 @@ app: visual_studio
 """
 
 
+@ctx.action_class("code")
+class LangCodeActions:
+    def language() -> str:
+        return "cplusplus"
+
+
 @ctx.action_class("app")
 class AppActions:
     def tab_close():
         actions.key("ctrl-f4")
+
+    def tab_next():
+        actions.key("ctrl-tab")
+
+    def tab_previous():
+        actions.key("ctrl-shift-tab")
+
+    def tab_reopen():
+        actions.key("ctrl-1 ctrl-r enter")
 
 
 @ctx.action_class("code")
