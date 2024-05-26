@@ -5,14 +5,19 @@ insertionScope: statement
 $0.wrapperPhrase: print
 ---
 
-language: javascript
+language: cpp
 -
-console.log($0)
+std::printf($0);
 ---
 
 language: java
 -
 System.out.println($0);
+---
+
+language: javascript
+-
+console.log($0)
 ---
 
 language: python | talon

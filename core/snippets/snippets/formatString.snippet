@@ -2,14 +2,19 @@ name: formatString
 phrase: format
 ---
 
-language: javascript
+language: cpp
 -
-`$0`
+std::format("$0")
 ---
 
 language: java
 -
 String.format("$0")
+---
+
+language: javascript
+-
+`$0`
 ---
 
 language: python

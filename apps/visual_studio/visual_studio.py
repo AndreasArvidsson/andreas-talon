@@ -17,7 +17,7 @@ app: visual_studio
 @ctx.action_class("code")
 class LangCodeActions:
     def language() -> str:
-        return "cplusplus"
+        return "cpp"
 
 
 @ctx.action_class("app")

@@ -8,12 +8,12 @@ $0.wrapperPhrase: catch
 $0.wrapperScope: statement
 ---
 
-language: javascript
+language: cpp
 -
 try {
     $1
 }
-catch(error) {
+catch (const std::exception& e) {
     $0
 }
 ---
@@ -24,6 +24,16 @@ try {
     $1
 }
 catch(Exception ex) {
+    $0
+}
+---
+
+language: javascript
+-
+try {
+    $1
+}
+catch(error) {
     $0
 }
 ---

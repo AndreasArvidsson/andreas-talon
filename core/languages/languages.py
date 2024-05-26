@@ -12,7 +12,7 @@ class Language:
 languages = [
     Language("batch", "bat", "batch"),
     Language("c", "c", "see"),
-    Language("cplusplus", "cpp", "see plus plus"),
+    Language("cpp", "cpp", "see plus plus"),
     Language("csharp", "cs", "see sharp"),
     Language("csv", "csv", "csv"),
     Language("css", "css", "css"),

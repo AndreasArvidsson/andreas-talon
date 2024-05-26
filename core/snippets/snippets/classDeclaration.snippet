@@ -2,16 +2,16 @@ name: classDeclaration
 insertionScope: class | statement
 ---
 
-language: javascript
+language: cpp | java
 -
-class $name {
+$modifiers class $name {
     $0
 }
 ---
 
-language: java
+language: javascript
 -
-$modifiers class $name {
+class $name {
     $0
 }
 ---

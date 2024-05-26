@@ -2,6 +2,16 @@ name: throwException
 phrase: exception
 ---
 
+language: cpp
+-
+throw std::runtime_error("$0");
+---
+
+language: java
+-
+throw new Exception(String.format("$0"))
+---
+
 language: javascript
 -
 throw Error(`$0`)
@@ -10,9 +20,4 @@ throw Error(`$0`)
 language: python
 -
 raise ValueError(f"$0")
----
-
-language: java
--
-throw new Exception(String.format("$0"))
 ---

@@ -2,9 +2,9 @@ name: catchStatement
 phrase: catch
 ---
 
-language: javascript
+language: cpp
 -
-catch(error) {
+catch (const std::exception& ex) {
     $0
 }
 ---
@@ -12,6 +12,13 @@ catch(error) {
 language: java
 -
 catch(Exception ex) {
+    $0
+}
+---
+
+language: javascript
+-
+catch(error) {
     $0
 }
 ---

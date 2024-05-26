@@ -2,16 +2,16 @@ name: constructorDeclaration
 insertionScope: namedFunction | statement
 ---
 
-language: javascript
+language: cpp | java
 -
-constructor($1) {
+$modifiers $name($1) {
     $0
 }
 ---
 
-language: java
+language: javascript
 -
-$modifiers $name($1) {
+constructor($1) {
     $0
 }
 ---
