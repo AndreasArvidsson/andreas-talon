@@ -45,6 +45,16 @@ class CodeActions:
         actions.app.window_close
 
 
+@ctx.action_class("user")
+class UserActions:
+    # ----- Navigation -----
+    def go_back():
+        actions.key("ctrl--")
+
+    def go_forward():
+        actions.key("ctrl-shift--")
+
+
 @mod.action_class
 class Actions:
     def format_document():
