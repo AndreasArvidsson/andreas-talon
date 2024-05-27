@@ -48,6 +48,11 @@ class Action:
         """Create tag <tag>"""
         actions.insert(f"git tag {tag or ''}")
 
+    def git_create_tag_clipboard():
+        """Create tag from clipboard"""
+        clipboard = actions.clip.text()
+        actions.user.git_create_tag(clipboard)
+
     def git_show_tags():
         """Show tags"""
         actions.insert("git tag\n")

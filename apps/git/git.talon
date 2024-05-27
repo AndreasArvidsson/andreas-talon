@@ -13,6 +13,7 @@ git push:                   user.git_push()
 git push tags:              user.git_push_tags()
 
 git tag:                    user.git_create_tag()
+git tag clip:               user.git_create_tag_clipboard()
 git tag list:               user.git_show_tags()
 
 git stash:                  user.git_stash()
