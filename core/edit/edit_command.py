@@ -1,10 +1,46 @@
-from typing import Callable
+from dataclasses import dataclass
+from typing import Callable, Union
 from talon import Module, actions
 
 
+@dataclass
+class EditSimpleAction:
+    type: str
+
+
+@dataclass
+class EditInsertAction:
+    type = "insert"
+    text: str
+
+
+@dataclass
+class EditWrapAction:
+    type = "wrapWithPairedDelimiter"
+    pair: str
+
+
+EditAction = Union[EditSimpleAction, EditInsertAction, EditWrapAction]
+
+
 mod = Module()
-mod.list("edit_action", desc="Actions for the edit command")
+mod.list("edit_simple_action", desc="Actions for the edit command")
 mod.list("edit_scope_type", desc="Scope types for the edit command")
+
+
+@mod.capture(rule="{user.edit_simple_action}")
+def edit_simple_action(m) -> EditSimpleAction:
+    return EditSimpleAction(m.edit_simple_action)
+
+
+@mod.capture(rule="{user.delimiter_pair} wrap")
+def edit_wrap_action(m) -> EditWrapAction:
+    return EditWrapAction(m.delimiter_pair)
+
+
+@mod.capture(rule="<user.edit_simple_action> | <user.edit_wrap_action>")
+def edit_action(m) -> EditAction:
+    return m[0]
 
 
 @mod.capture(rule="{user.edit_scope_type}")
@@ -40,7 +76,7 @@ def edit_modifier(m) -> dict:
 
 @mod.action_class
 class Actions:
-    def edit_command(action: str, modifiers: list[dict]):
+    def edit_command(action: EditAction, modifiers: list[dict]):
         """Perform edit command"""
 
         print(action)
@@ -50,8 +86,8 @@ class Actions:
             return
 
         try:
-            modifier_callbacks = get_modifier_callbacks(modifiers)
             action_callback = get_action_callback(action)
+            modifier_callbacks = get_modifier_callbacks(modifiers)
             for callback in reversed(modifier_callbacks):
                 callback()
             return action_callback()
@@ -59,7 +95,7 @@ class Actions:
             actions.app.notify(str(ex))
 
 
-def run_compound_action(action: str, modifiers: list[dict]):
+def run_compound_action(action: EditAction, modifiers: list[dict]):
     if len(modifiers) != 1:
         return False
 
@@ -68,9 +104,10 @@ def run_compound_action(action: str, modifiers: list[dict]):
     if modifier["type"] != "containingScope":
         return False
 
+    action_type = action.type
     scope_type = modifier["scopeType"]
 
-    if action == "setSelection":
+    if action_type == "setSelection":
         match scope_type:
             case "selection":
                 actions.skip()
@@ -88,7 +125,7 @@ def run_compound_action(action: str, modifiers: list[dict]):
                 return False
         return True
 
-    elif action in ["clearAndSetSelection", "remove"]:
+    elif action_type in ["clearAndSetSelection", "remove"]:
         match scope_type:
             case "selection":
                 actions.delete()
@@ -109,7 +146,7 @@ def run_compound_action(action: str, modifiers: list[dict]):
     return False
 
 
-action_callbacks = {
+simple_action_callbacks = {
     "getText": lambda: [actions.edit.selected_text()],
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
@@ -139,19 +176,19 @@ def containing_token_if_empty():
         actions.edit.select_word()
 
 
-def get_action_callback(action: str) -> Callable:
-    if action in action_callbacks:
-        return action_callbacks[action]
+def get_action_callback(action: EditAction) -> Callable:
+    action_type = action.type
 
-    # match action:
-    #     case "insert":
-    #         return lambda: actions.insert(fallback["text"])
-    #     case "callAsFunction":
-    #         return lambda: call_as_function(fallback["callee"])
-    #     case "wrapWithPairedDelimiter":
-    #         return lambda: wrap_with_paired_delimiter(
-    #             fallback["left"], fallback["right"]
-    #         )
+    if action_type in simple_action_callbacks:
+        return simple_action_callbacks[action_type]
+
+    match action_type:
+        case "insert":
+            assert isinstance(action, EditInsertAction)
+            return lambda: actions.insert(action.text)
+        case "wrapWithPairedDelimiter":
+            assert isinstance(action, EditWrapAction)
+            return lambda: actions.user.delimiters_pair_wrap_selection(action.pair)
 
     raise ValueError(f"Unknown Cursorless fallback action: {action}")
 

@@ -80,5 +80,5 @@ snip {user.snippet}:
 snip {user.snippet_with_phrase} <user.text>:
     user.insert_snippet_by_name_with_phrase(snippet_with_phrase, text)
 
-edit {user.edit_action} <user.edit_modifier>+:
+edit <user.edit_action> <user.edit_modifier>+:
     user.edit_command(edit_action, edit_modifier_list)

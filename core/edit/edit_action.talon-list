@@ -1,4 +1,4 @@
-list: user.edit_action
+list: user.edit_simple_action
 -
 
 take: setSelection
