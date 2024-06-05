@@ -82,3 +82,6 @@ snip {user.snippet_with_phrase} <user.text>:
 
 edit <user.edit_action> <user.edit_modifier>+:
     user.edit_command(edit_action, edit_modifier_list)
+
+edit test paste:            user.edit_test_paste()
+edit test paste text:       user.edit_test_paste_text()
