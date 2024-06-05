@@ -5,12 +5,8 @@ mod = Module()
 
 # ---------- Paste insert ------
 
-mod.tag("insert_paste_disabled", "Never use paste to insert text")
 
 ctx_insert_paste = Context()
-ctx_insert_paste.matches = r"""
-not tag: user.insert_paste_disabled
-"""
 
 # Matching strings that cannot be undone in a single step
 PASTE_RE = re.compile(r"\s|[ /-]")
