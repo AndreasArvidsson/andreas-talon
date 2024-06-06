@@ -55,12 +55,12 @@ paste to file:              user.paste_all()
 clone this:                 edit.selection_clone()
 
 # Reformat
-<user.formatters> (format|form) this:
+<user.formatters> (format | form) this:
     user.reformat_selection(formatters)
-<user.formatters> (format|form) token:
+<user.formatters> (format | form) token:
     edit.select_word()
     user.reformat_selection(formatters)
-<user.formatters> (format|form) line:
+<user.formatters> (format | form) line:
     edit.select_line()
     user.reformat_selection(formatters)
 

@@ -74,9 +74,11 @@ def format_context_title(context_name: str) -> str:
     global cached_active_contexts_list
     return "{} [{}]".format(
         context_name,
-        "ACTIVE"
-        if context_map.get(context_name, None) in cached_active_contexts_list
-        else "INACTIVE",
+        (
+            "ACTIVE"
+            if context_map.get(context_name, None) in cached_active_contexts_list
+            else "INACTIVE"
+        ),
     )
 
 
@@ -88,9 +90,11 @@ def format_context_button(index: int, context_label: str, context_name: str) -> 
         return "{}. {}{}".format(
             index,
             context_label,
-            "*"
-            if context_map.get(context_name, None) in cached_active_contexts_list
-            else "",
+            (
+                "*"
+                if context_map.get(context_name, None) in cached_active_contexts_list
+                else ""
+            ),
         )
     else:
         return "{}. {} ".format(index, context_label)

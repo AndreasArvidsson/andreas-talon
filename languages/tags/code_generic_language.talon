@@ -8,15 +8,15 @@ tag(): user.code_call_function
     user.code_class_wrapper(text, code_class_modifier_list or "")
 
 # ----- Function statement -----
-{user.code_function_modifier}* (function| funk) <user.text>$:
+{user.code_function_modifier}* (function | funk) <user.text>$:
     user.code_function_wrapper(text, code_function_modifier_list or "")
 {user.code_function_modifier}* method <user.text>$:
     user.code_method_wrapper(text, code_function_modifier_list or "")
 
-(function| funk) main:      user.code_function_main()
+(function | funk) main:     user.code_function_main()
 
 # ----- Constructor statement -----
-{user.code_function_modifier}* (function| funk) constructor:
+{user.code_function_modifier}* (function | funk) constructor:
     user.code_constructor_wrapper(code_function_modifier_list or "")
 
 # ----- Variable statement -----
