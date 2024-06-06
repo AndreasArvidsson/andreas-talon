@@ -65,13 +65,11 @@ disk:                       edit.save()
 
 # ----- Text insertions -----
 make to do:                 "TODO: "
-bullet:                     "* "
 task:                       "- [ ] "
+bullet:                     "* "
 spam:                       ", "
 stacker:                    ": "
 period:                     ". "
-dasher:                     " - "
-piper:                      " | "
 arrow:                      user.insert_arrow()
 
 snip {user.snippet}:

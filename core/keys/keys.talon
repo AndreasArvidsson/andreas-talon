@@ -18,6 +18,9 @@ tab symbol:                 "\\t"
 # Add symbol at end of line and then insert line below
 spike {user.symbol}:        user.insert_symbol_and_break_at_end(symbol)
 
+# Add symbol padded/surrounded by whitespace
+pad {user.symbol}:          " {symbol} "
+
 # Modifier(s) + key: "control air" or "control win left"
 <user.key_modifiers> <user.key_unmodified>:
     key("{key_modifiers}-{key_unmodified}")
