@@ -5,6 +5,9 @@ from typing import Union
 mod = Module()
 ctx = Context()
 
+mod.mode("demo", "Used for demos")
+
+
 ctx_dictation = Context()
 ctx_dictation.matches = r"""
 mode: dictation
@@ -43,6 +46,7 @@ class Actions:
         """Enter command mode and re-evaluate phrase"""
         ctx.settings = {}
         actions.mode.disable("dictation")
+        actions.mode.disable("user.demo")
         actions.mode.enable("command")
         if phrase:
             actions.user.rephrase(phrase, run_async=True)
@@ -51,6 +55,7 @@ class Actions:
         """Enter dictation mode and re-evaluate phrase"""
         actions.user.dictation_format_reset()
         actions.mode.disable("command")
+        actions.mode.disable("user.demo")
         actions.mode.enable("dictation")
         if phrase:
             actions.user.rephrase(phrase, run_async=True)
@@ -71,6 +76,12 @@ class Actions:
         actions.mode.enable("dictation")
         if phrase:
             actions.user.rephrase(phrase, run_async=True)
+
+    def demo_mode():
+        """Enter demo mode"""
+        actions.mode.disable("command")
+        actions.mode.disable("dictation")
+        actions.mode.enable("user.demo")
 
     def talon_sleep():
         """Put Talon to sleep"""

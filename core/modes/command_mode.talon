@@ -7,6 +7,9 @@ swedish [<phrase>]$:        user.swedish_dictation_mode(phrase or "")
 # Switch to mixed mode and insert a phrase
 mixed mode [<phrase>]$:     user.mixed_mode(phrase or "")
 
+# Switch to demo mode
+demo mode$:                 user.demo_mode()
+
 # Switch to sleep mode
 {user.sleep_phrase} [<phrase>]$: user.talon_sleep()
 
