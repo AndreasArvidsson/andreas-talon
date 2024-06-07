@@ -39,8 +39,8 @@ ctx.lists["user.clippy_command_no_targets"] = {
     "auto star": "toggleAutoStar",
     "auto star on": "enableAutoStar",
     "auto star off": "disableAutoStar",
-    "clear": "removeAllItems",
-    "remove list": "removeList",
+    # "clear": "removeAllItems",
+    # "remove list": "removeList",
 }
 
 mod.apps.clippy = r"""
