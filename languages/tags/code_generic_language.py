@@ -12,11 +12,6 @@ mod.list("code_data_type", "Names of data types")
 mod.list("code_symbol", "Known symbols in the code workspace")
 
 
-@mod.capture(rule="{user.code_symbol}")
-def code_symbol(m) -> str:
-    return m.code_symbol
-
-
 @mod.action_class
 class Actions:
     # ----- Class statement -----

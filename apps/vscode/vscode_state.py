@@ -34,7 +34,7 @@ def on_watch(f):
 
 
 @ctx.dynamic_list("user.code_symbol")
-def code_symbol() -> dict[str, str]:
+def code_symbol(_) -> dict[str, str]:
     global spoken_map
     t = time.perf_counter()
     symbols = get_symbols_from_workspaces()
