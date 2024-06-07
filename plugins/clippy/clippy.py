@@ -20,10 +20,27 @@ ctx.lists["user.clippy_command_with_targets"] = {
 }
 
 ctx.lists["user.clippy_command_no_targets"] = {
-    "clear": "removeAllItems",
-    "pin": "togglePinned",
-    "search": "toggleSearch",
+    # "exit": "exit",
+    "toggle": "toggleShowHide",
+    "show": "show",
+    "hide": "hide",
+    "pin toggle": "togglePinned",
+    "pin": "pin",
+    "unpin": "unpin",
     "dev tools": "toggleDevTools",
+    "dev tools show": "showDevTools",
+    "dev tools hide": "hideDevTools",
+    "search": "toggleSearch",
+    "search show": "showSearch",
+    "search hide": "hideSearch",
+    "pause toggle": "togglePaused+",
+    "pause": "pause",
+    "resume": "resume",
+    "auto star": "toggleAutoStar",
+    "auto star on": "enableAutoStar",
+    "auto star off": "disableAutoStar",
+    "clear": "removeAllItems",
+    "remove list": "removeList",
 }
 
 mod.apps.clippy = r"""

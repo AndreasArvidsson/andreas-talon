@@ -1,5 +1,5 @@
 clippy:
-    user.clippy_command_no_targets("showHide")
+    user.clippy_command_no_targets("toggleShowHide")
 
 clippy search <user.text>:
     user.clippy_search(text)
