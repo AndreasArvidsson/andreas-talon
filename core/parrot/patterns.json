@@ -20,10 +20,10 @@
             "pop": 0.2
         }
     },
-    "hiss": {
-        "sounds": ["hiss"],
+    "shush": {
+        "sounds": ["shush"],
         "threshold": {
-            ">power": 15,
+            ">power": 20,
             ">probability": 0.95
         },
         "graceperiod": 0.05,
@@ -31,10 +31,10 @@
             ">power": 10
         }
     },
-    "shush": {
-        "sounds": ["shush"],
+    "hiss": {
+        "sounds": ["hiss"],
         "threshold": {
-            ">power": 15,
+            ">power": 20,
             ">probability": 0.95
         },
         "graceperiod": 0.05,
