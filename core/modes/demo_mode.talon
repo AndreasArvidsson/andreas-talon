@@ -10,6 +10,8 @@ parrot(pop):
 command mode$:
     user.command_mode()
 
+{user.sleep_phrase} [<phrase>]$: user.talon_sleep()
+
 start recording:
     user.clear_subtitles()
     user.recording_start()
