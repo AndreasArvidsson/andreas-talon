@@ -148,8 +148,15 @@ class Actions:
     def paste_text(text: str):
         """Pastes <text> and preserves clipboard"""
         with clip.revert():
-            clip.set_text(text)
+            actions.user.clip_set_transient_text(text)
             actions.edit.paste()
+
+    def clip_set_transient_text(text: str):
+        """Set clipboard text without monitoring"""
+        mime = clip.MimeData()
+        mime.text = text
+        mime["ExcludeClipboardContentFromMonitorProcessing"] = b"true"
+        clip.set_mime(mime)
 
     def insert_clipboard_with_keys():
         """Insert clipboard content by key presses"""
