@@ -20,7 +20,18 @@ class EditWrapAction:
     pair: str
 
 
-EditAction = Union[EditSimpleAction, EditInsertAction, EditWrapAction]
+@dataclass
+class EditFormatAction:
+    type = "applyFormatter"
+    formatters: str
+
+
+EditAction = Union[
+    EditSimpleAction,
+    EditInsertAction,
+    EditWrapAction,
+    EditFormatAction,
+]
 
 
 mod = Module()
@@ -33,12 +44,21 @@ def edit_simple_action(m) -> EditSimpleAction:
     return EditSimpleAction(m.edit_simple_action)
 
 
-@mod.capture(rule="{user.delimiter_pair} wrap")
+@mod.capture(rule="{user.delimiter_pair_wrap} wrap")
 def edit_wrap_action(m) -> EditWrapAction:
-    return EditWrapAction(m.delimiter_pair)
+    return EditWrapAction(m.delimiter_pair_wrap)
 
 
-@mod.capture(rule="<user.edit_simple_action> | <user.edit_wrap_action>")
+@mod.capture(rule="<user.formatters> (format | form)")
+def edit_format_action(m) -> EditFormatAction:
+    return EditFormatAction(m.formatters)
+
+
+@mod.capture(
+    rule="<user.edit_simple_action>"
+    " | <user.edit_wrap_action>"
+    " | <user.edit_format_action>"
+)
 def edit_action(m) -> EditAction:
     return m[0]
 
@@ -99,12 +119,19 @@ def run_compound_action(action: EditAction, modifiers: list[dict]):
     if len(modifiers) != 1:
         return False
 
+    action_type = action.type
     modifier = modifiers[0]
+
+    if (
+        action_type == "insertCopyAfter"
+        and modifier["type"] == "containingTokenIfEmpty"
+    ):
+        actions.edit.selection_clone()
+        return True
 
     if modifier["type"] != "containingScope":
         return False
 
-    action_type = action.type
     scope_type = modifier["scopeType"]
 
     if action_type == "setSelection":
@@ -125,7 +152,7 @@ def run_compound_action(action: EditAction, modifiers: list[dict]):
                 return False
         return True
 
-    elif action_type in ["clearAndSetSelection", "remove"]:
+    if action_type in ["clearAndSetSelection", "remove"]:
         match scope_type:
             case "selection":
                 actions.delete()
@@ -143,11 +170,58 @@ def run_compound_action(action: EditAction, modifiers: list[dict]):
                 return False
         return True
 
+    if action_type == "setSelectionBefore":
+        match scope_type:
+            case "line":
+                actions.edit.line_start()
+            case "paragraph":
+                actions.edit.paragraph_start()
+            case "document":
+                actions.edit.file_start()
+            case _:
+                return False
+        return True
+
+    if action_type == "setSelectionAfter":
+        match scope_type:
+            case "line":
+                actions.edit.line_end()
+            case "paragraph":
+                actions.edit.paragraph_end()
+            case "document":
+                actions.edit.file_end()
+            case _:
+                return False
+        return True
+
+    if action_type == "editNewLineBefore":
+        match scope_type:
+            case "line":
+                actions.edit.line_insert_up()
+            case _:
+                return False
+        return True
+
+    if action_type == "editNewLineAfter":
+        match scope_type:
+            case "line":
+                actions.edit.line_insert_down()
+            case _:
+                return False
+        return True
+
+    if action_type == "insertCopyAfter":
+        match scope_type:
+            case "line":
+                actions.edit.line_clone()
+            case _:
+                return False
+        return True
+
     return False
 
 
 simple_action_callbacks = {
-    "getText": lambda: [actions.edit.selected_text()],
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
     "setSelectionAfter": actions.edit.right,
@@ -156,8 +230,10 @@ simple_action_callbacks = {
     "pasteFromClipboard": actions.edit.paste,
     "clearAndSetSelection": actions.edit.delete,
     "remove": actions.edit.delete,
-    "editNewLineBefore": actions.edit.line_insert_up,
-    "editNewLineAfter": actions.edit.line_insert_down,
+    "nextHomophone": actions.user.homophones_cycle_selected,
+    # "editNewLineBefore":
+    # "editNewLineAfter":
+    # "insertCopyAfter":
 }
 
 modifier_callbacks = {
@@ -189,6 +265,9 @@ def get_action_callback(action: EditAction) -> Callable:
         case "wrapWithPairedDelimiter":
             assert isinstance(action, EditWrapAction)
             return lambda: actions.user.delimiters_pair_wrap_selection(action.pair)
+        case "applyFormatter":
+            assert isinstance(action, EditFormatAction)
+            return lambda: actions.user.reformat_selection(action.formatters)
 
     raise ValueError(f"Unknown Cursorless fallback action: {action}")
 
