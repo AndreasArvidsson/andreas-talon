@@ -2,7 +2,10 @@ from talon import Module, Context, actions
 import re
 
 mod = Module()
-mod.tag("insert_paste_disabled", "Never use paste to insert text")
+mod.tag(
+    "insert_paste_disabled",
+    "Never use clipboard/paste for insertions in 'insert' action",
+)
 
 ctx = Context()
 ctx.matches = r"""
