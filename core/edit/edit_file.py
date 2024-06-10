@@ -21,6 +21,10 @@ class EditActions:
     def extend_file_end():
         actions.key("shift-ctrl-end")
 
+    def delete_all():
+        actions.edit.select_all()
+        actions.edit.delete()
+
 
 @mod.action_class
 class Actions:
@@ -39,8 +43,3 @@ class Actions:
         """Paste to the current document"""
         actions.edit.select_all()
         actions.edit.paste()
-
-    def delete_all():
-        """Delete all text in the current document"""
-        actions.edit.select_all()
-        actions.edit.delete()

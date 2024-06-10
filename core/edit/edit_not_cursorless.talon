@@ -52,7 +52,7 @@ not tag: user.cursorless
 # cut file:                   user.cut_all()
 # copy file:                  user.copy_all()
 # paste to file:              user.paste_all()
-# (chuck | clear) file:       user.delete_all()
+# (chuck | clear) file:       edit.delete_all()
 
 # # Selection
 # clone this:                 edit.selection_clone()

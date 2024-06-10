@@ -122,13 +122,6 @@ def run_compound_action(action: EditAction, modifiers: list[dict]):
     action_type = action.type
     modifier = modifiers[0]
 
-    if (
-        action_type == "insertCopyAfter"
-        and modifier["type"] == "containingTokenIfEmpty"
-    ):
-        actions.edit.selection_clone()
-        return True
-
     if modifier["type"] != "containingScope":
         return False
 
@@ -231,9 +224,9 @@ simple_action_callbacks = {
     "clearAndSetSelection": actions.edit.delete,
     "remove": actions.edit.delete,
     "nextHomophone": actions.user.homophones_cycle_selected,
+    "insertCopyAfter": actions.edit.selection_clone,
     # "editNewLineBefore":
     # "editNewLineAfter":
-    # "insertCopyAfter":
 }
 
 modifier_callbacks = {
