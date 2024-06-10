@@ -34,6 +34,7 @@ class EditActions:
 
     def paste():
         actions.key("ctrl-shift-v")
+        actions.sleep("30ms")
 
 
 @ctx.action_class("user")

@@ -36,6 +36,7 @@ class EditActions:
 
     def paste():
         actions.key("ctrl-shift-v")
+        actions.sleep("30ms")
 
     def find(text: str = None):
         actions.key("ctrl-shift-f")

@@ -1,33 +1,6 @@
 from talon import Context, Module, actions, clip
-import re
 
 mod = Module()
-
-# ---------- Paste insert ------
-
-mod.tag("insert_paste_disabled", "Never use paste to insert text")
-
-ctx_insert_paste = Context()
-ctx_insert_paste.matches = r"""
-not tag: user.insert_paste_disabled
-"""
-
-# Matching strings that cannot be undone in a single step
-PASTE_RE = re.compile(r"\s|[ /-]")
-
-
-@ctx_insert_paste.action_class("main")
-class MainActions:
-    def insert(text: str):
-        if re.search(PASTE_RE, text):
-            actions.user.paste_text(text)
-        else:
-            actions.next(text)
-
-
-# ----------------------
-
-
 ctx = Context()
 
 
@@ -95,10 +68,8 @@ class EditActions:
         actions.key("ctrl-c")
 
     def paste():
-        # Sleeps are necessary when chaining commands before and after sleep
-        actions.sleep("25ms")
         actions.key("ctrl-v")
-        actions.sleep("25ms")
+        actions.sleep("30ms")
 
     def paste_match_style():
         actions.key("ctrl-shift-v")
@@ -145,7 +116,7 @@ class EditActions:
 @mod.action_class
 class Actions:
     def insert_with_padding(text: str):
-        """Insert text with padding"""
+        """Insert <text> with padding"""
         if text[0].isspace() or text[-1].isspace():
             before, after = actions.user.dictation_get_context()
 
@@ -169,24 +140,16 @@ class Actions:
         actions.insert(" => ")
 
     def insert_symbol_and_break_at_end(symbol: str):
-        """Add symbol at end of line and then insert line below"""
+        """Add <symbol> at end of line and then insert line below"""
         actions.edit.line_end()
         actions.key(symbol)
         actions.edit.line_insert_down()
 
     def paste_text(text: str):
-        """Pastes text and preserves clipboard"""
+        """Pastes <text> and preserves clipboard"""
         with clip.revert():
             clip.set_text(text)
-
-            if clip.text() != text:
-                actions.user.notify("Failed to set clipboard")
-                return
-
             actions.edit.paste()
-
-            # Sleep here so that clip.revert doesn't revert the clipboard too soon
-            actions.sleep("200ms")
 
     def insert_clipboard_with_keys():
         """Insert clipboard content by key presses"""

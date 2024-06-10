@@ -6,7 +6,6 @@ tag(): user.maven
 tag(): user.npm
 tag(): user.yarn
 tag(): user.pip
-tag(): user.insert_paste_disabled
 
 vscode install:             "vsce package -o bundle.vsix && code --install-extension bundle.vsix --force\n"
 
