@@ -1,7 +1,13 @@
-from talon import Context, actions
+from talon import Module, Context, actions
 import re
 
+mod = Module()
+mod.tag("insert_paste_disabled", "Never use paste to insert text")
+
 ctx = Context()
+ctx.matches = r"""
+not tag: user.insert_paste_disabled
+"""
 
 
 # Use paste for inserting text that cannot be undone in a single undo step
