@@ -25,6 +25,7 @@ types = {
     "unknown"   : "unknown",
     "void"      : "void",
     "funk"      : "() => void",
+    "record"    : "Record"
 }
 
 ctx.lists["user.code_data_type"] = {
