@@ -37,6 +37,7 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_in            = " in ",
     op_and           = " && ",
     op_or            = " || ",
+    is_in            = " in ",
 )
 ctx.lists["user.code_class_modifier"] = {}
 ctx.lists["user.code_function_modifier"] = {}
