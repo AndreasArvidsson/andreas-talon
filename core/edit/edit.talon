@@ -70,6 +70,7 @@ bullet:                     "* "
 spam:                       ", "
 stacker:                    ": "
 period:                     ". "
+dasher:                     " - "
 arrow:                      user.insert_arrow()
 
 snip {user.snippet}:
