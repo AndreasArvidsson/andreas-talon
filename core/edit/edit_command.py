@@ -99,9 +99,6 @@ class Actions:
     def edit_command(action: EditAction, modifiers: list[dict]):
         """Perform edit command"""
 
-        print(action)
-        print(modifiers)
-
         if run_compound_action(action, modifiers):
             return
 
