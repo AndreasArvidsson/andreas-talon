@@ -7,6 +7,8 @@ and app.exe: windowsterminal.exe
 title: Talon - REPL
 -
 
+terminate:                  key(ctrl-c)
+
 events tail:                "events.tail('/^((?!win|browser).)*$/')\n"
 parrot events:              "events.tail('parrot predict')\n"
 
