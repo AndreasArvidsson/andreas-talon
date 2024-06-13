@@ -8,7 +8,8 @@ mod = Module()
 @dataclass
 class Side:
     side: str
-    distance: int
+    x: float
+    y: float
 
 
 @mod.action_class
@@ -69,13 +70,17 @@ def get_closest_side(rect: Rect, x: float, y: float) -> str:
         # Outside one of the corners.
         return "NOOP"
 
-    sides = []
+    sides = [
+        Side("left", rect.left, rect.top + rect.height / 2),
+        Side("right", rect.right, rect.top + rect.height / 2),
+        Side("top", rect.left + rect.width / 2, rect.top),
+        Side("bot", rect.left + rect.width / 2, rect.bot),
+    ]
 
-    sides.append(Side("left", abs(x - rect.left)))
-    sides.append(Side("right", abs(x - rect.right)))
-    sides.append(Side("top", abs(y - rect.top)))
-    sides.append(Side("bot", abs(y - rect.bot)))
-
-    sides.sort(key=lambda side: side.distance)
+    sides.sort(key=lambda side: distance(x, y, side.x, side.y))
 
     return sides[0].side
+
+
+def distance(x1: float, y1: float, x2: float, y2: float) -> float:
+    return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
