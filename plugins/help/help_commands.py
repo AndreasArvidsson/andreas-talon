@@ -1,6 +1,7 @@
 from collections import defaultdict
+from functools import cmp_to_key
 import math
-from typing import Iterable, Tuple
+from typing import Any, Iterable, Tuple
 from talon import Module, Context, actions, Module, registry, ui, app, settings
 from ...core.imgui import imgui
 import re
@@ -410,7 +411,46 @@ def refresh_context_command_map(enabled_only=False):
     refresh_rule_word_map(context_command_map)
 
     ctx.lists["user.help_contexts"] = cached_short_context_names
-    sorted_context_map_keys = sorted(cached_short_context_names)
+    sorted_context_map_keys = get_sorted_keys_by_context_specificity(
+        context_map,
+        cached_short_context_names,
+    )
+
+
+def get_sorted_keys_by_context_specificity(
+    context_map: dict[str, Any],
+    display_name_to_context_name_map: dict[str, str],
+) -> list[str]:
+    def get_specificity_score(display_name) -> int:
+        try:
+            context_name = display_name_to_context_name_map[display_name]
+            context = context_map[context_name]
+            keys = context._match.keys()
+            unique_keys = set(keys)
+            # Since we're not calculating the difference between `K || K` and `K && K`, we can just count unique keys.
+            score = len(unique_keys)
+            # Application is probably the most important match, so we give it a boost.
+            if "app.app" in unique_keys:
+                score += 100
+            return score
+        except Exception as ex:
+            return 0
+
+    def sort_key(short_name_a, short_name_b) -> int:
+        score_a = get_specificity_score(short_name_a)
+        score_b = get_specificity_score(short_name_b)
+        if score_a != score_b:
+            return score_b - score_a
+        if short_name_a < short_name_b:
+            return -1
+        if short_name_a > short_name_b:
+            return 1
+        return 0
+
+    return sorted(
+        display_name_to_context_name_map.keys(),
+        key=cmp_to_key(sort_key),
+    )
 
 
 def refresh_rule_word_map(context_command_map):
