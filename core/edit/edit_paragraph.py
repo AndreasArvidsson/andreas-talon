@@ -59,6 +59,42 @@ class Actions:
         actions.edit.select_paragraph()
         actions.edit.paste()
 
+    def paragraph_insert_up():
+        """Insert paragraph above current paragraph"""
+        if extend_paragraph_start_with_success():
+            actions.edit.left()
+            actions.edit.line_insert_up()
+            actions.edit.line_insert_up()
+
+    def paragraph_insert_down():
+        """Insert paragraph below current paragraph"""
+        if extend_paragraph_end_with_success():
+            actions.edit.right()
+            actions.edit.line_insert_down()
+            actions.edit.line_insert_down()
+
+    def paragraph_clone_up():
+        """Create a new paragraph identical to the current paragraph above the current paragraph"""
+        actions.edit.select_paragraph()
+        text = actions.edit.selected_text()
+        if text.strip():
+            actions.edit.left()
+            actions.edit.line_insert_up()
+            actions.edit.line_insert_up()
+            actions.sleep("50ms")
+            actions.insert(text)
+
+    def paragraph_clone_down():
+        """Create a new paragraph identical to the current paragraph below the current paragraph"""
+        actions.edit.select_paragraph()
+        text = actions.edit.selected_text()
+        if text.strip():
+            actions.edit.right()
+            actions.edit.line_insert_down()
+            actions.edit.line_insert_down()
+            actions.sleep("50ms")
+            actions.insert(text)
+
 
 def is_line_empty() -> bool:
     """Check if the current line is empty. Return True if empty."""

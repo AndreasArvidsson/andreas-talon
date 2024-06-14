@@ -24,15 +24,21 @@ compound_actions = {
     "remove.containingScope(paragraph)":                actions.edit.delete_paragraph,
     "remove.containingScope(document)":                 actions.edit.delete_all,
 
-    "editNewLineBefore.containingScope(line)":          actions.edit.line_insert_up,
     "editNewLineBefore.containingTokenIfEmpty":         actions.edit.line_insert_up,
+    "editNewLineBefore.containingScope(line)":          actions.edit.line_insert_up,
+    "editNewLineBefore.containingScope(paragraph)":     actions.user.paragraph_insert_up,
 
-    "editNewLineAfter.containingScope(line)":           actions.edit.line_insert_down,
     "editNewLineAfter.containingTokenIfEmpty":          actions.edit.line_insert_down,
+    "editNewLineAfter.containingScope(line)":           actions.edit.line_insert_down,
+    "editNewLineAfter.containingScope(paragraph)":      actions.user.paragraph_insert_down,
 
-    "insertCopyBefore.containingScope(line)":           actions.user.line_clone_before,
-    "insertCopyAfter.containingScope(line)":            actions.edit.line_clone,
+    "insertCopyBefore.containingTokenIfEmpty":          actions.user.line_clone_up,
+    "insertCopyBefore.containingScope(line)":           actions.user.line_clone_up,
+    "insertCopyBefore.containingScope(paragraph)":      actions.user.paragraph_clone_up,
+
     "insertCopyAfter.containingTokenIfEmpty":           actions.edit.line_clone,
+    "insertCopyAfter.containingScope(line)":            actions.edit.line_clone,
+    "insertCopyAfter.containingScope(paragraph)":       actions.user.paragraph_clone_down,
 }
 # fmt: on
 
