@@ -30,6 +30,7 @@ compound_actions = {
     "editNewLineAfter.containingScope(line)":           actions.edit.line_insert_down,
     "editNewLineAfter.containingTokenIfEmpty":          actions.edit.line_insert_down,
 
+    "insertCopyBefore.containingScope(line)":           actions.user.line_clone_before,
     "insertCopyAfter.containingScope(line)":            actions.edit.line_clone,
     "insertCopyAfter.containingTokenIfEmpty":           actions.edit.line_clone,
 }

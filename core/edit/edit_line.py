@@ -108,6 +108,14 @@ class Actions:
         """Clear current line"""
         actions.key("end shift-home space backspace")
 
+    def line_clone_before():
+        """Create a new line identical to the current line above the current line"""
+        actions.edit.select_line()
+        text = actions.edit.selected_text()
+        actions.edit.line_insert_up()
+        actions.sleep("50ms")
+        actions.insert(text)
+
     # ----- Start / End -----
     def select_line_start():
         """Select start of current line"""
