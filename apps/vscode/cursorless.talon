@@ -69,4 +69,4 @@ snip {user.snippet} <user.cursorless_destination>:
 
 # Misc
 search for <user.cursorless_target>:
-    user.c_browser_open_target(cursorless_target)
+    user.c_browser_search_target(cursorless_target)

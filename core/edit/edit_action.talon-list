@@ -4,13 +4,19 @@ list: user.edit_simple_action
 take: setSelection
 pre: setSelectionBefore
 post: setSelectionAfter
+
 clear: clearAndSetSelection
 chuck: remove
+
 copy: copyToClipboard
 cut: cutToClipboard
+paste to: pasteFromClipboard
+
 drink: editNewLineBefore
 pour: editNewLineAfter
+
 clone up: insertCopyBefore
 clone: insertCopyAfter
+
 phones: nextHomophone
-paste to: pasteFromClipboard
+search for: searchEngine

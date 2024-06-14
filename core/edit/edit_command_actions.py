@@ -10,12 +10,13 @@ EditSimpleActionType = Literal[
     "remove",
     "copyToClipboard",
     "cutToClipboard",
+    "pasteFromClipboard",
     "editNewLineBefore",
     "editNewLineAfter",
     "insertCopyBefore",
     "insertCopyAfter",
     "nextHomophone",
-    "pasteFromClipboard",
+    "searchEngine",
 ]
 
 
@@ -106,6 +107,7 @@ simple_action_callbacks: dict[EditSimpleActionType, Callable] = {
     "insertCopyAfter": actions.edit.selection_clone,
     "editNewLineBefore": lambda: actions.key("left space left"),
     "editNewLineAfter": lambda: actions.key("right space"),
+    "searchEngine": actions.user.browser_search_selected,
 }
 
 

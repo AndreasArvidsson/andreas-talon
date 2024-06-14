@@ -17,11 +17,11 @@ class Actions:
         """Use developed folder of cursorless-talon"""
         switch_folder(False)
 
-    def c_browser_open_target(target: Any):
+    def c_browser_search_target(target: Any):
         """Search for target text in browser"""
         texts = actions.user.cursorless_get_text_list(target)
         text = " + ".join(texts)
-        actions.user.browser_open(text)
+        actions.user.browser_search(text)
 
     def c_wrap_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""

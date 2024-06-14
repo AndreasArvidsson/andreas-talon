@@ -107,8 +107,9 @@ class Actions:
 
     def browser_search_selected():
         """Focus browser and search for selected text"""
-        text = actions.edit.selected_text()
-        actions.user.browser_search(text)
+        text = actions.edit.selected_text().strip()
+        if text:
+            actions.user.browser_search(text)
 
     def browser_translate(text: str):
         """Focus browser and translate <text>"""
