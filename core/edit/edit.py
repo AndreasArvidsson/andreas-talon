@@ -44,7 +44,7 @@ class EditActions:
     def selection_clone():
         text = actions.edit.selected_text()
         actions.edit.select_none()
-        actions.insert(text)
+        actions.insert(f" {text}")
 
     # ----- Save -----
     def save():
