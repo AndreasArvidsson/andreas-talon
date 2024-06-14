@@ -47,17 +47,17 @@ class Actions:
         # string joined of action and modifiers
         key = str(action) + "." + ".".join([str(modifier) for modifier in modifiers])
 
-        print(key)
-
-        if key in compound_actions:
-            compound_actions[key]()
-            return
-
         try:
+            if key in compound_actions:
+                compound_actions[key]()
+                return
+
             action_callback = get_action_callback(action)
             modifier_callbacks = get_modifier_callbacks(modifiers)
+
             for callback in reversed(modifier_callbacks):
                 callback()
-            return action_callback()
+
+            action_callback()
         except ValueError as ex:
             actions.user.notify(str(ex))
