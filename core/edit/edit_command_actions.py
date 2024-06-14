@@ -91,7 +91,7 @@ def edit_action(m) -> EditAction:
     return m[0]
 
 
-simple_action_callbacks = {
+simple_action_callbacks: dict[EditSimpleActionType, Callable] = {
     "setSelection": actions.skip,
     "setSelectionBefore": actions.edit.left,
     "setSelectionAfter": actions.edit.right,
