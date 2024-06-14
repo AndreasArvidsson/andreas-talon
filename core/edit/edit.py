@@ -43,7 +43,7 @@ class EditActions:
 
     def selection_clone():
         text = actions.edit.selected_text()
-        actions.edit.select_none()
+        actions.edit.right()
         actions.insert(f" {text}")
 
     # ----- Save -----
@@ -164,9 +164,12 @@ class Actions:
         for c in text:
             actions.key(c)
 
-    def edit_text_file(path: str):
-        """Edit text file <path>"""
-        actions.user.exec(f"code {path}")
+    def selection_clone_before():
+        """Insert a copy of the current selection before the selection"""
+        text = actions.edit.selected_text()
+        actions.edit.left()
+        actions.insert(f"{text} ")
+        actions.edit.left()
 
     # ----- Cut, copy, paste -----
     def edit_cut():

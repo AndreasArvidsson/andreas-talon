@@ -36,12 +36,17 @@ class Actions:
     def edit_words_to_replace():
         """Edit words to replace csv"""
         file = Path(__file__).parent / "words_to_replace_en.csv"
-        actions.user.edit_text_file(file.absolute())
+        edit_text_file(file.absolute())
 
     def edit_vocabulary():
         """Edit vocabulary Talon list"""
         file = Path(__file__).parent / "vocabulary_en.talon-list"
-        actions.user.edit_text_file(file.absolute())
+        edit_text_file(file.absolute())
+
+
+def edit_text_file(path: Path):
+    """Edit text file <path>"""
+    actions.user.exec(f"code {path}")
 
 
 # Words to replace is used by `actions.dictate.replace_words` to rewrite words

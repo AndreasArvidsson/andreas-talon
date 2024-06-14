@@ -10,6 +10,7 @@ copy: copyToClipboard
 cut: cutToClipboard
 drink: editNewLineBefore
 pour: editNewLineAfter
+clone up: insertCopyBefore
 clone: insertCopyAfter
 phones: nextHomophone
 paste to: pasteFromClipboard
