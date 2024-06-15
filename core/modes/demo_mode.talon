@@ -3,6 +3,7 @@ mode: user.demo
 
 settings():
     user.subtitles_show = false
+    imgui.scale = 1.25
 
 parrot(pop):
     user.mouse_on_pop()

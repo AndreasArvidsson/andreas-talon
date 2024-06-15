@@ -15,7 +15,8 @@ mod.tag(
     "Indicates that the eye tracker cursor position updating is frozen",
 )
 
-
+# If true the eye tracker was frozen before going to sleep.
+was_frozen = False
 ctx = Context()
 
 ctx_eye_tracker = Context()
@@ -66,11 +67,15 @@ class Actions:
 
     def mouse_wake():
         """Set control mouse to earlier state"""
-        if storage.get("tracking_control", False):
+        if was_frozen:
+            ctx.tags = ["user.eye_tracker_frozen"]
+        elif storage.get("tracking_control", False):
             enable_tracker()
 
     def mouse_sleep():
         """Disables control mouse and scroll"""
+        global was_frozen
+        was_frozen = "user.eye_tracker_frozen" in ctx.tags
         actions.user.mouse_scroll_stop()
         actions.user.mouse_release_held_buttons()
         disable_tracker()
