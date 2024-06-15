@@ -39,7 +39,7 @@ It's also possible to set configuration that applies to a specific tab stop (`$0
 | wrapperPhrase      | No       | Yes             | `$0.wrapperPhrase: try \| trying`   |
 | wrapperScope       | No       | No              | `$0.wrapperScope: statement`        |
 
-## Formatting and syntax highlighting
+## Formatting, code completion and syntax highlighting
 
 To get formatting, code completion and syntax highlighting for `.snippet` files install [andreas-talon](https://marketplace.visualstudio.com/items?itemName=AndreasArvidsson.andreas-talon)
 
