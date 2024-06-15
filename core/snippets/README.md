@@ -7,6 +7,7 @@ Custom format to represent snippets.
 -   Custom file ending `.snippet`.
 -   Supports syntax highlighting in VSCode via an [extension](https://marketplace.visualstudio.com/items?itemName=AndreasArvidsson.andreas-talon)
 -   Supports auto-formatting in VSCode via an [extension](https://marketplace.visualstudio.com/items?itemName=AndreasArvidsson.andreas-talon)
+-   Supports code completion in VSCode via an [extension](https://marketplace.visualstudio.com/items?itemName=AndreasArvidsson.andreas-talon)
 -   Support for insertion and wrapper snippets.
 -   Support for phrase formatters.
 
@@ -40,7 +41,7 @@ It's also possible to set configuration that applies to a specific tab stop (`$0
 
 ## Formatting and syntax highlighting
 
-To get formatting and syntax highlighting for `.snippet` files install [andreas-talon](https://marketplace.visualstudio.com/items?itemName=AndreasArvidsson.andreas-talon)
+To get formatting, code completion and syntax highlighting for `.snippet` files install [andreas-talon](https://marketplace.visualstudio.com/items?itemName=AndreasArvidsson.andreas-talon)
 
 ## Examples
 
