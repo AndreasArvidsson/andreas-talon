@@ -24,12 +24,19 @@ npm test:                   "npm test\n"
 npm run:                    "npm run "
 npm run <user.text>$:       "npm run {text}"
 npm run build:              "npm run build\n"
-npm run (mongodb | mongo db): "npm run mongodb\n"
-npm run (keycloak | key cloak): "npm run keycloak\n"
-npm run (wildfly | wild fly): "npm run wildfly\n"
-npm run gss:                "npm run startLocal gss-"
 
+# pnpm
 pnpm:                       "pnpm "
 pnpm version:               "pnpm -v\n"
 pnpm install:               "pnpm install "
 pnpm compile:               "pnpm compile "
+
+# Know run scripts
+npm run (mongodb | mongo db | mongo):
+    "npm run mongodb\n"
+npm run (keycloak | key cloak):
+    "npm run keycloak\n"
+npm run (wildfly | wild fly):
+    "npm run wildfly\n"
+npm run gss [<user.word>]:
+    "npm run startLocal gss-{word or ''}"
