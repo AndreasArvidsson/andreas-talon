@@ -40,7 +40,7 @@ class UserActions:
         address = actions.edit.selected_text()
         actions.sleep("50ms")
         actions.app.tab_open()
-        actions.sleep("100ms")
+        actions.sleep("200ms")
         actions.user.file_manager_go(address)
 
     # ----- Navigation -----
