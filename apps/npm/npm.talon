@@ -6,6 +6,7 @@ node version:               "node -v\n"
 
 npm:                        "npm "
 npm version:                "npm -v\n"
+npm init:                   "npm init"
 npm install:                "npm install "
 npm install global:         "npm install -g "
 npm uninstall:              "npm uninstall "
