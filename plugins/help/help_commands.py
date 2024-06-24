@@ -187,19 +187,26 @@ def gui_context_help(gui: imgui.GUI):
 
         current_item_index = 1
         current_selection_index = 1
-        for key in sorted_context_map_keys:
-            if key in ctx.lists["user.help_contexts"]:
+        current_group = ""
+        for display_name, group, _ in sorted_context_map_keys:
+            if display_name in ctx.lists["user.help_contexts"]:
                 target_page = get_context_page(current_item_index)
 
                 if current_context_page == target_page:
+                    if current_group != group:
+                        if current_group:
+                            gui.line()
+                        gui.text(f"{group}:")
+                        current_group = group
+
                     button_name = format_context_button(
                         current_selection_index,
-                        key,
-                        ctx.lists["user.help_contexts"][key],
+                        display_name,
+                        ctx.lists["user.help_contexts"][display_name],
                     )
 
                     if gui.button(button_name):
-                        selected_context = ctx.lists["user.help_contexts"][key]
+                        selected_context = ctx.lists["user.help_contexts"][display_name]
                     current_selection_index = current_selection_index + 1
 
                 current_item_index += 1
@@ -420,25 +427,27 @@ def refresh_context_command_map(enabled_only=False):
 def get_sorted_keys_by_context_specificity(
     context_map: dict[str, Any],
     display_name_to_context_name_map: dict[str, str],
-) -> list[str]:
-    def get_specificity_score(display_name) -> int:
+) -> list[Tuple[str, str, int]]:
+    def get_group(display_name) -> Tuple[str, str, int]:
         try:
             context_name = display_name_to_context_name_map[display_name]
             context = context_map[context_name]
             keys = context._match.keys()
-            unique_keys = set(keys)
-            # Since we're not calculating the difference between `K || K` and `K && K`, we can just count unique keys.
-            score = len(unique_keys)
-            # Application is probably the most important match, so we give it a boost.
-            if "app.app" in unique_keys:
-                score += 100
-            return score
+            if "app.app" in keys:
+                return (display_name, "Application-specific", 2)
+            if keys:
+                return (display_name, "Context-dependent", 1)
+            return (display_name, "Global", 0)
         except Exception as ex:
-            return 0
+            return (display_name, "", 0)
 
+    grouped_list = [
+        get_group(display_name)
+        for display_name in display_name_to_context_name_map.keys()
+    ]
     return sorted(
-        display_name_to_context_name_map.keys(),
-        key=lambda name: (-get_specificity_score(name), name),
+        grouped_list,
+        key=lambda item: (-item[2], item[0]),
     )
 
 
