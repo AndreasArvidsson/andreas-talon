@@ -27,6 +27,8 @@ setting_y = 0
 setting_color_alpha = 0.75
 # Grey gradient
 setting_color_gradient = 0.5
+# Black color for when the microphone is muted (set to "None")
+setting_color_mute = "000000"
 # Grey color for sleep mode
 setting_color_sleep = "808080"
 # Gold color for dictation mode
@@ -37,8 +39,6 @@ setting_color_mixed = "3cb371"
 setting_color_command = "6495ed"
 # GhostWhite color for other modes
 setting_color_other = "f8f8ff"
-# Black color for disabled microphone
-setting_color_mute = "000000"
 
 
 def get_mode_color() -> str:
