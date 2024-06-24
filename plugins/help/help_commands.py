@@ -1,5 +1,4 @@
 from collections import defaultdict
-from functools import cmp_to_key
 import math
 from typing import Any, Iterable, Tuple
 from talon import Module, Context, actions, Module, registry, ui, app, settings
