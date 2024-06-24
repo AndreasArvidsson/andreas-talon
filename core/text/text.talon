@@ -26,13 +26,13 @@ escape <user.phrase> over:  "{phrase}"
 <user.abbreviation>:        "{abbreviation}"
 
 # Easy access to specific Swedish phrases
-swe {user.swedish_phrase}:  "{swedish_phrase}"
-{user.formatter_word} swe {user.swedish_phrase}:
+swedish {user.swedish_phrase}: "{swedish_phrase}"
+{user.formatter_word} swedish {user.swedish_phrase}:
     user.insert_formatted(swedish_phrase, formatter_word)
-{user.formatter_prose} swe <user.prose>$:
+{user.formatter_prose} swedish <user.prose>$:
     translated = user.translate_english_to_swedish(prose)
     user.insert_formatted(translated, formatter_prose)
-swe <user.prose>$:
+swedish <user.prose>$:
     translated = user.translate_english_to_swedish(prose)
     insert(translated)
 
