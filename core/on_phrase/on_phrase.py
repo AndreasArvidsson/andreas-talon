@@ -53,7 +53,7 @@ def skip_phrase_in_sleep(phrase: Phrase) -> bool:
     return (
         not actions.speech.enabled()
         and len(phrase["parsed"]) == 1
-        and "phrase" in phrase["parsed"][0]._mapping
+        and phrase["parsed"][0]._name == "___ltphrase_gt__"
     )
 
 
