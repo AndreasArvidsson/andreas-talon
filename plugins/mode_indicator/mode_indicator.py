@@ -38,12 +38,12 @@ setting_color_command = "6495ed"
 # GhostWhite color for other modes
 setting_color_other = "f8f8ff"
 # Black color for disabled microphone
-setting_color_off = "000000"
+setting_color_mute = "000000"
 
 
 def get_mode_color() -> str:
     if not actions.user.sound_microphone_enabled():
-        return setting_color_off
+        return setting_color_mute
     if current_mode == "sleep":
         return setting_color_sleep
     elif current_mode == "dictation":
