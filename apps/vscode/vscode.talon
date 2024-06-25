@@ -27,7 +27,7 @@ open preview split:         user.vscode("markdown.showPreviewToSide")
 problem next:               user.vscode("editor.action.marker.nextInFiles")
 problem last:               user.vscode("editor.action.marker.prevInFiles")
 problem fix:                user.vscode("problems.action.showQuickFixes")
-quick fix:                  user.vscode("editor.action.quickFix")
+(quick | kvick) fix:        user.vscode("editor.action.quickFix")
 
 # Imports
 imports organize:           user.vscode("editor.action.organizeImports")
