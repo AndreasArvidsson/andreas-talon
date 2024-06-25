@@ -41,3 +41,6 @@ git numstat month:          user.git_numstat("1 month")
 git numstat week:           user.git_numstat("1 week")
 
 git shortlog:               "git shortlog -sn\n"
+
+# GitHub
+GitHub pull request checkout: "gh pr checkout "
