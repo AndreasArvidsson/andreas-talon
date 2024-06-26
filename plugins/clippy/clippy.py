@@ -1,5 +1,5 @@
 from typing import Any, Optional
-from talon import Module, Context, actions
+from talon import Module, Context, actions, ui
 
 from ...core.rpc_client.rpc_client import RpcClient
 from .clippy_targets import ClippyPrimitiveTarget, ClippyTarget
@@ -10,7 +10,14 @@ mod = Module()
 
 mod.list("clippy_command_with_targets", desc="Clippy commands WITH targets")
 mod.list("clippy_command_no_targets", desc="Clippy commands WITHOUT targets")
+mod.tag(
+    "clippy_showing", desc="Tag is active whenever clippy window is showing/not hidden"
+)
 
+mod.apps.clippy = r"""
+app.name: Electron
+title: /Clippy/
+"""
 
 ctx = Context()
 
@@ -42,11 +49,6 @@ ctx.lists["user.clippy_command_no_targets"] = {
     # "clear": "removeAllItems",
     # "remove list": "removeList",
 }
-
-mod.apps.clippy = r"""
-app.name: Electron
-title: /Clippy/
-"""
 
 
 @mod.action_class
@@ -90,3 +92,16 @@ def send(command: Any):
 
 def get(command: Any):
     return rpc.send(command, return_command_output=True)
+
+
+def update(window, onShow):
+    if window.title != "Clippy" or window.app.name != "Clippy":
+        return
+    if onShow:
+        ctx.tags = ["user.clippy_showing"]
+    else:
+        ctx.tags = []
+
+
+ui.register("win_show", lambda win: update(win, True))
+ui.register("win_hide", lambda win: update(win, False))
