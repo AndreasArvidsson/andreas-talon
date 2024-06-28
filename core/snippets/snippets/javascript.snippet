@@ -38,26 +38,3 @@ const $1 = ($2) => {
     $0
 }
 ---
-
-name: reactUseState
-phrase: use state
-insertionScope: statement
--
-const [$1, set $1] = useState($0);
----
-
-name: reactUseRef
-phrase: use ref
-insertionScope: statement
--
-const $0 = useRef();
----
-
-name: reactUseEffect
-phrase: use effect
-insertionScope: statement
--
-useEffect(() => {
-    $0
-}, []);
----
