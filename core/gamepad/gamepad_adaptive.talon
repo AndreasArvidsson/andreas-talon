@@ -4,14 +4,14 @@ not tag: user.gamepad_tester
 # For xbox adaptive controller only
 
 # DPAD buttons
-gamepad(00000000000000000000000000000000:dpad_left:down): edit.left()
-gamepad(00000000000000000000000000000000:dpad_left:up): skip()
-gamepad(00000000000000000000000000000000:dpad_up:down): edit.up()
-gamepad(00000000000000000000000000000000:dpad_up:up): skip()
-gamepad(00000000000000000000000000000000:dpad_right:down): edit.right()
-gamepad(00000000000000000000000000000000:dpad_right:up): skip()
-gamepad(00000000000000000000000000000000:dpad_down:down): edit.down()
-gamepad(00000000000000000000000000000000:dpad_down:up): skip()
+gamepad(00000000000000000000000000000000:dpad_left:down): user.key_hold("left")
+gamepad(00000000000000000000000000000000:dpad_left:up): user.key_release("left")
+gamepad(00000000000000000000000000000000:dpad_up:down): user.key_hold("up")
+gamepad(00000000000000000000000000000000:dpad_up:up): user.key_release("up")
+gamepad(00000000000000000000000000000000:dpad_right:down): user.key_hold("right")
+gamepad(00000000000000000000000000000000:dpad_right:up): user.key_release("right")
+gamepad(00000000000000000000000000000000:dpad_down:down): user.key_hold("down")
+gamepad(00000000000000000000000000000000:dpad_down:up): user.key_release("down")
 
 # Compass / ABXY buttons
 # A
