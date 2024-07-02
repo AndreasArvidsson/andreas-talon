@@ -120,7 +120,7 @@ class UserActions:
     def code_constructor(modifiers: list[str]):
         name = actions.user.code_get_class_name()
         if not name:
-            return
+            raise ValueError(f"Class name not found")
         actions.user.insert_snippet_by_name(
             "constructorDeclaration",
             {"name": name, "modifiers": get_modifiers(modifiers)},
