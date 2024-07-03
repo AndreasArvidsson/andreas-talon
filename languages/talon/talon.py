@@ -55,3 +55,9 @@ ctx.lists["user.code_talon_context"] = {
     "tag"   : "tag: ",
 }
 # fmt: on
+
+
+@ctx.action_class("user")
+class UserActions:
+    def code_get_variable_format() -> str:
+        return "SNAKE_CASE"
