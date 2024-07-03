@@ -2,6 +2,12 @@ from talon import Module, Context, registry, app, actions
 
 
 matchers = [
+    "os: windows",
+    "language: en",
+    "code.language: python",
+    "speech.engine: wav2letter",
+    "hostname: /andreas/",
+    "title: /debug/",
     "app: vscode",
     "tag: user.cursorless",
     "tag: user.cursorless\ntag: user.tabs",
@@ -19,7 +25,8 @@ def on_ready():
 
     for i, l in enumerate(lists):
         matches = l["matches"]  # type: ignore
-        result.append(f"{i+1}: {matches}")
+        index = str(i + 1).rjust(2)
+        result.append(f"{index}: {matches}")
 
     res = "\n".join(result)
     print(" \n" + res)
@@ -41,12 +48,18 @@ def run():
 # run()
 
 
-# 1: app: vscode
-# 2: not mode: sleep
-# 3: mode: command
-# 4: mode: all
-# 5: tag: user.cursorless
-#    and tag: user.tabs
-# 6: tag: user.cursorless
-#    tag: user.tabs
-# 7: tag: user.cursorless
+#  1: app: vscode
+#  2: title: /debug/
+#  3: hostname: /andreas/
+#  4: speech.engine: wav2letter
+#  5: code.language: python
+#  6: not mode: sleep
+#  7: mode: command
+#  8: mode: all
+#  9: language: en
+# 10: tag: user.cursorless
+#     and tag: user.tabs
+# 11: tag: user.cursorless
+#     tag: user.tabs
+# 12: tag: user.cursorless
+# 13: os: windows
