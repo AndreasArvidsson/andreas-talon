@@ -4,6 +4,8 @@ from talon import Module, Context, registry, app, actions
 matchers = [
     "app: vscode",
     "tag: user.cursorless",
+    "tag: user.cursorless\ntag: user.tabs",
+    "tag: user.cursorless\nand tag: user.tabs",
     "mode: all",
     "mode: command",
     "not mode: sleep",
@@ -38,8 +40,13 @@ def run():
 
 # run()
 
+
 # 1: app: vscode
 # 2: not mode: sleep
 # 3: mode: command
 # 4: mode: all
 # 5: tag: user.cursorless
+#    and tag: user.tabs
+# 6: tag: user.cursorless
+#    tag: user.tabs
+# 7: tag: user.cursorless
