@@ -47,6 +47,7 @@ scout for, findInDocument
 
 falling type, revealTypeDefinition
 falling, followLink
+falling split, followLinkAside
 reference, showReferences
 
 fold region, foldRegion
