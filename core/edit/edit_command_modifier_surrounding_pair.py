@@ -131,7 +131,12 @@ def get_surrounding_pair(
     if len(surrounding_pairs) == 0:
         return None
     pair = next(
-        (pair for pair in surrounding_pairs if pair.right_start == position), None
+        (
+            pair
+            for pair in surrounding_pairs
+            if pair.left_start == position or pair.right_start == position
+        ),
+        None,
     )
     if pair is not None:
         return pair
