@@ -28,8 +28,8 @@ def setting(
 
 
 setting_show = setting("show", bool, "If true show")
-setting_screen = setting(
-    "screen", str, "Show on which screens: 'all', 'main', 'cursor', 'focus'"
+setting_screens = setting(
+    "screens", str, "Show on which screens: 'all', 'main', 'cursor', 'focus'"
 )
 setting_size = setting("size", int, "Font size")
 setting_color = setting("color", str, "Text color")
@@ -90,7 +90,7 @@ def show_text(text: str, is_subtitle: bool):
 
 
 def get_screens(is_subtitle: bool) -> Sequence[ui.Screen]:
-    screen = setting_screen(is_subtitle)
+    screen = setting_screens(is_subtitle)
     match screen:
         case "main":
             return [ui.main_screen()]
