@@ -1,9 +1,9 @@
-from talon import Module, app, ui, cron, settings
+from talon import Module, app, ui, cron, settings, ctrl
 from talon.canvas import Canvas
 from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
 from talon.types import Rect
-from typing import Type, Callable, Optional, Any
+from typing import Sequence, Type, Callable, Optional, Any
 
 mod = Module()
 subtitle_canvas = []
@@ -28,13 +28,9 @@ def setting(
 
 
 setting_show = setting("show", bool, "If true show")
-setting_all_screens = setting(
-    "all_screens", bool, "If true show on all screens instead of just the main screen"
-)
 setting_screen = setting(
-    "screen", str, "If true show on all screens instead of just the main screen"
+    "screen", str, "Show on which screens: 'all', 'main', 'cursor', 'focus'"
 )
-# "main", "all", "cursor", "focus"
 setting_size = setting("size", int, "Font size")
 setting_color = setting("color", str, "Text color")
 setting_color_outline = setting("color_outline", str, "Text outline color")
@@ -87,13 +83,32 @@ def possibly_show_text(text: str, is_subtitle: bool):
 def show_text(text: str, is_subtitle: bool):
     canvases = subtitle_canvas if is_subtitle else notify_canvas
     clear_canvases(canvases)
-    if setting_all_screens(is_subtitle):
-        screens = ui.screens()
-    else:
-        screens = [ui.main_screen()]
+    screens = get_screens(is_subtitle)
     for screen in screens:
         canvas = show_text_on_screen(screen, text, is_subtitle)
         canvases.append(canvas)
+
+
+def get_screens(is_subtitle: bool) -> Sequence[ui.Screen]:
+    screen = setting_screen(is_subtitle)
+    match screen:
+        case "main":
+            return [ui.main_screen()]
+        case "all":
+            return ui.screens()
+        case "cursor":
+            x, y = ctrl.mouse_pos()
+            containing_screen = ui.screen_containing(x, y)
+            if containing_screen is not None:
+                return [containing_screen]
+            return []
+        case "focus":
+            active_window = ui.active_window()
+            if active_window is not None:
+                return [active_window.screen]
+            return []
+        case _:
+            raise ValueError(f"Unknown screen setting: {screen}")
 
 
 def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
