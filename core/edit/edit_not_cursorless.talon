@@ -1,8 +1,11 @@
 not tag: user.cursorless
 -
 
-<user.edit_action> <user.edit_modifier>+:
-    user.edit_command(edit_action, edit_modifier_list)
+<user.edit_action> <user.edit_target>:
+    user.edit_command(edit_action, edit_target)
+
+bring <user.edit_target> to <user.edit_target>:
+    user.edit_command_bring(edit_target_1, edit_target_2)
 
 # # ----- Word -----
 # take token:                 edit.select_word()

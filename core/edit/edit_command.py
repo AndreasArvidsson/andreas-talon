@@ -46,6 +46,11 @@ compound_actions = {
 mod = Module()
 
 
+@mod.capture(rule="<user.edit_modifier>+")
+def edit_target(m) -> list[EditModifier]:
+    return m.edit_modifier_list
+
+
 @mod.action_class
 class Actions:
     def edit_command(action: EditAction, modifiers: list[EditModifier]):
@@ -66,5 +71,23 @@ class Actions:
                 callback()
 
             action_callback()
+        except ValueError as ex:
+            actions.user.notify(str(ex))
+
+    def edit_command_bring(source: list[EditModifier], destination: list[EditModifier]):
+        """Perform edit bring command"""
+        try:
+            source_modifier_callbacks = get_modifier_callbacks(source)
+            destination_modifier_callbacks = get_modifier_callbacks(destination)
+
+            for callback in reversed(source_modifier_callbacks):
+                callback()
+
+            source_text = actions.edit.selected_text()
+
+            for callback in reversed(destination_modifier_callbacks):
+                callback()
+
+            actions.insert(source_text)
         except ValueError as ex:
             actions.user.notify(str(ex))
