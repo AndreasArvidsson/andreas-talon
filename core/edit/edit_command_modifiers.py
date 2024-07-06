@@ -82,6 +82,8 @@ modifier_callbacks = {
     "containingScope(sentence)": actions.edit.select_sentence,
     "containingScope(paragraph)": actions.edit.select_paragraph,
     "containingScope(document)": actions.edit.select_all,
+    "containingScope(surroundingPair)": actions.user.select_surrounding_pair,
+    "containingScope(surroundingPairInterior)": actions.user.select_surrounding_pair_interior,
 }
 
 
@@ -95,4 +97,4 @@ def get_modifier_callback(modifier: EditModifier) -> Callable:
     if key in modifier_callbacks:
         return modifier_callbacks[key]
 
-    raise ValueError(f"Unknown edit modifier: {modifier.type}")
+    raise ValueError(f"Unknown edit modifier: {modifier}")
