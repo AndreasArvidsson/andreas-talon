@@ -31,6 +31,10 @@ setting_show = setting("show", bool, "If true show")
 setting_all_screens = setting(
     "all_screens", bool, "If true show on all screens instead of just the main screen"
 )
+setting_screen = setting(
+    "screen", str, "If true show on all screens instead of just the main screen"
+)
+# "main", "all", "cursor", "focus"
 setting_size = setting("size", int, "Font size")
 setting_color = setting("color", str, "Text color")
 setting_color_outline = setting("color_outline", str, "Text outline color")
