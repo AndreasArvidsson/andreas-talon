@@ -1,3 +1,16 @@
+type App = any;
+type Capture = any;
+type CommandImpl = any;
+type Image = any;
+type Path = any;
+type Phrase = any;
+type Rect = any;
+type ResourceContext = any;
+type Screen = any;
+type ScriptImpl = any;
+type TalonScript = any;
+type Window = any;
+
 export interface Actions {
     /** Apply text formatting, such as auto spacing, for the native language */
     auto_format(text: string): string;
@@ -74,15 +87,15 @@ export interface Actions {
     };
     bytes: {
         /** Convert bytes to base64 */
-        base64(b: any): string;
+        base64(b: Uint8Array): string;
         /** Decode bytes to string */
-        decode(b: any, encoding: string, errors: string): any;
+        decode(b: Uint8Array, encoding: string, errors: string): Uint8Array;
         /** Convert base64 to bytes */
-        frombase64(s: string): any;
+        frombase64(s: string): Uint8Array;
         /** Convert hex to bytes */
-        fromhex(s: string): any;
+        fromhex(s: string): Uint8Array;
         /** Convert bytes to hex */
-        hex(b: any): string;
+        hex(b: Uint8Array): string;
     };
     clip: {
         /** Send key sequence and return resulting clipboard text */
@@ -90,9 +103,9 @@ export interface Actions {
         /** Clear clipboard contents */
         clear(): null;
         /** Get clipboard image */
-        image(): any | null;
+        image(): Image | null;
         /** Set clipboard image */
-        set_image(image: any): void;
+        set_image(image: Image): void;
         /** Set clipboard text */
         set_text(text: string): void;
         /** Get clipboard text */
@@ -112,15 +125,15 @@ export interface Actions {
         /** Cancel the currently running phrase */
         cancel_phrase__unstable(): void;
         /** Return the currently executing command */
-        current_command__unstable(): [any, any];
+        current_command__unstable(): [CommandImpl, Capture];
         /** Return the last executed command */
-        last_command(): [any, any];
+        last_command(): [CommandImpl, Capture];
         /** Return the last-spoken phrase */
-        last_phrase(): any;
+        last_phrase(): Capture;
         /** Return recently executed commands (grouped by phrase) */
-        recent_commands(): any;
+        recent_commands(): [CommandImpl, Capture][][];
         /** Return recently-spoken phrases */
-        recent_phrases(): any;
+        recent_phrases(): Capture[];
         /** Repeat the last command N times */
         repeat_command(times: number): void;
         /** Repeat the previous phrase or current partial phrase N times */
@@ -128,45 +141,45 @@ export interface Actions {
         /** Repeat the last phrase N times */
         repeat_phrase(times: number): void;
         /** Replace the current command in history with one or more commands */
-        replace_command(commands: any): void;
+        replace_command(commands: [CommandImpl, Capture][]): void;
         /** Run a single command for a recognized phrase */
-        run_command(cmd: any, m: any): void;
+        run_command(cmd: CommandImpl, m: Capture): void;
         /** Run all commands for a hotkey */
-        run_hotkey(hotkey: any): void;
+        run_hotkey(hotkey: ScriptImpl): void;
         /** Run all commands for a recognized phrase */
-        run_phrase(phrase: any): void;
+        run_phrase(phrase: Capture): void;
         /** Run a single TalonScript for a recognized phrase */
-        run_talon_script(ctx: any, script: any, m: any): void;
+        run_talon_script(ctx: ResourceContext, script: TalonScript, m: Capture): void;
     };
     dict: {
         /** Clear a dict */
-        clear(d: any): null;
+        clear(d: Record<string, any>): null;
         /** Check if key appears in dict */
-        contains(d: any, key: any): boolean;
+        contains(d: Record<string, any>, key: any): boolean;
         /** Copy a dict */
-        copy(d: any): any;
+        copy(d: Record<string, any>): Record<string, any>;
         /** Get dict[key] */
-        get(d: any, key: any, default_: any): any;
+        get(d: Record<string, any>, key: any, default_: any): any;
         /** Create an empty dict */
-        new (): any;
+        new(): Record<string, any>;
         /** Remove and return dict[key] */
-        pop(d: any, key: any): any;
+        pop(d: Record<string, any>, key: any): any;
         /** Set dict[key] = value */
-        set(d: any, key: any, value: any): null;
+        set(d: Record<string, any>, key: any, value: any): null;
         /** Copy all key/value pairs from b into a */
-        update(a: any, b: any): null;
+        update(a: Record<string, any>, b: Record<string, any>): null;
     };
     dictate: {
         /** Join a list of words into a single string for insertion */
-        join_words(words: any, separator: string): string;
+        join_words(words: string[], separator: string): string;
         /** Insert lowercase text with auto_insert() */
-        lower(p: any): void;
+        lower(p: Phrase): void;
         /** Insert naturally-capitalized text with auto_insert() */
-        natural(p: any): void;
+        natural(p: Phrase): void;
         /** Extract words from a spoken Capture */
-        parse_words(p: any): any;
+        parse_words(p: Phrase): string[];
         /** Replace words according to the dictate.word_map dictionary setting */
-        replace_words(words: any): any;
+        replace_words(words: string[]): string[];
     };
     edit: {
         /** Copy selection to clipboard */
@@ -296,35 +309,35 @@ export interface Actions {
     };
     list: {
         /** Append to a list */
-        append(l: any, value: any): null;
+        append(l: any[], value: any): null;
         /** Clear a list */
-        clear(l: any): null;
+        clear(l: any[]): null;
         /** Check if value appears in list */
-        contains(l: any, value: any): boolean;
+        contains(l: any[], value: any): boolean;
         /** Copy a list */
-        copy(l: any): any;
+        copy(l: any[]): any[];
         /** Count the number of times value appears in a list */
-        count(l: any, value: any): number;
+        count(l: any[], value: any): number;
         /** Append every item of b to a */
-        extend(a: any, b: any): null;
+        extend(a: any[], b: any[]): null;
         /** Get list[index] */
-        get(l: any, index: number): any;
+        get(l: any[], index: number): any;
         /** Get the first index of value */
-        index(l: any, value: any): number;
+        index(l: any[], value: any): number;
         /** Insert value into list at index */
-        insert(l: any, index: number, value: any): number;
+        insert(l: any[], index: number, value: any): number;
         /** Create an empty list */
-        new (): any;
+        new(): any[];
         /** Remove and return item from list at index */
-        pop(l: any, index: number): any;
+        pop(l: any[], index: number): any;
         /** Remove value from list */
-        remove(l: any, value: any): null;
+        remove(l: any[], value: any): null;
         /** Reverse list in place */
-        reverse(l: any): null;
+        reverse(l: any[]): null;
         /** Set list[index] = value */
-        set(l: any, index: number, value: any): null;
+        set(l: any[], index: number, value: any): null;
         /** Sort list in place */
-        sort(l: any): null;
+        sort(l: any[]): null;
     };
     math: {
         /** Compute the absolute value of x */
@@ -456,7 +469,7 @@ export interface Actions {
         /** Get the integer part of x */
         trunc(x: number): number;
         /** Generate n cryptographically random bytes */
-        urandom(n: number): any;
+        urandom(n: number): Uint8Array;
     };
     menu: {
         /** Check for updates */
@@ -502,43 +515,43 @@ export interface Actions {
     };
     set: {
         /** Add value to set */
-        add(s: any, value: any): null;
+        add(s: Set<any>, value: any): null;
         /** Clear set */
-        clear(s: any): null;
+        clear(s: Set<any>): null;
         /** Check if value appears in set */
-        contains(s: any, value: any): boolean;
+        contains(s: Set<any>, value: any): boolean;
         /** Copy set */
-        copy(s: any): any;
+        copy(s: Set<any>): Set<any>;
         /** Get the difference of two sets */
-        difference(a: any, b: any): any;
+        difference(a: Set<any>, b: Set<any>): Set<any>;
         /** Remove value from set if it exists */
-        discard(s: any, value: any): null;
+        discard(s: Set<any>, value: any): null;
         /** Get the intersection of two sets */
-        intersection(a: any, b: any): any;
+        intersection(a: Set<any>, b: Set<any>): Set<any>;
         /** True if a and b don't intersect */
-        isdisjoint(a: any, b: any): boolean;
+        isdisjoint(a: Set<any>, b: Set<any>): boolean;
         /** True if b contains a */
-        issubset(a: any, b: any): boolean;
+        issubset(a: Set<any>, b: Set<any>): boolean;
         /** True if a contains b */
-        issuperset(a: any, b: any): boolean;
+        issuperset(a: Set<any>, b: Set<any>): boolean;
         /** Create an empty set */
-        new (): any;
+        new(): Set<any>;
         /** Remove and return arbitrary set item */
-        pop(s: any): any;
+        pop(s: Set<any>): any;
         /** Remove value from set */
-        remove(s: any, value: any): null;
+        remove(s: Set<any>, value: any): null;
         /** Get all values present in exactly one of the provided sets */
-        symmetric_difference(a: any, b: any): any;
+        symmetric_difference(a: Set<any>, b: Set<any>): Set<any>;
         /** Get the union of a and b */
-        union(a: any, b: any): any;
+        union(a: Set<any>, b: Set<any>): Set<any>;
         /** Add all items from b to a */
-        update(a: any, b: any): null;
+        update(a: Set<any>, b: Set<any>): null;
     };
     sound: {
         /** Return active microphone name */
         active_microphone(): string;
         /** Return a list of available microphone names */
-        microphones(): any;
+        microphones(): string[];
         /** Set the currently active microphone */
         set_microphone(name: string): void;
     };
@@ -574,7 +587,7 @@ export interface Actions {
         /** Count the number of instances of sub in string, with optional start/end */
         count(s: string, sub: string, start: number | null, end: number | null): string;
         /** Encode string to bytes */
-        encode(s: string, encoding: string): any;
+        encode(s: string, encoding: string): Uint8Array;
         /** Check whether string ends with suffix */
         endswith(s: string, suffix: string): boolean;
         /** Expand tabs to spaces */
@@ -604,7 +617,7 @@ export interface Actions {
         /** Check if string is uppercase */
         isupper(s: string): boolean;
         /** Join a sequence using string */
-        join(s: string, sequence: any): string;
+        join(s: string, sequence: string[]): string;
         /** Left justify string by padding to width */
         ljust(s: string, width: number, fillchar: string | null): string;
         /** Lowercase string */
@@ -648,41 +661,41 @@ export interface Actions {
     };
     time: {
         /** Get the day from a datetime */
-        day(dt: any): number;
+        day(dt: Date): number;
         /** Format a datetime strftime-style */
-        format(dt: any, fmt: string): string;
+        format(dt: Date, fmt: string): string;
         /** Get a datetime from ISO 8601 format */
-        fromisoformat(s: string): any;
+        fromisoformat(s: string): Date;
         /** Get datetime from unix timestamp */
-        fromtimestamp(ts: number): any;
+        fromtimestamp(ts: number): Date;
         /** Get datetime from UTC unix timestamp */
-        fromutctimestamp(ts: number): any;
+        fromutctimestamp(ts: number): Date;
         /** Get the hour from a datetime */
-        hour(dt: any): number;
+        hour(dt: Date): number;
         /** Format a datetime using ISO 8601 */
-        isoformat(dt: any): string;
+        isoformat(dt: Date): string;
         /** Get the microseconds from a datetime */
-        microsecond(dt: any): number;
+        microsecond(dt: Date): number;
         /** Get the minute from a datetime */
-        minute(dt: any): number;
+        minute(dt: Date): number;
         /** Get monotonic system time */
         monotonic(): number;
         /** Get the month from a datetime */
-        month(dt: any): number;
+        month(dt: Date): number;
         /** Get the current date/time */
-        now(): any;
+        now(): Date;
         /** Parse a datetime, strptime-style */
-        parse(s: string, fmt: string): any;
+        parse(s: string, fmt: string): Date;
         /** Get the seconds from a datetime */
-        second(dt: any): number;
+        second(dt: Date): number;
         /** Get unix timestamp from datetime */
-        timestamp(dt: any): number;
+        timestamp(dt: Date): number;
         /** Get the current date/time in UTC */
-        utcnow(): any;
+        utcnow(): Date;
         /** Get UTC unix timestamp from datetime */
-        utctimestamp(dt: any): number;
+        utctimestamp(dt: Date): number;
         /** Get the year from a datetime */
-        year(dt: any): number;
+        year(dt: Date): number;
     };
     tracking: {
         /** Calibrate Eye Tracking */
@@ -718,29 +731,29 @@ export interface Actions {
     };
     tuple: {
         /** Check if value appears in tuple */
-        contains(t: any, value: any): boolean;
+        contains(t: any[], value: any): boolean;
         /** Count the number of times value appears in tuple */
-        count(t: any, value: any): number;
+        count(t: any[], value: any): number;
         /** Get the first index of value */
-        index(t: any, value: any): number;
+        index(t: any[], value: any): number;
         /** Create an empty tuple */
-        new (): any;
+        new(): any[];
     };
     types: {
         /** Create a bytes object */
         bytes(v: any): string;
         /** Create a dict */
-        dict(): any;
+        dict(): Record<string, any>;
         /** Create a list */
         list(v: any): any;
         /** Get an instance of None */
         none(): null;
         /** Create a set */
-        set(v: any): any;
+        set(v: any): Set<any>;
         /** Create a string */
         str(v: any): string;
         /** Create a tuple */
-        tuple(v: any): any;
+        tuple(v: any): any[];
     };
     win: {
         /** Return the open file's extension */
@@ -758,9 +771,9 @@ export interface Actions {
         /** Abort the specified phrases */
         abort_specific_phrases(phrases: string[], start: number, end: number): void;
         /** Create dict */
-        as_dict(arg1: any, arg2: any, arg3: any, arg4: any): any;
+        as_dict(arg1: any, arg2: any, arg3: any, arg4: any): Record<string, any>;
         /** Create list */
-        as_list(arg1: any, arg2: any, arg3: any, arg4: any): any;
+        as_list(arg1: any, arg2: any, arg3: any, arg4: any): any[];
         /** Assert that the values are equal */
         assert_equals(expected: any, found: any, message: string): void;
         /** Focus browser and define phrase <text> */
@@ -864,12 +877,7 @@ export interface Actions {
         /** Variable statement */
         code_variable(name: string, modifiers: string[], assign: boolean, data_type: string): void;
         /** Variable statement wrapper */
-        code_variable_wrapper(
-            name: string,
-            modifiers: string[] | string,
-            assign: boolean,
-            data_type: string,
-        ): void;
+        code_variable_wrapper(name: string, modifiers: string[] | string, assign: boolean, data_type: string): void;
         /** Toggle between command and dictation mode */
         command_dictation_mode_toggle(): void;
         /** Clear the history */
@@ -877,7 +885,7 @@ export interface Actions {
         /** Toggles viewing the history */
         command_history_toggle(): void;
         /** Enter command mode and re-evaluate phrase */
-        command_mode(phrase: any | string): void;
+        command_mode(phrase: Phrase | string): void;
         /** The dirctory which contains the files required for communication between
         the application and Talon. This is the only function which absolutely
         must be implemented for any application using the command-client.  Each
@@ -902,14 +910,9 @@ export interface Actions {
         /** Perform cursorless command on target */
         cursorless_command(action_name: string, target: any): void;
         /** Cursorless: Create destination from target */
-        cursorless_create_destination(target: any, insertion_mode: "any" | "any" | "any"): any;
+        cursorless_create_destination(target: any, insertion_mode: "to" | "before" | "after"): any;
         /** Cursorless: Run custom parsed command */
-        cursorless_custom_command(
-            content: string,
-            arg1: any | null,
-            arg2: any | null,
-            arg3: any | null,
-        ): void;
+        cursorless_custom_command(content: string, arg1: any | null, arg2: any | null, arg3: any | null): void;
         /** Get target text. If hide_decorations is True, don't show decorations */
         cursorless_get_text(target: any, hide_decorations: boolean): string;
         /** Get texts for multiple targets. If hide_decorations is True, don't show decorations */
@@ -919,11 +922,7 @@ export interface Actions {
         /** Perform text insertion on Cursorless destination */
         cursorless_insert(destination: any, text: string | string[]): void;
         /** Cursorless: Insert custom snippet <body> */
-        cursorless_insert_snippet(
-            body: string,
-            destination: any,
-            scope_type: string | string[] | null,
-        ): void;
+        cursorless_insert_snippet(body: string, destination: any, scope_type: string | string[] | null): void;
         /** Cursorless: Insert named snippet <name> */
         cursorless_insert_snippet_by_name(name: string): void;
         /** Cursorless private api: Highlights a target */
@@ -931,9 +930,9 @@ export interface Actions {
         /** Cursorless private api low-level target builder: Create a list target */
         cursorless_private_build_list_target(elements: any[]): any;
         /** Cursorless private api low-level target builder: Create a primitive target */
-        cursorless_private_build_primitive_target(modifiers: any[], mark: any | null): any;
+        cursorless_private_build_primitive_target(modifiers: Record<string, any>[], mark: Record<string, any> | null): any;
         /** Cursorless private api: Extract all decorated marks from a Talon capture */
-        cursorless_private_extract_decorated_marks(capture: any): any[];
+        cursorless_private_extract_decorated_marks(capture: any): Record<string, any>[];
         /** Cursorless private api: Creates the "nothing" target */
         cursorless_private_target_nothing(): any;
         /** Start recording Cursorless tests, without confirmation popup windows */
@@ -945,18 +944,9 @@ export interface Actions {
         Deprecated: prefer `cursorless_ide_command` */
         cursorless_vscode_command(command_id: string, target: any): void;
         /** Cursorless: Wrap target with custom snippet <body> */
-        cursorless_wrap_with_snippet(
-            body: string,
-            target: any,
-            variable_name: string | null,
-            scope: string | null,
-        ): void;
+        cursorless_wrap_with_snippet(body: string, target: any, variable_name: string | null, scope: string | null): void;
         /** Cursorless: Wrap target with a named snippet <name> */
-        cursorless_wrap_with_snippet_by_name(
-            name: string,
-            variable_name: string,
-            target: any,
-        ): void;
+        cursorless_wrap_with_snippet_by_name(name: string, variable_name: string, target: any): void;
         /** Cut all text in the current document */
         cut_all(): void;
         /** Cut current line */
@@ -1006,7 +996,7 @@ export interface Actions {
         /** Inserts dictated text, formatted appropriately. */
         dictation_insert(text: string): void;
         /** Enter dictation mode and re-evaluate phrase */
-        dictation_mode(phrase: any | string): void;
+        dictation_mode(phrase: Phrase | string): void;
         /** Returns true if a `,` should be inserted between these words during dictation */
         dictation_needs_comma_between(before: string, after: string): boolean;
         /** Indicates whether the pre-phrase signal was emitted at the start of this phrase */
@@ -1014,13 +1004,13 @@ export interface Actions {
         /** Returns the current mute status */
         discord_get_mute_status(): boolean;
         /** Gets the selected discord voice channel */
-        discord_get_selected_voice_channel(): any | null;
+        discord_get_selected_voice_channel(): Record<string, any> | null;
         /** Sets the Discord mute status */
         discord_set_mute_status(mute: boolean): boolean;
         /** Toggles the mute status on Discord */
         discord_toggle_mute(): boolean;
         /** Returns the current Discord voice settings */
-        discord_voice_settings(): any;
+        discord_voice_settings(): Record<string, any>;
         /** Discard draft editor */
         draft_editor_discard(): void;
         /** Open draft editor */
@@ -1078,13 +1068,13 @@ export interface Actions {
         /** Toggles find match by whole words */
         find_toggle_match_by_word(): void;
         /** Focus app and wait until finished */
-        focus_app(app: any): void;
+        focus_app(app: App): void;
         /** Focus desktop */
         focus_desktop(): void;
         /** Focus application number <number> */
         focus_number(number: number): void;
         /** Focus window and wait until finished */
-        focus_window(window: any): void;
+        focus_window(window: Window): void;
         /** Foot switch button center:down */
         foot_switch_center_down(): void;
         /** Foot switch button center:up */
@@ -1194,19 +1184,19 @@ export interface Actions {
         /** Gamepad trigger right movement */
         gamepad_trigger_right(value: number): void;
         /** Get application by name */
-        get_app(name: string): any;
+        get_app(name: string): App;
         /** Get top window by application name */
-        get_app_window(app_name: string): any;
+        get_app_window(app_name: string): Window;
         /** Get matching sibling for extension */
         get_extension_sibling(extension: string): string;
         /** Get insertion snippet named <name> */
         get_insertion_snippet(name: string): any;
         /** Fetch a dict of running applications */
-        get_running_applications(): { [key: string]: string };
+        get_running_applications(): Record<string, string>;
         /** Get snippet named <name> */
         get_snippet(name: string): any;
         /** Get the window under the mouse cursor */
-        get_window_under_cursor(): any;
+        get_window_under_cursor(): Window;
         /** Get wrapper snippet named <name> */
         get_wrapper_snippet(name: string): any;
         /** Checkout branch <branch> */
@@ -1330,7 +1320,7 @@ export interface Actions {
         /** Insert snippet */
         insert_snippet(body: string): void;
         /** Insert snippet <name> */
-        insert_snippet_by_name(name: string, substitutions: { [key: string]: string }): void;
+        insert_snippet_by_name(name: string, substitutions: Record<string, string>): void;
         /** Insert snippet <name> with phrase <phrase> */
         insert_snippet_by_name_with_phrase(name: string, phrase: string): void;
         /** Add <symbol> at end of line and then insert line below */
@@ -1356,7 +1346,7 @@ export interface Actions {
         /** Inserts a lorem ipsum with <num_words> words */
         lorem_ipsum(num_words: number): void;
         /** Enter mixed mode and re-evaluate phrase */
-        mixed_mode(phrase: any | string): void;
+        mixed_mode(phrase: Phrase | string): void;
         /** Click mouse button */
         mouse_click(action: string): void;
         /** Click left mouse button. If scrolling or dragging, stop instead. */
@@ -1440,10 +1430,7 @@ export interface Actions {
         /** Pick list item number <number> */
         pick_item(number: number): void;
         /** Perform cursorless action or ide command on target (internal use only) */
-        private_cursorless_action_or_ide_command(
-            instruction: { [key: string]: string },
-            target: any,
-        ): void;
+        private_cursorless_action_or_ide_command(instruction: Record<string, string>, target: any): void;
         /** Execute Cursorless move/bring action */
         private_cursorless_bring_move(action_name: string, targets: any): void;
         /** Execute Cursorless call action */
@@ -1453,11 +1440,11 @@ export interface Actions {
         /** Update default cursorless cheatsheet json (for developer use only) */
         private_cursorless_cheat_sheet_update_json(): void;
         /** Execute cursorless command and wait for it to finish */
-        private_cursorless_command_and_wait(action: any): void;
+        private_cursorless_command_and_wait(action: Record<string, any>): void;
         /** Execute cursorless command and return result */
-        private_cursorless_command_get(action: any): void;
+        private_cursorless_command_get(action: Record<string, any>): void;
         /** Execute cursorless command without waiting */
-        private_cursorless_command_no_wait(action: any): void;
+        private_cursorless_command_no_wait(action: Record<string, any>): void;
         /** Hides scope visualizer */
         private_cursorless_hide_scope_visualizer(): void;
         /** Cursorless: Insert community snippet <name> */
@@ -1465,10 +1452,7 @@ export interface Actions {
         /** Execute Cursorless insert snippet action */
         private_cursorless_insert_snippet(insertion_snippet: any): void;
         /** Cursorless: Insert snippet <snippet_description> with phrase <text> */
-        private_cursorless_insert_snippet_with_phrase(
-            snippet_description: string,
-            text: string,
-        ): void;
+        private_cursorless_insert_snippet_with_phrase(snippet_description: string, text: string): void;
         /** Test generating a snippet */
         private_cursorless_make_snippet_test(target: any): void;
         /** Open web page with cursorless instructions */
@@ -1492,7 +1476,7 @@ export interface Actions {
         /** Show Cursorless command statistics */
         private_cursorless_show_command_statistics(): void;
         /** Shows scope visualizer */
-        private_cursorless_show_scope_visualizer(scope_type: any, visualization_type: string): void;
+        private_cursorless_show_scope_visualizer(scope_type: Record<string, any>, visualization_type: string): void;
         /** Show Cursorless-specific settings in ide */
         private_cursorless_show_settings_in_ide(): void;
         /** Show Cursorless-specific settings in ide */
@@ -1512,21 +1496,11 @@ export interface Actions {
         /** Cursorless: Wrap target with community snippet <name> */
         private_cursorless_wrap_with_community_snippet(name: string, target: any): void;
         /** Execute Cursorless wrap/rewrap with paired delimiter action */
-        private_cursorless_wrap_with_paired_delimiter(
-            action_name: string,
-            target: any,
-            paired_delimiter: string[],
-        ): void;
+        private_cursorless_wrap_with_paired_delimiter(action_name: string, target: any, paired_delimiter: string[]): void;
         /** Execute Cursorless wrap with snippet action */
-        private_cursorless_wrap_with_snippet(
-            action_name: string,
-            target: any,
-            snippet_location: string,
-        ): void;
+        private_cursorless_wrap_with_snippet(action_name: string, target: any, snippet_location: string): void;
         /** Show quick pick */
         quick_pick_show(): void;
-        /** some description */
-        read_registry(name: string, value: number): string;
         /** Start recording */
         recording_start(): void;
         /** Stop recording */
@@ -1536,7 +1510,7 @@ export interface Actions {
         /** Re-formats <text> as <formatters> */
         reformat_text(text: string, formatters: string): string;
         /** Re-evaluate and run phrase */
-        rephrase(phrase: any, run_async: boolean): void;
+        rephrase(phrase: Phrase, run_async: boolean): void;
         /** Resize active windows closest side to cursor position */
         resize_window_side_to_cursor_position(): void;
         /** Revert active window to last position */
@@ -1546,36 +1520,15 @@ export interface Actions {
         /** Revert the window under the cursor to last position */
         revert_window_under_cursor_position(): void;
         /** Execute command via RPC. */
-        run_rpc_command(
-            command_id: string,
-            arg1: any,
-            arg2: any,
-            arg3: any,
-            arg4: any,
-            arg5: any,
-        ): void;
+        run_rpc_command(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
         /** Execute command via application command server and wait for command to finish. */
-        run_rpc_command_and_wait(
-            command_id: string,
-            arg1: any,
-            arg2: any,
-            arg3: any,
-            arg4: any,
-            arg5: any,
-        ): void;
+        run_rpc_command_and_wait(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
         /** Execute command via application command server and return command output. */
-        run_rpc_command_get(
-            command_id: string,
-            arg1: any,
-            arg2: any,
-            arg3: any,
-            arg4: any,
-            arg5: any,
-        ): any;
+        run_rpc_command_get(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): any;
         /** Save current document without formatting */
         save_without_formatting(): void;
         /** Get screen by number */
-        screen_get_by_number(screen_number: number): any;
+        screen_get_by_number(screen_number: number): Screen;
         /** Get screen by offset */
         screen_get_by_offset(offset: number): void;
         /** Show screen number on each screen */
@@ -1639,7 +1592,7 @@ export interface Actions {
         /** Insert a copy of the current selection before the selection */
         selection_clone_before(): void;
         /** Send key <key> to application */
-        send_key(key: string, app: any): void;
+        send_key(key: string, app: App): void;
         /** Opens the given search result on slack */
         slack_open_search_result(search: string): void;
         /** Move the active window to position <pos_name> on the current screen */
@@ -1647,31 +1600,21 @@ export interface Actions {
         /** Move the active window to screen <screen_desc> while retaining the same relative position */
         snap_active_window_to_screen(screen_desc: number | string): void;
         /** Move the active window to position <pos_name> on screen <screen_desc> */
-        snap_active_window_to_screen_and_position(
-            screen_desc: number | string,
-            pos_name: string,
-        ): void;
+        snap_active_window_to_screen_and_position(screen_desc: number | string, pos_name: string): void;
         /** Move window for application <app_name> to position <pos_name> on the current screen */
         snap_application_to_position(app_name: string, pos_name: string): void;
         /** Move window for application <app_name> to screen <screen_desc> while retaining the same relative position */
         snap_application_to_screen(app_name: string, screen_desc: number | string): void;
         /** Move window for application <app_name> to position <pos_name> on screen <screen_desc> */
-        snap_application_to_screen_and_position(
-            app_name: string,
-            screen_desc: number | string,
-            pos_name: string,
-        ): void;
+        snap_application_to_screen_and_position(app_name: string, screen_desc: number | string, pos_name: string): void;
         /** Applies snap position <pos_name> to given rectangle */
-        snap_apply_position_to_rect(rect: any, pos_name: string): any;
+        snap_apply_position_to_rect(rect: Rect, pos_name: string): Rect;
         /** Move the window under the cursor to position <pos_name> on the current screen */
         snap_window_under_cursor_to_position(pos_name: string): void;
         /** Move the window under the cursor to screen <screen_desc> while retaining the same relative position */
         snap_window_under_cursor_to_screen(screen_desc: number | string): void;
         /** Move the window under the cursor to position <pos_name> on screen <screen_desc> */
-        snap_window_under_cursor_to_screen_and_position(
-            screen_desc: number | string,
-            pos_name: string,
-        ): void;
+        snap_window_under_cursor_to_screen_and_position(screen_desc: number | string, pos_name: string): void;
         /** Enables or disables the microphone */
         sound_microphone_enable(enable: boolean): void;
         /** Event that triggers when the microphone is enabled or disabled */
@@ -1685,7 +1628,7 @@ export interface Actions {
         /** Swap active window position with application <app_name> */
         swap_active_window_position_with_application(app_name: string): void;
         /** Enter swedish dictation mode and re-evaluate phrase */
-        swedish_dictation_mode(phrase: any | string): void;
+        swedish_dictation_mode(phrase: Phrase | string): void;
         /** Hibernate operating system */
         system_hibernate(): void;
         /** Lock operating system */
@@ -1715,7 +1658,7 @@ export interface Actions {
         /** Create a new python context file for the current application */
         talon_create_app_context(): void;
         /** Return buttons for Talon Deck */
-        talon_deck_get_buttons(): any[];
+        talon_deck_get_buttons(): Record<string, any>[];
         /** Update Talon Deck. This will trigger a call to `talon_deck_get_buttons()` */
         talon_deck_update(): void;
         /** Get actions list as text */
@@ -1741,7 +1684,7 @@ export interface Actions {
         /** Quit and relaunch the Talon app */
         talon_restart(): void;
         /** Sims the phrase in the active app and dumps to the log */
-        talon_sim_phrase(phrase: string | any): void;
+        talon_sim_phrase(phrase: string | Phrase): void;
         /** Put Talon to sleep */
         talon_sleep(): void;
         /** Get path to talon user */
@@ -1751,7 +1694,7 @@ export interface Actions {
         /** Returns true if Talon was just restarted */
         talon_was_restarted(): boolean;
         /** Start a new test suite */
-        test_run_suite(suite_name: string, fixtures: any, callback: any): void;
+        test_run_suite(suite_name: string, fixtures: any[], callback: () => void): void;
         /** Toggle subtitles */
         toggle_subtitles(): void;
         /** Translate english text to swedish */
@@ -1792,48 +1735,29 @@ export interface Actions {
 
         Returns:
             tuple[Any, bool]: The value of the setting or the default or fall back, along with boolean which is true if there was an error */
-        vscode_get_setting_with_fallback(
-            key: string,
-            default_value: any,
-            fallback_value: any,
-            fallback_message: string,
-        ): [any, boolean];
+        vscode_get_setting_with_fallback(key: string, default_value: any, fallback_value: any, fallback_message: string): [any, boolean];
         /** Get path of vscode settings json file */
-        vscode_settings_path(): any;
+        vscode_settings_path(): Path;
         /** Take word on cursorless target with number of repeats */
-        vscode_take_word(cursorless_target: any, repeats: number): void;
+        vscode_take_word(cursorless_target: Record<string, any>, repeats: number): void;
         /** Execute command via vscode command server. */
-        vscode_with_plugin(
-            command_id: string,
-            arg1: any,
-            arg2: any,
-            arg3: any,
-            arg4: any,
-            arg5: any,
-        ): void;
+        vscode_with_plugin(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
         /** Execute command via vscode command server and wait for command to finish. */
-        vscode_with_plugin_and_wait(
-            command_id: string,
-            arg1: any,
-            arg2: any,
-            arg3: any,
-            arg4: any,
-            arg5: any,
-        ): void;
+        vscode_with_plugin_and_wait(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
         /** Watch csv file for changes. Present content as dict */
-        watch_csv_as_dict(path: any, callback: any, values_as_list: boolean): void;
+        watch_csv_as_dict(path: Path, callback: (arg0: Record<string, any>) => null, values_as_list: boolean): void;
         /** Watch csv file for changes. Present content as list */
-        watch_csv_as_list(path: any, callback: any): void;
+        watch_csv_as_list(path: Path, callback: (arg0: string[][], arg1: string[]) => null): void;
         /** Switch focus to last window */
         window_focus_last(): void;
         /** Focus application named <name> */
-        window_focus_name(name: string, phrase: any): void;
+        window_focus_name(name: string, phrase: Phrase): void;
         /** Resize the active window */
         window_resize(side: string, direction: string, offset: string): void;
         /** Update window position. Keeps track of old position to enable revert/undo */
-        window_set_pos(window: any, x: number, y: number, width: number, height: number): void;
+        window_set_pos(window: Window, x: number, y: number, width: number, height: number): void;
         /** Update window position. Keeps track of old position to enable revert/undo */
-        window_set_rect(window: any, rect: any): void;
+        window_set_rect(window: Window, rect: Rect): void;
         /** Show window switcher menu */
         window_switcher_menu(): void;
     };

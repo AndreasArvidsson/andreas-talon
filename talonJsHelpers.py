@@ -1,9 +1,11 @@
+from collections.abc import Sequence as AbcSequence, Callable as AbcCallable
 from dataclasses import dataclass
 from datetime import datetime
 from io import TextIOWrapper
 from types import NoneType, UnionType
 from typing import (
     Any,
+    Callable,
     List,
     Dict,
     Literal,
@@ -17,17 +19,18 @@ from typing import (
     get_origin,
     get_args,
 )
-from talon import registry, Module, app
+from talon import registry, app
 from talon.screen import Screen
 from talon.types import Rect
+from talon.scripting.types import CommandImpl, ScriptImpl
+from talon.scripting.rctx import ResourceContext
+from talon.scripting.talon_script import TalonScript
 from talon.ui import Window, App
 from talon.grammar import Phrase, Capture
 from pathlib import Path
 from talon.skia.image import Image
 import inspect
 import os
-
-mod = Module()
 
 
 @dataclass
@@ -38,18 +41,20 @@ class Action:
     return_type: str
 
 
-@mod.action_class
-class Actions:
-    def read_registry(name: str, value: int) -> str:
-        """some description"""
-        for name, actions in registry.actions.items():
-            print(name)
-            action = actions[0]
-            print(action)
-            print(type(action))
-            print(dir(action))
-            break
-        return ""
+type_definitions = [
+    App,
+    Capture,
+    CommandImpl,
+    Image,
+    Path,
+    Phrase,
+    Rect,
+    ResourceContext,
+    Screen,
+    ScriptImpl,
+    TalonScript,
+    Window,
+]
 
 
 def get_typescript_type(py_type: Any) -> str:
@@ -67,56 +72,39 @@ def get_typescript_type(py_type: Any) -> str:
     if py_type in (int, float):
         return "number"
 
-    if type is Sequence[str]:
-        return "str[]"
-    if type == list[dict]:
-        return "Record<str, any>[]"
-    if type == dict:
-        return "Record<str, any>"
-    if type == list:
+    if py_type is dict:
+        return "Record<string, any>"
+    if py_type is list:
         return "any[]"
-    if type == tuple:
+    if py_type is tuple:
         return "any[]"
-    if type == set:
+    if py_type is set:
         return "Set<any>"
-    if type == Optional[dict]:
-        return "Record<str, any> | null"
-    if type == datetime:
+    if py_type is datetime:
         return "Date"
-    if type == bytes:
+    if py_type is bytes:
         return "Uint8Array"
+    if py_type is callable:
+        return "() => void"
 
-    if type == Path:
-        return "any"
-    if type == Screen:
-        return "any"
-    if type == Rect:
-        return "any"
-    if type == Window:
-        return "any"
-    if type == App:
-        return "any"
-    if type == Image:
-        return "any"
-    if type == Capture:
-        return "any"
-    if type == Phrase:
-        return "any"
-    if type == Union[Phrase, str]:
+    if py_type in type_definitions:
+        return py_type.__name__
+
+    if py_type is type:
         return "any"
 
     # Check for generic types
     origin = get_origin(py_type)
     args = get_args(py_type)
 
-    if origin is list or origin is List:
+    if origin is list or origin is List or origin is AbcSequence:
         return f"{get_typescript_type(args[0])}[]" if args else "any[]"
 
     if origin is dict or origin is Dict:
         return (
-            f"{{ [key: {get_typescript_type(args[0])}]: {get_typescript_type(args[1])} }}"
+            f"Record<{get_typescript_type(args[0])}, {get_typescript_type(args[1])}>"
             if args
-            else "{ [key: string]: any }"
+            else "Record<string, any>"
         )
 
     if origin is tuple or origin is Tuple:
@@ -133,9 +121,23 @@ def get_typescript_type(py_type: Any) -> str:
         return f"{get_typescript_type(args[0])} | null" if args else "any | null"
 
     if origin is Literal:
-        return " | ".join([f'"{get_typescript_type(type)}"' for type in args])
+        return " | ".join([f'"{py_type}"' for py_type in args])
 
-    return "any"  # Default case if type is not recognized
+    if origin is Callable or origin is AbcCallable:
+        parameters = [
+            f"arg{i}: {get_typescript_type(param)}" for i, param in enumerate(args[0])
+        ]
+        return_value = get_typescript_type(args[1])
+        return f"({', '.join(parameters)}) => {return_value}"
+
+    if "user." in str(py_type):
+        return "any"
+
+    print(py_type)
+    print(origin)
+    print()
+
+    return "any"
 
 
 def read_registry():
@@ -179,7 +181,7 @@ def read_registry():
 def write_namespace_file(dir: str, namespaces: list[str]):
     file_path = os.path.join(dir, "Namespace.d.ts")
     namespaces.sort()
-    with open(file_path, "w") as f:
+    with open(file_path, "w", newline="\n") as f:
         f.write("export type Namespace =")
         for namespace in namespaces:
             f.write(f'\n    | "{namespace}"')
@@ -194,8 +196,10 @@ def write_actions_file(dir: str, actions_map: dict[str, list[Action]]):
     namespaces.sort()
     namespaces.append("user")
 
-    with open(file_path, "w") as f:
-        f.write("export interface Actions {\n")
+    with open(file_path, "w", newline="\n") as f:
+        for type_definition in type_definitions:
+            f.write(f"type {type_definition.__name__} = any;\n")
+        f.write("\nexport interface Actions {\n")
         main_actions = actions_map["main"]
         write_actions(f, main_actions, "    ")
         for namespace in namespaces:
