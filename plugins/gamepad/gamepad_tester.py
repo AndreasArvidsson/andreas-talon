@@ -6,8 +6,8 @@ from talon.types import Rect, Point2d
 
 mod = Module()
 ctx = Context()
-canvas: Canvas = None
-last_mouse_pos: Point2d = None
+canvas: Canvas | None = None
+last_mouse_pos: Point2d | None = None
 
 mod.tag("gamepad_tester", "Gamepad tester gui is showing")
 
@@ -29,17 +29,18 @@ buttons = {
 }
 
 triggers = {
-    "l2": 0,
-    "r2": 0,
+    "l2": 0.0,
+    "r2": 0.0,
 }
 
 sticks = {
-    "left": (0, 0),
-    "right": (0, 0),
+    "left": (0.0, 0.0),
+    "right": (0.0, 0.0),
 }
 
 BACKGROUND_COLOR = "fffafa"  # Snow
 BORDER_COLOR = "000000"  # Black
+FONT_SIZE = 16
 WIDTH = 900
 HEIGHT = 800
 CIRCLE_RADIUS = 100
@@ -161,7 +162,19 @@ def render_stick(
     )
 
 
+def render_close_text(c: SkiaCanvas, x: float, y: float):
+    text = 'Say "gamepad tester" to close'
+    text_rect = c.paint.measure_text(text)[1]
+    c.draw_text(
+        text,
+        x - text_rect.x - text_rect.width / 2,
+        y - 2 * text_rect.height,
+    )
+
+
 def on_draw(c: SkiaCanvas):
+    c.paint.textsize = FONT_SIZE
+
     # Render background
     c.paint.style = c.paint.Style.FILL
     c.paint.color = BACKGROUND_COLOR
@@ -214,6 +227,9 @@ def on_draw(c: SkiaCanvas):
     render_stick(c, c.rect.center.x - offset, y, buttons["l3"], *sticks["left"])
     render_stick(c, c.rect.center.x + offset, y, buttons["r3"], *sticks["right"])
 
+    # Draw close text
+    render_close_text(c, c.rect.center.x, c.rect.bot)
+
 
 def on_mouse(e: MouseEvent):
     global last_mouse_pos
@@ -223,7 +239,8 @@ def on_mouse(e: MouseEvent):
         dx = e.gpos.x - last_mouse_pos.x
         dy = e.gpos.y - last_mouse_pos.y
         last_mouse_pos = e.gpos
-        canvas.move(canvas.rect.x + dx, canvas.rect.y + dy)
+        if canvas is not None:
+            canvas.move(canvas.rect.x + dx, canvas.rect.y + dy)
     elif e.event == "mouseup" and e.button == 0:
         last_mouse_pos = None
 
@@ -234,7 +251,7 @@ def show():
     x = screen.rect.center.x
     y = screen.rect.center.y
     canvas = Canvas.from_rect(Rect(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT))
-    canvas.draggle = True
+    canvas.draggable = True
     canvas.blocks_mouse = True
     canvas.register("draw", on_draw)
     canvas.register("mouse", on_mouse)
@@ -243,10 +260,11 @@ def show():
 
 def hide():
     global canvas
-    canvas.unregister("draw", on_draw)
-    canvas.unregister("mouse", on_mouse)
-    canvas.close()
-    canvas = None
+    if canvas is not None:
+        canvas.unregister("draw", on_draw)
+        canvas.unregister("mouse", on_mouse)
+        canvas.close()
+        canvas = None
     ctx.tags = []
 
 
@@ -254,7 +272,7 @@ def hide():
 class Actions:
     def gamepad_tester_toggle():
         """Toggle visibility of gamepad tester gui"""
-        if not canvas:
+        if canvas is None:
             show()
         else:
             hide()
