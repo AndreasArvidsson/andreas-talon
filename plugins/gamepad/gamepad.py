@@ -28,100 +28,6 @@ class VoipActions:
 
 @mod.action_class
 class Actions:
-    # General mechanics used by the Talon file
-
-    def gamepad_button_down(button: str):
-        """Gamepad press button <button>"""
-        timestamps[button] = time.perf_counter()
-
-        match button:
-            # DPAD buttons
-            case "dpad_left":
-                actions.user.gamepad_press_dpad_left()
-            case "dpad_up":
-                actions.user.gamepad_press_dpad_up()
-            case "dpad_right":
-                actions.user.gamepad_press_dpad_right()
-            case "dpad_down":
-                actions.user.gamepad_press_dpad_down()
-
-            # Compass / ABXY buttons
-            case "west":
-                actions.user.gamepad_press_west()
-            case "north":
-                actions.user.gamepad_press_north()
-            case "east":
-                actions.user.gamepad_press_east()
-            case "south":
-                actions.user.gamepad_press_south()
-
-            # Select / Start buttons
-            case "select":
-                actions.user.gamepad_press_select()
-            case "start":
-                actions.user.gamepad_press_start()
-
-            # Shoulder buttons
-            case "left_shoulder":
-                actions.user.gamepad_press_left_shoulder()
-            case "right_shoulder":
-                actions.user.gamepad_press_right_shoulder()
-
-            # Stick buttons
-            case "left_stick":
-                actions.user.gamepad_press_left_stick()
-            case "right_stick":
-                actions.user.gamepad_press_right_stick()
-
-            case _:
-                raise ValueError(f"Unknown button: {button}")
-
-    def gamepad_button_up(button: str):
-        """Gamepad release button <button>"""
-        held = time.perf_counter() - timestamps[button] > HOLD_TIMEOUT
-
-        match button:
-            # DPAD buttons
-            case "dpad_left":
-                actions.user.gamepad_release_dpad_left(held)
-            case "dpad_up":
-                actions.user.gamepad_release_dpad_up(held)
-            case "dpad_right":
-                actions.user.gamepad_release_dpad_right(held)
-            case "dpad_down":
-                actions.user.gamepad_release_dpad_down(held)
-
-            # Compass / ABXY buttons
-            case "west":
-                actions.user.gamepad_release_west(held)
-            case "north":
-                actions.user.gamepad_release_north(held)
-            case "east":
-                actions.user.gamepad_release_east(held)
-            case "south":
-                actions.user.gamepad_release_south(held)
-
-            # Select / Start buttons
-            case "select":
-                actions.user.gamepad_release_select(held)
-            case "start":
-                actions.user.gamepad_release_start(held)
-
-            # Shoulder buttons
-            case "left_shoulder":
-                actions.user.gamepad_release_left_shoulder(held)
-            case "right_shoulder":
-                actions.user.gamepad_release_right_shoulder(held)
-
-            # Stick buttons
-            case "left_stick":
-                actions.user.gamepad_release_left_stick(held)
-            case "right_stick":
-                actions.user.gamepad_release_right_stick(held)
-
-            case _:
-                raise ValueError(f"Unknown button: {button}")
-
     # DPAD buttons
 
     def gamepad_press_dpad_left():
@@ -265,6 +171,100 @@ class Actions:
     def gamepad_stick_right(x: float, y: float):
         """Gamepad right stick movement"""
         gamepad_mouse_move(x, y)
+
+    # Scaffolding actions used by the Talon file
+
+    def gamepad_button_down(button: str):
+        """Gamepad press button <button>"""
+        timestamps[button] = time.perf_counter()
+
+        match button:
+            # DPAD buttons
+            case "dpad_left":
+                actions.user.gamepad_press_dpad_left()
+            case "dpad_up":
+                actions.user.gamepad_press_dpad_up()
+            case "dpad_right":
+                actions.user.gamepad_press_dpad_right()
+            case "dpad_down":
+                actions.user.gamepad_press_dpad_down()
+
+            # Compass / ABXY buttons
+            case "west":
+                actions.user.gamepad_press_west()
+            case "north":
+                actions.user.gamepad_press_north()
+            case "east":
+                actions.user.gamepad_press_east()
+            case "south":
+                actions.user.gamepad_press_south()
+
+            # Select / Start buttons
+            case "select":
+                actions.user.gamepad_press_select()
+            case "start":
+                actions.user.gamepad_press_start()
+
+            # Shoulder buttons
+            case "left_shoulder":
+                actions.user.gamepad_press_left_shoulder()
+            case "right_shoulder":
+                actions.user.gamepad_press_right_shoulder()
+
+            # Stick buttons
+            case "left_stick":
+                actions.user.gamepad_press_left_stick()
+            case "right_stick":
+                actions.user.gamepad_press_right_stick()
+
+            case _:
+                raise ValueError(f"Unknown button: {button}")
+
+    def gamepad_button_up(button: str):
+        """Gamepad release button <button>"""
+        held = time.perf_counter() - timestamps[button] > HOLD_TIMEOUT
+
+        match button:
+            # DPAD buttons
+            case "dpad_left":
+                actions.user.gamepad_release_dpad_left(held)
+            case "dpad_up":
+                actions.user.gamepad_release_dpad_up(held)
+            case "dpad_right":
+                actions.user.gamepad_release_dpad_right(held)
+            case "dpad_down":
+                actions.user.gamepad_release_dpad_down(held)
+
+            # Compass / ABXY buttons
+            case "west":
+                actions.user.gamepad_release_west(held)
+            case "north":
+                actions.user.gamepad_release_north(held)
+            case "east":
+                actions.user.gamepad_release_east(held)
+            case "south":
+                actions.user.gamepad_release_south(held)
+
+            # Select / Start buttons
+            case "select":
+                actions.user.gamepad_release_select(held)
+            case "start":
+                actions.user.gamepad_release_start(held)
+
+            # Shoulder buttons
+            case "left_shoulder":
+                actions.user.gamepad_release_left_shoulder(held)
+            case "right_shoulder":
+                actions.user.gamepad_release_right_shoulder(held)
+
+            # Stick buttons
+            case "left_stick":
+                actions.user.gamepad_release_left_stick(held)
+            case "right_stick":
+                actions.user.gamepad_release_right_stick(held)
+
+            case _:
+                raise ValueError(f"Unknown button: {button}")
 
 
 def gamepad_scroll(x: float, y: float):
