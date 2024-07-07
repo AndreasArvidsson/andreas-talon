@@ -1,1 +1,1 @@
-declare function print(text?: string): void;
+declare function print(...objs: any): void;

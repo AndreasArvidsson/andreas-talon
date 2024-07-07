@@ -21,5 +21,5 @@
 //     },
 // });
 // actions.user.test()
-// print("print from js");
+// print("print from js", 2, {});
 // actions.print("print from actions2");
