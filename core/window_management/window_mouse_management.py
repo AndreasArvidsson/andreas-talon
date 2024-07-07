@@ -1,4 +1,4 @@
-from talon import ui, Module, actions
+from talon import ui, Module, actions, ctrl
 from talon.types import Rect
 from dataclasses import dataclass
 
@@ -18,7 +18,7 @@ class Actions:
         """Move active windows closest side to cursor position"""
         window = ui.active_window()
         rect = window.rect
-        x, y = actions.user.mouse_pos()
+        x, y = ctrl.mouse_pos()
         side = get_closest_side(rect, x, y)
 
         if side == "left":
@@ -40,7 +40,7 @@ class Actions:
         """Resize active windows closest side to cursor position"""
         window = ui.active_window()
         rect = window.rect
-        x, y = actions.user.mouse_pos()
+        x, y = ctrl.mouse_pos()
         side = get_closest_side(rect, x, y)
 
         if side == "left":

@@ -69,24 +69,6 @@ class Actions:
         if not stop_scroll and not stop_drag:
             actions.mouse_click()
 
-    def mouse_pos() -> tuple[float, float]:
-        """Mouse position (X, Y)"""
-        return ctrl.mouse_pos()
-
-    def mouse_move_delta(dx: float, dy: float):
-        """Move mouse delta"""
-        x, y = ctrl.mouse_pos()
-        actions.mouse_move(x + dx, y + dy)
-
-    def mouse_drag():
-        """Press and hold/release button 0 depending on state for dragging"""
-        if 0 in ctrl.mouse_buttons_down():
-            actions.mouse_release()
-            actions.user.notify("Mouse drag: False")
-        else:
-            actions.mouse_drag()
-            actions.user.notify("Mouse drag: True")
-
     def mouse_move_center_window():
         """Move the mouse cursor to the center of the active window"""
         rect = ui.active_window().rect

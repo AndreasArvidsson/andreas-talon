@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, ui
+from talon import Module, Context, actions, ui, ctrl
 from talon.screen import Screen
 import time
 
@@ -280,7 +280,7 @@ def gamepad_scroll(x: float, y: float):
 def gamepad_mouse_move(dx: float, dy: float):
     """Perform gamepad mouse cursor movement"""
     multiplier = 0.1 if slow_mouse_move else 0.2
-    x, y = actions.user.mouse_pos()
+    x, y = ctrl.mouse_pos()
     screen = get_screen(x, y)
     dx = dx**3 * screen.dpi * multiplier
     dy = dy**3 * screen.dpi * multiplier
@@ -303,7 +303,7 @@ def gamepad_mouse_move_slow_toggle():
 
 def gamepad_mouse_jump(direction: str):
     """Move the mouse cursor to the specified quadrant of the active screen"""
-    x, y = actions.user.mouse_pos()
+    x, y = ctrl.mouse_pos()
     rect = ui.screen_containing(x, y).rect
 
     # Half distance between cursor and screen edge
