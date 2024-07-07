@@ -20,7 +20,7 @@ This is a list of features that I have implemented that I think is of more inter
 5. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
     - [Talon Deck](https://github.com/AndreasArvidsson/talon-deck)
 6. **Gamepad tester** - Builtin UI for visualizing interaction with Talon `gamepad()` api
-    - [Gamepad tester](./plugins/gamepad_tester)
+    - [Gamepad tester](./plugins/gamepad)
 7. **Clippy - Clipboard manager** - Clipboard manager with Talon rpc support
     - [Clippy](./plugins/clippy)
 8. **Quick pick** - UI for quick access to useful features by clicking buttons
