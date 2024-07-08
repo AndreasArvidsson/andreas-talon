@@ -160,6 +160,10 @@ def read_registry():
 
         spec = inspect.getfullargspec(action.func)
 
+        num_args = len(spec.args)
+        num_defaults = len(spec.defaults) if spec.defaults else 0
+        i = 0
+
         for param, type in spec.annotations.items():
             ts_type = get_typescript_type(type)
             if param == "return":
@@ -167,7 +171,10 @@ def read_registry():
             else:
                 if param in ["default", "new"]:
                     param += "_"
+                if i >= num_args - num_defaults:
+                    param += "?"
                 parameters.append(f"{param}: {ts_type}")
+                i += 1
 
         if namespace not in results:
             results[namespace] = []

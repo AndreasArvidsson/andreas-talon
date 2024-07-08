@@ -24,15 +24,15 @@ export interface ActionNamespaces {
         /** Simulate speaking {text} */
         mimic(text: string): void;
         /** Press and release a mouse button */
-        mouse_click(button: number): void;
+        mouse_click(button?: number): void;
         /** Hold down a mouse button */
-        mouse_drag(button: number): void;
+        mouse_drag(button?: number): void;
         /** Move mouse to (x, y) coordinate */
         mouse_move(x: number, y: number): void;
         /** Release a mouse button */
-        mouse_release(button: number): void;
+        mouse_release(button?: number): void;
         /** Scroll the mouse wheel */
-        mouse_scroll(y: number, x: number, by_lines: boolean): void;
+        mouse_scroll(y?: number, x?: number, by_lines?: boolean): void;
         /** Mouse X position */
         mouse_x(): number;
         /** Mouse Y position */
@@ -55,7 +55,7 @@ export interface ActionNamespaces {
         /** Get active app's name */
         name(): string;
         /** Show a desktop notification */
-        notify(body: string, title: string, subtitle: string, sound: boolean): void;
+        notify(body?: string, title?: string, subtitle?: string, sound?: boolean): void;
         /** Get active app's file path */
         path(): string;
         /** Open app preferences */
@@ -91,7 +91,7 @@ export interface ActionNamespaces {
         /** Convert bytes to base64 */
         base64(b: Uint8Array): string;
         /** Decode bytes to string */
-        decode(b: Uint8Array, encoding: string, errors: string): Uint8Array;
+        decode(b: Uint8Array, encoding?: string, errors?: string): Uint8Array;
         /** Convert base64 to bytes */
         frombase64(s: string): Uint8Array;
         /** Convert hex to bytes */
@@ -113,7 +113,7 @@ export interface ActionNamespaces {
         /** Get clipboard text */
         text(): string;
         /** Wait for the clipboard to change */
-        wait(fmt: string, timeout: number): void;
+        wait(fmt?: string, timeout?: number): void;
     };
     code: {
         /** Trigger code autocomplete */
@@ -137,11 +137,11 @@ export interface ActionNamespaces {
         /** Return recently-spoken phrases */
         recent_phrases(): Capture[];
         /** Repeat the last command N times */
-        repeat_command(times: number): void;
+        repeat_command(times?: number): void;
         /** Repeat the previous phrase or current partial phrase N times */
-        repeat_partial_phrase(times: number): void;
+        repeat_partial_phrase(times?: number): void;
         /** Repeat the last phrase N times */
-        repeat_phrase(times: number): void;
+        repeat_phrase(times?: number): void;
         /** Replace the current command in history with one or more commands */
         replace_command(commands: [CommandImpl, Capture][]): void;
         /** Run a single command for a recognized phrase */
@@ -161,7 +161,7 @@ export interface ActionNamespaces {
         /** Copy a dict */
         copy(d: Record<string, any>): Record<string, any>;
         /** Get dict[key] */
-        get(d: Record<string, any>, key: any, default_: any): any;
+        get(d: Record<string, any>, key: any, default_?: any): any;
         /** Create an empty dict */
         new(): Record<string, any>;
         /** Remove and return dict[key] */
@@ -173,7 +173,7 @@ export interface ActionNamespaces {
     };
     dictate: {
         /** Join a list of words into a single string for insertion */
-        join_words(words: string[], separator: string): string;
+        join_words(words: string[], separator?: string): string;
         /** Insert lowercase text with auto_insert() */
         lower(p: Phrase): void;
         /** Insert naturally-capitalized text with auto_insert() */
@@ -233,7 +233,7 @@ export interface ActionNamespaces {
         /** Move cursor to start of file */
         file_start(): void;
         /** Open Find dialog, optionally searching for text */
-        find(text: string): void;
+        find(text?: string): void;
         /** Select next Find result */
         find_next(): void;
         /** Select previous Find result */
@@ -281,7 +281,7 @@ export interface ActionNamespaces {
         /** Select all text in the current document */
         select_all(): void;
         /** Select entire line <n>, or current line */
-        select_line(n: number): void;
+        select_line(n?: number): void;
         /** Select entire lines from <a> to <b> */
         select_lines(a: number, b: number): void;
         /** Clear current selection */
@@ -331,7 +331,7 @@ export interface ActionNamespaces {
         /** Create an empty list */
         new(): any[];
         /** Remove and return item from list at index */
-        pop(l: any[], index: number): any;
+        pop(l: any[], index?: number): any;
         /** Remove value from list */
         remove(l: any[], value: any): null;
         /** Reverse list in place */
@@ -403,7 +403,7 @@ export interface ActionNamespaces {
         /** Get the constant inf */
         inf(): number;
         /** Convert string to integer */
-        int(s: string, base: number): number;
+        int(s: string, base?: number): number;
         /** Check whether a is close to b */
         isclose(a: number, b: number): boolean;
         /** Check whether x is a finite number */
@@ -441,7 +441,7 @@ export interface ActionNamespaces {
         /** Convert number to octal string */
         oct(n: any): string;
         /** Compute the ways to choose k items from n ordered */
-        perm(n: number, k: number | null): number;
+        perm(n: number, k?: number | null): number;
         /** Get the constant pi */
         pi(): number;
         /** Compute x raised to the power y */
@@ -455,7 +455,7 @@ export interface ActionNamespaces {
         /** Compute the remainder of x / y */
         remainder(x: number, y: number): number;
         /** Round to nearest, with optional precision */
-        round(n: number, precision: number | null): number;
+        round(n: number, precision?: number | null): number;
         /** Compute the sine of x, in radians */
         sin(x: number): number;
         /** Compute the hyperbolic sine of x */
@@ -489,9 +489,9 @@ export interface ActionNamespaces {
         /** Backup the .talon/user/ directory to a zip file in .talon/backups/ */
         backup_user(): void;
         /** Perform migrations for Talon v0.2 on all files in user/ */
-        v02_all(prefix: string, verbose: boolean): void;
+        v02_all(prefix?: string, verbose?: boolean): void;
         /** Migrate action() definitions from a .talon file to a new Python file. */
-        v02_one(path: string, verbose: boolean): void;
+        v02_one(path: string, verbose?: boolean): void;
     };
     mode: {
         /** Disable a mode */
@@ -573,7 +573,7 @@ export interface ActionNamespaces {
         /** Set the currently active microphone - DEPRECATED: use sound.set_microphone() */
         set_microphone(name: string): void;
         /** Toggle speech recognition */
-        toggle(value: boolean): void;
+        toggle(value?: boolean): void;
     };
     string: {
         /** Capitalize the first letter of string */
@@ -581,23 +581,23 @@ export interface ActionNamespaces {
         /** Case fold string */
         casefold(s: string): string;
         /** Center string by padding to width */
-        center(s: string, width: number, fillchar: string | null): string;
+        center(s: string, width: number, fillchar?: string | null): string;
         /** Convert a Unicode code point into a string */
         chr(i: number): string;
         /** Check whether haystack contains needle */
         contains(haystack: string, needle: string): boolean;
         /** Count the number of instances of sub in string, with optional start/end */
-        count(s: string, sub: string, start: number | null, end: number | null): string;
+        count(s: string, sub: string, start?: number | null, end?: number | null): string;
         /** Encode string to bytes */
-        encode(s: string, encoding: string): Uint8Array;
+        encode(s: string, encoding?: string): Uint8Array;
         /** Check whether string ends with suffix */
         endswith(s: string, suffix: string): boolean;
         /** Expand tabs to spaces */
-        expandtabs(s: string, tabsize: number): string;
+        expandtabs(s: string, tabsize?: number): string;
         /** Find sub in string, with optional start/end */
-        find(s: string, sub: string, start: number | null, end: number | null): void;
+        find(s: string, sub: string, start?: number | null, end?: number | null): void;
         /** Find sub in string, with optional start/end, raising an error if not found */
-        index(s: string, sub: string, start: number | null, end: number | null): void;
+        index(s: string, sub: string, start?: number | null, end?: number | null): void;
         /** Check if string contains only alphanumeric characters */
         isalnum(s: string): boolean;
         /** Check if string contains only alphabet characters */
@@ -621,11 +621,11 @@ export interface ActionNamespaces {
         /** Join a sequence using string */
         join(s: string, sequence: string[]): string;
         /** Left justify string by padding to width */
-        ljust(s: string, width: number, fillchar: string | null): string;
+        ljust(s: string, width: number, fillchar?: string | null): string;
         /** Lowercase string */
         lower(s: string): string;
         /** Strip characters from the left of string */
-        lstrip(s: string, chars: string | null): string;
+        lstrip(s: string, chars?: string | null): string;
         /** Convert a character into a Unicode code point */
         ord(s: string): number;
         /** Remove prefix from string if present */
@@ -633,27 +633,27 @@ export interface ActionNamespaces {
         /** Remove suffix from string if present */
         removesuffix(s: string, suffix: string): string;
         /** Replace [count] instances of old with new */
-        replace(s: string, old: string, new_: string, count: number): string;
+        replace(s: string, old: string, new_: string, count?: number): string;
         /** Find sub in string (from the right), with optional start/end */
-        rfind(s: string, sub: string, start: number | null, end: number | null): void;
+        rfind(s: string, sub: string, start?: number | null, end?: number | null): void;
         /** Find sub in string (from the right), with optional start/end, raising an error if not found */
-        rindex(s: string, sub: string, start: number | null, end: number | null): void;
+        rindex(s: string, sub: string, start?: number | null, end?: number | null): void;
         /** Right justify string by padding to width */
-        rjust(s: string, width: number, fillchar: string | null): string;
+        rjust(s: string, width: number, fillchar?: string | null): string;
         /** Split using separator or whitespace [maxsplit] times from the right */
-        rsplit(s: string, sep: string | null, maxsplit: number): string;
+        rsplit(s: string, sep?: string | null, maxsplit?: number): string;
         /** Strip characters from the right of string */
-        rstrip(s: string, chars: string | null): string;
+        rstrip(s: string, chars?: string | null): string;
         /** Slice string, following python slicing rules [a:b:c] */
-        slice(s: string, a: number, b: number | null, c: number | null): void;
+        slice(s: string, a: number, b?: number | null, c?: number | null): void;
         /** Split using separator or whitespace [maxsplit] times */
-        split(s: string, sep: string | null, maxsplit: number): string;
+        split(s: string, sep?: string | null, maxsplit?: number): string;
         /** Split string into a list of lines */
-        splitlines(s: string, keepends: boolean): string[];
+        splitlines(s: string, keepends?: boolean): string[];
         /** Check whether string starts with prefix */
         startswith(s: string, prefix: string): boolean;
         /** Strip characters from both sides of string */
-        strip(s: string, chars: string | null): string;
+        strip(s: string, chars?: string | null): string;
         /** Swap the case of string */
         swapcase(s: string): string;
         /** Titlecase string */
@@ -705,27 +705,27 @@ export interface ActionNamespaces {
         /** Is Control Mouse (Legacy) Enabled? */
         control1_enabled(): boolean;
         /** Toggle Control Mouse (Legacy) */
-        control1_toggle(state: boolean): null;
+        control1_toggle(state?: boolean): null;
         /** Toggle Camera View */
-        control_camera_toggle(state: boolean): null;
+        control_camera_toggle(state?: boolean): null;
         /** Toggle Control Mouse 2 (Debug View) */
-        control_debug_toggle(state: boolean): null;
+        control_debug_toggle(state?: boolean): null;
         /** Is Control Mouse Enabled? */
         control_enabled(): boolean;
         /** Toggle Control Mouse 2 (Gaze Focus) */
-        control_gaze_focus_toggle(state: boolean): null;
+        control_gaze_focus_toggle(state?: boolean): null;
         /** Toggle Control Mouse 2 (Gaze Control) */
-        control_gaze_toggle(state: boolean): null;
+        control_gaze_toggle(state?: boolean): null;
         /** Toggle Control Mouse 2 (Head Control) */
-        control_head_toggle(state: boolean): null;
+        control_head_toggle(state?: boolean): null;
         /** Toggle Control Mouse 2 (Mouse Jump) */
-        control_mouse_jump_toggle(state: boolean): null;
+        control_mouse_jump_toggle(state?: boolean): null;
         /** Toggle Control Mouse */
-        control_toggle(state: boolean): null;
+        control_toggle(state?: boolean): null;
         /** Is Control Mouse (Zoom) Enabled? */
         control_zoom_enabled(): boolean;
         /** Toggle Control Mouse (Zoom) */
-        control_zoom_toggle(state: boolean): null;
+        control_zoom_toggle(state?: boolean): null;
         /** Trigger Eye Zoom / Click */
         zoom(): null;
         /** Cancel Eye Zoom */
@@ -743,19 +743,19 @@ export interface ActionNamespaces {
     };
     types: {
         /** Create a bytes object */
-        bytes(v: any): string;
+        bytes(v?: any): string;
         /** Create a dict */
         dict(): Record<string, any>;
         /** Create a list */
-        list(v: any): any;
+        list(v?: any): any;
         /** Get an instance of None */
         none(): null;
         /** Create a set */
-        set(v: any): Set<any>;
+        set(v?: any): Set<any>;
         /** Create a string */
-        str(v: any): string;
+        str(v?: any): string;
         /** Create a tuple */
-        tuple(v: any): any[];
+        tuple(v?: any): any[];
     };
     win: {
         /** Return the open file's extension */
@@ -773,11 +773,11 @@ export interface ActionNamespaces {
         /** Abort the specified phrases */
         abort_specific_phrases(phrases: string[], start: number, end: number): void;
         /** Create dict */
-        as_dict(arg1: any, arg2: any, arg3: any, arg4: any): Record<string, any>;
+        as_dict(arg1?: any, arg2?: any, arg3?: any, arg4?: any): Record<string, any>;
         /** Create list */
-        as_list(arg1: any, arg2: any, arg3: any, arg4: any): any[];
+        as_list(arg1?: any, arg2?: any, arg3?: any, arg4?: any): any[];
         /** Assert that the values are equal */
-        assert_equals(expected: any, found: any, message: string): void;
+        assert_equals(expected: any, found: any, message?: string): void;
         /** Focus browser and define phrase <text> */
         browser_define(text: string): void;
         /** Focus browser and define selected text */
@@ -807,7 +807,7 @@ export interface ActionNamespaces {
         /** Wrap the target with <symbol> */
         c_wrap_with_symbol(target: any, symbol: string): void;
         /** Change language mode */
-        change_language(language: string): void;
+        change_language(language?: string): void;
         /** Change sound device. */
         change_sound_device(name: string): void;
         /** Clear current line */
@@ -825,7 +825,7 @@ export interface ActionNamespaces {
         /** Paste items from the clipboard manager at the given indices */
         clippy_paste_indices(indices: number[]): void;
         /** Rename clipboard targets to <text> */
-        clippy_rename(targets: any[], text: string | null): void;
+        clippy_rename(targets: any[], text?: string | null): void;
         /** Search for <text> in the clipboard manager */
         clippy_search(text: string): void;
         /** Clears the forced language and re-enables code.language: extension matching */
@@ -867,7 +867,7 @@ export interface ActionNamespaces {
         /** Insert type annotation <type> */
         code_insert_type_annotation(type: string): void;
         /** Insert link <text> */
-        code_markdown_link(text: string): void;
+        code_markdown_link(text?: string): void;
         /** Declare method <name> */
         code_method(name: string, modifiers: string[]): void;
         /** Declare method <name> */
@@ -877,9 +877,9 @@ export interface ActionNamespaces {
         /** Forces the active programming language to <language> and disables extension matching */
         code_set_language(language: string): void;
         /** Variable statement */
-        code_variable(name: string, modifiers: string[], assign: boolean, data_type: string): void;
+        code_variable(name: string, modifiers: string[], assign: boolean, data_type?: string): void;
         /** Variable statement wrapper */
-        code_variable_wrapper(name: string, modifiers: string[] | string, assign: boolean, data_type: string): void;
+        code_variable_wrapper(name: string, modifiers: string[] | string, assign: boolean, data_type?: string): void;
         /** Toggle between command and dictation mode */
         command_dictation_mode_toggle(): void;
         /** Clear the history */
@@ -887,7 +887,7 @@ export interface ActionNamespaces {
         /** Toggles viewing the history */
         command_history_toggle(): void;
         /** Enter command mode and re-evaluate phrase */
-        command_mode(phrase: Phrase | string): void;
+        command_mode(phrase?: Phrase | string): void;
         /** The dirctory which contains the files required for communication between
         the application and Talon. This is the only function which absolutely
         must be implemented for any application using the command-client.  Each
@@ -912,23 +912,23 @@ export interface ActionNamespaces {
         /** Perform cursorless command on target */
         cursorless_command(action_name: string, target: any): void;
         /** Cursorless: Create destination from target */
-        cursorless_create_destination(target: any, insertion_mode: "to" | "before" | "after"): any;
+        cursorless_create_destination(target: any, insertion_mode?: "to" | "before" | "after"): any;
         /** Cursorless: Run custom parsed command */
-        cursorless_custom_command(content: string, arg1: any | null, arg2: any | null, arg3: any | null): void;
+        cursorless_custom_command(content: string, arg1?: any | null, arg2?: any | null, arg3?: any | null): void;
         /** Get target text. If hide_decorations is True, don't show decorations */
-        cursorless_get_text(target: any, hide_decorations: boolean): string;
+        cursorless_get_text(target: any, hide_decorations?: boolean): string;
         /** Get texts for multiple targets. If hide_decorations is True, don't show decorations */
-        cursorless_get_text_list(target: any, hide_decorations: boolean): string[];
+        cursorless_get_text_list(target: any, hide_decorations?: boolean): string[];
         /** Perform ide command on cursorless target */
         cursorless_ide_command(command_id: string, target: any): void;
         /** Perform text insertion on Cursorless destination */
         cursorless_insert(destination: any, text: string | string[]): void;
         /** Cursorless: Insert custom snippet <body> */
-        cursorless_insert_snippet(body: string, destination: any, scope_type: string | string[] | null): void;
+        cursorless_insert_snippet(body: string, destination?: any, scope_type?: string | string[] | null): void;
         /** Cursorless: Insert named snippet <name> */
         cursorless_insert_snippet_by_name(name: string): void;
         /** Cursorless private api: Highlights a target */
-        cursorless_private_action_highlight(target: any, highlightId: string | null): null;
+        cursorless_private_action_highlight(target: any, highlightId?: string | null): null;
         /** Cursorless private api low-level target builder: Create a list target */
         cursorless_private_build_list_target(elements: any[]): any;
         /** Cursorless private api low-level target builder: Create a primitive target */
@@ -946,7 +946,7 @@ export interface ActionNamespaces {
         Deprecated: prefer `cursorless_ide_command` */
         cursorless_vscode_command(command_id: string, target: any): void;
         /** Cursorless: Wrap target with custom snippet <body> */
-        cursorless_wrap_with_snippet(body: string, target: any, variable_name: string | null, scope: string | null): void;
+        cursorless_wrap_with_snippet(body: string, target: any, variable_name?: string | null, scope?: string | null): void;
         /** Cursorless: Wrap target with a named snippet <name> */
         cursorless_wrap_with_snippet_by_name(name: string, variable_name: string, target: any): void;
         /** Cut all text in the current document */
@@ -982,7 +982,7 @@ export interface ActionNamespaces {
         /** Delete word to the right */
         delete_word_right(): void;
         /** Insert delimiter pair <left> and <right> with interior <middle> */
-        delimiters_pair_insert(left: string, right: string, middle: string): void;
+        delimiters_pair_insert(left: string, right: string, middle?: string): void;
         /** Insert matching delimiters pair <pair_name> */
         delimiters_pair_insert_by_name(pair_name: string): void;
         /** Wrap selection with matching delimiter pair <pair_name> */
@@ -998,7 +998,7 @@ export interface ActionNamespaces {
         /** Inserts dictated text, formatted appropriately. */
         dictation_insert(text: string): void;
         /** Enter dictation mode and re-evaluate phrase */
-        dictation_mode(phrase: Phrase | string): void;
+        dictation_mode(phrase?: Phrase | string): void;
         /** Returns true if a `,` should be inserted between these words during dictation */
         dictation_needs_comma_between(before: string, after: string): boolean;
         /** Indicates whether the pre-phrase signal was emitted at the start of this phrase */
@@ -1048,17 +1048,17 @@ export interface ActionNamespaces {
         /** Open file manager at the given path */
         file_manager_open(path: string): void;
         /** Find in entire project/all files */
-        find_everywhere(text: string): void;
+        find_everywhere(text?: string): void;
         /** Find file <text> */
-        find_file(text: string): void;
+        find_file(text?: string): void;
         /** Find and replace in current file/editor */
-        find_replace(text: string): void;
+        find_replace(text?: string): void;
         /** Confirm replace current */
         find_replace_confirm(): void;
         /** Confirm replace all */
         find_replace_confirm_all(): void;
         /** Find and replace in entire project/all files */
-        find_replace_everywhere(text: string): void;
+        find_replace_everywhere(text?: string): void;
         /** Toggles replace preserve case */
         find_replace_toggle_preserve_case(): void;
         /** Find sibling file based on file name */
@@ -1202,15 +1202,15 @@ export interface ActionNamespaces {
         /** Get wrapper snippet named <name> */
         get_wrapper_snippet(name: string): any;
         /** Checkout branch <branch> */
-        git_checkout(branch: string | null, submit: boolean): void;
+        git_checkout(branch?: string | null, submit?: boolean): void;
         /** Cherry pick commit */
         git_cherry_pick(): void;
         /** Clone git repository */
         git_clone(): void;
         /** Commit changes <message> */
-        git_commit(message: string | null): void;
+        git_commit(message?: string | null): void;
         /** Commit changes <message> */
-        git_commit_amend(message: string | null): void;
+        git_commit_amend(message?: string | null): void;
         /** Commit empty */
         git_commit_empty(): void;
         /** Copy remote git file URL to clipboard as markdown link */
@@ -1218,21 +1218,21 @@ export interface ActionNamespaces {
         /** Copy remote git file URL to clipboard */
         git_copy_remote_file_url(use_selection: boolean, use_branch: boolean): void;
         /** Create branch <branch> */
-        git_create_branch(branch: string | null): void;
+        git_create_branch(branch?: string | null): void;
         /** Create tag <tag> */
-        git_create_tag(tag: string | null): void;
+        git_create_tag(tag?: string | null): void;
         /** Create tag from clipboard */
         git_create_tag_clipboard(): void;
         /** Delete branch <branch> */
-        git_delete_branch(branch: string | null): void;
+        git_delete_branch(branch?: string | null): void;
         /** Show git diff */
         git_diff(): void;
         /** Show git log */
         git_log(): void;
         /** Merge branch <branch> */
-        git_merge(branch: string | null): void;
+        git_merge(branch?: string | null): void;
         /** Show git statistics */
-        git_numstat(since: string | null): void;
+        git_numstat(since?: string | null): void;
         /** Open remote git file in browser */
         git_open_remote_file_url(use_selection: boolean, use_branch: boolean): void;
         /** Open remote repository in browser */
@@ -1322,13 +1322,13 @@ export interface ActionNamespaces {
         /** Insert snippet */
         insert_snippet(body: string): void;
         /** Insert snippet <name> */
-        insert_snippet_by_name(name: string, substitutions: Record<string, string>): void;
+        insert_snippet_by_name(name: string, substitutions?: Record<string, string>): void;
         /** Insert snippet <name> with phrase <phrase> */
         insert_snippet_by_name_with_phrase(name: string, phrase: string): void;
         /** Add <symbol> at end of line and then insert line below */
         insert_symbol_and_break_at_end(symbol: string): void;
         /** Inserts a TODO comment snippet */
-        insert_todo_comment_snippet(message: string | null): void;
+        insert_todo_comment_snippet(message?: string | null): void;
         /** Insert <text> with padding */
         insert_with_padding(text: string): void;
         /** Insert arrow function */
@@ -1348,13 +1348,13 @@ export interface ActionNamespaces {
         /** Inserts a lorem ipsum with <num_words> words */
         lorem_ipsum(num_words: number): void;
         /** Enter mixed mode and re-evaluate phrase */
-        mixed_mode(phrase: Phrase | string): void;
+        mixed_mode(phrase?: Phrase | string): void;
         /** Click mouse button */
         mouse_click(action: string): void;
         /** Click left mouse button. If scrolling or dragging, stop instead. */
         mouse_click_with_conditions(): void;
         /** Toggle enable/disable for the eye tracker */
-        mouse_control_toggle(enable: boolean | null): void;
+        mouse_control_toggle(enable?: boolean | null): void;
         /** Toggle freeze cursor position updates for the eye tracker */
         mouse_freeze_toggle(): void;
         /** Starts gaze scroll */
@@ -1436,7 +1436,7 @@ export interface ActionNamespaces {
         /** Execute Cursorless move/bring action */
         private_cursorless_bring_move(action_name: string, targets: any): void;
         /** Execute Cursorless call action */
-        private_cursorless_call(callee: any, argument: any): void;
+        private_cursorless_call(callee: any, argument?: any): void;
         /** Show new cursorless html cheat sheet */
         private_cursorless_cheat_sheet_show_html(): void;
         /** Update default cursorless cheatsheet json (for developer use only) */
@@ -1470,11 +1470,11 @@ export interface ActionNamespaces {
         /** Start recording Cursorless that mark tests */
         private_cursorless_record_that_mark_test(): void;
         /** Execute command via rpc and wait for command to finish. */
-        private_cursorless_run_rpc_command_and_wait(command_id: string, arg1: any, arg2: any): void;
+        private_cursorless_run_rpc_command_and_wait(command_id: string, arg1?: any, arg2?: any): void;
         /** Execute command via rpc and return command output. */
-        private_cursorless_run_rpc_command_get(command_id: string, arg1: any, arg2: any): any;
+        private_cursorless_run_rpc_command_get(command_id: string, arg1?: any, arg2?: any): any;
         /** Execute command via rpc and DON'T wait. */
-        private_cursorless_run_rpc_command_no_wait(command_id: string, arg1: any, arg2: any): void;
+        private_cursorless_run_rpc_command_no_wait(command_id: string, arg1?: any, arg2?: any): void;
         /** Show Cursorless command statistics */
         private_cursorless_show_command_statistics(): void;
         /** Shows scope visualizer */
@@ -1512,7 +1512,7 @@ export interface ActionNamespaces {
         /** Re-formats <text> as <formatters> */
         reformat_text(text: string, formatters: string): string;
         /** Re-evaluate and run phrase */
-        rephrase(phrase: Phrase, run_async: boolean): void;
+        rephrase(phrase: Phrase, run_async?: boolean): void;
         /** Resize active windows closest side to cursor position */
         resize_window_side_to_cursor_position(): void;
         /** Revert active window to last position */
@@ -1522,11 +1522,11 @@ export interface ActionNamespaces {
         /** Revert the window under the cursor to last position */
         revert_window_under_cursor_position(): void;
         /** Execute command via RPC. */
-        run_rpc_command(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
+        run_rpc_command(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void;
         /** Execute command via application command server and wait for command to finish. */
-        run_rpc_command_and_wait(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
+        run_rpc_command_and_wait(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void;
         /** Execute command via application command server and return command output. */
-        run_rpc_command_get(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): any;
+        run_rpc_command_get(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): any;
         /** Save current document without formatting */
         save_without_formatting(): void;
         /** Get screen by number */
@@ -1537,10 +1537,10 @@ export interface ActionNamespaces {
         screens_show_numbering(): void;
         /** Takes a screenshot of the entire screen and saves it to the pictures folder.
         Optional screen number can be given to use screen other than main. */
-        screenshot(screen_number: number): void;
+        screenshot(screen_number?: number): void;
         /** Takes a screenshot of the entire screen and saves it to the clipboard.
         Optional screen number can be given to use screen other than main. */
-        screenshot_clipboard(screen_number: number): void;
+        screenshot_clipboard(screen_number?: number): void;
         /** Triggers an application is capable of taking a screenshot of a portion of the screen */
         screenshot_selection(): void;
         /** Takes a screenshot of the active window and saves it to the pictures folder */
@@ -1580,9 +1580,9 @@ export interface ActionNamespaces {
         /** Select start of current line */
         select_line_start(): void;
         /** Selects the surrounding pair. */
-        select_surrounding_pair(delimiter_name: string): void;
+        select_surrounding_pair(delimiter_name?: string): void;
         /** Selects the interior of a surrounding pair. */
-        select_surrounding_pair_interior(delimiter_name: string): void;
+        select_surrounding_pair_interior(delimiter_name?: string): void;
         /** Toggle selection */
         select_toggle(): void;
         /** Move selection up */
@@ -1630,7 +1630,7 @@ export interface ActionNamespaces {
         /** Swap active window position with application <app_name> */
         swap_active_window_position_with_application(app_name: string): void;
         /** Enter swedish dictation mode and re-evaluate phrase */
-        swedish_dictation_mode(phrase: Phrase | string): void;
+        swedish_dictation_mode(phrase?: Phrase | string): void;
         /** Hibernate operating system */
         system_hibernate(): void;
         /** Lock operating system */
@@ -1697,6 +1697,8 @@ export interface ActionNamespaces {
         talon_was_restarted(): boolean;
         /** Start a new test suite */
         test_run_suite(suite_name: string, fixtures: any[], callback: () => void): void;
+        /** Insert link <text> */
+        testing(a: string, text?: string, number?: number): void;
         /** Toggle subtitles */
         toggle_subtitles(): void;
         /** Translate english text to swedish */
@@ -1713,7 +1715,7 @@ export interface ActionNamespaces {
         /** Volume increase */
         volume_up(): void;
         /** Execute vscode command <command_id> */
-        vscode(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
+        vscode(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void;
         /** Add all missing imports */
         vscode_add_missing_imports(): void;
         /** Execute command via vscode command server, if available, and wait
@@ -1722,11 +1724,11 @@ export interface ActionNamespaces {
         finish. */
         vscode_and_wait(command_id: string): void;
         /** Find recent session, directory or file */
-        vscode_find_recent(text: string | null): void;
+        vscode_find_recent(text?: string | null): void;
         /** Execute vscode command <command_id> with return value */
-        vscode_get(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): any;
+        vscode_get(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): any;
         /** Get the value of vscode setting at the given key */
-        vscode_get_setting(key: string, default_value: any): void;
+        vscode_get_setting(key: string, default_value?: any): void;
         /** Returns a vscode setting with a fallback in case there's an error
 
         Args:
@@ -1743,17 +1745,17 @@ export interface ActionNamespaces {
         /** Take word on cursorless target with number of repeats */
         vscode_take_word(cursorless_target: Record<string, any>, repeats: number): void;
         /** Execute command via vscode command server. */
-        vscode_with_plugin(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
+        vscode_with_plugin(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void;
         /** Execute command via vscode command server and wait for command to finish. */
-        vscode_with_plugin_and_wait(command_id: string, arg1: any, arg2: any, arg3: any, arg4: any, arg5: any): void;
+        vscode_with_plugin_and_wait(command_id: string, arg1?: any, arg2?: any, arg3?: any, arg4?: any, arg5?: any): void;
         /** Watch csv file for changes. Present content as dict */
-        watch_csv_as_dict(path: Path, callback: (arg0: Record<string, any>) => null, values_as_list: boolean): void;
+        watch_csv_as_dict(path: Path, callback: (arg0: Record<string, any>) => null, values_as_list?: boolean): void;
         /** Watch csv file for changes. Present content as list */
         watch_csv_as_list(path: Path, callback: (arg0: string[][], arg1: string[]) => null): void;
         /** Switch focus to last window */
         window_focus_last(): void;
         /** Focus application named <name> */
-        window_focus_name(name: string, phrase: Phrase): void;
+        window_focus_name(name: string, phrase?: Phrase): void;
         /** Resize the active window */
         window_resize(side: string, direction: string, offset: string): void;
         /** Update window position. Keeps track of old position to enable revert/undo */
