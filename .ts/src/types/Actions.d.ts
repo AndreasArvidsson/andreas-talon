@@ -11,40 +11,42 @@ type ScriptImpl = any;
 type TalonScript = any;
 type Window = any;
 
-export interface Actions {
-    /** Apply text formatting, such as auto spacing, for the native language */
-    auto_format(text: string): string;
-    /** Insert text at the current cursor position, automatically formatting it using the actions.auto_format(text) */
-    auto_insert(text: string): void;
-    /** Insert text at the current cursor position */
-    insert(text: string): void;
-    /** Press one or more keys by name, space-separated */
-    key(key: string): void;
-    /** Simulate speaking {text} */
-    mimic(text: string): void;
-    /** Press and release a mouse button */
-    mouse_click(button: number): void;
-    /** Hold down a mouse button */
-    mouse_drag(button: number): void;
-    /** Move mouse to (x, y) coordinate */
-    mouse_move(x: number, y: number): void;
-    /** Release a mouse button */
-    mouse_release(button: number): void;
-    /** Scroll the mouse wheel */
-    mouse_scroll(y: number, x: number, by_lines: boolean): void;
-    /** Mouse X position */
-    mouse_x(): number;
-    /** Mouse Y position */
-    mouse_y(): number;
-    /** Display an object in the log */
-    print(obj: any): void;
-    /** Do nothing */
-    skip(): void;
-    /** Pause for some duration.
+export interface ActionNamespaces {
+    main: {
+        /** Apply text formatting, such as auto spacing, for the native language */
+        auto_format(text: string): string;
+        /** Insert text at the current cursor position, automatically formatting it using the actions.auto_format(text) */
+        auto_insert(text: string): void;
+        /** Insert text at the current cursor position */
+        insert(text: string): void;
+        /** Press one or more keys by name, space-separated */
+        key(key: string): void;
+        /** Simulate speaking {text} */
+        mimic(text: string): void;
+        /** Press and release a mouse button */
+        mouse_click(button: number): void;
+        /** Hold down a mouse button */
+        mouse_drag(button: number): void;
+        /** Move mouse to (x, y) coordinate */
+        mouse_move(x: number, y: number): void;
+        /** Release a mouse button */
+        mouse_release(button: number): void;
+        /** Scroll the mouse wheel */
+        mouse_scroll(y: number, x: number, by_lines: boolean): void;
+        /** Mouse X position */
+        mouse_x(): number;
+        /** Mouse Y position */
+        mouse_y(): number;
+        /** Display an object in the log */
+        print(obj: any): void;
+        /** Do nothing */
+        skip(): void;
+        /** Pause for some duration.
             If you use a number, it is seconds, e.g 1.5 seconds or 0.001 seconds.
             If you use a string, it is a timespec, such as "50ms" or "10s"
             For performance reasons, sleep() cannot be reimplemented by a Context. */
-    sleep(duration: number | string): void;
+        sleep(duration: number | string): void;
+    };
     app: {
         /** Get active app's bundle identifier */
         bundle(): string;

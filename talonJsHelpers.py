@@ -194,14 +194,13 @@ def write_actions_file(dir: str, actions_map: dict[str, list[Action]]):
     namespaces.remove("main")
     namespaces.remove("user")
     namespaces.sort()
+    namespaces.insert(0, "main")
     namespaces.append("user")
 
     with open(file_path, "w", newline="\n") as f:
         for type_definition in type_definitions:
             f.write(f"type {type_definition.__name__} = any;\n")
-        f.write("\nexport interface Actions {\n")
-        main_actions = actions_map["main"]
-        write_actions(f, main_actions, "    ")
+        f.write("\nexport interface ActionNamespaces {\n")
         for namespace in namespaces:
             ns_actions = actions_map[namespace]
             f.write(f"    {namespace}: {{\n")
