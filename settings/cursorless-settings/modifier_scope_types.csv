@@ -47,6 +47,7 @@ value, value
 
 access, private.fieldAccess
 subject, private.switchStatementSubject
+text fragment, textFragment
 
 -chapter, chapter
 -environment, environment
