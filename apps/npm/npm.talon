@@ -29,6 +29,7 @@ npm run build:              "npm run build\n"
 # pnpm
 pnpm:                       "pnpm "
 pnpm version:               "pnpm -v\n"
+pnpm init:                  "pnpm init"
 pnpm install:               "pnpm install "
 pnpm compile:               "pnpm compile "
 
