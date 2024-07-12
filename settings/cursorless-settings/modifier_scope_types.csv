@@ -49,17 +49,22 @@ access, private.fieldAccess
 subject, private.switchStatementSubject
 text fragment, textFragment
 
--chapter, chapter
--environment, environment
--five section, sectionLevelFive
--four section, sectionLevelFour
+# css
+-unit, unit
+
+# Markdown
 -one section, sectionLevelOne
--paragraph, namedParagraph
--part, part
+-two section, sectionLevelTwo
+-three section, sectionLevelThree
+-four section, sectionLevelFour
+-five section, sectionLevelFive
 -six section, sectionLevelSix
+
+# Latex
+-paragraph, namedParagraph
 -subparagraph, subParagraph
 -subsection, subSection
 -subsubsection, subSubSection
--three section, sectionLevelThree
--two section, sectionLevelTwo
--unit, unit
+-part, part
+-chapter, chapter
+-environment, environment
