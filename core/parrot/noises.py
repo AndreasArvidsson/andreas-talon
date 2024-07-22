@@ -72,8 +72,11 @@ class Actions:
 
 
 def last_command_is_sleep():
-    cmd, _ = actions.core.last_command()
-    return cmd.script.code.startswith("user.talon_sleep()")
+    try:
+        cmd, _ = actions.core.last_command()
+        return cmd.script.code.startswith("user.talon_sleep()")
+    except Exception:
+        return True
 
 
 def callback(name: str):
