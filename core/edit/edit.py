@@ -151,7 +151,7 @@ class Actions:
             actions.user.clip_set_transient_text(text)
             actions.edit.paste()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
-            actions.sleep("10ms")
+            actions.sleep("25ms")
 
     def clip_set_transient_text(text: str):
         """Set clipboard text without monitoring"""
