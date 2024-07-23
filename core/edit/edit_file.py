@@ -21,7 +21,6 @@ class EditActions:
     def extend_file_end():
         actions.key("shift-ctrl-end")
 
-    # This is some stuff I added
     def delete_all():
         actions.edit.select_all()
         actions.edit.delete()
