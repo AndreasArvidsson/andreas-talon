@@ -7,9 +7,10 @@ list: user.vocabulary
 
 backup
 countdown
-setup
-markdown
 for each
+markdown
+meetup
+setup
 to string
 
 # Without these "word down" and similar commands can get misinterpreted
