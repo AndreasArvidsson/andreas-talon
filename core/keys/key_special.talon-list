@@ -11,9 +11,9 @@ insert
 escape
 menu
 
-deli:                       delete
-page up:                    pageup
-page down:                  pagedown
-print screen:               printscr
-caps lock:                  capslock
-num lock:                   numlock
+deli:          delete
+page up:       pageup
+page down:     pagedown
+print screen:  printscr
+caps lock:     capslock
+num lock:      numlock

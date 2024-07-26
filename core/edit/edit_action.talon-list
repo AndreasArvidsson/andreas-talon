@@ -1,22 +1,22 @@
 list: user.edit_simple_action
 -
 
-take: setSelection
-pre: setSelectionBefore
-post: setSelectionAfter
+take:          setSelection
+pre:           setSelectionBefore
+post:          setSelectionAfter
 
-clear: clearAndSetSelection
-chuck: remove
+clear:         clearAndSetSelection
+chuck:         remove
 
-copy: copyToClipboard
-cut: cutToClipboard
-paste to: pasteFromClipboard
+copy:          copyToClipboard
+cut:           cutToClipboard
+paste to:      pasteFromClipboard
 
-drink: editNewLineBefore
-pour: editNewLineAfter
+drink:         editNewLineBefore
+pour:          editNewLineAfter
 
-clone up: insertCopyBefore
-clone: insertCopyAfter
+clone up:      insertCopyBefore
+clone:         insertCopyAfter
 
-phones: nextHomophone
-search for: searchEngine
+phones:        nextHomophone
+search for:    searchEngine

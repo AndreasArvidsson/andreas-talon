@@ -1,10 +1,12 @@
 list: user.key_punctuation
 -
 
-period:                     .
-comma:                      ,
-colon:                      :
-slash:                      /
-forward slash:              /
-question mark:              ?
-exclamation mark:           !
+# fmt: columnWidth=18
+
+period:           .
+comma:            ,
+colon:            :
+slash:            /
+forward slash:    /
+question mark:    ?
+exclamation mark: !

@@ -1,9 +1,9 @@
 list: user.domain
 -
 
-com:        com
-net:        net
-org:        org
-sweden:     se
-es e:       se
-essi:       se
+com:           com
+net:           net
+org:           org
+sweden:        se
+es e:          se
+essi:          se

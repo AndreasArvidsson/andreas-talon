@@ -3,6 +3,8 @@ list: user.vocabulary
 
 # Words that should be added to Talon's vocabulary.
 
+# fmt: columnWidth=0
+
 # Portmanteaus containing trailing commands
 
 backup
