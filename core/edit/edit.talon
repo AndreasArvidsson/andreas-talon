@@ -1,4 +1,7 @@
 # ----- Navigation -----
+go <user.navigation_step>+:
+    user.perform_navigation_steps(navigation_step_list)
+
 page up:                    edit.page_up()
 page down:                  edit.page_down()
 
