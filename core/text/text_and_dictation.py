@@ -12,14 +12,6 @@ language: sv
 """
 
 mod.list("phrase_ender", "List of commands that can be used to end a phrase")
-ctx.lists["user.phrase_ender"] = {
-    "over": "",
-    "void": " ",
-    "step": " ",
-    "question": "?",
-    "bang": "!",
-    "slap": "\n",
-}
 
 
 # ----- Captures used in both command and dictation mode -----
@@ -37,18 +29,6 @@ def word(m) -> str:
 def phrase(m) -> str:
     """A phrase(sequence of words), including user-defined vocabulary."""
     return format_phrase(m)
-
-
-@mod.capture(rule="(spell | {user.letter}) {user.letter}+")
-def spell(m) -> str:
-    """Spell word phoneticly"""
-    return "".join(m.letter_list)
-
-
-@mod.capture(rule="blah")
-def placeholder(m) -> str:
-    """Placeholder word"""
-    return "PLACEHOLDER"
 
 
 text_rule_parts = [
@@ -69,6 +49,8 @@ prose_rule_parts = [
     # "<user.number_dd>",
     "<user.number_prefix>",
     "<user.placeholder>",
+    "<user.time>",
+    "<user.percent>",
     "<phrase>",
 ]
 

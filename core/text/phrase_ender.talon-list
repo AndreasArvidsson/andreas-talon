@@ -1,0 +1,10 @@
+list: user.phrase_ender
+-
+
+over: ""
+void: " "
+step: " "
+question: "?"
+bang: "!"
+slap: "\n"
+
