@@ -12,7 +12,7 @@ language: sv
 """
 
 mod.list("phrase_ender", "List of commands that can be used to end a phrase")
-
+mod.list("swedish_phrase", "List of Swedish phrases")
 
 # ----- Captures used in both command and dictation mode -----
 
