@@ -62,7 +62,7 @@ def clippy_range_target(m) -> ClippyRangeTarget:
 
 
 @mod.capture(
-    rule="[<user.ordinals_small>] ({user.clippy_search_type} | text <user.text>)"
+    rule="[<user.ordinals_small>] ({user.clippy_search_type} | with <user.text>)"
 )
 def clippy_search_target(m) -> ClippySearchTarget:
     try:
