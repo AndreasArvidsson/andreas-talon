@@ -27,6 +27,7 @@ default_digits = (
 mod.list("digit", "All number/digit keys")
 ctx.lists["user.digit"] = {
     **{default_digits[i]: str(i) for i in range(10)},
+    "sero": "0",
     # "oh": "0",
 }
 
