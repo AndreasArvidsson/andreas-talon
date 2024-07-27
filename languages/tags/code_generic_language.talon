@@ -37,4 +37,4 @@ returns type {user.code_data_type}:
     user.code_insert_return_type(code_data_type)
 
 # ----- Insert symbol -----
-symbol {user.code_symbol}:  insert(code_symbol)
+# symbol {user.code_symbol}:  insert(code_symbol)
