@@ -19,8 +19,5 @@ clippy rename <user.clippy_targets> as <user.text>:
 clippy get <user.clippy_targets>:
     user.clippy_get(clippy_targets)
 
-clippy paste <user.clippy_targets>:
-    user.clippy_command_with_targets("pasteItems", clippy_targets)
-
 [clippy] paste <user.ordinals_small> [and <user.ordinals_small>]*:
     user.clippy_paste_indices(ordinals_small_list)

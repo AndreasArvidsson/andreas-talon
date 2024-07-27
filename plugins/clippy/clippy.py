@@ -22,6 +22,7 @@ title: /Clippy/
 ctx = Context()
 
 ctx.lists["user.clippy_command_with_targets"] = {
+    "paste": "pasteItems",
     "chuck": "removeItems",
     "copy": "copyItems",
 }

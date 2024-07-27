@@ -1,3 +1,4 @@
+from contextlib import suppress
 from typing import Optional, Union
 from talon import Module
 from dataclasses import dataclass
@@ -23,26 +24,35 @@ class ClippyRangeTarget:
         return {"type": self.type, **self.__dict__}
 
 
-ClippyTarget = Union[ClippyPrimitiveTarget, ClippyRangeTarget]
+@dataclass
+class ClippySearchTarget:
+    type = "search"
+    offset: int
+    itemType: Optional[str] = None
+    itemText: Optional[str] = None
+
+    def to_dict(self):
+        return {"type": self.type, **self.__dict__}
+
+
+ClippyTarget = Union[ClippyPrimitiveTarget, ClippyRangeTarget, ClippySearchTarget]
 
 mod = Module()
+mod.list("clippy_search_type", desc="Clippy search types")
 
 
 @mod.capture(rule="{user.digit} | {user.letter} [{user.letter}]")
 def clippy_hint(m) -> str:
-    try:
+    with suppress(AttributeError):
         return str(m.digit)
-    except AttributeError:
-        return "".join(m.letter_list)
+    return "".join(m.letter_list)
 
 
 @mod.capture(rule="[<number_small> items] <user.clippy_hint>")
 def clippy_primitive_target(m) -> ClippyPrimitiveTarget:
     target = ClippyPrimitiveTarget(m.clippy_hint)
-    try:
+    with suppress(AttributeError):
         target.count = m.number_small
-    except AttributeError:
-        pass
     return target
 
 
@@ -51,12 +61,31 @@ def clippy_range_target(m) -> ClippyRangeTarget:
     return ClippyRangeTarget(m.clippy_hint_list[0], m.clippy_hint_list[1])
 
 
-@mod.capture(rule="<user.clippy_primitive_target> | <user.clippy_range_target>")
-def clippy_target(m) -> ClippyTarget:
+@mod.capture(
+    rule="[<user.ordinals_small>] ({user.clippy_search_type} | text <user.text>)"
+)
+def clippy_search_target(m) -> ClippySearchTarget:
     try:
-        return m.clippy_primitive_target
+        offset = m.ordinals_small - 1
     except AttributeError:
+        offset = 0
+    target = ClippySearchTarget(offset)
+    with suppress(AttributeError):
+        target.itemType = m.clippy_search_type
+    with suppress(AttributeError):
+        target.itemText = m.text
+    return target
+
+
+@mod.capture(
+    rule="<user.clippy_primitive_target> | <user.clippy_range_target> | <user.clippy_search_target>"
+)
+def clippy_target(m) -> ClippyTarget:
+    with suppress(AttributeError):
+        return m.clippy_primitive_target
+    with suppress(AttributeError):
         return m.clippy_range_target
+    return m.clippy_search_target
 
 
 @mod.capture(rule="<user.clippy_target> [and <user.clippy_target>]*")

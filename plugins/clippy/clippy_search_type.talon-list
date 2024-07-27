@@ -1,0 +1,6 @@
+list: user.clippy_search_type
+-
+
+image:         image
+link:          url
+text:          text
