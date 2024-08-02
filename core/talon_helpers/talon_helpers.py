@@ -98,7 +98,7 @@ class Actions:
                     for v in ml:
                         if re.search(r"[^a-zA-Z' ]", v):
                             print(f"{n}: {v}")
-                except Exception as ex:
+                except Exception:
                     pass
 
     def talon_get_lists() -> str:
@@ -153,6 +153,7 @@ class WinUserActions:
         storage.set("talon_restart_event", time.time())
         talon_app = ui.apps(pid=os.getpid())[0]
         os.startfile(talon_app.exe)
+        actions.sleep("100ms")
         talon_app.quit()
 
 
