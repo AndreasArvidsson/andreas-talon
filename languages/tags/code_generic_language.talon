@@ -26,14 +26,10 @@ var {user.code_variable_modifier}* [{user.code_data_type}] <user.text_code> equa
     user.code_variable_wrapper(text_code, code_variable_modifier_list or "", true, code_data_type or "")
 
 # ----- Insert data type -----
-type {user.code_data_type}: "{code_data_type}"
-is type {user.code_data_type}:
+type <user.code_data_type>: "{code_data_type}"
+is type <user.code_data_type>:
     user.code_insert_type_annotation(code_data_type)
-is type <user.text_code>:
-    format = user.code_get_class_format()
-    data_type = user.format_text(text_code, format)
-    user.code_insert_type_annotation(data_type)
-returns type {user.code_data_type}:
+returns type <user.code_data_type>:
     user.code_insert_return_type(code_data_type)
 
 # ----- Insert symbol -----

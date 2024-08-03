@@ -1,3 +1,4 @@
+from contextlib import suppress
 from talon import Module, actions
 from typing import Optional, Union
 
@@ -10,6 +11,14 @@ mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
 mod.list("code_data_type", "Names of data types")
 mod.list("code_symbol", "Known symbols in the code workspace")
+
+
+@mod.capture(rule="{user.code_data_type} | <user.text_code>")
+def code_data_type(m) -> str:
+    with suppress(AttributeError):
+        return m.code_data_type
+    format = actions.user.code_get_class_format()
+    return actions.user.format_text(m.text_code, format)
 
 
 @mod.action_class
