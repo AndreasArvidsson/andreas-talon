@@ -59,3 +59,10 @@ insertionScope: class | statement
 class $2Actions:
     $0
 ---
+
+name: suppressError
+phrase: suppress error
+-
+with suppress(AttributeError):
+    $0
+---
