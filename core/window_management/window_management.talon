@@ -8,7 +8,7 @@ focus last:                 user.window_focus_last()
 
 focus:                      user.window_switcher_menu()
 focus desktop:              user.focus_desktop()
-focus web:                  user.browser_focus_default()
+focus (web | browser):      user.browser_focus_default()
 focus {user.running_application}:
     user.window_focus_name(running_application)
 
