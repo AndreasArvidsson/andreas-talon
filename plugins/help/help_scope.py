@@ -1,4 +1,4 @@
-from talon import Module, actions, Module, scope, settings
+from talon import Module, actions, scope, settings
 from ...core.imgui import imgui
 
 mod = Module()
