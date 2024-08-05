@@ -8,3 +8,4 @@ settings():
     user.print_phrase_timings = false
     user.pretty_print_phrase = false
     user.analyze_phrase = false
+    user.private_cursorless_use_preferred_scope = false
