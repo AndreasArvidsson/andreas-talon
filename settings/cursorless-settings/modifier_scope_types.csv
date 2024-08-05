@@ -36,6 +36,7 @@ regex, regularExpression
 section, section
 selector, selector
 sentence, sentence
+short block, boundedParagraph
 start tag, xmlStartTag
 state, statement
 string, string
@@ -48,6 +49,7 @@ value, value
 access, private.fieldAccess
 subject, private.switchStatementSubject
 text fragment, textFragment
+disqualify, disqualifyDelimiter
 
 # css
 -unit, unit
