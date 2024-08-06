@@ -5,47 +5,45 @@ from dataclasses import dataclass
 @dataclass
 class Language:
     id: str
-    extension: str
     spoken_form: str
+    extensions: list[str]
 
 
 languages = [
-    Language("batch", "bat", "batch"),
-    Language("c", "c", "see"),
-    Language("cpp", "cpp", "see plus plus"),
-    Language("csharp", "cs", "see sharp"),
-    Language("csv", "csv", "csv"),
-    Language("css", "css", "css"),
-    Language("go", "go", "go"),
-    Language("html", "html", "html"),
-    Language("java", "java", "java"),
-    Language("javascript", "mjs", "java script"),
-    Language("javascript", "cjs", "java script"),
-    Language("javascript", "js", "java script"),
-    Language("javascriptreact", "jsx", "java script react"),
-    Language("json", "json", "json"),
-    Language("jsonl", "jsonl", "json lines"),
-    Language("lua", "lua", "lua"),
-    Language("markdown", "md", "mark down"),
-    Language("perl", "pl", "perl"),
-    Language("plaintext", "txt", "text"),
-    Language("powershell", "ps1", "power shell"),
-    Language("python", "py", "python"),
-    Language("r", "r", "are"),
-    Language("ruby", "rb", "ruby"),
-    Language("scm", "scm", "tree sitter"),
-    Language("scss", "scss", "scss"),
-    Language("shellscript", "sh", "shell script"),
-    Language("snippet", "snippet", "snippet"),
-    Language("talon", "talon", "talon"),
-    Language("talon-list", "talon-list", "talon list"),
-    Language("typescript", "ts", "type script"),
-    Language("typescriptreact", "tsx", "type script react"),
-    Language("xml", "xml", "xml"),
+    Language("batch", "batch", ["bat"]),
+    Language("c", "see", ["c"]),
+    Language("cpp", "see plus plus", ["cpp", "h"]),
+    Language("csharp", "see sharp", ["cs"]),
+    Language("css", "css", ["css"]),
+    Language("csv", "csv", ["csv"]),
+    Language("go", "go", ["go"]),
+    Language("html", "html", ["html"]),
+    Language("java", "java", ["java"]),
+    Language("javascript", "java script", ["js", "mjs", "cjs"]),
+    Language("javascriptreact", "java script react", ["jsx"]),
+    Language("json", "json", ["json"]),
+    Language("jsonl", "json lines", ["jsonl"]),
+    Language("lua", "lua", ["lua"]),
+    Language("markdown", "mark down", ["md"]),
+    Language("perl", "perl", ["pl"]),
+    Language("plaintext", "text", ["txt"]),
+    Language("powershell", "power shell", ["ps1"]),
+    Language("python", "python", ["py"]),
+    Language("r", "are", ["r"]),
+    Language("ruby", "ruby", ["rb"]),
+    Language("scm", "tree sitter", ["scm"]),
+    Language("scss", "scss", ["scss"]),
+    Language("shellscript", "shell script", ["sh"]),
+    Language("snippet", "snippet", ["snippet"]),
+    Language("talon-list", "talon list", ["talon-list"]),
+    Language("talon", "talon", ["talon"]),
+    Language("typescript", "type script", ["ts", "mts", "cts"]),
+    Language("typescriptreact", "type script react", ["tsx"]),
+    Language("xml", "xml", ["xml"]),
 ]
 
 extension_lang_map = {
-    **{f".{l.extension}": l.id for l in languages},
+    **{f".{ext}": lang.id for lang in languages for ext in lang.extensions},
     ".bashbook": "bash",
     ".ipynb": "python",
     ".h": "c",
@@ -69,11 +67,11 @@ tag: user.code_language_forced
 """
 
 ctx.lists["user.code_extension"] = {
-    **{l.spoken_form: l.extension for l in languages},
+    **{lang.spoken_form: lang.extensions[0] for lang in languages},
     "pie": "py",
 }
 
-ctx.lists["user.code_language"] = {l.spoken_form: l.id for l in languages}
+ctx.lists["user.code_language"] = {lang.spoken_form: lang.id for lang in languages}
 
 
 @ctx.action_class("code")
