@@ -24,10 +24,14 @@ def time(m) -> str:
     return f"{hours.rjust(2,'0')}:{minutes.rjust(2,'0')}"
 
 
-@mod.capture(rule="<number_small> percent")
+@mod.capture(rule="(<number_small> | one hundred) percent")
 def percent(m) -> str:
     """Percentages"""
-    return f"{m.number_small}%"
+    try:
+        number = m.number_small
+    except AttributeError:
+        number = 100
+    return f"{number}%"
 
 
 @mod.capture(rule="blah")
