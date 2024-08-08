@@ -42,10 +42,11 @@ def move_endpoint_with_boundary(
     target_range: TextRange,
     boundary_range: TextRange,
     endpoint,
-    iterations: int,
+    count: int,
     delta: int,
 ):
-    for _ in range(iterations):
+    for _ in range(count):
+        # If we reach the boundary endpoint we stop
         if (
             target_range.compare_endpoints(endpoint, endpoint, target=boundary_range)
             == 0
