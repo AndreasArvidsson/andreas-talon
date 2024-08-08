@@ -295,21 +295,7 @@ class Actions:
 
     def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
         """Returns the text before and after the current selection"""
-        try:
-            el = ui.focused_element()
-            text_pattern = el.text_pattern2
-            selection_ranges = text_pattern.selection
-            if len(selection_ranges) != 1:
-                raise ValueError("Expected singe selection range")
-            selection_range_before = selection_ranges[0].clone()
-            selection_range_before.move_endpoint_by_unit("Start", "Character", -2)
-            selection_range_after = selection_ranges[0].clone()
-            selection_range_after.move_endpoint_by_unit("End", "Character", 2)
-            text_before = selection_range_before.text.splitlines()[-1]
-            text_after = selection_range_after.text.splitlines()[0]
-            return (text_before, text_after)
-        except Exception:
-            return (None, None)
+        return (None, None)
 
     def dictation_needs_comma_between(before: str, after: str) -> bool:
         """Returns true if a `,` should be inserted between these words during dictation"""
