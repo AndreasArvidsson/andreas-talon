@@ -251,7 +251,7 @@ please [<user.text>]$:
     "{user.text or ''}"
 
 # Copilot
-pilot jest:                 user.vscode("editor.action.inlineSuggest.trigger")
+pilot [jest]:               user.vscode("editor.action.inlineSuggest.trigger")
 pilot next:                 user.vscode("editor.action.inlineSuggest.showNext")
 pilot last:                 user.vscode("editor.action.inlineSuggest.showPrevious")
 pilot yes:                  user.vscode("editor.action.inlineSuggest.commit")
