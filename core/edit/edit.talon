@@ -47,8 +47,8 @@ extend after:               edit.extend_word_right()
 undo:                       edit.undo()
 redo:                       edit.redo()
 
-deli:                       edit.delete()
-drill:                      user.delete_right()
+deli:                       edit.delete_left()
+drill:                      edit.delete_right()
 
 # ----- Cut, copy, paste -----
 cut (this | dis):           user.edit_cut()

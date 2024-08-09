@@ -52,7 +52,13 @@ class EditActions:
 
     # ----- Delete, Undo, Redo -----
     def delete():
+        actions.key("delete")
+
+    def delete_left():
         actions.key("backspace")
+
+    def delete_right():
+        actions.key("delete")
 
     def undo():
         actions.key("ctrl-z")
@@ -130,10 +136,6 @@ class Actions:
             #     text = text.rstrip()
 
         actions.insert(text)
-
-    def delete_right():
-        """Delete character to the right"""
-        actions.key("delete")
 
     def insert_arrow():
         """Insert arrow symbol"""
