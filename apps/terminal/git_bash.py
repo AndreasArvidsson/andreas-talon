@@ -1,4 +1,5 @@
 from talon import Module, Context, actions
+import re
 
 mod = Module()
 
@@ -20,11 +21,42 @@ ctx = Context()
 ctx.matches = r"""
 app: git_bash
 
+app: git_bash
+and app: windows_terminal
+
+
 app: vscode
 and win.title: /\[Terminal\]$/
 """
 
 ctx.tags = ["terminal", "user.bash"]
+
+
+@ctx.action_class("main")
+class MainActions:
+    def insert(text: str):
+        text = convert_windows_system_paths(text)
+        actions.next(text)
+
+
+@ctx.action_class("edit")
+class EditActions:
+    def paste():
+        text = actions.clip.text()
+        updated_text = convert_windows_system_paths(text)
+        if text != updated_text:
+            actions.clip.set_text(updated_text)
+        actions.next()
+
+
+def convert_windows_system_paths(text: str) -> str:
+    return re.sub(
+        r"[a-zA-Z]:\\[\S]+", lambda m: convert_windows_system_path(m[0]), text
+    )
+
+
+def convert_windows_system_path(path: str) -> str:
+    return "/" + path[0] + path[2:].replace("\\", "/")
 
 
 @ctx.action_class("user")
