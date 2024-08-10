@@ -16,7 +16,7 @@ not tag: user.insert_paste_disabled
 # Use paste for inserting text that cannot be undone in a single undo step
 PASTE_RE = re.compile(r"\s")
 # Use paste for inserting text with length greater or equal to the threshold
-PASTE_THRESHOLD = 25
+PASTE_THRESHOLD = 50
 
 
 @ctx.action_class("main")
