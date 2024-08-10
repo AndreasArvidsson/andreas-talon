@@ -11,5 +11,8 @@ class StringBuilder:
     def clear(self):
         self.pieces = []
 
+    def size(self) -> int:
+        return len(self.pieces)
+
     def is_empty(self) -> bool:
         return len(self.pieces) == 0

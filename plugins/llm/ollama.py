@@ -52,7 +52,6 @@ def ollama_generate_insert_streaming(prompt: str) -> None:
 
         for chunk in stream:
             response = chunk["response"]
-            # actions.insert(response)
             string_builder.append(response)
 
             if chunk["done"]:
@@ -65,7 +64,7 @@ def ollama_generate_insert_streaming(prompt: str) -> None:
                 )
                 print_verbose(chunk)
 
-            elif "\n" in response:
+            elif string_builder.size() > 25:
                 actions.insert(string_builder.to_string())
                 string_builder.clear()
 
