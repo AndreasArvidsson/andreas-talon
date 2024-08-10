@@ -1,11 +1,14 @@
 model fix this:
     user.model_process_selected_text("fix")
 
-model fix this as <user.text>:
-    user.model_process_selected_text("custom", text)
+model fix <user.prose>:
+    user.model_process_selected_text("custom", prose)
 
-model custom <user.text>:
-    user.model_insert_processed_prompt(text)
+model emoji <user.prose>:
+    user.model_insert_processed_text("emoji", prose)
+
+model insert <user.prose>:
+    user.model_insert_processed_prompt(prose)
 
 model fix <user.cursorless_target>:
     text = user.cursorless_get_text(cursorless_target)

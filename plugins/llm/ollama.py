@@ -19,7 +19,7 @@ CUSTOM_PROMPT_TEMPLATE = """In the following text (surrounded by ===), $prompt:
 $text
 ===
 
-IMPORTANT: Return only the corrected text. ONLY THAT! Nothing else. Do not include this line.
+IMPORTANT: Return only the corrected text. ONLY THAT! Nothing else. Do not include this line all the surrounding === lines.
 """
 
 FIX_PROMPT_TEMPLATE = CUSTOM_PROMPT_TEMPLATE.replace(
@@ -27,10 +27,13 @@ FIX_PROMPT_TEMPLATE = CUSTOM_PROMPT_TEMPLATE.replace(
     "Fix all typos and casing and punctuation, but preserve all newline characters",
 )
 
+EMOJI_PROMPT_TEMPLATE = "Respond with the best emoji that matches: |$text|. Return only the emoji, nothing else"
+
 
 prompt_templates = {
     "custom": CUSTOM_PROMPT_TEMPLATE,
     "fix": FIX_PROMPT_TEMPLATE,
+    "emoji": EMOJI_PROMPT_TEMPLATE,
 }
 
 
@@ -82,7 +85,7 @@ def model_process_prompt(prompt: str) -> Optional[str]:
         response = ollama.generate(
             model=MODEL,
             prompt=prompt,
-            keep_alive="24h",
+            keep_alive=-1,
         )
 
         t2 = time.perf_counter()
