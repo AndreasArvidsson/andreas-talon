@@ -91,7 +91,7 @@ def print_verbose(response: Mapping[str, Any]) -> None:
     )
 
 
-def convert_time(duration_ns: float) -> str:
+def convert_time(duration_ns: int) -> str:
     duration_ms = duration_ns / 1e6
     if duration_ms < 1000:
         return f"{duration_ms:.4f}ms"
