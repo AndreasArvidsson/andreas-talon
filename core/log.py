@@ -1,22 +1,26 @@
-from talon import Module, settings
+import logging
+from talon import Module
 
 mod = Module()
-
-mod.setting("log_level", type=str, default="info")
-
-
-def get_log_level():
-    return settings.get("user.log_level")
 
 
 @mod.action_class
 class Actions:
     def debug(message: str):
         """Log debug message"""
-        if get_log_level() == "debug":
-            print(f"DEBUG: {message}")
+        logging.debug(message)
 
     def info(message: str):
         """Log info message"""
-        if get_log_level() in ["debug", "info"]:
-            print(f"INFO: {message}")
+        logging.info(message)
+
+    def warning(message: str):
+        """Log warning message"""
+        logging.warning(message)
+
+    def error(message: str):
+        """Log error message"""
+        logging.error(message)
+
+
+logging.getLogger().setLevel(logging.DEBUG)
