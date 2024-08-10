@@ -8,7 +8,7 @@ model emoji <user.prose>:
     user.model_insert_processed_text("emoji", prose)
 
 model insert <user.prose>:
-    user.model_insert_processed_prompt(prose)
+    user.model_insert_processed_prompt_streaming(prose)
 
 model fix <user.cursorless_target>:
     text = user.cursorless_get_text(cursorless_target)
