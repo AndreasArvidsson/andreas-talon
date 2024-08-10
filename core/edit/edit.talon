@@ -83,5 +83,8 @@ snip {user.snippet}:
 snip {user.snippet_with_phrase} <user.text>:
     user.insert_snippet_by_name_with_phrase(snippet_with_phrase, text)
 
+edit test insert:           user.edit_test_insert()
 edit test paste:            user.edit_test_paste()
 edit test paste text:       user.edit_test_paste_text()
+edit test paste performance:
+    user.edit_test_paste_text_performance()
