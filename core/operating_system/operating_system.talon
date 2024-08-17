@@ -1,11 +1,13 @@
 open settings:              app.preferences()
 
-^system shutdown$:          user.system_shutdown()
-^system restart$:           user.system_restart()
-^system hibernate$:
+^system shutdown [{user.abort_phrase}]$:
+    user.system_shutdown()
+^system restart [{user.abort_phrase}]$:
+    user.system_restart()
+^system hibernate [{user.abort_phrase}]$:
     user.talon_sleep()
     user.system_hibernate()
-^system lock$:
+^system lock [{user.abort_phrase}]$:
     user.talon_sleep()
     user.system_lock()
 
