@@ -1,10 +1,13 @@
 from typing import Any, Optional
-from talon import Module, Context, actions, ui
+from talon import Module, Context, actions, app, ui
 
 from ...core.rpc_client.rpc_client import RpcClient
 from .clippy_targets import ClippyPrimitiveTarget, ClippyTarget
 
-rpc = RpcClient("Clippy", "ctrl-shift-alt-o")
+if app.platform == "mac":
+    rpc = RpcClient("Clippy", "cmd-shift-f18")
+else:
+    rpc = RpcClient("Clippy", "ctrl-shift-alt-o")
 
 mod = Module()
 
