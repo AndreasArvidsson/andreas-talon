@@ -1,6 +1,3 @@
-model fix this:
-    user.model_process_selected_text("fix")
-
 model fix <user.prose>:
     user.model_process_selected_text("custom", prose)
 
@@ -10,14 +7,10 @@ model emoji <user.prose>:
 model insert <user.prose>:
     user.model_insert_processed_prompt_streaming(prose)
 
-model fix <user.cursorless_target>:
-    text = user.cursorless_get_text(cursorless_target)
-    fixed_text = user.model_process_text("fix", text)
-    destination = user.cursorless_create_destination(cursorless_target)
-    user.cursorless_insert(destination, fixed_text)
-
 model test:
     # user.model_insert_processed_prompt_streaming("Hello there")
-    # user.model_insert_processed_prompt_streaming("write a short story about pirates")
-    user.model_insert_processed_prompt_streaming("Write a short story about pirates. 300 words or less.")
+    user.model_insert_processed_prompt_streaming("write a short story about pirates")
+    # user.model_insert_processed_prompt_streaming("Write a short story about pirates. 300 words or less.")
     # user.model_insert_processed_prompt("Write a short story about pirates. 300 words or less.")
+
+# Im giving this two you. do you want it. If so, why???

@@ -17,6 +17,7 @@ EditSimpleActionType = Literal[
     "insertCopyAfter",
     "nextHomophone",
     "searchEngine",
+    "modelFix",
 ]
 
 
@@ -108,6 +109,7 @@ simple_action_callbacks: dict[EditSimpleActionType, Callable] = {
     "editNewLineBefore": lambda: actions.key("left space left"),
     "editNewLineAfter": lambda: actions.key("right space"),
     "searchEngine": actions.user.browser_search_selected,
+    "modelFix": lambda: actions.user.model_process_selected_text("fix"),
 }
 
 

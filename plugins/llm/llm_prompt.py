@@ -4,7 +4,7 @@ CUSTOM_PROMPT_TEMPLATE = """In the following text (surrounded by ===), $prompt:
 $text
 ===
 
-IMPORTANT: Return only the corrected text. ONLY THAT! Nothing else. Do not include this line all the surrounding === lines.
+IMPORTANT: Return only the corrected text. ONLY THAT! Nothing else. Do not include this line or the surrounding === lines.
 """
 
 FIX_PROMPT_TEMPLATE = CUSTOM_PROMPT_TEMPLATE.replace(

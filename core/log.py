@@ -23,4 +23,5 @@ class Actions:
         logging.error(message)
 
 
-logging.getLogger().setLevel(logging.INFO)
+# logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.DEBUG)
