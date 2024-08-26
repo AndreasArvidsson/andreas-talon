@@ -27,6 +27,7 @@ indent:                     edit.indent_more()
 dedent:                     edit.indent_less()
 
 # ----- Selection -----
+take all:                   edit.select_all()
 take none:                  edit.select_none()
 
 extend top:                 edit.extend_file_start()
