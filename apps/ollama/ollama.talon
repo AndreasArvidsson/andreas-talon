@@ -2,6 +2,7 @@ tag: user.ollama
 -
 
 ollama:                     "ollama "
+ollama serve:               "ollama serve"
 ollama version:             "ollama -v\n"
 ollama help:                "ollama -h\n"
 ollama list:                "ollama list\n"
