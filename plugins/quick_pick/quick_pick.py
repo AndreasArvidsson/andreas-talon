@@ -201,11 +201,10 @@ def draw_snap_positions(
 
         for j, position in enumerate(group):
             pos_rect = actions.user.snap_apply_position_to_rect(rect, position)
-            callback = (
-                lambda position=position: actions.user.snap_active_window_to_position(
-                    position
-                )
-            )
+
+            def callback(position=position):
+                return actions.user.snap_active_window_to_position(position)
+
             buttons.append(Button(pos_rect, callback))
             c.paint.color = BORDER_COLOR if hover_rect == pos_rect else SNAP_COLORS[j]
             c.draw_rect(pos_rect)
