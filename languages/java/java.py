@@ -73,6 +73,7 @@ code_data_type_simple = {
 ctx.lists["user.code_data_type"] = {
     **{t: t for t in code_data_type_simple},
     "bool"       : "boolean",
+    "bite"       : "byte",
     "array list" : "ArrayList",
     "hash set"   : "HashSet",
     "hash map"   : "HashMap",
