@@ -14,11 +14,21 @@ FIX_PROMPT_TEMPLATE = CUSTOM_PROMPT_TEMPLATE.replace(
 
 EMOJI_PROMPT_TEMPLATE = "Respond with the best emoji that matches: |$text|. Return only the emoji, nothing else"
 
+TRANSLATE_PROMPT_TEMPLATE = """Translate the following text (surrounded by ===) from English to Swedish:
+
+===
+$text
+===
+
+IMPORTANT: Return only the translated text. ONLY THAT! Nothing else. Do not include this line or the surrounding === lines.
+"""
+
 
 prompt_templates = {
     "custom": CUSTOM_PROMPT_TEMPLATE,
     "fix": FIX_PROMPT_TEMPLATE,
     "emoji": EMOJI_PROMPT_TEMPLATE,
+    "translate": TRANSLATE_PROMPT_TEMPLATE,
 }
 
 
