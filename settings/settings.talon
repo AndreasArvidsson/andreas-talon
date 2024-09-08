@@ -37,5 +37,3 @@ settings():
     # Cursorless
     user.cursorless_spoken_form_test_restore_microphone = "System Default"
     user.private_cursorless_use_preferred_scope = true
-
-# tag(): user.private_cursorless_literal_mark_no_prefix
