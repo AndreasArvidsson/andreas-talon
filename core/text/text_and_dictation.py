@@ -75,7 +75,11 @@ def text_code(m) -> str:
 def prose(m) -> str:
     """Same as <user.text>, but auto-spaced & capitalized."""
     text, _ = auto_capitalize(format_phrase(m))
-    return text
+    try:
+        return actions.user.model_process_text("fix_auto", text)
+    except Exception as ex:
+        print(ex)
+        return text
 
 
 @ctx_sv.capture("user.prose", rule=prose_role)

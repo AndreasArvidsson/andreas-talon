@@ -30,7 +30,7 @@ def ollama_generate_get(prompt: str) -> str | None:
         actions.user.debug(
             f"Ollama model '{OLLAMA_MODEL}' returned processed text in {t2-t1:0.1f}s"
         )
-        print_verbose(response)
+        # print_verbose(response)
 
         return processed_text
     except Exception as e:
