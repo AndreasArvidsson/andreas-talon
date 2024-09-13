@@ -37,6 +37,7 @@ class TabActions:
     def tab_jump_from_back(number: int):
         """Jumps to the specified tab counted from the back"""
         actions.user.tab_final()
+        actions.sleep("50ms")
         for _ in range(number - 1):
             actions.app.tab_previous()
 
