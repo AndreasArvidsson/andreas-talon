@@ -7,6 +7,11 @@ os: windows
 and app.exe: warhammer 40000 space marine 2 - retail.exe
 """
 
+ctx_app = Context()
+ctx_app.matches = r"""
+app: space_marine
+"""
+
 ctx = Context()
 ctx.matches = r"""
 mode: user.game
@@ -14,15 +19,27 @@ app: space_marine
 """
 
 
+@ctx_app.action_class("user")
+class GlobalUserActions:
+    def game_mode_enable():
+        actions.next()
+        actions.user.mouse_control_toggle(False)
+
+    def game_mode_disable():
+        """Disable game mode"""
+        actions.next()
+        actions.user.mouse_control_toggle(True)
+
+
 @ctx.action_class("user")
 class UserActions:
     def noise_pop():
-        """Primary attack"""
-        actions.mouse_click(0)
-
-    def noise_cluck():
         """Melee attack"""
         actions.mouse_click(1)
+
+    def noise_cluck():
+        """Block"""
+        actions.key("c")
 
     def noise_hiss_start():
         """Dodge"""
