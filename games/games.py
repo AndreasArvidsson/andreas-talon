@@ -57,5 +57,5 @@ def update_tag(voip_muted: bool):
 def voip_muted() -> bool:
     try:
         return actions.user.discord_get_mute_status()
-    except:
+    except Exception:
         return True

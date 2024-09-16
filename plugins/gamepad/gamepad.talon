@@ -1,3 +1,4 @@
+not mode: user.game
 not tag: user.gamepad_tester
 -
 
