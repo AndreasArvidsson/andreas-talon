@@ -9,10 +9,19 @@
 1. Download [Foot Switch Configuration Tool](https://dl-support.olympus-imaging.com/odms_download/ftsw_configuration_tool/en/)
 1. Open foot switch configuration tool
 1. Change operating mode to: `Keyboard mode`
-    - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml)
+    - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml).
+        - Download file `olympus_rs31h.xml`
+        - Click button `import template`
+        - Choose file `olympus_rs31h.xml`
+        - Click button `Apply Foot Switch`
 1. Change shortcut keys to: F13, F14, F15, F16
+
     - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml)
-    - On Windows F-keys above F12 won't be visible in the tool, but works if imported
-      ![Foot Switch Configuration Tool](foot_switch_configuration.png)
+    - On Windows F-keys above F12 won't be visible in the tool, but works if `olympus_rs31h.xml` was imported
+
+        ![Foot Switch Configuration Tool](foot_switch_configuration.png)
+
 1. Add [foot_switch.talon](./foot_switch.talon) and [foot_switch.py](./foot_switch.py) to your Talon user directory
-1. My mouse scroll actions are not Knausj default. To utilize my implementation of mouse scroll with the foot switch you will need [mouse_scroll.py](../mouse/mouse_scroll.py)
+1. My mouse scroll actions are not community default. To utilize my implementation of mouse scroll with the foot switch you will need [mouse_scroll.py](../mouse/mouse_scroll.py).
+    - If you want to use to use the community scrolling actions replace references to `actions.user.mouse_scrolling("up")` and `actions.user.mouse_scrolling("down")` with `actions.user.mouse_scroll_up_continuous()` and `actions.user.mouse_scroll_down_continuous()`
+    - There might be references to non-community actions for the other buttons as well. Have a look at the Talon log for errors and update [foot_switch.py](./foot_switch.py) with your desired actions.

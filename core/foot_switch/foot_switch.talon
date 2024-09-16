@@ -13,6 +13,3 @@ key(f15:up):                user.foot_switch_up_event(2)
 # Top button
 key(f16:down):              user.foot_switch_down_event(3)
 key(f16:up):                user.foot_switch_up_event(3)
-
-# Misc
-scroll reverse:             user.foot_switch_scroll_reverse()

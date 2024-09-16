@@ -1,4 +1,4 @@
-from talon import Module, Context, actions, cron
+from talon import Module, actions, cron
 import time
 
 HOLD_TIMEOUT = 0.2
@@ -14,9 +14,7 @@ UP = 1
 mod = Module()
 current_state = [UP, UP, UP, UP]
 last_state = [UP, UP, UP, UP]
-timestamps = [0, 0, 0, 0]
-scroll_reversed = False
-cron_job = None
+timestamps = [0.0, 0.0, 0.0, 0.0]
 
 
 def on_interval():
@@ -25,10 +23,10 @@ def on_interval():
             last_state[key] = current_state[key]
 
             if current_state[key] == DOWN:
-                call_down(key)
+                call_down_action(key)
             else:
                 held = time.perf_counter() - timestamps[key] > HOLD_TIMEOUT
-                call_up(key, held)
+                call_up_action(key, held)
 
 
 # In a hotkey event, eg "key(ctrl:down)", any key you press with key/insert
@@ -38,7 +36,7 @@ def on_interval():
 cron.interval("16ms", on_interval)
 
 
-def call_down(key: int):
+def call_down_action(key: int):
     if key == LEFT:
         actions.user.foot_switch_left_down()
     elif key == CENTER:
@@ -49,7 +47,7 @@ def call_down(key: int):
         actions.user.foot_switch_top_down()
 
 
-def call_up(key: int, held: bool):
+def call_up_action(key: int, held: bool):
     if key == LEFT:
         actions.user.foot_switch_left_up(held)
     elif key == CENTER:
@@ -62,6 +60,8 @@ def call_up(key: int, held: bool):
 
 @mod.action_class
 class Actions:
+    # Key events. Don't touch these.
+
     def foot_switch_down_event(key: int):
         """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
@@ -71,69 +71,36 @@ class Actions:
         """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
         current_state[key] = UP
 
-    def foot_switch_scroll_reverse():
-        """Reverse scroll direction using foot switch"""
-        global scroll_reversed
-        scroll_reversed = not scroll_reversed
+    # Foot switch button actions. Modify these to change button behavior.
 
     def foot_switch_top_down():
         """Foot switch button top:down"""
+        actions.user.mouse_scrolling("up")
 
     def foot_switch_top_up(held: bool):
         """Foot switch button top:up"""
+        if held:
+            actions.user.mouse_scroll_stop()
 
     def foot_switch_center_down():
         """Foot switch button center:down"""
+        actions.user.mouse_scrolling("down")
 
     def foot_switch_center_up(held: bool):
         """Foot switch button center:up"""
+        if held:
+            actions.user.mouse_scroll_stop()
 
     def foot_switch_left_down():
         """Foot switch button left:down"""
-
-    def foot_switch_left_up(held: bool):
-        """Foot switch button left:up"""
-
-    def foot_switch_right_down():
-        """Foot switch button right:down"""
-
-    def foot_switch_right_up(held: bool):
-        """Foot switch button right:up"""
-
-
-# ---------- Default implementation ----------
-ctx = Context()
-
-
-@ctx.action_class("user")
-class UserActions:
-    def foot_switch_top_down():
-        if scroll_reversed:
-            actions.user.mouse_scrolling("down")
-        else:
-            actions.user.mouse_scrolling("up")
-
-    def foot_switch_top_up(held: bool):
-        if held:
-            actions.user.mouse_scroll_stop()
-
-    def foot_switch_center_down():
-        if scroll_reversed:
-            actions.user.mouse_scrolling("up")
-        else:
-            actions.user.mouse_scrolling("down")
-
-    def foot_switch_center_up(held: bool):
-        if held:
-            actions.user.mouse_scroll_stop()
-
-    def foot_switch_left_down():
         global cron_job
         cron_job = cron.after(
-            f"{int(HOLD_TIMEOUT*1000)}ms", actions.user.quick_pick_show
+            f"{int(HOLD_TIMEOUT*1000)}ms",
+            actions.user.quick_pick_show,
         )
 
     def foot_switch_left_up(held: bool):
+        """Foot switch button left:up"""
         global cron_job
         cron.cancel(cron_job)
         cron_job = None
@@ -141,45 +108,9 @@ class UserActions:
             actions.user.go_back()
 
     def foot_switch_right_down():
-        pass
+        """Foot switch button right:down"""
+        actions.skip()
 
     def foot_switch_right_up(held: bool):
-        pass
-
-
-# ---------- Default non-sleep implementation ----------
-ctx_eye_tracker = Context()
-ctx_eye_tracker.matches = r"""
-tag: user.eye_tracker
-tag: user.eye_tracker_frozen
-"""
-
-
-@ctx_eye_tracker.action_class("user")
-class EyeTrackerActions:
-    def foot_switch_right_down():
-        actions.user.mouse_freeze_toggle()
-
-    def foot_switch_right_up(held: bool):
-        if held:
-            actions.user.mouse_freeze_toggle()
-
-
-# ---------- Audio conferencing ----------
-ctx_voip = Context()
-ctx_voip.matches = r"""
-mode: command
-mode: dictation
-mode: sleep
-tag: user.voip
-"""
-
-
-@ctx_voip.action_class("user")
-class VoipActions:
-    def foot_switch_left_down():
-        actions.user.mute_microphone()
-
-    def foot_switch_left_up(held: bool):
-        if held:
-            actions.user.mute_microphone()
+        """Foot switch button right:up"""
+        actions.skip()
