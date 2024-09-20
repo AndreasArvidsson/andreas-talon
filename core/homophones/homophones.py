@@ -1,4 +1,4 @@
-from talon import Module, app, actions
+from talon import Module, actions, resource
 import re
 import time
 from pathlib import Path
@@ -85,8 +85,12 @@ def format_homophone(word: str, homophone: str):
     return homophone
 
 
-def homophones_update(values: list[list[str]], headers: list[str]):
+@resource.watch(Path(__file__).parent / "homophones_en.csv")
+def homophones_update(f):
     global all_homophones
+
+    values = actions.user.read_csv_as_list(f)
+
     homophones = {}
     for row in values:
         # Homophones starting with `$` can't be updated to
@@ -97,13 +101,3 @@ def homophones_update(values: list[list[str]], headers: list[str]):
                 word = word[1:]
             homophones[word.lower()] = words
     all_homophones = homophones
-
-
-def on_ready():
-    actions.user.watch_csv_as_list(
-        Path(__file__).parent / "homophones_en.csv",
-        homophones_update,
-    )
-
-
-app.register("ready", on_ready)

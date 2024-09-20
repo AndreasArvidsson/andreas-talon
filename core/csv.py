@@ -1,72 +1,53 @@
-from talon import Module, actions, resource
-from typing import Callable, Tuple
-from pathlib import Path
+from talon import Module
+from typing import Iterable, Tuple
 import csv
 
 mod = Module()
 
 RowType = list[str]
 ListType = list[RowType]
-DictType = dict[str, str]
 TupleType = Tuple[ListType, RowType]
 
 
 @mod.action_class
 class Actions:
-    def watch_csv_as_list(path: Path, callback: Callable[[ListType, RowType], None]):
-        """Watch csv file for changes. Present content as list"""
+    def read_csv_as_list(file: Iterable[str]) -> ListType:
+        """Read csv file. Present content as list"""
+        values, headers = read_csv_file(file)
+        return values
 
-        if not path.is_file():
-            raise Exception(f"{path} is not a file")
+    def read_csv_as_dict(file: Iterable[str]) -> dict[str, str]:
+        """Read csv file. Present content as dict"""
+        values, headers = read_csv_file(file)
 
-        @resource.watch(path)
-        def on_watch(f):
-            callback(*read_csv_file(f))
-
-    def watch_csv_as_dict(
-        path: Path,
-        callback: Callable[[dict], None],
-        values_as_list: bool = False,
-    ):
-        """Watch csv file for changes. Present content as dict"""
-
-        def on_watch(values: ListType, headers: RowType):
-            if values_as_list:
-                csv_dict = list_to_dict_of_lists(values)
+        result = {}
+        for row in values:
+            if len(row) == 1:
+                result[row[0]] = row[0]
+            elif len(row) == 2:
+                result[row[0]] = row[1]
             else:
-                csv_dict = list_to_dict(path, values)
-            callback(csv_dict)
+                raise ValueError(
+                    f"Can't create dict from csv with row length {len(row)}"
+                )
+        return result
 
-        actions.user.watch_csv_as_list(path, on_watch)
-
-
-def list_to_dict(path: Path, values: ListType) -> DictType:
-    result = {}
-    for row in values:
-        if len(row) == 1:
-            result[row[0]] = row[0]
-        elif len(row) == 2:
-            result[row[0]] = row[1]
-        else:
-            raise ValueError(
-                f"Can't create dict from csv '{path}' with row length {len(row)}"
-            )
-    return result
+    def read_csv_as_dict_of_lists(file: Iterable[str]) -> dict[str, RowType]:
+        """Read csv file. Present content as dict of lists"""
+        values, headers = read_csv_file(file)
+        result = {}
+        for row in values:
+            result[row[0]] = row[1:]
+        return result
 
 
-def list_to_dict_of_lists(values: ListType) -> dict[str, RowType]:
-    result = {}
-    for row in values:
-        result[row[0]] = row[1:]
-    return result
-
-
-def read_csv_file(file) -> TupleType:
+def read_csv_file(file: Iterable[str]) -> TupleType:
     """Read csv file and return tuple with values and headers"""
-    result = []
+    result: ListType = []
 
     # Use `skipinitialspace` to allow spaces before quote. `, "a,b"`
     csv_reader = csv.reader(file, skipinitialspace=True)
+
     for row in csv_reader:
         # Remove trailing whitespaces for each cell
         row = [x.rstrip() for x in row]
@@ -74,6 +55,7 @@ def read_csv_file(file) -> TupleType:
         if len(row) == 0 or (len(row) == 1 and row[0] == "") or row[0].startswith("#"):
             continue
         result.append(row)
+
     return parse_headers(result)
 
 

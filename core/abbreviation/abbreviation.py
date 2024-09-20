@@ -1,4 +1,4 @@
-from talon import Context, Module, app, actions
+from talon import Context, Module, actions, resource
 from pathlib import Path
 
 mod = Module()
@@ -12,18 +12,10 @@ def abbreviation(m) -> str:
     return m.abbreviation
 
 
-def abbreviations_update(csv_dict: dict):
+@resource.watch(Path(__file__).parent / "abbreviation_en.csv")
+def abbreviations_update(f):
+    csv_dict = actions.user.read_csv_as_dict(f)
     ctx.lists["user.abbreviation"] = {
         **{v: v for v in csv_dict.values()},
         **csv_dict,
     }
-
-
-def on_ready():
-    actions.user.watch_csv_as_dict(
-        Path(__file__).parent / "abbreviation_en.csv",
-        abbreviations_update,
-    )
-
-
-app.register("ready", on_ready)

@@ -1,4 +1,4 @@
-from talon import Context, Module, app, actions
+from talon import Context, Module, actions, resource
 from typing import Sequence
 from pathlib import Path
 from .phrase_replacer import PhraseReplacer
@@ -52,26 +52,15 @@ def edit_text_file(path: Path):
 # Words to replace is used by `actions.dictate.replace_words` to rewrite words
 # Talon recognized. Entries don't change the priority with which Talon
 # recognizes some words over others.
-def words_to_replace_en_update(csv_dict: dict):
+@resource.watch(Path(__file__).parent / "words_to_replace_en.csv")
+def words_to_replace_en_update(f):
     global phrase_replacer_en
+    csv_dict = actions.user.read_csv_as_dict(f)
     phrase_replacer_en = PhraseReplacer(csv_dict)
 
 
-def words_to_replace_sv_update(csv_dict: dict):
+@resource.watch(Path(__file__).parent / "words_to_replace_sv.csv")
+def words_to_replace_sv_update(f):
     global phrase_replacer_sv
+    csv_dict = actions.user.read_csv_as_dict(f)
     phrase_replacer_sv = PhraseReplacer(csv_dict)
-
-
-def on_ready():
-    dir = Path(__file__).parent
-    actions.user.watch_csv_as_dict(
-        dir / "words_to_replace_en.csv",
-        words_to_replace_en_update,
-    )
-    actions.user.watch_csv_as_dict(
-        dir / "words_to_replace_sv.csv",
-        words_to_replace_sv_update,
-    )
-
-
-app.register("ready", on_ready)

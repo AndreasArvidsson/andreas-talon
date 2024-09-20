@@ -1,4 +1,4 @@
-from talon import Module, Context, app, ui, actions
+from talon import Module, Context, app, ui, actions, resource
 from pathlib import Path
 import re
 
@@ -43,13 +43,6 @@ def update_running():
     ctx.lists["user.running_application"] = running
 
 
-def update_overrides(csv_dict: dict):
-    """Updates the overrides list"""
-    global overrides
-    overrides = {k.lower(): v for k, v in csv_dict.items()}
-    update_running()
-
-
 @mod.action_class
 class Actions:
     def get_running_applications() -> dict[str, str]:
@@ -57,11 +50,16 @@ class Actions:
         return running_applications
 
 
+@resource.watch(Path(__file__).parent / "app_name_overrides.csv")
+def update_overrides(f):
+    """Updates the overrides list"""
+    global overrides
+    csv_dict = actions.user.read_csv_as_dict(f)
+    overrides = {k.lower(): v for k, v in csv_dict.items()}
+    update_running()
+
+
 def on_ready():
-    actions.user.watch_csv_as_dict(
-        Path(__file__).parent / "app_name_overrides.csv",
-        update_overrides,
-    )
     ui.register("app_launch", lambda _: update_running())
     ui.register("app_close", lambda _: update_running())
 
