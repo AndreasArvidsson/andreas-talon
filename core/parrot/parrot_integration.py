@@ -7,7 +7,7 @@ import logging
 import time
 
 # Andreas changed
-from talon import resource, events, app
+from talon import resource, events
 from talon.debug import log_exception
 from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
 from pathlib import Path
@@ -307,17 +307,12 @@ class Delegate(ParrotDelegate):
         return active
 
 
-def on_ready():
-    global system
-    parrot_delegate = Delegate(debug=False)
-    system = ParrotSystem(model_path, parrot_delegate)
+parrot_delegate = Delegate(debug=False)
+system = ParrotSystem(model_path, parrot_delegate)
 
-    @resource.watch(pattern_path)
-    def on_pattern(f):
-        try:
-            parrot_delegate.set_patterns(json.load(f))
-        except Exception:
-            log_exception(f"[parrot] invalid pattern file: {pattern_path}")
-
-
-app.register("ready", on_ready)
+@resource.watch(pattern_path)
+def on_pattern(f):
+    try:
+        parrot_delegate.set_patterns(json.load(f))
+    except Exception:
+        log_exception(f"[parrot] invalid pattern file: {pattern_path}")
