@@ -3,6 +3,7 @@ from talon import speech_system
 # from talon.engines.vosk import VoskEngine
 from talon.engines.webspeech import WebSpeechEngine
 
+# Google chrome. http://localhost:7419
 speech_system.add_engine(
     WebSpeechEngine(),
 )
