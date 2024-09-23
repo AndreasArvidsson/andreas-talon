@@ -6,9 +6,13 @@
 
 import time
 from typing import Any, Mapping
-import ollama
 from talon import actions
 from .StringBuilder import StringBuilder
+
+try:
+    import ollama
+except Exception as ex:
+    print("ERROR: {ex}")
 
 
 OLLAMA_MODEL = "gemma2:2b"
