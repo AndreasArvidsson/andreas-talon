@@ -6,7 +6,8 @@
 
 ## Installation
 
-1. Download [Foot Switch Configuration Tool](https://dl-support.olympus-imaging.com/odms_download/ftsw_configuration_tool/en/)
+Up that link to or link post fort switch configuration tool. Download [Foot Switch Configuration Tool](https://download.omsystem.com/pages/odms_download/ftsw_configuration_tool/en/)
+
 1. Open foot switch configuration tool
 1. Change operating mode to: `Keyboard mode`
     - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml).
