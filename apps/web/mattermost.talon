@@ -13,8 +13,5 @@ channel unread next:        key(alt-shift-down)
 next unread:                key(alt-shift-down)
 
 make meet:
-    "/meet"
-    key(enter)
-make meet external:
-    "/meet-external"
+    "/jitsi"
     key(enter)
