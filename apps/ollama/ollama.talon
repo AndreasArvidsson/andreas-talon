@@ -8,6 +8,8 @@ ollama help:                "ollama -h\n"
 ollama list:                "ollama list\n"
 ollama ps:                  "ollama ps\n"
 
+ollama run:
+    "ollama run "
 ollama run {user.ollama_model}:
     "ollama run {ollama_model} "
 ollama run {user.ollama_model} verbose:
