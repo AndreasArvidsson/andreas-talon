@@ -24,11 +24,13 @@ class GlobalUserActions:
     def game_mode_enable():
         actions.next()
         actions.user.mouse_control_toggle(False)
+        # actions.user.game_enable_relative_mouse()
 
     def game_mode_disable():
         """Disable game mode"""
         actions.next()
         actions.user.mouse_control_toggle(True)
+        # actions.user.game_disable_relative_mouse()
 
 
 @ctx.action_class("user")
