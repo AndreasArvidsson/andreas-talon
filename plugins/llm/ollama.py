@@ -15,7 +15,7 @@ except Exception as ex:
     print(f"ERROR: {ex}")
 
 
-OLLAMA_MODEL = "gemma2:2b"
+OLLAMA_MODEL = "llama3.2:3b"
 OLLAMA_KEEP_ALIVE = -1
 
 
