@@ -8,6 +8,7 @@ go up:                      user.select_up()
 go down:                    user.select_down()
 select:                     user.select_toggle()
 file rename:                key(f2)
+file remove:                key(delete)
 
 open home:
     app.tab_open()
