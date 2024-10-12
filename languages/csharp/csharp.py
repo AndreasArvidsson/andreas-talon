@@ -5,7 +5,7 @@ mod = Module()
 ctx = Context()
 
 ctx.matches = r"""
-code.language: java
+code.language: csharp
 """
 
 # fmt: off
@@ -38,23 +38,17 @@ access_modifiers = {
     "private",
     "protected",
 }
-abstract = {"abstract"}
-final = {"final"}
 static = {"static"}
 all_keywords = {
     *access_modifiers,
-    *abstract,
-    *final,
     *static,
 }
-ctx.lists["user.code_class_modifier"] = {*access_modifiers, *abstract, *final}
+ctx.lists["user.code_class_modifier"] = {*access_modifiers}
 ctx.lists["user.code_function_modifier"] = {
     *access_modifiers,
-    *abstract,
-    *final,
     *static,
 }
-ctx.lists["user.code_variable_modifier"] = {*access_modifiers, *final, *static}
+ctx.lists["user.code_variable_modifier"] = {*access_modifiers}
 code_data_type_simple = {
     "int",
     "long",
@@ -63,25 +57,16 @@ code_data_type_simple = {
     "byte",
     "float",
     "double",
-    "String",
-    "Map",
-    "List",
-    "Set",
-    "Object",
+    "string",
+    "bool",
     "void"
 }
 ctx.lists["user.code_data_type"] = {
     **{t: t for t in code_data_type_simple},
-    "bool"       : "boolean",
     "bite"       : "byte",
-    "array list" : "ArrayList",
-    "hash set"   : "HashSet",
-    "hash map"   : "HashMap",
 }
 
 ctx.lists["user.code_call_function"] = {
-    "to string": "toString",
-    "equals":    "equals",
 }
 ctx.lists["user.code_insert"] = {
     **{k: f"{k} " for k in all_keywords},
@@ -89,15 +74,12 @@ ctx.lists["user.code_insert"] = {
     "false"       : "false",
     "null"        : "null",
     "this"        : "this",
-    "import"      : "import ",
+    "using"      : "using ",
     "new"         : "new ",
     "return"      : "return ",
-    "extends"     : "extends ",
-    "implements"  : "implements ",
     "class"       : "class ",
     "void"        : "void ",
     "throw"       : "throw ",
-    "instance of" : " instanceof ",
     "continue"    : "continue;",
     "break"       : "break;",
 }
@@ -106,10 +88,6 @@ ctx.lists["user.code_insert"] = {
 
 @ctx.action_class("user")
 class UserActions:
-    # Miscellaneous statements
-    def insert_arrow():
-        actions.insert(" -> ")
-
     # Class declaration
     def code_class(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name(
@@ -138,9 +116,9 @@ class UserActions:
         actions.user.insert_snippet_by_name(
             "functionDeclaration",
             {
-                "name": "main",
-                "modifiers": "public static",
-                "1": "String[] args",
+                "name": "Main",
+                "modifiers": "static",
+                "1": "string[] args",
             },
         )
 
@@ -162,7 +140,7 @@ class UserActions:
         return "PASCAL_CASE"
 
     def code_get_function_format() -> str:
-        return "CAMEL_CASE"
+        return "PASCAL_CASE"
 
     def code_get_variable_format() -> str:
         return "CAMEL_CASE"

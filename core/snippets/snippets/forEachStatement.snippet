@@ -10,6 +10,13 @@ for ($1 : $2) {
 }
 ---
 
+language: csharp
+-
+foreach ($1 in $2) {
+    $0
+}
+---
+
 language: java
 -
 for (final $1 : $2) {

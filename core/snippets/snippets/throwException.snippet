@@ -9,12 +9,17 @@ throw std::runtime_error("$0");
 
 language: java
 -
-throw new Exception(String.format("$0"))
+throw new Exception(String.format("$0"));
+---
+
+language: csharp
+-
+throw new Exception(String.Format("$0"));
 ---
 
 language: javascript
 -
-throw Error(`$0`)
+throw Error(`$0`);
 ---
 
 language: python
