@@ -1,3 +1,4 @@
+from typing import Union
 from talon import Context, actions
 import re
 
@@ -27,7 +28,7 @@ class WinActions:
 
 @ctx_lang.action_class("code")
 class LangCodeActions:
-    def language() -> str:
+    def language() -> Union[str, set[str]]:
         # New untitled files are markdown in vscode
         if is_untitled(actions.win.filename()):
             return "markdown"

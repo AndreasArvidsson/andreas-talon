@@ -1,4 +1,5 @@
 from talon import Context, Module, actions
+from typing import Union
 from dataclasses import dataclass
 
 
@@ -76,14 +77,14 @@ ctx.lists["user.code_language"] = {lang.spoken_form: lang.id for lang in languag
 
 @ctx.action_class("code")
 class CodeActions:
-    def language():
+    def language() -> Union[str, set[str]]:
         file_extension = actions.win.file_ext()
         return extension_lang_map.get(file_extension, "")
 
 
 @ctx_forced.action_class("code")
 class ForcedCodeActions:
-    def language():
+    def language() -> Union[str, set[str]]:
         return forced_language
 
 
