@@ -76,6 +76,7 @@ gitlab:               https://gitlab.redpill-linpro.com
 hassan:               https://app.vantetider.se/hassan
 hogia business:       https://payroll.accountor.se
 jenkins:              https://app.c.vantetider.se/jenkins
+matrix:               https://matrix.redpill-linpro.com
 matter most:          https://mattermost.redpill-linpro.com
 nexus:                https://app.c.vantetider.se/nexus
 patient enkaet:       https://resultat.patientenkat.se
