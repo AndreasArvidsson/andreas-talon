@@ -3,12 +3,12 @@ from talon import Module
 mod = Module()
 
 
-@mod.capture(rule="twice | trice | <number_small> times")
+@mod.capture(rule="twice | thrice | <number_small> times")
 def repeater_phrase(m) -> int:
     """Repeater string. Returns an integer for number of times to repeat"""
     if m[0] == "twice":
         return 2
-    if m[0] == "trice":
+    if m[0] == "thrice":
         return 3
     return m.number_small
 
