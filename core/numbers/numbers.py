@@ -198,10 +198,10 @@ def number_small(m) -> int:
     return number_small_map[m.number_small]
 
 
-@mod.capture(rule="<user.number_string> point <user.number_string>")
+@mod.capture(rule="<user.number_string> ((point | dot) <user.number_string>)+")
 def number_float_string(m) -> str:
     """Parses a float number phrase, returning that number as a string."""
-    return f"{m.number_string_1}.{m.number_string_2}"
+    return ".".join(m.number_string_list)
 
 
 @mod.capture(rule="(numb | number) (<user.number_string> | <user.number_float_string>)")
