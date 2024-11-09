@@ -23,8 +23,8 @@ This is a list of features that I have implemented that I think is of more inter
     - [Quick pick](./plugins/quick_pick)
 7. **Foot switch support** - Add support for scrolling, navigating and more
     - [Foot switch](./core/foot_switch)
-8. **<user.text> with abbreviations, spelling and numbers** - `"say foo forty four brief address air bat cap bar"` => `foo 44 addr abc bar`
-    - [dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/cbe580f5c6984afe31c76c3a3feb9229b1ede1d1/text/dictation.py#L44-L60)
+8. **<user.prose> with abbreviations, spelling and numbers** - `"say foo forty four brief address air bat cap bar"` => `foo 44 addr abc bar`
+    - [text_and_dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/f46880c3932e43c101fe5b004f1e6edd14262c1b/core/text/text_and_dictation.py#L34-L45)
 9. **Smarter homophones** - Talon remembers recently used homophones and automatically replaces/reuses your chosen version
     - [dictation.py](https://github.com/AndreasArvidsson/andreas-talon/blob/b21c9eb553950ff9b3c137a98e8c705a3e8cb393/core/text/text_and_dictation.py#L127)
     - [homophones.py](https://github.com/AndreasArvidsson/andreas-talon/blob/b21c9eb553950ff9b3c137a98e8c705a3e8cb393/core/homophones/homophones.py#L99-L108)
