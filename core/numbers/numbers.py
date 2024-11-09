@@ -166,24 +166,22 @@ number_small_list = [*digits, *teens]
 for ten in tens:
     number_small_list.append(ten)
     number_small_list.extend(f"{ten} {digit}" for digit in digits[1:])
-number_small_map = {n: i for i, n in enumerate(number_small_list)}
 
 mod.list("number_small", "List of small numbers")
-ctx.lists["user.number_small"] = number_small_map.keys()
+ctx.lists["user.number_small"] = {n: str(i) for i, n in enumerate(number_small_list)}
+
+# fmt: on
+
+
+@mod.capture(rule=(f"{number_word_dd} | {number_word_leading} ([and] {number_word})+"))
+def number_dd(m) -> str:
+    """Parses a double digit, or more, number phrase, returning that number as a string."""
+    return parse_number(list(m))
 
 
 @mod.capture(rule=f"{number_word_leading} ([and] {number_word})*")
 def number_string(m) -> str:
     """Parses a number phrase, returning that number as a string."""
-    return parse_number(list(m))
-
-
-@mod.capture(rule=(
-    f"{number_word_dd} | "
-    f"{number_word_leading} ([and] {number_word})+"
-))
-def number_dd(m) -> str:
-    """Parses a double digit, or more, number phrase, returning that number as a string."""
     return parse_number(list(m))
 
 
@@ -195,22 +193,15 @@ def number(m) -> int:
 
 @ctx.capture("number_small", rule="{user.number_small}")
 def number_small(m) -> int:
-    return number_small_map[m.number_small]
+    return int(m.number_small)
 
 
-@mod.capture(rule="<user.number_string> ((point | dot) <user.number_string>)+")
-def number_float_string(m) -> str:
-    """Parses a float number phrase, returning that number as a string."""
-    return ".".join(m.number_string_list)
-
-
-@mod.capture(rule="(numb | number) (<user.number_string> | <user.number_float_string>)")
+@mod.capture(
+    rule="(numb | number) <user.number_string> ((point | dot) <user.number_string>)*"
+)
 def number_prefix(m) -> str:
     """Parses a prefixed number phrase, returning that number as a string."""
-    try:
-        return m.number_string
-    except AttributeError:
-        return m.number_float_string
+    return ".".join(m.number_string_list)
 
 
 @mod.capture(rule=f"{'|'.join(digits[1:])}")

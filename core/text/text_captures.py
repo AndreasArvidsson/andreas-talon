@@ -11,7 +11,7 @@ def spell(m) -> str:
 
 @mod.capture(rule="(<number_small> | one hundred) percent")
 def percent(m) -> str:
-    """Percentages"""
+    """Percent number"""
     try:
         number = m.number_small
     except AttributeError:
