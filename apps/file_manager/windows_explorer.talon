@@ -22,9 +22,9 @@ file copy name:
     edit.copy()
     key(enter)
 
-scout [<user.text>]$:
-    edit.find(text or "")
-pop <user.text>$:
-    edit.find(text)
+scout [<user.phrase>]$:
+    edit.find(phrase or "")
+pop <user.phrase>$:
+    edit.find(phrase)
     sleep(100ms)
     key(enter)

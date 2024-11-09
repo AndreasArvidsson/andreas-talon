@@ -2,7 +2,7 @@ code.language: markdown
 -
 tag(): user.code_generic_language
 
-snip link [<user.text>]:    user.code_markdown_link(text or "")
+snip link [<user.phrase>]:  user.code_markdown_link(phrase or "")
 
 # Formatter wrappers
 {user.markdown_pair} this:

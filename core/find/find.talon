@@ -2,13 +2,13 @@ tag: user.find
 -
 
 scout for clip:             edit.find(clip.text())
-scout [<user.text>]$:       edit.find(text or "")
+scout [<user.phrase>]$:     edit.find(phrase or "")
 
 scout all for clip:         user.find_everywhere(clip.text())
-scout all [<user.text>]$:   user.find_everywhere(text or "")
+scout all [<user.phrase>]$: user.find_everywhere(phrase or "")
 
-replace [<user.text>]$:     user.find_replace(text or "")
-replace all [<user.text>]$: user.find_replace_everywhere(text or "")
+replace [<user.phrase>]$:   user.find_replace(phrase or "")
+replace all [<user.phrase>]$: user.find_replace_everywhere(phrase or "")
 
 scout case:                 user.find_toggle_match_by_case()
 scout word:                 user.find_toggle_match_by_word()
@@ -31,8 +31,8 @@ scout (file | files | filed) [<user.filename>]$:
     user.find_file(filename or "")
 
 # TODO:
-# pop <user.text>$:
-#     edit.find(text)
+# pop <user.phrase>$:
+#     edit.find(phrase)
 #     key(enter)
 
 pop (file | files | filed) <user.filename>$:

@@ -27,7 +27,7 @@ git checkout last:          "git checkout -\n"
 git add:                    "git add "
 
 git diff halt:              "git diff "
-git diff <user.text>:       "git diff {text}"
+git diff <user.phrase>:     "git diff {phrase}"
 
 git pull upstream:          "git pull upstream\n"
 git pull upstream master:   "git pull upstream master\n"

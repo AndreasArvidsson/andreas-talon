@@ -5,9 +5,9 @@ flag:                       " -"
 flag <user.letters>:        " -{letters} "
 
 dir:                        "cd "
-dir <user.text>$:           "cd {text}"
+dir <user.phrase>$:         "cd {phrase}"
 dir <user.letters>$:        "cd {letters}"
-dir <user.text> tab$:       "cd {text}\t"
+dir <user.phrase> tab$:     "cd {phrase}\t"
 dir <user.letters> tab$:    "cd {letters}\t"
 
 list:                       "ls\n"
@@ -36,7 +36,7 @@ tar create:                 "tar -czvf "
 tar extractf:               "tar -xzvf "
 
 echo:                       "echo "
-echo <user.text>$:          "echo {text}"
+echo <user.phrase>$:        "echo {phrase}"
 
 grep:                       "grep "
 make dir:                   "mkdir "

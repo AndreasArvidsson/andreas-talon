@@ -21,25 +21,15 @@ mod.list("swedish_phrase", "List of Swedish phrases")
 def word(m) -> str:
     """A single word, including user-defined vocabulary."""
     words = capture_to_words(m)
-    return words[0].replace(" ", "")
+    # In case `dictate.replace_words` returned multiple words
+    return "".join(words).replace(" ", "")
 
 
-# Used to escape numbers and symbols
 @mod.capture(rule="({user.vocabulary} | <phrase>)+")
 def phrase(m) -> str:
     """A phrase(sequence of words), including user-defined vocabulary."""
     return format_phrase(m)
 
-
-text_rule_parts = [
-    "{user.vocabulary}",
-    "{user.key_punctuation}",
-    "<user.abbreviation>",
-    "<user.spell>",
-    # "<user.number_dd>",
-    "<user.number_prefix>",
-    "<phrase>",
-]
 
 prose_rule_parts = [
     "{user.vocabulary}",
@@ -54,26 +44,22 @@ prose_rule_parts = [
     "<phrase>",
 ]
 
-text_rule = f"({'|'.join(text_rule_parts)})+"
-code_rule = text_rule.replace("{user.key_punctuation}", "{user.key_punctuation_code}")
+code_id_rule_parts = [
+    "{user.vocabulary}",
+    "{user.key_punctuation_code}",
+    "<user.abbreviation>",
+    "<user.spell>",
+    "<user.number_prefix>",
+    "<phrase>",
+]
+
 prose_role = f"({'|'.join(prose_rule_parts)})+"
-
-
-@mod.capture(rule=text_rule)
-def text(m) -> str:
-    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling."""
-    return format_phrase(m)
-
-
-@mod.capture(rule=code_rule)
-def text_code(m) -> str:
-    """Same as <user.text>, but with fewer punctuations"""
-    return format_phrase(m)
+code_id_rule = f"({'|'.join(code_id_rule_parts)})+"
 
 
 @mod.capture(rule=prose_role)
 def prose(m) -> str:
-    """Same as <user.text>, but auto-spaced & capitalized."""
+    """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
     text, _ = auto_capitalize(format_phrase(m))
     return text
 
@@ -83,6 +69,12 @@ def prose_ctx_sv(m) -> str:
     # Web speech capitalizes words in the middle of sentences, so we need to lowercase them.
     text, _ = auto_capitalize(format_phrase(m).lower())
     return text
+
+
+@mod.capture(rule=code_id_rule)
+def code_id(m) -> str:
+    """Code identifier."""
+    return format_phrase(m)
 
 
 # ----- Dictation mode only -----

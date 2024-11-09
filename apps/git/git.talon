@@ -19,31 +19,31 @@ git tag list:               user.git_show_tags()
 git stash:                  user.git_stash()
 git stash pop:              user.git_stash_pop()
 
-git merge [<user.text>]:    user.git_merge(text or "")
+git merge [<user.phrase>]:  user.git_merge(phrase or "")
 git merge {user.git_branch}:
     user.git_merge(git_branch)
 
-git checkout [<user.text>]:
-    text = user.format_text(text or "", "SNAKE_CASE")
+git checkout [<user.phrase>]:
+    text = user.format_text(phrase or "", "SNAKE_CASE")
     user.git_checkout(text)
 git checkout {user.git_branch}:
     user.git_checkout(git_branch, true)
 
-git checkout branch [<user.text>]:
-    text = user.format_text(text or "", "SNAKE_CASE")
+git checkout branch [<user.phrase>]:
+    text = user.format_text(phrase or "", "SNAKE_CASE")
     user.git_create_branch(text)
 
-git branch deli [<user.text>]:
-    text = user.format_text(text or "", "SNAKE_CASE")
+git branch deli [<user.phrase>]:
+    text = user.format_text(phrase or "", "SNAKE_CASE")
     user.git_delete_branch(text)
 
 git branch:                 user.git_show_branches()
 
-git commit [<user.text>]$:
-    text = user.format_text(text or "", "SENTENCE")
+git commit [<user.prose>]$:
+    text = user.format_text(prose or "", "SENTENCE")
     user.git_commit(text)
-git commit amend [<user.text>]$:
-    text = user.format_text(text or "", "SENTENCE")
+git commit amend [<user.prose>]$:
+    text = user.format_text(prose or "", "SENTENCE")
     user.git_commit_amend(text)
 git commit empty:
     user.git_commit_empty()

@@ -6,10 +6,10 @@
     "{phrase_ender}"
 
 # Formatted code phrase: "camel hello there" -> helloThere
-{user.formatter_code} <user.text_code>:
-    user.insert_formatted(text_code, formatter_code)
-{user.formatter_code} <user.text_code> {user.phrase_ender}:
-    user.insert_formatted(text_code, formatter_code)
+{user.formatter_code} <user.code_id>:
+    user.insert_formatted(code_id, formatter_code)
+{user.formatter_code} <user.code_id> {user.phrase_ender}:
+    user.insert_formatted(code_id, formatter_code)
     "{phrase_ender}"
 
 # Only words, no symbols or numbers

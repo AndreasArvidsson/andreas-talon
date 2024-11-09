@@ -3,7 +3,7 @@ code.language: scss
 -
 
 # ----- Variable statement -----
-var <user.text>:
-    user.code_variable_wrapper(text, "", false, "")
-var <user.text> equals:
-    user.code_variable_wrapper(text, "", true, "")
+var <user.phrase>:
+    user.code_variable_wrapper(phrase, "", false, "")
+var <user.phrase> equals:
+    user.code_variable_wrapper(phrase, "", true, "")

@@ -3,10 +3,10 @@ os: windows
 start menu:                 key(super)
 context menu:               key(super-x)
 
-scout app [<user.text>]$:
+scout app [<user.phrase>]$:
     key(super-s)
-    "apps: {text or ''}"
-pop app <user.text>$:
+    insert("apps: {phrase or ''}")
+pop app <user.phrase>$:
     key(super-s)
-    "apps: {text}"
+    insert("apps: {phrase}")
     key(enter)

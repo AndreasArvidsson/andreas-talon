@@ -172,52 +172,52 @@ debug stop:                 user.vscode("workbench.action.debug.stop")
 debug select:               user.vscode("workbench.action.debug.selectandstart")
 debug extension:
     user.vscode("workbench.action.debug.selectandstart")
-    "run extension"
+    insert("run extension")
     key(enter)
 debug test:
     user.vscode("workbench.action.debug.selectandstart")
-    "extension tests"
+    insert("extension tests")
     key(enter)
 debug subset:
     user.vscode("workbench.action.debug.selectandstart")
-    "run test subset"
+    insert("run test subset")
     key(enter)
 run task compile:
     user.vscode("workbench.action.tasks.runTask")
-    "compile"
+    insert("compile")
     sleep(200ms)
     key(enter)
-run task [<user.text>]:
+run task [<user.phrase>]:
     user.vscode("workbench.action.tasks.runTask")
-    "{text or ''}"
+    insert(phrase or "")
 dev tools:                  user.vscode("workbench.action.toggleDevTools")
 select element:             key(ctrl-shift-c)
 
 # Find session
-scout (sesh | recent) [<user.text>]$:
-    user.vscode_find_recent(text or "")
+scout (sesh | recent) [<user.phrase>]$:
+    user.vscode_find_recent(phrase or "")
 pop sesh {user.vscode_sessions}$:
     user.vscode_find_recent(vscode_sessions)
     sleep(150ms)
     key(enter)
-pop sesh [<user.text>]$:
-    user.vscode_find_recent(text or "")
+pop sesh [<user.phrase>]$:
+    user.vscode_find_recent(phrase or "")
     sleep(150ms)
     key(enter)
 
 # Find a symbol
-scout symbol [<user.text>]$:
+scout symbol [<user.phrase>]$:
     user.vscode("workbench.action.showAllSymbols")
     sleep(50ms)
-    user.insert_formatted(text or "", "CAMEL_CASE")
+    user.insert_formatted(phrase or "", "CAMEL_CASE")
 
 # Settings
 open settings (json | jason):
     user.vscode("workbench.action.openSettingsJson")
-open settings <user.text>:
+open settings <user.phrase>:
     app.preferences()
     sleep(200ms)
-    "{text}"
+    insert(phrase)
 
 # CSV
 align columns:              user.vscode("rainbow-csv.Align")
@@ -243,9 +243,9 @@ change language {user.code_language}:
     user.change_language(code_language)
     key(enter)
 
-change language [<user.text>]:
-    user.change_language(text or "")
+change language [<user.phrase>]:
+    user.change_language(phrase or "")
 
-please [<user.text>]$:
+please [<user.phrase>]$:
     user.vscode("workbench.action.showCommands")
-    "{user.text or ''}"
+    insert(phrase or "")

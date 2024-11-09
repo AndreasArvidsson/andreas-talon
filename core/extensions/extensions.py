@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Context, Module, actions
 
 mod = Module()
@@ -11,12 +12,12 @@ def extension(m) -> str:
     return f".{m[-1]}"
 
 
-@mod.capture(rule="[{user.formatter_code}] <user.text> [<user.extension>]")
+@mod.capture(rule="[{user.formatter_code}] <user.phrase> [<user.extension>]")
 def filename(m) -> str:
     try:
-        text = actions.user.format_text(m.text, m.formatter_code)
+        text = actions.user.format_text(m.phrase, m.formatter_code)
     except AttributeError:
-        text = m.text
+        text = m.phrase
     try:
         extension = m.extension
     except AttributeError:
@@ -49,7 +50,7 @@ extension_siblings = {
 
 @mod.action_class
 class UserActions:
-    def get_extension_sibling(extension: str) -> str:
+    def get_extension_sibling(extension: str) -> Optional[str]:
         """Get matching sibling for extension"""
         if extension in extension_siblings:
             return extension_siblings[extension]

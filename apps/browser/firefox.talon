@@ -8,10 +8,11 @@ tag(): user.scroll
 tab search:
     browser.focus_address()
     "% "
-tab search <user.text>$:
+tab search <user.phrase>$:
     browser.focus_address()
-    "% {text}"
-    key(down)
+    "% {phrase}"
+    sleep(100ms)
+    key(tab enter)
 tab mute:                   key(ctrl-m)
 
 # Bitwarden

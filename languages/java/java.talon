@@ -9,7 +9,7 @@ tag(): user.code_comments
 new {user.code_data_type}:
     user.code_new_instance(code_data_type)
 
-new <user.text>:
+new <user.phrase>:
     format = user.code_get_class_format()
-    name = user.format_text(text, format)
+    name = user.format_text(phrase, format)
     user.code_new_instance(name)
