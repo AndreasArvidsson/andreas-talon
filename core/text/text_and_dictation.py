@@ -1,5 +1,5 @@
 from typing import Optional
-from talon import Module, Context, ui, actions, grammar
+from talon import Module, Context, actions, grammar
 import re
 
 mod = Module()
@@ -53,18 +53,18 @@ code_id_rule_parts = [
     "<phrase>",
 ]
 
-prose_role = f"({'|'.join(prose_rule_parts)})+"
+prose_rule = f"({'|'.join(prose_rule_parts)})+"
 code_id_rule = f"({'|'.join(code_id_rule_parts)})+"
 
 
-@mod.capture(rule=prose_role)
+@mod.capture(rule=prose_rule)
 def prose(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
     text, _ = auto_capitalize(format_phrase(m))
     return text
 
 
-@ctx_sv.capture("user.prose", rule=prose_role)
+@ctx_sv.capture("user.prose", rule=prose_rule)
 def prose_ctx_sv(m) -> str:
     # Web speech capitalizes words in the middle of sentences, so we need to lowercase them.
     text, _ = auto_capitalize(format_phrase(m).lower())
@@ -94,6 +94,8 @@ class main_action:
 
 
 # ---------- FORMATTING ---------- #
+
+
 def format_phrase(m) -> str:
     words = capture_to_words(m)
     result = ""
@@ -109,11 +111,10 @@ def format_phrase(m) -> str:
 def capture_to_words(m):
     words = []
     for item in m:
-        words.extend(
-            actions.dictate.parse_words(item)
-            if isinstance(item, grammar.vm.Phrase)
-            else [item]
-        )
+        if isinstance(item, grammar.vm.Phrase):
+            words.extend(actions.dictate.parse_words(item))
+        else:
+            words.append(item)
     words = actions.dictate.replace_words(words)
     words = actions.user.homophones_replace_words(words)
     return words
@@ -245,8 +246,6 @@ class DictationFormat:
 
 
 dictation_formatter = DictationFormat()
-ui.register("app_deactivate", lambda app: dictation_formatter.reset())
-ui.register("win_focus", lambda win: dictation_formatter.reset())
 
 
 @ctx_sv.action_class("user")
