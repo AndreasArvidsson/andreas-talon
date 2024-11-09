@@ -30,7 +30,7 @@ def gui_actions(gui: imgui.GUI):
 
 
 def gui_commands(gui: imgui.GUI):
-    active_contexts = registry.active_contexts()
+    active_contexts = registry.last_active_contexts
     for context_name, context in registry.contexts.items():
         if context in active_contexts:
             commands = list(
