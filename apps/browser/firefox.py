@@ -38,7 +38,8 @@ ctx.lists["user.rango_with_target_action"] = {
 ctx.lists["user.rango_without_target_action"] = {
     "rango single": "includeSingleLetterHints",
     "rango double": "excludeSingleLetterHints",
-    "hunt": "toggleHints",
+    "hunt on": "toggleHints",
+    "hunt off": "toggleHints",
     "hunt refresh": "refreshHints",
     "hover nothing": "unhoverAll",
     "tab clone": "cloneCurrentTab",
