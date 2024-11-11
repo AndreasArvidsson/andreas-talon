@@ -14,7 +14,7 @@ mod.setting(
 gaze_job = None
 gaze_origin_y = None
 scroll_job = None
-scroll_speed_dynamic: float = 1
+gaze_origin_y: float = 0
 scroll_dir: Literal[-1, 1] = 1
 scroll_ts: float = 0
 
@@ -59,28 +59,6 @@ class Actions:
             scroll_ts = time.perf_counter()
             scroll_continuous_helper()
             scroll_job = cron.interval("16ms", scroll_continuous_helper)
-
-    def mouse_scroll_speed_set(speed: int):
-        """Set scroll speed"""
-        global scroll_speed_dynamic
-        scroll_speed_dynamic = speed / 10
-        actions.user.mouse_scroll_speed_notify()
-
-    def mouse_scroll_speed_increase():
-        """Increase scroll speed"""
-        global scroll_speed_dynamic
-        scroll_speed_dynamic += 0.2
-        actions.user.mouse_scroll_speed_notify()
-
-    def mouse_scroll_speed_decrease():
-        """Decrease scroll speed"""
-        global scroll_speed_dynamic
-        scroll_speed_dynamic -= 0.2
-        actions.user.mouse_scroll_speed_notify()
-
-    def mouse_scroll_speed_notify():
-        """Notify scroll speed"""
-        actions.user.notify(f"Mouse scroll speed: {int(scroll_speed_dynamic*100)}%")
 
     def mouse_gaze_scroll():
         """Starts gaze scroll"""
