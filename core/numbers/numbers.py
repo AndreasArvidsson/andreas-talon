@@ -204,11 +204,18 @@ def number_small(m) -> int:
 
 
 @mod.capture(
-    rule="(numb | number) <user.number_string> ((point | dot) <user.number_string>)*"
+    rule="[negative | minus] <user.number_string> ((point | dot) <user.number_string>)*"
 )
+def number_prose_unprefixed(m) -> str:
+    """Parses a unprefixed number phrase, returning that number as a string."""
+    number = ".".join(m.number_string_list)
+    return f"-{number}" if (m[0] in ["negative", "minus"]) else number
+
+
+@mod.capture(rule="(numb | number) <user.number_prose_unprefixed>")
 def number_prose(m) -> str:
     """Parses a prefixed number phrase, returning that number as a string."""
-    return ".".join(m.number_string_list)
+    return m.number_prose_unprefixed
 
 
 @mod.capture(rule=f"{'|'.join(digits[1:])}")
