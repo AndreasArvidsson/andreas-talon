@@ -20,6 +20,7 @@ scroll_job = None
 gaze_origin_y: float = 0
 scroll_dir: Literal[-1, 1] = 1
 scroll_ts: float = 0
+scroll_speed: float = 0
 
 
 @mod.action_class
@@ -37,32 +38,23 @@ class Actions:
             hide_gaze_indicator()
         return return_value
 
-    def mouse_scroll(direction: str, times: int):
+    def mouse_scroll_up(times: int):
         """Scrolls"""
         y = times
-        if direction == "up":
-            y = -y
+        actions.mouse_scroll(-y, by_lines=True)
+
+    def mouse_scroll_down(times: int):
+        """Scrolls"""
+        y = times
         actions.mouse_scroll(y, by_lines=True)
 
-    def mouse_scrolling(direction: str):
-        """Toggle scrolling continuously"""
-        global scroll_job, scroll_dir, scroll_ts
-        new_scroll_dir = -1 if direction == "up" else 1
+    def mouse_scroll_up_continuous():
+        """Toggle scrolling down continuously"""
+        mouse_scroll_continuous(-1)
 
-        if scroll_job is not None:
-            # Issuing a scroll in the same direction as existing aborts it
-            if scroll_dir == new_scroll_dir:
-                actions.user.mouse_scroll_stop()
-                return
-            # Issuing a scroll in the reverse direction resets acceleration
-            scroll_dir = new_scroll_dir
-            scroll_ts = time.perf_counter()
-
-        if scroll_job is None:
-            scroll_dir = new_scroll_dir
-            scroll_ts = time.perf_counter()
-            scroll_continuous_helper()
-            scroll_job = cron.interval("16ms", scroll_continuous_helper)
+    def mouse_scroll_down_continuous():
+        """Toggle scrolling down continuously"""
+        mouse_scroll_continuous(1)
 
     def mouse_gaze_scroll():
         """Starts gaze scroll"""
@@ -71,6 +63,25 @@ class Actions:
         x, gaze_origin_y = ctrl.mouse_pos()
         show_gaze_indicator(x, gaze_origin_y)
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
+
+
+def mouse_scroll_continuous(new_scroll_dir: Literal[-1, 1]):
+    global scroll_job, scroll_dir, scroll_ts, scroll_speed
+    if scroll_job:
+        # Issuing a scroll in the same direction aborts scrolling
+        if scroll_dir == new_scroll_dir:
+            cron.cancel(scroll_job)
+            scroll_job = None
+        # Issuing a scroll in the reverse direction resets acceleration
+        else:
+            scroll_dir = new_scroll_dir
+            scroll_ts = time.perf_counter()
+    else:
+        scroll_dir = new_scroll_dir
+        scroll_ts = time.perf_counter()
+        scroll_speed = settings.get("user.scroll_speed")  # type: ignore
+        scroll_continuous_helper()
+        scroll_job = cron.interval("16ms", scroll_continuous_helper)
 
 
 def scroll_continuous_helper():

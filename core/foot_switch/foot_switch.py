@@ -75,7 +75,7 @@ class Actions:
 
     def foot_switch_top_down():
         """Foot switch button top:down"""
-        actions.user.mouse_scrolling("up")
+        actions.user.mouse_scroll_up_continuous()
 
     def foot_switch_top_up(held: bool):
         """Foot switch button top:up"""
@@ -84,7 +84,7 @@ class Actions:
 
     def foot_switch_center_down():
         """Foot switch button center:down"""
-        actions.user.mouse_scrolling("down")
+        actions.user.mouse_scroll_down_continuous()
 
     def foot_switch_center_up(held: bool):
         """Foot switch button center:up"""

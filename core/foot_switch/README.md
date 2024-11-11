@@ -23,6 +23,4 @@ Up that link to or link post fort switch configuration tool. Download [Foot Swit
         ![Foot Switch Configuration Tool](foot_switch_configuration.png)
 
 1. Add [foot_switch.talon](./foot_switch.talon) and [foot_switch.py](./foot_switch.py) to your Talon user directory
-1. My mouse scroll actions are not community default. To utilize my implementation of mouse scroll with the foot switch you will need [mouse_scroll.py](../mouse/mouse_scroll.py).
-    - If you want to use to use the community scrolling actions replace references to `actions.user.mouse_scrolling("up")` and `actions.user.mouse_scrolling("down")` with `actions.user.mouse_scroll_up_continuous()` and `actions.user.mouse_scroll_down_continuous()`
-    - There might be references to non-community actions for the other buttons as well. Have a look at the Talon log for errors and update [foot_switch.py](./foot_switch.py) with your desired actions.
+1. There might be references to non-community actions for some buttons . Have a look at the Talon log for errors and update [foot_switch.py](./foot_switch.py) with your desired actions.

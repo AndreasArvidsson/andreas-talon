@@ -7,10 +7,10 @@ midd:                       user.mouse_click("middle")
 con:                        user.mouse_click("control")
 
 # Scroll
-climb:                      user.mouse_scrolling("up")
-drop:                       user.mouse_scrolling("down")
-climb <number_small>:       user.mouse_scroll("up", number_small)
-drop <number_small>:        user.mouse_scroll("down", number_small)
+climb:                      user.mouse_scroll_up_continuous()
+drop:                       user.mouse_scroll_down_continuous()
+climb <number_small>:       user.mouse_scroll_up(number_small)
+drop <number_small>:        user.mouse_scroll_down(number_small)
 mouse gaze:                 user.mouse_gaze_scroll()
 
 # Eye tracking
