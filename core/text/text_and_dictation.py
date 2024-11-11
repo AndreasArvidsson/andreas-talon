@@ -37,7 +37,7 @@ prose_rule_parts = [
     "<user.abbreviation>",
     "<user.spell>",
     # "<user.number_dd>",
-    "<user.number_prefix>",
+    "<user.number_prose>",
     "<user.placeholder>",
     "<user.time>",
     "<user.percent>",
@@ -49,7 +49,7 @@ code_id_rule_parts = [
     "{user.key_punctuation_code}",
     "<user.abbreviation>",
     "<user.spell>",
-    "<user.number_prefix>",
+    "<user.number_prose>",
     "<phrase>",
 ]
 

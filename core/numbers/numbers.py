@@ -1,4 +1,3 @@
-# fmt: off
 from talon import Context, Module
 from typing import Union, Iterator
 
@@ -14,13 +13,14 @@ digits_map = {n: i for i, n in enumerate(digits)}
 digits_map["oh"] = 0
 teens_map = {n: i + 10 for i, n in enumerate(teens)}
 tens_map = {n: 10 * (i + 2) for i, n in enumerate(tens)}
-scales_map = {n: 10 ** (3 * (i+1)) for i, n in enumerate(scales[1:])}
+scales_map = {n: 10 ** (3 * (i + 1)) for i, n in enumerate(scales[1:])}
 scales_map["hundred"] = 100
 
 numbers_map = digits_map.copy()
 numbers_map.update(teens_map)
 numbers_map.update(tens_map)
 numbers_map.update(scales_map)
+
 
 def parse_number(l: list[str]) -> str:
     """Parses a list of words into a number/digit string."""
@@ -29,7 +29,8 @@ def parse_number(l: list[str]) -> str:
         l = parse_scale(scale, l)
     return "".join(str(n) for n in l)
 
-def scan_small_numbers(l: list[str]) -> Iterator[Union[str,int]]:
+
+def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
     """
     Takes a list of number words, yields a generator of mixed numbers & strings.
     Translates small number terms (<100) into corresponding numbers.
@@ -54,7 +55,8 @@ def scan_small_numbers(l: list[str]) -> Iterator[Union[str,int]]:
         else:
             yield n
 
-def parse_scale(scale: str, l: list[Union[str,int]]) -> list[Union[str,int]]:
+
+def parse_scale(scale: str, l: list[Union[str, int]]) -> list[Union[str, int]]:
     """Parses a list of mixed numbers & strings for occurrences of the following
     pattern:
 
@@ -81,7 +83,7 @@ def parse_scale(scale: str, l: list[Union[str,int]]) -> list[Union[str,int]]:
         # haven't processed yet; this strategy means that "thousand hundred"
         # gets parsed as 1,100 instead of 100,000, but "hundred thousand" is
         # parsed correctly as 100,000.
-        before = 1 # default multiplier
+        before = 1  # default multiplier
         if left and isinstance(left[-1], int) and left[-1] != 0:
             before = left.pop()
 
@@ -91,7 +93,8 @@ def parse_scale(scale: str, l: list[Union[str,int]]) -> list[Union[str,int]]:
         after = ""
         while right and isinstance(right[0], int):
             next = after + str(right[0])
-            if len(next) >= scale_digits: break
+            if len(next) >= scale_digits:
+                break
             after = next
             right.pop(0)
         after = int(after) if after else 0
@@ -103,14 +106,17 @@ def parse_scale(scale: str, l: list[Union[str,int]]) -> list[Union[str,int]]:
 
     return left
 
+
 def split_list(value, l: list) -> Iterator:
     """Splits a list by occurrences of a given value."""
     start = 0
     while True:
-        try: i = l.index(value, start)
-        except ValueError: break
+        try:
+            i = l.index(value, start)
+        except ValueError:
+            break
         yield l[start:i]
-        start = i+1
+        start = i + 1
     yield l[start:]
 
 
@@ -151,14 +157,15 @@ def split_list(value, l: list) -> Iterator:
 
 
 # ---------- CAPTURES ----------
+
 number_word = "(" + "|".join(numbers_map.keys()) + ")"
 # don't allow numbers to start with scale words like "hundred", "thousand", etc
 leading_words = numbers_map.keys() - scales_map.keys()
-leading_words -= {'oh', 'o'} # comment out to enable bare/initial "oh"
+leading_words -= {"oh", "o"}  # comment out to enable bare/initial "oh"
 number_word_leading = f"({'|'.join(leading_words)})"
 
 # Only allow numbers above nine by themself
-leading_words_dd = {*teens_map.keys(),  *tens_map.keys()}
+leading_words_dd = {*teens_map.keys(), *tens_map.keys()}
 number_word_dd = f"({'|'.join(leading_words_dd)})"
 
 # Numbers used in `number_small` capture
@@ -167,10 +174,9 @@ for ten in tens:
     number_small_list.append(ten)
     number_small_list.extend(f"{ten} {digit}" for digit in digits[1:])
 
-mod.list("number_small", "List of small numbers")
-ctx.lists["user.number_small"] = {n: str(i) for i, n in enumerate(number_small_list)}
 
-# fmt: on
+mod.list("number_small", "List of small (0-99) numbers")
+ctx.lists["user.number_small"] = {n: str(i) for i, n in enumerate(number_small_list)}
 
 
 @mod.capture(rule=(f"{number_word_dd} | {number_word_leading} ([and] {number_word})+"))
@@ -193,13 +199,14 @@ def number(m) -> int:
 
 @ctx.capture("number_small", rule="{user.number_small}")
 def number_small(m) -> int:
+    """Parses a small (0-99) number phrase, returning it as an integer."""
     return int(m.number_small)
 
 
 @mod.capture(
     rule="(numb | number) <user.number_string> ((point | dot) <user.number_string>)*"
 )
-def number_prefix(m) -> str:
+def number_prose(m) -> str:
     """Parses a prefixed number phrase, returning that number as a string."""
     return ".".join(m.number_string_list)
 
