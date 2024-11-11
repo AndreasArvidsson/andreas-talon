@@ -5,7 +5,7 @@ from talon.skia.canvas import Canvas as SkiaCanvas
 from talon.skia.imagefilter import ImageFilter
 from talon.types import Rect, Point2d
 
-canvas: Canvas = None
+canvas: Canvas | None = None
 current_mode = ""
 mod = Module()
 ctx = Context()
@@ -110,8 +110,10 @@ def move_indicator():
     )
 
     side = 2 * radius
-    canvas.move(x, y)
-    canvas.resize(side, side)
+    if canvas:
+
+        canvas.move(x, y)
+        canvas.resize(side, side)
 
 
 def show_indicator():
@@ -122,9 +124,10 @@ def show_indicator():
 
 def hide_indicator():
     global canvas
-    canvas.unregister("draw", on_draw)
-    canvas.close()
-    canvas = None
+    if canvas:
+        canvas.unregister("draw", on_draw)
+        canvas.close()
+        canvas = None
 
 
 def update_indicator():
@@ -132,7 +135,8 @@ def update_indicator():
         if not canvas:
             show_indicator()
         move_indicator()
-        canvas.freeze()
+        if canvas:
+            canvas.freeze()
     elif canvas:
         hide_indicator()
 
