@@ -68,6 +68,7 @@ class Actions:
         """Starts gaze scroll"""
         global gaze_job, gaze_origin_y
         actions.user.mouse_scroll_stop()
+        x, gaze_origin_y = ctrl.mouse_pos()
         show_gaze_indicator(x, gaze_origin_y)
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
 
