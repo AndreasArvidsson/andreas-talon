@@ -107,7 +107,14 @@ def show_gaze_indicator(x: float, y: float):
     screen = ui.screen_containing(x, y)
     scale = screen.scale if app.platform != "mac" else 1
     size = 10 * scale
-    gaze_canvas = Canvas.from_rect(Rect(x, y, size, size))
+    gaze_canvas = Canvas.from_rect(
+        Rect(
+            x - size / 4,
+            y - size / 2,
+            size,
+            size,
+        )
+    )
     gaze_canvas.register("draw", on_draw_gaze)
 
 
