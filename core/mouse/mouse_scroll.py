@@ -1,4 +1,7 @@
 from talon import Module, actions, app, ui, cron, settings, ctrl
+from talon.canvas import Canvas
+from talon.types import Rect
+from talon.skia.canvas import Canvas as SkiaCanvas
 from typing import Literal
 import time
 
@@ -11,8 +14,8 @@ mod.setting(
     desc="Base scroll speed",
 )
 
+gaze_canvas: Canvas | None = None
 gaze_job = None
-gaze_origin_y = None
 scroll_job = None
 gaze_origin_y: float = 0
 scroll_dir: Literal[-1, 1] = 1
@@ -31,6 +34,7 @@ class Actions:
         if gaze_job:
             cron.cancel(gaze_job)
             gaze_job = None
+            hide_gaze_indicator()
         return return_value
 
     def mouse_scroll(direction: str, times: int):
@@ -64,14 +68,14 @@ class Actions:
         """Starts gaze scroll"""
         global gaze_job, gaze_origin_y
         actions.user.mouse_scroll_stop()
-        _, gaze_origin_y = ctrl.mouse_pos()
+        show_gaze_indicator(x, gaze_origin_y)
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
 
 
 def scroll_continuous_helper():
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
     scroll_speed: float = settings.get("user.scroll_speed", 0)  # type: ignore
-    y = scroll_speed * scroll_speed_dynamic * acceleration_speed * scroll_dir
+    y = scroll_speed * acceleration_speed * scroll_dir
     actions.mouse_scroll(y, by_lines=True)
 
 
@@ -95,3 +99,28 @@ def get_window_for_cursor(x: float, y: float):
             return window
 
     return None
+
+
+def show_gaze_indicator(x: float, y: float):
+    global gaze_canvas
+    screen = ui.screen_containing(x, y)
+    scale = screen.scale if app.platform != "mac" else 1
+    size = 10 * scale
+    gaze_canvas = Canvas.from_rect(Rect(x, y, size, size))
+    gaze_canvas.register("draw", on_draw_gaze)
+
+
+def hide_gaze_indicator():
+    global gaze_canvas
+    if gaze_canvas:
+        gaze_canvas.unregister("draw", on_draw_gaze)
+        gaze_canvas.close()
+        gaze_canvas = None
+
+
+def on_draw_gaze(c: SkiaCanvas):
+    x, y = c.rect.center.x, c.rect.center.y
+    radius = c.rect.height / 2 - 2
+    c.paint.style = c.paint.Style.FILL
+    c.paint.color = "red"
+    c.draw_circle(x, y, radius)
