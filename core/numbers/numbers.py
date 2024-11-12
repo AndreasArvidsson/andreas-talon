@@ -173,10 +173,14 @@ number_small_list = [*digits, *teens]
 for ten in tens:
     number_small_list.append(ten)
     number_small_list.extend(f"{ten} {digit}" for digit in digits[1:])
-
+number_small_map = {n: str(i) for i, n in enumerate(number_small_list)}
+# Add support for double single digits. eg. "five one" -> 51
+for d1 in range(1, 10):
+    for d2 in range(10):
+        number_small_map[f"{digits[d1]} {digits[d2]}"] = f"{d1}{d2}"
 
 mod.list("number_small", "List of small (0-99) numbers")
-ctx.lists["user.number_small"] = {n: str(i) for i, n in enumerate(number_small_list)}
+ctx.lists["user.number_small"] = number_small_map
 
 
 @mod.capture(rule=(f"{number_word_dd} | {number_word_leading} ([and] {number_word})+"))
