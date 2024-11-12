@@ -109,7 +109,7 @@ def scroll_gaze_helper():
     if window is None:
         return
     rect = window.rect
-    y = scroll_step * ((y - gaze_origin_y) / (rect.height / 3)) ** 3
+    y = ((y - gaze_origin_y) / (rect.height / 10)) ** 3
     actions.mouse_scroll(y)
 
 
