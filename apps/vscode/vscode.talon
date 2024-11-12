@@ -187,21 +187,21 @@ run task compile:
     insert("compile")
     sleep(200ms)
     key(enter)
-run task [<user.phrase>]:
+run task [<user.prose>]:
     user.vscode("workbench.action.tasks.runTask")
-    insert(phrase or "")
+    insert(prose or "")
 dev tools:                  user.vscode("workbench.action.toggleDevTools")
 select element:             key(ctrl-shift-c)
 
 # Find session
-scout (sesh | recent) [<user.phrase>]$:
-    user.vscode_find_recent(phrase or "")
+scout (sesh | recent) [<user.prose>]$:
+    user.vscode_find_recent(prose or "")
 pop sesh {user.vscode_sessions}$:
     user.vscode_find_recent(vscode_sessions)
     sleep(150ms)
     key(enter)
-pop sesh [<user.phrase>]$:
-    user.vscode_find_recent(phrase or "")
+pop sesh [<user.prose>]$:
+    user.vscode_find_recent(prose or "")
     sleep(150ms)
     key(enter)
 
@@ -214,10 +214,10 @@ scout symbol [<user.phrase>]$:
 # Settings
 open settings (json | jason):
     user.vscode("workbench.action.openSettingsJson")
-open settings <user.phrase>:
+open settings <user.prose>:
     app.preferences()
     sleep(200ms)
-    insert(phrase)
+    insert(prose)
 
 # CSV
 align columns:              user.vscode("rainbow-csv.Align")
@@ -243,9 +243,9 @@ change language {user.code_language}:
     user.change_language(code_language)
     key(enter)
 
-change language [<user.phrase>]:
-    user.change_language(phrase or "")
+change language [<user.prose>]:
+    user.change_language(prose or "")
 
-please [<user.phrase>]$:
+please [<user.prose>]$:
     user.vscode("workbench.action.showCommands")
-    insert(phrase or "")
+    insert(prose or "")
