@@ -128,11 +128,11 @@ git diff files:             user.vscode("git.viewChanges")
 git open:                   user.vscode("git.openFile")
 
 # Folding
-fold recursive:             user.vscode("editor.foldRecursively")
-unfold recursive:           user.vscode("editor.unfoldRecursively")
-fold all:                   user.vscode("editor.foldAll")
-unfold all:                 user.vscode("editor.unfoldAll")
-fold comments:              user.vscode("editor.foldAllBlockComments")
+# fold recursive:             user.vscode("editor.foldRecursively")
+# unfold recursive:           user.vscode("editor.unfoldRecursively")
+# fold all:                   user.vscode("editor.foldAll")
+# unfold all:                 user.vscode("editor.unfoldAll")
+# fold comments:              user.vscode("editor.foldAllBlockComments")
 
 # Navigation
 go line <number>:           edit.jump_line(number - 1)

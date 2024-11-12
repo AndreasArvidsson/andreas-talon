@@ -22,21 +22,22 @@ scroll_job = None
 gaze_origin_y: float = 0
 scroll_dir: Literal[-1, 1] = 1
 scroll_ts: float = 0
-scroll_speed: float = 0
 
 
 @mod.action_class
 class Actions:
-    def mouse_scroll_stop():
+    def mouse_scroll_stop() -> bool:
         """Stop mouse scroll"""
         global scroll_job, gaze_job
-        return_value = scroll_job or gaze_job
+        return_value = False
         if scroll_job:
             cron.cancel(scroll_job)
             scroll_job = None
+            return_value = True
         if gaze_job:
             cron.cancel(gaze_job)
             gaze_job = None
+            return_value = True
             hide_gaze_indicator()
         return return_value
 
@@ -68,7 +69,7 @@ class Actions:
 
 
 def mouse_scroll_continuous(new_scroll_dir: Literal[-1, 1]):
-    global scroll_job, scroll_dir, scroll_ts, scroll_speed
+    global scroll_job, scroll_dir, scroll_ts
     if scroll_job:
         # Issuing a scroll in the same direction aborts scrolling
         if scroll_dir == new_scroll_dir:
@@ -81,12 +82,12 @@ def mouse_scroll_continuous(new_scroll_dir: Literal[-1, 1]):
     else:
         scroll_dir = new_scroll_dir
         scroll_ts = time.perf_counter()
-        scroll_speed = scroll_step * settings.get("user.scroll_speed")  # type: ignore
         scroll_continuous_helper()
         scroll_job = cron.interval("16ms", scroll_continuous_helper)
 
 
 def scroll_continuous_helper():
+    scroll_speed = scroll_step * settings.get("user.scroll_speed")  # type: ignore
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
     y = scroll_speed * acceleration_speed * scroll_dir
     actions.mouse_scroll(y)
@@ -94,7 +95,7 @@ def scroll_continuous_helper():
 
 def scroll_gaze_helper():
     x, y = ctrl.mouse_pos()
-    window = get_window_for_cursor(x, y)
+    window = get_window_containing(x, y)
     if window is None:
         return
     rect = window.rect
@@ -102,7 +103,7 @@ def scroll_gaze_helper():
     actions.mouse_scroll(y)
 
 
-def get_window_for_cursor(x: float, y: float):
+def get_window_containing(x: float, y: float):
     # on windows, check the active_window first since ui.windows() is not z-ordered
     if app.platform == "windows" and ui.active_window().rect.contains(x, y):
         return ui.active_window()
