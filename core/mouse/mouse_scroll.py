@@ -139,7 +139,7 @@ def hide_gaze_indicator():
 
 def on_draw_gaze(c: SkiaCanvas):
     x, y = c.rect.center.x, c.rect.center.y
-    radius = c.rect.height / 2 - 2
+    radius = c.rect.height / 2 - 1
     c.paint.style = c.paint.Style.FILL
     c.paint.color = "red"
     c.draw_circle(x, y, radius)

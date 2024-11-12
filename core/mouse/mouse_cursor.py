@@ -1,8 +1,6 @@
-from talon import Module, actions, app, ctrl
+from talon import Module, app, ctrl
 import os
 
-
-# app.register("ready", lambda: actions.user.mouse_show_cursor())
 
 default_cursor = {
     "AppStarting": r"%SystemRoot%\Cursors\aero_working.ani",
@@ -25,7 +23,7 @@ default_cursor = {
 }
 
 hidden_cursor = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), r"HiddenCursor.cur"
+    os.path.dirname(os.path.realpath(__file__)), "HiddenCursor.cur"
 )
 
 mod = Module()
@@ -33,16 +31,16 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def mouse_show_cursor():
+    def mouse_cursor_show():
         """Shows the cursor"""
         show_cursor_helper(True)
 
-    def mouse_hide_cursor():
+    def mouse_cursor_hide():
         """Hides the cursor"""
         show_cursor_helper(False)
 
 
-def show_cursor_helper(show):
+def show_cursor_helper(show: bool):
     """Show/hide the cursor"""
     if app.platform == "windows":
         import ctypes
@@ -70,7 +68,7 @@ def show_cursor_helper(show):
                 win32con.SPI_SETCURSORS, 0, None, 0
             )
 
-        except WindowsError:
-            print("Unable to show_cursor({})".format(str(show)))
+        except OSError:
+            print(f"Unable to show_cursor({show})")
     else:
         ctrl.cursor_visible(show)
