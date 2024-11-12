@@ -11,6 +11,8 @@ climb:                      user.mouse_scroll_up_continuous()
 drop:                       user.mouse_scroll_down_continuous()
 climb <number_small>:       user.mouse_scroll_up(number_small)
 drop <number_small>:        user.mouse_scroll_down(number_small)
+wheel left <number_small>:  user.mouse_scroll_left(number_small)
+wheel right <number_small>: user.mouse_scroll_right(number_small)
 mouse gaze:                 user.mouse_gaze_scroll()
 
 # Eye tracking

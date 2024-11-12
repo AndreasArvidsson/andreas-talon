@@ -26,30 +26,25 @@ scroll_ts: float = 0
 
 @mod.action_class
 class Actions:
-    def mouse_scroll_stop() -> bool:
-        """Stop mouse scroll"""
-        global scroll_job, gaze_job
-        return_value = False
-        if scroll_job:
-            cron.cancel(scroll_job)
-            scroll_job = None
-            return_value = True
-        if gaze_job:
-            cron.cancel(gaze_job)
-            gaze_job = None
-            return_value = True
-            hide_gaze_indicator()
-        return return_value
-
-    def mouse_scroll_up(times: int = 1):
-        """Scrolls"""
-        y = times * scroll_step
+    def mouse_scroll_up(amount: float = 1):
+        """Scrolls up"""
+        y = amount * scroll_step
         actions.mouse_scroll(-y)
 
-    def mouse_scroll_down(times: int = 1):
-        """Scrolls"""
-        y = times * scroll_step
+    def mouse_scroll_down(amount: float = 1):
+        """Scrolls down"""
+        y = amount * scroll_step
         actions.mouse_scroll(y)
+
+    def mouse_scroll_left(amount: float = 1):
+        """Scrolls left"""
+        x = amount * scroll_step
+        actions.mouse_scroll(0, -x)
+
+    def mouse_scroll_right(amount: float = 1):
+        """Scrolls right"""
+        x = amount * scroll_step
+        actions.mouse_scroll(0, x)
 
     def mouse_scroll_up_continuous():
         """Toggle scrolling down continuously"""
@@ -66,6 +61,21 @@ class Actions:
         x, gaze_origin_y = ctrl.mouse_pos()
         show_gaze_indicator(x, gaze_origin_y)
         gaze_job = cron.interval("16ms", scroll_gaze_helper)
+
+    def mouse_scroll_stop() -> bool:
+        """Stop mouse scroll"""
+        global scroll_job, gaze_job
+        return_value = False
+        if scroll_job:
+            cron.cancel(scroll_job)
+            scroll_job = None
+            return_value = True
+        if gaze_job:
+            cron.cancel(gaze_job)
+            gaze_job = None
+            return_value = True
+            hide_gaze_indicator()
+        return return_value
 
 
 def mouse_scroll_continuous(new_scroll_dir: Literal[-1, 1]):
