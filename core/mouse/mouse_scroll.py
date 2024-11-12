@@ -4,6 +4,7 @@ from talon.types import Rect
 from talon.skia.canvas import Canvas as SkiaCanvas
 from typing import Literal
 import time
+import math
 
 mod = Module()
 
@@ -14,6 +15,7 @@ mod.setting(
     desc="Base scroll speed",
 )
 
+scroll_step = math.ceil(ui.main_screen().dpi / 5)
 gaze_canvas: Canvas | None = None
 gaze_job = None
 scroll_job = None
@@ -38,15 +40,15 @@ class Actions:
             hide_gaze_indicator()
         return return_value
 
-    def mouse_scroll_up(times: int):
+    def mouse_scroll_up(times: int = 1):
         """Scrolls"""
-        y = times
-        actions.mouse_scroll(-y, by_lines=True)
+        y = times * scroll_step
+        actions.mouse_scroll(-y)
 
-    def mouse_scroll_down(times: int):
+    def mouse_scroll_down(times: int = 1):
         """Scrolls"""
-        y = times
-        actions.mouse_scroll(y, by_lines=True)
+        y = times * scroll_step
+        actions.mouse_scroll(y)
 
     def mouse_scroll_up_continuous():
         """Toggle scrolling down continuously"""
@@ -79,16 +81,15 @@ def mouse_scroll_continuous(new_scroll_dir: Literal[-1, 1]):
     else:
         scroll_dir = new_scroll_dir
         scroll_ts = time.perf_counter()
-        scroll_speed = settings.get("user.scroll_speed")  # type: ignore
+        scroll_speed = scroll_step * settings.get("user.scroll_speed")  # type: ignore
         scroll_continuous_helper()
         scroll_job = cron.interval("16ms", scroll_continuous_helper)
 
 
 def scroll_continuous_helper():
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
-    scroll_speed: float = settings.get("user.scroll_speed", 0)  # type: ignore
     y = scroll_speed * acceleration_speed * scroll_dir
-    actions.mouse_scroll(y, by_lines=True)
+    actions.mouse_scroll(y)
 
 
 def scroll_gaze_helper():
@@ -97,8 +98,8 @@ def scroll_gaze_helper():
     if window is None:
         return
     rect = window.rect
-    y = ((y - gaze_origin_y) / (rect.height / 3)) ** 3
-    actions.mouse_scroll(y, by_lines=True)
+    y = scroll_step * ((y - gaze_origin_y) / (rect.height / 3)) ** 3
+    actions.mouse_scroll(y)
 
 
 def get_window_for_cursor(x: float, y: float):
