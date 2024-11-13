@@ -12,8 +12,8 @@ class Language:
 
 languages = [
     Language("batch", "batch", ["bat"]),
-    Language("c", "see", ["c"]),
-    Language("cpp", "see plus plus", ["cpp", "h"]),
+    Language("c", "see", ["c", "h"]),
+    Language("cpp", "see plus plus", ["cpp"]),
     Language("csharp", "see sharp", ["cs"]),
     Language("css", "css", ["css"]),
     Language("csv", "csv", ["csv"]),
@@ -47,7 +47,6 @@ extension_lang_map = {
     **{f".{ext}": lang.id for lang in languages for ext in lang.extensions},
     ".bashbook": "bash",
     ".ipynb": "python",
-    ".h": "c",
 }
 
 language_ids = set(extension_lang_map.values())
