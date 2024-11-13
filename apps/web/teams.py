@@ -6,6 +6,8 @@ mod = Module()
 mod.apps.teams = r"""
 os: windows
 and app.exe: teams.exe
+os: windows
+and app.exe: ms-teams.exe
 """
 mod.apps.teams = r"""
 tag: browser
