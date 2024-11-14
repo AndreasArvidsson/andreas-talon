@@ -53,8 +53,8 @@ code_id_rule_parts = [
     "<phrase>",
 ]
 
-prose_rule = f"({'|'.join(prose_rule_parts)})+"
-code_id_rule = f"({'|'.join(code_id_rule_parts)})+"
+prose_rule = f"({' | '.join(prose_rule_parts)})+"
+code_id_rule = f"({' | '.join(code_id_rule_parts)})+"
 
 
 @mod.capture(rule=prose_rule)

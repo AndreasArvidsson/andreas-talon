@@ -4,6 +4,9 @@ tag: user.bash
 flag:                       " -"
 flag <user.letters>:        " -{letters} "
 
+param:                      " --"
+param <user.prose>:         " --{prose}"
+
 dir:                        "cd "
 dir <user.phrase>$:         "cd {phrase}"
 dir <user.letters>$:        "cd {letters}"
