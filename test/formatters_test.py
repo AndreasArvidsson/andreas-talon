@@ -15,6 +15,7 @@ fixtures_format = [
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["TITLE_CASE", input_raw, "Why? And. It's Nice!"],
     ["TITLE_CASE", "abc    abc", "Abc    Abc"],
+    ["TITLE_CASE", " abc abc", " Abc Abc"],
     ["TITLE_CASE", "\tabc\nabc ", "\tAbc\nAbc "],
     ["TITLE_CASE", "aBc aBc aBc", "aBc aBc aBc"],
     ["TITLE_CASE", "and and and", "And and And"],
@@ -23,6 +24,7 @@ fixtures_format = [
     ["TITLE_CASE", "1st 2nd 3rd", "1st 2nd 3rd"],
     ["SENTENCE", input_raw, "Why? and. It's nice!"],
     ["SENTENCE", "aBc abc", "aBc abc"],
+    ["SENTENCE", " abc abc", " Abc abc"],
     # Code formatters
     ["NO_SPACES", "why?\nand.\tIt's  nice`!", "whyand.itsnice"],
     ["CAMEL_CASE", input_raw, "whyAnd.itsNice"],
@@ -54,6 +56,7 @@ output_raw_unicode = "hej på dig åäö"
 fixtures_reformat = [
     ["CAPITALIZE_FIRST_WORD", input_raw, "Why? and. It's nice!"],
     ["CAPITALIZE_FIRST_WORD", "aBc abc", "ABc abc"],
+    ["CAPITALIZE_FIRST_WORD", " abc abc", " Abc abc"],
     ["CAPITALIZE_FIRST_WORD", "ABC", "Abc"],
     ["COMMA_SEPARATED", input_raw, "why?, and., It's, nice!"],
     ["COMMA_SEPARATED", "a b  c", "a, b, c"],
