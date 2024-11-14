@@ -11,6 +11,7 @@ class Language:
 
 
 languages = [
+    Language("bash", "bash", ["sh", "bashbook"]),
     Language("batch", "batch", ["bat"]),
     Language("c", "see", ["c", "h"]),
     Language("cpp", "see plus plus", ["cpp"]),
@@ -29,7 +30,7 @@ languages = [
     Language("perl", "perl", ["pl"]),
     Language("plaintext", "text", ["txt"]),
     Language("powershell", "power shell", ["ps1"]),
-    Language("python", "python", ["py"]),
+    Language("python", "python", ["py", "ipynb"]),
     Language("r", "are", ["r"]),
     Language("ruby", "ruby", ["rb"]),
     Language("scm", "tree sitter", ["scm"]),
@@ -43,22 +44,7 @@ languages = [
     Language("xml", "xml", ["xml"]),
 ]
 
-extension_lang_map = {
-    **{f".{ext}": lang.id for lang in languages for ext in lang.extensions},
-    ".bashbook": "bash",
-    ".ipynb": "python",
-}
-
-language_ids = set(extension_lang_map.values())
-forced_language = ""
-
 mod = Module()
-
-mod.list("code_extension", "List of file programming languages file extensions")
-mod.list("code_language", "List of file programming language identifiers")
-
-mod.tag("code_language_forced", "This tag is active when a language mode is forced")
-
 ctx = Context()
 
 ctx_forced = Context()
@@ -66,12 +52,23 @@ ctx_forced.matches = r"""
 tag: user.code_language_forced
 """
 
+mod.tag("code_language_forced", "This tag is active when a language mode is forced")
+mod.list("code_extension", "List of file programming languages file extensions")
+mod.list("code_language", "List of file programming language identifiers")
+
+ctx.lists["user.code_language"] = {lang.spoken_form: lang.id for lang in languages}
+
 ctx.lists["user.code_extension"] = {
     **{lang.spoken_form: lang.extensions[0] for lang in languages},
     "pie": "py",
 }
 
-ctx.lists["user.code_language"] = {lang.spoken_form: lang.id for lang in languages}
+# Maps extension to language ids
+extension_lang_map = {
+    f".{ext}": lang.id for lang in languages for ext in lang.extensions
+}
+
+forced_language = ""
 
 
 @ctx.action_class("code")

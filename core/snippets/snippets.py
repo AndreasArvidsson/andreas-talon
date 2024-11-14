@@ -2,7 +2,7 @@ from collections import defaultdict
 from talon import Module, Context, app, fs, actions
 from pathlib import Path
 import glob
-from ..languages.languages import language_ids
+from ..languages.languages import languages
 from .snippets_parser import create_snippets_from_file
 from .snippet_types import InsertionSnippet, Snippet, WrapperSnippet
 
@@ -21,10 +21,10 @@ context_map = {
 snippets_map = {}
 
 # Create a context for each defined language
-for lang in language_ids:
+for lang in languages:
     ctx = Context()
-    ctx.matches = f"code.language: {lang}"
-    context_map[lang] = ctx
+    ctx.matches = f"code.language: {lang.id}"
+    context_map[lang.id] = ctx
 
 
 @mod.action_class
