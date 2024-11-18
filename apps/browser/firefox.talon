@@ -2,7 +2,6 @@ app: firefox
 -
 tag(): browser
 tag(): user.scroll
-# tag(): user.rango_direct_clicking
 
 # Tabs
 tab search:
