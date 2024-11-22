@@ -10,16 +10,12 @@ from typing import (
     Dict,
     Literal,
     Optional,
-    Sequence,
     Tuple,
     Union,
-    Tuple,
-    Union,
-    Optional,
     get_origin,
     get_args,
 )
-from talon import registry, app
+from talon import registry
 from talon.screen import Screen
 from talon.types import Rect
 from talon.scripting.types import CommandImpl, ScriptImpl
