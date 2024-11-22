@@ -16,6 +16,10 @@ Clipboard manager with RPC and Talon support. Supports copying and pasting multi
 -   `"clippy copy air past bat"`
 -   `"clippy copy 2 items air"`
 
+## Dependencies
+
+-   [rpc_client](../../core/rpc_client/)
+
 ## Images
 
 ![Clippy](./clippy.png)
