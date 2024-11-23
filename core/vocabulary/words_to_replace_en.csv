@@ -27,6 +27,7 @@ arrange, a range
 blue tack, blu tack
 bullion, boolean
 bullions, booleans
+cel, cell
 cereal, serial
 checkbooks, checkbox
 classname, class name
@@ -66,6 +67,7 @@ meet up, meetup
 my great, migrate
 noll, null
 notebook sell, notebook cell
+notebook sells, notebook cells
 organization, organisation
 organizations, organisations
 pit on, python
@@ -84,6 +86,8 @@ se sharp, csharp
 sea sharp, csharp
 see sharp, csharp
 seen tax, syntax
+sell, cell
+sells, cells
 sharm, charm
 shat, chat
 sin tax, syntax
