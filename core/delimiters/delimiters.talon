@@ -1,3 +1,3 @@
 # Matching delimiter pairs: "round" => ()
-{user.delimiter_pair}:
-    user.delimiters_pair_insert_by_name(delimiter_pair)
+<user.delimiter_pair>:
+    user.delimiter_pair_insert(delimiter_pair)

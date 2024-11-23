@@ -40,8 +40,8 @@ class EditInsertAction:
 
 @dataclass
 class EditWrapAction:
-    type = "wrapWithPairedDelimiter"
-    pair: str
+    type = "wrapWithDelimiterPair"
+    pair: list[str]
 
     def __str__(self):
         return self.type
@@ -75,7 +75,7 @@ def edit_simple_action(m) -> EditSimpleAction:
     return EditSimpleAction(m.edit_simple_action)
 
 
-@mod.capture(rule="{user.delimiter_pair_wrap} wrap")
+@mod.capture(rule="<user.delimiter_pair_wrap> wrap")
 def edit_wrap_action(m) -> EditWrapAction:
     return EditWrapAction(m.delimiter_pair_wrap)
 
@@ -123,9 +123,11 @@ def get_action_callback(action: EditAction) -> Callable:
         case "insert":
             assert isinstance(action, EditInsertAction)
             return lambda: actions.insert(action.text)
-        case "wrapWithPairedDelimiter":
+
+        case "wrapWithDelimiterPair":
             assert isinstance(action, EditWrapAction)
-            return lambda: actions.user.delimiters_pair_wrap_selection(action.pair)
+            return lambda: actions.user.delimiter_pair_wrap_selection(action.pair)
+
         case "applyFormatter":
             assert isinstance(action, EditFormatAction)
             return lambda: actions.user.reformat_selection(action.formatters)
