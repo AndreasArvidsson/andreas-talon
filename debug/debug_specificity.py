@@ -40,7 +40,7 @@ def run():
     for matches in matchers:
         ctx = Context()
         ctx.matches = matches
-        ctx.lists["user.debug_matches"] = {"matches": matches}
+        ctx.lists["user.debug_matches"] = {"matches": matches.replace("\n", " \\n ")}
 
     app.register("ready", on_ready)
 
@@ -57,9 +57,7 @@ def run():
 #  7: mode: command
 #  8: mode: all
 #  9: language: en
-# 10: tag: user.cursorless
-#     and tag: user.tabs
-# 11: tag: user.cursorless
-#     tag: user.tabs
+# 10: tag: user.cursorless \n and tag: user.tabs
+# 11: tag: user.cursorless \n tag: user.tabs
 # 12: tag: user.cursorless
 # 13: os: windows
