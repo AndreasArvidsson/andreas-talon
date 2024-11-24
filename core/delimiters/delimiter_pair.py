@@ -39,7 +39,7 @@ class Actions:
         insert_between(pair[0], pair[1], selected)
 
 
-def insert_between(before: str, after: str, middle=""):
+def insert_between(before: str, after: str, middle: str = ""):
     actions.insert(f"{before}{middle}{after}")
     for _ in after:
         actions.edit.left()
