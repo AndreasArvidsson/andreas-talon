@@ -1,7 +1,8 @@
 list: user.vscode_sessions
 -
 
-mine:          andreas-talon
-extension:     andreas-vscode
 cursor less:   cursorless
 cursor:        cursorless
+extension:     andreas-vscode
+gss:           gss-app
+mine:          andreas-talon
