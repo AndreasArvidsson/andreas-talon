@@ -5,9 +5,6 @@ mod = Module()
 mod.tag("tabs")
 
 ctx = Context()
-ctx.matches = r"""
-tag: user.tabs
-"""
 
 
 @ctx.action_class("app")
