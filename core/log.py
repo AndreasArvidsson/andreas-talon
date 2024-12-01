@@ -3,25 +3,25 @@ from talon import Module
 
 mod = Module()
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+# logger.setLevel(logging.DEBUG)
+
 
 @mod.action_class
 class Actions:
     def debug(message: str):
         """Log debug message"""
-        logging.debug(message)
+        logger.debug(message)
 
     def info(message: str):
         """Log info message"""
-        logging.info(message)
+        logger.info(message)
 
     def warning(message: str):
         """Log warning message"""
-        logging.warning(message)
+        logger.warning(message)
 
     def error(message: str):
         """Log error message"""
-        logging.error(message)
-
-
-logging.getLogger().setLevel(logging.INFO)
-# logging.getLogger().setLevel(logging.DEBUG)
+        logger.error(message)
