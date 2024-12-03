@@ -19,8 +19,8 @@ bookmark bar:               browser.bookmarks_bar()
 bookmark it:                browser.bookmark()
 bookmark tabs:              browser.bookmark_tabs()
 
-(refresh | reload) page:    browser.reload()
-(refresh | reload) page hard: browser.reload_hard()
+page (refresh | reload):    browser.reload()
+page (refresh | reload) hard: browser.reload_hard()
 
 show downloads:             browser.show_downloads()
 show extensions:            browser.show_extensions()
