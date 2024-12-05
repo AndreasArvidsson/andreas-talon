@@ -140,7 +140,7 @@ class UserActions:
             {
                 "name": "main",
                 "modifiers": "public static",
-                "1": "String[] args",
+                "1": "final String[] args",
             },
         )
 
