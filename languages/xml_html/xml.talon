@@ -9,7 +9,8 @@ tag(): user.code_inserts
 element {user.code_tag}:
     user.code_insert_element(code_tag)
 element <user.phrase>:
-    user.code_insert_element(phrase)
+    name = user.format_text(phrase, "CAMEL_CASE")
+    user.code_insert_element(name)
 
 tag {user.code_tag}:        "<{code_tag}>"
 tag <user.phrase>:          "<{phrase}>"
