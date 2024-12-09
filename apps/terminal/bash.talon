@@ -8,9 +8,9 @@ param:                      " --"
 param <user.prose>:         " --{prose}"
 
 dir:                        "cd "
-dir <user.phrase>$:         "cd {phrase}"
+dir <user.prose>$:          "cd {prose}"
 dir <user.letters>$:        "cd {letters}"
-dir <user.phrase> tab$:     "cd {phrase}\t"
+dir <user.prose> tab$:      "cd {prose}\t"
 dir <user.letters> tab$:    "cd {letters}\t"
 
 list:                       "ls\n"
@@ -39,7 +39,7 @@ tar create:                 "tar -czvf "
 tar extractf:               "tar -xzvf "
 
 echo:                       "echo "
-echo <user.phrase>$:        "echo {phrase}"
+echo <user.prose>$:         "echo {prose}"
 
 grep:                       "grep "
 make dir:                   "mkdir "

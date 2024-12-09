@@ -13,12 +13,12 @@ mod.list("code_data_type", "Names of data types")
 mod.list("code_symbol", "Known symbols in the code workspace")
 
 
-@mod.capture(rule="{user.code_data_type} | <user.phrase>")
+@mod.capture(rule="{user.code_data_type} | <user.prose>")
 def code_data_type(m) -> str:
     with suppress(AttributeError):
         return m.code_data_type
     format = actions.user.code_get_class_format()
-    return actions.user.format_text(m.phrase, format)
+    return actions.user.format_text(m.prose, format)
 
 
 @mod.action_class

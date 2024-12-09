@@ -21,6 +21,6 @@ resize left:                key(alt-shift-left)
 resize right:               key(alt-shift-right)
 
 please:                     key(ctrl-shift-p)
-please <user.phrase>$:
+please <user.prose>$:
     key(ctrl-shift-p)
-    insert(phrase)
+    insert(prose)

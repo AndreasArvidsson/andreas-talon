@@ -1,8 +1,8 @@
 clippy:
     user.clippy_command_no_targets("toggleShowHide")
 
-clippy search <user.phrase>:
-    user.clippy_search(phrase)
+clippy search <user.prose>:
+    user.clippy_search(prose)
 
 clippy {user.clippy_command_no_targets}:
     user.clippy_command_no_targets(clippy_command_no_targets)
@@ -13,8 +13,8 @@ clippy {user.clippy_command_with_targets} <user.clippy_targets>:
 clippy rename <user.clippy_targets>:
     user.clippy_rename(clippy_targets)
 
-clippy rename <user.clippy_targets> as <user.phrase>:
-    user.clippy_rename(clippy_targets, phrase)
+clippy rename <user.clippy_targets> as <user.prose>:
+    user.clippy_rename(clippy_targets, prose)
 
 clippy get <user.clippy_targets>:
     user.clippy_get(clippy_targets)

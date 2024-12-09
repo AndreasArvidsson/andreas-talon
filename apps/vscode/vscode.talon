@@ -206,10 +206,10 @@ pop sesh [<user.prose>]$:
     key(enter)
 
 # Find a symbol
-scout symbol [<user.phrase>]$:
+scout symbol [<user.prose>]$:
     user.vscode("workbench.action.showAllSymbols")
     sleep(50ms)
-    user.insert_formatted(phrase or "", "CAMEL_CASE")
+    user.insert_formatted(prose or "", "CAMEL_CASE")
 
 # Settings
 open settings (json | jason):

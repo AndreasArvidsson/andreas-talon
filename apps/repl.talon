@@ -12,6 +12,6 @@ terminate:                  key(ctrl-c)
 events tail:                "events.tail('/^((?!win|browser).)*$/')\n"
 parrot events:              "events.tail('parrot predict')\n"
 
-actions list [<user.phrase>]:
-    'actions.list("{phrase or ""}")'
+actions list [<user.prose>]:
+    insert('actions.list("{prose or ""}")')
     key(left:2)

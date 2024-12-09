@@ -57,8 +57,8 @@ clear <user.cursorless_target> <user.repeater_phrase_all>:
     edit.delete()
 
 # Text insertion
-place ({user.symbol} | <user.phrase>) <user.cursorless_destination>:
-    user.cursorless_insert(cursorless_destination, symbol or phrase)
+place ({user.symbol} | <user.prose>) <user.cursorless_destination>:
+    user.cursorless_insert(cursorless_destination, symbol or prose)
 
 snip {user.snippet} <user.cursorless_destination>:
     user.c_insert_snippet(cursorless_destination, snippet)

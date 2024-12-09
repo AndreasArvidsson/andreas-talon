@@ -1,9 +1,9 @@
 ^help active$:              user.help_active_toggle()
-^help search <user.phrase>$: user.help_search(phrase)
+^help search <user.prose>$: user.help_search(prose)
 ^help context {user.help_contexts}$: user.help_context(help_contexts)
 
-^help <user.phrase> commands$: user.help_search_commands(phrase)
-^help <user.phrase> actions$: user.help_search_actions(phrase)
+^help <user.prose> commands$: user.help_search_commands(prose)
+^help <user.prose> actions$: user.help_search_actions(prose)
 
 ^help alphabet$:            user.help_alphabet_toggle()
 ^help scope$:               user.help_scope_toggle()

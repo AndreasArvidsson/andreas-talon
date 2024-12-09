@@ -1,11 +1,11 @@
 # Switch to dictation mode and insert a phrase
-dictate [<phrase>]$:        user.dictation_mode(phrase or "")
+dictate [<user.prose>]$:    user.dictation_mode(prose or "")
 
 # Switch to swedish dictation
-swedish$:                   user.swedish_dictation_mode(phrase or "")
+swedish$:                   user.swedish_dictation_mode()
 
 # Switch to mixed mode and insert a phrase
-mixed mode [<phrase>]$:     user.mixed_mode(phrase or "")
+mixed mode [<user.prose>]$: user.mixed_mode(prose or "")
 
 # Switch to demo mode
 demo mode$:                 user.demo_mode()

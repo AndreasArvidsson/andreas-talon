@@ -11,5 +11,5 @@ tag(): user.code_comments
 
 convert to arrow:           user.js_arrowify_line()
 
-snip arrow funk <user.phrase>:
-    user.js_arrow_function(phrase)
+snip arrow funk <user.prose>:
+    user.js_arrow_function(prose)

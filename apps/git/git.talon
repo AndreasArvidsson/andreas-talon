@@ -19,22 +19,23 @@ git tag list:               user.git_show_tags()
 git stash:                  user.git_stash()
 git stash pop:              user.git_stash_pop()
 
-git merge [<user.phrase>]:  user.git_merge(phrase or "")
 git merge {user.git_branch}:
     user.git_merge(git_branch)
+git merge [<user.prose>]:
+    user.git_merge(prose or "")
 
-git checkout [<user.phrase>]:
-    text = user.format_text(phrase or "", "SNAKE_CASE")
-    user.git_checkout(text)
 git checkout {user.git_branch}:
     user.git_checkout(git_branch, true)
+git checkout [<user.prose>]:
+    text = user.format_text(prose or "", "SNAKE_CASE")
+    user.git_checkout(text)
 
-git checkout branch [<user.phrase>]:
-    text = user.format_text(phrase or "", "SNAKE_CASE")
+git checkout branch [<user.prose>]:
+    text = user.format_text(prose or "", "SNAKE_CASE")
     user.git_create_branch(text)
 
-git branch deli [<user.phrase>]:
-    text = user.format_text(phrase or "", "SNAKE_CASE")
+git branch deli [<user.prose>]:
+    text = user.format_text(prose or "", "SNAKE_CASE")
     user.git_delete_branch(text)
 
 git branch:                 user.git_show_branches()

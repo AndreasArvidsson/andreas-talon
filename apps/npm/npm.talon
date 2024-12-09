@@ -23,7 +23,7 @@ npm clean:                  "npm run clean\n"
 npm start:                  "npm start\n"
 npm test:                   "npm test\n"
 npm run:                    "npm run "
-npm run <user.phrase>$:     "npm run {phrase}"
+npm run <user.prose>$:      "npm run {prose}"
 npm run build:              "npm run build\n"
 
 # pnpm

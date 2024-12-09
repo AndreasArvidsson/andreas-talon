@@ -13,8 +13,8 @@ copy address:               user.file_manager_copy_address()
 # ----- Create folders / files -----
 file new:                   user.file_manager_new_file("")
 folder new:                 user.file_manager_new_folder("")
-file new <user.phrase>$:    user.file_manager_new_file(text)
-folder new <user.phrase>$:  user.file_manager_new_folder(text)
+file new <user.filename>$:  user.file_manager_new_file(filename)
+folder new <user.filename>$: user.file_manager_new_folder(filename)
 
 # ----- Miscellaneous -----
 properties show:            user.file_manager_show_properties()

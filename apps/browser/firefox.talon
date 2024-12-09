@@ -6,10 +6,10 @@ tag(): user.scroll
 # Tabs
 tab search:
     browser.focus_address()
-    "% "
-tab search <user.phrase>$:
+    insert("% ")
+tab search <user.prose>$:
     browser.focus_address()
-    "% {phrase}"
+    insert("% {prose}")
     sleep(100ms)
     key(tab enter)
 tab mute:                   key(ctrl-m)

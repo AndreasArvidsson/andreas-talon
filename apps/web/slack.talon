@@ -10,18 +10,18 @@ go [direct] messages:       key(ctrl-shift-k)
 go (mentions | reactions):  key(ctrl-shift-m)
 go drafts:                  user.slack_open_search_result("Drafts")
 
-scout channel [<user.phrase>]:
+scout channel [<user.prose>]:
     key(ctrl-k)
-    insert(phrase or "")
-pop channel <user.phrase>:
-    user.slack_open_search_result(phrase)
+    insert(prose or "")
+pop channel <user.prose>:
+    user.slack_open_search_result(prose)
 
-please [<user.phrase>]$:
+please [<user.prose>]$:
     key(ctrl-k)
     sleep(100ms)
     edit.delete()
     sleep(100ms)
-    insert(phrase or "")
+    insert(prose or "")
 
 channel last:               key(alt-up)
 channel next:               key(alt-down)
