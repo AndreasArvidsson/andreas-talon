@@ -40,6 +40,6 @@ talon open home:            menu.open_talon_home()
 talon open debug:           menu.open_debug_window()
 talon check updates:        menu.check_for_updates()
 
-talon sim <prose>$:         user.talon_sim_phrase(prose)
+talon sim <user.prose>$:    user.talon_sim_phrase(prose)
 
 ^talon re start$:           user.talon_restart()
