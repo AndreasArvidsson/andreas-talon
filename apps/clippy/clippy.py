@@ -1,57 +1,25 @@
-from typing import Any, Optional
+from typing import Optional
 from talon import Module, Context, actions, app, ui
-
 from .clippy_targets import ClippyPrimitiveTarget, ClippyTarget
 
 rpc_key = "cmd-shift-f18" if app.platform == "mac" else "ctrl-shift-alt-o"
 rpc_dir_name = "clippy-command-server"
 rpc_command_id = "clippy-command"
 
-
 mod = Module()
+ctx = Context()
 
 mod.list("clippy_command_with_targets", desc="Clippy commands WITH targets")
 mod.list("clippy_command_no_targets", desc="Clippy commands WITHOUT targets")
 mod.tag(
-    "clippy_showing", desc="Tag is active whenever clippy window is showing/not hidden"
+    "clippy_showing",
+    desc="Tag is active whenever clippy window is showing/not hidden",
 )
 
 mod.apps.clippy = r"""
 app.name: Electron
 title: /Clippy/
 """
-
-ctx = Context()
-
-ctx.lists["user.clippy_command_with_targets"] = {
-    "paste": "pasteItems",
-    "chuck": "removeItems",
-    "copy": "copyItems",
-}
-
-ctx.lists["user.clippy_command_no_targets"] = {
-    # "exit": "exit",
-    "toggle": "toggleShowHide",
-    "show": "show",
-    "hide": "hide",
-    "pin toggle": "togglePinned",
-    "pin": "pin",
-    "unpin": "unpin",
-    "dev tools": "toggleDevTools",
-    "dev tools show": "showDevTools",
-    "dev tools hide": "hideDevTools",
-    "search": "toggleSearch",
-    "search show": "showSearch",
-    "search hide": "hideSearch",
-    "pause toggle": "togglePaused+",
-    "pause": "pause",
-    "resume": "resume",
-    "auto star": "toggleAutoStar",
-    "auto star on": "enableAutoStar",
-    "auto star off": "disableAutoStar",
-    # "clear": "removeAllItems",
-    # "remove list": "removeList",
-}
 
 
 @mod.action_class
@@ -92,16 +60,16 @@ class Actions:
         print(result)
 
 
-def send(command: Any):
+def send(command: dict):
     return rpc_command(command, wait_for_finish=True)
 
 
-def get(command: Any):
+def get(command: dict):
     return rpc_command(command, return_command_output=True)
 
 
 def rpc_command(
-    command: Any,
+    command: dict,
     wait_for_finish: bool = False,
     return_command_output: bool = False,
 ):
@@ -115,7 +83,7 @@ def rpc_command(
     )
 
 
-def update(window, onShow):
+def update(window: ui.Window, onShow: bool):
     if window.title != "Clippy" or window.app.name != "Clippy":
         return
     if onShow:

@@ -1,0 +1,24 @@
+list: user.clippy_command_no_targets
+-
+
+toggle:        toggleShowHide
+show:          show
+hide:          hide
+pin toggle:    togglePinned
+pin:           pin
+unpin:         unpin
+dev tools:     toggleDevTools
+dev tools show: showDevTools
+dev tools hide: hideDevTools
+search:        toggleSearch
+search show:   showSearch
+search hide:   hideSearch
+pause toggle:  togglePaused+
+pause:         pause
+resume:        resume
+auto star:     toggleAutoStar
+auto star on:  enableAutoStar
+auto star off: disableAutoStar
+# exit: exit
+# clear: removeAllItems
+# remove list: removeList

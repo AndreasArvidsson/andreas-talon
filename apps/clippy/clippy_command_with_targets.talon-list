@@ -1,0 +1,6 @@
+list: user.clippy_command_with_targets
+-
+
+paste:         pasteItems
+chuck:         removeItems
+copy:          copyItems

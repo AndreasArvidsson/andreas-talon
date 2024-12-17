@@ -18,7 +18,7 @@ This is a list of features that I have implemented that I think is of more inter
 4. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
     - [Talon Deck](https://github.com/AndreasArvidsson/talon-deck)
 5. **Clippy - Clipboard manager** - Clipboard manager with Talon rpc support
-    - [Clippy](./plugins/clippy)
+    - [Clippy](./apps/clippy)
 6. **Quick pick** - UI for quick access to useful features by clicking buttons
     - [Quick pick](./plugins/quick_pick)
 7. **Foot switch support** - Add support for scrolling, navigating and more
