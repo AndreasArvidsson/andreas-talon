@@ -56,3 +56,10 @@ def any_alphanumeric_key(m) -> str:
 def letters(m) -> str:
     """One or more letters in the alphabet"""
     return "".join(m)
+
+
+# Used by clippy for Talon community compatibility
+@mod.capture(rule="{user.digit}")
+def number_key(m) -> str:
+    "One number key"
+    return m.digit

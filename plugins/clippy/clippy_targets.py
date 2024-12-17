@@ -41,12 +41,10 @@ mod = Module()
 mod.list("clippy_search_type", desc="Clippy search types")
 
 
-@mod.capture(rule="{user.digit} | {user.letter} [{user.letter}]")
-# Use this line for talon community
-# @mod.capture(rule="{user.number_key} | {user.letter} [{user.letter}]")
+@mod.capture(rule="<user.number_key> | {user.letter} [{user.letter}]")
 def clippy_hint(m) -> str:
     with suppress(AttributeError):
-        return str(m.digit)
+        return str(m.number_key)
     return "".join(m.letter_list)
 
 
