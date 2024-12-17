@@ -1,9 +1,10 @@
-from talon import Module, Context
+from talon import Module
 
 mod = Module()
-ctx = Context()
 
 mod.list("letter", "The spoken phonetic alphabet")
+mod.list("digit", "All number/digit keys")
+mod.list("key_function", "All function keys")
 mod.list("key_arrow", "All arrow keys")
 mod.list("key_special", "All special keys")
 mod.list("key_modifier", "All modifier keys")
@@ -19,21 +20,6 @@ mod.list(
     "key_punctuation_code",
     "Symbols for inserting punctuation into code formatters",
 )
-
-default_digits = (
-    "zero one two three four five six seven eight nine ten eleven twelve".split(" ")
-)
-
-mod.list("digit", "All number/digit keys")
-ctx.lists["user.digit"] = {
-    **{default_digits[i]: str(i) for i in range(10)},
-    "sero": "0",
-}
-
-mod.list("key_function", "All function keys")
-ctx.lists["user.key_function"] = {
-    f"F {default_digits[i]}": f"f{i}" for i in range(1, 13)
-}
 
 
 @mod.capture(rule="{user.key_modifier}+")
@@ -64,12 +50,6 @@ def any_alphanumeric_key(m) -> str:
     if m[0] == " ":
         return "space"
     return m[0]
-
-
-@mod.capture(rule="<user.any_alphanumeric_key>+")
-def any_alphanumeric_keys(m) -> str:
-    "One or more alphanumeric keys. Space separated"
-    return " ".join(m)
 
 
 @mod.capture(rule="{user.letter}+")
