@@ -205,7 +205,7 @@ formatter_list = [
     CustomFormatter("DOUBLE_QUOTED_STRING", lambda text: f'"{text}"'),
     CustomFormatter("SINGLE_QUOTED_STRING", lambda text: f"'{text}'"),
     # Prose formatters
-    CustomFormatter("KEEP_FORMAT", lambda text: text),
+    CustomFormatter("NOOP", lambda text: text),
     CustomFormatter("ALL_UPPERCASE", lambda text: text.upper()),
     CustomFormatter("ALL_LOWERCASE", lambda text: text.lower()),
     TitleFormatter("TITLE_CASE"),

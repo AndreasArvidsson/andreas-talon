@@ -10,7 +10,7 @@ fixtures_format = [
     ["DOUBLE_QUOTED_STRING", input_raw, f'"{input_raw}"'],
     ["SINGLE_QUOTED_STRING", input_raw, f"'{input_raw}'"],
     # Prose formatters
-    ["KEEP_FORMAT", input_raw, input_raw],
+    ["NOOP", input_raw, input_raw],
     ["ALL_UPPERCASE", input_raw, input_raw.upper()],
     ["ALL_LOWERCASE", input_raw, input_raw.lower()],
     ["TITLE_CASE", input_raw, "Why? And. It's Nice!"],

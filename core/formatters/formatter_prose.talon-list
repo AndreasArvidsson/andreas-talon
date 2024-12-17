@@ -1,7 +1,7 @@
 list: user.formatter_prose
 -
 
-say:           KEEP_FORMAT
+say:           NOOP
 sentence:      SENTENCE
 sense:         SENTENCE
 title:         TITLE_CASE
