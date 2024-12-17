@@ -1,0 +1,15 @@
+list: user.formatter_code
+-
+
+string:        DOUBLE_QUOTED_STRING
+twin string:   SINGLE_QUOTED_STRING
+smash:         NO_SPACES
+camel:         CAMEL_CASE
+pascal:        PASCAL_CASE
+snake:         SNAKE_CASE
+constant:      ALL_UPPERCASE,SNAKE_CASE
+kebab:         DASH_SEPARATED
+dotted:        DOT_SEPARATED
+slasher:       SLASH_SEPARATED
+# dunder:      DOUBLE_UNDERSCORE
+# packed:      DOUBLE_COLON_SEPARATED

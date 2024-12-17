@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Module, actions
 from typing import Callable, Optional
 from abc import ABC, abstractmethod
 import re
@@ -228,68 +228,18 @@ formatter_list = [
 
 formatters_dict = {f.id: f for f in formatter_list}
 
-formatters_code = {
-    "smash": "NO_SPACES",
-    "camel": "CAMEL_CASE",
-    "pascal": "PASCAL_CASE",
-    "snake": "SNAKE_CASE",
-    "constant": "ALL_UPPERCASE,SNAKE_CASE",
-    "kebab": "DASH_SEPARATED",
-    "dotted": "DOT_SEPARATED",
-    "slasher": "SLASH_SEPARATED",
-    # "dunder": "DOUBLE_UNDERSCORE",
-    # "packed": "DOUBLE_COLON_SEPARATED",
-}
-
-formatters_prose = {
-    "sentence": "SENTENCE",
-    "sense": "SENTENCE",
-    "title": "TITLE_CASE",
-    "upper": "ALL_UPPERCASE",
-    "lower": "ALL_LOWERCASE",
-}
-
 mod = Module()
-ctx = Context()
-
 
 # This is the mapping from spoken phrases to formatters
 mod.list("formatter_code", "List of code formatters")
-ctx.lists["user.formatter_code"] = {
-    **formatters_code,
-    # I don't want these formatters in the formatter list/capture since they are not for reformatting
-    "string": "DOUBLE_QUOTED_STRING",
-    # "twin": "SINGLE_QUOTED_STRING",
-}
-
 mod.list("formatter_prose", "List of prose formatters")
-ctx.lists["user.formatter_prose"] = {
-    **formatters_prose,
-    # I don't want these formatters in the formatter list/capture since they are not for reformatting
-    "say": "KEEP_FORMAT",
-}
-
-
-mod.list("formatter", "List of formatters only used for reformatting")
-ctx.lists["user.formatter"] = {
-    **formatters_code,
-    **formatters_prose,
-    # These formatters are only for reformatting and neither code or prose
-    "cap": "CAPITALIZE_FIRST_WORD",
-    "list": "COMMA_SEPARATED",
-    "un": "REMOVE_FORMATTING",
-}
-
+mod.list("formatter_reformat", "List of reformatting formatters")
 mod.list("formatter_word", "List of word formatters")
-ctx.lists["user.formatter_word"] = {
-    "word": "ALL_LOWERCASE",
-    "trot": "TRAILING_SPACE,ALL_LOWERCASE",
-    "proud": "CAPITALIZE_FIRST_WORD",
-    "leap": "TRAILING_SPACE,CAPITALIZE_FIRST_WORD",
-}
 
 
-@mod.capture(rule="{user.formatter}+")
+@mod.capture(
+    rule="({user.formatter_code} | {user.formatter_prose} | {user.formatter_reformat})+"
+)
 def formatters(m) -> str:
     "Returns a comma-separated string of formatters e.g. 'SNAKE,DUBSTRING'"
     return ",".join(m)

@@ -1,0 +1,9 @@
+list: user.formatter_prose
+-
+
+say:           KEEP_FORMAT
+sentence:      SENTENCE
+sense:         SENTENCE
+title:         TITLE_CASE
+upper:         ALL_UPPERCASE
+lower:         ALL_LOWERCASE
