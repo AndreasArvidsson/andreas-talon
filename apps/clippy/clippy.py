@@ -42,7 +42,13 @@ class Actions:
     def clippy_command_with_targets(command_id: str, targets: list[ClippyTarget]):
         """Send a command with targets to the clipboard manager"""
         if command_id == "pasteItems":
-            send({"id": "copyItems", "targets": to_dict(targets)})
+            send(
+                {
+                    "id": "copyItems",
+                    "visibility": "hideOrBlurIfPinned",
+                    "targets": to_dict(targets),
+                }
+            )
             actions.sleep("50ms")
             actions.edit.paste()
         else:
@@ -53,9 +59,9 @@ class Actions:
         targets = [ClippyPrimitiveTarget(str(i)) for i in indices]
         actions.user.clippy_command_with_targets("pasteItems", targets)
 
-    def clippy_rename_items(targets: list[ClippyTarget], text: Optional[str] = None):
-        """Rename clipboard targets to <text>"""
-        send({"id": "renameItems", "targets": to_dict(targets), "text": text})
+    def clippy_rename_items(targets: list[ClippyTarget], name: Optional[str] = None):
+        """Rename clipboard targets to <name>"""
+        send({"id": "renameItems", "targets": to_dict(targets), "name": name})
 
     def clippy_get_items(targets: list[ClippyTarget]) -> list[ClipItem]:
         """Get clipboard targets"""
