@@ -1,5 +1,6 @@
 from typing import Optional
 from talon import Module, Context, actions, app, ui
+from .clippy_clip_item import ClipItem
 from .clippy_targets import ClippyPrimitiveTarget, ClippyTarget
 
 rpc_key = "cmd-shift-f18" if app.platform == "mac" else "ctrl-shift-alt-o"
@@ -17,8 +18,14 @@ mod.tag(
 )
 
 mod.apps.clippy = r"""
-app.name: Electron
-title: /Clippy/
+os: windows
+app.exe: clippy.exe
+"""
+# This is used for development purposes
+mod.apps.clippy = r"""
+os: windows
+app.exe: electron.exe
+title: Clippy
 """
 
 
@@ -28,40 +35,39 @@ class Actions:
         """Send command without targets to the clipboard manager"""
         send({"id": command_id})
 
+    def clippy_search_items(text: str):
+        """Search for <text> in the clipboard manager"""
+        send({"id": "searchItems", "text": text})
+
     def clippy_command_with_targets(command_id: str, targets: list[ClippyTarget]):
         """Send a command with targets to the clipboard manager"""
-        serializable_targets = [t.to_dict() for t in targets]
         if command_id == "pasteItems":
-            command = {"id": "copyItems", "targets": serializable_targets}
-            send(command)
+            send({"id": "copyItems", "targets": to_dict(targets)})
             actions.sleep("50ms")
             actions.edit.paste()
         else:
-            send({"id": command_id, "targets": serializable_targets})
+            send({"id": command_id, "targets": to_dict(targets)})
 
     def clippy_paste_indices(indices: list[int]):
         """Paste items from the clipboard manager at the given indices"""
         targets = [ClippyPrimitiveTarget(str(i)) for i in indices]
         actions.user.clippy_command_with_targets("pasteItems", targets)
 
-    def clippy_search(text: str):
-        """Search for <text> in the clipboard manager"""
-        send({"id": "searchItems", "text": text})
-
-    def clippy_rename(targets: list[ClippyTarget], text: Optional[str] = None):
+    def clippy_rename_items(targets: list[ClippyTarget], text: Optional[str] = None):
         """Rename clipboard targets to <text>"""
-        serializable_targets = [t.to_dict() for t in targets]
-        send({"id": "renameItems", "targets": serializable_targets, "text": text})
+        send({"id": "renameItems", "targets": to_dict(targets), "text": text})
 
-    def clippy_get(targets: list[ClippyTarget]):
+    def clippy_get_items(targets: list[ClippyTarget]) -> list[ClipItem]:
         """Get clipboard targets"""
-        serializable_targets = [t.to_dict() for t in targets]
-        result = get({"id": "getItems", "targets": serializable_targets})
-        print(result)
+        return get({"id": "getItems", "targets": to_dict(targets)})
+
+
+def to_dict(targets: list[ClippyTarget]) -> list[dict]:
+    return [t.to_dict() for t in targets]
 
 
 def send(command: dict):
-    return rpc_command(command, wait_for_finish=True)
+    rpc_command(command, wait_for_finish=True)
 
 
 def get(command: dict):
