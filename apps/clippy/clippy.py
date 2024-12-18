@@ -96,7 +96,9 @@ def rpc_command(
 
 
 def update(window: ui.Window, onShow: bool):
-    if window.title != "Clippy" or window.app.name != "Clippy":
+    if window.title != "Clippy":
+        return
+    if window.app.name != "Clippy" and window.app.name != "Electron":
         return
     if onShow:
         ctx.tags = ["user.clippy_showing"]
