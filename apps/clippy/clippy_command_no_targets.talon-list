@@ -29,6 +29,10 @@ auto star:       toggleAutoStar
 auto star on:    enableAutoStar
 auto star off:   disableAutoStar
 
+settings:        toggleSettings
+settings show:   showSettings
+settings hide:   hideSettings
+
 # Disabled because these are destructive
 # clear:         removeAllItems
 # remove list:   removeList
