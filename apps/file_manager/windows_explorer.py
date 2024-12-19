@@ -84,7 +84,7 @@ class UserActions:
             actions.insert(name)
 
     def file_manager_new_file(name: str = None):
-        actions.key("alt-f w t")
+        actions.key("menu w t")
         if name:
             actions.insert(name)
 
