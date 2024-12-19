@@ -7,10 +7,11 @@ tag(): user.navigation
 
 dot {user.domain}:          ".{domain}"
 
-go address:                 browser.focus_address()
 go home:                    browser.go_home()
+go address:                 browser.focus_address()
 go {user.webpage}:          browser.go(webpage)
 open {user.webpage}:        user.browser_open_new_tab(webpage)
+copy address:               user.browser_copy_address()
 
 go private:                 browser.open_private_window()
 

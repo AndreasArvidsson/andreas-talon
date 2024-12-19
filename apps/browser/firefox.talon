@@ -28,9 +28,6 @@ password generate:
 {user.rango_without_target_action}:
     user.rango_command_without_target(rango_without_target_action)
 
-copy address:
-    user.rango_command_without_target("copyLocationProperty", "href")
-
 # Miscellaneous
 copy image:
     mouse_click(1)

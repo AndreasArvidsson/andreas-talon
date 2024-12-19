@@ -97,6 +97,9 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
+    def browser_copy_address():
+        actions.user.rango_command_without_target("copyLocationProperty", "href")
+
     def tab_jump(number: int):
         if number < 9:
             actions.key(f"ctrl-{number}")

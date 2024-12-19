@@ -90,6 +90,12 @@ class Actions:
         """Focus default browser"""
         actions.user.window_focus_name(browser_name)
 
+    def browser_copy_address():
+        """Browser copy address"""
+        actions.browser.focus_address()
+        actions.sleep("50ms")
+        actions.edit.copy()
+
     def browser_open_new_tab(url: str):
         """Open url in new tab"""
 
