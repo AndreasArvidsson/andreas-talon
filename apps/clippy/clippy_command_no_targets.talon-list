@@ -13,10 +13,6 @@ pin toggle:      togglePinned
 pin:             pin
 unpin:           unpin
 
-dev tools:       toggleDevTools
-dev tools show:  showDevTools
-dev tools hide:  hideDevTools
-
 search:          toggleSearch
 search show:     showSearch
 search hide:     hideSearch
@@ -32,6 +28,10 @@ auto star off:   disableAutoStar
 settings:        toggleSettings
 settings show:   showSettings
 settings hide:   hideSettings
+
+dev tools:       toggleDevTools
+dev tools show:  showDevTools
+dev tools hide:  hideDevTools
 
 # Disabled because these are destructive
 # clear:         removeAllItems
