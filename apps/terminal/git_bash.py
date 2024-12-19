@@ -21,10 +21,6 @@ ctx = Context()
 ctx.matches = r"""
 app: git_bash
 
-app: git_bash
-and app: windows_terminal
-
-
 app: vscode
 and win.title: /\[Terminal\]$/
 """
