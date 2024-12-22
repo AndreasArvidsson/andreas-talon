@@ -1,4 +1,4 @@
-from talon import Module
+from talon import Module, actions
 
 mod = Module()
 
@@ -17,6 +17,12 @@ def percent(m) -> str:
     except AttributeError:
         number = 100
     return f"{number}%"
+
+
+@mod.capture(rule="clipboard")
+def clipboard(m) -> str:
+    """Clipboard content"""
+    return actions.clip.text()
 
 
 @mod.capture(rule="blah")
