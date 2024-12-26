@@ -10,6 +10,7 @@ list: user.vocabulary
 backup
 countdown
 for each
+lookup
 markdown
 meetup
 setup
