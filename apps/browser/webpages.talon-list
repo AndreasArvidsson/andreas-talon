@@ -3,6 +3,8 @@ list: user.webpage
 
 # fmt: columnWidth=22
 
+about config:         about:config
+about debugging:      about:debugging
 avanza:               https://www.avanza.se
 calendar:             https://calendar.google.com
 chat gpt:             https://chat.openai.com
