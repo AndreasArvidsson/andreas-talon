@@ -5,7 +5,7 @@ from .clippy_targets import ClippyPrimitiveTarget, ClippyTarget
 
 rpc_key = "cmd-shift-f18" if app.platform == "mac" else "ctrl-shift-alt-o"
 rpc_dir_name = "clippy-command-server"
-rpc_command_id = "clippy-command"
+rpc_command_id = "clippyCommand"
 
 mod = Module()
 ctx = Context()
