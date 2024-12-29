@@ -5,6 +5,7 @@ phrase: case
 language: c | java | javascript | csharp
 -
 case $1:
+    const errorMessage = error instanceof Error ? error.message : String(error);
     $0
 ---
 
