@@ -34,6 +34,7 @@ try {
     $1
 }
 catch(error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     $0
 }
 ---
