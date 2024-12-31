@@ -83,6 +83,9 @@ class UserActions:
     def go_forward():
         actions.browser.go_forward()
 
+    def command_server_directory() -> str:
+        return "talon-browser-command-server"
+
 
 @mod.action_class
 class Actions:
