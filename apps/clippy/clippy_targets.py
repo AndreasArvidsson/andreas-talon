@@ -8,11 +8,11 @@ from dataclasses import dataclass
 class ClippyPrimitiveTarget:
     type = "primitive"
     hint: str
-    count: int
-    reverse: bool
+    count: Optional[int] = None
+    reverse: Optional[bool] = None
 
     def to_dict(self):
-        return {"type": self.type, **self.__dict__}
+        return to_dict(self)
 
 
 @dataclass
@@ -22,7 +22,7 @@ class ClippyRangeTarget:
     end: str
 
     def to_dict(self):
-        return {"type": self.type, **self.__dict__}
+        return to_dict(self)
 
 
 @dataclass
@@ -33,10 +33,16 @@ class ClippySearchTarget:
     itemText: Optional[str] = None
 
     def to_dict(self):
-        return {"type": self.type, **self.__dict__}
+        return to_dict(self)
 
 
 ClippyTarget = Union[ClippyPrimitiveTarget, ClippyRangeTarget, ClippySearchTarget]
+
+
+def to_dict(target: ClippyTarget):
+    fields = {k: v for k, v in target.__dict__.items() if v is not None}
+    return {"type": target.type, **fields}
+
 
 mod = Module()
 mod.list("clippy_search_type", desc="Clippy search types")
@@ -51,11 +57,17 @@ def clippy_hint(m) -> str:
 
 @mod.capture(rule="[<number_small> items [reverse]] <user.clippy_hint>")
 def clippy_primitive_target(m) -> ClippyPrimitiveTarget:
-    reverse = "reverse" in m
-    count = 1
+    target = ClippyPrimitiveTarget(m.clippy_hint)
     with suppress(AttributeError):
-        count = m.number_small
-    return ClippyPrimitiveTarget(m.clippy_hint, count, reverse)
+        target.count = m.number_small
+    if "reverse" in m:
+        target.reverse = True
+    return target
+
+
+@mod.capture(rule="<number_small> items")
+def clippy_first_target(m) -> ClippyPrimitiveTarget:
+    return ClippyPrimitiveTarget("first", m.number_small, True)
 
 
 @mod.capture(rule="<user.clippy_hint> past <user.clippy_hint>")
@@ -80,11 +92,13 @@ def clippy_search_target(m) -> ClippySearchTarget:
 
 
 @mod.capture(
-    rule="<user.clippy_primitive_target> | <user.clippy_range_target> | <user.clippy_search_target>"
+    rule="<user.clippy_primitive_target> | <user.clippy_first_target> | <user.clippy_range_target> | <user.clippy_search_target>"
 )
 def clippy_target(m) -> ClippyTarget:
     with suppress(AttributeError):
         return m.clippy_primitive_target
+    with suppress(AttributeError):
+        return m.clippy_first_target
     with suppress(AttributeError):
         return m.clippy_range_target
     return m.clippy_search_target
