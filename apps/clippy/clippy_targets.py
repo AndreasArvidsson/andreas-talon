@@ -8,7 +8,8 @@ from dataclasses import dataclass
 class ClippyPrimitiveTarget:
     type = "primitive"
     hint: str
-    count: Optional[int] = None
+    count: int
+    reverse: bool
 
     def to_dict(self):
         return {"type": self.type, **self.__dict__}
@@ -48,12 +49,13 @@ def clippy_hint(m) -> str:
     return "".join(m.letter_list)
 
 
-@mod.capture(rule="[<number_small> items] <user.clippy_hint>")
+@mod.capture(rule="[<number_small> items [reverse]] <user.clippy_hint>")
 def clippy_primitive_target(m) -> ClippyPrimitiveTarget:
-    target = ClippyPrimitiveTarget(m.clippy_hint)
+    reverse = "reverse" in m
+    count = 1
     with suppress(AttributeError):
-        target.count = m.number_small
-    return target
+        count = m.number_small
+    return ClippyPrimitiveTarget(m.clippy_hint, count, reverse)
 
 
 @mod.capture(rule="<user.clippy_hint> past <user.clippy_hint>")

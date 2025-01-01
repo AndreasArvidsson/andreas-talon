@@ -21,6 +21,7 @@ Clipboard manager with RPC and Talon support. Supports copying and pasting multi
 -   `"clippy copy air and bat"`
 -   `"clippy copy air past bat"`
 -   `"clippy copy 2 items air"`
+-   `"clippy copy 2 items reverse air"`
 
 For more commands look in the `.talon` files.
 
