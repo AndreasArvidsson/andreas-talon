@@ -22,6 +22,8 @@ git fetch all:              "git fetch -a\n"
 git fetch upstream:         "git fetch upstream\n"
 git fetch prune:            "git fetch --prune origin\n"
 
+git prune tags:             "git fetch --prune --prune-tags"
+
 git checkout last:          "git checkout -\n"
 
 git add:                    "git add "
