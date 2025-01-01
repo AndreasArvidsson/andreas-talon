@@ -32,15 +32,15 @@ title: Clippy
 @mod.action_class
 class Actions:
     def clippy_command_no_targets(command_id: str):
-        """Send command without targets to the clipboard manager"""
+        """Send command without targets to Clippy"""
         send({"id": command_id})
 
     def clippy_search_items(text: str):
-        """Search for <text> in the clipboard manager"""
+        """Search for clipboard items with <text> in Clippy"""
         send({"id": "searchItems", "text": text})
 
     def clippy_command_with_targets(command_id: str, targets: list[ClippyTarget]):
-        """Send a command with targets to the clipboard manager"""
+        """Send a command with targets to Clippy"""
         if command_id == "pasteItems":
             send(
                 {
@@ -55,16 +55,16 @@ class Actions:
             send({"id": command_id, "targets": to_dict(targets)})
 
     def clippy_paste_indices(indices: list[int]):
-        """Paste items from the clipboard manager at the given indices"""
+        """Paste clipboard items from Clippy at the given indices"""
         targets = [ClippyPrimitiveTarget(str(i)) for i in indices]
         actions.user.clippy_command_with_targets("pasteItems", targets)
 
     def clippy_rename_items(targets: list[ClippyTarget], name: Optional[str] = None):
-        """Rename clipboard targets to <name>"""
+        """Rename Clippy clipboard items to <name>"""
         send({"id": "renameItems", "targets": to_dict(targets), "name": name})
 
     def clippy_get_items(targets: list[ClippyTarget]) -> list[ClipItem]:
-        """Get clipboard targets"""
+        """Get clipboard items from Clippy"""
         return get({"id": "getItems", "targets": to_dict(targets)})
 
 
