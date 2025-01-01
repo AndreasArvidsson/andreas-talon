@@ -19,7 +19,7 @@ def percent(m) -> str:
     return f"{number}%"
 
 
-@mod.capture(rule="clipboard")
+@mod.capture(rule="clip clip")
 def clipboard(m) -> str:
     """Clipboard content"""
     return actions.clip.text()
