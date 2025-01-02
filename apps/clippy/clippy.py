@@ -60,7 +60,7 @@ class Actions:
         actions.user.clippy_command_with_targets("pasteItems", targets)
 
     def clippy_paste_first(count: int):
-        """Paste first <countp >clipboard items from Clippy in reverse order"""
+        """Paste first <count> clipboard items from Clippy in reverse order"""
         target = ClippyPrimitiveTarget("1", count, True)
         actions.user.clippy_command_with_targets("pasteItems", [target])
 
