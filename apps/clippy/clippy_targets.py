@@ -11,18 +11,12 @@ class ClippyPrimitiveTarget:
     count: Optional[int] = None
     reverse: Optional[bool] = None
 
-    def to_dict(self):
-        return to_dict(self)
-
 
 @dataclass
 class ClippyRangeTarget:
     type = "range"
     start: str
     end: str
-
-    def to_dict(self):
-        return to_dict(self)
 
 
 @dataclass
@@ -32,14 +26,15 @@ class ClippySearchTarget:
     itemType: Optional[str] = None
     itemText: Optional[str] = None
 
-    def to_dict(self):
-        return to_dict(self)
-
 
 ClippyTarget = Union[ClippyPrimitiveTarget, ClippyRangeTarget, ClippySearchTarget]
 
 
-def to_dict(target: ClippyTarget):
+def targets_to_dict(targets: list[ClippyTarget]) -> list[dict]:
+    return [target_to_dict(t) for t in targets]
+
+
+def target_to_dict(target: ClippyTarget):
     fields = {k: v for k, v in target.__dict__.items() if v is not None}
     return {"type": target.type, **fields}
 
