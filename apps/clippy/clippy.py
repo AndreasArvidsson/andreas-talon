@@ -42,13 +42,12 @@ class Actions:
     def clippy_command_with_targets(command_id: str, targets: list[ClippyTarget]):
         """Send a command with targets to Clippy"""
         if command_id == "pasteItems":
-            send(
-                {
-                    "id": "copyItems",
-                    "visibility": "hideOrBlurIfPinned",
-                    "targets": to_dict(targets),
-                }
-            )
+            command = {
+                "id": "copyItems",
+                "visibility": "hideOrBlurIfPinned",
+                "targets": to_dict(targets),
+            }
+            send(command)
             actions.sleep("50ms")
             actions.edit.paste()
         else:
