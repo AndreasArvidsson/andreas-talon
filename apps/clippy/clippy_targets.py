@@ -65,11 +65,6 @@ def clippy_primitive_target(m) -> ClippyPrimitiveTarget:
     return target
 
 
-@mod.capture(rule="<number_small> items")
-def clippy_first_target(m) -> ClippyPrimitiveTarget:
-    return ClippyPrimitiveTarget("first", m.number_small, True)
-
-
 @mod.capture(rule="<user.clippy_hint> past <user.clippy_hint>")
 def clippy_range_target(m) -> ClippyRangeTarget:
     return ClippyRangeTarget(m.clippy_hint_list[0], m.clippy_hint_list[1])
@@ -92,13 +87,11 @@ def clippy_search_target(m) -> ClippySearchTarget:
 
 
 @mod.capture(
-    rule="<user.clippy_primitive_target> | <user.clippy_first_target> | <user.clippy_range_target> | <user.clippy_search_target>"
+    rule="<user.clippy_primitive_target> | <user.clippy_range_target> | <user.clippy_search_target>"
 )
 def clippy_target(m) -> ClippyTarget:
     with suppress(AttributeError):
         return m.clippy_primitive_target
-    with suppress(AttributeError):
-        return m.clippy_first_target
     with suppress(AttributeError):
         return m.clippy_range_target
     return m.clippy_search_target

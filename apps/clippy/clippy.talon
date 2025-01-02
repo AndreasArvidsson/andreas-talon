@@ -20,5 +20,8 @@ clippy get <user.clippy_targets>:
     items = user.clippy_get_items(clippy_targets)
     print(items)
 
+[clippy] paste <number_small> items:
+    user.clippy_paste_first(number_small)
+
 [clippy] paste <user.ordinals_small> [and <user.ordinals_small>]*:
     user.clippy_paste_indices(ordinals_small_list)

@@ -59,6 +59,11 @@ class Actions:
         targets = [ClippyPrimitiveTarget(str(i)) for i in indices]
         actions.user.clippy_command_with_targets("pasteItems", targets)
 
+    def clippy_paste_first(count: int):
+        """Paste first <countp >clipboard items from Clippy in reverse order"""
+        target = ClippyPrimitiveTarget("1", count, True)
+        actions.user.clippy_command_with_targets("pasteItems", [target])
+
     def clippy_rename_items(targets: list[ClippyTarget], name: Optional[str] = None):
         """Rename Clippy clipboard items to <name>"""
         send({"id": "renameItems", "targets": to_dict(targets), "name": name})
