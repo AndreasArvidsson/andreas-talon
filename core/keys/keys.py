@@ -58,7 +58,15 @@ def letters(m) -> str:
     return "".join(m)
 
 
-# Used by clippy for Talon community compatibility
+# Below captures are used by Clippy for Talon community compatibility
+
+
+@mod.capture(rule="{user.letter}")
+def letter(m) -> str:
+    "One letter key"
+    return m.letter
+
+
 @mod.capture(rule="{user.digit}")
 def number_key(m) -> str:
     "One number key"
