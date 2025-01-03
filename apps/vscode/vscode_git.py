@@ -49,7 +49,10 @@ class Actions:
         command_with_text("git.merge", branch)
 
     def git_checkout(branch: Optional[str] = None, submit: bool = False):
-        command_with_text("git.checkout", branch, submit)
+        if branch in ["master", "main"]:
+            actions.user.vscode("andreas.gitCheckoutDefaultBranch")
+        else:
+            command_with_text("git.checkout", branch, submit)
 
     def git_show_branches():
         actions.user.vscode("gitlens.showBranchesView")
@@ -145,11 +148,11 @@ class Actions:
             actions.clip.set_text(f"[`{text}`]({url})")
 
 
-def command_with_text(command: str, text: Optional[str] = None, submits: bool = False):
+def command_with_text(command: str, text: Optional[str] = None, submit: bool = False):
     actions.user.vscode(command)
     if text:
         actions.sleep("50ms")
         actions.insert(text)
         actions.sleep("50ms")
-    if submits:
+    if submit:
         actions.key("enter")

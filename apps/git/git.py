@@ -18,7 +18,7 @@ ctx.lists["user.git_branch"] = {
 class Action:
     def git_clone():
         """Clone git repository"""
-        actions.insert(f"git clone ")
+        actions.insert("git clone ")
 
     def git_status():
         """Show git status"""
