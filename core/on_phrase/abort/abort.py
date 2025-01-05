@@ -15,9 +15,16 @@ language: sv
 """
 
 mod.list("abort_phrase", "Phrase used to abort/cancel current spoken phrase")
-abort_phrases = ["cancel", "canceled", "avbryt"]
-ctx.lists["user.abort_phrase"] = abort_phrases[:-1]
-ctx_sv.lists["user.abort_phrase"] = abort_phrases
+
+abort_phrases = {
+    "cancel": "cancel",
+    "avbryt": "avbryt",
+    # Substitutes for cancel
+    "canceled": "cancel",
+}
+
+ctx.lists["user.abort_phrase"] = {"cancel"}
+ctx_sv.lists["user.abort_phrase"] = {"cancel", "avbryt"}
 
 
 @dataclass
@@ -43,9 +50,10 @@ class Actions:
         global abort_specific_phrases
         abort_specific_phrases = AbortPhrases(phrases, start, end)
 
+    # This action only exists so the command history can have a docstring.
     def abort_phrase_command():
         """Abort/cancel current spoken phrase"""
-        return ""
+        actions.skip()
 
 
 def abort_update_phrase(phrase: Phrase) -> tuple[bool, str]:
@@ -83,22 +91,23 @@ def abort_update_phrase(phrase: Phrase) -> tuple[bool, str]:
             abort_entire_phrase(phrase)
             return True, ""
 
-    for abort_phrase in abort_phrases:
-        if words[-1] == abort_phrase:
-            # Update phrase since that is used by analyze phrase
-            phrase["phrase"] = phrase["phrase"][-1:]
+    if words[-1] in abort_phrases:
+        abort_phrase = words[-1]
+        abort_phrase_substitute = abort_phrases[abort_phrase]
+        # Update phrase that is used by analyze phrase
+        phrase["phrase"] = phrase["phrase"][-1:]
 
-            # Updating the sequence is what actually aborts the command we don't want to do.
-            # You could just set an empty list: phrase["parsed"]._sequence = []
-            # Unfortunately that will not work with analyze phrase since our command history won't be updated.
+        # Updating the sequence is what actually aborts the command we don't want to do.
+        # You could just set an empty list: phrase["parsed"]._sequence = []
+        # Unfortunately that will not work with analyze phrase since our command history won't be updated.
 
-            phrase["parsed"]._sequence = [
-                get_capture(phrase, abort_phrase),
-            ]
+        phrase["parsed"]._sequence = [
+            get_capture(phrase, abort_phrase, abort_phrase_substitute),
+        ]
 
-            if len(words) > 1:
-                return True, f"... {abort_phrase}"
-            return True, abort_phrase
+        if len(words) > 1:
+            return True, f"... {abort_phrase_substitute}"
+        return True, abort_phrase_substitute
 
     return False, current_phrase
 
@@ -109,18 +118,23 @@ def abort_entire_phrase(phrase: Phrase):
         phrase["parsed"]._sequence = []
 
 
-def get_capture(phrase: Phrase, abort_phrase: str) -> Capture:
+def get_capture(
+    phrase: Phrase,
+    abort_phrase: str,
+    abort_phrase_substitute: str,
+) -> Capture:
     # Last capture in sequence is actually cancel, just reused that one.
     capture = phrase["parsed"]._sequence[-1]
     if abort_phrase == str(capture):
         return capture
 
     # Last capture is not a cancel command. Probably a back anchored phrase.
-    # eg: "sentence foo bar cancel"
+    # eg: "say hello cancel"
     # The way to get around this is to actually construct the cancel capture.
 
-    name = "__cancel_ra__"
-    sequence = [DecodeWord(abort_phrase)]
+    # {user.abort_phrase}$ encoded to talon command
+    name = "___lbuser_2eabort_5fphrase_rb_ra__"
+    sequence = [DecodeWord(abort_phrase_substitute)]
     vmc = VMCapture(name=name, data=sequence)
     return Capture(vm_capture=vmc, sequence=sequence, mapping={})
 
