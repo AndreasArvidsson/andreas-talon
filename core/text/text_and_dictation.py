@@ -39,7 +39,7 @@ prose_rule_parts = [
     "<user.number_prose>",
     "<user.clipboard>",
     "<user.placeholder>",
-    "<user.time>",
+    "<user.time_prose>",
     "<user.percent>",
     "<phrase>",
 ]

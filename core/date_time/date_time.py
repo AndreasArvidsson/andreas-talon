@@ -5,10 +5,10 @@ mod = Module()
 date_format = "%Y-%m-%d"
 
 
-# time five o'clock         05:00
-# time five hundred hours   05:00
-# time five twenty five     05:25
-# time five oh five         05:05
+# five o'clock         05:00
+# five hundred hours   05:00
+# five twenty five     05:25
+# five oh five         05:05
 @mod.capture(
     rule="<number_small> (<number_small> | oh {user.digit} | o'clock | hundred hours)"
 )
@@ -23,6 +23,12 @@ def time(m) -> str:
         except AttributeError:
             minutes = ""
     return f"{hours.rjust(2,'0')}:{minutes.rjust(2,'0')}"
+
+
+@mod.capture(rule="time <user.time>")
+def time_prose(m) -> str:
+    """24 hour time with prose prefix"""
+    return m.time
 
 
 @mod.action_class
