@@ -86,6 +86,9 @@ class UserActions:
     def command_server_directory() -> str:
         return "talon-browser-command-server"
 
+    def trigger_command_server_command_execution():
+        actions.key("ctrl-shift-f12")
+
 
 @mod.action_class
 class Actions:
