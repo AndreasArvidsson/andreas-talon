@@ -21,6 +21,7 @@ abort_phrases = {
     "avbryt": "avbryt",
     # Substitutes for cancel
     "canceled": "cancel",
+    "castle": "cancel",
 }
 
 ctx.lists["user.abort_phrase"] = {"cancel"}
