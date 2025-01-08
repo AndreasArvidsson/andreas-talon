@@ -9,17 +9,17 @@ app: vscode
 ^cursorless use develop$:
     user.c_use_develop()
 ^cursorless record$:
-    user.vscode("cursorless.recordTestCase")
+    user.run_rpc_command("cursorless.recordTestCase")
 ^cursorless record highlight$:
     argument = user.as_dict("isDecorationsTest", 1)
-    user.vscode("cursorless.recordTestCase", argument)
+    user.run_rpc_command("cursorless.recordTestCase", argument)
 ^cursorless record error$:
     argument = user.as_dict("recordErrors", 1)
-    user.vscode("cursorless.recordTestCase", argument)
+    user.run_rpc_command("cursorless.recordTestCase", argument)
 ^cursorless record pause$:
-    user.vscode("cursorless.pauseRecording")
+    user.run_rpc_command("cursorless.pauseRecording")
 ^cursorless record resume$:
-    user.vscode("cursorless.resumeRecording")
+    user.run_rpc_command("cursorless.resumeRecording")
 
 # Git
 git open <user.cursorless_target>:

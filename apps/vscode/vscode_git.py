@@ -13,37 +13,37 @@ not tag: terminal
 @ctx.action_class("user")
 class Actions:
     def git_clone():
-        actions.user.vscode("git.clone")
+        actions.user.run_rpc_command("git.clone")
 
     def git_status():
-        actions.user.vscode("workbench.scm.focus")
+        actions.user.run_rpc_command("workbench.scm.focus")
 
     def git_stage_all():
-        actions.user.vscode("git.stageAll")
+        actions.user.run_rpc_command("git.stageAll")
 
     def git_unstage_all():
-        actions.user.vscode("git.unstageAll")
+        actions.user.run_rpc_command("git.unstageAll")
 
     def git_pull():
-        actions.user.vscode("git.pull")
+        actions.user.run_rpc_command("git.pull")
 
     def git_push():
-        actions.user.vscode("git.push")
+        actions.user.run_rpc_command("git.push")
 
     def git_push_tags():
-        actions.user.vscode("git.pushTags")
+        actions.user.run_rpc_command("git.pushTags")
 
     def git_create_tag(tag: Optional[str] = None):
         command_with_text("git.createTag", tag)
 
     def git_show_tags():
-        actions.user.vscode("gitlens.showTagsView")
+        actions.user.run_rpc_command("gitlens.showTagsView")
 
     def git_stash():
-        actions.user.vscode("git.stash")
+        actions.user.run_rpc_command("git.stash")
 
     def git_stash_pop():
-        actions.user.vscode("git.stashPop")
+        actions.user.run_rpc_command("git.stashPop")
 
     def git_merge(branch: Optional[str] = None):
         command_with_text("git.merge", branch)
@@ -62,7 +62,7 @@ class Actions:
             command_with_text("git.checkout")
 
     def git_show_branches():
-        actions.user.vscode("gitlens.showBranchesView")
+        actions.user.run_rpc_command("gitlens.showBranchesView")
 
     def git_create_branch(branch: Optional[str] = None):
         command_with_text("git.branch", branch)
@@ -71,44 +71,44 @@ class Actions:
         command_with_text("git.deleteBranch", branch)
 
     def git_commit(message: Optional[str] = None):
-        actions.user.vscode("git.commit")
+        actions.user.run_rpc_command("git.commit")
         if message:
             actions.sleep("200ms")
             actions.insert(message)
 
     def git_commit_amend(message: Optional[str] = None):
-        actions.user.vscode("git.commitAmend")
+        actions.user.run_rpc_command("git.commitAmend")
         if message:
             actions.sleep("200ms")
             actions.insert(message)
 
     def git_commit_empty():
-        actions.user.vscode("git.commitEmpty")
+        actions.user.run_rpc_command("git.commitEmpty")
 
     def git_diff():
-        actions.user.vscode("git.openChange")
+        actions.user.run_rpc_command("git.openChange")
 
     def git_stash_show():
-        actions.user.vscode("gitlens.showQuickStashList")
+        actions.user.run_rpc_command("gitlens.showQuickStashList")
 
     def git_stash_list():
-        actions.user.vscode("gitlens.showQuickStashList")
+        actions.user.run_rpc_command("gitlens.showQuickStashList")
 
     def git_log():
-        actions.user.vscode("gitlens.showCommitsView")
+        actions.user.run_rpc_command("gitlens.showCommitsView")
 
     def git_remote():
-        actions.user.vscode("gitlens.showRemotesView")
+        actions.user.run_rpc_command("gitlens.showRemotesView")
 
     def git_cherry_pick():
-        actions.user.vscode("git.cherryPick")
+        actions.user.run_rpc_command("git.cherryPick")
 
 
 @mod.action_class
 class Actions:
     def git_open_remote_file_url(use_selection: bool, use_branch: bool):
         """Open remote git file in browser"""
-        url = actions.user.vscode_get(
+        url = actions.user.run_rpc_command_get(
             "andreas.getGitFileURL",
             {"useSelection": use_selection, "useBranch": use_branch},
         )
@@ -117,7 +117,7 @@ class Actions:
 
     def git_copy_remote_file_url(use_selection: bool, use_branch: bool):
         """Copy remote git file URL to clipboard"""
-        url = actions.user.vscode_get(
+        url = actions.user.run_rpc_command_get(
             "andreas.getGitFileURL",
             {"useSelection": use_selection, "useBranch": use_branch},
         )
@@ -126,7 +126,7 @@ class Actions:
 
     def git_open_url(command: str):
         """Open remote repository in browser"""
-        url = actions.user.vscode_get(f"andreas.getGit{command}URL")
+        url = actions.user.run_rpc_command_get(f"andreas.getGit{command}URL")
         if url:
             actions.user.browser_open(url)
 
@@ -147,7 +147,7 @@ class Actions:
         if len(targets) == 1:
             text = actions.edit.selected_text()
 
-        url = actions.user.vscode_get(
+        url = actions.user.run_rpc_command_get(
             "andreas.getGitFileURL",
             {"useSelection": use_selection, "useBranch": False},
         )
@@ -156,7 +156,7 @@ class Actions:
 
 
 def command_with_text(command: str, text: Optional[str] = None):
-    actions.user.vscode(command)
+    actions.user.run_rpc_command(command)
     if text:
         actions.sleep("50ms")
         actions.insert(text)

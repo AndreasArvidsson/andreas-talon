@@ -23,39 +23,39 @@ app: vscode
 @ctx.action_class("app")
 class AppActions:
     def window_open():
-        actions.user.vscode("workbench.action.newWindow")
+        actions.user.run_rpc_command("workbench.action.newWindow")
 
     def tab_open():
-        actions.user.vscode("workbench.action.files.newUntitledFile")
+        actions.user.run_rpc_command("workbench.action.files.newUntitledFile")
 
     def tab_previous():
-        actions.user.vscode("workbench.action.previousEditorInGroup")
+        actions.user.run_rpc_command("workbench.action.previousEditorInGroup")
 
     def tab_next():
-        actions.user.vscode("workbench.action.nextEditorInGroup")
+        actions.user.run_rpc_command("workbench.action.nextEditorInGroup")
 
     def preferences():
-        actions.user.vscode("workbench.action.openGlobalSettings")
+        actions.user.run_rpc_command("workbench.action.openGlobalSettings")
 
 
 @ctx.action_class("code")
 class CodeActions:
     def toggle_comment():
-        actions.user.vscode("editor.action.commentLine")
+        actions.user.run_rpc_command("editor.action.commentLine")
 
     def complete():
-        actions.user.vscode("editor.action.triggerSuggest")
+        actions.user.run_rpc_command("editor.action.triggerSuggest")
 
 
 @ctx.action_class("edit")
 class EditActions:
     def save():
-        actions.user.vscode("hideSuggestWidget")
+        actions.user.run_rpc_command("hideSuggestWidget")
         actions.next()
 
     def selected_text() -> str:
         try:
-            selectedTexts = actions.user.vscode_get("andreas.getSelectedText")
+            selectedTexts = actions.user.run_rpc_command_get("andreas.getSelectedText")
             if selectedTexts is not None:
                 return "\n".join(selectedTexts)
         except Exception as ex:
@@ -73,60 +73,60 @@ class EditActions:
 
     # ----- Line commands -----
     def line_swap_up():
-        actions.user.vscode("editor.action.moveLinesUpAction")
+        actions.user.run_rpc_command("editor.action.moveLinesUpAction")
 
     def line_swap_down():
-        actions.user.vscode("editor.action.moveLinesDownAction")
+        actions.user.run_rpc_command("editor.action.moveLinesDownAction")
 
     def line_clone():
-        actions.user.vscode("editor.action.copyLinesDownAction")
+        actions.user.run_rpc_command("editor.action.copyLinesDownAction")
 
     def line_insert_up():
-        actions.user.vscode("editor.action.insertLineBefore")
+        actions.user.run_rpc_command("editor.action.insertLineBefore")
 
     # Don't use RPC since some vscode extension(eg markdown) has specific behavior on enter
     # def line_insert_down():
-    # actions.user.vscode("editor.action.insertLineAfter")
+    # actions.user.run_rpc_command("editor.action.insertLineAfter")
 
     def delete_line():
-        actions.user.vscode("editor.action.deleteLines")
+        actions.user.run_rpc_command("editor.action.deleteLines")
 
     def jump_line(n: int):
-        actions.user.vscode("andreas.goToLine", n)
+        actions.user.run_rpc_command("andreas.goToLine", n)
 
     # ----- Indent -----
     def indent_more():
-        actions.user.vscode("editor.action.indentLines")
+        actions.user.run_rpc_command("editor.action.indentLines")
 
     def indent_less():
-        actions.user.vscode("editor.action.outdentLines")
+        actions.user.run_rpc_command("editor.action.outdentLines")
 
     # ----- Zoom -----
     def zoom_reset():
-        actions.user.vscode("workbench.action.zoomReset")
+        actions.user.run_rpc_command("workbench.action.zoomReset")
 
 
 @ctx.action_class("user")
 class UserActions:
     # ----- Navigation -----
     def go_back():
-        actions.user.vscode("workbench.action.navigateBack")
+        actions.user.run_rpc_command("workbench.action.navigateBack")
 
     def go_forward():
-        actions.user.vscode("workbench.action.navigateForward")
+        actions.user.run_rpc_command("workbench.action.navigateForward")
 
     def line_middle():
-        actions.user.vscode("andreas.lineMiddle")
+        actions.user.run_rpc_command("andreas.lineMiddle")
 
     # ----- Find / Replace -----
     def find_everywhere(text: str = None):
-        actions.user.vscode("workbench.action.findInFiles")
+        actions.user.run_rpc_command("workbench.action.findInFiles")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
 
     def find_file(text: str = None):
-        actions.user.vscode("workbench.action.quickOpen")
+        actions.user.run_rpc_command("workbench.action.quickOpen")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
@@ -151,16 +151,18 @@ class UserActions:
 
     # ----- Tabs -----
     def tab_back():
-        actions.user.vscode("workbench.action.openPreviousRecentlyUsedEditorInGroup")
+        actions.user.run_rpc_command(
+            "workbench.action.openPreviousRecentlyUsedEditorInGroup"
+        )
 
     def tab_final():
-        actions.user.vscode("workbench.action.lastEditorInGroup")
+        actions.user.run_rpc_command("workbench.action.lastEditorInGroup")
 
     def tab_jump(number: int):
-        actions.user.vscode("andreas.openEditorAtIndex", number - 1)
+        actions.user.run_rpc_command("andreas.openEditorAtIndex", number - 1)
 
     def tab_jump_from_back(number: int):
-        actions.user.vscode("andreas.openEditorAtIndex", -number)
+        actions.user.run_rpc_command("andreas.openEditorAtIndex", -number)
 
     # ----- Scroll -----
     def scroll_up():
@@ -176,10 +178,10 @@ class UserActions:
         actions.key("alt-pagedown")
 
     def scroll_up_half_page():
-        actions.user.vscode("editorScroll", {"to": "up", "by": "halfPage"})
+        actions.user.run_rpc_command("editorScroll", {"to": "up", "by": "halfPage"})
 
     def scroll_down_half_page():
-        actions.user.vscode("editorScroll", {"to": "down", "by": "halfPage"})
+        actions.user.run_rpc_command("editorScroll", {"to": "down", "by": "halfPage"})
 
     # ----- Word -----
     def cut_word():
@@ -197,7 +199,7 @@ class UserActions:
     # ----- Dictation -----
     def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
         try:
-            context = actions.user.vscode_get("andreas.getDictationContext")
+            context = actions.user.run_rpc_command_get("andreas.getDictationContext")
         except Exception:
             context = None
 
@@ -208,30 +210,30 @@ class UserActions:
     # ----- Snippets -----
     def insert_snippet(body: str):
         # actions.user.cursorless_insert_snippet(body)
-        actions.user.vscode("editor.action.insertSnippet", {"snippet": body})
+        actions.user.run_rpc_command("editor.action.insertSnippet", {"snippet": body})
 
     # ----- Text getters -----
     def code_get_class_name() -> Optional[str]:
-        return actions.user.vscode_get("andreas.getClassName")
+        return actions.user.run_rpc_command_get("andreas.getClassName")
 
     def code_get_open_tag_name() -> Optional[str]:
-        return actions.user.vscode_get("andreas.getOpenTagName")
+        return actions.user.run_rpc_command_get("andreas.getOpenTagName")
 
 
 @mod.action_class
 class Actions:
     def save_without_formatting():
         """Save current document without formatting"""
-        actions.user.vscode("hideSuggestWidget")
-        actions.user.vscode("workbench.action.files.saveWithoutFormatting")
+        actions.user.run_rpc_command("hideSuggestWidget")
+        actions.user.run_rpc_command("workbench.action.files.saveWithoutFormatting")
 
     def format_document():
         """Format document"""
-        actions.user.vscode("editor.action.formatDocument")
+        actions.user.run_rpc_command("editor.action.formatDocument")
 
     def vscode_find_recent(text: Optional[str] = None):
         """Find recent session, directory or file"""
-        actions.user.vscode("workbench.action.openRecent")
+        actions.user.run_rpc_command("workbench.action.openRecent")
         if text:
             actions.sleep("150ms")
             actions.insert(text)
@@ -248,15 +250,15 @@ class Actions:
 
         # Select number of next instances
         for _ in range(repeats):
-            actions.user.vscode("editor.action.addSelectionToNextFindMatch")
+            actions.user.run_rpc_command("editor.action.addSelectionToNextFindMatch")
 
         # Select all instances
         if repeats < 0:
-            actions.user.vscode("editor.action.selectHighlights")
+            actions.user.run_rpc_command("editor.action.selectHighlights")
 
     def change_language(language: str = ""):
         """Change language mode"""
-        actions.user.vscode("workbench.action.editor.changeLanguageMode")
+        actions.user.run_rpc_command("workbench.action.editor.changeLanguageMode")
         if language:
             actions.insert(language)
 
@@ -271,7 +273,7 @@ class Actions:
 
     def vscode_add_missing_imports():
         """Add all missing imports"""
-        actions.user.vscode(
+        actions.user.run_rpc_command(
             "editor.action.sourceAction",
             {"kind": "source.addMissingImports", "apply": "first"},
         )

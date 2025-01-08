@@ -58,7 +58,7 @@ def close_editor(submit_draft: bool):
         return
 
     if submit_draft:
-        last_draft = actions.user.vscode_get("andreas.getDocumentText")
+        last_draft = actions.user.run_rpc_command_get("andreas.getDocumentText")
 
         if last_draft is None:
             actions.user.notify("Failed to get document text")
@@ -71,7 +71,7 @@ def close_editor(submit_draft: bool):
         last_draft = None
 
     ctx.tags = []
-    actions.user.vscode("workbench.action.revertAndCloseActiveEditor")
+    actions.user.run_rpc_command("workbench.action.revertAndCloseActiveEditor")
     actions.user.focus_window(original_window)
 
     actions.sleep("100ms")

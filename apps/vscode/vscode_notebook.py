@@ -21,7 +21,7 @@ class NotebookUserActions:
 class NotebookEditActions:
     # ----- Line commands -----
     def line_swap_up():
-        actions.user.vscode("notebook.cell.moveUp")
+        actions.user.run_rpc_command("notebook.cell.moveUp")
 
     def line_swap_down():
-        actions.user.vscode("notebook.cell.moveDown")
+        actions.user.run_rpc_command("notebook.cell.moveDown")

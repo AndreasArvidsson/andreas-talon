@@ -17,7 +17,7 @@ ctx.lists["user.copilot_command"] = {
 class Actions:
     def copilot_inline_chat(command: str = "", text: str = ""):
         """Start copilot inline chat session"""
-        actions.user.vscode(
+        actions.user.run_rpc_command(
             "editor.action.codeAction",
             {
                 "kind": "refactor.rewrite",
@@ -32,7 +32,7 @@ class Actions:
 
     def copilot_chat(text: str = ""):
         """Start copilot chat session"""
-        actions.user.vscode("workbench.panel.chat.view.copilot.focus")
+        actions.user.run_rpc_command("workbench.panel.chat.view.copilot.focus")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
