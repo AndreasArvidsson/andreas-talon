@@ -12,7 +12,8 @@ from .StringBuilder import StringBuilder
 try:
     import ollama
 except Exception as ex:
-    print(f"ERROR: {ex}")
+    # print(f"ERROR: {ex}")
+    pass
 
 
 OLLAMA_MODEL = "llama3.2:3b"
