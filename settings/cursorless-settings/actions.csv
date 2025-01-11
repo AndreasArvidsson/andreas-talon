@@ -3,6 +3,9 @@ Spoken form, Cursorless identifier
 take, setSelection
 pre, setSelectionBefore
 post, setSelectionAfter
+append, addSelection
+append post, addSelectionAfter
+append pre, addSelectionBefore
 give, deselect
 
 puff, insertEmptyLinesAround
