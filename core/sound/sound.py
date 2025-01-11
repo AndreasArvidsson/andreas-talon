@@ -4,6 +4,7 @@ from subprocess import call
 mod = Module()
 mod.list("playback_device", "Playback devices")
 mod.list("microhpone_device", "Microphone devices")
+mod.list("sound_device_pair", "Sound devices (microphone and playback)")
 
 
 @mod.action_class
@@ -16,8 +17,14 @@ class Actions:
         """Volume decrease"""
         actions.key("voldown")
 
+    def change_sound_device_pair(name: str):
+        """Change sound device pair <name>"""
+        microphone, playback = name.split(",")
+        actions.user.change_sound_device(microphone)
+        actions.user.change_sound_device(playback)
+
     def change_sound_device(name: str):
-        """Change sound device."""
+        """Change sound device <name>"""
 
     def sound_microphone_enabled() -> bool:
         """Returns true if the microphone is NOT set to 'None'"""
@@ -52,16 +59,24 @@ ctx_win.matches = r"""
 os: windows
 """
 
-# ctx_win.lists["user.playback_device"] = {
-#     "Headphones": "Headphones",
-#     "Speakers": "Speakers",
-# }
+ctx_win.lists["user.playback_device"] = {
+    "speakers": "Speakers",
+    "koss": "Koss headphones",
+}
 
 ctx_win.lists["user.microhpone_device"] = {
-    "internal": "Internal_mic",
     "dpa": "DPA",
     "blue yeti": "Blue Yeti",
-    "camera": "Webcam",
+    "koss": "Koss microphone",
+    # "internal": "Internal_mic",
+    # "camera": "Webcam",
+}
+
+
+ctx_win.lists["user.sound_device_pair"] = {
+    "dpa": "DPA,Speakers",
+    "blue yeti": "Blue Yeti,Speakers",
+    "koss": "Koss microphone,Koss headphones",
 }
 
 
