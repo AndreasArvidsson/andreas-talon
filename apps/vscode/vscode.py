@@ -108,6 +108,9 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
+    def command_server_directory() -> str:
+        return "vscode-command-server"
+
     # ----- Navigation -----
     def go_back():
         actions.user.run_rpc_command("workbench.action.navigateBack")
