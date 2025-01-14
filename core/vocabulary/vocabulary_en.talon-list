@@ -11,10 +11,12 @@ backup
 countdown
 for each
 lookup
+mark down: markdown
 markdown
 meetup
 setup
 to string
+
 
 # Without these "word down" and similar commands can get misinterpreted
 
@@ -75,7 +77,6 @@ xbox
 
 admin
 api
-auto
 css
 csv
 dir
@@ -96,10 +97,12 @@ vpn
 # Misc words
 
 audio
+auto
 cancel
 cheat sheet
 commit
 endpoint
+header
 local host: localhost
 localhost: localhost
 questionnaire
