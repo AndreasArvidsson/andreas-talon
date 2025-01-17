@@ -27,9 +27,9 @@ new (graph | block):
     edit.line_insert_down()
     user.dictation_format_reset()
 
-# Switch to command mode and insert a phrase
-(command mode | over) [<phrase>]$:
-    user.command_mode(phrase or "")
+# Switch to command mode
+(command mode | over)$:
+    user.command_mode()
 
 # Switch to sleep mode
 {user.sleep_phrase} [<phrase>]$: user.talon_sleep()

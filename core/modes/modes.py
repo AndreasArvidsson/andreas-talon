@@ -42,33 +42,29 @@ class DictationUserActions:
 
 @mod.action_class
 class Actions:
-    def command_mode(phrase: Union[Phrase, str] = None):
-        """Enter command mode and re-evaluate phrase"""
+    def command_mode():
+        """Enter command mode"""
         ctx.settings = {}
         actions.mode.disable("dictation")
         actions.mode.disable("user.demo")
         actions.mode.enable("command")
-        if phrase:
-            actions.user.rephrase(phrase, run_async=True)
 
-    def dictation_mode(phrase: Union[Phrase, str] = None):
+    def dictation_mode():
         """Enter dictation mode and re-evaluate phrase"""
         actions.user.dictation_format_reset()
         actions.mode.disable("command")
         actions.mode.disable("user.demo")
         actions.mode.enable("dictation")
-        if phrase:
-            actions.user.rephrase(phrase, run_async=True)
 
     def command_dictation_mode_toggle():
         """Toggle between command and dictation mode"""
 
-    def swedish_dictation_mode(phrase: Union[Phrase, str] = None):
+    def swedish_dictation_mode():
         """Enter swedish dictation mode and re-evaluate phrase"""
         ctx.settings = {
             "speech.language": "sv_SE",
         }
-        actions.user.dictation_mode(phrase)
+        actions.user.dictation_mode()
 
     def mixed_mode(phrase: Union[Phrase, str] = None):
         """Enter mixed mode and re-evaluate phrase"""
