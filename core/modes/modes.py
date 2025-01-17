@@ -1,6 +1,4 @@
 from talon import Context, Module, actions, app
-from talon.grammar import Phrase
-from typing import Union
 
 mod = Module()
 ctx = Context()
@@ -50,7 +48,7 @@ class Actions:
         actions.mode.enable("command")
 
     def dictation_mode():
-        """Enter dictation mode and re-evaluate phrase"""
+        """Enter dictation mode"""
         actions.user.dictation_format_reset()
         actions.mode.disable("command")
         actions.mode.disable("user.demo")
@@ -60,18 +58,16 @@ class Actions:
         """Toggle between command and dictation mode"""
 
     def swedish_dictation_mode():
-        """Enter swedish dictation mode and re-evaluate phrase"""
+        """Enter swedish dictation mode"""
         ctx.settings = {
             "speech.language": "sv_SE",
         }
         actions.user.dictation_mode()
 
-    def mixed_mode(phrase: Union[Phrase, str] = None):
-        """Enter mixed mode and re-evaluate phrase"""
+    def mixed_mode():
+        """Enter mixed mode"""
         actions.user.dictation_format_reset()
         actions.mode.enable("dictation")
-        if phrase:
-            actions.user.rephrase(phrase, run_async=True)
 
     def demo_mode():
         """Enter demo mode"""
