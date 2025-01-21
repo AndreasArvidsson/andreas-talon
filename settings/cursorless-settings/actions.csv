@@ -71,8 +71,8 @@ highlight, highlight
 phones, nextHomophone
 quick fix, showQuickFix
 rename, rename
+snip make, generateSnippet
 
 # `revealDefinition` is already part of `followLink`
 -define, revealDefinition
 -snippet, insertSnippet
--snippet make, generateSnippet
