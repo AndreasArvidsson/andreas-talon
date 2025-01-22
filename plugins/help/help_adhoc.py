@@ -19,8 +19,9 @@ def gui(gui: imgui.GUI):
     gui.text("över: yes" if command_key in registry.commands else "över: no")
 
 
-# sim("över")
+# app.register("ready", lambda: gui.show())
 
+# sim("över")
 # print(registry.commands)
 
 #  {
