@@ -6,6 +6,7 @@ list: user.webpage
 about config:         about:config
 about debugging:      about:debugging
 avanza:               https://www.avanza.se
+bahnhof:              https://bahnhof.se
 calendar:             https://calendar.google.com
 chat gpt:             https://chat.openai.com
 crunchyroll:          https://www.crunchyroll.com
@@ -46,7 +47,6 @@ unifi controller:     https://192.168.1.11:8443
 vast trafik:          https://www.vasttrafik.se
 whats my ip:          https://whatismyipaddress.com
 youtube:              https://www.youtube.com/feed/subscriptions
-
 
 # Talon
 
