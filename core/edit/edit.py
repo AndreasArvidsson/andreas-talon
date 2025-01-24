@@ -174,16 +174,3 @@ class Actions:
         actions.edit.left()
         actions.insert(f"{text} ")
         actions.edit.left()
-
-    # ----- Cut, copy, paste -----
-    def edit_cut():
-        """Cut selection to clipboard"""
-        actions.edit.cut()
-
-    def edit_copy():
-        """Copy selection to clipboard"""
-        actions.edit.copy()
-
-    def edit_paste(expand: bool):
-        """Paste clipboard at cursor"""
-        actions.edit.paste()
