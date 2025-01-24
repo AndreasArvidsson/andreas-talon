@@ -54,10 +54,7 @@ remove:                     user.delete_word_left()
 wipe:                       user.delete_word_right()
 
 # ----- Cut, copy, paste -----
-cut (this | dis):           user.edit_cut()
-copy (this | dis):          user.edit_copy()
-paste to (this | dis):      user.edit_paste(true)
-paste it:                   user.edit_paste(false)
+paste it:                   edit.paste()
 paste special:              edit.paste_match_style()
 paste insert:               user.insert_clipboard_with_keys()
 

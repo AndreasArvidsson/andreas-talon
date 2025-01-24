@@ -54,7 +54,7 @@ def edit_target(m) -> list[EditModifier]:
 @mod.action_class
 class Actions:
     def edit_command(action: EditAction, modifiers: list[EditModifier]):
-        """Perform edit command"""
+        """Perform edit command <action>"""
 
         # string joined of action and modifiers
         key = str(action) + "." + ".".join([str(modifier) for modifier in modifiers])
