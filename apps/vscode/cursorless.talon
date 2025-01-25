@@ -68,6 +68,10 @@ snip {user.snippet} <user.cursorless_destination>:
 {user.snippet_wrapper} wrap <user.cursorless_target>:
     user.c_wrap_with_snippet(cursorless_target, snippet_wrapper)
 
+# Format action
+<user.formatters> {user.cursorless_reformat_action} <user.cursorless_target>:
+    user.cursorless_reformat(cursorless_target, formatters)
+
 # llm
 model fix <user.cursorless_target>:
     text = user.cursorless_get_text(cursorless_target)
