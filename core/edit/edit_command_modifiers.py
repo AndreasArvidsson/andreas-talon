@@ -42,7 +42,7 @@ mod = Module()
 mod.list("edit_scope_type", desc="Scope types for the edit command")
 
 
-@mod.capture(rule="this")
+@mod.capture(rule="this | dis")
 def edit_modifier_this(m) -> EditSimpleModifier:
     return EditSimpleModifier("containingTokenIfEmpty")
 
