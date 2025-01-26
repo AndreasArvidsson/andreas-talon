@@ -18,6 +18,9 @@ git tag list:               user.git_show_tags()
 
 git stash:                  user.git_stash()
 git stash pop:              user.git_stash_pop()
+git stash drop:             user.git_stash_drop()
+git stash show:             user.git_stash_show()
+git stash list:             user.git_stash_list()
 
 git merge {user.git_branch}:
     user.git_merge(git_branch)
@@ -50,9 +53,6 @@ git commit empty:
     user.git_commit_empty()
 
 git diff:                   user.git_diff()
-
-git stash show:             user.git_stash_show()
-git stash list:             user.git_stash_list()
 
 git log:                    user.git_log()
 git remote:                 user.git_remote()

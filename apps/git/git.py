@@ -65,6 +65,18 @@ class Action:
         """Pop stash"""
         actions.insert("git stash pop")
 
+    def git_stash_drop():
+        """Drop git stash"""
+        actions.insert("git stash drop")
+
+    def git_stash_show():
+        """Show git stashes"""
+        actions.insert("git stash show\n")
+
+    def git_stash_list():
+        """List git stashes"""
+        actions.insert("git stash list\n")
+
     def git_merge(branch: Optional[str] = None):
         """Merge branch <branch>"""
         actions.insert(f"git merge {branch or ''}")
@@ -105,14 +117,6 @@ class Action:
     def git_diff():
         """Show git diff"""
         actions.insert("git diff\n")
-
-    def git_stash_show():
-        """Show git stashes"""
-        actions.insert("git stash show\n")
-
-    def git_stash_list():
-        """List git stashes"""
-        actions.insert("git stash list\n")
 
     def git_log():
         """Show git log"""

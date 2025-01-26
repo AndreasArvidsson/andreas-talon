@@ -45,6 +45,9 @@ class Actions:
     def git_stash_pop():
         actions.user.run_rpc_command("git.stashPop")
 
+    def git_stash_drop():
+        actions.user.run_rpc_command("git.stashDrop")
+
     def git_merge(branch: Optional[str] = None):
         command_with_text("git.merge", branch)
 
