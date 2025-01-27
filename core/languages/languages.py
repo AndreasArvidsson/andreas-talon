@@ -42,6 +42,7 @@ languages = [
     Language("typescript", "type script", ["ts", "mts", "cts"]),
     Language("typescriptreact", "type script react", ["tsx"]),
     Language("xml", "xml", ["xml"]),
+    Language("yaml", "yaml", ["yaml"]),
 ]
 
 mod = Module()
