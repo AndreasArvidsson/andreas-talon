@@ -66,6 +66,7 @@ breakpoint, toggleLineBreakpoint
 call, callAsFunction
 comment, toggleLineComment
 extract, extractVariable
+flash, flashTargets
 format | form, applyFormatter
 highlight, highlight
 phones, nextHomophone
