@@ -1,10 +1,4 @@
-os: windows
-and app.exe: cmd.exe
-os: windows
-and app.exe: conhost.exe
-os: windows
-and app.exe: windowsterminal.exe
-title: Talon - REPL
+app: talon_repl
 -
 
 terminate:                  key(ctrl-c)
