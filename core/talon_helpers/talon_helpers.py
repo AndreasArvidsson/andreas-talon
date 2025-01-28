@@ -1,19 +1,22 @@
-from talon import (
-    Module,
-    Context,
-    actions,
-    app,
-    registry,
-    scope,
-    ui,
-    speech_system,
-    storage,
-)
+import inspect
+import json
 import os
 import re
 import time
 from itertools import islice
 from typing import Any, Union
+
+from talon import (
+    Context,
+    Module,
+    actions,
+    app,
+    registry,
+    scope,
+    speech_system,
+    storage,
+    ui,
+)
 from talon.grammar import Phrase
 
 mod = Module()
@@ -145,6 +148,30 @@ class Actions:
     ) -> list:
         """Create list"""
         return [x for x in [arg1, arg2, arg3, arg4] if x]
+
+    def copy_default_talon_actions():
+        """Copies the default talon actions to the clipboard"""
+        result = []
+
+        for name, action_impls in sorted(registry.actions.items()):
+            if name.startswith("user."):
+                continue
+
+            action = action_impls[0]
+
+            if not action.type_decl:
+                raise ValueError(f"Action {name} has no type_decl")
+
+            result.append(
+                {
+                    "name": name,
+                    "signature": str(inspect.signature(action.func)),
+                    "docstr": action.type_decl.desc,
+                }
+            )
+
+        json_str = json.dumps(result, indent=4)
+        actions.clip.set_text(json_str)
 
 
 @ctx_win.action_class("user")
