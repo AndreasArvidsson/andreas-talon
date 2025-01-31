@@ -50,6 +50,7 @@ class Snippet:
 @dataclass
 class InsertionSnippet:
     body: str
+    languages: list[str] | None = None
     scopes: list[str] | None = None
 
 
@@ -57,4 +58,5 @@ class InsertionSnippet:
 class WrapperSnippet:
     body: str
     variable_name: str
+    languages: list[str] | None = None
     scope: str | None = None

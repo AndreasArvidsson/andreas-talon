@@ -71,7 +71,11 @@ class Actions:
     def get_insertion_snippet(name: str) -> InsertionSnippet:
         """Get insertion snippet named <name> for the active language"""
         snippet: Snippet = actions.user.get_snippet(name)
-        return InsertionSnippet(snippet.body, snippet.insertion_scopes)
+        return InsertionSnippet(
+            snippet.body,
+            snippet.languages,
+            snippet.insertion_scopes,
+        )
 
     def get_wrapper_snippets(name: str) -> list[WrapperSnippet]:
         """Get wrapper snippets named <name>"""
@@ -94,7 +98,12 @@ def split_wrapper_snippet_name(name: str) -> tuple[str, str]:
 def to_wrapper_snippet(snippet: Snippet, variable_name) -> WrapperSnippet:
     """Get wrapper snippet named <name>"""
     var = snippet.get_variable_strict(variable_name)
-    return WrapperSnippet(snippet.body, var.name, var.wrapper_scope)
+    return WrapperSnippet(
+        snippet.body,
+        var.name,
+        snippet.languages,
+        var.wrapper_scope,
+    )
 
 
 def update_snippets():
