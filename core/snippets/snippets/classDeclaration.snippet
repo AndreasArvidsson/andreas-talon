@@ -1,15 +1,18 @@
 name: classDeclaration
 insertionScope: class | statement
+
+$0.wrapperPhrase: class
+$0.wrapperScope: statement
 ---
 
-language: cpp | java | csharp
+language: cpp | csharp | java
 -
 $modifiers class $name {
     $0
 }
 ---
 
-language: javascript
+language: javascript | typescript | javascriptreact | typescriptreact
 -
 class $name {
     $0

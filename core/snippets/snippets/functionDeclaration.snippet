@@ -5,14 +5,14 @@ $0.wrapperPhrase: funk
 $0.wrapperScope: statement
 ---
 
-language: c | java | csharp
+language: c | cpp | csharp | java
 -
 $modifiers void $name($1) {
     $0
 }
 ---
 
-language: javascript
+language: javascript | typescript | javascriptreact | typescriptreact
 -
 function $name($1) {
     $0

@@ -2,7 +2,7 @@ name: catchStatement
 phrase: catch
 ---
 
-language: cpp
+language: cpp | cpp
 -
 catch (const std::exception& ex) {
     $0
@@ -16,7 +16,7 @@ catch(final Exception ex) {
 }
 ---
 
-language: javascript
+language: javascript | typescript | javascriptreact | typescriptreact
 -
 catch(error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
