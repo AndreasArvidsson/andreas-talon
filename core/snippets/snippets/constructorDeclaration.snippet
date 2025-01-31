@@ -2,14 +2,14 @@ name: constructorDeclaration
 insertionScope: namedFunction | statement
 ---
 
-language: cpp | java | csharp
+language: cpp | csharp | java
 -
 $modifiers $name($1) {
     $0
 }
 ---
 
-language: javascript
+language: javascript | typescript | javascriptreact | typescriptreact
 -
 constructor($1) {
     $0
