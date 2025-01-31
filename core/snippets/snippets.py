@@ -37,45 +37,64 @@ for lang in languages:
 
 @mod.action_class
 class Actions:
+    def get_snippets(name: str) -> list[Snippet]:
+        """Get snippets named <name>"""
+        if name not in snippets_map:
+            raise ValueError(f"Unknown snippet '{name}'")
+        return snippets_map[name]
+
     def get_snippet(name: str) -> Snippet:
-        """Get snippet named <name>"""
-        return get_snippet_for_active_language(name)
+        """Get snippet named <name> for the active language"""
+        snippets = actions.user.get_snippets(name)
+        lang: Union[str, set[str]] = actions.code.language()
+        languages = list([lang]) if isinstance(lang, str) else lang
+
+        # First try to find a snippet matching the active language
+        for snippet in snippets:
+            if snippet.languages:
+                for snippet_lang in snippet.languages:
+                    if snippet_lang in languages:
+                        return snippet
+
+        # Then look for a global snippet
+        for snippet in snippets:
+            if not snippet.languages:
+                return snippet
+
+        raise ValueError(f"Snippet '{name}' not available for language '{lang}'")
+
+    def get_insertion_snippets(name: str) -> list[InsertionSnippet]:
+        """Get insertion snippets named <name>"""
+        snippets: list[Snippet] = actions.user.get_snippets(name)
+        return [InsertionSnippet(s.body, s.insertion_scopes) for s in snippets]
 
     def get_insertion_snippet(name: str) -> InsertionSnippet:
-        """Get insertion snippet named <name>"""
+        """Get insertion snippet named <name> for the active language"""
         snippet: Snippet = actions.user.get_snippet(name)
         return InsertionSnippet(snippet.body, snippet.insertion_scopes)
 
+    def get_wrapper_snippets(name: str) -> list[WrapperSnippet]:
+        """Get wrapper snippets named <name>"""
+        snippet_name, variable_name = split_wrapper_snippet_name(name)
+        snippets: list[Snippet] = actions.user.get_snippets(snippet_name)
+        return [to_wrapper_snippet(s, variable_name) for s in snippets]
+
     def get_wrapper_snippet(name: str) -> WrapperSnippet:
-        """Get wrapper snippet named <name>"""
-        index = name.rindex(".")
-        snippet_name = name[:index]
-        variable_name = name[index + 1]
+        """Get wrapper snippet named <name> for the active language"""
+        snippet_name, variable_name = split_wrapper_snippet_name(name)
         snippet: Snippet = actions.user.get_snippet(snippet_name)
-        variable = snippet.get_variable_strict(variable_name)
-        return WrapperSnippet(snippet.body, variable.name, variable.wrapper_scope)
+        return to_wrapper_snippet(snippet, variable_name)
 
 
-def get_snippet_for_active_language(name: str) -> Snippet:
-    if name not in snippets_map:
-        raise ValueError(f"Unknown snippet '{name}'")
+def split_wrapper_snippet_name(name: str) -> tuple[str, str]:
+    index = name.rindex(".")
+    return name[:index], name[index + 1]
 
-    snippets = snippets_map[name]
-    lang: Union[str, set[str]] = actions.code.language()
-    languages = list([lang]) if isinstance(lang, str) else lang
 
-    # First try to find a snippet matching the active language
-    for snippet in snippets:
-        if snippet.languages:
-            for snippet_lang in snippet.languages:
-                if snippet_lang in languages:
-                    return snippet
-
-    for snippet in snippets:
-        if not snippet.languages:
-            return snippet
-
-    raise ValueError(f"Snippet '{name}' not available for language '{lang}'")
+def to_wrapper_snippet(snippet: Snippet, variable_name) -> WrapperSnippet:
+    """Get wrapper snippet named <name>"""
+    var = snippet.get_variable_strict(variable_name)
+    return WrapperSnippet(snippet.body, var.name, var.wrapper_scope)
 
 
 def update_snippets():
