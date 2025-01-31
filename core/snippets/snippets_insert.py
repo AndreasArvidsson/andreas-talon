@@ -1,3 +1,4 @@
+from typing import Optional
 from talon import Module, actions
 from .snippet_types import Snippet
 from .snippets_insert_raw_text import insert_snippet_raw_text
@@ -12,7 +13,10 @@ class Actions:
         """Insert snippet"""
         insert_snippet_raw_text(body)
 
-    def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
+    def insert_snippet_by_name(
+        name: str,
+        substitutions: Optional[dict[str, str]] = None,
+    ):
         """Insert snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
         body = snippet.body
@@ -33,11 +37,12 @@ class Actions:
         snippet: Snippet = actions.user.get_snippet(name)
         substitutions = {}
 
-        for variable in snippet.variables:
-            if variable.insertion_formatters is not None:
-                formatters = ",".join(variable.insertion_formatters)
-                formatted_phrase = actions.user.format_text(phrase, formatters)
-                substitutions[variable.name] = formatted_phrase
+        if snippet.variables:
+            for variable in snippet.variables:
+                if variable.insertion_formatters is not None:
+                    formatters = ",".join(variable.insertion_formatters)
+                    formatted_phrase = actions.user.format_text(phrase, formatters)
+                    substitutions[variable.name] = formatted_phrase
 
         if not substitutions:
             raise ValueError(
