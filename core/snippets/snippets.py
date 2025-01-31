@@ -113,25 +113,30 @@ def update_snippets():
 
 
 def update_contexts(language_to_lists: dict[str, SnippetLists]):
+    global_lists = language_to_lists["_"] or SnippetLists({}, {}, {})
+
     for lang, lists in language_to_lists.items():
         if lang not in languages_state_map:
             print(f"Found snippets for unknown language: {lang}")
             continue
 
         state = languages_state_map[lang]
+        insertion = {**global_lists.insertion, **lists.insertion}
+        with_phrase = {**global_lists.with_phrase, **lists.with_phrase}
+        wrapper = {**global_lists.wrapper, **lists.wrapper}
         updated_lists: dict[str, dict[str, str]] = {}
 
-        if state.lists.insertion != lists.insertion:
-            state.lists.insertion = lists.insertion
-            updated_lists["user.snippet"] = lists.insertion
+        if state.lists.insertion != insertion:
+            state.lists.insertion = insertion
+            updated_lists["user.snippet"] = insertion
 
-        if state.lists.with_phrase != lists.with_phrase:
-            state.lists.with_phrase = lists.with_phrase
-            updated_lists["user.snippet_with_phrase"] = lists.with_phrase
+        if state.lists.with_phrase != with_phrase:
+            state.lists.with_phrase = with_phrase
+            updated_lists["user.snippet_with_phrase"] = with_phrase
 
-        if state.lists.wrapper != lists.wrapper:
-            state.lists.wrapper = lists.wrapper
-            updated_lists["user.snippet_wrapper"] = lists.wrapper
+        if state.lists.wrapper != wrapper:
+            state.lists.wrapper = wrapper
+            updated_lists["user.snippet_wrapper"] = wrapper
 
         if updated_lists:
             state.ctx.lists.update(updated_lists)
