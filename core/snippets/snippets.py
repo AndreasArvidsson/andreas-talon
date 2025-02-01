@@ -28,14 +28,14 @@ snippets_map: dict[str, list[Snippet]] = {}
 # { LANGUAGE_ID: SnippetLanguageState }
 languages_state_map: dict[str, SnippetLanguageState] = {
     # `_` represents the global context, ie snippets available regardless of language
-    "_": SnippetLanguageState(Context(), SnippetLists({}, {}, {}))
+    "_": SnippetLanguageState(Context(), SnippetLists())
 }
 
 # Create a context for each defined language
 for lang in code_languages:
     ctx = Context()
     ctx.matches = f"code.language: {lang.id}"
-    languages_state_map[lang.id] = SnippetLanguageState(ctx, SnippetLists({}, {}, {}))
+    languages_state_map[lang.id] = SnippetLanguageState(ctx, SnippetLists())
 
 
 @mod.action_class
@@ -131,7 +131,7 @@ def update_snippets():
         # Map languages to phrase / name dicts
         for language in snippet.languages or ["_"]:
             if language not in language_to_lists:
-                language_to_lists[language] = SnippetLists({}, {}, {})
+                language_to_lists[language] = SnippetLists()
 
             lists = language_to_lists[language]
 
@@ -150,7 +150,7 @@ def update_snippets():
 
 
 def update_contexts(language_to_lists: dict[str, SnippetLists]):
-    global_lists = language_to_lists["_"] or SnippetLists({}, {}, {})
+    global_lists = language_to_lists["_"] or SnippetLists()
 
     for lang, lists in language_to_lists.items():
         if lang not in languages_state_map:
