@@ -77,7 +77,7 @@ arrow:                      user.insert_arrow()
 snip {user.snippet}:
     user.insert_snippet_by_name(snippet)
 
-snip {user.snippet_with_phrase} <user.prose>:
+snip {user.snippet_with_phrase} <user.prose> [over]:
     user.insert_snippet_by_name_with_phrase(snippet_with_phrase, prose)
 
 # edit test insert:           user.edit_test_insert()
