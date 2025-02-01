@@ -23,7 +23,7 @@ class SnippetDocument:
         self.line_body = line_body
 
 
-def create_snippets_from_file(file_path: str) -> list[Snippet]:
+def create_snippets_from_file(file_path: Path) -> list[Snippet]:
     documents = parse_file(file_path)
     return create_snippets(documents)
 
@@ -176,10 +176,10 @@ def reconstruct_line(smallest_indentation: str, indentation: str, rest: str) -> 
 # ---------- Snippet file parser ----------
 
 
-def parse_file(file_path: str) -> list[SnippetDocument]:
+def parse_file(file_path: Path) -> list[SnippetDocument]:
     with open(file_path, encoding="utf-8") as f:
         content = f.read()
-    file_name = Path(file_path).name
+    file_name = file_path.name
     return parse_file_content(file_name, content)
 
 

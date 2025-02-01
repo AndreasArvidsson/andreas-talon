@@ -1,4 +1,3 @@
-import glob
 from pathlib import Path
 from typing import Union
 
@@ -180,7 +179,7 @@ def update_contexts(language_to_lists: dict[str, SnippetLists]):
 
 
 def get_snippets_from_files() -> list[Snippet]:
-    files = glob.glob(f"{SNIPPETS_DIR}/**/*.snippet", recursive=True)
+    files = SNIPPETS_DIR.glob("**/*.snippet")
     result = []
 
     for file in files:
