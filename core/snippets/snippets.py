@@ -1,9 +1,10 @@
-from typing import Union
-from talon import Module, Context, app, fs, actions
-from pathlib import Path
 import glob
+from pathlib import Path
+from typing import Union
+
+from talon import Context, Module, actions, app, fs
+
 from ..languages.languages import languages
-from .snippets_parser import create_snippets_from_file
 from .snippet_types import (
     InsertionSnippet,
     Snippet,
@@ -11,6 +12,7 @@ from .snippet_types import (
     SnippetLists,
     WrapperSnippet,
 )
+from .snippets_parser import create_snippets_from_file
 
 SNIPPETS_DIR = Path(__file__).parent / "snippets"
 
