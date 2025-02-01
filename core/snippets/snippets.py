@@ -66,7 +66,9 @@ class Actions:
     def get_insertion_snippets(name: str) -> list[InsertionSnippet]:
         """Get insertion snippets named <name>"""
         snippets: list[Snippet] = actions.user.get_snippets(name)
-        return [InsertionSnippet(s.body, s.insertion_scopes) for s in snippets]
+        return [
+            InsertionSnippet(s.body, s.languages, s.insertion_scopes) for s in snippets
+        ]
 
     def get_insertion_snippet(name: str) -> InsertionSnippet:
         """Get insertion snippet named <name> for the active language"""
