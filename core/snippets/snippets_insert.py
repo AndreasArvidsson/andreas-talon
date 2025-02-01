@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Module, actions
 from .snippet_types import Snippet
 from .snippets_insert_raw_text import insert_snippet_raw_text
