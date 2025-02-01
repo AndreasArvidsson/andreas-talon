@@ -1,4 +1,3 @@
-from contextlib import suppress
 from talon import Module, actions
 from typing import Optional, Union
 
@@ -9,16 +8,7 @@ mod.tag("code_generic_language")
 mod.list("code_class_modifier", "Class modifiers")
 mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
-mod.list("code_data_type", "Names of data types")
 mod.list("code_symbol", "Known symbols in the code workspace")
-
-
-@mod.capture(rule="{user.code_data_type} | <user.prose>")
-def code_data_type(m) -> str:
-    with suppress(AttributeError):
-        return m.code_data_type
-    format = actions.user.code_get_class_format()
-    return actions.user.format_text(m.prose, format)
 
 
 @mod.action_class
@@ -66,7 +56,10 @@ class Actions:
 
     # ----- Variable statement -----
     def code_variable_wrapper(
-        name: str, modifiers: Union[list[str], str], assign: bool, data_type: str = None
+        name: str,
+        modifiers: Union[list[str], str],
+        assign: bool,
+        data_type: str = None,
     ):
         """Variable statement wrapper"""
         format = actions.user.code_get_variable_format()
@@ -74,7 +67,10 @@ class Actions:
         actions.user.code_variable(name, modifiers or [], assign, data_type)
 
     def code_variable(
-        name: str, modifiers: list[str], assign: bool, data_type: str = None
+        name: str,
+        modifiers: list[str],
+        assign: bool,
+        data_type: str = None,
     ):
         """Variable statement"""
 
@@ -82,13 +78,6 @@ class Actions:
     def code_new_instance(name: str):
         """Create new instance of <name>"""
         actions.user.insert_snippet_by_name("newInstance", {"name": name})
-
-    # ----- Insert types -----
-    def code_insert_type_annotation(type: str):
-        """Insert type annotation <type>"""
-
-    def code_insert_return_type(type: str):
-        """Insert return type <type>"""
 
     # ----- Formatting getters -----
     def code_get_class_format() -> str:

@@ -9,6 +9,7 @@ code.language: python
 """
 
 # fmt: off
+
 ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
@@ -36,33 +37,42 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_and           = " and ",
     op_or            = " or ",
 )
+
 access_modifiers = {
     "public": "",
     "protected": "_",
     "private": "__",
 }
+
 ctx.lists["user.code_class_modifier"] = {}
+
 ctx.lists["user.code_function_modifier"] = access_modifiers
+
 ctx.lists["user.code_variable_modifier"] = {
     **access_modifiers,
     "global": "global",
 }
+
 ctx.lists["user.code_data_type"] = {
     "string"   : "str",
     "int"      : "int",
     "float"    : "float",
-    "complex"  : "complex",
     "bool"     : "bool",
-    "dict"     : "dict",
-    "set"      : "set",
-    "list"     : "list",
     "range"    : "range",
     "none"     : "None",
     "any"      : "Any",
-    "tuple"    : "tuple",
+    "complex"  : "complex",
+}
+
+ctx.lists["user.code_collection_type"] = {
+    "dict"     : "dict",
+    "set"      : "set",
+    "list"     : "list",
+    "tuple"    : "Tuple",
     "union"    : "Union",
     "optional" : "Optional",
 }
+
 ctx.lists["user.code_call_function"] = {
     "format"      : "format",
     "strip"       : "strip",
@@ -86,6 +96,7 @@ ctx.lists["user.code_call_function"] = {
     "update"      : "update",
     "append"      : "append",
 }
+
 ctx.lists["user.code_insert"] = {
     "true"      : "True",
     "false"     : "False",
@@ -106,6 +117,7 @@ ctx.lists["user.code_insert"] = {
     "exception" : "Exception",
     "continue"  : "continue",
 }
+
 # fmt: on
 
 
@@ -149,6 +161,17 @@ class UserActions:
 
     def code_insert_return_type(type: str):
         actions.insert(f" -> {type}")
+
+    def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:
+        if item_types:
+            return f"{collection_type}[{', '.join(item_types)}]"
+        return collection_type
+
+    def code_format_array_type(item_type: str) -> str:
+        return actions.user.code_format_collection_type("list", [item_type])
+
+    def code_format_or_type(item_types: list[str]) -> str:
+        return f"{' | '.join(item_types)}"
 
     # Formatting getters
     def code_get_class_format() -> str:

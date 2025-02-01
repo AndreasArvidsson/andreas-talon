@@ -2,8 +2,8 @@ from talon import Module, Context, actions
 from .javascript import javascript_inserts
 
 mod = Module()
-
 ctx = Context()
+
 ctx.matches = r"""
 code.language: typescript
 code.language: typescriptreact
@@ -12,7 +12,8 @@ mode: command
 """
 
 # fmt: off
-types = {
+
+ctx.lists["user.code_data_type"] = {
     "any"       : "any",
     "bool"      : "boolean",
     "never"     : "never",
@@ -25,18 +26,24 @@ types = {
     "unknown"   : "unknown",
     "void"      : "void",
     "funk"      : "() => void",
-    "record"    : "Record"
 }
 
-ctx.lists["user.code_data_type"] = {
-    **types,
-    **{f"{k} list": f"{v}[]" for k, v in types.items()},
+ctx.lists["user.code_collection_type"] = {
+    "list"      : "Array",
+    "array"     : "Array",
+    "record"    : "Record",
+    "partial"   : "Partial",
+    "omit"      : "Omit",
+    "required"  : "Required",
+    "pick"      : "Pick",
 }
+
 ctx.lists["user.code_function_modifier"] = {
-    "public",
-    "private",
-    "protected",
+    "public"    : "public",
+    "private"   : "private",
+    "protected" : "protected",
 }
+
 ctx.lists["user.code_insert"] = {
     **javascript_inserts,
     **{
@@ -50,6 +57,7 @@ ctx.lists["user.code_insert"] = {
         "as"        : " as ",
     },
 }
+
 # fmt: on
 
 
@@ -61,3 +69,16 @@ class UserActions:
 
     def code_insert_return_type(type: str):
         actions.insert(f" => {type}")
+
+    def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:
+        if item_types:
+            return f"{collection_type}<{', '.join(item_types)}>"
+        return collection_type
+
+    def code_format_array_type(item_type: str) -> str:
+        if " " in item_type:
+            item_type = f"({item_type})"
+        return f"{item_type}[]"
+
+    def code_format_or_type(item_types: list[str]) -> str:
+        return f"{' | '.join(item_types)}"

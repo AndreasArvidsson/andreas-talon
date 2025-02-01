@@ -2,8 +2,8 @@ from talon import Module, Context, actions
 from ..tags.code_operators import CodeOperators
 
 mod = Module()
-
 ctx = Context()
+
 ctx.matches = r"""
 code.language: javascript
 code.language: typescript
@@ -12,6 +12,7 @@ code.language: typescriptreact
 """
 
 # fmt: off
+
 ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
@@ -39,13 +40,17 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_or            = " || ",
     is_in            = " in ",
 )
+
 ctx.lists["user.code_class_modifier"] = {}
 ctx.lists["user.code_function_modifier"] = {}
+ctx.lists["user.code_data_type"] = {}
+ctx.lists["user.code_collection_type"] = {}
+
 ctx.lists["user.code_variable_modifier"] = {
     "const",
     "let",
 }
-ctx.lists["user.code_data_type"] = {}
+
 ctx.lists["user.code_call_function"] = {
     "forEach",
     "map",
@@ -59,6 +64,7 @@ ctx.lists["user.code_call_function"] = {
     "join",
     "require",
 }
+
 javascript_inserts = {
     "true":         "true",
     "false":        "false",
@@ -93,7 +99,9 @@ javascript_inserts = {
     "continue":     "continue;",
     "break":        "break;",
 }
+
 ctx.lists["user.code_insert"] = javascript_inserts
+
 # fmt: on
 
 
