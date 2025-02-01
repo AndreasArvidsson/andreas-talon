@@ -4,7 +4,7 @@ from typing import Union
 
 from talon import Context, Module, actions, app, fs
 
-from ..languages.languages import languages
+from ..languages.languages import code_languages
 from .snippet_types import (
     InsertionSnippet,
     Snippet,
@@ -22,16 +22,17 @@ mod.list("snippet", "List of insertion snippets")
 mod.list("snippet_with_phrase", "List of insertion snippets containing a text phrase")
 mod.list("snippet_wrapper", "List of wrapper snippets")
 
-# {SNIPPET_NAME: Snippet[]}
+# { SNIPPET_NAME: Snippet[] }
 snippets_map: dict[str, list[Snippet]] = {}
 
+# { LANGUAGE_ID: SnippetLanguageState }
 languages_state_map: dict[str, SnippetLanguageState] = {
     # `_` represents the global context, ie snippets available regardless of language
     "_": SnippetLanguageState(Context(), SnippetLists({}, {}, {}))
 }
 
 # Create a context for each defined language
-for lang in languages:
+for lang in code_languages:
     ctx = Context()
     ctx.matches = f"code.language: {lang.id}"
     languages_state_map[lang.id] = SnippetLanguageState(ctx, SnippetLists({}, {}, {}))
@@ -47,23 +48,8 @@ class Actions:
 
     def get_snippet(name: str) -> Snippet:
         """Get snippet named <name> for the active language"""
-        snippets = actions.user.get_snippets(name)
-        lang: Union[str, set[str]] = actions.code.language()
-        languages = list([lang]) if isinstance(lang, str) else lang
-
-        # First try to find a snippet matching the active language
-        for snippet in snippets:
-            if snippet.languages:
-                for snippet_lang in snippet.languages:
-                    if snippet_lang in languages:
-                        return snippet
-
-        # Then look for a global snippet
-        for snippet in snippets:
-            if not snippet.languages:
-                return snippet
-
-        raise ValueError(f"Snippet '{name}' not available for language '{lang}'")
+        snippets: list[Snippet] = actions.user.get_snippets(name)
+        return get_preferred_snippet(snippets)
 
     def get_insertion_snippets(name: str) -> list[InsertionSnippet]:
         """Get insertion snippets named <name>"""
@@ -92,6 +78,25 @@ class Actions:
         snippet_name, variable_name = split_wrapper_snippet_name(name)
         snippet: Snippet = actions.user.get_snippet(snippet_name)
         return to_wrapper_snippet(snippet, variable_name)
+
+
+def get_preferred_snippet(snippets: list[Snippet]) -> Snippet:
+    lang: Union[str, set[str]] = actions.code.language()
+    languages = list([lang]) if isinstance(lang, str) else lang
+
+    # First try to find a snippet matching the active language
+    for snippet in snippets:
+        if snippet.languages:
+            for snippet_lang in snippet.languages:
+                if snippet_lang in languages:
+                    return snippet
+
+    # Then look for a global snippet
+    for snippet in snippets:
+        if not snippet.languages:
+            return snippet
+
+    raise ValueError(f"Snippet not available for language '{lang}'")
 
 
 def split_wrapper_snippet_name(name: str) -> tuple[str, str]:
