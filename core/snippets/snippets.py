@@ -57,7 +57,7 @@ class Actions:
         """Get insertion snippets named <name>"""
         snippets: list[Snippet] = actions.user.get_snippets(name)
         return [
-            InsertionSnippet(s.body, s.languages, s.insertion_scopes) for s in snippets
+            InsertionSnippet(s.body, s.insertion_scopes, s.languages) for s in snippets
         ]
 
     def get_insertion_snippet(name: str) -> InsertionSnippet:
@@ -65,8 +65,8 @@ class Actions:
         snippet: Snippet = actions.user.get_snippet(name)
         return InsertionSnippet(
             snippet.body,
-            snippet.languages,
             snippet.insertion_scopes,
+            snippet.languages,
         )
 
     def get_wrapper_snippets(name: str) -> list[WrapperSnippet]:
@@ -112,8 +112,8 @@ def to_wrapper_snippet(snippet: Snippet, variable_name) -> WrapperSnippet:
     return WrapperSnippet(
         snippet.body,
         var.name,
-        snippet.languages,
         var.wrapper_scope,
+        snippet.languages,
     )
 
 
