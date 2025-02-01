@@ -150,7 +150,7 @@ def create_lists(
 
 
 def on_ready():
-    fs.watch(SNIPPETS_DIR, lambda _1, _2: update_snippets())
+    fs.watch(SNIPPETS_DIR, lambda _path, _flags: update_snippets())
     update_snippets()
 
 
