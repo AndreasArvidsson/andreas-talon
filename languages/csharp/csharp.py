@@ -9,6 +9,7 @@ code.language: csharp
 """
 
 # fmt: off
+
 ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
@@ -33,21 +34,26 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_and           = " && ",
     op_or            = " || ",
 )
+
 access_modifiers = {
     "public",
     "private",
     "protected",
 }
+
 static = {"static"}
 all_keywords = {
     *access_modifiers,
     *static,
 }
+
 ctx.lists["user.code_class_modifier"] = {*access_modifiers}
+
 ctx.lists["user.code_function_modifier"] = {
     *access_modifiers,
     *static,
 }
+
 ctx.lists["user.code_variable_modifier"] = {*access_modifiers}
 code_data_type_simple = {
     "int",
@@ -61,13 +67,16 @@ code_data_type_simple = {
     "bool",
     "void"
 }
+
 ctx.lists["user.code_data_type"] = {
     **{t: t for t in code_data_type_simple},
     "bite"       : "byte",
 }
 
-ctx.lists["user.code_call_function"] = {
-}
+ctx.lists["user.code_collection_type"] = {}
+
+ctx.lists["user.code_call_function"] = {}
+
 ctx.lists["user.code_insert"] = {
     **{k: f"{k} " for k in all_keywords},
     "true"        : "true",
@@ -83,6 +92,7 @@ ctx.lists["user.code_insert"] = {
     "continue"    : "continue;",
     "break"       : "break;",
 }
+
 # fmt: on
 
 
