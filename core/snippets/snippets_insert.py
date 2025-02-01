@@ -15,7 +15,7 @@ class Actions:
 
     def insert_snippet_by_name(
         name: str,
-        substitutions: Optional[dict[str, str]] = None,
+        substitutions: dict[str, str] = None,
     ):
         """Insert snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
