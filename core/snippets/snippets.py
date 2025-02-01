@@ -84,7 +84,7 @@ class Actions:
 
 def get_preferred_snippet(snippets: list[Snippet]) -> Snippet:
     lang: Union[str, set[str]] = actions.code.language()
-    languages = list([lang]) if isinstance(lang, str) else lang
+    languages = [lang] if isinstance(lang, str) else lang
 
     # First try to find a snippet matching the active language
     for snippet in snippets:
@@ -126,14 +126,12 @@ def update_snippets():
 
     for snippet in snippets:
         # Map snippet names to actual snippets
-        if snippet.name not in name_to_snippets:
-            name_to_snippets[snippet.name] = []
+        name_to_snippets.setdefault(snippet.name, [])
         name_to_snippets[snippet.name].append(snippet)
 
         # Map languages to phrase / name dicts
         for language in snippet.languages or [GLOBAL_ID]:
-            if language not in language_to_lists:
-                language_to_lists[language] = SnippetLists()
+            language_to_lists.setdefault(language, SnippetLists())
 
             lists = language_to_lists[language]
 
@@ -192,7 +190,7 @@ def get_snippets_from_files() -> list[Snippet]:
 
 
 def on_ready():
-    fs.watch(SNIPPETS_DIR, lambda _1, _2: update_snippets())
+    fs.watch(SNIPPETS_DIR, lambda _path, _flags: update_snippets())
     update_snippets()
 
 
