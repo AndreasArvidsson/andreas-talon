@@ -85,6 +85,9 @@ ctx.lists["user.code_data_type"] = {
 }
 
 ctx.lists["user.code_collection_type"] = {
+    "list"       : "List",
+    "set"        : "Set",
+    "map"        : "Map",
     "array list" : "ArrayList",
     "hash set"   : "HashSet",
     "hash map"   : "HashMap",
