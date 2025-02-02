@@ -10,7 +10,7 @@ class Language:
     extensions: list[str]
 
 
-languages = [
+code_languages = [
     Language("bash", "bash", ["sh", "bashbook"]),
     Language("batch", "batch", ["bat"]),
     Language("c", "see", ["c", "h"]),
@@ -57,16 +57,16 @@ mod.tag("code_language_forced", "This tag is active when a language mode is forc
 mod.list("code_extension", "List of file programming languages file extensions")
 mod.list("code_language", "List of file programming language identifiers")
 
-ctx.lists["user.code_language"] = {lang.spoken_form: lang.id for lang in languages}
+ctx.lists["user.code_language"] = {lang.spoken_form: lang.id for lang in code_languages}
 
 ctx.lists["user.code_extension"] = {
-    **{lang.spoken_form: lang.extensions[0] for lang in languages},
+    **{lang.spoken_form: lang.extensions[0] for lang in code_languages},
     "pie": "py",
 }
 
 # Maps extension to language ids
 extension_lang_map = {
-    f".{ext}": lang.id for lang in languages for ext in lang.extensions
+    f".{ext}": lang.id for lang in code_languages for ext in lang.extensions
 }
 
 forced_language = ""

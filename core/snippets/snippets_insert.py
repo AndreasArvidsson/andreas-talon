@@ -1,7 +1,9 @@
+import re
+
 from talon import Module, actions
+
 from .snippet_types import Snippet
 from .snippets_insert_raw_text import insert_snippet_raw_text
-import re
 
 mod = Module()
 
@@ -12,7 +14,10 @@ class Actions:
         """Insert snippet"""
         insert_snippet_raw_text(body)
 
-    def insert_snippet_by_name(name: str, substitutions: dict[str, str] = None):
+    def insert_snippet_by_name(
+        name: str,
+        substitutions: dict[str, str] = None,
+    ):
         """Insert snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)
         body = snippet.body

@@ -59,11 +59,11 @@ clear <user.cursorless_target> <user.repeater_phrase_all>:
 place ({user.symbol} | <user.prose>) <user.cursorless_destination>:
     user.cursorless_insert(cursorless_destination, symbol or prose)
 
-snip {user.snippet} <user.cursorless_destination>:
-    user.c_insert_snippet(cursorless_destination, snippet)
+# snip {user.snippet} <user.cursorless_destination>:
+#     user.c_insert_snippet(cursorless_destination, snippet)
 
-{user.symbol} wrap <user.cursorless_target>:
-    user.c_wrap_with_symbol(cursorless_target, symbol)
+# {user.symbol} wrap <user.cursorless_target>:
+#     user.c_wrap_with_symbol(cursorless_target, symbol)
 
 {user.snippet_wrapper} wrap <user.cursorless_target>:
     user.c_wrap_with_snippet(cursorless_target, snippet_wrapper)

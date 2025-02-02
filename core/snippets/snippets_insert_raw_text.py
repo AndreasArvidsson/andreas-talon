@@ -1,6 +1,7 @@
-from dataclasses import dataclass
-from talon import actions
 import re
+from dataclasses import dataclass
+
+from talon import actions
 
 INDENTATION = "    "
 RE_STOP = re.compile(r"\$(\d+|\w+)|\$\{(\d+|\w+)\}|\$\{(\d+|\w+):(.+)\}")
