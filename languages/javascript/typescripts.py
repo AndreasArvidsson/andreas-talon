@@ -36,6 +36,8 @@ ctx.lists["user.code_collection_type"] = {
     "omit"      : "Omit",
     "required"  : "Required",
     "pick"      : "Pick",
+    "map"       : "Map",
+    "set"       : "Set",
 }
 
 ctx.lists["user.code_function_modifier"] = {
