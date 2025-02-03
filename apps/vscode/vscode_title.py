@@ -18,7 +18,12 @@ not tag: user.code_language_forced
 @ctx.action_class("win")
 class WinActions:
     def filename():
-        filename = actions.win.title().split(" - ")[0]
+        title: str = actions.win.title()
+        index = title.find(" (Working Tree)")
+        if index != -1:
+            filename = title[:index]
+        else:
+            filename = actions.win.title().split(" - ")[0]
         if is_untitled(filename):
             return get_untitled_name(filename)
         if "." in filename:
