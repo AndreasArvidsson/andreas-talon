@@ -11,7 +11,8 @@ mod.list("code_collection_type", "Names of collection data types")
 # "int or list of str"
 @mod.capture(rule="<user.code_data_single_type> (or <user.code_data_single_type>)*")
 def code_data_type(m) -> str:
-    return actions.user.code_format_or_type(m.code_data_single_type_list)
+    types = m.code_data_single_type_list
+    return actions.user.code_format_or_type(types) if len(types) > 1 else types[0]
 
 
 # "int or string" | "list of int" | "int array"
@@ -42,7 +43,8 @@ def code_array_type(m) -> str:
 # "int or list or my class"
 @mod.capture(rule="<user.code_simple_data_type> (or <user.code_simple_data_type>)*")
 def code_simple_union_type(m) -> str:
-    return actions.user.code_format_or_type(m.code_simple_data_type_list)
+    types = m.code_simple_data_type_list
+    return actions.user.code_format_or_type(types) if len(types) > 1 else types[0]
 
 
 # "int" | "list" | "my class"
