@@ -50,6 +50,7 @@ access, private.fieldAccess
 subject, private.switchStatementSubject
 text fragment, textFragment
 disqualify, disqualifyDelimiter
+core, interior
 
 # css
 -unit, unit
