@@ -62,6 +62,9 @@ inspect, showDebugHover
 decrement, decrement
 increment, increment
 
+snip, insertSnippet
+snip make, generateSnippet
+
 breakpoint, toggleLineBreakpoint
 call, callAsFunction
 comment, toggleLineComment
@@ -72,8 +75,7 @@ highlight, highlight
 phones, nextHomophone
 quick fix, showQuickFix
 rename, rename
-snip make, generateSnippet
 
 # `revealDefinition` is already part of `followLink`
 -define, revealDefinition
--snippet, insertSnippet
+
