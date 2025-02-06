@@ -81,8 +81,9 @@ class EditActions:
     def line_clone():
         actions.user.run_rpc_command("editor.action.copyLinesDownAction")
 
-    def line_insert_up():
-        actions.user.run_rpc_command("editor.action.insertLineBefore")
+    # Don't use RPC since the PR description editor doesn't support it.
+    # def line_insert_up():
+    #     actions.user.run_rpc_command("editor.action.insertLineBefore")
 
     # Don't use RPC since some vscode extension(eg markdown) has specific behavior on enter
     # def line_insert_down():
