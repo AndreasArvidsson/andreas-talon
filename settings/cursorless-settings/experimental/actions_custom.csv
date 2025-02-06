@@ -1,15 +1,8 @@
 Spoken form, VSCode command
 
-#reflow, rewrap.rewrapComment
 reflow, andreas.formatComments
 undo, undo
 redo, redo
-
-# Git
-git add, git.stageSelectedRanges
-git reset, git.unstageSelectedRanges
-git revert, git.revertSelectedRanges
-git accept, merge-conflict.accept.selection
 
 # Emmet / HTML
 rename tag, editor.emmet.action.updateTag
