@@ -37,22 +37,6 @@ class Actions:
             }
         )
 
-    def c_insert_snippet(destination: Any, name: str):
-        """Insert cursorless snippet <name>"""
-        snippet: InsertionSnippet = actions.user.get_insertion_snippet(name)
-
-        actions.user.cursorless_insert_snippet(
-            snippet.body, destination, snippet.scopes
-        )
-
-    def c_wrap_with_snippet(target: Any, name: str):
-        """Wrap the target with snippet <name>"""
-        snippet: WrapperSnippet = actions.user.get_wrapper_snippet(name)
-
-        actions.user.cursorless_wrap_with_snippet(
-            snippet.body, target, snippet.variable_name, snippet.scope
-        )
-
 
 def switch_folder(useRelease: bool):
     link = f"{actions.path.talon_user()}\\cursorless-talon"
