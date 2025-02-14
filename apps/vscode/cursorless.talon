@@ -73,6 +73,9 @@ model fix <user.cursorless_target>:
     destination = user.cursorless_create_destination(cursorless_target)
     user.cursorless_insert(destination, "{fixed_text}")
 
-# Misc
+# Search
+scout file for <user.cursorless_target>:
+    user.c_search_file(cursorless_target)
+
 search for <user.cursorless_target>:
     user.c_browser_search_target(cursorless_target)

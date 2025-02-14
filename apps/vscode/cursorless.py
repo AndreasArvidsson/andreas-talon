@@ -21,6 +21,11 @@ class Actions:
         text = " + ".join(texts)
         actions.user.browser_search(text)
 
+    def c_search_file(target: Any):
+        """Search for file with name of target text"""
+        text = actions.user.cursorless_get_text(target)
+        actions.user.find_file(text)
+
     def c_wrap_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""
         if symbol == "space":
