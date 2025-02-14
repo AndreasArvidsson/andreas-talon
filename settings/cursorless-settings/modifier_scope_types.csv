@@ -44,6 +44,7 @@ sub, word
 tags, xmlBothTags
 token, token
 type, type
+unit, unit
 value, value
 
 access, private.fieldAccess
@@ -51,9 +52,6 @@ subject, private.switchStatementSubject
 text fragment, textFragment
 disqualify, disqualifyDelimiter
 core, interior
-
-# css
--unit, unit
 
 # Markdown
 -one section, sectionLevelOne
