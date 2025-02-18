@@ -40,5 +40,7 @@ npm run (keycloak | key cloak):
     "npm run keycloak\n"
 npm run (wildfly | wild fly):
     "npm run wildfly\n"
-npm run gss [<user.word>]:
-    "npm run startLocal gss-{word or ''}"
+npm run gss {user.gss_module}:
+    "npm run startLocal gss-{gss_module}\n"
+npm run gss:
+    "npm run startLocal gss-"

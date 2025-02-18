@@ -1,0 +1,15 @@
+list: user.gss_module
+-
+
+admin
+api
+docs
+health
+measurements
+my page: mypage
+questions
+results
+news
+support
+swagger
+users
