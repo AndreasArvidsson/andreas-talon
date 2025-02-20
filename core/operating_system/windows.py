@@ -6,18 +6,19 @@ os: windows
 """
 
 ctx.lists["user.launch_command"] = {
+    "advanced settings": "systempropertiesadvanced.exe",
+    "code": "code",
     "control panel": "control",
+    "device manager": "devmgmt.msc",
+    "disk management": "diskmgmt.msc",
+    "explorer": "explorer",
+    "notepad": "notepad",
+    "paint": "mspaint",
+    "services": "services.msc",
     "sound settings": "control mmsys.cpl sounds",
     "system settings": "start ms-settings:",
-    "taskbar settings": "start ms-settings:taskbar",
-    "advanced settings": "systempropertiesadvanced.exe",
     "task manager": "taskmgr",
-    "services": "services.msc",
-    "device manager": "devmgmt.msc",
-    "paint": "mspaint",
-    "notepad": "notepad",
-    "explorer": "explorer",
-    "code": "code",
+    "taskbar settings": "start ms-settings:taskbar",
 }
 
 
