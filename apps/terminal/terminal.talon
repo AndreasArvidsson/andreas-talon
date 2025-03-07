@@ -10,10 +10,6 @@ tag(): user.docker
 tag(): user.ollama
 tag(): user.insert_paste_disabled
 
-settings():
-    insert_wait = 3
-    key_wait = 4
-
 vscode install:             "vsce package -o bundle.vsix && code --install-extension bundle.vsix --force\n"
 
 vscode package:             "vsce package\n"
