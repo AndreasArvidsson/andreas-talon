@@ -38,7 +38,7 @@ npm run (mongodb | mongo db | mongo):
     "npm run mongodb\n"
 npm run (keycloak | key cloak):
     "npm run keycloak\n"
-npm run (wildfly | wild fly):
+npm run (wildfly | wild fly | wide fly):
     "npm run wildfly\n"
 npm run gss {user.gss_module}:
     "npm run startLocal gss-{gss_module}\n"
