@@ -126,6 +126,7 @@ git new issue:              user.git_open_url("NewIssue")
 git pull requests:          user.git_open_url("PullRequests")
 git diff files:             user.run_rpc_command("git.viewChanges")
 git open:                   user.run_rpc_command("git.openFile")
+git open pull:              user.run_rpc_command("pr.openPullRequestOnGitHub")
 
 # Folding
 # fold recursive:             user.run_rpc_command("editor.foldRecursively")
