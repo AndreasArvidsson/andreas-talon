@@ -1,4 +1,4 @@
 tag: user.help_search
 -
 
-^search hide$:              user.help_search_hide()
+search hide:                user.help_search_hide()
