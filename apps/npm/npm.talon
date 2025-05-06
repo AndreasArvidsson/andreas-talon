@@ -5,33 +5,12 @@ node:                       "node "
 node version:               "node -v\n"
 
 npm:                        "npm "
-npm version:                "npm -v\n"
-npm init:                   "npm init"
-npm install:                "npm install "
-npm install global:         "npm install -g "
-npm uninstall:              "npm uninstall "
-npm uninstall global:       "npm uninstall -g "
-npm link:                   "npm link "
-npm list:                   "npm list\n"
-npm list global:            "npm list -g\n"
-npm outdated:               "npm outdated\n"
-npm update:                 "npm update --save\n"
-npm prune:                  "npm prune\n"
-npm publish [dry]:          "npm publish --dry-run"
-
-npm clean:                  "npm run clean\n"
-npm start:                  "npm start\n"
-npm test:                   "npm test\n"
-npm run:                    "npm run "
+npm {user.npm_command}:     "npm {npm_command}"
 npm run <user.prose>$:      "npm run {prose}"
-npm run build:              "npm run build\n"
 
-# pnpm
 pnpm:                       "pnpm "
-pnpm version:               "pnpm -v\n"
-pnpm init:                  "pnpm init"
-pnpm install:               "pnpm install "
-pnpm compile:               "pnpm compile "
+pnpm {user.npm_command}:    "pnpm {npm_command}"
+pnpm run <user.prose>$:     "pnpm run {prose}"
 
 # Know run scripts
 npm run (mongodb | mongo db | mongo):

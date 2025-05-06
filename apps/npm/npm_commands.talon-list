@@ -1,0 +1,26 @@
+list: user.npm_command
+-
+
+# fmt: columnWidth=18
+
+version:          "-v\n"
+init:             "init "
+install:          "install "
+install global:   "install -g "
+
+uninstall:        "uninstall "
+uninstall global: "uninstall -g "
+link:             "link "
+list:             "list\n"
+list global:      "list -g\n"
+outdated:         "outdated\n"
+update:           "update --save\n"
+prune:            "prune\\n"
+publish:          "publish --dry-run"
+
+start:            "start\n"
+test:             "test\n"
+run:              "run "
+clean:            "run clean\n"
+run build:        "run build\n"
+run build watch:  "run build:watch\n"
