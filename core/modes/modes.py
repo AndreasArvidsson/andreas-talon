@@ -16,10 +16,6 @@ ctx_sv.matches = r"""
 language: sv
 """
 
-ctx_sv.settings = {
-    "speech.engine": "webspeech",
-}
-
 mod.list("sleep_phrase", "Phrase used to sleep Talon")
 sleep_phrases = ["drowse", "sömnig"]
 ctx.lists["user.sleep_phrase"] = sleep_phrases[:-1]
