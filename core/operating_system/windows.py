@@ -1,4 +1,6 @@
 from talon import Context, actions
+import ctypes
+
 
 ctx = Context()
 ctx.matches = r"""
@@ -35,7 +37,7 @@ class UserActions:
         actions.key("enter")
 
     def system_lock():
-        actions.user.exec("rundll32.exe user32.dll,LockWorkStation")
+        ctypes.windll.user32.LockWorkStation()
 
 
 def shutdown(flag: str):
