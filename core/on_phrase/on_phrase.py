@@ -6,7 +6,7 @@ from .command_history.command_history import command_history_append
 from .subtitles_and_notifications.subtitles_and_notifications import show_subtitle
 from .pretty_print_phrase import pretty_print_phrase
 from .print_phrase_timings import print_phrase_timings
-from .sleep_update_phrase import sleep_update_phrase
+from .sleep_phrase import sleep_update_phrase
 
 mod = Module()
 

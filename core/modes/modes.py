@@ -11,16 +11,6 @@ ctx_dictation.matches = r"""
 mode: dictation
 """
 
-ctx_sv = Context()
-ctx_sv.matches = r"""
-language: sv
-"""
-
-mod.list("sleep_phrase", "Phrase used to sleep Talon")
-sleep_phrases = ["drowse", "sömnig"]
-ctx.lists["user.sleep_phrase"] = sleep_phrases[:-1]
-ctx_sv.lists["user.sleep_phrase"] = sleep_phrases
-
 
 @ctx.action_class("user")
 class UserActions:
