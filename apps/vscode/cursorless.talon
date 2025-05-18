@@ -1,6 +1,5 @@
 app: vscode
 -
-# tag(): user.cursorless_use_community_snippets
 # tag(): user.private_cursorless_literal_mark_no_prefix
 
 # Cursorless command without targets

@@ -83,7 +83,9 @@ def on_draw(c: SkiaCanvas):
     radius = c.rect.height / 2 - 2
 
     c.paint.shader = skia.Shader.radial_gradient(
-        Point2d(x, y), radius, [color_mode, color_gradient]
+        Point2d(x, y),
+        radius,
+        [color_mode, color_gradient],
     )
 
     c.paint.imagefilter = ImageFilter.drop_shadow(1, 1, 1, 1, color_gradient)
@@ -110,8 +112,8 @@ def move_indicator():
     )
 
     side = 2 * radius
-    if canvas:
 
+    if canvas:
         canvas.move(x, y)
         canvas.resize(side, side)
 
