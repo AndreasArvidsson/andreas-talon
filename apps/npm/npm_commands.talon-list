@@ -16,6 +16,7 @@ list global:      "list -g\n"
 outdated:         "outdated\n"
 update:           "update --save\n"
 prune:            "prune\n"
+dedupe:           "dedupe\n"
 audit:            "audit\n"
 publish:          "publish --dry-run"
 
