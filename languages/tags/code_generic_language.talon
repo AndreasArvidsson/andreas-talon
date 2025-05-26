@@ -4,19 +4,19 @@ tag(): user.code_inserts
 tag(): user.code_call_function
 
 # ----- Class statement -----
-{user.code_class_modifier}* class <user.code_id>$:
+class {user.code_class_modifier}* <user.code_id>$:
     user.code_class_wrapper(code_id, code_class_modifier_list or "")
 
 # ----- Function statement -----
-{user.code_function_modifier}* (function | funk) <user.code_id>$:
+(function | funk) {user.code_function_modifier}* <user.code_id>$:
     user.code_function_wrapper(code_id, code_function_modifier_list or "")
-{user.code_function_modifier}* method <user.code_id>$:
+method {user.code_function_modifier}* <user.code_id>$:
     user.code_method_wrapper(code_id, code_function_modifier_list or "")
 
 (function | funk) main:     user.code_function_main()
 
 # ----- Constructor statement -----
-{user.code_function_modifier}* (function | funk) constructor:
+(function | funk) {user.code_function_modifier}* constructor:
     user.code_constructor_wrapper(code_function_modifier_list or "")
 
 # ----- Variable statement -----
