@@ -148,12 +148,18 @@ class Actions:
         actions.edit.line_insert_down()
 
     def paste_text(text: str):
-        """Pastes <text> and preserves clipboard"""
+        """Paste <text> and preserves clipboard"""
         with clip.revert():
             actions.user.clip_set_transient_text(text)
             actions.edit.paste()
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("100ms")
+
+    def paste_clipboard_formatted(formatters: str):
+        """Paste clipboard text formatted as <formatters>"""
+        text = actions.clip.text()
+        text = actions.user.reformat_text(text, formatters)
+        actions.user.paste_text(text)
 
     def clip_set_transient_text(text: str):
         """Set clipboard text without monitoring"""

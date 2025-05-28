@@ -57,6 +57,7 @@ wipe:                       user.delete_word_right()
 paste it:                   edit.paste()
 paste special:              edit.paste_match_style()
 paste insert:               user.insert_clipboard_with_keys()
+paste as <user.formatters>: user.paste_clipboard_formatted(formatters)
 
 # ----- Misc -----
 drag up:                    edit.line_swap_up()
