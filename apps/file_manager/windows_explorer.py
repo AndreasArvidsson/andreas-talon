@@ -51,14 +51,6 @@ class UserActions:
     def go_forward():
         actions.key("alt-right")
 
-    def file_manager_go_parent():
-        actions.key("alt-up")
-
-    def file_manager_go_home():
-        actions.user.file_manager_go(
-            actions.user.user_home(),
-        )
-
     def file_manager_focus_address():
         actions.key("alt-d")
         actions.sleep("50ms")
@@ -69,11 +61,19 @@ class UserActions:
         actions.sleep("100ms")
         actions.key("escape")
 
+    def file_manager_go_parent():
+        actions.key("alt-up")
+
     def file_manager_go(path: str):
         actions.user.file_manager_focus_address()
         actions.insert(path)
         actions.sleep("300ms")
         actions.key("enter")
+
+    def file_manager_open_new_tab(path: str):
+        actions.app.tab_open()
+        actions.sleep("300ms")
+        actions.user.file_manager_go(path)
 
     # ----- Create folders / files -----
 

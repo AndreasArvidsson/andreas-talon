@@ -54,17 +54,32 @@ class Actions:
         return path
 
     # ----- Navigation -----
-    def file_manager_go_parent():
-        """File manager go parent"""
-
-    def file_manager_go_home():
-        """File manager go user home"""
-
     def file_manager_focus_address():
         """File manager focus address field"""
 
     def file_manager_go(path: str):
         """File manager go to path"""
+
+    def file_manager_go_parent():
+        """File manager go parent"""
+
+    def file_manager_go_home():
+        """File manager go user home"""
+        actions.user.file_manager_go(
+            actions.user.user_home(),
+        )
+
+    def file_manager_open_new_tab(path: str):
+        """File manager open path in new tab"""
+        actions.app.tab_open()
+        actions.sleep("100ms")
+        actions.user.file_manager_go(path)
+
+    def file_manager_open_home_new_tab():
+        """File manager open user home in new tab"""
+        actions.user.file_manager_open_new_tab(
+            actions.user.user_home(),
+        )
 
     def file_manager_copy_address():
         """File manager copy address"""
