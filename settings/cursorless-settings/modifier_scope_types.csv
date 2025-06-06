@@ -21,7 +21,7 @@ file, document
 funk name, functionName
 funk, namedFunction
 glyph, glyph
-if state, ifStatement
+if, ifStatement
 instance, instance
 item, collectionItem
 key, collectionKey
