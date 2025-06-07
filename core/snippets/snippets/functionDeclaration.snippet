@@ -5,7 +5,14 @@ $0.wrapperPhrase: funk
 $0.wrapperScope: statement
 ---
 
-language: c | cpp | csharp | java
+language: c | cpp
+-
+void $name($1) {
+    $0
+}
+---
+
+language: csharp | java
 -
 $modifiers void $name($1) {
     $0
