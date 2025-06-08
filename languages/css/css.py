@@ -18,7 +18,3 @@ class UserActions:
         if assign:
             text += ": "
         actions.insert(text)
-
-    # Formatting getters
-    def code_get_variable_format() -> str:
-        return "DASH_SEPARATED"

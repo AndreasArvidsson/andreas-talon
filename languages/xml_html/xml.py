@@ -2,7 +2,6 @@ from talon import Module, actions
 
 mod = Module()
 
-
 mod.list("code_tag", "Predefined tag names")
 
 

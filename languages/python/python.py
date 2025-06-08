@@ -172,13 +172,3 @@ class UserActions:
 
     def code_format_or_type(item_types: list[str]) -> str:
         return f"{' | '.join(item_types)}"
-
-    # Formatting getters
-    def code_get_class_format() -> str:
-        return "PASCAL_CASE"
-
-    def code_get_function_format() -> str:
-        return "SNAKE_CASE"
-
-    def code_get_variable_format() -> str:
-        return "SNAKE_CASE"

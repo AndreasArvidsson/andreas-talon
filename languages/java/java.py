@@ -174,16 +174,6 @@ class UserActions:
             text += " = "
         actions.insert(text)
 
-    # Formatting getters
-    def code_get_class_format() -> str:
-        return "PASCAL_CASE"
-
-    def code_get_function_format() -> str:
-        return "CAMEL_CASE"
-
-    def code_get_variable_format() -> str:
-        return "CAMEL_CASE"
-
 
 def get_modifiers(modifiers: list[str]):
     if modifiers:

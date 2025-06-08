@@ -11,6 +11,7 @@ code.language: talon
 mod.list("code_talon_context", "List of Talon context matches")
 
 # fmt: off
+
 ctx.lists["user.code_operator"] = CodeOperators(
     op_assign        = " = ",
     op_sub           = " - ",
@@ -37,15 +38,18 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_and           = " and ",
     op_or            = " or ",
 )
+
 ctx.lists["user.code_call_function"] = {
     "key",
     "insert",
 }
+
 ctx.lists["user.code_insert"] = {
     "true"  : "true",
     "false" : "false",
     "tag"   : "tag(): ",
 }
+
 ctx.lists["user.code_talon_context"] = {
     "win"   : "os: windows\n",
     "mac"   : "os: mac\n",
@@ -54,10 +58,5 @@ ctx.lists["user.code_talon_context"] = {
     "app"   : "app: ",
     "tag"   : "tag: ",
 }
+
 # fmt: on
-
-
-@ctx.action_class("user")
-class UserActions:
-    def code_get_variable_format() -> str:
-        return "SNAKE_CASE"

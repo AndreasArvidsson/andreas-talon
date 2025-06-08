@@ -1,4 +1,4 @@
-from talon import Module, actions
+from talon import Module, actions, settings
 from typing import Optional, Union
 
 mod = Module()
@@ -9,6 +9,10 @@ mod.list("code_class_modifier", "Class modifiers")
 mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
 mod.list("code_symbol", "Known symbols in the code workspace")
+
+mod.setting("code_class_formatter", type=str, desc="Class name formatter")
+mod.setting("code_function_formatter", type=str, desc="Function name formatter")
+mod.setting("code_variable_formatter", type=str, desc="Variable name formatter")
 
 
 @mod.action_class
@@ -81,13 +85,16 @@ class Actions:
 
     # ----- Formatting getters -----
     def code_get_class_format() -> str:
-        """Get variable format"""
+        """Get class format"""
+        return settings.get("user.code_class_formatter")  # type: ignore
 
     def code_get_function_format() -> str:
         """Get function format"""
+        return settings.get("user.code_function_formatter")  # type: ignore
 
     def code_get_variable_format() -> str:
         """Get variable format"""
+        return settings.get("user.code_variable_formatter")  # type: ignore
 
     # ----- Text getters -----
     def code_get_class_name() -> Optional[str]:
