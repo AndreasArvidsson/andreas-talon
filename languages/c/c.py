@@ -53,26 +53,17 @@ code_data_type_simple = {
     "void"
 }
 
-ctx.lists["user.code_data_type"] = {
+c_code_data_type_simple = {
     **{t: t for t in code_data_type_simple},
     "bool"       : "bool",
     "bite"       : "byte",
 }
 
-ctx.lists["user.code_collection_type"] = {
-    "list"            : "List",
-    "set"             : "Set",
-    "map"             : "Map",
-    "array list"      : "ArrayList",
-    "hash set"        : "HashSet",
-    "hash map"        : "HashMap",
-    "linked hash map" : "LinkedHashMap"
-}
+ctx.lists["user.code_data_type"] = c_code_data_type_simple
 
-ctx.lists["user.code_call_function"] = {
-    "to string"  : "toString",
-    "equals"     : "equals",
-}
+ctx.lists["user.code_collection_type"] = {}
+
+ctx.lists["user.code_call_function"] = {}
 
 c_code_insert={
     "true"        : "true",
