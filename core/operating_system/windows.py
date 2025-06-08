@@ -42,5 +42,5 @@ class UserActions:
 
 def shutdown(flag: str):
     actions.key("super-r")
-    actions.sleep("50ms")
+    actions.sleep("100ms")
     actions.insert(f"shutdown /{flag}")
