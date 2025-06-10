@@ -25,6 +25,9 @@ mod.setting("gui_max_cols", type=int, default=50)
 
 
 class State:
+    max_rows: int
+    max_cols: int
+
     def __init__(
         self, screen: Screen, canvas: skia.Canvas, font_size: float, numbered: bool
     ):
@@ -270,9 +273,9 @@ class GUI:
     def __init__(
         self,
         callback: Callable,
-        screen: Screen or None,
-        x: float or None,
-        y: float or None,
+        screen: Screen | None,
+        x: float | None,
+        y: float | None,
         numbered: bool,
     ):
         self._callback = callback
@@ -300,7 +303,7 @@ class GUI:
         # Initializes at minimum size so to calculate and set correct size later
         self._canvas = Canvas(self._screen_current.x, self._screen_current.y, 1, 1)
         self._showing = True
-        self._canvas.draggle = True
+        self._canvas.draggable = True
         self._canvas.blocks_mouse = True
         self._last_mouse_pos = None
         self._canvas.register("draw", self._draw)
@@ -467,7 +470,7 @@ class ImGUI:
         def open_inner(draw):
             return GUI(
                 draw,
-                numbered=numbered,
+                numbered=numbered or False,
                 screen=screen,
                 x=x,
                 y=y,
@@ -480,7 +483,7 @@ imgui = ImGUI(GUI)
 
 
 @imgui.open(numbered=True, x=0.7, y=0.3)
-def gui(gui: imgui.GUI):
+def gui(gui: GUI):
     gui.header("Some header")
     gui.line(bold=True)
     gui.text("text before spacer")
