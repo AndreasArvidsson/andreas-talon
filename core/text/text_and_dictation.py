@@ -64,17 +64,15 @@ def prose(m) -> str:
     return text
 
 
+@ctx_sv.capture("user.prose", rule=prose_rule)
+def prose_ctx_sv(m) -> str:
+    return prose(m)
+
+
 @mod.capture(rule="<user.prose>")
 def text(m) -> str:
     """Used by Cursorless Talon. Can't complete the grammar test without it."""
     return m.prose
-
-
-@ctx_sv.capture("user.prose", rule=prose_rule)
-def prose_ctx_sv(m) -> str:
-    # Web speech capitalizes words in the middle of sentences, so we need to lowercase them.
-    text, _ = auto_capitalize(format_phrase(m).lower())
-    return text
 
 
 @mod.capture(rule=code_id_rule)
