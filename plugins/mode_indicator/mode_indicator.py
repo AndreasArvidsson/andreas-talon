@@ -1,7 +1,7 @@
-from talon import Module, Context, app, registry, scope, skia, ui, actions, settings
+from talon import Module, Context, app, registry, scope, ui, actions, settings
 from talon.canvas import Canvas
 from talon.screen import Screen
-from skia import Canvas as SkiaCanvas, ImageFilter
+from skia import Canvas as SkiaCanvas, ImageFilter, Shader
 from talon.types import Rect, Point2d
 
 canvas: Canvas | None = None
@@ -81,7 +81,7 @@ def on_draw(c: SkiaCanvas):
     x, y = c.rect.center.x, c.rect.center.y
     radius = c.rect.height / 2 - 2
 
-    c.paint.shader = skia.Shader.radial_gradient(
+    c.paint.shader = Shader.radial_gradient(
         Point2d(x, y),
         radius,
         [color_mode, color_gradient],

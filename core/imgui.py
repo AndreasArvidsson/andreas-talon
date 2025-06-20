@@ -1,5 +1,5 @@
-from talon import Module, skia, ui, app, settings
-from skia import Image as SkiaImage
+from talon import Module, ui, app, settings
+from skia import Image as SkiaImage, Canvas as SkiaCanvas, RoundRect
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.types import Rect
@@ -29,7 +29,7 @@ class State:
     max_cols: int
 
     def __init__(
-        self, screen: Screen, canvas: skia.Canvas, font_size: float, numbered: bool
+        self, screen: Screen, canvas: SkiaCanvas, font_size: float, numbered: bool
     ):
         self.max_rows = settings.get("user.gui_max_rows")
         self.max_cols = settings.get("user.gui_max_cols")
@@ -170,7 +170,7 @@ class Button:
             height,
         )
 
-        rrect = skia.RoundRect.from_rect(self.rect, x=button_radius, y=button_radius)
+        rrect = RoundRect.from_rect(self.rect, x=button_radius, y=button_radius)
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.color = button_bg_color
@@ -414,7 +414,7 @@ class GUI:
         self._canvas.move(self._x_moved, self._y_moved)
 
     def _draw_background(self, canvas):
-        rrect = skia.RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
+        rrect = RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
 
         canvas.paint.style = canvas.paint.Style.FILL
         canvas.paint.color = background_color
