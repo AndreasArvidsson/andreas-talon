@@ -1,8 +1,7 @@
 from talon import Module, Context, ui, speech_system, actions
 from talon.screen import Screen
 from talon.canvas import Canvas, MouseEvent
-from talon.skia import RoundRect
-from talon.skia.canvas import Canvas as SkiaCanvas
+from skia import RoundRect, Canvas as SkiaCanvas
 from talon.types import Rect, Point2d
 from talon.grammar import Phrase
 from dataclasses import dataclass

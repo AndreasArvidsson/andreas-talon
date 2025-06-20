@@ -24,7 +24,7 @@ from talon.scripting.talon_script import TalonScript
 from talon.ui import Window, App
 from talon.grammar import Phrase, Capture
 from pathlib import Path
-from talon.skia.image import Image
+from skia import Image
 import inspect
 import os
 

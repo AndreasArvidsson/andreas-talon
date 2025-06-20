@@ -1,7 +1,7 @@
 from talon import Module, actions, app, ui, cron, settings, ctrl
 from talon.canvas import Canvas
 from talon.types import Rect
-from talon.skia.canvas import Canvas as SkiaCanvas
+from skia import Canvas as SkiaCanvas
 from typing import Literal
 import time
 import math

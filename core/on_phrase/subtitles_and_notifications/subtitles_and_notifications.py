@@ -1,7 +1,6 @@
 from talon import Module, app, ui, cron, settings, ctrl
 from talon.canvas import Canvas
-from talon.skia.canvas import Canvas as SkiaCanvas
-from talon.skia.imagefilter import ImageFilter
+from skia import Canvas as SkiaCanvas, ImageFilter
 from talon.types import Rect
 from typing import Sequence, Type, Callable, Optional, Any
 

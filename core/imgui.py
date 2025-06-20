@@ -1,5 +1,5 @@
 from talon import Module, skia, ui, app, settings
-from talon.skia.image import Image as SkiaImage
+from skia import Image as SkiaImage
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.types import Rect
