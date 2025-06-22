@@ -73,14 +73,13 @@ class Actions:
         actions.speech.enable()
         actions.user.mouse_wake()
         actions.user.notify("Talon awake")
-        if not actions.user.sound_microphone_enabled():
-            actions.user.sound_microphone_enable(True)
 
 
 def on_launch():
-    """Disable not used modes and put Talon to sleep"""
     if not actions.user.talon_was_restarted():
         actions.user.talon_sleep()
+    if not actions.user.sound_microphone_enabled():
+        actions.user.sound_microphone_enable(True)
 
 
 app.register("launch", on_launch)
