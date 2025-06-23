@@ -1,4 +1,4 @@
-from talon import Context, Module, actions
+from talon import Context, Module, actions, app
 from subprocess import call
 
 mod = Module()
@@ -90,3 +90,10 @@ class UserActionsWin:
 def change_sound_device_win(name: str, role: int):
     """Roles: 0: Console, 1: Multimedia, 2: Communications"""
     call(["nircmd.exe", "setdefaultsounddevice", name, str(role)])
+
+
+def on_launch():
+    actions.sound.set_microphone("System Default")
+
+
+app.register("launch", on_launch)

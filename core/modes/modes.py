@@ -78,8 +78,6 @@ class Actions:
 def on_launch():
     if not actions.user.talon_was_restarted():
         actions.user.talon_sleep()
-    if not actions.user.sound_microphone_enabled():
-        actions.user.sound_microphone_enable(True)
 
 
 app.register("launch", on_launch)
