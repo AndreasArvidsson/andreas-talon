@@ -1,12 +1,9 @@
 Original, Replacement (If different)
 -
 
-# Default words that need to be remapped.
-
-Isabel, Izabel
-Isabelle, Izabel
-Isabels, Izabels
-Jason, json
+isabel, Izabel
+isabelle, Izabel
+isabels, Izabels
 jason, json
 produktionsunderlag, provisionsunderlag
 provisions underlag, provisionsunderlag
@@ -14,10 +11,5 @@ red pill, redpill
 resultat sidan, resultatsidan
 schysst, juste
 skär, SKR
-SKL, SKR
+skl, SKR
 stödstruktur en, Stödstrukturen
-
-# These are actually names, but are more often used with the lower case spelling
-
-Max, max
-Per, per

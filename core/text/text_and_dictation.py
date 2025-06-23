@@ -27,8 +27,9 @@ def word(m) -> str:
 
 @mod.capture(rule="({user.vocabulary} | <phrase>)+")
 def phrase(m) -> str:
-    """A phrase(sequence of words), including user-defined vocabulary."""
-    return format_phrase(m)
+    """A phrase (sequence of words), including user-defined vocabulary."""
+    words = capture_to_words(m)
+    return format_words(words)
 
 
 prose_rule_parts = [
@@ -60,13 +61,18 @@ code_id_rule = f"({' | '.join(code_id_rule_parts)})+"
 @mod.capture(rule=prose_rule)
 def prose(m) -> str:
     """Mixed words, numbers and punctuation, including user-defined vocabulary, abbreviations and spelling. Auto-spaced & capitalized."""
-    text, _ = auto_capitalize(format_phrase(m))
+    words = capture_to_words(m)
+    formatted_phrase = format_words(words)
+    text, _ = auto_capitalize(formatted_phrase)
     return text
 
 
 @ctx_sv.capture("user.prose", rule=prose_rule)
-def prose_ctx_sv(m) -> str:
-    return prose(m)
+def prose_sv(m) -> str:
+    words = capture_to_words(m, lowercase_phrase=True)
+    formatted_phrase = format_words(words)
+    text, _ = auto_capitalize(formatted_phrase)
+    return text
 
 
 @mod.capture(rule="<user.prose>")
@@ -78,7 +84,8 @@ def text(m) -> str:
 @mod.capture(rule=code_id_rule)
 def code_id(m) -> str:
     """Code identifier."""
-    return format_phrase(m)
+    words = capture_to_words(m)
+    return format_words(words)
 
 
 # ----- Dictation mode only -----
@@ -100,8 +107,7 @@ class main_action:
 # ---------- FORMATTING ---------- #
 
 
-def format_phrase(m) -> str:
-    words = capture_to_words(m)
+def format_words(words: list[str]) -> str:
     result = ""
     for i, word in enumerate(words):
         if i > 0 and needs_space_between(words[i - 1], word):
@@ -112,11 +118,14 @@ def format_phrase(m) -> str:
     return result
 
 
-def capture_to_words(m):
-    words = []
+def capture_to_words(m: grammar.vm.Capture, lowercase_phrase=False) -> list[str]:
+    words: list[str] = []
     for item in m:
         if isinstance(item, grammar.vm.Phrase):
-            words.extend(actions.dictate.parse_words(item))
+            phrase_words = actions.dictate.parse_words(item)
+            if lowercase_phrase:
+                phrase_words = [word.lower() for word in phrase_words]
+            words.extend(phrase_words)
         else:
             words.append(item)
     words = actions.dictate.replace_words(words)
@@ -190,7 +199,7 @@ def needs_space_between(before: str, after: str) -> bool:
 # assert not needs_space_between("hello.", "'")
 
 
-def auto_capitalize(text, state=None):
+def auto_capitalize(text, state=None) -> tuple[str, str | None]:
     """
     Auto-capitalizes text. `state` argument means:
     - None: Don't capitalize initial word.
