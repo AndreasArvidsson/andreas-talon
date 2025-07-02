@@ -63,7 +63,7 @@ decrement, decrement
 increment, increment
 
 snip, insertSnippet
-snip make, generateSnippet
+-snip make, generateSnippet
 
 git add, gitStage
 git reset, gitUnstage
