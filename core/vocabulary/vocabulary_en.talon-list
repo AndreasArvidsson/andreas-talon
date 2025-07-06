@@ -110,6 +110,7 @@ header
 local host: localhost
 localhost: localhost
 override
+plugin
 questionnaire
 snippet
 snippets
