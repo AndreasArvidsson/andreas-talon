@@ -21,6 +21,7 @@ audit:            "audit\n"
 publish:          "publish --dry-run"
 
 start:            "start\n"
+build:            "build\n"
 test:             "test\n"
 run:              "run "
 clean:            "run clean\n"
