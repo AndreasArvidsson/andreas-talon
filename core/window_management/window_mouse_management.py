@@ -1,6 +1,7 @@
-from talon import ui, Module, actions, ctrl
-from talon.types import Rect
 from dataclasses import dataclass
+from typing import Optional
+from talon import Module, actions, ctrl, ui
+from talon.types import Rect
 
 mod = Module()
 
@@ -14,12 +15,12 @@ class Side:
 
 @mod.action_class
 class Actions:
-    def move_window_side_to_cursor_position():
-        """Move active windows closest side to cursor position"""
+    def move_window_side_to_cursor_position(side: Optional[str] = None):
+        """Move active window by moving <side> to the cursor position"""
         window = ui.active_window()
         rect = window.rect
         x, y = ctrl.mouse_pos()
-        side = get_closest_side(rect, x, y)
+        side = side or get_closest_side(rect, x, y)
 
         if side == "left":
             pos = (x, rect.y, rect.width, rect.height)
@@ -27,7 +28,7 @@ class Actions:
             pos = (x - rect.width, rect.y, rect.width, rect.height)
         elif side == "top":
             pos = (rect.x, y, rect.width, rect.height)
-        elif side == "bot":
+        elif side == "bottom":
             pos = (rect.x, y - rect.height, rect.width, rect.height)
         elif side == "NOOP":
             return
@@ -36,12 +37,12 @@ class Actions:
 
         actions.user.window_set_pos(window, *pos)
 
-    def resize_window_side_to_cursor_position():
-        """Resize active windows closest side to cursor position"""
+    def resize_window_side_to_cursor_position(side: Optional[str] = None):
+        """Resize active window by moving <side> to the cursor position"""
         window = ui.active_window()
         rect = window.rect
         x, y = ctrl.mouse_pos()
-        side = get_closest_side(rect, x, y)
+        side = side or get_closest_side(rect, x, y)
 
         if side == "left":
             pos = (x, rect.y, rect.right - x, rect.height)
@@ -49,7 +50,7 @@ class Actions:
             pos = (rect.x, rect.y, x - rect.left, rect.height)
         elif side == "top":
             pos = (rect.x, y, rect.width, rect.bot - y)
-        elif side == "bot":
+        elif side == "bottom":
             pos = (rect.x, rect.y, rect.width, y - rect.top)
         elif side == "NOOP":
             return
@@ -66,15 +67,15 @@ def get_closest_side(rect: Rect, x: float, y: float) -> str:
             return "left" if x < rect.left else "right"
         # Between left and right
         if x > rect.left and x < rect.right:
-            return "top" if y < rect.bot else "bot"
+            return "top" if y < rect.bot else "bottom"
         # Outside one of the corners.
         return "NOOP"
 
     sides = [
-        Side("left", rect.left, rect.top + rect.height / 2),
-        Side("right", rect.right, rect.top + rect.height / 2),
         Side("top", rect.left + rect.width / 2, rect.top),
-        Side("bot", rect.left + rect.width / 2, rect.bot),
+        Side("right", rect.right, rect.top + rect.height / 2),
+        Side("bottom", rect.left + rect.width / 2, rect.bot),
+        Side("left", rect.left, rect.top + rect.height / 2),
     ]
 
     sides.sort(key=lambda side: distance(x, y, side.x, side.y))
