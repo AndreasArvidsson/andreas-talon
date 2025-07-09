@@ -1,0 +1,31 @@
+name: enumDeclaration
+phrase: enum
+insertionScope: statement
+---
+
+language: c | cpp
+
+$1.insertionFormatter: PASCAL_CASE
+-
+enum $1 {
+    $0
+};
+---
+
+language: csharp | typescript | typescriptreact
+
+$1.insertionFormatter: PASCAL_CASE
+-
+enum $1 {
+    $0
+}
+---
+
+language: java
+
+$1.insertionFormatter: PASCAL_CASE
+-
+public enum $1 {
+    $0
+}
+---

@@ -1,0 +1,31 @@
+name: interfaceDeclaration
+phrase: interface
+insertionScope: statement
+---
+
+language: csharp
+
+$1.insertionFormatter: PASCAL_CASE
+-
+interface I$1 {
+    $0
+}
+---
+
+language: java
+
+$1.insertionFormatter: PASCAL_CASE
+-
+public interface $1 {
+    $0
+}
+---
+
+language: typescript | typescriptreact
+
+$1.insertionFormatter: PASCAL_CASE
+-
+interface $1 {
+    $0
+}
+---
