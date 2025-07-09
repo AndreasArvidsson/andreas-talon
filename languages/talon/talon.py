@@ -44,7 +44,7 @@ ctx.lists["user.code_call_function"] = {
     "insert",
 }
 
-ctx.lists["user.code_insert"] = {
+ctx.lists["user.code_keyword"] = {
     "true"  : "true",
     "false" : "false",
     "tag"   : "tag(): ",

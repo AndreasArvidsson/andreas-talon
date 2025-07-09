@@ -1,5 +1,5 @@
 from talon import Module, Context, actions
-from .javascript import javascript_inserts
+from .javascript import js_keywords
 
 mod = Module()
 ctx = Context()
@@ -46,8 +46,8 @@ ctx.lists["user.code_function_modifier"] = {
     "protected" : "protected",
 }
 
-ctx.lists["user.code_insert"] = {
-    **javascript_inserts,
+ctx.lists["user.code_keyword"] = {
+    **js_keywords,
     **{
         "public"    : "public ",
         "private"   : "private ",

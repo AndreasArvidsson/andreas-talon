@@ -65,8 +65,8 @@ drag down:                  edit.line_swap_down()
 disk:                       edit.save()
 
 # ----- Text insertions -----
-make to do:                 "TODO: "
-make fix me:                "FIXME: "
+put to do:                  "TODO: "
+put fix me:                 "FIXME: "
 task:                       "- [ ] "
 bullet:                     "* "
 spam:                       ", "

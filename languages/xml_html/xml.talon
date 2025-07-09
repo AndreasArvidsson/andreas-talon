@@ -4,7 +4,7 @@ code.language: javascriptreact
 code.language: typescriptreact
 -
 tag(): user.code_comments
-tag(): user.code_inserts
+tag(): user.code_keywords
 
 element {user.code_tag}:
     user.code_insert_element(code_tag)

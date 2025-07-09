@@ -1,5 +1,5 @@
 from talon import Module, Context, actions
-from .c import c_code_data_type_simple, c_code_insert
+from .c import c_code_data_type_simple, c_keywords
 
 mod = Module()
 ctx = Context()
@@ -24,8 +24,8 @@ ctx.lists["user.code_collection_type"] = {
 }
 
 
-ctx.lists["user.code_insert"] = {
-    **c_code_insert,
+ctx.lists["user.code_keyword"] = {
+    **c_keywords,
     "this": "this",
     "include": "#include ",
     "new": "new ",

@@ -65,7 +65,7 @@ ctx.lists["user.code_call_function"] = {
     "require",
 }
 
-javascript_inserts = {
+js_keywords = {
     "true":         "true",
     "false":        "false",
     "null":         "null",
@@ -100,7 +100,7 @@ javascript_inserts = {
     "break":        "break;",
 }
 
-ctx.lists["user.code_insert"] = javascript_inserts
+ctx.lists["user.code_keyword"] = js_keywords
 
 # fmt: on
 

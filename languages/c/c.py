@@ -65,7 +65,7 @@ ctx.lists["user.code_collection_type"] = {}
 
 ctx.lists["user.code_call_function"] = {}
 
-c_code_insert={
+c_keywords = {
     "true"        : "true",
     "false"       : "false",
     "null"        : "null",
@@ -75,7 +75,7 @@ c_code_insert={
     "break"       : "break;",
 }
 
-ctx.lists["user.code_insert"] = c_code_insert
+ctx.lists["user.code_keyword"] = c_keywords
 
 # fmt: on
 

@@ -77,7 +77,7 @@ ctx.lists["user.code_collection_type"] = {}
 
 ctx.lists["user.code_call_function"] = {}
 
-ctx.lists["user.code_insert"] = {
+ctx.lists["user.code_keyword"] = {
     **{k: f"{k} " for k in all_keywords},
     "true"        : "true",
     "false"       : "false",

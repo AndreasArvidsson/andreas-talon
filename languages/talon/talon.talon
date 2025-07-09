@@ -2,7 +2,7 @@ code.language: talon
 -
 tag(): user.code_operators
 tag(): user.code_comments
-tag(): user.code_inserts
+tag(): user.code_keywords
 tag(): user.code_call_function
 
 settings():

@@ -97,7 +97,7 @@ ctx.lists["user.code_call_function"] = {
     "append"      : "append",
 }
 
-ctx.lists["user.code_insert"] = {
+ctx.lists["user.code_keyword"] = {
     "true"      : "True",
     "false"     : "False",
     "None"      : "None",

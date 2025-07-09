@@ -7,7 +7,7 @@ code.language: json
 code.language: jsonl
 """
 
-ctx.lists["user.code_insert"] = {
+ctx.lists["user.code_keyword"] = {
     "true": "true",
     "false": "false",
     "null": "null",

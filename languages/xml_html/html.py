@@ -9,7 +9,7 @@ code.language: javascriptreact
 code.language: typescriptreact
 """
 
-ctx.lists["user.code_insert"] = {
+ctx.lists["user.code_keyword"] = {
     "doctype": "<!DOCTYPE html>\n",
     "blank": "&nbsp;",
 }
