@@ -117,6 +117,10 @@ class Actions:
         # Prefix with space to avoid matching search text with history
         actions.user.browser_open(f" {text}")
 
+    def browser_search_clipboard():
+        """Focus browser and search for clipboard text"""
+        actions.user.browser_search(actions.clip.text())
+
     def browser_search_selected():
         """Focus browser and search for selected text"""
         text = actions.edit.selected_text().strip()

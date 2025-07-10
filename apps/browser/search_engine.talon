@@ -1,5 +1,7 @@
 search for <user.prose>$:
     user.browser_search(prose)
+search for clip:
+    user.browser_search_clipboard()
 search for (this | dis | is | ness):
     user.browser_search_selected()
 search for line:
