@@ -9,7 +9,7 @@ npm {user.npm_command}:     "npm {npm_command}"
 npm run <user.prose>$:      "npm run {prose}"
 
 pnpm:                       "pnpm "
-pnpm {user.npm_command}:    "pnpm {npm_command}"
+pnpm {user.pnpm_command}:   "pnpm {pnpm_command}"
 pnpm run <user.prose>$:     "pnpm run {prose}"
 
 # Know run scripts
