@@ -22,7 +22,7 @@ npm_commands = {
     "outdated": "outdated\n",
     "why": "why ",
     "y": "why ",
-    "update": "update --save",
+    "update": "update --save ",
     "prune": "prune\n",
     "dedupe": "dedupe\n",
     "audit": "audit\n",
@@ -44,4 +44,5 @@ ctx.lists["user.pnpm_command"] = {
     "outdated": "outdated -r\n",
     "why": "why -r ",
     "y": "why -r ",
+    "update": "update ",
 }
