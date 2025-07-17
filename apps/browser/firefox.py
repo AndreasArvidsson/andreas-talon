@@ -7,6 +7,8 @@ ctx = Context()
 mod.apps.firefox = r"""
 os: windows
 and app.exe: firefox.exe
+os: windows
+and app.exe: librewolf.exe
 """
 
 ctx.matches = r"""
