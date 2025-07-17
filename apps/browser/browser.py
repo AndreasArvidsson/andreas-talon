@@ -7,7 +7,7 @@ ctx.matches = r"""
 tag: browser
 """
 
-browser_name = "Firefox" if app.platform == "windows" else "firefox"
+default_browser = "LibreWolf"
 
 mod.list("domain", "List of top level domains")
 
@@ -94,7 +94,7 @@ class UserActions:
 class Actions:
     def browser_focus_default():
         """Focus default browser"""
-        actions.user.window_focus_name(browser_name)
+        actions.user.window_focus_name(default_browser)
 
     def browser_copy_address():
         """Browser copy address"""
@@ -107,7 +107,7 @@ class Actions:
 
     def browser_open(url: str):
         """Focus browser and open url"""
-        if actions.app.name() != browser_name:
+        if actions.app.name() != default_browser:
             actions.user.browser_focus_default()
             actions.sleep("50ms")
         actions.user.browser_open_new_tab(url)

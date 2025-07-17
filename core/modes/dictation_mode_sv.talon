@@ -2,6 +2,8 @@ mode: dictation
 language: sv
 -
 
+# WebSpeech running at http://localhost:7419
+
 settings():
     speech.engine = "webspeech"
 
