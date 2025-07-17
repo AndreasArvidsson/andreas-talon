@@ -5,6 +5,8 @@ settings():
     speech.timeout = 0.25
     # Record speech
     speech.record_all = true
+    # Disable Talon subtitles
+    speech._subtitles = false
 
     # Print timings for spoken phrases
     user.print_phrase_timings = false
