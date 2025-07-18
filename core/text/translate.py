@@ -27,5 +27,7 @@ def translate(translator: GoogleTranslator, text: str) -> str:
     t1 = time.perf_counter()
     translated = translator.translate(text)
     t2 = time.perf_counter()
-    actions.user.debug(f"Translated {len(text)} characters in {round((t2-t1)*100)}ms")
+    actions.user.debug(
+        f"Translated {len(text)} characters in {round((t2 - t1) * 100)}ms"
+    )
     return translated

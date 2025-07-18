@@ -1,6 +1,8 @@
 list: user.gss_module
 -
 
+# fmt: columnWidth=0
+
 admin
 api
 docs

@@ -95,7 +95,7 @@ class Actions:
         """Foot switch button left:down"""
         global cron_job
         cron_job = cron.after(
-            f"{int(HOLD_TIMEOUT*1000)}ms",
+            f"{int(HOLD_TIMEOUT * 1000)}ms",
             actions.user.quick_pick_show,
         )
 

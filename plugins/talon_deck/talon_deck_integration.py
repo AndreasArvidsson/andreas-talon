@@ -6,9 +6,9 @@ from pathlib import Path
 
 config_path = Path(tempfile.gettempdir()) / "talonDeck.json"
 repl_path = (
-    f'{Path(VENV_BIN) / "repl.bat"}'
+    f"{Path(VENV_BIN) / 'repl.bat'}"
     if app.platform == "windows"
-    else f'{Path(VENV_BIN) /"repl"}'
+    else f"{Path(VENV_BIN) / 'repl'}"
 )
 cron_job = None
 current_file_content = ""

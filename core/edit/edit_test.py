@@ -42,7 +42,7 @@ def test(callable):
         actions.key("space ] enter")
 
     t2 = time.perf_counter()
-    actions.insert(f"\nTest completed in {int((t2-t1)*1000)}ms")
+    actions.insert(f"\nTest completed in {int((t2 - t1) * 1000)}ms")
 
 
 def test_performance(name1, name2, callable1, callable2):
@@ -58,4 +58,4 @@ def test_single_callback_performance(name, callable, index, text):
     t1 = time.perf_counter()
     callable(f"{text}")
     t2 = time.perf_counter()
-    actions.insert(f"\n{index} {name}: {int((t2-t1)*1000)}ms\n\n")
+    actions.insert(f"\n{index} {name}: {int((t2 - t1) * 1000)}ms\n\n")

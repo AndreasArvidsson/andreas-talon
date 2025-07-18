@@ -97,7 +97,7 @@ def get_parameters(capture_mapping: dict[str, Any]):
         parameters[f"{capture}_list"] = values
         parameters[capture] = values[0]
         for i, value in enumerate(values):
-            parameters[f"{capture}_{i+1}"] = value
+            parameters[f"{capture}_{i + 1}"] = value
 
     return parameters
 

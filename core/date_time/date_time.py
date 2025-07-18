@@ -22,7 +22,7 @@ def time(m) -> str:
             minutes = str(m.digit)
         except AttributeError:
             minutes = ""
-    return f"{hours.rjust(2,'0')}:{minutes.rjust(2,'0')}"
+    return f"{hours.rjust(2, '0')}:{minutes.rjust(2, '0')}"
 
 
 @mod.capture(rule="time <user.time>")

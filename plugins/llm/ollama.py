@@ -33,7 +33,7 @@ def ollama_generate_get(prompt: str) -> str | None:
 
         t2 = time.perf_counter()
         actions.user.debug(
-            f"Ollama model '{OLLAMA_MODEL}' returned processed text in {t2-t1:0.1f}s"
+            f"Ollama model '{OLLAMA_MODEL}' returned processed text in {t2 - t1:0.1f}s"
         )
         # print_verbose(response)
 
@@ -65,7 +65,7 @@ def ollama_generate_insert_streaming(prompt: str) -> None:
 
                 t2 = time.perf_counter()
                 actions.user.debug(
-                    f"Ollama model '{OLLAMA_MODEL}' processed streaming text in {t2-t1:0.1f}s"
+                    f"Ollama model '{OLLAMA_MODEL}' processed streaming text in {t2 - t1:0.1f}s"
                 )
                 print_verbose(chunk)
 
@@ -100,11 +100,11 @@ def convert_time(duration_ns: int) -> str:
     duration_ms = duration_ns / 1e6
     if duration_ms < 1000:
         return f"{duration_ms:.4f}ms"
-    return f"{duration_ms/1000:.4f}s"
+    return f"{duration_ms / 1000:.4f}s"
 
 
 def convert_eval_rate(count: int, duration: int) -> str:
-    return f"{count / duration*1e9:.2f} token/s"
+    return f"{count / duration * 1e9:.2f} token/s"
 
 
 def print_pair(key: str, value: Any, suffix="") -> None:
