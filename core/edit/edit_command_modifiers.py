@@ -68,13 +68,8 @@ def edit_modifier(m) -> EditModifier:
     return m[0]
 
 
-def containing_token_if_empty():
-    if actions.edit.selected_text() == "":
-        actions.edit.select_word()
-
-
 modifier_callbacks = {
-    "containingTokenIfEmpty": containing_token_if_empty,
+    "containingTokenIfEmpty": actions.user.select_containing_word_if_empty,
     "extendThroughStartOf(line)": actions.user.select_line_start,
     "extendThroughEndOf(line)": actions.user.select_line_end,
     "containingScope(token)": actions.edit.select_word,
