@@ -13,13 +13,6 @@ insertionScope: statement
 const [$1, set${1/(.)/${1:/capitalize}/}] = useState($0);
 ---
 
-name: reactUseRef
-phrase: use ref
-insertionScope: statement
--
-const $0 = useRef();
----
-
 name: reactUseEffect
 phrase: use effect
 insertionScope: statement
@@ -27,4 +20,39 @@ insertionScope: statement
 useEffect(() => {
     $0
 }, []);
+---
+
+name: reactUseRef
+phrase: use ref
+insertionScope: statement
+-
+const $0 = useRef();
+---
+
+name: reactUseParams
+phrase: use params
+insertionScope: statement
+-
+const params = useParams();
+---
+
+name: reactUseNavigate
+phrase: use navigate
+insertionScope: statement
+-
+const navigate = useNavigate();
+---
+
+name: reactUseLocation
+phrase: use location
+insertionScope: statement
+-
+const location = useLocation();
+---
+
+name: reactUseMatch
+phrase: use match
+insertionScope: statement
+-
+const match = useMatch();
 ---
