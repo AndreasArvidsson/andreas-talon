@@ -11,3 +11,6 @@ maven clean package:        "mvn clean package\n"
 maven install parallel:     "mvn -T 1C install\n"
 maven deploy:               "mvn clean install -P deploy "
 maven dependency tree:      "mvn dependency:tree\n"
+
+maven (outdated | dependency updates):
+    "mvn versions:display-dependency-updates -N"
