@@ -13,4 +13,4 @@ maven deploy:               "mvn clean install -P deploy "
 maven dependency tree:      "mvn dependency:tree\n"
 
 maven (outdated | dependency updates):
-    "mvn versions:display-dependency-updates -N"
+    "mvn versions:display-dependency-updates -N\n"
