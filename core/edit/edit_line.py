@@ -48,7 +48,9 @@ class EditActions:
         actions.key("home enter up")
 
     def line_insert_down():
-        actions.key("end enter")
+        actions.key("end")
+        actions.sleep("25ms")
+        actions.key("enter")
 
     def line_clone():
         actions.edit.select_line()
