@@ -26,6 +26,8 @@ npm_commands = {
     "prune": "prune\n",
     "dedupe": "dedupe\n",
     "audit": "audit\n",
+    "audit fix": "audit fix\n",
+    "package fix": "pkg fix\n",
     "publish": "publish --dry-run",
     "start": "start\n",
     "build": "build\n",
