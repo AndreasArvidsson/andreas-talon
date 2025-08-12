@@ -43,6 +43,9 @@ class TabActions:
         actions.user.tab_jump(1)
         actions.app.tab_previous()
 
+    def tab_back():
+        """Jump to last used tab"""
+
     def tab_move_left():
         """Move tab to the left"""
         actions.key("ctrl-shift-pageup")
@@ -54,5 +57,20 @@ class TabActions:
     def tab_duplicate():
         """Duplicate tab"""
 
-    def tab_back():
-        """Jump to last used tab"""
+    def tab_pin():
+        """Pin tab"""
+
+    def tab_unpin():
+        """Unpin tab"""
+
+    def tab_close_all():
+        """Close all tabs"""
+
+    def tab_close_others():
+        """Close other tabs"""
+
+    def tab_close_left():
+        """Close tabs to the left"""
+
+    def tab_close_right():
+        """Close tabs to the right"""

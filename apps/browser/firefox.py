@@ -44,7 +44,6 @@ ctx.lists["user.rango_without_target_action"] = {
     "hunt off": "toggleHints",
     "hunt refresh": "refreshHints",
     "hover nothing": "unhoverAll",
-    "tab clone": "cloneCurrentTab",
     "upper again": "scrollUpAtElement",
     "downer again": "scrollDownAtElement",
     "hunt extra": "displayExtraHints",
@@ -102,13 +101,6 @@ class UserActions:
     def browser_copy_address():
         actions.user.rango_command_without_target("copyLocationProperty", "href")
 
-    def tab_jump(number: int):
-        if number < 9:
-            actions.key(f"ctrl-{number}")
-
-    def tab_final():
-        actions.key("ctrl-9")
-
     def browser_open_new_tab(url: str):
         actions.browser.focus_address()
         actions.sleep("50ms")
@@ -116,10 +108,7 @@ class UserActions:
         actions.sleep("50ms")
         actions.key("alt-enter")
 
-    # ----- Rango -----
-    def tab_back():
-        actions.user.rango_command_without_target("focusPreviousTab")
-
+    # ----- Scrolling -----
     def scroll_up():
         actions.user.rango_command_without_target("scrollUpPage", 0.1)
 
@@ -137,6 +126,29 @@ class UserActions:
 
     def scroll_down_page():
         actions.user.rango_command_without_target("scrollDownPage", 0.9)
+
+    # ----- Tabs -----
+    def tab_jump(number: int):
+        if number < 9:
+            actions.key(f"ctrl-{number}")
+
+    def tab_final():
+        actions.key("ctrl-9")
+
+    def tab_back():
+        actions.user.rango_command_without_target("focusPreviousTab")
+
+    def tab_duplicate():
+        actions.user.rango_command_without_target("cloneCurrentTab")
+
+    def tab_close_others():
+        actions.user.rango_command_without_target("closeOtherTabsInWindow")
+
+    def tab_close_left():
+        actions.user.rango_command_without_target("closeTabsToTheLeftInWindow")
+
+    def tab_close_right():
+        actions.user.rango_command_without_target("closeTabsToTheRightInWindow")
 
 
 # ----- LINUX -----

@@ -154,19 +154,37 @@ class UserActions:
         actions.key("ctrl-alt-enter")
 
     # ----- Tabs -----
-    def tab_back():
-        actions.user.run_rpc_command(
-            "workbench.action.openPreviousRecentlyUsedEditorInGroup"
-        )
-
-    def tab_final():
-        actions.user.run_rpc_command("workbench.action.lastEditorInGroup")
-
     def tab_jump(number: int):
         actions.user.run_rpc_command("andreas.openEditorAtIndex", number - 1)
 
     def tab_jump_from_back(number: int):
         actions.user.run_rpc_command("andreas.openEditorAtIndex", -number)
+
+    def tab_final():
+        actions.user.run_rpc_command("workbench.action.lastEditorInGroup")
+
+    def tab_back():
+        actions.user.run_rpc_command(
+            "workbench.action.openPreviousRecentlyUsedEditorInGroup"
+        )
+
+    def tab_pin():
+        actions.user.run_rpc_command("workbench.action.pinEditor")
+
+    def tab_unpin():
+        actions.user.run_rpc_command("workbench.action.unpinEditor")
+
+    def tab_close_all():
+        actions.user.run_rpc_command("workbench.action.closeEditorsInGroup")
+
+    def tab_close_others():
+        actions.user.run_rpc_command("workbench.action.closeOtherEditors")
+
+    def tab_close_left():
+        actions.user.run_rpc_command("workbench.action.closeEditorsToTheLeft")
+
+    def tab_close_right():
+        actions.user.run_rpc_command("workbench.action.closeEditorsToTheRight")
 
     # ----- Scroll -----
     def scroll_up():
@@ -213,7 +231,6 @@ class UserActions:
 
     # ----- Snippets -----
     def insert_snippet(body: str):
-        # actions.user.cursorless_insert_snippet(body)
         actions.user.run_rpc_command("editor.action.insertSnippet", {"snippet": body})
 
     # ----- Text getters -----
