@@ -7,7 +7,7 @@ attribute|atter, attribute
 block | graph, paragraph
 branch, branch
 call, functionCall
-callee, functionCallee
+caller, functionCallee
 car, character
 cell, notebookCell
 class name, className
