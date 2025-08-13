@@ -14,3 +14,6 @@ maven dependency tree:      "mvn dependency:tree\n"
 
 maven (outdated | dependency updates):
     "mvn versions:display-dependency-updates -N\n"
+
+maven (outdated plugin | plugin updates):
+    "mvn versions:display-plugin-updates -N\n"
