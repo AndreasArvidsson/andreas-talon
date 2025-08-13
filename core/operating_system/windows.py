@@ -8,19 +8,20 @@ os: windows
 """
 
 ctx.lists["user.launch_command"] = {
-    "advanced settings": "systempropertiesadvanced.exe",
     "code": "code",
-    "control panel": "control",
-    "device manager": "devmgmt.msc",
-    "disk management": "diskmgmt.msc",
     "explorer": "explorer",
     "notepad": "notepad",
     "paint": "mspaint",
+    "task manager": "taskmgr",
     "services": "services.msc",
+    "control panel": "control",
+    "device manager": "devmgmt.msc",
+    "disk management": "diskmgmt.msc",
     "sound settings": "control mmsys.cpl sounds",
     "system settings": "start ms-settings:",
-    "task manager": "taskmgr",
     "taskbar settings": "start ms-settings:taskbar",
+    "advanced settings": "systempropertiesadvanced.exe",
+    "environment variables": "rundll32.exe sysdm.cpl,EditEnvironmentVariables",
 }
 
 
