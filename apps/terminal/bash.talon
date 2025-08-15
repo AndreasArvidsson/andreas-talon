@@ -72,6 +72,7 @@ terminate:                  key(ctrl-c)
 clear:                      key(ctrl-l)
 revert:                     key(alt-r)
 ssh:                        "ssh "
+unzip:                      "unzip "
 
 # head:                          "head "
 # tail:                          "tail "
