@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Context, Module, actions
 from ..tags.code_operators import CodeOperators
 
 mod = Module()
@@ -103,12 +103,14 @@ class UserActions:
         )
 
     # Variable declaration
-    def code_variable(
-        name: str, modifiers: list[str], assign: bool, data_type: str = None
-    ):
-        text = name
-        if data_type:
-            text = f"{data_type} {text}"
+    def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
+        snippet = ""
+        if modifiers:
+            raise ValueError(f"Modifiers not supported in C: {modifiers}")
+        if not data_type and not name:
+            snippet += "$1"
+        else:
+            snippet += f"{data_type or '$1'} {name or '$1'}"
         if assign:
-            text += " = "
-        actions.insert(text)
+            snippet += " = $0"
+        actions.user.insert_snippet(snippet)

@@ -60,22 +60,17 @@ class Actions:
 
     # ----- Variable statement -----
     def code_variable_wrapper(
-        name: str,
-        modifiers: Union[list[str], str],
         assign: bool,
-        data_type: str = None,
+        modifiers: Union[list[str], str],
+        data_type: str,
+        name: str,
     ):
         """Variable statement wrapper"""
         format = actions.user.code_get_variable_format()
         name = actions.user.format_text(name, format)
-        actions.user.code_variable(name, modifiers or [], assign, data_type)
+        actions.user.code_variable(assign, modifiers or [], data_type, name)
 
-    def code_variable(
-        name: str,
-        modifiers: list[str],
-        assign: bool,
-        data_type: str = None,
-    ):
+    def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         """Variable statement"""
 
     # ----- New instance  -----

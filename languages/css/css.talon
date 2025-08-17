@@ -7,7 +7,5 @@ settings():
     user.code_variable_formatter = "DASH_SEPARATED"
 
 # ----- Variable statement -----
-var <user.prose>:
-    user.code_variable_wrapper(prose, "", false, "")
-var <user.prose> equals:
-    user.code_variable_wrapper(prose, "", true, "")
+snip var [<user.code_id>]:
+    user.code_variable_wrapper(true, "", "", code_id or "")

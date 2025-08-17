@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Context, Module, actions
 from ..tags.code_operators import CodeOperators
 
 mod = Module()
@@ -36,25 +36,34 @@ ctx.lists["user.code_operator"] = CodeOperators(
 )
 
 access_modifiers = {
-    "public",
-    "private",
-    "protected",
+    "public":    "public",
+    "private":   "private",
+    "protected": "protected",
 }
 
-static = {"static"}
+static = { "static": "static" }
+
 all_keywords = {
-    *access_modifiers,
-    *static,
+    **access_modifiers,
+    **static,
 }
 
-ctx.lists["user.code_class_modifier"] = {*access_modifiers}
+ctx.lists["user.code_class_modifier"] = {
+    **access_modifiers,
+    "abstract": "abstract",
+    "sealed": "sealed",
+}
 
 ctx.lists["user.code_function_modifier"] = {
-    *access_modifiers,
-    *static,
+    **access_modifiers,
+    **static,
 }
 
-ctx.lists["user.code_variable_modifier"] = {*access_modifiers}
+ctx.lists["user.code_variable_modifier"] = {
+    **access_modifiers,
+    "const": "const",
+}
+
 code_data_type_simple = {
     "int",
     "long",
@@ -78,7 +87,7 @@ ctx.lists["user.code_collection_type"] = {}
 ctx.lists["user.code_call_function"] = {}
 
 ctx.lists["user.code_keyword"] = {
-    **{k: f"{k} " for k in all_keywords},
+    **all_keywords,
     "true"        : "true",
     "false"       : "false",
     "null"        : "null",
@@ -133,17 +142,19 @@ class UserActions:
         )
 
     # Variable declaration
-    def code_variable(
-        name: str, modifiers: list[str], assign: bool, data_type: str = None
-    ):
-        text = name
-        if data_type:
-            text = f"{data_type} {text}"
+    def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
+        snippet = ""
         if modifiers:
-            text = f"{' '.join(modifiers)} {text}"
+            snippet = f"{' '.join(modifiers)} "
+            if "final" in modifiers:
+                assign = True
+        if not data_type and not name:
+            snippet += "$1"
+        else:
+            snippet += f"{data_type or '$1'} {name or '$1'}"
         if assign:
-            text += " = "
-        actions.insert(text)
+            snippet += " = $0"
+        actions.user.insert_snippet(snippet)
 
 
 def get_modifiers(modifiers: list[str]):

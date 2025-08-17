@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Context, Module, actions
 from ..tags.code_operators import CodeOperators
 
 mod = Module()
@@ -143,17 +143,16 @@ class UserActions:
         )
 
     # Variable statement
-    def code_variable(
-        name: str, modifiers: list[str], assign: bool, data_type: str = None
-    ):
-        text = name
+    def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
+        snippet = ""
         if modifiers:
-            text = f"{' '.join(modifiers)} {text}"
+            snippet = f"{' '.join(modifiers)} "
+        snippet += name or "$1"
         if data_type:
-            text = f"{text}: {data_type}"
+            snippet += f": {data_type}"
         if assign:
-            text += " = "
-        actions.insert(text)
+            snippet += " =  $0"
+        actions.user.insert_snippet(snippet)
 
     # Insert types
     def code_insert_type_annotation(type: str):
