@@ -19,7 +19,7 @@ gamepad(00000000000000000000000000000000:dpad_down:up): user.key_release("down")
 gamepad(00000000000000000000000000000000:south:down): key(space)
 gamepad(00000000000000000000000000000000:south:up): skip()
 # B
-gamepad(00000000000000000000000000000000:east:down): skip()
+gamepad(00000000000000000000000000000000:east:down): key(play_pause)
 gamepad(00000000000000000000000000000000:east:up): skip()
 
 # # Select / Start buttons
