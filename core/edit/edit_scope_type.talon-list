@@ -1,6 +1,8 @@
 list: user.edit_scope_type
 -
 
+this:          selection
+dis:           selection
 token:         token
 line:          line
 block:         paragraph

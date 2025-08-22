@@ -42,11 +42,6 @@ mod = Module()
 mod.list("edit_scope_type", desc="Scope types for the edit command")
 
 
-@mod.capture(rule="this | dis")
-def edit_modifier_this(m) -> EditSimpleModifier:
-    return EditSimpleModifier("containingTokenIfEmpty")
-
-
 @mod.capture(rule="head | tail")
 def edit_modifier_head_tail(m) -> EditExtendThroughModifier:
     if m[0] == "head":
@@ -60,18 +55,16 @@ def edit_modifier_containing_scope(m) -> EditContainingScopeModifier:
 
 
 @mod.capture(
-    rule="<user.edit_modifier_this> | "
-    "<user.edit_modifier_containing_scope> | "
-    "<user.edit_modifier_head_tail>"
+    rule="<user.edit_modifier_containing_scope> | <user.edit_modifier_head_tail>"
 )
 def edit_modifier(m) -> EditModifier:
     return m[0]
 
 
 modifier_callbacks = {
-    "containingTokenIfEmpty": actions.user.select_containing_word_if_empty,
     "extendThroughStartOf(line)": actions.user.select_line_start,
     "extendThroughEndOf(line)": actions.user.select_line_end,
+    "containingScope(selection)": actions.skip,
     "containingScope(token)": actions.edit.select_word,
     "containingScope(line)": actions.edit.select_line,
     "containingScope(sentence)": actions.edit.select_sentence,

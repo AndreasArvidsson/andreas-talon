@@ -34,11 +34,6 @@ class EditActions:
 
 @mod.action_class
 class Actions:
-    def select_containing_word_if_empty():
-        """Select the word under the cursor if no text is selected"""
-        if actions.edit.selected_text() == "":
-            actions.edit.select_word()
-
     def select_word_left():
         """Select word to the left"""
         actions.edit.word_left()

@@ -90,9 +90,6 @@ class UserActions:
 
     # ----- Miscellaneous -----
 
-    def select_containing_word_if_empty():
-        actions.skip()
-
     def file_manager_show_properties():
         actions.key("alt-enter")
 
