@@ -23,7 +23,7 @@ language: csharp | java
 try {
     $1
 }
-catch(final Exception ex) {
+catch(final Exception e) {
     $0
 }
 ---
@@ -33,8 +33,7 @@ language: javascript | typescript | javascriptreact | typescriptreact
 try {
     $1
 }
-catch(error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
+catch(e) {
     $0
 }
 ---
@@ -43,6 +42,6 @@ language: python
 -
 try:
     $1
-except Exception as ex:
+except Exception as e:
     $0
 ---

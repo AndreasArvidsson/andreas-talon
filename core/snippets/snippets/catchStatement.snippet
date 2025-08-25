@@ -4,28 +4,27 @@ phrase: catch
 
 language: cpp
 -
-catch (const std::exception& ex) {
+catch (const std::exception& e) {
     $0
 }
 ---
 
 language: java | csharp
 -
-catch(final Exception ex) {
+catch(final Exception e) {
     $0
 }
 ---
 
 language: javascript | typescript | javascriptreact | typescriptreact
 -
-catch(error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
+catch(e) {
     $0
 }
 ---
 
 language: python
 -
-except Exception as ex:
+except Exception as e:
     $0
 ---
