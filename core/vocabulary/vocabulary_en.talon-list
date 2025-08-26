@@ -41,10 +41,11 @@ Dependabot
 Docker
 Docusaurus
 enginex: nginx
+es lint: ESLint
 focus right: Focusrite
+ge es es: gss
 gemma
 gss
-ge es es: gss
 high charts: Highcharts
 Izabel
 jemma: gemma
@@ -64,6 +65,7 @@ mod mike: ModMic
 olama: Ollama
 Orust
 Pokey
+preact
 Quarkus
 Rango
 Redpill
