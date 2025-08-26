@@ -11,6 +11,7 @@ ctx.lists["user.git_branch"] = {
     "main": "main",
     "men": "main",
     "develop": "develop",
+    "the velop": "develop",
 }
 
 
