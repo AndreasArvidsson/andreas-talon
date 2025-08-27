@@ -1,6 +1,6 @@
 list: user.formatter_reformat
 -
 
-cap:           CAPITALIZE_FIRST_WORD
+proud:         CAPITALIZE_FIRST_WORD
 list:          COMMA_SEPARATED
 un:            REMOVE_FORMATTING
