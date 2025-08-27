@@ -19,6 +19,7 @@ maven clean deploy:         "mvn clean -T 1C package -P deploy "
 
 maven dependency list:      "mvn dependency:list\n"
 maven dependency tree:      "mvn dependency:tree\n"
+maven dependency analyze:   "mvn dependency:analyze\n"
 
 maven (outdated | dependency updates):
     "mvn versions:display-dependency-updates -N\n"
