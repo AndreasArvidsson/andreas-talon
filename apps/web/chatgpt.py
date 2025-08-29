@@ -17,8 +17,10 @@ app: chatgpt
 class EditActions:
     def line_insert_up():
         actions.key("home")
+        actions.sleep("25ms")
         actions.key("shift-enter up")
 
     def line_insert_down():
         actions.key("end")
+        actions.sleep("25ms")
         actions.key("shift-enter")
