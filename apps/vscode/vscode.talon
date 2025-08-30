@@ -81,6 +81,9 @@ panel terminal:             user.run_rpc_command("workbench.action.terminal.focu
 panel debug:                user.run_rpc_command("workbench.debug.action.toggleRepl")
 panel clear:                user.run_rpc_command("workbench.debug.panel.action.clearReplAction")
 
+# Chat
+chat (show | hide):         user.run_rpc_command("workbench.panel.chat")
+
 # Hide sidebar and panel
 hide all:
     user.run_rpc_command("workbench.action.closeSidebar")
