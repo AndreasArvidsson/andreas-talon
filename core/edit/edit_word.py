@@ -61,12 +61,8 @@ class Actions:
 
     def delete_word_left():
         """Delete word to the left"""
-        actions.user.select_word_left()
-        actions.sleep("50ms")
-        actions.edit.delete()
+        actions.key("ctrl-backspace")
 
     def delete_word_right():
         """Delete word to the right"""
-        actions.user.select_word_right()
-        actions.sleep("50ms")
-        actions.edit.delete()
+        actions.key("ctrl-delete")
