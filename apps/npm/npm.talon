@@ -19,7 +19,7 @@ npm run (keycloak | key cloak):
     "npm run keycloak\n"
 npm run (wildfly | wild fly | wide fly):
     "npm run wildfly\n"
-npm run gss {user.gss_module}:
+npm run (gss | ge es es) {user.gss_module}:
     "npm run startLocal gss-{gss_module}\n"
-npm run gss:
+npm run (gss | ge es es):
     "npm run startLocal gss-"
