@@ -61,12 +61,14 @@ os: windows
 
 ctx_win.lists["user.playback_device"] = {
     "speakers": "Speakers",
+    "headphones": "Koss headphones",
     "koss": "Koss headphones",
 }
 
 ctx_win.lists["user.microhpone_device"] = {
     "dpa": "DPA",
     "blue yeti": "Blue Yeti",
+    "headphones": "Koss microphone",
     "koss": "Koss microphone",
     # "internal": "Internal_mic",
     # "camera": "Webcam",
