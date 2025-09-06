@@ -46,5 +46,5 @@ ctx.lists["user.pnpm_command"] = {
     "outdated": "outdated -r\n",
     "why": "why -r ",
     "y": "why -r ",
-    "update": "update ",
+    "update": "update -r ",
 }
