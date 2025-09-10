@@ -116,6 +116,7 @@ ctx.lists["user.code_keyword"] = {
     "instance of" : " instanceof ",
     "continue"    : "continue;",
     "break"       : "break;",
+    "yield"       : "yield ",
 }
 
 # fmt: on
