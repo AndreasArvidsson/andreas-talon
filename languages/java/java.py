@@ -62,6 +62,7 @@ ctx.lists["user.code_function_modifier"] = {
 }
 
 ctx.lists["user.code_variable_modifier"] = {*access_modifiers, *final, *static}
+
 code_data_type_simple = {
     "int",
     "long",
@@ -71,11 +72,12 @@ code_data_type_simple = {
     "float",
     "double",
     "String",
+    "boolean",
+    "Object",
+    "void",
     "Map",
     "List",
     "Set",
-    "Object",
-    "void"
 }
 
 ctx.lists["user.code_data_type"] = {
