@@ -78,6 +78,7 @@ ctx_win.lists["user.microhpone_device"] = {
 ctx_win.lists["user.sound_device_pair"] = {
     "dpa": "DPA,Speakers",
     "blue yeti": "Blue Yeti,Speakers",
+    "headphones": "Koss microphone,Koss headphones",
     "koss": "Koss microphone,Koss headphones",
 }
 
