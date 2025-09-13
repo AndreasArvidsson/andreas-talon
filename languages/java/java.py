@@ -119,6 +119,7 @@ ctx.lists["user.code_keyword"] = {
     "continue"    : "continue;",
     "break"       : "break;",
     "yield"       : "yield ",
+    "var"         : "var ",
 }
 
 # fmt: on
