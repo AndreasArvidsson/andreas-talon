@@ -18,7 +18,7 @@ tab un pin:                 user.tab_unpin()
 
 tab close:                  app.tab_close()
 tab close all:              user.tab_close_all()
-tab close others:           user.tab_close_others()
+tab close (other | others): user.tab_close_others()
 tab close left:             user.tab_close_left()
 tab close right:            user.tab_close_right()
 
