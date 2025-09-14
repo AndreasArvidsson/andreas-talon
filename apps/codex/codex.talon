@@ -7,3 +7,6 @@ codex:                      "codex "
 codex full auto:
     'codex --full-auto ""'
     edit.left()
+codex danger:
+    'codex --dangerously-bypass-approvals-and-sandbox ""'
+    edit.left()
