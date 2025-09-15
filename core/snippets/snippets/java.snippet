@@ -1,0 +1,44 @@
+language: java
+---
+
+name: listDeclaration
+phrase: list
+insertionScope: statement
+-
+final List<$1> $2 = $0;
+---
+
+name: setDeclaration
+phrase: set
+insertionScope: statement
+-
+final Set<$1> $2 = $0;
+---
+
+name: mapDeclaration
+phrase: map
+insertionScope: statement
+-
+final Map<$1> $2 = $0;
+---
+
+name: arrayListDeclaration
+phrase: array list
+insertionScope: statement
+-
+final List<$1> $0 = new ArrayList<>();
+---
+
+name: hashSetDeclaration
+phrase: hash set
+insertionScope: statement
+-
+final Set<$1> $0 = new HashSet<>();
+---
+
+name: hashMapDeclaration
+phrase: hash map
+insertionScope: statement
+-
+final Map<$1> $0 = new HashMap<>();
+---
