@@ -1,6 +1,9 @@
 tag: user.codex
 -
 
+settings():
+    insert_wait = 6
+
 codex version:              "codex --version\n"
 codex help:                 "codex --help\n"
 codex:                      "codex "
