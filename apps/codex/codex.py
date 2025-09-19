@@ -6,7 +6,7 @@ mod.tag("codex")
 
 ctx = Context()
 ctx.matches = r"""
-tag: user.codex
+app: codex-cli
 """
 
 
