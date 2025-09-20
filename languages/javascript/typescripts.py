@@ -31,6 +31,7 @@ ctx.lists["user.code_data_type"] = {
 ctx.lists["user.code_collection_type"] = {
     "list"      : "Array",
     "array"     : "Array",
+    "a ray"     : "Array",
     "record"    : "Record",
     "partial"   : "Partial",
     "omit"      : "Omit",
