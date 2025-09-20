@@ -91,6 +91,7 @@ ctx.lists["user.code_collection_type"] = {
     "set"             : "Set",
     "map"             : "Map",
     "array list"      : "ArrayList",
+    "a ray list"      : "ArrayList",
     "hash set"        : "HashSet",
     "hash map"        : "HashMap",
     "linked hash map" : "LinkedHashMap"
