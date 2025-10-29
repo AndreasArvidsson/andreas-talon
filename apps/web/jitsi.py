@@ -9,6 +9,11 @@ browser.host: meet.jit.si
 browser.host: meet.redpill-linpro.com
 """
 
+mod.apps.jitsi = r"""
+tag: browser
+title: / | Jitsi Meet/
+"""
+
 ctx.matches = r"""
 app: jitsi
 """
