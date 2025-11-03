@@ -9,6 +9,8 @@ os: windows
 and app.exe: firefox.exe
 os: windows
 and app.exe: librewolf.exe
+os: windows
+and app.exe: waterfox.exe
 """
 
 ctx.matches = r"""
