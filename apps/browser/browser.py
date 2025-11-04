@@ -7,7 +7,7 @@ ctx.matches = r"""
 tag: browser
 """
 
-default_browser = "LibreWolf"
+default_browser = "Waterfox"
 
 mod.list("domain", "List of top level domains")
 
