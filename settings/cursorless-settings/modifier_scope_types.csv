@@ -48,6 +48,7 @@ type, type
 unit, unit
 value, value
 
+# Private / internal
 access, private.fieldAccess
 text fragment, textFragment
 disqualify, disqualifyDelimiter
