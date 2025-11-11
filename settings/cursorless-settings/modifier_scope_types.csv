@@ -18,6 +18,7 @@ condition, condition
 element, xmlElement
 end tag, xmlEndTag
 file, document
+full line, fullLine
 funk name, functionName
 funk, namedFunction
 glyph, glyph
