@@ -20,6 +20,9 @@ class UserActions:
 
 @ctx_dictation.action_class("user")
 class DictationUserActions:
+    def dictation_mode_exit():
+        actions.user.command_mode()
+
     def command_dictation_mode_toggle():
         actions.user.command_mode()
 
@@ -39,6 +42,10 @@ class Actions:
         actions.mode.disable("command")
         actions.mode.disable("user.demo")
         actions.mode.enable("dictation")
+
+    def dictation_mode_exit():
+        """Exit dictation mode"""
+        actions.skip()
 
     def command_dictation_mode_toggle():
         """Toggle between command and dictation mode"""

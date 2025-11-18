@@ -27,5 +27,5 @@ gamepad(00000000000000000000000000000000:select:down): user.sound_microphone_ena
 gamepad(00000000000000000000000000000000:select:up): skip()
 gamepad(00000000000000000000000000000000:start:down):
     user.sound_microphone_enable(true)
-    user.command_mode()
+    user.dictation_mode_exit()
 gamepad(00000000000000000000000000000000:start:up): skip()
