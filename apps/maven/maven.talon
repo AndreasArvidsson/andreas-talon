@@ -13,9 +13,9 @@ maven package slow:         "mvn package\n"
 maven install slow:         "mvn install\n"
 maven deploy slow:          "mvn package -P deploy "
 
-maven clean package:        "mvn clean package\n"
-maven clean install:        "mvn clean install\n"
-maven clean deploy:         "mvn clean -T 1C package -P deploy "
+maven clean package:        "mvn clean && mvn package\n"
+maven clean install:        "mvn clean && mvn install\n"
+maven clean deploy:         "mvn clean && mvn -T 1C package -P deploy "
 
 maven dependency list:      "mvn dependency:list\n"
 maven dependency tree:      "mvn dependency:tree\n"
