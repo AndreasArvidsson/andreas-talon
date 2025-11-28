@@ -57,6 +57,9 @@ maximize:                   user.run_rpc_command("workbench.action.toggleEditorW
 cross:                      user.run_rpc_command("workbench.action.focusNextGroup")
 open (cross | split):       key(alt-enter)
 
+view grow:                  user.run_rpc_command("workbench.action.increaseViewSize")
+view shrink:                user.run_rpc_command("workbench.action.decreaseViewSize")
+
 # Sidebar
 bar (show | hide):          user.run_rpc_command("workbench.action.toggleSidebarVisibility")
 bar explore:                user.run_rpc_command("workbench.view.explorer")
