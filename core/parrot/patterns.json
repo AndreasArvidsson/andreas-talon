@@ -2,8 +2,8 @@
     "pop": {
         "sounds": ["pop"],
         "threshold": {
-            ">power": 15,
-            ">probability": 0.99
+            ">power": 10,
+            ">probability": 0.95
         },
         "throttle": {
             "pop": 0.1
