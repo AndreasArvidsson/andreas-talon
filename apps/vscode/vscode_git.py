@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 from talon import Context, Module, actions
 
 mod = Module()
@@ -49,15 +49,18 @@ class Actions:
         actions.user.run_rpc_command("git.stashDrop")
 
     def git_merge(branch: Optional[str] = None):
+        if branch:
+            branches = get_branch_names_with_fallback(branch)
+            if len(branches) > 1:
+                first_branch = get_first_available_branch(branches)
+                if first_branch:
+                    branch = first_branch
         command_with_text("git.merge", branch)
 
     def git_checkout(branch: Optional[str] = None, submit: bool = False):
         if branch:
+            branches = get_branch_names_with_fallback(branch)
             try:
-                if branch in {"main", "master"}:
-                    branches = ["main", "master"]
-                else:
-                    branches = [branch]
                 actions.user.run_rpc_command_and_wait("andreas.gitCheckout", *branches)
             except Exception:
                 command_with_text("git.checkout", branch)
@@ -133,7 +136,7 @@ class Actions:
         if url:
             actions.user.browser_open(url)
 
-    def git_copy_markdown_remote_file_url(targets: List):
+    def git_copy_markdown_remote_file_url(targets: list):
         """Copy remote git file URL to clipboard as markdown link"""
         use_selection = False
         text = ""
@@ -163,3 +166,18 @@ def command_with_text(command: str, text: Optional[str] = None):
     if text:
         actions.sleep("50ms")
         actions.insert(text)
+
+
+def get_first_available_branch(branches: list[str]) -> str | None:
+    return actions.user.run_rpc_command_get(
+        "andreas.gitGetFirstAvailableBranch", branches
+    )
+
+
+def get_branch_names_with_fallback(branch: str) -> list[str]:
+    if branch == "main":
+        return ["main", "master"]
+    elif branch == "master":
+        return ["master", "main"]
+    else:
+        return [branch]
