@@ -14,9 +14,11 @@ parrot(cluck):
 parrot(shush):
     user.debug("shush {power}")
     user.noise_debounce("shush", true)
-parrot(shush:stop):         user.noise_debounce("shush", false)
+parrot(shush:stop):
+    user.noise_debounce("shush", false)
 
 parrot(hiss):
     user.debug("hiss {power}")
     user.noise_debounce("hiss", true)
-parrot(hiss:stop):          user.noise_debounce("hiss", false)
+parrot(hiss:stop):
+    user.noise_debounce("hiss", false)
