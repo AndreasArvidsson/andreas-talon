@@ -1,6 +1,11 @@
-from talon import Module, actions
+from talon import Module, Context, actions
 
 mod = Module()
+
+ctx_sv = Context()
+ctx_sv.matches = r"""
+language: sv
+"""
 
 
 @mod.capture(rule="(spell | {user.letter}) {user.letter}+")
@@ -22,6 +27,11 @@ def percent(m) -> str:
 @mod.capture(rule="clip clip")
 def clipboard(m) -> str:
     """Clipboard content"""
+    return actions.clip.text()
+
+
+@ctx_sv.capture("user.clipboard", rule="klipp klipp")
+def clipboard_sv(m) -> str:
     return actions.clip.text()
 
 
