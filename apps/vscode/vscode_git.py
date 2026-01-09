@@ -11,7 +11,7 @@ not tag: terminal
 
 
 @ctx.action_class("user")
-class Actions:
+class UserActions:
     def git_clone():
         actions.user.run_rpc_command("git.clone")
 
