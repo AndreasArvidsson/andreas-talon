@@ -20,6 +20,8 @@ class UserActions:
     def code_markdown_link(text: str = ""):
         """Insert link <text>"""
         link = actions.clip.text()
+        if not text:
+            text = actions.edit.selected_text()
         if is_valid_link(link):
             actions.user.insert_snippet_by_name(
                 "linkWithUri", {"text": text, "uri": link}
