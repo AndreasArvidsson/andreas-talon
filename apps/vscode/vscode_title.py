@@ -14,6 +14,15 @@ app: vscode
 not tag: user.code_language_forced
 """
 
+FILENAME_DELIMITERS = [
+    # Normal file: "MyFile.txt | ..."
+    " | ",
+    # Git diff view, unstated changes: "MyFile.txt (Working Tree) ..."
+    " (Working Tree) ",
+    # Git diff view, staged changes: "MyFile.txt (Index) ..."
+    " (Index) ",
+]
+FILENAME_RE = re.compile("|".join(re.escape(d) for d in FILENAME_DELIMITERS))
 LANGUAGE_RE = re.compile(r"\[(\w+)\]$")
 
 
@@ -21,16 +30,10 @@ LANGUAGE_RE = re.compile(r"\[(\w+)\]$")
 class WinActions:
     def filename() -> str:
         title: str = actions.win.title()
-        # Git diff view, unstated changes: "MyFile.txt (Working Tree)"
-        index = title.find(" (Working Tree)")
-        if index > -1:
-            return title[:index]
-        # Git diff view, staged changes: "MyFile.txt (Index)"
-        index = title.find(" (Index)")
-        if index > -1:
-            return title[:index]
-        # Normal file: "MyFile.txt | MyWorkspace"
-        return title.split(" | ", 1)[0]
+        match = FILENAME_RE.search(title)
+        if match is not None:
+            return title[: match.start()]
+        return ""
 
 
 @ctx_lang.action_class("code")
