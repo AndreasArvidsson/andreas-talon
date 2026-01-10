@@ -17,7 +17,7 @@ not tag: user.code_language_forced
 FILENAME_DELIMITERS = [
     # Normal file: "MyFile.txt | ..."
     " | ",
-    # Git diff view, unstated changes: "MyFile.txt (Working Tree) ..."
+    # Git diff view, unstaged changes: "MyFile.txt (Working Tree) ..."
     " (Working Tree) ",
     # Git diff view, staged changes: "MyFile.txt (Index) ..."
     " (Index) ",
