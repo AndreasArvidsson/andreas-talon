@@ -30,7 +30,7 @@ def clipboard(m) -> str:
     return actions.clip.text()
 
 
-@ctx_sv.capture("user.clipboard", rule="klipp klipp")
+@ctx_sv.capture("user.clipboard", rule="klipp klipp | klippklipp")
 def clipboard_sv(m) -> str:
     return actions.clip.text()
 
