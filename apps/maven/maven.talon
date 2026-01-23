@@ -9,6 +9,7 @@ maven install:              "mvn -T 1C install\n"
 maven package:              "mvn -T 1C package\n"
 maven deploy:               "mvn -T 1C package -P deploy "
 maven test:                 "mvn verify -P it "
+maven test light:           "mvn verify -P it-light "
 
 maven package slow:         "mvn package\n"
 maven install slow:         "mvn install\n"
