@@ -26,7 +26,8 @@ settings():
     user.dictation_format_reset()
 
 # Switch to command mode
-(command mode | over | över)$:
+# .över is added because of web speech
+(command mode | over | över | .över)$:
     user.command_mode()
 
 # Switch to sleep mode
