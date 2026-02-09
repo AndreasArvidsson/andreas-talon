@@ -13,7 +13,7 @@ def on_gaze(e):
         tracking_system.unregister("gaze", on_gaze)
 
 
-def evaluate_gaze_status():
+def evaluate_gaze_detection():
     tracking_system.unregister("gaze", on_gaze)
 
     if not gaze_detected:
@@ -33,4 +33,4 @@ class Actions:
 
         gaze_detected = False
         tracking_system.register("gaze", on_gaze)
-        cron.after("1s", evaluate_gaze_status)
+        cron.after("1s", evaluate_gaze_detection)
