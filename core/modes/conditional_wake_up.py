@@ -11,8 +11,6 @@ def on_gaze(a):
     if x or y:
         gaze_detected = True
         tracking_system.unregister("gaze", on_gaze)
-    else:
-        gaze_detected = False
 
 
 def evaluate_gaze_status():
@@ -34,6 +32,5 @@ class Actions:
             return
 
         gaze_detected = False
-
         tracking_system.register("gaze", on_gaze)
         cron.after("1s", evaluate_gaze_status)
