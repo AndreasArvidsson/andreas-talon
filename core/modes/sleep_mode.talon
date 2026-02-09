@@ -7,6 +7,7 @@ mode: sleep
 parrot(cluck):
     user.debug("Talon wake parrot noise. Power: {power}")
     user.talon_wake()
+    user.eye_tracker_detect_gaze_or_sleep()
 
 # ^talon wake up$:
 #     user.debug("Talon wake voice command")
