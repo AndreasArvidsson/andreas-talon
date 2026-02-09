@@ -4,9 +4,9 @@ mod = Module()
 gaze_detected = False
 
 
-def on_gaze(a):
+def on_gaze(e):
     global gaze_detected
-    x, y = a.gaze
+    x, y = e.gaze
 
     if x or y:
         gaze_detected = True
