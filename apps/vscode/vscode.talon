@@ -85,11 +85,25 @@ panel debug:                user.run_rpc_command("workbench.debug.action.toggleR
 panel clear:                user.run_rpc_command("workbench.debug.panel.action.clearReplAction")
 
 # Chat
-chat (show | hide):         user.run_rpc_command("workbench.panel.chat")
+chat show:
+    user.run_rpc_command("workbench.action.chat.open")
+    user.run_rpc_command("workbench.action.restoreAuxiliaryBar")
+codex show:
+    user.run_rpc_command("chatgpt.sidebarView.focus")
+    user.run_rpc_command("workbench.action.restoreAuxiliaryBar")
+chat full:
+    user.run_rpc_command("workbench.action.chat.open")
+    user.run_rpc_command("workbench.action.maximizeAuxiliaryBar")
+codex full:
+    user.run_rpc_command("chatgpt.sidebarView.focus")
+    user.run_rpc_command("workbench.action.maximizeAuxiliaryBar")
+(chat | codex) hide:
+    user.run_rpc_command("workbench.action.closeAuxiliaryBar")
 
-# Hide sidebar and panel
+# Hide sidebars, panel and widgets
 hide all:
     user.run_rpc_command("workbench.action.closeSidebar")
+    user.run_rpc_command("workbench.action.closeAuxiliaryBar")
     user.run_rpc_command("workbench.action.closePanel")
     user.run_rpc_command("closeFindWidget")
 
