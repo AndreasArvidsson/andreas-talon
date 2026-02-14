@@ -55,6 +55,7 @@ def close_editor(submit_draft: bool):
     global last_draft
 
     if not actions.win.filename().startswith("Untitled-"):
+        print("Cannot submit draft: Not in a draft editor")
         return
 
     if submit_draft:
