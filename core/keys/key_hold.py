@@ -24,7 +24,7 @@ class Actions:
 
     def key_release(key: str):
         """Stop repeating key"""
-        job = repeated_key_jobs[key]
+        job = repeated_key_jobs.get(key)
 
         if job is not None:
             cron.cancel(job)

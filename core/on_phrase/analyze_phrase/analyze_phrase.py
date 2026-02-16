@@ -115,7 +115,7 @@ def get_commands_from_sim(phrase_text: str) -> list[CommandImpl]:
 
 def get_command_from_path(path: str, rule: str) -> CommandImpl:
     context_name = path.replace(os.path.sep, ".")
-    if not context_name not in registry.contexts:
+    if context_name not in registry.contexts:
         raise Exception(f"Can't find context for path '{path}'")
     context = registry.contexts[context_name]
     commands = [c for c in context.commands.values() if c.rule.rule == rule]

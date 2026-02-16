@@ -177,7 +177,7 @@ def on_update_settings(updated_settings: set[str]):
 def on_ready():
     registry._modes.register("mode_change", on_mode_change)
     registry.register("update_settings", on_update_settings)
-    ui.register("screen_change", lambda _: update_indicator)
+    ui.register("screen_change", lambda _: update_indicator())
     on_mode_change({})
 
 
