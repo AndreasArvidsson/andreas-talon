@@ -72,9 +72,10 @@ class Actions:
 
 def set_scroll_speed(speed: int):
     global scroll_speed
-    scroll_speed = speed
+    scroll_speed = speed or 1
     actions.user.scroll_speed_show()
-    start_scroll_interval()
+    if scroll_job:
+        start_scroll_interval()
 
 
 def scroll_continuous(direction: str):

@@ -138,7 +138,7 @@ class PatternBuilder:
         if 'grace_threshold' in pattern:
             for key in pattern['grace_threshold']:
                 if key not in self.possible_thresholds:
-                    logging.warning("[parrot] unknown grace threshold key: {repr(key)}")
+                    logging.warning(f"[parrot] unknown grace threshold key: {repr(key)}")
             graceperiod_detection_calls = self.generate_matching_functions(pattern['grace_threshold'], pattern['sounds'])
         else:
             graceperiod_detection_calls = copy(detection_calls)

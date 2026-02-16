@@ -44,7 +44,7 @@ def on_pre_phrase(phrase):
 
     if expected:
         if filename not in expected:
-            print("--- MISSING EXPECTED: {filename}")
+            print(f"--- MISSING EXPECTED: {filename}")
         else:
             ext = expected[filename]
             res += f"{ext}{delimiter}"
