@@ -95,7 +95,8 @@ def cycle_windows(app: ui.App, diff: int):
         try:
             actions.user.focus_window(windows[i])
             break
-        except Exception:
+        except Exception as e:
+            print(e)
             i = (i + diff) % len(windows)
 
 
@@ -114,6 +115,8 @@ def is_window_valid(window: ui.Window) -> bool:
         not window.hidden
         # On Windows, there are many fake windows with empty titles -- this excludes them.
         and window.title != ""
+        # Exclude some windows that are technically valid but not actual windows, such as the "Chrome Legacy Window" which is used for rendering in Chrome and is not an actual window.
+        and window.title != "Chrome Legacy Window"
         # This excludes many tiny windows that are not actual windows, and is a rough heuristic.
         and window.rect.width > window.screen.dpi
         and window.rect.height > window.screen.dpi
