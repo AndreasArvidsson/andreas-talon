@@ -157,7 +157,7 @@ def get_capture_mapping(capture: Capture) -> dict[str, Any]:
     mapping = {}
 
     for k, v in capture._mapping.items():
-        if not k.endswith("_list") and not "." in k:
+        if not k.endswith("_list") and "." not in k:
             mapping[k] = v
 
     return mapping
