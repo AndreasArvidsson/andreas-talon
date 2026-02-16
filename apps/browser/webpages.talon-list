@@ -94,4 +94,4 @@ teams:                https://teams.microsoft.com
 vpn:                  https://vpn.redpill-linpro.com
 wildly tunnel:        http://localhost:10190
 xledger:              https://xledger.net
-zimbra:               https://zimbra.redpill-linpro.com
+zimbra:               https://zimbra.redpill-linpro.com/zimbra/?client=advanced
