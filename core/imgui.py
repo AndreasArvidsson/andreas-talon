@@ -366,7 +366,8 @@ class GUI:
         self._elements = []
         self._callback(self)
         self._draw_background(canvas)
-        scale = settings.get("imgui.scale") * (
+        imgui_scale: float = settings.get("imgui.scale", 1)
+        scale = imgui_scale * (
             self._screen_current.scale if app.platform != "mac" else 1
         )
         font_size = FONT_SIZE * scale
@@ -388,15 +389,15 @@ class GUI:
         if canvas.width != state.get_width() or canvas.height != state.get_height():
             self._resize(state.get_width(), state.get_height())
 
-    def _resize(self, width: int or float, height: int or float):
+    def _resize(self, width: int | float, height: int | float):
         screen = self._screen_current
-        if self._x_moved:
+        if self._x_moved is not None:
             x = self._x_moved
         elif self._x is not None:
             x = screen.x + screen.width * self._x
         else:
             x = screen.x + max(0, (screen.width - width) / 2)
-        if self._y_moved:
+        if self._y_moved is not None:
             y = self._y_moved
         elif self._y is not None:
             y = screen.y + screen.height * self._y
