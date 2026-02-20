@@ -72,9 +72,6 @@ class EditActions:
         actions.next()
 
     # ----- Line commands -----
-    def line_insert_down():
-        actions.key("end shift-enter")
-
     def line_swap_up():
         actions.user.run_rpc_command("editor.action.moveLinesUpAction")
 
