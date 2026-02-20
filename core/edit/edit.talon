@@ -73,7 +73,8 @@ spam:                       ", "
 stacker:                    ": "
 period:                     ". "
 dasher:                     " - "
-arrow:                      user.insert_arrow()
+arrow:                      " -> "
+fat arrow:                  " => "
 
 # edit test insert:           user.edit_test_insert()
 # edit test paste:            user.edit_test_paste()

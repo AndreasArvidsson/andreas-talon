@@ -123,10 +123,6 @@ ctx.lists["user.code_keyword"] = {
 
 @ctx.action_class("user")
 class UserActions:
-    # Miscellaneous statements
-    def insert_arrow():
-        actions.insert(" -> ")
-
     # Class statement
     def code_class(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name("classDeclaration", {"name": name})

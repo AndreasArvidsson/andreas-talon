@@ -137,10 +137,6 @@ class Actions:
 
         actions.insert(text)
 
-    def insert_arrow():
-        """Insert arrow symbol"""
-        actions.insert(" => ")
-
     def insert_symbol_and_break_at_end(symbol: str):
         """Add <symbol> at end of line and then insert line below"""
         actions.edit.line_end()
