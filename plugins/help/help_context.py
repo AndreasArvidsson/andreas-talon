@@ -64,7 +64,7 @@ def update_title():
 
     if live_update:
         if gui_context_help.showing:
-            if selected_context == None:
+            if selected_context is None:
                 refresh_context_command_map(show_enabled_contexts_only)
             else:
                 update_active_contexts_cache(registry.last_active_contexts)
@@ -593,7 +593,7 @@ class Actions:
         global selected_context
 
         if gui_context_help.showing:
-            if selected_context == None:
+            if selected_context is None:
                 refresh_context_command_map(show_enabled_contexts_only)
             else:
                 update_active_contexts_cache(registry.last_active_contexts)
