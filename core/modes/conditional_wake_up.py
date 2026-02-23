@@ -40,7 +40,7 @@ class Actions:
             return
 
         gaze_detected = False
-        event_triggered = True
+        event_triggered = False
 
         tracking_system.register("gaze", on_gaze)
 
