@@ -41,7 +41,7 @@ def screenshot_rect(rect: ui.Rect, title: str = ""):
     flash_rect(rect)
     img = screen.capture_rect(rect)
     path = get_screenshot_path(title)
-    img.write_file(path)
+    img.save(path)
 
 
 def clipboard_rect(rect: ui.Rect):
@@ -72,7 +72,7 @@ def flash_rect(rect: ui.Rect):
 
 
 def get_screen(screen_number: int = None) -> ui.Screen:
-    if screen_number == None:
+    if screen_number is None:
         return screen.main_screen()
     return actions.user.screen_get_by_number(screen_number)
 
