@@ -138,6 +138,10 @@ class UserActions:
             snippet += " = $0"
         actions.user.insert_snippet(snippet)
 
+    # Miscellaneous statements
+    def insert_arrow():
+        actions.insert(" => ")
+
 
 @mod.action_class
 class Actions:

@@ -176,3 +176,7 @@ class Actions:
         actions.edit.left()
         actions.insert(f"{text} ")
         actions.edit.left()
+
+    def insert_arrow():
+        """Insert arrow symbol"""
+        actions.insert(" -> ")
