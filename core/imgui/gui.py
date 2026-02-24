@@ -29,8 +29,6 @@ class GUI:
         self._screen = screen
         self._x = x
         self._y = y
-        self._x_moved = None
-        self._y_moved = None
         self._screen_current = None
         self._canvas = None
         self._last_mouse_pos = None
@@ -120,30 +118,27 @@ class GUI:
         width: int | float,
         height: int | float,
     ):
-        if self._x_moved is not None:
-            x = self._x_moved
-        elif self._x is not None:
-            x = screen.x + screen.width * self._x
+        if self._canvas is None:
+            return
+        if self._x is not None:
+            x = self._x
         else:
             x = screen.x + max(0, (screen.width - width) / 2)
-        if self._y_moved is not None:
-            y = self._y_moved
-        elif self._y is not None:
-            y = screen.y + screen.height * self._y
+        if self._y is not None:
+            y = self._y
         else:
             y = screen.y + max(0, (screen.height - height) / 2)
-        if self._canvas is not None:
-            self._canvas.rect = Rect(x, y, width, height)
+        self._canvas.rect = Rect(x, y, width, height)
 
     def _move(self, dx: float, dy: float):
         if self._canvas is None:
             return
-        self._x_moved = self._canvas.rect.x + dx
-        self._y_moved = self._canvas.rect.y + dy
+        self._x = self._canvas.rect.x + dx
+        self._y = self._canvas.rect.y + dy
         center_x = self._canvas.rect.center.x + dx
         center_y = self._canvas.rect.center.y + dy
         self._screen_current = ui.screen_containing(center_x, center_y)
-        self._canvas.move(self._x_moved, self._y_moved)
+        self._canvas.move(self._x, self._y)
 
     def _draw_background(self, canvas):
         rrect = RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
