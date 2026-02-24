@@ -1,13 +1,13 @@
 from talon import Module, Context, actions, registry
-from ...core.imgui import imgui
+from ...core import imgui
 
 mod = Module()
 ctx = Context()
 
 mod.tag("help_search", "Help search gui is showing")
 
-search_text = None
-search_type = None
+search_text = ""
+search_type = ""
 
 
 @imgui.open()

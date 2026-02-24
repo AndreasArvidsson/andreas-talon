@@ -18,7 +18,7 @@ def open(
     return open_inner
 
 
-# @imgui.open(numbered=True, x=0.7, y=0.3)
+# @open(x=0.7, y=0.3)
 # def gui(gui: GUI):
 #     gui.header("Some header")
 #     gui.line(bold=True)
@@ -39,9 +39,6 @@ def open(
 #             )
 #             state.add_height(state.font_size)"""
 #     )
-
 #     if gui.button("some text"):
 #         print("Hide")
-
-
 # gui.show()
