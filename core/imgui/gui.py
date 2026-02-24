@@ -41,25 +41,13 @@ class GUI:
     def showing(self) -> bool:
         return self._canvas is not None
 
-    def show(
-        self,
-        screen: Screen | None = None,
-        x: float | None = None,
-        y: float | None = None,
-    ):
-        if x is not None:
-            self._x = x
-            self._x_moved = None
-        if y is not None:
-            self._y = y
-            self._y_moved = None
-
-        self._screen_current = screen or self._screen or get_active_screen()
-        self._last_mouse_pos = None
-
+    def show(self):
         # Already showing
         if self._canvas is not None:
             return
+
+        self._screen_current = self._screen or get_active_screen()
+        self._last_mouse_pos = None
 
         # Initializes at minimum size so to calculate and set correct size later
         self._canvas = Canvas(self._screen_current.x, self._screen_current.y, 1, 1)
@@ -67,6 +55,26 @@ class GUI:
         self._canvas.blocks_mouse = True
         self._canvas.register("draw", self._draw)
         self._canvas.register("mouse", self._mouse)
+
+    def move(
+        self,
+        screen: Screen | None = None,
+        x: float | None = None,
+        y: float | None = None,
+    ):
+        if screen is not None:
+            self._screen = screen
+        if x is not None:
+            self._x = x
+            self._x_moved = None
+        if y is not None:
+            self._y = y
+            self._y_moved = None
+
+        if self.showing:
+            if self._screen is None:
+                self._screen_current = get_active_screen()
+            self._move(0, 0)
 
     def freeze(self):
         if self._canvas is not None:
