@@ -72,8 +72,6 @@ class GUI:
             self._y_moved = None
 
         if self.showing:
-            if self._screen is None:
-                self._screen_current = get_active_screen()
             self._move(0, 0)
 
     def freeze(self):
