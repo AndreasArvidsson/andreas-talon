@@ -1,7 +1,7 @@
 from collections import defaultdict
 import math
 from typing import Any, Iterable, Tuple
-from talon import Module, Context, actions, registry, ui, app, settings
+from talon import Module, Context, actions, registry, ui, app
 from ...core import imgui
 import re
 
@@ -24,11 +24,11 @@ mod.setting(
 
 
 def setting_help_max_contexts_per_page() -> int:
-    return settings.get("user.help_max_contexts_per_page")
+    return actions.settings.get("user.help_max_contexts_per_page")
 
 
 def setting_help_max_command_lines_per_page() -> int:
-    return settings.get("user.help_max_command_lines_per_page")
+    return actions.settings.get("user.help_max_command_lines_per_page")
 
 
 ctx = Context()

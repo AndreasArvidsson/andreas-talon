@@ -1,4 +1,4 @@
-from talon import Module, actions, settings
+from talon import Module, actions
 from typing import Optional, Union
 
 mod = Module()
@@ -81,15 +81,15 @@ class Actions:
     # ----- Formatting getters -----
     def code_get_class_format() -> str:
         """Get class format"""
-        return settings.get("user.code_class_formatter")  # type: ignore
+        return actions.settings.get("user.code_class_formatter")  # type: ignore
 
     def code_get_function_format() -> str:
         """Get function format"""
-        return settings.get("user.code_function_formatter")  # type: ignore
+        return actions.settings.get("user.code_function_formatter")  # type: ignore
 
     def code_get_variable_format() -> str:
         """Get variable format"""
-        return settings.get("user.code_variable_formatter")  # type: ignore
+        return actions.settings.get("user.code_variable_formatter")  # type: ignore
 
     # ----- Text getters -----
     def code_get_class_name() -> Optional[str]:

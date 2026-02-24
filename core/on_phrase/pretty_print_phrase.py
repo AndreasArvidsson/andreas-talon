@@ -1,4 +1,4 @@
-from talon import Module, settings
+from talon import Module, actions
 from .analyze_phrase.types import AnalyzedPhrase
 
 mod = Module()
@@ -13,7 +13,7 @@ mod.setting(
 
 def pretty_print_phrase(analyzed_phrase: AnalyzedPhrase):
     """Pretty prints the analyzed phrase and its commands"""
-    if not settings.get("user.pretty_print_phrase"):
+    if not actions.settings.get("user.pretty_print_phrase"):
         return
 
     print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")

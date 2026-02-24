@@ -1,4 +1,4 @@
-from talon import Module, speech_system, actions, settings
+from talon import Module, speech_system, actions
 from talon.grammar import Phrase
 from .abort.abort import abort_update_phrase
 from .analyze_phrase.analyze_phrase import analyze_phrase
@@ -33,7 +33,7 @@ def on_pre_phrase(phrase: Phrase):
 
 
 def on_post_phrase(phrase: Phrase):
-    if not settings.get("user.analyze_phrase") or skip_phrase(phrase):
+    if not actions.settings.get("user.analyze_phrase") or skip_phrase(phrase):
         return
 
     try:

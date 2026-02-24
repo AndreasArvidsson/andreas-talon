@@ -1,4 +1,4 @@
-from talon import Module, actions, app, ui, cron, settings, ctrl
+from talon import Module, actions, app, ui, cron, ctrl
 from talon.canvas import Canvas
 from talon.types import Rect
 from skia import Canvas as SkiaCanvas
@@ -97,7 +97,7 @@ def mouse_scroll_continuous(new_scroll_dir: Literal[-1, 1]):
 
 
 def scroll_continuous_helper():
-    scroll_speed = scroll_step * settings.get("user.scroll_speed")  # type: ignore
+    scroll_speed = scroll_step * actions.settings.get("user.scroll_speed")
     acceleration_speed = 1 + min((time.perf_counter() - scroll_ts) / 0.5, 4)
     y = scroll_speed * acceleration_speed * scroll_dir
     actions.mouse_scroll(y)

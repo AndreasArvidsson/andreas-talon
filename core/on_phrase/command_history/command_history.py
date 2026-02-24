@@ -1,4 +1,4 @@
-from talon import Module, ui, settings
+from talon import Module, ui, actions
 from dataclasses import dataclass
 import time
 from ... import imgui
@@ -17,7 +17,7 @@ ttl_setting = 0
 class HistoryEntry:
     phrase: str
     actions: list
-    ttl: int
+    ttl: float
     phrase_start: bool
 
 
@@ -44,7 +44,7 @@ def command_history_append(analyzed_phrase: AnalyzedPhrase):
     ttl = time.monotonic() + ttl_setting
     for i, cmd in enumerate(analyzed_phrase.commands):
         history.append(HistoryEntry(cmd.phrase, cmd.actions, ttl, i == 0))
-    size = settings.get("user.command_history_size")
+    size = actions.settings.get("user.command_history_size")
     history = history[-size:]
 
 

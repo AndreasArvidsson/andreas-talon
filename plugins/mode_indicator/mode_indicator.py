@@ -1,4 +1,4 @@
-from talon import Module, Context, app, registry, scope, ui, actions, settings
+from talon import Module, Context, app, registry, scope, ui, actions
 from talon.canvas import Canvas
 from talon.screen import Screen
 from skia import Canvas as SkiaCanvas, ImageFilter, Shader
@@ -132,7 +132,7 @@ def hide_indicator():
 
 
 def update_indicator():
-    if settings.get("user.mode_indicator_show"):
+    if actions.settings.get("user.mode_indicator_show"):
         if not canvas:
             show_indicator()
         move_indicator()

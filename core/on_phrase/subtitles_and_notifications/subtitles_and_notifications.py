@@ -1,4 +1,4 @@
-from talon import Module, app, ui, cron, settings, ctrl
+from talon import Module, app, ui, cron, actions, ctrl
 from talon.canvas import Canvas
 from skia import Canvas as SkiaCanvas, ImageFilter
 from talon.types import Rect
@@ -20,8 +20,8 @@ def setting(
 
     def callback(is_subtitle: bool):
         if is_subtitle:
-            return settings.get(f"user.subtitles_{name}")
-        return settings.get(f"user.notifications_{name}")
+            return actions.settings.get(f"user.subtitles_{name}")
+        return actions.settings.get(f"user.notifications_{name}")
 
     return callback
 

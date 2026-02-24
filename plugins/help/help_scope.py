@@ -1,4 +1,4 @@
-from talon import Module, actions, scope, settings
+from talon import Module, actions, scope
 from ...core import imgui
 
 mod = Module()
@@ -52,7 +52,7 @@ def format_value(value):
     if isinstance(value, list) or isinstance(value, set):
         value = ", ".join(sorted(value))
     if isinstance(value, str):
-        max_length = settings.get("user.help_scope_max_length")
+        max_length = actions.settings.get("user.help_scope_max_length")
         if len(value) > max_length + 4:
             return f"{value[:max_length]} ..."
     return value
