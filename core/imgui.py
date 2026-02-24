@@ -1,10 +1,14 @@
-from talon import Module, ui, app, settings
-from skia import Image as SkiaImage, Canvas as SkiaCanvas, RoundRect
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Callable, Optional, Union
+
+from skia import Canvas as SkiaCanvas
+from skia import Image as SkiaImage
+from skia import RoundRect
+from talon import Module, app, settings, ui
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.types import Rect
-from typing import Callable, Optional, Union
-from dataclasses import dataclass
 
 FONT_FAMILY = "Segoe UI Symbol"
 FONT_SIZE = 14
@@ -67,7 +71,19 @@ class State:
         return round(self.font_size * number)
 
 
-class Text:
+class Widget(ABC):
+    clickable: bool = False
+    numbered: bool = False
+    rect: Rect | None
+
+    @abstractmethod
+    def draw(self, state: State) -> None: ...
+
+    def click(self) -> None:
+        pass
+
+
+class Text(Widget):
     def __init__(self, text: str, clickable: bool, header: bool):
         self.numbered = not header
         self.text = text
@@ -140,21 +156,21 @@ class Text:
         state.canvas.draw_text(text, x, y)
 
 
-class Button:
+class Button(Widget):
     def __init__(self, text: str):
         self.numbered = False
         self.text = text
         self.rect = None
         self.clickable = True
-        self._is_clicked = False
+        self._clicked = False
 
-    def is_clicked(self):
-        is_clicked = self._is_clicked
-        self._is_clicked = False
-        return is_clicked
+    def clicked(self):
+        res = self._clicked
+        self._clicked = False
+        return res
 
     def click(self):
-        self._is_clicked = self.clickable
+        self._clicked = self.clickable
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
@@ -190,22 +206,22 @@ class Button:
         state.add_height(height + state.padding)
 
 
-class Image:
+class Image(Widget):
     def __init__(self, image: SkiaImage, clickable: bool):
         self.numbered = True
         self._imageOriginal = image
         self._image = image
         self.rect = None
         self.clickable = clickable
-        self._is_clicked = False
+        self._clicked = False
 
-    def is_clicked(self):
-        is_clicked = self._is_clicked
-        self._is_clicked = False
-        return is_clicked
+    def clicked(self):
+        res = self._clicked
+        self._clicked = False
+        return res
 
     def click(self):
-        self._is_clicked = self.clickable
+        self._clicked = self.clickable
 
     def _resize(self, state: State):
         max_width = state.screen.width * MAX_IMAGE_WIDTH
@@ -244,7 +260,7 @@ class Image:
         state.add_height(self._image.height + state.padding)
 
 
-class Line:
+class Line(Widget):
     def __init__(self, bold: bool):
         self.numbered = False
         self.bold = bold
@@ -260,7 +276,7 @@ class Line:
         state.add_height(state.font_size)
 
 
-class Spacer:
+class Spacer(Widget):
     def __init__(self):
         self.numbered = False
         self.rect = None
@@ -285,42 +301,41 @@ class GUI:
         self._numbered = numbered
         self._x_moved = None
         self._y_moved = None
-        self._showing = False
         self._screen_current = None
+        self._canvas = None
+        self._last_mouse_pos = None
         self._buttons: dict[str, Button] = {}
         self._texts: dict[str, Text] = {}
         self._images: dict[int, Image] = {}
-        self._canvas = None
-        self._last_mouse_pos = None
-        self._elements = []
+        self._widgets: list[Widget] = []
 
     @property
-    def showing(self):
-        return self._showing
+    def showing(self) -> bool:
+        return self._canvas is not None
 
     def show(self):
         self._screen_current = self._get_active_screen()
+        self._last_mouse_pos = None
         # Initializes at minimum size so to calculate and set correct size later
         self._canvas = Canvas(self._screen_current.x, self._screen_current.y, 1, 1)
-        self._showing = True
         self._canvas.draggable = True
         self._canvas.blocks_mouse = True
-        self._last_mouse_pos = None
         self._canvas.register("draw", self._draw)
         self._canvas.register("mouse", self._mouse)
 
     def freeze(self):
-        self._canvas.freeze()
+        if self._canvas is not None:
+            self._canvas.freeze()
 
     def hide(self):
-        if self._showing:
+        if self._canvas is not None:
             self._canvas.unregister("draw", self._draw)
             self._canvas.unregister("mouse", self._mouse)
             self._canvas.close()
+            self.canvas = None
             self._buttons = {}
             self._texts = {}
             self._images = {}
-            self._showing = False
 
     def text(self, text: str, clickable=False) -> bool:
         return self._text(text, clickable, header=False)
@@ -330,40 +345,44 @@ class GUI:
 
     def _text(self, text: str, clickable: bool, header: bool) -> bool:
         if text in self._texts:
-            element = self._texts[text]
+            widget = self._texts[text]
         else:
-            element = Text(text, clickable, header)
-            self._texts[text] = element
-        self._elements.append(element)
-        return element.is_clicked()
+            widget = Text(text, clickable, header)
+            self._texts[text] = widget
+        self._widgets.append(widget)
+        return widget.is_clicked()
 
     def button(self, text: str) -> bool:
         if text in self._buttons:
-            element = self._buttons[text]
+            widget = self._buttons[text]
         else:
-            element = Button(text)
-            self._buttons[text] = element
-        self._elements.append(element)
-        return element.is_clicked()
+            widget = Button(text)
+            self._buttons[text] = widget
+        self._widgets.append(widget)
+        return widget.clicked()
 
     def image(self, image, clickable=False):
         if image.unique_id in self._images:
-            element = self._images[image.unique_id]
+            widget = self._images[image.unique_id]
         else:
-            element = Image(image, clickable)
-            self._images[image.unique_id] = element
-        self._elements.append(element)
-        return element.is_clicked()
+            widget = Image(image, clickable)
+            self._images[image.unique_id] = widget
+        self._widgets.append(widget)
+        return widget.clicked()
 
-    def line(self, bold: Optional[bool] = False):
-        self._elements.append(Line(bold))
+    def line(self, bold: bool = False):
+        self._widgets.append(Line(bold))
 
     def spacer(self):
-        self._elements.append(Spacer())
+        self._widgets.append(Spacer())
 
     def _draw(self, canvas):
+        # Should not happen
+        if self._screen_current is None:
+            return
+
         canvas.paint.typeface = FONT_FAMILY
-        self._elements = []
+        self._widgets = []
         self._callback(self)
         self._draw_background(canvas)
         imgui_scale: float = settings.get("imgui.scale", 1)
@@ -374,8 +393,8 @@ class GUI:
         state = State(self._screen_current, canvas, font_size, self._numbered)
         number = 1
 
-        if self._elements:
-            for el in self._elements:
+        if self._widgets:
+            for el in self._widgets:
                 y_start = state.y
                 el.draw(state)
                 if self._numbered and el.numbered:
@@ -387,10 +406,18 @@ class GUI:
 
         # Resize to fit content
         if canvas.width != state.get_width() or canvas.height != state.get_height():
-            self._resize(state.get_width(), state.get_height())
+            self._resize(
+                self._screen_current,
+                state.get_width(),
+                state.get_height(),
+            )
 
-    def _resize(self, width: int | float, height: int | float):
-        screen = self._screen_current
+    def _resize(
+        self,
+        screen: Screen,
+        width: int | float,
+        height: int | float,
+    ):
         if self._x_moved is not None:
             x = self._x_moved
         elif self._x is not None:
@@ -403,10 +430,12 @@ class GUI:
             y = screen.y + screen.height * self._y
         else:
             y = screen.y + max(0, (screen.height - height) / 2)
-        if self._showing:
+        if self._canvas is not None:
             self._canvas.rect = Rect(x, y, width, height)
 
     def _move(self, dx: float, dy: float):
+        if self._canvas is None:
+            return
         self._x_moved = self._canvas.rect.x + dx
         self._y_moved = self._canvas.rect.y + dy
         center_x = self._canvas.rect.center.x + dx
@@ -427,8 +456,8 @@ class GUI:
 
     def _mouse(self, e: MouseEvent):
         if e.event == "mousedown" and e.button == 0:
-            element = self._get_element(e.gpos)
-            if not element or not element.clickable:
+            widget = self._get_widget(e.gpos)
+            if not widget or not widget.clickable:
                 self._last_mouse_pos = e.gpos
         elif e.event == "mousemove" and self._last_mouse_pos:
             dx = e.gpos.x - self._last_mouse_pos.x
@@ -437,14 +466,14 @@ class GUI:
             self._move(dx, dy)
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
-            element = self._get_element(e.gpos)
-            if element and element.clickable:
-                element.click()
+            widget = self._get_widget(e.gpos)
+            if widget and widget.clickable:
+                widget.click()
 
-    def _get_element(self, pos):
-        for el in self._elements:
-            if el.rect and el.rect.contains(pos.x, pos.y):
-                return el
+    def _get_widget(self, pos):
+        for w in self._widgets:
+            if w.rect and w.rect.contains(pos.x, pos.y):
+                return w
         return None
 
     def _get_active_screen(self) -> Screen:
@@ -458,7 +487,7 @@ class GUI:
 
 @dataclass
 class ImGUI:
-    GUI: GUI
+    GUI: type[GUI]
 
     @classmethod
     def open(
