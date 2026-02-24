@@ -1,5 +1,3 @@
-from talon.types import Rect
-
 from .props import text_color
 from .state import State
 from .widget import Widget
@@ -9,8 +7,6 @@ class Text(Widget):
     def __init__(self, text: str, header: bool):
         self.text = text
         self.header = header
-        self.rect = None
-        self._clicked = False
 
     def draw(self, state: State):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
@@ -18,8 +14,6 @@ class Text(Widget):
         state.canvas.paint.textsize = state.font_size
         state.canvas.paint.color = text_color
         x = state.x if self.header else state.x_text
-        start_x = state.x
-        start_y = state.y
         width = 0
         height = 0
 
@@ -38,12 +32,5 @@ class Text(Widget):
             state.add_height(state.font_size)
             width = max(width, rect.x + rect.width)
             height += state.font_size
-
-        self.rect = Rect(
-            start_x,
-            start_y,
-            width + x - start_x,
-            height + state.padding / 2,
-        )
 
         state.add_height(state.padding)

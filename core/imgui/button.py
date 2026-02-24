@@ -8,9 +8,8 @@ from .widget import Widget
 
 class Button(Widget):
     def __init__(self, text: str):
-        self.numbered = False
         self.text = text
-        self.rect = None
+        self.rect: Rect | None = None
         self._clicked = False
 
     def clicked(self):

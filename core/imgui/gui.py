@@ -29,6 +29,8 @@ class GUI:
         self._screen = screen
         self._x = x
         self._y = y
+        self._x_moved = None
+        self._y_moved = None
         self._screen_current = None
         self._canvas = None
         self._last_mouse_pos = None
@@ -39,9 +41,26 @@ class GUI:
     def showing(self) -> bool:
         return self._canvas is not None
 
-    def show(self):
-        self._screen_current = self._screen or get_active_screen()
+    def show(
+        self,
+        screen: Screen | None = None,
+        x: float | None = None,
+        y: float | None = None,
+    ):
+        if x is not None:
+            self._x = x
+            self._x_moved = None
+        if y is not None:
+            self._y = y
+            self._y_moved = None
+
+        self._screen_current = screen or self._screen or get_active_screen()
         self._last_mouse_pos = None
+
+        # Already showing
+        if self._canvas is not None:
+            return
+
         # Initializes at minimum size so to calculate and set correct size later
         self._canvas = Canvas(self._screen_current.x, self._screen_current.y, 1, 1)
         self._canvas.draggable = True
@@ -70,12 +89,13 @@ class GUI:
     def image(self, image):
         self._widgets.append(Image(image))
 
-    def button(self, text: str) -> bool:
-        if text in self._buttons:
-            button = self._buttons[text]
+    def button(self, text: str, id: str | None = None) -> bool:
+        key = id or text
+        if key in self._buttons:
+            button = self._buttons[key]
         else:
             button = Button(text)
-            self._buttons[text] = button
+            self._buttons[key] = button
         self._widgets.append(button)
         return button.clicked()
 
@@ -106,39 +126,36 @@ class GUI:
 
         # Resize to fit content
         if canvas.width != state.get_width() or canvas.height != state.get_height():
-            self._resize(
-                self._screen_current,
-                state.get_width(),
-                state.get_height(),
-            )
+            self._resize(self._screen_current, state.get_width(), state.get_height())
 
-    def _resize(
-        self,
-        screen: Screen,
-        width: int | float,
-        height: int | float,
-    ):
+    def _resize(self, screen: Screen, width: int, height: int):
+        # Should not happen
         if self._canvas is None:
             return
-        if self._x is not None:
-            x = self._x
+        if self._x_moved is not None:
+            x = self._x_moved
+        elif self._x is not None:
+            x = screen.x + screen.width * self._x
         else:
             x = screen.x + max(0, (screen.width - width) / 2)
-        if self._y is not None:
-            y = self._y
+        if self._y_moved is not None:
+            y = self._y_moved
+        elif self._y is not None:
+            y = screen.y + screen.height * self._y
         else:
             y = screen.y + max(0, (screen.height - height) / 2)
         self._canvas.rect = Rect(x, y, width, height)
 
     def _move(self, dx: float, dy: float):
+        # Should not happen
         if self._canvas is None:
             return
-        self._x = self._canvas.rect.x + dx
-        self._y = self._canvas.rect.y + dy
+        self._x_moved = self._canvas.rect.x + dx
+        self._y_moved = self._canvas.rect.y + dy
         center_x = self._canvas.rect.center.x + dx
         center_y = self._canvas.rect.center.y + dy
         self._screen_current = ui.screen_containing(center_x, center_y)
-        self._canvas.move(self._x, self._y)
+        self._canvas.move(self._x_moved, self._y_moved)
 
     def _draw_background(self, canvas):
         rrect = RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
@@ -156,11 +173,13 @@ class GUI:
             button = self._get_button(e.gpos)
             if button is None:
                 self._last_mouse_pos = e.gpos
+
         elif e.event == "mousemove" and self._last_mouse_pos:
             dx = e.gpos.x - self._last_mouse_pos.x
             dy = e.gpos.y - self._last_mouse_pos.y
             self._last_mouse_pos = e.gpos
             self._move(dx, dy)
+
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
             button = self._get_button(e.gpos)
@@ -170,5 +189,7 @@ class GUI:
     def _get_button(self, pos):
         for w in self._buttons.values():
             if w.rect is not None and w.rect.contains(pos.x, pos.y):
-                return w
+                # self._buttons could contain removed buttons. Check if button is still in widgets before returning.
+                if w in self._widgets:
+                    return w
         return None

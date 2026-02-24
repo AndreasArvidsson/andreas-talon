@@ -41,4 +41,6 @@ def open(
 #     )
 #     if gui.button("some text"):
 #         print("Hide")
+#     if gui.button("some text", id="other"):
+#         print("other")
 # gui.show()
