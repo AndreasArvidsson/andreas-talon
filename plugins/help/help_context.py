@@ -1,8 +1,8 @@
 from collections import defaultdict
 import math
 from typing import Any, Iterable, Tuple
-from talon import Module, Context, actions, Module, registry, ui, app, settings
-from ...core.imgui import imgui
+from talon import Module, Context, actions, registry, ui, app, settings
+from ...core import imgui
 import re
 
 mod = Module()

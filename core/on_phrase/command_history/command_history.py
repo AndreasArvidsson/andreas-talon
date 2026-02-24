@@ -1,7 +1,7 @@
 from talon import Module, ui, settings
 from dataclasses import dataclass
 import time
-from ...imgui import imgui
+from ... import imgui
 from ..analyze_phrase.types import AnalyzedPhrase
 
 mod = Module()

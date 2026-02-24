@@ -1,5 +1,5 @@
-from talon import scope, app, registry
-from ...core.imgui import imgui
+from talon import scope, registry
+from ...core import imgui
 
 
 def get_list(name):
