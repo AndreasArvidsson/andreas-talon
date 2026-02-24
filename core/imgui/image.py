@@ -7,21 +7,12 @@ from .widget import Widget
 
 
 class Image(Widget):
-    def __init__(self, image: SkiaImage, clickable: bool):
+    def __init__(self, image: SkiaImage):
         self.numbered = True
         self._imageOriginal = image
         self._image = image
         self.rect = None
-        self.clickable = clickable
         self._clicked = False
-
-    def clicked(self):
-        res = self._clicked
-        self._clicked = False
-        return res
-
-    def click(self):
-        self._clicked = self.clickable
 
     def _resize(self, state: State):
         max_width = state.screen.width * MAX_IMAGE_WIDTH

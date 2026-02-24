@@ -6,20 +6,11 @@ from .widget import Widget
 
 
 class Text(Widget):
-    def __init__(self, text: str, clickable: bool, header: bool):
+    def __init__(self, text: str, header: bool):
         self.text = text
         self.header = header
         self.rect = None
-        self.clickable = clickable
         self._clicked = False
-
-    def clicked(self):
-        is_clicked = self._clicked
-        self._clicked = False
-        return is_clicked
-
-    def click(self):
-        self._clicked = self.clickable
 
     def draw(self, state: State):
         state.canvas.paint.style = state.canvas.paint.Style.FILL

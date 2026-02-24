@@ -1,7 +1,7 @@
 from typing import Callable
 
 from skia import RoundRect
-from talon import actions, app, ui
+from talon import ui
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
 from talon.types import Rect
@@ -13,6 +13,7 @@ from .props import FONT_FAMILY, FONT_SIZE, background_color, border_color, borde
 from .spacer import Spacer
 from .state import State
 from .text import Text
+from .utils import get_active_screen, get_screen_scale
 from .widget import Widget
 
 
@@ -34,14 +35,14 @@ class GUI:
         self._canvas = None
         self._last_mouse_pos = None
         self._widgets: list[Widget] = []
-        self._clickable_widgets: dict[str, Widget] = {}
+        self._buttons: dict[str, Button] = {}
 
     @property
     def showing(self) -> bool:
         return self._canvas is not None
 
     def show(self):
-        self._screen_current = self._get_active_screen()
+        self._screen_current = self._screen or get_active_screen()
         self._last_mouse_pos = None
         # Initializes at minimum size so to calculate and set correct size later
         self._canvas = Canvas(self._screen_current.x, self._screen_current.y, 1, 1)
@@ -60,53 +61,25 @@ class GUI:
             self._canvas.unregister("mouse", self._mouse)
             self._canvas.close()
             self._canvas = None
-            self._clickable_widgets = {}
+            self._buttons = {}
 
-    def text(self, text: str, clickable=False) -> bool:
-        return self._text(text, clickable, header=False)
+    def text(self, text: str):
+        self._widgets.append(Text(text, header=False))
 
-    def header(self, text: str, clickable=False) -> bool:
-        return self._text(text, clickable, header=True)
+    def header(self, text: str):
+        self._widgets.append(Text(text, header=True))
 
-    def _text(self, text: str, clickable: bool, header: bool) -> bool:
-        if not clickable:
-            widget = Text(text, clickable, header)
-            self._widgets.append(widget)
-            return False
-
-        id = f"text_{text}"
-        if id in self._clickable_widgets:
-            widget = self._clickable_widgets[id]
-        else:
-            widget = Text(text, clickable, header)
-            self._clickable_widgets[id] = widget
-        self._widgets.append(widget)
-        return widget.clicked()
+    def image(self, image):
+        self._widgets.append(Image(image))
 
     def button(self, text: str) -> bool:
-        id = f"button_{text}"
-        if id in self._clickable_widgets:
-            widget = self._clickable_widgets[id]
+        if text in self._buttons:
+            button = self._buttons[text]
         else:
-            widget = Button(text)
-            self._clickable_widgets[id] = widget
-        self._widgets.append(widget)
-        return widget.clicked()
-
-    def image(self, image, clickable=False):
-        if not clickable:
-            widget = Image(image, clickable)
-            self._widgets.append(widget)
-            return False
-
-        id = f"image_{image.unique_id}"
-        if id in self._clickable_widgets:
-            widget = self._clickable_widgets[id]
-        else:
-            widget = Image(image, clickable)
-            self._clickable_widgets[id] = widget
-        self._widgets.append(widget)
-        return widget.clicked()
+            button = Button(text)
+            self._buttons[text] = button
+        self._widgets.append(button)
+        return button.clicked()
 
     def line(self, bold: bool = False):
         self._widgets.append(Line(bold))
@@ -185,8 +158,8 @@ class GUI:
 
     def _mouse(self, e: MouseEvent):
         if e.event == "mousedown" and e.button == 0:
-            widget = self._get_widget(e.gpos)
-            if not widget or not widget.clickable:
+            button = self._get_button(e.gpos)
+            if button is None:
                 self._last_mouse_pos = e.gpos
         elif e.event == "mousemove" and self._last_mouse_pos:
             dx = e.gpos.x - self._last_mouse_pos.x
@@ -195,25 +168,12 @@ class GUI:
             self._move(dx, dy)
         elif e.event == "mouseup" and e.button == 0:
             self._last_mouse_pos = None
-            widget = self._get_widget(e.gpos)
-            if widget and widget.clickable:
-                widget.click()
+            button = self._get_button(e.gpos)
+            if button is not None:
+                button.click()
 
-    def _get_widget(self, pos):
-        for w in self._widgets:
-            if w.rect and w.rect.contains(pos.x, pos.y):
+    def _get_button(self, pos):
+        for w in self._buttons.values():
+            if w.rect is not None and w.rect.contains(pos.x, pos.y):
                 return w
         return None
-
-    def _get_active_screen(self) -> Screen:
-        if self._screen is not None:
-            return self._screen
-        try:
-            return ui.active_window().screen
-        except Exception:
-            return ui.main_screen()
-
-
-def get_screen_scale(screen: Screen) -> float:
-    imgui_scale: float = actions.settings.get("imgui.scale", 1)
-    return imgui_scale * (screen.scale if app.platform != "mac" else 1)

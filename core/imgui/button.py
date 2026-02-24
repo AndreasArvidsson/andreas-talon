@@ -11,7 +11,6 @@ class Button(Widget):
         self.numbered = False
         self.text = text
         self.rect = None
-        self.clickable = True
         self._clicked = False
 
     def clicked(self):
@@ -20,7 +19,7 @@ class Button(Widget):
         return res
 
     def click(self):
-        self._clicked = self.clickable
+        self._clicked = True
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
