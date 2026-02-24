@@ -17,7 +17,7 @@ not tag: user.code_language_forced
 ctx_not_editor = Context()
 ctx_not_editor.matches = r"""
 app: vscode
-and not win.title: /\[Text Editor\]/
+not win.title: /\[Text Editor\]/
 """
 
 FILENAME_DELIMITERS = [
