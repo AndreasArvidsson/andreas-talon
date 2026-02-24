@@ -190,18 +190,20 @@ step out:                   user.run_rpc_command("workbench.action.debug.stepOut
 debug restart:              user.run_rpc_command("workbench.action.debug.restart")
 debug pause:                user.run_rpc_command("workbench.action.debug.pause")
 debug stop:                 user.run_rpc_command("workbench.action.debug.stop")
-debug select:               user.run_rpc_command("workbench.action.debug.selectandstart")
+debug select [<user.prose>]:
+    user.run_rpc_command("workbench.action.debug.selectandstart")
+    insert(prose or "")
 debug extension:
     user.run_rpc_command("workbench.action.debug.selectandstart")
-    insert("run extension")
+    insert("run")
     key(enter)
 debug test:
     user.run_rpc_command("workbench.action.debug.selectandstart")
-    insert("extension tests")
+    insert("test")
     key(enter)
-debug subset:
+debug test subset:
     user.run_rpc_command("workbench.action.debug.selectandstart")
-    insert("run test subset")
+    insert("test subset")
     key(enter)
 run task compile:
     user.run_rpc_command("workbench.action.tasks.runTask")
