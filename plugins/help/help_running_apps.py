@@ -12,7 +12,7 @@ def gui(gui: imgui.GUI):
     gui.header("Running apps")
     gui.line(bold=True)
     for i, name in enumerate(actions.user.get_running_applications()):
-        line = f"{i + 1}".rjust(3)
+        line = f"{i + 1}".rjust(2)
         gui.text(f"{line}    {name}")
     gui.spacer()
     if gui.button("Hide"):

@@ -6,7 +6,6 @@ def open(
     screen: Screen | None = None,
     x: float | None = None,
     y: float | None = None,
-    numbered: bool = False,
 ):
     def open_inner(draw):
         return GUI(
@@ -14,7 +13,6 @@ def open(
             screen=screen,
             x=x,
             y=y,
-            numbered=numbered,
         )
 
     return open_inner

@@ -23,13 +23,11 @@ class GUI:
         screen: Screen | None,
         x: float | None,
         y: float | None,
-        numbered: bool,
     ):
         self._callback = callback
         self._screen = screen
         self._x = x
         self._y = y
-        self._numbered = numbered
         self._x_moved = None
         self._y_moved = None
         self._screen_current = None
@@ -126,16 +124,11 @@ class GUI:
         self._callback(self)
         self._draw_background(canvas)
         font_size = FONT_SIZE * get_screen_scale(self._screen_current)
-        state = State(self._screen_current, canvas, font_size, self._numbered)
-        number = 1
+        state = State(self._screen_current, canvas, font_size)
 
         if self._widgets:
             for el in self._widgets:
-                y_start = state.y
                 el.draw(state)
-                if self._numbered and el.numbered:
-                    Text.draw_number(state, y_start, number)
-                    number += 1
         else:
             state.width = 1
             state.height = 1

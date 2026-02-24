@@ -1,13 +1,12 @@
 from talon.types import Rect
 
-from .props import button_text_color, text_color
+from .props import text_color
 from .state import State
 from .widget import Widget
 
 
 class Text(Widget):
     def __init__(self, text: str, clickable: bool, header: bool):
-        self.numbered = not header
         self.text = text
         self.header = header
         self.rect = None
@@ -55,24 +54,5 @@ class Text(Widget):
             width + x - start_x,
             height + state.padding / 2,
         )
-        # state.canvas.draw_rect(self.rect) TODO remove
 
         state.add_height(state.padding)
-
-    @classmethod
-    def draw_number(cls, state: State, y_start: float, number: int):
-        state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.paint.font.embolden = False
-        state.canvas.paint.textsize = state.font_size
-        state.canvas.paint.color = button_text_color
-        text = str(number).rjust(2)
-        rect = state.canvas.paint.measure_text(text)[1]
-        x = state.x + rect.x
-        y = (state.y + y_start + rect.y + state.font_size) / 2
-
-        # state.canvas.paint.style = state.canvas.paint.Style.FILL
-        # state.canvas.paint.color = button_bg_color
-        # state.canvas.draw_rect(Rect(x, y_start, rect.x + rect.width, state.y - y_start))
-        # state.canvas.paint.color = button_text_color
-
-        state.canvas.draw_text(text, x, y)
