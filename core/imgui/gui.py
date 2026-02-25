@@ -37,8 +37,9 @@ class GUI:
     _screen: Screen | None
     _mouse_drag_pos: Point2d | None
     _widgets: list[Widget]
-    _buttons: dict[str, Button]
-    _buttons_seen: set[str]
+    _buttons: list[Button]
+    _draw_clicked_buttons: set[str]
+    _pending_clicked_buttons: set[str]
 
     def __init__(
         self,
@@ -61,8 +62,9 @@ class GUI:
         self._screen = None
         self._mouse_drag_pos = None
         self._widgets = []
-        self._buttons = {}
-        self._buttons_seen = set()
+        self._buttons = []
+        self._draw_clicked_buttons = set()
+        self._pending_clicked_buttons = set()
 
     @property
     def showing(self) -> bool:
@@ -92,8 +94,9 @@ class GUI:
             self._canvas = None
             self._mouse_drag_pos = None
             self._widgets = []
-            self._buttons = {}
-            self._buttons_seen.clear()
+            self._buttons = []
+            self._draw_clicked_buttons.clear()
+            self._pending_clicked_buttons.clear()
 
     def update(
         self,
@@ -145,23 +148,15 @@ class GUI:
         self._widgets.append(Image(image))
 
     def button(self, text: str, id: str | None = None) -> bool:
-        """Returns whether button was clicked since last call to button()
+        """Returns whether the button was clicked since last draw.
 
         Duplicate text buttons require id to be set to be treated as separate buttons.
         If id is not set, buttons with the same text will be treated as the same button and share clicked state.
         """
-        key = id or text
-        if key in self._buttons:
-            button = self._buttons[key]
-            # The text could have changed for this id.
-            if id is not None:
-                button.text = text
-        else:
-            button = Button(text)
-            self._buttons[key] = button
+        button = Button(text, id)
         self._widgets.append(button)
-        self._buttons_seen.add(key)
-        return button.clicked()
+        self._buttons.append(button)
+        return button.id in self._draw_clicked_buttons
 
     def line(self, bold: bool = False):
         self._widgets.append(Line(bold))
@@ -174,11 +169,20 @@ class GUI:
         if self._screen is None:
             return
 
-        canvas.paint.typeface = FONT_FAMILY
+        # Consume only clicks collected since the previous draw.
+        self._draw_clicked_buttons = self._pending_clicked_buttons
+        self._pending_clicked_buttons = set()
+
+        # Reset widgets on each draw since the callback may conditionally add widgets
         self._widgets = []
-        self._buttons_seen.clear()
+        self._buttons = []
+
+        # Call the callback to populate widgets
         self._props.callback(self)
+
+        canvas.paint.typeface = FONT_FAMILY
         self._draw_background(canvas)
+
         font_size = FONT_SIZE * get_screen_scale(self._screen)
         state = State(self._screen, canvas, font_size)
 
@@ -188,11 +192,6 @@ class GUI:
         else:
             state.width = 1
             state.height = 1
-
-        # Remove buttons that were not drawn this call
-        self._buttons = {
-            k: b for k, b in self._buttons.items() if k in self._buttons_seen
-        }
 
         # Resize to fit content
         if self._props.width is not None:
@@ -255,7 +254,7 @@ class GUI:
             button = self._get_button(e.gpos)
             # Clicking a button
             if button is not None:
-                button.click()
+                self._pending_clicked_buttons.add(button.id)
             # Starting mouse drag
             else:
                 self._mouse_drag_pos = e.gpos
@@ -271,7 +270,7 @@ class GUI:
             self._mouse_drag_pos = None
 
     def _get_button(self, pos: Point2d) -> Button | None:
-        for w in self._buttons.values():
+        for w in self._buttons:
             if w.rect is not None and w.rect.contains(pos.x, pos.y):
                 return w
         return None

@@ -7,18 +7,10 @@ from .widget import Widget
 
 
 class Button(Widget):
-    def __init__(self, text: str):
+    def __init__(self, text: str, id: str | None):
         self.text = text
+        self.id = id or text
         self.rect: Rect | None = None
-        self._clicked = False
-
-    def clicked(self):
-        res = self._clicked
-        self._clicked = False
-        return res
-
-    def click(self):
-        self._clicked = True
 
     def draw(self, state: State):
         state.canvas.paint.textsize = state.font_size
