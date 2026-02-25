@@ -38,6 +38,7 @@ class GUI:
     _mouse_drag_pos: Point2d | None
     _widgets: list[Widget]
     _buttons: dict[str, Button]
+    _buttons_seen: set[str]
 
     def __init__(
         self,
@@ -59,8 +60,9 @@ class GUI:
         self._canvas = None
         self._screen = None
         self._mouse_drag_pos = None
-        self._widgets: list[Widget] = []
-        self._buttons: dict[str, Button] = {}
+        self._widgets = []
+        self._buttons = {}
+        self._buttons_seen = set()
 
     @property
     def showing(self) -> bool:
@@ -74,7 +76,8 @@ class GUI:
         self._screen = self._props.screen or get_active_screen()
         self._mouse_drag_pos = None
 
-        rect = self.get_initial_rect(self._screen)
+        # Initializes at minimum size so to calculate and set correct size later
+        rect = self.get_initial_rect(self._screen, 0, 0, 0, 0)
         self._canvas = Canvas.from_rect(rect)
 
         self._canvas.draggable = True
@@ -99,8 +102,11 @@ class GUI:
         width: float | None | NotSetType = NOT_SET,
         height: float | None | NotSetType = NOT_SET,
     ):
+        old_screen = self._screen
+
         if not isinstance(screen, NotSetType):
             self._props.screen = screen
+            self._screen = self._props.screen or get_active_screen()
         if not isinstance(x, NotSetType):
             self._props.x = x
         if not isinstance(y, NotSetType):
@@ -110,8 +116,18 @@ class GUI:
         if not isinstance(height, NotSetType):
             self._props.height = height
 
-        if self._canvas is not None and self._screen is not None:
-            self._canvas.rect = self.get_initial_rect(self._screen)
+        if (
+            self._canvas is not None
+            and old_screen is not None
+            and self._screen is not None
+        ):
+            self._canvas.rect = self.get_initial_rect(
+                self._screen,
+                (self._canvas.rect.x - old_screen.x) / old_screen.width,
+                (self._canvas.rect.y - old_screen.y) / old_screen.height,
+                (self._canvas.rect.width) / old_screen.width,
+                (self._canvas.rect.height) / old_screen.height,
+            )
 
     def freeze(self):
         if self._canvas is not None:
@@ -127,13 +143,22 @@ class GUI:
         self._widgets.append(Image(image))
 
     def button(self, text: str, id: str | None = None) -> bool:
+        """Returns whether button was clicked since last call to button()
+
+        Duplicate text buttons require id to be set to be treated as separate buttons.
+        If id is not set, buttons with the same text will be treated as the same button and share clicked state.
+        """
         key = id or text
         if key in self._buttons:
             button = self._buttons[key]
+            # The text could have changed for this id.
+            if id is not None:
+                button.text = text
         else:
             button = Button(text)
             self._buttons[key] = button
         self._widgets.append(button)
+        self._buttons_seen.add(key)
         return button.clicked()
 
     def line(self, bold: bool = False):
@@ -149,17 +174,23 @@ class GUI:
 
         canvas.paint.typeface = FONT_FAMILY
         self._widgets = []
+        self._buttons_seen.clear()
         self._props.callback(self)
         self._draw_background(canvas)
         font_size = FONT_SIZE * get_screen_scale(self._screen)
         state = State(self._screen, canvas, font_size)
 
         if self._widgets:
-            for el in self._widgets:
-                el.draw(state)
+            for w in self._widgets:
+                w.draw(state)
         else:
             state.width = 1
             state.height = 1
+
+        # Remove buttons that were not drawn this call
+        self._buttons = {
+            k: b for k, b in self._buttons.items() if k in self._buttons_seen
+        }
 
         # Resize to fit content
         if self._props.width is not None:
@@ -222,27 +253,27 @@ class GUI:
             button = self._get_button(e.gpos)
             if button is None:
                 self._mouse_drag_pos = e.gpos
-                print(e.gpos)
-                print(type(e.gpos))
 
-        elif e.event == "mousemove" and self._mouse_drag_pos:
+        elif e.event == "mousemove" and self._mouse_drag_pos is not None:
             dx = e.gpos.x - self._mouse_drag_pos.x
             dy = e.gpos.y - self._mouse_drag_pos.y
             self._mouse_drag_pos = e.gpos
             self._move(dx, dy)
 
         elif e.event == "mouseup" and e.button == 0:
-            self._mouse_drag_pos = None
-            button = self._get_button(e.gpos)
-            if button is not None:
-                button.click()
+            # Ending mouse drag
+            if self._mouse_drag_pos is not None:
+                self._mouse_drag_pos = None
+            # Clicking a button
+            else:
+                button = self._get_button(e.gpos)
+                if button is not None:
+                    button.click()
 
     def _get_button(self, pos: Point2d) -> Button | None:
         for w in self._buttons.values():
             if w.rect is not None and w.rect.contains(pos.x, pos.y):
-                # self._buttons could contain removed buttons. Check if button is still in widgets before returning.
-                if w in self._widgets:
-                    return w
+                return w
         return None
 
     def get_containing_screen(self, x: float, y: float) -> Screen:
@@ -250,22 +281,23 @@ class GUI:
             return self._screen
         return ui.screen_containing(x, y)
 
-    # Initializes at minimum size so to calculate and set correct size later
-    def get_initial_rect(self, screen: Screen) -> Rect:
-        if self._props.x is not None:
-            x = screen.x + screen.width * self._props.x
-        else:
-            x = screen.x
-        if self._props.y is not None:
-            y = screen.y + screen.height * self._props.y
-        else:
-            y = screen.y
-        if self._props.width is not None:
-            width = screen.width * self._props.width
-        else:
-            width = 1
-        if self._props.height is not None:
-            height = screen.height * self._props.height
-        else:
-            height = 1
-        return Rect(x, y, width, height)
+    def get_initial_rect(
+        self,
+        screen: Screen,
+        default_x: float,
+        default_y: float,
+        default_width: float,
+        default_height: float,
+    ) -> Rect:
+        x = self._props.x if self._props.x is not None else default_x
+        y = self._props.y if self._props.y is not None else default_y
+        width = self._props.width if self._props.width is not None else default_width
+        height = (
+            self._props.height if self._props.height is not None else default_height
+        )
+        return Rect(
+            screen.x + screen.width * x,
+            screen.y + screen.height * y,
+            screen.width * width,
+            screen.height * height,
+        )

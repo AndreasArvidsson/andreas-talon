@@ -1,12 +1,12 @@
 from talon import actions, ui, app
 from talon.screen import Screen
-from talon.types import Rect
 
 
 def get_active_screen() -> Screen:
     try:
         return ui.active_window().screen
-    except Exception:
+    except Exception as e:
+        print(f"Error getting active screen, defaulting to main screen: {e}")
         return ui.main_screen()
 
 

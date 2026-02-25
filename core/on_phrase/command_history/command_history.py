@@ -21,7 +21,7 @@ class HistoryEntry:
     phrase_start: bool
 
 
-@imgui.open(x=ui.main_screen().x, y=ui.main_screen().y)
+@imgui.open(x=0, y=0)
 def gui(gui: imgui.GUI):
     t = time.monotonic()
     use_ttl = ttl_setting > 0

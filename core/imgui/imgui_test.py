@@ -1,5 +1,4 @@
 from . import open, GUI
-from talon import cron
 
 
 @open()
@@ -30,11 +29,11 @@ def gui(gui: GUI):
     )
     if gui.button("some text"):
         print("Hide")
-
-
-if gui.button("some text", id="other"):
-    print("other")
+    if gui.button("some text", id="other"):
+        print("other")
 
 
 # gui.show()
+
+# from talon import cron
 # cron.after("2s", lambda: gui.update(x=0.1))
