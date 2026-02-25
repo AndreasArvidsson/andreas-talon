@@ -1,7 +1,7 @@
 from skia import RoundRect
 from talon.types import Rect
 
-from .props import border_color, button_bg_color, button_radius, button_text_color
+from .constants import border_color, button_bg_color, button_radius, button_text_color
 from .state import State
 from .widget import Widget
 

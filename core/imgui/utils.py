@@ -1,5 +1,6 @@
 from talon import actions, ui, app
 from talon.screen import Screen
+from talon.types import Rect
 
 
 def get_active_screen() -> Screen:
@@ -14,3 +15,11 @@ def get_screen_scale(screen: Screen) -> float:
     if app.platform == "mac":
         return imgui_scale
     return imgui_scale * screen.scale
+
+
+class NotSetType:
+    def __repr__(self) -> str:
+        return "<argument not set>"
+
+
+NOT_SET = NotSetType()

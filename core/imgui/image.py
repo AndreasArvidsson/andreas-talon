@@ -1,6 +1,6 @@
-from skia import Image as SkiaImage
+from talon.skia import Image as SkiaImage
 
-from .props import MAX_IMAGE_HEIGHT, MAX_IMAGE_WIDTH
+from .constants import MAX_IMAGE_HEIGHT, MAX_IMAGE_WIDTH
 from .state import State
 from .widget import Widget
 

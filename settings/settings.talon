@@ -25,8 +25,6 @@ settings():
 
     # General gui
     # imgui.scale = 1.25
-    user.gui_max_rows = 5
-    user.gui_max_cols = 80
 
     # Help gui
     user.help_max_command_lines_per_page = 50
