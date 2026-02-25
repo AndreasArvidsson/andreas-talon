@@ -31,10 +31,7 @@ class State:
         self.height += height
 
     def get_width(self):
-        if self.width:
-            return round(self.width + self.padding)
-        else:
-            return 0
+        return round(self.width + self.padding)
 
     def get_height(self):
         return round(self.height + self.padding)

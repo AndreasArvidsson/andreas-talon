@@ -1,5 +1,16 @@
 from . import open, GUI
 
+from talon import imgui
+
+
+@imgui.open()
+def test(gui):
+    gui.text("test")
+    pass
+
+
+# test.show()
+
 
 @open()
 # @open(x=0)
