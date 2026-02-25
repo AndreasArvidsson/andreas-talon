@@ -74,7 +74,6 @@ class GUI:
             return
 
         self._screen = self._props.screen or get_active_screen()
-        self._mouse_drag_pos = None
 
         # Initializes at minimum size so to calculate and set correct size later
         rect = self.get_initial_rect(self._screen, 0, 0, 0, 0)
@@ -91,7 +90,10 @@ class GUI:
             self._canvas.unregister("mouse", self._mouse)
             self._canvas.close()
             self._canvas = None
+            self._mouse_drag_pos = None
+            self._widgets = []
             self._buttons = {}
+            self._buttons_seen.clear()
 
     def update(
         self,
@@ -251,7 +253,11 @@ class GUI:
     def _mouse(self, e: MouseEvent):
         if e.event == "mousedown" and e.button == 0:
             button = self._get_button(e.gpos)
-            if button is None:
+            # Clicking a button
+            if button is not None:
+                button.click()
+            # Starting mouse drag
+            else:
                 self._mouse_drag_pos = e.gpos
 
         elif e.event == "mousemove" and self._mouse_drag_pos is not None:
@@ -261,14 +267,8 @@ class GUI:
             self._move(dx, dy)
 
         elif e.event == "mouseup" and e.button == 0:
-            # Ending mouse drag
-            if self._mouse_drag_pos is not None:
-                self._mouse_drag_pos = None
-            # Clicking a button
-            else:
-                button = self._get_button(e.gpos)
-                if button is not None:
-                    button.click()
+            # End mouse drag
+            self._mouse_drag_pos = None
 
     def _get_button(self, pos: Point2d) -> Button | None:
         for w in self._buttons.values():
