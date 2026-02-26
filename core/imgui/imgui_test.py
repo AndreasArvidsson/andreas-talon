@@ -8,14 +8,20 @@ from talon.skia import Image
 
 
 @imgui.open()
-def test(gui):
+def test(gui: imgui.GUI):
     gui.text("test")
-    pass
+    gui.line()
+    gui.text("test2")
+    gui.spacer()
+    gui.text("test3 test3 test3 test3")
+    s = gui.slider(0, 0.5, 1)
+    if s.click_value is not None:
+        print("slider clicked, value:", s.click_value)
+    if gui.button("a button"):
+        print("button clicked")
 
 
 # test.show()
-
-# img = Image.from_file("images/1.jpg")
 
 images_dir = Path(__file__).parent / "images"
 img1 = Image.load(str(images_dir / "1.jpg"))
