@@ -1,6 +1,5 @@
 from talon.skia import Image as SkiaImage
 
-from .constants import MAX_IMAGE_HEIGHT, MAX_IMAGE_WIDTH
 from .state import State
 from .widget import Widget
 
@@ -11,12 +10,12 @@ class Image(Widget):
         self._image = image
 
     def _resize(self, state: State):
-        max_width = state.screen.width * MAX_IMAGE_WIDTH
-        max_height = state.screen.height * MAX_IMAGE_HEIGHT
         aspect_ratio = self._imageOriginal.width / self._imageOriginal.height
-
         width = self._imageOriginal.width
         height = self._imageOriginal.height
+
+        max_width = 30 * state.font_size
+        max_height = 10 * state.font_size
 
         if width > max_width:
             width = max_width
@@ -26,8 +25,8 @@ class Image(Widget):
             height = max_height
             width = height * aspect_ratio
 
-        width = int(round(width))
-        height = int(round(height))
+        width = round(width)
+        height = round(height)
 
         if width != self._image.width or height != self._image.height:
             self._image = self._imageOriginal.reshape(width, height)

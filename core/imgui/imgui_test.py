@@ -1,6 +1,10 @@
 from . import open, GUI
 
+from pathlib import Path
+
 from talon import imgui
+
+from talon.skia import Image
 
 
 @imgui.open()
@@ -11,9 +15,15 @@ def test(gui):
 
 # test.show()
 
+# img = Image.from_file("images/1.jpg")
 
-@open()
-# @open(x=0)
+images_dir = Path(__file__).parent / "images"
+img1 = Image.load(str(images_dir / "1.jpg"))
+img2 = Image.load(str(images_dir / "2.png"))
+
+
+# @open()
+@open(x=0)
 # @open(y=0)
 # @open(x=0.7, y=0.3)
 # @open(x=0.9, y=0.3, width=0.1)
@@ -38,13 +48,16 @@ def gui(gui: GUI):
             )
             state.add_height(state.font_size)"""
     )
-    if gui.button("some text"):
-        print("Hide")
-    if gui.button("some text", id="other"):
-        print("other")
+    gui.image(img1)
+    gui.image(img2)
+    if gui.button("a button"):
+        print("first button clicked")
+    if gui.button("a button", id="other"):
+        print("second button clicked")
 
 
 # gui.show()
+# gui.freeze()
 
 # from talon import cron
 # cron.after("2s", lambda: gui.update(x=0.1))

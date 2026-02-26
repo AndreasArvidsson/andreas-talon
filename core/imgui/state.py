@@ -1,17 +1,12 @@
-from typing import Union
-
-from talon.screen import Screen
 from talon.skia import Canvas as SkiaCanvas
 
 
 class State:
     def __init__(
         self,
-        screen: Screen,
         canvas: SkiaCanvas,
         font_size: float,
     ):
-        self.screen = screen
         self.canvas = canvas
         self.font_size = font_size
         self.padding = self.rem(0.5)
@@ -30,11 +25,11 @@ class State:
         self.y += height
         self.height += height
 
-    def get_width(self):
+    def get_width(self) -> int:
         return round(self.width + self.padding)
 
-    def get_height(self):
+    def get_height(self) -> int:
         return round(self.height + self.padding)
 
-    def rem(self, number: Union[int, float]):
+    def rem(self, number: int | float) -> int:
         return round(self.font_size * number)

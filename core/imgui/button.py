@@ -1,7 +1,7 @@
 from skia import RoundRect
 from talon.types import Rect
 
-from .constants import border_color, button_bg_color, button_radius, button_text_color
+from .constants import BORDER_COLOR, BUTTON_BG_COLOR, BUTTON_RADIUS, BUTTON_TEXT_COLOR
 from .state import State
 from .widget import Widget
 
@@ -26,20 +26,20 @@ class Button(Widget):
             height,
         )
 
-        rrect = RoundRect.from_rect(self.rect, x=button_radius, y=button_radius)
+        rrect = RoundRect.from_rect(self.rect, x=BUTTON_RADIUS, y=BUTTON_RADIUS)
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.paint.color = button_bg_color
+        state.canvas.paint.color = BUTTON_BG_COLOR
         state.canvas.draw_rrect(rrect)
 
         state.canvas.paint.style = state.canvas.paint.Style.STROKE
-        state.canvas.paint.color = border_color
+        state.canvas.paint.color = BORDER_COLOR
         state.canvas.draw_rrect(rrect)
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = False
         state.canvas.paint.textsize = state.font_size
-        state.canvas.paint.color = button_text_color
+        state.canvas.paint.color = BUTTON_TEXT_COLOR
         state.canvas.draw_text(self.text, state.x, state.y + state.font_size)
 
         state.add_width(width, offset=False)

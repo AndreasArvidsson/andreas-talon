@@ -1,4 +1,4 @@
-from .constants import button_bg_color, text_color
+from .constants import BUTTON_BG_COLOR, TEXT_COLOR
 from .state import State
 from .widget import Widget
 
@@ -11,7 +11,7 @@ class Line(Widget):
         y = state.y + state.padding - 1
 
         state.canvas.paint.style = state.canvas.paint.Style.FILL
-        state.canvas.paint.color = text_color if self.bold else button_bg_color
+        state.canvas.paint.color = TEXT_COLOR if self.bold else BUTTON_BG_COLOR
         state.canvas.draw_line(
             state.x,
             y,

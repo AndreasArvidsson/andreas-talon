@@ -1,4 +1,4 @@
-from .constants import text_color
+from .constants import TEXT_COLOR
 from .state import State
 from .widget import Widget
 
@@ -12,7 +12,7 @@ class Text(Widget):
         state.canvas.paint.style = state.canvas.paint.Style.FILL
         state.canvas.paint.font.embolden = self.is_header
         state.canvas.paint.textsize = state.font_size
-        state.canvas.paint.color = text_color
+        state.canvas.paint.color = TEXT_COLOR
         lines = self.text.split("\n")
         x = state.x if self.is_header else state.x_text
 

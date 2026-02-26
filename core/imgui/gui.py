@@ -14,9 +14,9 @@ from .line import Line
 from .constants import (
     FONT_FAMILY,
     FONT_SIZE,
-    background_color,
-    border_color,
-    border_radius,
+    BACKGROUND_COLOR,
+    BORDER_COLOR,
+    BORDER_RADIUS,
 )
 from .spacer import Spacer
 from .state import State
@@ -183,15 +183,18 @@ class GUI:
         canvas.paint.typeface = FONT_FAMILY
         self._draw_background(canvas)
 
-        font_size = FONT_SIZE * get_screen_scale(self._screen)
-        state = State(self._screen, canvas, font_size)
+        state = State(
+            canvas,
+            FONT_SIZE * get_screen_scale(self._screen),
+        )
 
         if self._widgets:
             for w in self._widgets:
                 w.draw(state)
+        # If there are no widgets, collapse the GUI to avoid having a big empty box
         else:
-            state.width = 1
-            state.height = 1
+            state.width = 0
+            state.height = 0
 
         # Resize to fit content
         if self._props.width is not None:
@@ -239,14 +242,14 @@ class GUI:
         self._canvas.move(x, y)
 
     def _draw_background(self, canvas: SkiaCanvas):
-        rrect = RoundRect.from_rect(canvas.rect, x=border_radius, y=border_radius)
+        rrect = RoundRect.from_rect(canvas.rect, x=BORDER_RADIUS, y=BORDER_RADIUS)
 
         canvas.paint.style = canvas.paint.Style.FILL
-        canvas.paint.color = background_color
+        canvas.paint.color = BACKGROUND_COLOR
         canvas.draw_rrect(rrect)
 
         canvas.paint.style = canvas.paint.Style.STROKE
-        canvas.paint.color = border_color
+        canvas.paint.color = BORDER_COLOR
         canvas.draw_rrect(rrect)
 
     def _mouse(self, e: MouseEvent):
