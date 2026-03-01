@@ -1,10 +1,9 @@
-from . import open, GUI
-
 from pathlib import Path
 
+from skia import Image as SkImage
 from talon import imgui
 
-from talon.skia import Image
+from . import GUI, open
 
 
 @imgui.open()
@@ -24,8 +23,8 @@ def test(gui: imgui.GUI):
 # test.show()
 
 images_dir = Path(__file__).parent / "images"
-img1 = Image.load(str(images_dir / "1.jpg"))
-img2 = Image.load(str(images_dir / "2.png"))
+img1 = SkImage.load(str(images_dir / "1.jpg"))
+img2 = SkImage.load(str(images_dir / "2.png"))
 
 
 # @open()

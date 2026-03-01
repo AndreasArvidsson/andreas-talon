@@ -1,10 +1,10 @@
-from talon.skia import Canvas as SkiaCanvas
+from skia import Canvas as SkCanvas
 
 
 class State:
     def __init__(
         self,
-        canvas: SkiaCanvas,
+        canvas: SkCanvas,
         font_size: float,
     ):
         self.canvas = canvas

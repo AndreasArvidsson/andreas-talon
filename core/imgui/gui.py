@@ -1,26 +1,26 @@
 from typing import Callable
 
+from skia import Canvas as SkCanvas
+from skia import Image as SkImage
+from skia import RoundRect
 from talon import ui
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
-from talon.skia import Canvas as SkiaCanvas
-from talon.skia import Image as SkiaImage
-from talon.skia import RoundRect
 from talon.types import Point2d, Rect
 
 from .button import Button
-from .image import Image
-from .line import Line
 from .constants import (
-    FONT_FAMILY,
-    FONT_SIZE,
     BACKGROUND_COLOR,
     BORDER_COLOR,
     BORDER_RADIUS,
+    FONT_FAMILY,
+    FONT_SIZE,
 )
+from .image import Image
+from .line import Line
+from .props import Props
 from .spacer import Spacer
 from .state import State
-from .props import Props
 from .text import Text
 from .utils import (
     NOT_SET,
@@ -144,7 +144,7 @@ class GUI:
     def header(self, text: str):
         self._widgets.append(Text(text, is_header=True))
 
-    def image(self, image: SkiaImage):
+    def image(self, image: SkImage):
         self._widgets.append(Image(image))
 
     def button(self, text: str, id: str | None = None) -> bool:
@@ -164,7 +164,7 @@ class GUI:
     def spacer(self):
         self._widgets.append(Spacer())
 
-    def _draw(self, canvas: SkiaCanvas):
+    def _draw(self, canvas: SkCanvas):
         # Should not happen
         if self._screen is None:
             return
@@ -241,7 +241,7 @@ class GUI:
 
         self._canvas.move(x, y)
 
-    def _draw_background(self, canvas: SkiaCanvas):
+    def _draw_background(self, canvas: SkCanvas):
         rrect = RoundRect.from_rect(canvas.rect, x=BORDER_RADIUS, y=BORDER_RADIUS)
 
         canvas.paint.style = canvas.paint.Style.FILL

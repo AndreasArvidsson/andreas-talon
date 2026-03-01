@@ -1,11 +1,11 @@
-from talon.skia import Image as SkiaImage
+from skia import Image as SkImage
 
 from .state import State
 from .widget import Widget
 
 
 class Image(Widget):
-    def __init__(self, image: SkiaImage):
+    def __init__(self, image: SkImage):
         self._imageOriginal = image
         self._image = image
 
