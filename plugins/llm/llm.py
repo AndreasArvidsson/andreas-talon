@@ -32,7 +32,7 @@ class Action:
     def model_process_text(
         templateId: str,
         text: str,
-        prompt: str = "",
+        prompt: Optional[str] = None,
     ) -> Optional[str]:
         """Model process text"""
         full_prompt = get_llm_prompt(templateId, text, prompt)

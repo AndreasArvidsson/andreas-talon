@@ -33,9 +33,9 @@ def get_llm_prompt(templateId: str, text: str, prompt: str | None = None) -> str
             raise ValueError(f"Template '{templateId}' does not support '{field}'")
         full_prompt = full_prompt.replace(field, value)
 
+    replace("$text", text)
+
     if prompt is not None:
         replace("$prompt", prompt)
-    if text is not None:
-        replace("$text", text)
 
     return full_prompt
