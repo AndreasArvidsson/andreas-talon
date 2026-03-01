@@ -2,7 +2,6 @@ from typing import Union
 from talon import Context, actions
 import re
 
-
 ctx = Context()
 ctx.matches = r"""
 app: vscode
@@ -12,12 +11,6 @@ ctx_lang = Context()
 ctx_lang.matches = r"""
 app: vscode
 not tag: user.code_language_forced
-"""
-
-ctx_not_editor = Context()
-ctx_not_editor.matches = r"""
-app: vscode
-not win.title: /\[Text Editor\]/
 """
 
 FILENAME_DELIMITERS = [
@@ -50,16 +43,3 @@ class LangCodeActions:
         if match is not None:
             return match.group(1)
         return ""
-
-
-@ctx_not_editor.action_class("edit")
-class NotEditorEditActions:
-    def line_insert_up():
-        actions.key("home")
-        actions.sleep("10ms")
-        actions.key("shift-enter up")
-
-    def line_insert_down():
-        actions.key("end")
-        actions.sleep("10ms")
-        actions.key("shift-enter")

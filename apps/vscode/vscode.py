@@ -13,7 +13,6 @@ os: linux
 and app.name: Code
 """
 
-
 ctx = Context()
 ctx.matches = r"""
 app: vscode
@@ -38,71 +37,22 @@ class AppActions:
         actions.user.run_rpc_command("workbench.action.openGlobalSettings")
 
 
-@ctx.action_class("code")
-class CodeActions:
-    def toggle_comment():
-        actions.user.run_rpc_command("editor.action.commentLine")
-
-    def complete():
-        actions.user.run_rpc_command("editor.action.triggerSuggest")
-
-
 @ctx.action_class("edit")
 class EditActions:
-    def save():
-        actions.user.run_rpc_command("hideSuggestWidget")
-        actions.next()
-
-    def selected_text() -> str:
-        try:
-            selectedTexts = actions.user.run_rpc_command_get("andreas.getSelectedText")
-            if selectedTexts is not None:
-                return "\n".join(selectedTexts)
-        except Exception as ex:
-            print(f"EXCEPTION: {ex}")
-
-        return actions.next()
-
-    def select_none():
-        actions.key("escape")
-
-    # ----- Word -----
-    def delete_word():
-        empty_selection()
-        actions.next()
-
     # ----- Line commands -----
-    def line_swap_up():
-        actions.user.run_rpc_command("editor.action.moveLinesUpAction")
 
-    def line_swap_down():
-        actions.user.run_rpc_command("editor.action.moveLinesDownAction")
+    def line_insert_up():
+        actions.key("home")
+        actions.sleep("10ms")
+        actions.key("shift-enter up")
 
-    def line_clone():
-        actions.user.run_rpc_command("editor.action.copyLinesDownAction")
-
-    # Don't use RPC since the PR description editor doesn't support it.
-    # def line_insert_up():
-    #     actions.user.run_rpc_command("editor.action.insertLineBefore")
-
-    # Don't use RPC since some vscode extension(eg markdown) has specific behavior on enter
-    # def line_insert_down():
-    # actions.user.run_rpc_command("editor.action.insertLineAfter")
-
-    def delete_line():
-        actions.user.run_rpc_command("editor.action.deleteLines")
-
-    def jump_line(n: int):
-        actions.user.run_rpc_command("andreas.goToLine", n)
-
-    # ----- Indent -----
-    def indent_more():
-        actions.user.run_rpc_command("editor.action.indentLines")
-
-    def indent_less():
-        actions.user.run_rpc_command("editor.action.outdentLines")
+    def line_insert_down():
+        actions.key("end")
+        actions.sleep("10ms")
+        actions.key("shift-enter")
 
     # ----- Zoom -----
+
     def zoom_reset():
         actions.user.run_rpc_command("workbench.action.zoomReset")
 
@@ -113,47 +63,15 @@ class UserActions:
         return "vscode-command-server"
 
     # ----- Navigation -----
+
     def go_back():
         actions.user.run_rpc_command("workbench.action.navigateBack")
 
     def go_forward():
         actions.user.run_rpc_command("workbench.action.navigateForward")
 
-    def line_middle():
-        actions.user.run_rpc_command("andreas.lineMiddle")
-
-    # ----- Find / Replace -----
-    def find_everywhere(text: str = None):
-        actions.user.run_rpc_command("workbench.action.findInFiles")
-        if text:
-            actions.sleep("50ms")
-            actions.insert(text)
-
-    def find_file(text: str = None):
-        actions.user.run_rpc_command("workbench.action.quickOpen")
-        if text:
-            actions.sleep("50ms")
-            actions.insert(text)
-
-    def find_toggle_match_by_case():
-        actions.key("alt-c")
-
-    def find_toggle_match_by_word():
-        actions.key("alt-w")
-
-    def find_toggle_match_by_regex():
-        actions.key("alt-r")
-
-    def find_replace_toggle_preserve_case():
-        actions.key("alt-p")
-
-    def find_replace_confirm():
-        actions.key("enter")
-
-    def find_replace_confirm_all():
-        actions.key("ctrl-alt-enter")
-
     # ----- Tabs -----
+
     def tab_jump(number: int):
         actions.user.run_rpc_command("andreas.openEditorAtIndex", number - 1)
 
@@ -186,7 +104,40 @@ class UserActions:
     def tab_close_right():
         actions.user.run_rpc_command("workbench.action.closeEditorsToTheRight")
 
+    # ----- Find / Replace -----
+
+    def find_everywhere(text: str = None):
+        actions.user.run_rpc_command("workbench.action.findInFiles")
+        if text:
+            actions.sleep("50ms")
+            actions.insert(text)
+
+    def find_file(text: str = None):
+        actions.user.run_rpc_command("workbench.action.quickOpen")
+        if text:
+            actions.sleep("50ms")
+            actions.insert(text)
+
+    def find_toggle_match_by_case():
+        actions.key("alt-c")
+
+    def find_toggle_match_by_word():
+        actions.key("alt-w")
+
+    def find_toggle_match_by_regex():
+        actions.key("alt-r")
+
+    def find_replace_toggle_preserve_case():
+        actions.key("alt-p")
+
+    def find_replace_confirm():
+        actions.key("enter")
+
+    def find_replace_confirm_all():
+        actions.key("ctrl-alt-enter")
+
     # ----- Scroll -----
+
     def scroll_up():
         actions.key("ctrl-up")
 
@@ -198,47 +149,6 @@ class UserActions:
 
     def scroll_down_page():
         actions.key("alt-pagedown")
-
-    def scroll_up_half_page():
-        actions.user.run_rpc_command("editorScroll", {"to": "up", "by": "halfPage"})
-
-    def scroll_down_half_page():
-        actions.user.run_rpc_command("editorScroll", {"to": "down", "by": "halfPage"})
-
-    # ----- Word -----
-    def cut_word():
-        empty_selection()
-        actions.next()
-
-    def copy_word():
-        empty_selection()
-        actions.next()
-
-    def paste_word():
-        empty_selection()
-        actions.next()
-
-    # ----- Dictation -----
-    def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
-        try:
-            context = actions.user.run_rpc_command_get("andreas.getDictationContext")
-        except Exception:
-            context = None
-
-        if context is not None:
-            return (context["before"], context["after"])
-        return (None, None)
-
-    # ----- Snippets -----
-    def insert_snippet(body: str):
-        actions.user.run_rpc_command("editor.action.insertSnippet", {"snippet": body})
-
-    # ----- Text getters -----
-    def code_get_class_name() -> Optional[str]:
-        return actions.user.run_rpc_command_get("andreas.getClassName")
-
-    def code_get_open_tag_name() -> Optional[str]:
-        return actions.user.run_rpc_command_get("andreas.getOpenTagName")
 
 
 @mod.action_class
@@ -312,8 +222,3 @@ class Actions:
             return
         sibling_full_name = f"{short_name}.{sibling_extension}"
         actions.user.find_file(sibling_full_name)
-
-
-def empty_selection():
-    if actions.edit.selected_text():
-        actions.edit.right()
