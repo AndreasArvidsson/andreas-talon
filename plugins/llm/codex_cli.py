@@ -19,16 +19,21 @@ def codex_run(prompt: str) -> str | None:
         codex,
         "exec",
         "-",
+        # Allow running outside a Git repositor
         "--skip-git-repo-check",
+        # Run without persisting session rollout files to disk
         "--ephemeral",
+        # Disable colored output, which can include ANSI escape codes
         "--color",
         "never",
+        # Use the Talon profile
         "--profile",
         "talon",
     ]
 
     try:
         t1 = time.perf_counter()
+
         result = subprocess.run(
             cmd,
             input=prompt,
@@ -41,6 +46,7 @@ def codex_run(prompt: str) -> str | None:
             # Do not raise exception on non-zero exit code
             check=False,
         )
+
         t2 = time.perf_counter()
 
         print(f"Codex CLI returned in {t2 - t1:0.1f}s with code {result.returncode}")
