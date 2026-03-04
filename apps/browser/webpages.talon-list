@@ -90,6 +90,7 @@ payroll:              https://payroll.soderbergpartners.se
 ppm:                  https://ppm.vantetider.se
 redmine:              https://redmine.redpill-linpro.com
 redpill info:         https://info.redpill-linpro.com
+redpill status:       https://status.redpill-linpro.com
 teams:                https://teams.microsoft.com
 vpn:                  https://vpn.redpill-linpro.com
 wildly tunnel:        http://localhost:10190
