@@ -22,7 +22,7 @@ def insert_snippet_raw_text(body: str):
 
     actions.insert(updated_snippet)
 
-    if stop:
+    if stop and (stop.rows_up >= 0 or stop.columns_left >= 0):
         up(stop.rows_up)
         actions.edit.line_end()
         left(stop.columns_left)
@@ -97,7 +97,4 @@ def get_first_stop(stops: list[Stop]):
     if not stops:
         return None
     stops.sort(key=key)
-    stop = stops[0]
-    if stop.rows_up == 0 and stop.columns_left == 0:
-        return None
-    return stop
+    return stops[0]
