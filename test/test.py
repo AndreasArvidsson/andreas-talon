@@ -1,9 +1,10 @@
-from talon import Module, actions, app
-from typing import Any
+from typing import Any, Callable
 
-from .snippets_insert_raw_test import test_snippets_insert_raw
-from .formatters_test import test_formatters
+from talon import Module, actions, app
+
 from .command_description_test import test_get_action_explanation
+from .formatters_test import test_formatters
+from .snippets_insert_raw_test import test_snippets_insert_raw
 
 
 def run_tests():
@@ -21,7 +22,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
-    def test_run_suite(suite_name: str, fixtures: list, callback: callable):
+    def test_run_suite(suite_name: str, fixtures: list, callback: Callable):
         """Start a new test suite"""
         print(f"---- START | {suite_name} | {len(fixtures)}")
         succeeded = 0

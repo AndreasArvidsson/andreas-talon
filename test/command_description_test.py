@@ -3,7 +3,7 @@ from talon import actions
 
 
 def test_get_action_explanation():
-    def get_print(name: str, params: str, expected: str = None):
+    def get_print(name: str, params: str, expected: str | None = None):
         return [
             name,
             "print",
@@ -39,7 +39,7 @@ def test_get_action_explanation():
             "Execute vscode command 'edit.command'" + expected,
         ]
 
-    def get_desc(name: str, mod: str, ctx: str, expected: str):
+    def get_desc(name: str, mod: str, ctx: str | None, expected: str):
         return [name, "my_action", "hello world", ["text"], mod, ctx, {}, expected]
 
     fixtures = [
@@ -67,6 +67,16 @@ def test_get_action_explanation():
             None,
             {"number_small": 1, "number_small_2": 2},
             "Log text 'a 1 b 2 c 1'",
+        ],
+        [
+            "print8",
+            "print",
+            '"{mouse_x()}, {mouse_y()}"',
+            ["obj"],
+            "Module description",
+            None,
+            {},
+            "Log text '{mouse_x()}, {mouse_y()}'",
         ],
         get_key("key1", "a", "Press key 'a'"),
         get_key("key2", "a b", "Press keys 'a b'"),
