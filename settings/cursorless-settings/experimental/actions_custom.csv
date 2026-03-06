@@ -6,6 +6,8 @@ redo, redo
 replace, editor.action.startFindReplaceAction
 replace all, workbench.action.replaceInFiles
 
+codex add, chatgpt.addToThread
+
 # Emmet / HTML
 rename tag, editor.emmet.action.updateTag
 split tag | join tag, editor.emmet.action.splitJoinTag
