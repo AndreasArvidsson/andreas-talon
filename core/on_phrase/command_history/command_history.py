@@ -1,4 +1,4 @@
-from talon import Module, ui, actions
+from talon import Module, actions
 from dataclasses import dataclass
 import time
 from ... import imgui

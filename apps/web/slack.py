@@ -1,7 +1,4 @@
 from talon import Context, Module, actions
-from talon.clip import MimeData
-import json
-import re
 
 ctx = Context()
 mod = Module()

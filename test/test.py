@@ -1,6 +1,6 @@
 from typing import Any, Callable
 
-from talon import Module, actions, app
+from talon import Module, actions, app  # pyright: ignore[reportUnusedImport] # noqa: F401
 
 from .command_description_test import test_get_action_explanation
 from .formatters_test import test_formatters
