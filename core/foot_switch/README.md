@@ -16,7 +16,6 @@ Up that link to or link post fort switch configuration tool. Download [Foot Swit
      - Choose file `olympus_rs31h.xml`
      - Click button `Apply Foot Switch`
 1. Change shortcut keys to: F13, F14, F15, F16
-
    - The above step can be achieved by importing [olympus_rs31h.xml](./olympus_rs31h.xml)
    - On Windows F-keys above F12 won't be visible in the tool, but works if `olympus_rs31h.xml` was imported
 
