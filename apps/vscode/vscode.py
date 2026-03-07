@@ -109,14 +109,14 @@ class UserActions:
     # ----- Find / Replace -----
 
     @staticmethod
-    def find_everywhere(text: str = None):
+    def find_everywhere(text: str = ""):
         actions.user.run_rpc_command("workbench.action.findInFiles")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
 
     @staticmethod
-    def find_file(text: str = None):
+    def find_file(text: str = ""):
         actions.user.run_rpc_command("workbench.action.quickOpen")
         if text:
             actions.sleep("50ms")

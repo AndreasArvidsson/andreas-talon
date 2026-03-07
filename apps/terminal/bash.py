@@ -39,9 +39,9 @@ class UserActions:
 
     # ----- Create folders / files -----
     @staticmethod
-    def file_manager_new_folder(name: str = None):
-        actions.insert(f"mkdir {name or ''}")
+    def file_manager_new_folder(name: str = ""):
+        actions.insert(f"mkdir {name}")
 
     @staticmethod
-    def file_manager_new_file(name: str = None):
-        actions.insert(f"touch {name or ''}")
+    def file_manager_new_file(name: str = ""):
+        actions.insert(f"touch {name}")

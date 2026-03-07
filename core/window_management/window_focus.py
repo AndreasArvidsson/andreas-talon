@@ -1,6 +1,7 @@
-from talon import Module, Context, ui, actions
-from talon.grammar import Phrase
+from typing import Optional
 
+from talon import Context, Module, actions, ui
+from talon.grammar import Phrase
 
 mod = Module()
 ctx = Context()
@@ -25,7 +26,7 @@ class Actions:
         actions.key("alt-tab")
 
     @staticmethod
-    def window_focus_name(name: str, phrase: Phrase = None):
+    def window_focus_name(name: str, phrase: Optional[Phrase] = None):
         """Focus application named <name>"""
         focus_name(name)
 

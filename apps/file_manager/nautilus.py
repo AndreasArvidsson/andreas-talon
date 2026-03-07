@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, app
+from talon import Context, Module, actions
 
 mod = Module()
 
@@ -38,7 +38,7 @@ class UserActions:
         actions.key("enter")
 
     @staticmethod
-    def file_manager_new_folder(name: str = None):
+    def file_manager_new_folder(name: str = ""):
         actions.key("ctrl-shift-n")
         if name:
             actions.insert(name)

@@ -80,14 +80,14 @@ class UserActions:
     # ----- Create folders / files -----
 
     @staticmethod
-    def file_manager_new_folder(name: str = None):
+    def file_manager_new_folder(name: str = ""):
         actions.key("home")
         actions.key("ctrl-shift-n")
         if name:
             actions.insert(name)
 
     @staticmethod
-    def file_manager_new_file(name: str = None):
+    def file_manager_new_file(name: str = ""):
         actions.key("menu w t")
         if name:
             actions.insert(name)

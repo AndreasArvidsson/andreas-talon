@@ -91,11 +91,11 @@ class Actions:
 
     # ----- Create folders / files -----
     @staticmethod
-    def file_manager_new_folder(name: str = None):
+    def file_manager_new_folder(name: str):
         """Creates a new folder"""
 
     @staticmethod
-    def file_manager_new_file(name: str = None):
+    def file_manager_new_file(name: str):
         """Creates a new file"""
 
     # ----- Miscellaneous -----

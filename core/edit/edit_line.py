@@ -13,8 +13,8 @@ class EditActions:
         actions.key("end")
 
     @staticmethod
-    def select_line(n: int = None):
-        if n:
+    def select_line(n: int = -1):
+        if n > -1:
             actions.edit.jump_line(n)
         actions.key("end shift-home")
 
