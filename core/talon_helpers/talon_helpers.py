@@ -4,7 +4,7 @@ import os
 import re
 import time
 from itertools import islice
-from typing import Any, Union
+from typing import Any, Callable, Union
 
 from talon import (
     Context,
@@ -17,7 +17,7 @@ from talon import (
     storage,
     ui,
 )
-from talon.grammar import Phrase
+from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 
@@ -95,15 +95,16 @@ class Actions:
         return format("captures", registry.captures)
 
     def talon_print_list_problems():
-        """Search for non alpha keys in meta lists"""
-        for n, l in registry.lists.items():
-            for ml in l:
-                try:
-                    for v in ml:
-                        if re.search(r"[^a-zA-Z' ]", v):
-                            print(f"{n}: {v}")
-                except Exception:
-                    pass
+        """Search for non alpha keys in talon lists"""
+        for n, lst in registry.lists.items():
+            for ml in lst:
+                if isinstance(ml, str):
+                    continue
+                if isinstance(ml, Callable):
+                    continue
+                for v in ml:
+                    if re.search(r"[^a-zA-Z' ]", v):
+                        print(f"{n}: {v}")
 
     def talon_get_lists() -> str:
         """Get lists as text"""

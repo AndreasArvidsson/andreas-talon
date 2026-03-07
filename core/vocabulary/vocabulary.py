@@ -15,8 +15,8 @@ language: sv
 """
 
 
-phrase_replacer_en = None
-phrase_replacer_sv = None
+phrase_replacer_en = PhraseReplacer({})
+phrase_replacer_sv = PhraseReplacer({})
 
 
 @ctx_en.action_class("dictate")

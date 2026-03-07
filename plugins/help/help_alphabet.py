@@ -1,4 +1,5 @@
 from talon import Module, actions, registry
+
 from ...core import imgui
 
 mod = Module()
@@ -9,8 +10,9 @@ def gui(gui: imgui.GUI):
     gui.header("Alphabet")
     gui.line(bold=True)
     alphabet = registry.lists["user.letter"][-1]
-    for key, val in alphabet.items():
-        gui.text(f"{val}:  {key}")
+    if isinstance(alphabet, dict):
+        for key, val in alphabet.items():
+            gui.text(f"{val}:  {key}")
     gui.spacer()
     if gui.button("Hide"):
         actions.user.help_alphabet_toggle()

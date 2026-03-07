@@ -1,21 +1,30 @@
 from talon import Module, app, ui, cron, actions, ctrl
 from talon.canvas import Canvas
 from skia import Canvas as SkiaCanvas, ImageFilter
-from talon.types import Rect
-from typing import Sequence, Type, Callable, Optional, Any
+from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
+from typing import Sequence, Callable, Optional, TypeVar
 
 mod = Module()
 subtitle_canvas = []
 notify_canvas = []
 show_override = None
+T = TypeVar("T")
 
 
 def setting(
-    name: str, type: Type, desc: str, default: Optional[Any] = None
-) -> Callable[[bool], Type]:
-    mod.setting(f"subtitles_{name}", type, default=default, desc=f"Subtitles: {desc}")
+    name: str,
+    setting_type: type[T],
+    desc: str,
+    default: Optional[T] = None,
+) -> Callable[[bool], T]:
     mod.setting(
-        f"notifications_{name}", type, default=default, desc=f"Notifications: {desc}"
+        f"subtitles_{name}", setting_type, default=default, desc=f"Subtitles: {desc}"
+    )
+    mod.setting(
+        f"notifications_{name}",
+        setting_type,
+        default=default,
+        desc=f"Notifications: {desc}",
     )
 
     def callback(is_subtitle: bool):
@@ -115,7 +124,7 @@ def show_text_on_screen(screen: ui.Screen, text: str, is_subtitle: bool):
 
 
 def on_draw(c: SkiaCanvas, screen: ui.Screen, text: str, is_subtitle: bool):
-    scale = screen.scale if app.platform != "mac" else 1
+    scale = screen.scale if app.platform != "mac" else 1.0
     size = setting_size(is_subtitle) * scale
     rect = set_text_size_and_get_rect(c, size, text)
     x = c.rect.center.x - rect.center.x
@@ -147,7 +156,7 @@ def calculate_timeout(text: str, is_subtitle: bool) -> int:
     return min(ms_max, max(ms_min, len(text) * ms_per_char))
 
 
-def set_text_size_and_get_rect(c: SkiaCanvas, size: int, text: str) -> Rect:
+def set_text_size_and_get_rect(c: SkiaCanvas, size: float, text: str) -> Rect:
     while True:
         c.paint.textsize = size
         rect = c.paint.measure_text(text)[1]

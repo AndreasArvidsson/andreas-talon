@@ -46,12 +46,12 @@ ctx.lists["user.code_function_modifier"] = {}
 ctx.lists["user.code_data_type"] = {}
 ctx.lists["user.code_collection_type"] = {}
 
-ctx.lists["user.code_variable_modifier"] = {
+ctx.lists["user.code_variable_modifier"] = {  # pyright: ignore[reportArgumentType]
     "const",
     "let",
 }
 
-ctx.lists["user.code_call_function"] = {
+ctx.lists["user.code_call_function"] = {  # pyright: ignore[reportArgumentType]
     "forEach",
     "map",
     "flatMap",

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 from talon import Module, actions, ctrl, ui
-from talon.types import Rect
+from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 

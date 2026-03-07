@@ -250,7 +250,7 @@ def draw_context_commands(gui: imgui.GUI):
     global total_page_count
     global selected_context_page
 
-    context_title = format_context_title(selected_context)
+    context_title = format_context_title(selected_context or "")
     title = f"Context: {context_title}"
     commands = context_command_map[selected_context].items()
     item_line_counts = [get_command_line_count(command) for command in commands]
@@ -274,7 +274,7 @@ def draw_search_commands(gui: imgui.GUI):
     global selected_context_page
 
     title = f"Search: {search_phrase}"
-    commands_grouped = get_search_commands(search_phrase)
+    commands_grouped = get_search_commands(search_phrase or "")
 
     sorted_commands_grouped = sorted(
         commands_grouped.items(),
@@ -299,8 +299,11 @@ def draw_search_commands(gui: imgui.GUI):
             gui.spacer()
 
 
-def get_search_commands(phrase: str) -> dict[str, Tuple[str, str]]:
+def get_search_commands(phrase: str) -> dict[str, list[Tuple[str, str]]]:
     global rule_word_map
+    if search_phrase is None:
+        return {}
+
     tokens = search_phrase.split(" ")
 
     viable_commands = rule_word_map[tokens[0]]
@@ -308,6 +311,7 @@ def get_search_commands(phrase: str) -> dict[str, Tuple[str, str]]:
         viable_commands &= rule_word_map[token]
 
     commands_grouped = defaultdict(list)
+
     for context, rule in viable_commands:
         command = context_command_map[context][rule]
         commands_grouped[context].append((rule, command))
@@ -345,7 +349,7 @@ def reset():
     global show_enabled_contexts_only
 
     current_context_page = 1
-    sorted_context_map_keys = None
+    sorted_context_map_keys = []
     selected_context = None
     search_phrase = None
     selected_context_page = 1
@@ -437,7 +441,7 @@ def get_sorted_keys_by_context_specificity(
             if keys:
                 return (display_name, "Context-dependent", 1)
             return (display_name, "Global", 0)
-        except Exception as ex:
+        except Exception:
             return (display_name, "", 0)
 
     grouped_list = [

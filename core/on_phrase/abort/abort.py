@@ -1,6 +1,6 @@
 from typing import Optional
 from talon import Module, Context, actions
-from talon.grammar import Phrase, Capture
+from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
 from talon.grammar.vm import VMCapture
 from talon.engines.w2l import DecodeWord
 from dataclasses import dataclass
@@ -24,8 +24,8 @@ abort_phrases = {
     "castle": "cancel",
 }
 
-ctx.lists["user.abort_phrase"] = {"cancel"}
-ctx_sv.lists["user.abort_phrase"] = {"cancel", "avbryt"}
+ctx.lists["user.abort_phrase"] = {"cancel"}  # pyright: ignore[reportArgumentType]
+ctx_sv.lists["user.abort_phrase"] = {"cancel", "avbryt"}  # pyright: ignore[reportArgumentType]
 
 
 @dataclass

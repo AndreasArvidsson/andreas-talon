@@ -1,5 +1,5 @@
 from talon import Module, actions
-from talon.grammar import Phrase
+from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 

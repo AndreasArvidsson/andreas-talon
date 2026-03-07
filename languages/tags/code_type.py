@@ -69,13 +69,13 @@ class Actions:
         """Insert return type <type>"""
 
     @staticmethod
-    def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:
+    def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:  # pyright: ignore[reportReturnType]
         """Format collection type <collection_type> with types <data_types>"""
 
     @staticmethod
-    def code_format_array_type(item_type: str) -> str:
+    def code_format_array_type(item_type: str) -> str:  # pyright: ignore[reportReturnType]
         """Format array with types <data_type>"""
 
     @staticmethod
-    def code_format_or_type(item_types: list[str]) -> str:
+    def code_format_or_type(item_types: list[str]) -> str:  # pyright: ignore[reportReturnType]
         """Format or type with types <data_types>"""

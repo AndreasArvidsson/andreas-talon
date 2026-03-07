@@ -127,7 +127,7 @@ class TitleFormatter(Formatter):
 
         if "-" in word:
             words = word.split("-")
-            words = self._title_case_words(words)
+            words = self._title_case_words(words)  # pyright: ignore[reportArgumentType]
             return "-".join(words)
 
         return word.capitalize()

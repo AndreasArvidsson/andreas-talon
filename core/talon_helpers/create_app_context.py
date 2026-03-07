@@ -3,7 +3,8 @@ import re
 from itertools import islice
 from pathlib import Path
 
-from talon import Module, actions, app, ui
+from talon import Module, app, ui
+from talon.ui import BaseApp
 
 APPS_DIR = Path(__file__).parent.parent.parent / "apps"
 
@@ -30,7 +31,7 @@ class Actions:
         create_file(python_file, python_context)
 
 
-def get_python_context(active_app: ui.App, app_name: str) -> str:
+def get_python_context(active_app: BaseApp, app_name: str) -> str:
     return '''\
 from talon import Module, Context, actions
 
@@ -62,7 +63,7 @@ def get_talon_context(app_name: str) -> str:
 """
 
 
-def get_app_context(active_app: ui.App) -> str:
+def get_app_context(active_app: BaseApp) -> str:
     if app.platform == "mac":
         return f"app.bundle: {active_app.bundle}"
     if app.platform == "windows":

@@ -17,12 +17,12 @@ from typing import (
 )
 from talon import registry
 from talon.screen import Screen
-from talon.types import Rect
+from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 from talon.scripting.types import CommandImpl, ScriptImpl
 from talon.scripting.rctx import ResourceContext
 from talon.scripting.talon_script import TalonScript
 from talon.ui import Window, App
-from talon.grammar import Phrase, Capture
+from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
 from pathlib import Path
 from skia import Image
 import inspect

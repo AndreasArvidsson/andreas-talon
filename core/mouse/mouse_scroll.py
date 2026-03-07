@@ -1,6 +1,6 @@
 from talon import Module, actions, app, ui, cron, ctrl
 from talon.canvas import Canvas
-from talon.types import Rect
+from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 from skia import Canvas as SkiaCanvas
 from typing import Literal
 import time

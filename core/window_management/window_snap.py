@@ -1,7 +1,9 @@
-from talon import ui, Module, Context, actions
-from talon.types import Rect
 from dataclasses import dataclass
 from typing import Union
+
+from talon import Context, Module, actions, ui
+from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
+from talon.ui import BaseWindow, Screen
 
 
 @dataclass
@@ -69,7 +71,7 @@ mod.list(
     "snap_position",
     "Predefined window positions for the current window. See `RelativePosition`.",
 )
-ctx.lists["user.snap_position"] = snap_positions.keys()
+ctx.lists["user.snap_position"] = snap_positions.keys()  # pyright: ignore[reportArgumentType]
 
 
 @mod.capture(rule="last | next")
@@ -200,7 +202,7 @@ class Actions:
         )
 
 
-def snap_window_to_screen(window: ui.Window, screen: ui.Screen):
+def snap_window_to_screen(window: BaseWindow, screen: Screen):
     dest = screen.visible_rect
     src = window.screen.visible_rect
     proportional_width = dest.width / src.width
@@ -215,13 +217,15 @@ def snap_window_to_screen(window: ui.Window, screen: ui.Screen):
 
 
 def snap_window_to_screen_and_position(
-    window: ui.Window, screen: ui.Screen, pos_name: str
+    window: BaseWindow,
+    screen: Screen,
+    pos_name: str,
 ):
     rect = actions.user.snap_apply_position_to_rect(screen.visible_rect, pos_name)
     actions.user.window_set_pos(window, rect.x, rect.y, rect.width, rect.height)
 
 
-def get_screen(screen_desc: Union[int, str]) -> ui.Screen:
+def get_screen(screen_desc: Union[int, str]) -> Screen:
     if screen_desc == "previous":
         return actions.user.screen_get_by_offset(-1)
     if screen_desc == "next":

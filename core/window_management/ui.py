@@ -1,7 +1,6 @@
 from talon import Context, Module, ui, actions, ctrl
 import time
 
-
 mod = Module()
 ctx = Context()
 
@@ -34,8 +33,7 @@ class Actions:
                 return apps2[0]
 
         # Finally just pick the first application
-        if apps:
-            return apps[0]
+        return apps[0]
 
     @staticmethod
     def get_app_window(app_name: str) -> ui.Window:
@@ -88,7 +86,7 @@ class Actions:
             actions.key(key)
 
 
-def cycle_windows(app: ui.App, diff: int):
+def cycle_windows(app, diff: int):
     """Cycle windows backwards or forwards for the given application"""
     active = app.active_window
     windows = [w for w in app.windows() if w == active or is_window_valid(w)]

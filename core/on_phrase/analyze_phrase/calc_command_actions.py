@@ -31,7 +31,7 @@ def calc_command_actions(
     code: str, capture_mapping: dict[str, Any]
 ) -> list[AnalyzedAction]:
     """Calculate command actions from a analyzed phrase"""
-    lines = [l for l in code.splitlines() if l and not l.startswith("#")]
+    lines = [ln for ln in code.splitlines() if ln and not ln.startswith("#")]
     parameters_map = get_parameters(capture_mapping)
     actions = []
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable, Literal, Union
+from typing import Callable, Literal
 from talon import Module, actions
 
 EditSimpleActionType = Literal[
@@ -56,12 +56,7 @@ class EditFormatAction:
         return self.type
 
 
-EditAction = Union[
-    EditSimpleAction,
-    EditInsertAction,
-    EditWrapAction,
-    EditFormatAction,
-]
+EditAction = EditSimpleAction | EditInsertAction | EditWrapAction | EditFormatAction
 
 
 mod = Module()

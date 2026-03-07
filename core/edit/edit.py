@@ -115,7 +115,7 @@ class EditActions:
         with clip.capture(0.1) as c:
             actions.edit.copy()
         try:
-            return c.text()
+            return c.text() or ""
         except clip.NoChange:
             return ""
 
@@ -167,7 +167,7 @@ class Actions:
         """Set clipboard text without monitoring"""
         mime = clip.MimeData()
         mime.text = text
-        mime["ExcludeClipboardContentFromMonitorProcessing"] = b"true"
+        mime["ExcludeClipboardContentFromMonitorProcessing"] = b"true"  # pyright: ignore[reportIndexIssue]
         clip.set_mime(mime)
 
     def insert_clipboard_with_keys():

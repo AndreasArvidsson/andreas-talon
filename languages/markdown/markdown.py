@@ -33,4 +33,4 @@ class UserActions:
 
 def is_valid_link(link: str) -> bool:
     # Multiline strings can't be a link
-    return link and "\n" not in link and "." in urlparse(link).netloc
+    return link != "" and "\n" not in link and "." in urlparse(link).netloc

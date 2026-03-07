@@ -1,5 +1,6 @@
 {
     "reportMissingModuleSource": false,
     "reportSelfClsParameterName": false,
-    "reportUnusedImport": "warning"
+    "reportUnusedImport": "warning",
+    "reportMissingImports": false
 }

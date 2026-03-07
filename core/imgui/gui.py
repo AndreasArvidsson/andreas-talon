@@ -6,7 +6,7 @@ from skia import RoundRect
 from talon import ui
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
-from talon.types import Point2d, Rect
+from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 from .button import Button
 from .constants import (

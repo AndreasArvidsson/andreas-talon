@@ -1,5 +1,5 @@
 from talon import Module, speech_system, cron
-from talon.grammar import Phrase
+from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 

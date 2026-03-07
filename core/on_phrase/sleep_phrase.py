@@ -1,4 +1,4 @@
-from talon.grammar import Phrase
+from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 from talon import Module, Context
 
 mod = Module()
@@ -13,8 +13,8 @@ mod.list("sleep_phrase", "Phrase used to sleep Talon")
 
 sleep_phrases = ["drowse", "sömnig"]
 
-ctx.lists["user.sleep_phrase"] = sleep_phrases[:-1]
-ctx_sv.lists["user.sleep_phrase"] = sleep_phrases
+ctx.lists["user.sleep_phrase"] = sleep_phrases[:-1]  # pyright: ignore[reportArgumentType]
+ctx_sv.lists["user.sleep_phrase"] = sleep_phrases  # pyright: ignore[reportArgumentType]
 
 
 def sleep_update_phrase(phrase: Phrase) -> str:

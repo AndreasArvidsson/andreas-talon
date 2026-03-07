@@ -2,8 +2,8 @@ from talon import Module, Context, ui, speech_system, actions
 from talon.screen import Screen
 from talon.canvas import Canvas, MouseEvent
 from skia import RoundRect, Canvas as SkiaCanvas
-from talon.types import Rect, Point2d
-from talon.grammar import Phrase
+from talon.types import Rect, Point2d  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 from dataclasses import dataclass
 from typing import Callable, Optional
 import math
@@ -66,11 +66,11 @@ and mode: dictation
 """
 
 mod = Module()
-size: Size = None
-canvas: Canvas = None
-mouse_pos: Point2d = None
-hover_rect: Rect = None
-repeater_callback: Callable[[], None] = None
+size: Size = Size(1)
+canvas: Canvas | None = None
+mouse_pos: Point2d = Point2d(0, 0)
+hover_rect: Rect | None = None
+repeater_callback: Callable[[], None] | None = None
 buttons: list[Button] = []
 
 circle_options = [
@@ -271,7 +271,8 @@ def on_mouse(e: MouseEvent):
         hover_rect_new = button.rect if button else None
         if hover_rect != hover_rect_new:
             hover_rect = hover_rect_new
-            canvas.freeze()
+            if canvas is not None:
+                canvas.freeze()
 
     elif e.event == "mouseup" and e.button == 0:
         hide()
@@ -297,10 +298,11 @@ def show():
 
 def hide():
     global canvas
-    canvas.unregister("draw", on_draw)
-    canvas.unregister("mouse", on_mouse)
-    canvas.close()
-    canvas = None
+    if canvas is not None:
+        canvas.unregister("draw", on_draw)
+        canvas.unregister("mouse", on_mouse)
+        canvas.close()
+        canvas = None
 
 
 @ctx.action_class("user")

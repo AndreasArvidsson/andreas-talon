@@ -1,5 +1,5 @@
 from talon import actions, speech_system, registry
-from talon.grammar import Phrase, Capture
+from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
 from talon.grammar.vm import VMListCapture, VMCapture
 from talon.engines.w2l import DecodeWord, WordMeta
 from talon.scripting.types import CommandImpl

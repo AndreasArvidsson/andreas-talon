@@ -1,5 +1,7 @@
+# ruff: noqa: E741
+
 from talon import Context, Module
-from typing import Union, Iterator
+from typing import Iterator
 
 mod = Module()
 ctx = Context()
@@ -24,13 +26,13 @@ numbers_map.update(scales_map)
 
 def parse_number(l: list[str]) -> str:
     """Parses a list of words into a number/digit string."""
-    l = list(scan_small_numbers(l))
+    l2 = list(scan_small_numbers(l))
     for scale in scales:
-        l = parse_scale(scale, l)
-    return "".join(str(n) for n in l)
+        l2 = parse_scale(scale, l2)
+    return "".join(str(n) for n in l2)
 
 
-def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
+def scan_small_numbers(l: list[str]) -> Iterator[str | int]:
     """
     Takes a list of number words, yields a generator of mixed numbers & strings.
     Translates small number terms (<100) into corresponding numbers.
@@ -56,7 +58,7 @@ def scan_small_numbers(l: list[str]) -> Iterator[Union[str, int]]:
             yield n
 
 
-def parse_scale(scale: str, l: list[Union[str, int]]) -> list[Union[str, int]]:
+def parse_scale(scale: str, l: list[str | int]) -> list[str | int]:
     """Parses a list of mixed numbers & strings for occurrences of the following
     pattern:
 

@@ -2,7 +2,7 @@ from talon import Module, Context, app, registry, scope, ui, actions
 from talon.canvas import Canvas
 from talon.screen import Screen
 from skia import Canvas as SkiaCanvas, ImageFilter, Shader
-from talon.types import Rect, Point2d
+from talon.types import Rect, Point2d  # pyright: ignore[reportAttributeAccessIssue]
 
 canvas: Canvas | None = None
 current_mode = ""
@@ -175,7 +175,7 @@ def on_update_settings(updated_settings: set[str]):
 
 
 def on_ready():
-    registry._modes.register("mode_change", on_mode_change)
+    registry._modes.register("mode_change", on_mode_change)  # pyright: ignore[reportAttributeAccessIssue]
     registry.register("update_settings", on_update_settings)
     ui.register("screen_change", lambda _: update_indicator())
     on_mode_change({})

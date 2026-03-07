@@ -39,7 +39,7 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_or            = " or ",
 )
 
-ctx.lists["user.code_call_function"] = {
+ctx.lists["user.code_call_function"] = {  # pyright: ignore[reportArgumentType]
     "key",
     "insert",
 }

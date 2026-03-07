@@ -1,28 +1,37 @@
+from typing import Literal, get_args
+
 from talon import ui, Module, Context, actions
+from talon.ui import BaseWindow
 
 mod = Module()
 ctx = Context()
 window_states = {}
 
+RESIZE_SIZE = Literal["small", "medium", "large"]
+
 mod.list("resize_side", "Side of window to use for resizing")
 mod.list("resize_direction", "Direction of window to use for resizing")
 mod.list("resize_size", "Offset to use for resizing")
-ctx.lists["user.resize_side"] = {"left", "top", "right", "bottom"}
-ctx.lists["user.resize_direction"] = {"in", "out"}
-ctx.lists["user.resize_size"] = {"small", "medium", "large"}
+ctx.lists["user.resize_side"] = {"left", "top", "right", "bottom"}  # pyright: ignore[reportArgumentType]
+ctx.lists["user.resize_direction"] = {"in", "out"}  # pyright: ignore[reportArgumentType]
+ctx.lists["user.resize_size"] = set(get_args(RESIZE_SIZE))  # pyright: ignore[reportArgumentType]
 
 
 @mod.action_class
 class Actions:
     @staticmethod
-    def window_set_rect(window: ui.Window, rect: ui.Rect):
+    def window_set_rect(window: BaseWindow, rect: ui.Rect):
         """Update window position. Keeps track of old position to enable revert/undo"""
         window_states[window] = window.rect
         window.rect = rect
 
     @staticmethod
     def window_set_pos(
-        window: ui.Window, x: float, y: float, width: float, height: float
+        window: BaseWindow,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
     ):
         """Update window position. Keeps track of old position to enable revert/undo"""
         actions.user.window_set_rect(
@@ -68,16 +77,16 @@ class Actions:
             actions.user.window_set_rect(appWindow, activeRect)
 
     @staticmethod
-    def window_resize(side: str, direction: str, offset: str):
+    def window_resize(side: str, direction: str, resize_size: RESIZE_SIZE):
         """Resize the active window"""
         window = ui.active_window()
         screen = window.screen.visible_rect
         screen_size = min(screen.width, screen.height)
-        if offset == "small":
+        if resize_size == "small":
             step = 0.05 * screen_size
-        elif offset == "medium":
+        elif resize_size == "medium":
             step = 0.1 * screen_size
-        elif offset == "large":
+        elif resize_size == "large":
             step = 0.2 * screen_size
         rect = window.rect
         x = rect.x
@@ -119,7 +128,7 @@ class Actions:
         )
 
 
-def revert_window(window: ui.Window):
+def revert_window(window: BaseWindow):
     old_rect = window_states.get(window)
     if old_rect:
         actions.user.window_set_rect(window, old_rect)

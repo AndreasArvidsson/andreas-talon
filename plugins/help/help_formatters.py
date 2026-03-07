@@ -8,10 +8,17 @@ mod = Module()
 def gui(gui: imgui.GUI):
     gui.header("Formatters")
     gui.line(bold=True)
-    formatters = {
-        **registry.lists["user.formatter_code"][-1],
-        **registry.lists["user.formatter_prose"][-1],
-    }
+
+    code_formatters = registry.lists["user.formatter_code"][-1]
+    prose_formatters = registry.lists["user.formatter_prose"][-1]
+
+    if not isinstance(code_formatters, dict) or not isinstance(prose_formatters, dict):
+        raise ValueError(
+            f"Expected code_formatters and prose_formatters to be dicts, got {type(code_formatters)} and {type(prose_formatters)}"
+        )
+
+    formatters = {**code_formatters, **prose_formatters}
+
     for name in sorted(formatters):
         gui.text(
             f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}"

@@ -52,16 +52,24 @@ all_keywords = {
     *static,
 }
 
-ctx.lists["user.code_class_modifier"] = {*access_modifiers, *abstract, *final}
+ctx.lists["user.code_class_modifier"] = {  # pyright: ignore[reportArgumentType]
+    *access_modifiers,
+    *abstract,
+    *final,
+}
 
-ctx.lists["user.code_function_modifier"] = {
+ctx.lists["user.code_function_modifier"] = {  # pyright: ignore[reportArgumentType]
     *access_modifiers,
     *abstract,
     *final,
     *static,
 }
 
-ctx.lists["user.code_variable_modifier"] = {*access_modifiers, *final, *static}
+ctx.lists["user.code_variable_modifier"] = {  # pyright: ignore[reportArgumentType]
+    *access_modifiers,
+    *final,
+    *static,
+}
 
 code_data_type_simple = {
     "int",
