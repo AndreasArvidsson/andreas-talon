@@ -11,11 +11,13 @@ TupleType = Tuple[ListType, RowType]
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def read_csv_as_list(file: Iterable[str]) -> ListType:
         """Read csv file. Present content as list"""
         values, headers = read_csv_file(file)
         return values
 
+    @staticmethod
     def read_csv_as_dict(file: Iterable[str]) -> dict[str, str]:
         """Read csv file. Present content as dict"""
         values, headers = read_csv_file(file)
@@ -32,6 +34,7 @@ class Actions:
                 )
         return result
 
+    @staticmethod
     def read_csv_as_dict_of_lists(file: Iterable[str]) -> dict[str, RowType]:
         """Read csv file. Present content as dict of lists"""
         values, headers = read_csv_file(file)

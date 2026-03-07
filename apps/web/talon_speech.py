@@ -19,24 +19,28 @@ class UserActions:
     def foot_switch_top_down():
         actions.key("up")
 
+    @staticmethod
     def foot_switch_top_up(held: bool):
         pass
 
     def foot_switch_center_down():
         actions.key("down")
 
+    @staticmethod
     def foot_switch_center_up(held: bool):
         pass
 
     def foot_switch_left_down():
         down()
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         up()
 
     def foot_switch_right_down():
         down()
 
+    @staticmethod
     def foot_switch_right_up(held: bool):
         up()
 

@@ -13,10 +13,12 @@ class Actions:
         if name:
             actions.insert(f"</{name}>")
 
+    @staticmethod
     def code_insert_element(name: str):
         """Insert element <name>"""
         actions.user.insert_snippet_by_name("element", {"name": name})
 
+    @staticmethod
     def code_insert_attribute(name: str):
         """Insert attribute <name>"""
         actions.user.insert_snippet_by_name("attribute", {"name": f" {name}"})

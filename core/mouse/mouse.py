@@ -26,6 +26,7 @@ class Actions:
         """Mouse on pop handler"""
         actions.skip()
 
+    @staticmethod
     def mouse_click(action: str):
         """Click mouse button"""
         if action == "left":

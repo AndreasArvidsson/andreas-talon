@@ -15,6 +15,7 @@ class Side:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def move_window_side_to_cursor_position(side: Optional[str] = None):
         """Move active window by moving <side> to the cursor position"""
         window = ui.active_window()
@@ -37,6 +38,7 @@ class Actions:
 
         actions.user.window_set_pos(window, *pos)
 
+    @staticmethod
     def resize_window_side_to_cursor_position(side: Optional[str] = None):
         """Resize active window by moving <side> to the cursor position"""
         window = ui.active_window()

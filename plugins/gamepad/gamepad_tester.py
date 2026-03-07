@@ -277,14 +277,17 @@ class Actions:
         else:
             hide()
 
+    @staticmethod
     def gamepad_tester_button(id: str, is_pressed: bool):
         """Indicates that a gamepad button has changed state"""
         buttons[id] = is_pressed
 
+    @staticmethod
     def gamepad_tester_trigger(id: str, value: float):
         """Indicates that a gamepad trigger has changed state"""
         triggers[id] = value
 
+    @staticmethod
     def gamepad_tester_stick(id: str, x: float, y: float):
         """Indicates that a gamepad stick has changed state"""
         sticks[id] = (x, y)

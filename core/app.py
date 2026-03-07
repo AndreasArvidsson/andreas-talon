@@ -23,6 +23,7 @@ class Actions:
             return
         actions.key("escape")
 
+    @staticmethod
     def pick_item(number: int):
         """Pick list item number <number>"""
         for _ in range(number - 1):

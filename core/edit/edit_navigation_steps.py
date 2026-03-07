@@ -35,6 +35,7 @@ def navigation_step(m) -> NavigationStep:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def perform_navigation_steps(steps: list[NavigationStep]):
         """Navigate by a series of steps"""
         for step in steps:

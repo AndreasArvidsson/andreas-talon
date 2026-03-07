@@ -6,6 +6,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def uri_encode(text: str) -> str:
         """Encodes a string to be used in a URI"""
         return parse.quote(text)
@@ -16,6 +17,7 @@ class Actions:
         encoded = actions.user.uri_encode(text)
         actions.insert(encoded)
 
+    @staticmethod
     def uri_decode(text: str) -> str:
         """Decodes a string from a URI"""
         return parse.unquote(text)

@@ -10,6 +10,7 @@ code.language: scss
 @ctx.action_class("user")
 class UserActions:
     # Variable statement
+    @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         snippet = name or "$1"
         if modifiers:

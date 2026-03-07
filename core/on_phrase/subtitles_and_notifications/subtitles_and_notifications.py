@@ -64,6 +64,7 @@ class Actions:
         global show_override
         show_override = not show_override
 
+    @staticmethod
     def notify(text: str):
         """Show notification"""
         possibly_show_text(text, is_subtitle=False)

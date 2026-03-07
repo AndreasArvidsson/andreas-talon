@@ -62,11 +62,13 @@ def call_up_action(key: int, held: bool):
 class Actions:
     # Key events. Don't touch these.
 
+    @staticmethod
     def foot_switch_down_event(key: int):
         """Foot switch key down event. Left(0), Center(1), Right(2), Top(3)"""
         timestamps[key] = time.perf_counter()
         current_state[key] = DOWN
 
+    @staticmethod
     def foot_switch_up_event(key: int):
         """Foot switch key up event. Left(0), Center(1), Right(2), Top(3)"""
         current_state[key] = UP
@@ -77,6 +79,7 @@ class Actions:
         """Foot switch button top:down"""
         actions.user.mouse_scroll_up_continuous()
 
+    @staticmethod
     def foot_switch_top_up(held: bool):
         """Foot switch button top:up"""
         if held:
@@ -86,6 +89,7 @@ class Actions:
         """Foot switch button center:down"""
         actions.user.mouse_scroll_down_continuous()
 
+    @staticmethod
     def foot_switch_center_up(held: bool):
         """Foot switch button center:up"""
         if held:
@@ -99,6 +103,7 @@ class Actions:
             actions.user.quick_pick_show,
         )
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         """Foot switch button left:up"""
         global cron_job
@@ -111,6 +116,7 @@ class Actions:
         """Foot switch button right:down"""
         actions.skip()
 
+    @staticmethod
     def foot_switch_right_up(held: bool):
         """Foot switch button right:up"""
         actions.skip()

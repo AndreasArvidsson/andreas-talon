@@ -21,6 +21,7 @@ def update_used(word: str):
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def homophones_get(word: str) -> list[str]:
         """Get homophones for the given word. Used by the phones action in cursorless"""
         homophones = get_list(word)
@@ -40,6 +41,7 @@ class Actions:
         new_word = format_homophone(word, homophone)
         actions.insert(new_word)
 
+    @staticmethod
     def homophones_replace_words(words: list[str]) -> list[str]:
         """Replace words with recently chosen homophones"""
         for i, word in enumerate(words):

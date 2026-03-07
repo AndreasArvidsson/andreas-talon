@@ -60,17 +60,22 @@ def code_simple_data_type(m) -> str:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def code_insert_type_annotation(type: str):
         """Insert type annotation <type>"""
 
+    @staticmethod
     def code_insert_return_type(type: str):
         """Insert return type <type>"""
 
+    @staticmethod
     def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:
         """Format collection type <collection_type> with types <data_types>"""
 
+    @staticmethod
     def code_format_array_type(item_type: str) -> str:
         """Format array with types <data_type>"""
 
+    @staticmethod
     def code_format_or_type(item_types: list[str]) -> str:
         """Format or type with types <data_types>"""

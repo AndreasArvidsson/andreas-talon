@@ -31,15 +31,18 @@ class UserActions:
         actions.edit.copy()
         actions.key("escape")
 
+    @staticmethod
     def file_manager_go(path: str):
         actions.key("ctrl-l")
         actions.insert(path)
         actions.key("enter")
 
+    @staticmethod
     def file_manager_new_folder(name: str = None):
         actions.key("ctrl-shift-n")
         if name:
             actions.insert(name)
 
+    @staticmethod
     def pick_item(number: int):
         actions.next(number + 1)

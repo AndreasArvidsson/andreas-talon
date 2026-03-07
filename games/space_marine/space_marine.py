@@ -60,23 +60,27 @@ class UserActions:
     def foot_switch_top_down():
         actions.key("w:down")
 
+    @staticmethod
     def foot_switch_top_up(held: bool):
         actions.key("w:up")
 
     def foot_switch_center_down():
         actions.key("s:down")
 
+    @staticmethod
     def foot_switch_center_up(held: bool):
         actions.key("s:up")
 
     def foot_switch_left_down():
         actions.key("a:down")
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         actions.key("a:up")
 
     def foot_switch_right_down():
         actions.key("d:down")
 
+    @staticmethod
     def foot_switch_right_up(held: bool):
         actions.key("d:up")

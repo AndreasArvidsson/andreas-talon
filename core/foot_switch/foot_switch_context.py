@@ -15,6 +15,7 @@ class EyeTrackerActions:
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
 
+    @staticmethod
     def foot_switch_right_up(held: bool):
         if held:
             actions.user.mouse_freeze_toggle()
@@ -36,6 +37,7 @@ class VoipActions:
     def foot_switch_left_down():
         actions.user.mute_microphone()
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         if held:
             actions.user.mute_microphone()

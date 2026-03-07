@@ -26,21 +26,25 @@ scroll_ts: float = 0
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def mouse_scroll_up(amount: float = 1):
         """Scrolls up"""
         y = amount * scroll_step
         actions.mouse_scroll(-y)
 
+    @staticmethod
     def mouse_scroll_down(amount: float = 1):
         """Scrolls down"""
         y = amount * scroll_step
         actions.mouse_scroll(y)
 
+    @staticmethod
     def mouse_scroll_left(amount: float = 1):
         """Scrolls left"""
         x = amount * scroll_step
         actions.mouse_scroll(0, -x)
 
+    @staticmethod
     def mouse_scroll_right(amount: float = 1):
         """Scrolls right"""
         x = amount * scroll_step

@@ -20,12 +20,14 @@ os: linux
 
 @ctx_win.action_class("user")
 class WinUserActions:
+    @staticmethod
     def file_manager_open(path: str):
         actions.user.exec(f"explorer {path}")
 
 
 @ctx_linux.action_class("user")
 class LinuxUserActions:
+    @staticmethod
     def file_manager_open(path: str):
         actions.user.exec(f"nautilus {path}")
 
@@ -49,6 +51,7 @@ class Actions:
         """Get path to user home"""
         return actions.path.user_home()
 
+    @staticmethod
     def update_path(path: str):
         """Update given path"""
         return path
@@ -57,6 +60,7 @@ class Actions:
     def file_manager_focus_address():
         """File manager focus address field"""
 
+    @staticmethod
     def file_manager_go(path: str):
         """File manager go to path"""
 
@@ -69,6 +73,7 @@ class Actions:
             actions.user.user_home(),
         )
 
+    @staticmethod
     def file_manager_open_new_tab(path: str):
         """File manager open path in new tab"""
         actions.app.tab_open()
@@ -85,9 +90,11 @@ class Actions:
         """File manager copy address"""
 
     # ----- Create folders / files -----
+    @staticmethod
     def file_manager_new_folder(name: str = None):
         """Creates a new folder"""
 
+    @staticmethod
     def file_manager_new_file(name: str = None):
         """Creates a new file"""
 
@@ -98,6 +105,7 @@ class Actions:
     def file_manager_terminal_here():
         """Opens terminal at current location"""
 
+    @staticmethod
     def file_manager_open(path: str):
         """Open file manager at the given path"""
 

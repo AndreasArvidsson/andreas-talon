@@ -490,6 +490,7 @@ class Actions:
             register_events(True)
             ctx.tags = ["user.help_commands"]
 
+    @staticmethod
     def help_search(phrase: str):
         """Display command info for search phrase"""
         global search_phrase
@@ -501,6 +502,7 @@ class Actions:
         register_events(True)
         ctx.tags = ["user.help_commands"]
 
+    @staticmethod
     def help_context(m: str):
         """Display command info for specified context"""
         global selected_context
@@ -537,6 +539,7 @@ class Actions:
                 else:
                     selected_context_page = 1
 
+    @staticmethod
     def help_select_number(number: int):
         """Select context number <number>"""
         global sorted_context_map_keys, selected_context

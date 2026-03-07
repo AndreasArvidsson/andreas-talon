@@ -15,17 +15,20 @@ class Actions:
         """Use developed folder of cursorless-talon"""
         switch_folder(False)
 
+    @staticmethod
     def c_browser_search_target(target: Any):
         """Search for target text in browser"""
         texts = actions.user.cursorless_get_text_list(target)
         text = " + ".join(texts)
         actions.user.browser_search(text)
 
+    @staticmethod
     def c_search_file(target: Any):
         """Search for file with name of target text"""
         text = actions.user.cursorless_get_text(target)
         actions.user.find_file(text)
 
+    @staticmethod
     def c_wrap_with_symbol(target: Any, symbol: str):
         """Wrap the target with <symbol>"""
         if symbol == "space":

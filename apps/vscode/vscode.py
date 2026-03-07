@@ -72,9 +72,11 @@ class UserActions:
 
     # ----- Tabs -----
 
+    @staticmethod
     def tab_jump(number: int):
         actions.user.run_rpc_command("andreas.openEditorAtIndex", number - 1)
 
+    @staticmethod
     def tab_jump_from_back(number: int):
         actions.user.run_rpc_command("andreas.openEditorAtIndex", -number)
 
@@ -106,12 +108,14 @@ class UserActions:
 
     # ----- Find / Replace -----
 
+    @staticmethod
     def find_everywhere(text: str = None):
         actions.user.run_rpc_command("workbench.action.findInFiles")
         if text:
             actions.sleep("50ms")
             actions.insert(text)
 
+    @staticmethod
     def find_file(text: str = None):
         actions.user.run_rpc_command("workbench.action.quickOpen")
         if text:
@@ -162,6 +166,7 @@ class Actions:
         """Format document"""
         actions.user.run_rpc_command("editor.action.formatDocument")
 
+    @staticmethod
     def vscode_find_recent(text: Optional[str] = None):
         """Find recent session, directory or file"""
         actions.user.run_rpc_command("workbench.action.openRecent")
@@ -169,6 +174,7 @@ class Actions:
             actions.sleep("150ms")
             actions.insert(text)
 
+    @staticmethod
     def vscode_take_word(cursorless_target: dict, repeats: int):
         """Take word on cursorless target with number of repeats"""
         actions.user.cursorless_command("setSelection", cursorless_target)
@@ -187,6 +193,7 @@ class Actions:
         if repeats < 0:
             actions.user.run_rpc_command("editor.action.selectHighlights")
 
+    @staticmethod
     def change_language(language: str = ""):
         """Change language mode"""
         actions.user.run_rpc_command("workbench.action.editor.changeLanguageMode")

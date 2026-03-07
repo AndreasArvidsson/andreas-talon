@@ -12,6 +12,7 @@ tag: user.vscode_notebook
 
 @ctx.action_class("user")
 class NotebookUserActions:
+    @staticmethod
     def change_language(language: str = ""):
         if language:
             actions.insert(language)

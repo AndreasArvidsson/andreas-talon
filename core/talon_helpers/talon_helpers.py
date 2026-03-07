@@ -80,6 +80,7 @@ class Actions:
         """Get long actions list as text"""
         return format("actions", registry.decls.actions, add_desc=True)
 
+    @staticmethod
     def talon_get_actions_search(text: str) -> str:
         """Get list of actions from search parameter"""
         actions = filter_search(registry.decls.actions, text)
@@ -116,6 +117,7 @@ class Actions:
         actions_string = format("actions", actions, add_desc=True)
         return f"{captures_string}\n\n{actions_string}"
 
+    @staticmethod
     def talon_sim_phrase(phrase: Union[str, Phrase]):
         """Sims the phrase in the active app and dumps to the log"""
         print("**** Simulated phrase **** ")
@@ -131,6 +133,7 @@ class Actions:
         restart_event = storage.get("talon_restart_event", 0)
         return time.time() - restart_event < 25
 
+    @staticmethod
     def as_dict(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
     ) -> dict:
@@ -143,6 +146,7 @@ class Actions:
             result[args[i]] = args[i + 1]
         return result
 
+    @staticmethod
     def as_list(
         arg1: Any = None, arg2: Any = None, arg3: Any = None, arg4: Any = None
     ) -> list:

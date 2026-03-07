@@ -41,17 +41,20 @@ for lang in code_languages:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def get_snippets(name: str) -> list[Snippet]:
         """Get snippets named <name>"""
         if name not in snippets_map:
             raise ValueError(f"Unknown snippet '{name}'")
         return snippets_map[name]
 
+    @staticmethod
     def get_snippet(name: str) -> Snippet:
         """Get snippet named <name> for the active language"""
         snippets: list[Snippet] = actions.user.get_snippets(name)
         return get_preferred_snippet(snippets)
 
+    @staticmethod
     def get_insertion_snippets(name: str) -> list[InsertionSnippet]:
         """Get insertion snippets named <name>"""
         snippets: list[Snippet] = actions.user.get_snippets(name)
@@ -59,6 +62,7 @@ class Actions:
             InsertionSnippet(s.body, s.insertion_scopes, s.languages) for s in snippets
         ]
 
+    @staticmethod
     def get_insertion_snippet(name: str) -> InsertionSnippet:
         """Get insertion snippet named <name> for the active language"""
         snippet: Snippet = actions.user.get_snippet(name)
@@ -68,12 +72,14 @@ class Actions:
             snippet.languages,
         )
 
+    @staticmethod
     def get_wrapper_snippets(name: str) -> list[WrapperSnippet]:
         """Get wrapper snippets named <name>"""
         snippet_name, variable_name = split_wrapper_snippet_name(name)
         snippets: list[Snippet] = actions.user.get_snippets(snippet_name)
         return [to_wrapper_snippet(s, variable_name) for s in snippets]
 
+    @staticmethod
     def get_wrapper_snippet(name: str) -> WrapperSnippet:
         """Get wrapper snippet named <name> for the active language"""
         snippet_name, variable_name = split_wrapper_snippet_name(name)

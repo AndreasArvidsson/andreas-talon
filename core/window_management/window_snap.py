@@ -91,6 +91,7 @@ def snap_screen(m) -> Union[int, str]:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def snap_active_window_to_screen(screen_desc: Union[int, str]):
         """Move the active window to screen <screen_desc> while retaining the same relative position"""
         snap_window_to_screen(
@@ -98,6 +99,7 @@ class Actions:
             get_screen(screen_desc),
         )
 
+    @staticmethod
     def snap_window_under_cursor_to_screen(screen_desc: Union[int, str]):
         """Move the window under the cursor to screen <screen_desc> while retaining the same relative position"""
         snap_window_to_screen(
@@ -105,6 +107,7 @@ class Actions:
             get_screen(screen_desc),
         )
 
+    @staticmethod
     def snap_application_to_screen(
         app_name: str,
         screen_desc: Union[int, str],
@@ -115,6 +118,7 @@ class Actions:
             get_screen(screen_desc),
         )
 
+    @staticmethod
     def snap_active_window_to_position(pos_name: str):
         """Move the active window to position <pos_name> on the current screen"""
         window = ui.active_window()
@@ -124,6 +128,7 @@ class Actions:
             pos_name,
         )
 
+    @staticmethod
     def snap_window_under_cursor_to_position(pos_name: str):
         """Move the window under the cursor to position <pos_name> on the current screen"""
         window = actions.user.get_window_under_cursor()
@@ -133,6 +138,7 @@ class Actions:
             pos_name,
         )
 
+    @staticmethod
     def snap_application_to_position(
         app_name: str,
         pos_name: str,
@@ -145,6 +151,7 @@ class Actions:
             pos_name,
         )
 
+    @staticmethod
     def snap_active_window_to_screen_and_position(
         screen_desc: Union[int, str],
         pos_name: str,
@@ -156,6 +163,7 @@ class Actions:
             pos_name,
         )
 
+    @staticmethod
     def snap_window_under_cursor_to_screen_and_position(
         screen_desc: Union[int, str],
         pos_name: str,
@@ -167,6 +175,7 @@ class Actions:
             pos_name,
         )
 
+    @staticmethod
     def snap_application_to_screen_and_position(
         app_name: str,
         screen_desc: Union[int, str],
@@ -179,6 +188,7 @@ class Actions:
             pos_name,
         )
 
+    @staticmethod
     def snap_apply_position_to_rect(rect: Rect, pos_name: str) -> Rect:
         """Applies snap position <pos_name> to given rectangle"""
         pos = snap_positions[pos_name]

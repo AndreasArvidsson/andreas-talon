@@ -17,6 +17,7 @@ class AppActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def get_app(name: str) -> ui.App:
         """Get application by name"""
         # Try to get application by name
@@ -36,6 +37,7 @@ class Actions:
         if apps:
             return apps[0]
 
+    @staticmethod
     def get_app_window(app_name: str) -> ui.Window:
         """Get top window by application name"""
         app = actions.user.get_app(app_name)
@@ -53,6 +55,7 @@ class Actions:
             raise ValueError("Can't find window under the mouse cursor")
         return windows[0]
 
+    @staticmethod
     def focus_app(app: ui.App):
         """Focus app and wait until finished"""
         app.focus()
@@ -62,6 +65,7 @@ class Actions:
                 raise RuntimeError(f"Can't focus app: {app.name}")
             actions.sleep("50ms")
 
+    @staticmethod
     def focus_window(window: ui.Window):
         """Focus window and wait until finished"""
         window.focus()
@@ -72,6 +76,7 @@ class Actions:
                 raise RuntimeError(f"Can't focus window '{window.title}'")
             actions.sleep("50ms")
 
+    @staticmethod
     def send_key(key: str, app: ui.App):
         """Send key <key> to application"""
         active_app = ui.active_app()

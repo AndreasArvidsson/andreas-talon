@@ -27,10 +27,12 @@ class AppActions:
 
 @mod.action_class
 class TabActions:
+    @staticmethod
     def tab_jump(number: int):
         """Jumps to the specified tab"""
         actions.key(f"ctrl-{number}")
 
+    @staticmethod
     def tab_jump_from_back(number: int):
         """Jumps to the specified tab counted from the back"""
         actions.user.tab_final()

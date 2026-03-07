@@ -29,10 +29,12 @@ def parse_pair(pair_str: str) -> list[str]:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def delimiter_pair_insert(pair: list[str]):
         """Insert a delimiter pair <pair> leaving the cursor in the middle"""
         insert_between(pair[0], pair[1])
 
+    @staticmethod
     def delimiter_pair_wrap_selection(pair: list[str]):
         """Wrap selection with delimiter pair <pair>"""
         selected = actions.edit.selected_text()

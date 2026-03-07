@@ -10,6 +10,7 @@ repeated_key_jobs = {}
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def key_hold(key: str):
         """Simulate holding a key with repeated key presses"""
         actions.key(key)
@@ -22,6 +23,7 @@ class Actions:
 
         repeated_key_jobs[key] = cron.after(REPEAT_DELAY, add_interval)
 
+    @staticmethod
     def key_release(key: str):
         """Stop repeating key"""
         job = repeated_key_jobs.get(key)

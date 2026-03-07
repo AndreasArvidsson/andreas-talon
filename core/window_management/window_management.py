@@ -14,11 +14,13 @@ ctx.lists["user.resize_size"] = {"small", "medium", "large"}
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def window_set_rect(window: ui.Window, rect: ui.Rect):
         """Update window position. Keeps track of old position to enable revert/undo"""
         window_states[window] = window.rect
         window.rect = rect
 
+    @staticmethod
     def window_set_pos(
         window: ui.Window, x: float, y: float, width: float, height: float
     ):
@@ -36,6 +38,7 @@ class Actions:
         """Revert the window under the cursor to last position"""
         revert_window(actions.user.get_window_under_cursor())
 
+    @staticmethod
     def revert_application_window_position(app_name: str):
         """Revert window for application <app_name> to last position"""
         revert_window(actions.user.get_app_window(app_name))
@@ -53,6 +56,7 @@ class Actions:
             height=rect.height,
         )
 
+    @staticmethod
     def swap_active_window_position_with_application(app_name: str):
         """Swap active window position with application <app_name>"""
         app = actions.user.get_app(app_name)
@@ -63,6 +67,7 @@ class Actions:
             actions.user.window_set_rect(activeWindow, appWindow.rect)
             actions.user.window_set_rect(appWindow, activeRect)
 
+    @staticmethod
     def window_resize(side: str, direction: str, offset: str):
         """Resize the active window"""
         window = ui.active_window()

@@ -389,6 +389,7 @@ class Actions:
         """Returns the current mute status"""
         return client().get_voice_settings()["mute"]
 
+    @staticmethod
     def discord_set_mute_status(mute: bool) -> bool:
         """Sets the Discord mute status"""
         return client().set_mute_status(mute)

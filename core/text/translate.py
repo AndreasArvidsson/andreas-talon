@@ -14,10 +14,12 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def translate_english_to_swedish(text: str) -> str:
         """Translate english text to swedish"""
         return translate(en_to_sv, text)
 
+    @staticmethod
     def translate_swedish_to_english(text: str) -> str:
         """Translate swedish text to english"""
         return translate(sv_to_en, text)

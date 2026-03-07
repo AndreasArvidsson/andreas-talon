@@ -45,6 +45,7 @@ class Action:
         """Push tags to remote"""
         actions.insert("git push --tags\n")
 
+    @staticmethod
     def git_create_tag(tag: Optional[str] = None):
         """Create tag <tag>"""
         actions.insert(f"git tag {tag or ''}")
@@ -78,10 +79,12 @@ class Action:
         """List git stashes"""
         actions.insert("git stash list\n")
 
+    @staticmethod
     def git_merge(branch: Optional[str] = None):
         """Merge branch <branch>"""
         actions.insert(f"git merge {branch or ''}")
 
+    @staticmethod
     def git_checkout(branch: Optional[str] = None, submit: bool = False):
         """Checkout branch <branch>"""
         actions.insert(f"git checkout {branch or ''}")
@@ -92,19 +95,23 @@ class Action:
         """Show branches"""
         actions.insert("git branch\n")
 
+    @staticmethod
     def git_create_branch(branch: Optional[str] = None):
         """Create branch <branch>"""
         actions.insert(f"git checkout -b {branch or ''}")
 
+    @staticmethod
     def git_delete_branch(branch: Optional[str] = None):
         """Delete branch <branch>"""
         actions.insert(f"git branch -d {branch or ''}")
 
+    @staticmethod
     def git_commit(message: Optional[str] = None):
         """Commit changes <message>"""
         actions.insert(f'git commit -m "{message or ""}"')
         actions.edit.left()
 
+    @staticmethod
     def git_commit_amend(message: Optional[str] = None):
         """Commit changes <message>"""
         actions.insert(f'git commit --amend -m "{message or ""}"')
@@ -133,6 +140,7 @@ class Action:
         """Cherry pick commit"""
         actions.insert("git cherry-pick ")
 
+    @staticmethod
     def git_numstat(since: Optional[str] = None):
         """Show git statistics"""
         args = "--author='Andreas Arvidsson'"

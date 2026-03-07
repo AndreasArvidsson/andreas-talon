@@ -37,6 +37,7 @@ class Actions:
         """Return date string for today"""
         return date.today().strftime(date_format)
 
+    @staticmethod
     def date_delta_days(days: int) -> str:
         """Return date string for today + <delta> days"""
         return (date.today() + timedelta(days=days)).strftime(date_format)

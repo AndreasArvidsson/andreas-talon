@@ -58,6 +58,7 @@ class EditActions:
     def delete_line():
         actions.user.run_rpc_command("editor.action.deleteLines")
 
+    @staticmethod
     def jump_line(n: int):
         actions.user.run_rpc_command("andreas.goToLine", n)
 
@@ -119,6 +120,7 @@ class UserActions:
 
     # ----- Snippets -----
 
+    @staticmethod
     def insert_snippet(body: str):
         actions.user.run_rpc_command("editor.action.insertSnippet", {"snippet": body})
 

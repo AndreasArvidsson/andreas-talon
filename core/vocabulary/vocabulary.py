@@ -21,12 +21,14 @@ phrase_replacer_sv = None
 
 @ctx_en.action_class("dictate")
 class DictateActionsEn:
+    @staticmethod
     def replace_words(words: Sequence[str]) -> Sequence[str]:
         return phrase_replacer_en.replace(words)
 
 
 @ctx_sv.action_class("dictate")
 class DictateActionsSv:
+    @staticmethod
     def replace_words(words: Sequence[str]) -> Sequence[str]:
         return phrase_replacer_sv.replace(words)
 

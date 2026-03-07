@@ -17,12 +17,14 @@ class Actions:
         """Volume decrease"""
         actions.key("voldown")
 
+    @staticmethod
     def change_sound_device_pair(name: str):
         """Change sound device pair <name>"""
         microphone, playback = name.split(",")
         actions.user.change_sound_device(microphone)
         actions.user.change_sound_device(playback)
 
+    @staticmethod
     def change_sound_device(name: str):
         """Change sound device <name>"""
 
@@ -30,6 +32,7 @@ class Actions:
         """Returns true if the microphone is NOT set to 'None'"""
         return actions.sound.active_microphone() != "None"
 
+    @staticmethod
     def sound_microphone_enable(enable: bool):
         """Enables or disables the microphone"""
         if enable:
@@ -85,6 +88,7 @@ ctx_win.lists["user.sound_device_pair"] = {
 
 @ctx_win.action_class("user")
 class UserActionsWin:
+    @staticmethod
     def change_sound_device(name: str):
         change_sound_device_win(name, 1)
         change_sound_device_win(name, 2)

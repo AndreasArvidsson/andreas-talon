@@ -50,6 +50,7 @@ extension_siblings = {
 
 @mod.action_class
 class UserActions:
+    @staticmethod
     def get_extension_sibling(extension: str) -> Optional[str]:
         """Get matching sibling for extension"""
         if extension in extension_siblings:

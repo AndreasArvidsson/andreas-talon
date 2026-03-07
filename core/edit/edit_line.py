@@ -12,11 +12,13 @@ class EditActions:
     def line_end():
         actions.key("end")
 
+    @staticmethod
     def select_line(n: int = None):
         if n:
             actions.edit.jump_line(n)
         actions.key("end shift-home")
 
+    @staticmethod
     def select_lines(a: int, b: int):
         number_of_lines = abs(a - b)
         if number_of_lines < 1 or number_of_lines > 500:

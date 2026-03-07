@@ -30,6 +30,7 @@ ctx.tags = ["terminal", "user.bash"]
 
 @ctx.action_class("main")
 class MainActions:
+    @staticmethod
     def insert(text: str):
         text = convert_windows_system_paths(text)
         actions.next(text)
@@ -69,6 +70,7 @@ class UserActions:
     def user_home() -> str:
         return update_path(actions.next())
 
+    @staticmethod
     def file_manager_go(path: str):
         if path.startswith("shell:"):
             actions.insert(f"start {path}")

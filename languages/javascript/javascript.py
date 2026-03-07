@@ -108,23 +108,28 @@ ctx.lists["user.code_keyword"] = js_keywords
 @ctx.action_class("user")
 class UserActions:
     # Class statement
+    @staticmethod
     def code_class(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name("classDeclaration", {"name": name})
 
     # Constructor statement
+    @staticmethod
     def code_constructor(modifiers: list[str]):
         actions.user.insert_snippet_by_name("constructorDeclaration")
 
     # Function statement
+    @staticmethod
     def code_function(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name("functionDeclaration", {"name": name})
 
+    @staticmethod
     def code_method(name: str, modifiers: list[str]):
         if modifiers:
             name = f"{''.join(modifiers)} {name}"
         actions.user.insert_snippet_by_name("methodDeclaration", {"name": name})
 
     # Variable statement
+    @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         snippet = ""
         if modifiers:
@@ -156,6 +161,7 @@ class Actions:
         text = text.replace(")", ") =>")
         actions.insert(text)
 
+    @staticmethod
     def js_arrow_function(name: str):
         """Insert arrow function"""
         format = actions.user.code_get_function_format()

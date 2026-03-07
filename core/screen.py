@@ -12,6 +12,7 @@ class Actions:
         for i, screen in enumerate(ui.screens()):
             show_screen_number(screen, i + 1)
 
+    @staticmethod
     def screen_get_by_number(screen_number: int) -> ui.Screen:
         """Get screen by number"""
         screens = ui.screens()
@@ -22,6 +23,7 @@ class Actions:
             )
         return screens[screen_number - 1]
 
+    @staticmethod
     def screen_get_by_offset(offset: int):
         """Get screen by offset"""
         screens = ui.screens()

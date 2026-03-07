@@ -33,6 +33,7 @@ class UserActions:
     def git_push_tags():
         actions.user.run_rpc_command("git.pushTags")
 
+    @staticmethod
     def git_create_tag(tag: Optional[str] = None):
         command_with_text("git.createTag", tag)
 
@@ -48,6 +49,7 @@ class UserActions:
     def git_stash_drop():
         actions.user.run_rpc_command("git.stashDrop")
 
+    @staticmethod
     def git_merge(branch: Optional[str] = None):
         if branch:
             branches = get_branch_names_with_fallback(branch)
@@ -57,6 +59,7 @@ class UserActions:
                     branch = first_branch
         command_with_text("git.merge", branch)
 
+    @staticmethod
     def git_checkout(branch: Optional[str] = None, submit: bool = False):
         if branch:
             branches = get_branch_names_with_fallback(branch)
@@ -70,18 +73,22 @@ class UserActions:
     def git_show_branches():
         actions.user.run_rpc_command("gitlens.showBranchesView")
 
+    @staticmethod
     def git_create_branch(branch: Optional[str] = None):
         command_with_text("git.branch", branch)
 
+    @staticmethod
     def git_delete_branch(branch: Optional[str] = None):
         command_with_text("git.deleteBranch", branch)
 
+    @staticmethod
     def git_commit(message: Optional[str] = None):
         actions.user.run_rpc_command("git.commit")
         if message:
             actions.sleep("200ms")
             actions.insert(message)
 
+    @staticmethod
     def git_commit_amend(message: Optional[str] = None):
         actions.user.run_rpc_command("git.commitAmend")
         if message:
@@ -112,6 +119,7 @@ class UserActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def git_open_remote_file_url(use_selection: bool, use_branch: bool):
         """Open remote git file in browser"""
         url = actions.user.run_rpc_command_get(
@@ -121,6 +129,7 @@ class Actions:
         if url:
             actions.user.browser_open(url)
 
+    @staticmethod
     def git_copy_remote_file_url(use_selection: bool, use_branch: bool):
         """Copy remote git file URL to clipboard"""
         url = actions.user.run_rpc_command_get(
@@ -130,12 +139,14 @@ class Actions:
         if url:
             actions.clip.set_text(url)
 
+    @staticmethod
     def git_open_url(command: str):
         """Open remote repository in browser"""
         url = actions.user.run_rpc_command_get(f"andreas.getGit{command}URL")
         if url:
             actions.user.browser_open(url)
 
+    @staticmethod
     def git_copy_markdown_remote_file_url(targets: list):
         """Copy remote git file URL to clipboard as markdown link"""
         use_selection = False

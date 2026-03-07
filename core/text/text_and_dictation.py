@@ -100,6 +100,7 @@ language: sv
 
 @ctx_dictation.action_class("main")
 class main_action:
+    @staticmethod
     def auto_insert(text):
         actions.user.dictation_insert(text)
 
@@ -263,6 +264,7 @@ dictation_formatter = DictationFormat()
 
 @ctx_sv.action_class("user")
 class SwedishUserActions:
+    @staticmethod
     def dictation_needs_comma_between(before: str, after: str) -> bool:
         return after.lower() == "men" and before[-1].isalpha()
 
@@ -273,6 +275,7 @@ class Actions:
         """Resets the dictation formatter"""
         return dictation_formatter.reset()
 
+    @staticmethod
     def dictation_insert(text: str):
         """Inserts dictated text, formatted appropriately."""
         before, after = actions.user.dictation_get_context()
@@ -301,6 +304,7 @@ class Actions:
         """Returns the text before and after the current selection"""
         return (None, None)
 
+    @staticmethod
     def dictation_needs_comma_between(before: str, after: str) -> bool:
         """Returns true if a `,` should be inserted between these words during dictation"""
         return after == "but" and before[-1].isalpha()

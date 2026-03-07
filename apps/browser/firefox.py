@@ -91,6 +91,7 @@ class AppActions:
 
 @ctx.action_class("edit")
 class EditActions:
+    @staticmethod
     def find(text: str = None):
         actions.key("ctrl-f")
         if text:
@@ -103,6 +104,7 @@ class UserActions:
     def browser_copy_address():
         actions.user.rango_command_without_target("copyLocationProperty", "href")
 
+    @staticmethod
     def browser_open_new_tab(url: str):
         actions.browser.focus_address()
         actions.sleep("50ms")
@@ -130,6 +132,7 @@ class UserActions:
         actions.user.rango_command_without_target("scrollDownPage", 0.9)
 
     # ----- Tabs -----
+    @staticmethod
     def tab_jump(number: int):
         if number < 9:
             actions.key(f"ctrl-{number}")
@@ -167,6 +170,7 @@ class UserActionsLinux:
     def tab_final():
         actions.key("alt-9")
 
+    @staticmethod
     def tab_jump(number: int):
         if number < 9:
             actions.key(f"alt-{number}")

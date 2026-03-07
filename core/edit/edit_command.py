@@ -53,6 +53,7 @@ def edit_target(m) -> list[EditModifier]:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def edit_command(action: EditAction, modifiers: list[EditModifier]):
         """Perform edit command <action>"""
 
@@ -71,6 +72,7 @@ class Actions:
 
         action_callback()
 
+    @staticmethod
     def edit_command_bring(source: list[EditModifier], destination: list[EditModifier]):
         """Perform edit bring command"""
         source_modifier_callbacks = get_modifier_callbacks(source)

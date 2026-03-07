@@ -18,23 +18,27 @@ class MainActions:
     def foot_switch_top_down():
         actions.user.key_hold("ctrl-up")
 
+    @staticmethod
     def foot_switch_top_up(held: bool):
         actions.user.key_release("ctrl-up")
 
     def foot_switch_center_down():
         actions.user.key_hold("ctrl-down")
 
+    @staticmethod
     def foot_switch_center_up(held: bool):
         actions.user.key_release("ctrl-down")
 
     def foot_switch_left_down():
         actions.user.key_hold("ctrl-left")
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         actions.user.key_release("ctrl-left")
 
     def foot_switch_right_down():
         actions.user.key_hold("ctrl-right")
 
+    @staticmethod
     def foot_switch_right_up(held: bool):
         actions.user.key_release("ctrl-right")

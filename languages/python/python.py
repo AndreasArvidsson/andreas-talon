@@ -124,14 +124,17 @@ ctx.lists["user.code_keyword"] = {
 @ctx.action_class("user")
 class UserActions:
     # Class statement
+    @staticmethod
     def code_class(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name("classDeclaration", {"name": name})
 
     # Constructor statement
+    @staticmethod
     def code_constructor(modifiers: list[str]):
         actions.user.insert_snippet_by_name("constructorDeclaration")
 
     # Function statement
+    @staticmethod
     def code_function(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name(
             "functionDeclaration",
@@ -139,6 +142,7 @@ class UserActions:
         )
 
     # Variable statement
+    @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         snippet = ""
         if modifiers:
@@ -151,19 +155,24 @@ class UserActions:
         actions.user.insert_snippet(snippet)
 
     # Insert types
+    @staticmethod
     def code_insert_type_annotation(type: str):
         actions.insert(f": {type}")
 
+    @staticmethod
     def code_insert_return_type(type: str):
         actions.insert(f" -> {type}")
 
+    @staticmethod
     def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:
         if item_types:
             return f"{collection_type}[{', '.join(item_types)}]"
         return collection_type
 
+    @staticmethod
     def code_format_array_type(item_type: str) -> str:
         return actions.user.code_format_collection_type("list", [item_type])
 
+    @staticmethod
     def code_format_or_type(item_types: list[str]) -> str:
         return f"{' | '.join(item_types)}"

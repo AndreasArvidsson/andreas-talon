@@ -45,6 +45,7 @@ class FrozenActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def mouse_control_toggle(enable: Optional[bool] = None):
         """Toggle enable/disable for the eye tracker"""
         if enable is None:

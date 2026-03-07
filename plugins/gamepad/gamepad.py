@@ -21,6 +21,7 @@ class VoipActions:
     def gamepad_press_start():
         actions.user.mute_microphone()
 
+    @staticmethod
     def gamepad_release_start(held: bool):
         if held:
             actions.user.mute_microphone()
@@ -34,6 +35,7 @@ class Actions:
         """Gamepad press button dpad left"""
         gamepad_mouse_jump("left")
 
+    @staticmethod
     def gamepad_release_dpad_left(held: bool):
         """Gamepad release button dpad left"""
         actions.skip()
@@ -42,6 +44,7 @@ class Actions:
         """Gamepad press button dpad up"""
         gamepad_mouse_jump("up")
 
+    @staticmethod
     def gamepad_release_dpad_up(held: bool):
         """Gamepad release button dpad up"""
         actions.skip()
@@ -50,6 +53,7 @@ class Actions:
         """Gamepad press button dpad right"""
         gamepad_mouse_jump("right")
 
+    @staticmethod
     def gamepad_release_dpad_right(held: bool):
         """Gamepad release button dpad right"""
         actions.skip()
@@ -58,6 +62,7 @@ class Actions:
         """Gamepad press button dpad down"""
         gamepad_mouse_jump("down")
 
+    @staticmethod
     def gamepad_release_dpad_down(held: bool):
         """Gamepad release button dpad down"""
         actions.skip()
@@ -68,6 +73,7 @@ class Actions:
         """Gamepad press button west"""
         actions.mouse_drag(0)
 
+    @staticmethod
     def gamepad_release_west(held: bool):
         """Gamepad release button west"""
         actions.mouse_release(0)
@@ -76,6 +82,7 @@ class Actions:
         """Gamepad press button north"""
         actions.mouse_drag(1)
 
+    @staticmethod
     def gamepad_release_north(held: bool):
         """Gamepad release button north"""
         actions.mouse_release(1)
@@ -84,6 +91,7 @@ class Actions:
         """Gamepad press button east"""
         actions.user.mouse_click("control")
 
+    @staticmethod
     def gamepad_release_east(held: bool):
         """Gamepad release button east"""
         actions.skip()
@@ -92,6 +100,7 @@ class Actions:
         """Gamepad press button south"""
         actions.user.mouse_freeze_toggle()
 
+    @staticmethod
     def gamepad_release_south(held: bool):
         """Gamepad release button south"""
         if held:
@@ -103,6 +112,7 @@ class Actions:
         """Gamepad press button select"""
         actions.user.quick_pick_show()
 
+    @staticmethod
     def gamepad_release_select(held: bool):
         """Gamepad release button select"""
         actions.skip()
@@ -111,6 +121,7 @@ class Actions:
         """Gamepad press button start"""
         actions.user.command_dictation_mode_toggle()
 
+    @staticmethod
     def gamepad_release_start(held: bool):
         """Gamepad release button start"""
         if held:
@@ -122,6 +133,7 @@ class Actions:
         """Gamepad press button left shoulder"""
         actions.user.go_back()
 
+    @staticmethod
     def gamepad_release_left_shoulder(held: bool):
         """Gamepad release button left shoulder"""
         actions.skip()
@@ -130,6 +142,7 @@ class Actions:
         """Gamepad press button right shoulder"""
         actions.user.go_forward()
 
+    @staticmethod
     def gamepad_release_right_shoulder(held: bool):
         """Gamepad release button right shoulder"""
         actions.skip()
@@ -140,6 +153,7 @@ class Actions:
         """Gamepad press button left thumb stick"""
         gamepad_scroll_slow_toggle()
 
+    @staticmethod
     def gamepad_release_left_stick(held: bool):
         """Gamepad release button left thumb stick"""
         actions.skip()
@@ -148,32 +162,38 @@ class Actions:
         """Gamepad press button right thumb stick"""
         gamepad_mouse_move_slow_toggle()
 
+    @staticmethod
     def gamepad_release_right_stick(held: bool):
         """Gamepad release button right thumb stick"""
         actions.skip()
 
     # Analog triggers
 
+    @staticmethod
     def gamepad_trigger_left(value: float):
         """Gamepad trigger left movement"""
         gamepad_scroll(0, value * -1)
 
+    @staticmethod
     def gamepad_trigger_right(value: float):
         """Gamepad trigger right movement"""
         gamepad_scroll(0, value)
 
     # Analog thumb sticks
 
+    @staticmethod
     def gamepad_stick_left(x: float, y: float):
         """Gamepad left stick movement"""
         gamepad_scroll(x, y)
 
+    @staticmethod
     def gamepad_stick_right(x: float, y: float):
         """Gamepad right stick movement"""
         gamepad_mouse_move(x, y)
 
     # Scaffolding actions used by the Talon file
 
+    @staticmethod
     def gamepad_button_down(button: str):
         """Gamepad press button <button>"""
         timestamps[button] = time.perf_counter()
@@ -220,6 +240,7 @@ class Actions:
             case _:
                 raise ValueError(f"Unknown button: {button}")
 
+    @staticmethod
     def gamepad_button_up(button: str):
         """Gamepad release button <button>"""
         held = time.perf_counter() - timestamps[button] > HOLD_TIMEOUT

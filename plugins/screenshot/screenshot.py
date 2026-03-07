@@ -10,6 +10,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def screenshot(screen_number: int = None):
         """Takes a screenshot of the entire screen and saves it to the pictures folder.
         Optional screen number can be given to use screen other than main."""
@@ -24,6 +25,7 @@ class Actions:
     def screenshot_selection():
         """Triggers an application is capable of taking a screenshot of a portion of the screen"""
 
+    @staticmethod
     def screenshot_clipboard(screen_number: int = None):
         """Takes a screenshot of the entire screen and saves it to the clipboard.
         Optional screen number can be given to use screen other than main."""

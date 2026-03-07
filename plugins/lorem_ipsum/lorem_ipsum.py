@@ -5,6 +5,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def lorem_ipsum(num_words: int):
         """Inserts a lorem ipsum with <num_words> words"""
         res = words[:num_words]

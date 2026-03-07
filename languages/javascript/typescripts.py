@@ -67,21 +67,26 @@ ctx.lists["user.code_keyword"] = {
 @ctx.action_class("user")
 class UserActions:
     # Insert types
+    @staticmethod
     def code_insert_type_annotation(type: str):
         actions.insert(f": {type}")
 
+    @staticmethod
     def code_insert_return_type(type: str):
         actions.insert(f" => {type}")
 
+    @staticmethod
     def code_format_collection_type(collection_type: str, item_types: list[str]) -> str:
         if item_types:
             return f"{collection_type}<{', '.join(item_types)}>"
         return collection_type
 
+    @staticmethod
     def code_format_array_type(item_type: str) -> str:
         if " " in item_type:
             item_type = f"({item_type})"
         return f"{item_type}[]"
 
+    @staticmethod
     def code_format_or_type(item_types: list[str]) -> str:
         return f"{' | '.join(item_types)}"

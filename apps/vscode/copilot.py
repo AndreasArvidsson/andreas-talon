@@ -15,6 +15,7 @@ ctx.lists["user.copilot_command"] = {
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def copilot_inline_chat(command: str = "", text: str = ""):
         """Start copilot inline chat session"""
         actions.user.run_rpc_command(
@@ -30,6 +31,7 @@ class Actions:
             actions.insert(f"{command}{text}")
             actions.key("enter")
 
+    @staticmethod
     def copilot_chat(text: str = ""):
         """Start copilot chat session"""
         actions.user.run_rpc_command("workbench.panel.chat.view.copilot.focus")

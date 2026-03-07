@@ -27,6 +27,7 @@ class EditActions:
 
 @mod.action_class
 class UserActions:
+    @staticmethod
     def slack_open_search_result(search: str):
         """Opens the given search result on slack"""
         actions.key("ctrl-k")

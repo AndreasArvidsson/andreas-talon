@@ -57,10 +57,12 @@ def show_gui(text: str, type: str):
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def help_search_commands(text: str):
         """Show help search gui with command results"""
         show_gui(text, "commands")
 
+    @staticmethod
     def help_search_actions(text: str):
         """Show help search gui with actions results"""
         show_gui(text, "actions")

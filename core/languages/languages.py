@@ -87,6 +87,7 @@ class ForcedCodeActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def code_force_language(language: str):
         """Forces the active programming language to <language> and disables extension matching"""
         global forced_language

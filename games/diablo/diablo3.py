@@ -33,6 +33,7 @@ dont_release = {"a", "b", "c", "d", "space"}
 
 @ctx.action_class("main")
 class MainActions:
+    @staticmethod
     def key(key: str):
         """Diablo implementation of pressing a key"""
         if ":" not in key and key not in dont_release:
@@ -72,6 +73,7 @@ class UserActions:
         actions.user.mouse_release_held_buttons()
         actions.key("w:down")
 
+    @staticmethod
     def foot_switch_top_up(held: bool):
         """Stop move"""
         actions.key("w:up")
@@ -80,6 +82,7 @@ class UserActions:
         """Start stand still"""
         actions.key("shift:down")
 
+    @staticmethod
     def foot_switch_center_up(held: bool):
         """Stop stand still"""
         actions.key("shift:up")
@@ -88,6 +91,7 @@ class UserActions:
         """Toggle voice chat for game"""
         actions.user.game_toggle_mute()
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         if held:
             actions.user.game_toggle_mute()
@@ -95,6 +99,7 @@ class UserActions:
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
 
+    @staticmethod
     def foot_switch_right_up(held: bool):
         actions.key("alt:up")
         if held:
@@ -115,6 +120,7 @@ class FrozenMouseActions:
         """Hold alt. Used for comparing rings"""
         actions.key("alt:down")
 
+    @staticmethod
     def foot_switch_left_up(held: bool):
         actions.key("alt:up")
 

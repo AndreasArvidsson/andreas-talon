@@ -22,6 +22,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def test_run_suite(suite_name: str, fixtures: list, callback: Callable):
         """Start a new test suite"""
         print(f"---- START | {suite_name} | {len(fixtures)}")
@@ -42,6 +43,7 @@ class Actions:
         if failed:
             actions.app.notify(f"{failed} tests failed")
 
+    @staticmethod
     def assert_equals(expected: Any, found: Any, message: str = ""):
         """Assert that the values are equal"""
         msg = f"Expected: '{expected}' | Found: '{found}'"

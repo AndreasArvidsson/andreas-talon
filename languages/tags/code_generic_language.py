@@ -18,38 +18,46 @@ mod.setting("code_variable_formatter", type=str, desc="Variable name formatter")
 @mod.action_class
 class Actions:
     # ----- Class statement -----
+    @staticmethod
     def code_class_wrapper(name: str, modifiers: Union[list[str], str]):
         """Declare class <name>"""
         format = actions.user.code_get_class_format()
         name = actions.user.format_text(name, format)
         actions.user.code_class(name, modifiers or [])
 
+    @staticmethod
     def code_class(name: str, modifiers: list[str]):
         """Declare class <name>"""
 
     # ----- Constructor statement -----
+    @staticmethod
     def code_constructor_wrapper(modifiers: Union[list[str], str]):
         """Constructor declaration wrapper"""
         actions.user.code_constructor(modifiers or [])
 
+    @staticmethod
     def code_constructor(modifiers: list[str]):
         """Constructor declaration"""
         actions.user.code_function("constructor", [])
 
     # ----- Function statement -----
+    @staticmethod
     def code_function_wrapper(name: str, modifiers: Union[list[str], str]):
         """Declare function <name>"""
         name = parse_function_name(name)
         actions.user.code_function(name, modifiers or [])
 
+    @staticmethod
     def code_method_wrapper(name: str, modifiers: Union[list[str], str]):
         """Declare method <name>"""
         name = parse_function_name(name)
         actions.user.code_method(name, modifiers or [])
 
+    @staticmethod
     def code_function(name: str, modifiers: list[str]):
         """Declare function <name>"""
 
+    @staticmethod
     def code_method(name: str, modifiers: list[str]):
         """Declare method <name>"""
         actions.user.code_function(name, modifiers)
@@ -59,6 +67,7 @@ class Actions:
         actions.user.code_function("main", [])
 
     # ----- Variable statement -----
+    @staticmethod
     def code_variable_wrapper(
         assign: bool,
         modifiers: Union[list[str], str],
@@ -70,10 +79,12 @@ class Actions:
         name = actions.user.format_text(name, format)
         actions.user.code_variable(assign, modifiers or [], data_type, name)
 
+    @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         """Variable statement"""
 
     # ----- New instance  -----
+    @staticmethod
     def code_new_instance(name: str):
         """Create new instance of <name>"""
         actions.user.insert_snippet_by_name("newInstance", {"name": name})

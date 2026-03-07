@@ -10,10 +10,12 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def insert_snippet(body: str):
         """Insert snippet"""
         insert_snippet_raw_text(body)
 
+    @staticmethod
     def insert_snippet_by_name(
         name: str,
         substitutions: dict[str, str] = None,
@@ -33,6 +35,7 @@ class Actions:
 
         actions.user.insert_snippet(body)
 
+    @staticmethod
     def insert_snippet_by_name_with_phrase(name: str, phrase: str):
         """Insert snippet <name> with phrase <phrase>"""
         snippet: Snippet = actions.user.get_snippet(name)

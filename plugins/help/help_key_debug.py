@@ -30,6 +30,7 @@ def gui(gui: imgui.GUI):
 
 @ctx.action_class("main")
 class MainActions:
+    @staticmethod
     def key(key: str):
         actions.next(key)
 

@@ -64,12 +64,14 @@ class UserActions:
     def file_manager_go_parent():
         actions.key("alt-up")
 
+    @staticmethod
     def file_manager_go(path: str):
         actions.user.file_manager_focus_address()
         actions.insert(path)
         actions.sleep("300ms")
         actions.key("enter")
 
+    @staticmethod
     def file_manager_open_new_tab(path: str):
         actions.app.tab_open()
         actions.sleep("300ms")
@@ -77,12 +79,14 @@ class UserActions:
 
     # ----- Create folders / files -----
 
+    @staticmethod
     def file_manager_new_folder(name: str = None):
         actions.key("home")
         actions.key("ctrl-shift-n")
         if name:
             actions.insert(name)
 
+    @staticmethod
     def file_manager_new_file(name: str = None):
         actions.key("menu w t")
         if name:
@@ -96,6 +100,7 @@ class UserActions:
     def file_manager_terminal_here():
         actions.user.file_manager_go("cmd.exe")
 
+    @staticmethod
     def pick_item(number: int):
         if number == 1:
             actions.key("space enter")

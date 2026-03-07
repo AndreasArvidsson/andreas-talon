@@ -88,6 +88,7 @@ class EditActions:
         actions.key("home tab")
 
     # ----- Find -----
+    @staticmethod
     def find(text: str = None):
         actions.key("ctrl-f")
         if text:
@@ -121,6 +122,7 @@ class EditActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def insert_with_padding(text: str):
         """Insert <text> with padding"""
         if text[0].isspace() or text[-1].isspace():
@@ -137,12 +139,14 @@ class Actions:
 
         actions.insert(text)
 
+    @staticmethod
     def insert_symbol_and_break_at_end(symbol: str):
         """Add <symbol> at end of line and then insert line below"""
         actions.edit.line_end()
         actions.key(symbol)
         actions.edit.line_insert_down()
 
+    @staticmethod
     def paste_text(text: str):
         """Paste <text> and preserves clipboard"""
         with clip.revert():
@@ -151,12 +155,14 @@ class Actions:
             # sleep here so that clip.revert doesn't revert the clipboard too soon
             actions.sleep("100ms")
 
+    @staticmethod
     def paste_clipboard_formatted(formatters: str):
         """Paste clipboard text formatted as <formatters>"""
         text = actions.clip.text()
         text = actions.user.reformat_text(text, formatters)
         actions.user.paste_text(text)
 
+    @staticmethod
     def clip_set_transient_text(text: str):
         """Set clipboard text without monitoring"""
         mime = clip.MimeData()

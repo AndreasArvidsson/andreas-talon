@@ -20,6 +20,7 @@ class BrowserActions:
     def go_home():
         actions.key("alt-home")
 
+    @staticmethod
     def go(url: str):
         actions.browser.focus_address()
         actions.sleep("100ms")
@@ -102,9 +103,11 @@ class Actions:
         actions.sleep("50ms")
         actions.edit.copy()
 
+    @staticmethod
     def browser_open_new_tab(url: str):
         """Open url in new tab"""
 
+    @staticmethod
     def browser_open(url: str):
         """Focus browser and open url"""
         if actions.app.name() != default_browser:
@@ -112,6 +115,7 @@ class Actions:
             actions.sleep("50ms")
         actions.user.browser_open_new_tab(url)
 
+    @staticmethod
     def browser_search(text: str):
         """Focus browser and search for <text>"""
         # Prefix with space to avoid matching search text with history
@@ -127,6 +131,7 @@ class Actions:
         if text:
             actions.user.browser_search(text)
 
+    @staticmethod
     def browser_translate(text: str):
         """Focus browser and translate <text>"""
         actions.user.browser_open(
@@ -138,6 +143,7 @@ class Actions:
         text = actions.edit.selected_text()
         actions.user.browser_translate(text)
 
+    @staticmethod
     def browser_define(text: str):
         """Focus browser and define phrase <text>"""
         actions.user.browser_open(f"https://www.merriam-webster.com/dictionary/{text}")

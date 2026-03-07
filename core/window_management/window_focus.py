@@ -24,6 +24,7 @@ class Actions:
         """Switch focus to last window"""
         actions.key("alt-tab")
 
+    @staticmethod
     def window_focus_name(name: str, phrase: Phrase = None):
         """Focus application named <name>"""
         focus_name(name)
@@ -32,6 +33,7 @@ class Actions:
             actions.sleep("300ms")
             actions.user.rephrase(phrase)
 
+    @staticmethod
     def focus_number(number: int):
         """Focus application number <number>"""
         names = list(actions.user.get_running_applications().values())

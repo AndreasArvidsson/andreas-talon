@@ -247,19 +247,23 @@ def formatters(m) -> str:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def insert_formatted(text: str, formatters: str):
         """Insert text <text> formatted as <formatters>"""
         formatted = actions.user.format_text(text, formatters)
         actions.insert(formatted)
 
+    @staticmethod
     def format_text(text: str, formatters: str) -> str:
         """Formats <text> as <formatters>"""
         return format_text(text, formatters, unformat=False)
 
+    @staticmethod
     def reformat_text(text: str, formatters: str) -> str:
         """Re-formats <text> as <formatters>"""
         return format_text(text, formatters, unformat=True)
 
+    @staticmethod
     def reformat_selection(formatters: str):
         """Reformats the current selection as <formatters>"""
         selected = actions.edit.selected_text()
@@ -267,6 +271,7 @@ class Actions:
             formatted = actions.user.reformat_text(selected, formatters)
             actions.insert(formatted)
 
+    @staticmethod
     def de_camel(text: str) -> str:
         """Replacing camelCase boundaries with blank space"""
         Ll = "a-zåäö"

@@ -17,6 +17,7 @@ ctx.settings = {
 
 @ctx.action_class("main")
 class MainActions:
+    @staticmethod
     def mouse_click(button: int = 0):
         ctrl.mouse_click(button=button, hold=16000)
 

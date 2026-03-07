@@ -18,6 +18,7 @@ mod = Module()
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def select_surrounding_pair(delimiter_name: str = "any"):
         """Selects the surrounding pair."""
         pair = get_surrounding_pair_for_selection(delimiter_name)
@@ -32,6 +33,7 @@ class Actions:
         for i in range(pair.right_end - pair.left_start):
             actions.edit.extend_right()
 
+    @staticmethod
     def select_surrounding_pair_interior(delimiter_name: str = "any"):
         """Selects the interior of a surrounding pair."""
         pair = get_surrounding_pair_for_selection(delimiter_name)

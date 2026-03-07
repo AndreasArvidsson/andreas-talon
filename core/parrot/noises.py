@@ -43,6 +43,7 @@ class UserActions:
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def noise_debounce(name: str, active: bool):
         """Start or stop continuous noise using debounce"""
         if name not in state:

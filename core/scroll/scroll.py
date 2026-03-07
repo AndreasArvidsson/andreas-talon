@@ -55,6 +55,7 @@ class Actions:
         """Show scroll speed"""
         actions.user.notify(f"Scroll speed: {scroll_speed}%")
 
+    @staticmethod
     def scroll_speed(speed: int):
         """Set scroll speed"""
         if speed > 50:

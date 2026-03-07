@@ -12,6 +12,7 @@ child_processes = []
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def exec(command: str):
         """Execute command"""
         # Store child process handle to avoid log warning about subprocess still running

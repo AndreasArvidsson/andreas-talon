@@ -38,6 +38,7 @@ class EditActions:
         actions.key("ctrl-shift-v")
         actions.sleep("30ms")
 
+    @staticmethod
     def find(text: str = None):
         actions.key("ctrl-shift-f")
         if text:
@@ -46,6 +47,7 @@ class EditActions:
 
 @ctx.action_class("user")
 class UserActions:
+    @staticmethod
     def tab_jump(number: int):
         if number < 9:
             actions.key(f"ctrl-alt-{number}")

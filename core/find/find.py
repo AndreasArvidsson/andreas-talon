@@ -6,21 +6,25 @@ mod.tag("find")
 
 @mod.action_class
 class Actions:
+    @staticmethod
     def find_file(text: str = None):
         """Find file <text>"""
 
+    @staticmethod
     def find_everywhere(text: str = None):
         """Find in entire project/all files"""
         actions.key("ctrl-shift-f")
         if text:
             actions.insert(text)
 
+    @staticmethod
     def find_replace(text: str = None):
         """Find and replace in current file/editor"""
         actions.key("ctrl-h")
         if text:
             actions.insert(text)
 
+    @staticmethod
     def find_replace_everywhere(text: str = None):
         """Find and replace in entire project/all files"""
         actions.key("ctrl-shift-h")

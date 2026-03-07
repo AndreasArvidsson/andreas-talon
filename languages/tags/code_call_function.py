@@ -9,6 +9,7 @@ mod.list("code_call_function", "Names of functions to call")
 
 @mod.action_class
 class Action:
+    @staticmethod
     def code_call_function(name: str):
         """Call function <name>"""
         actions.user.insert_snippet_by_name("functionCall", {"name": name})

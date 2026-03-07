@@ -17,6 +17,7 @@ ctx.lists["user.markdown_pair"] = {
 
 @mod.action_class
 class UserActions:
+    @staticmethod
     def code_markdown_link(text: str = ""):
         """Insert link <text>"""
         link = actions.clip.text()

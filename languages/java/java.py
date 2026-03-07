@@ -129,6 +129,7 @@ ctx.lists["user.code_keyword"] = {
 @ctx.action_class("user")
 class UserActions:
     # Class declaration
+    @staticmethod
     def code_class(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name(
             "classDeclaration",
@@ -136,6 +137,7 @@ class UserActions:
         )
 
     # Constructor declaration
+    @staticmethod
     def code_constructor(modifiers: list[str]):
         name = actions.user.code_get_class_name()
         if not name:
@@ -146,6 +148,7 @@ class UserActions:
         )
 
     # Function declaration
+    @staticmethod
     def code_function(name: str, modifiers: list[str]):
         actions.user.insert_snippet_by_name(
             "functionDeclaration",
@@ -163,6 +166,7 @@ class UserActions:
         )
 
     # Variable declaration
+    @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         snippet = ""
         if modifiers:
