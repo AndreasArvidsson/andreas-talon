@@ -1,3 +1,4 @@
 {
-    "python.defaultInterpreterPath": "${env:APPDATA}\\talon\\venv\\3.13\\Scripts\\python.exe"
+    "python.defaultInterpreterPath": "${env:APPDATA}\\talon\\venv\\3.13\\Scripts\\python.exe",
+    "python.analysis.diagnosticMode": "workspace"
 }

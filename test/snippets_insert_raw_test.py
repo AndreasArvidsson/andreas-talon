@@ -21,7 +21,7 @@ def test(fixture):
     actions.user.assert_equals(
         expected_body.replace("\n", "\\n"), body.replace("\n", "\\n")
     )
-    actions.user.assert_equals(True, stop is not None, "Stop is None")
+    assert stop is not None, "Stop is None"
     actions.user.assert_equals(expected_row, stop.row, "Row")
     actions.user.assert_equals(expected_col, stop.col, "Col")
 
