@@ -22,4 +22,5 @@ java version:               "java --version\n"
 
 pre commit version:         "pre-commit --version\n"
 pre commit install:         "pre-commit install\n"
+pre commit uninstall:       "pre-commit uninstall\n"
 pre commit run:             "pre-commit run --all-files\n"
