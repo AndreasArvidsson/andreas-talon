@@ -11,6 +11,7 @@ mod.list("gss_module", desc="List of gss modules")
 
 npm_commands = {
     "version": "-v\n",
+    "login": "login",
     "init": "init ",
     "install": "install ",
     "install global": "install -g ",
@@ -28,7 +29,7 @@ npm_commands = {
     "audit": "audit\n",
     "audit fix": "audit fix\n",
     "package fix": "pkg fix\n",
-    "publish": "publish --dry-run",
+    "publish": "publish --access public --dry-run",
     "start": "start\n",
     "build": "build\n",
     "test": "test\n",
