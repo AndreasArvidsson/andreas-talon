@@ -1,0 +1,17 @@
+minimum_pre_commit_version: "3.2.0"
+repos:
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        types: [text]
+        language: system
+        entry: prettier
+        args: [--write, --list-different, --ignore-unknown]
+
+  - repo: https://github.com/cursorless-dev/talon-tools
+    rev: v0.1.9
+    hooks:
+      - id: talon-fmt
+      - id: snippet-fmt
+      - id: tree-sitter-fmt

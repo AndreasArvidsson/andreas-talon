@@ -19,3 +19,7 @@ run talon deck:             "talon-deck\n"
 
 python version:             "python --version\n"
 java version:               "java --version\n"
+
+pre commit version:         "pre-commit --version\n"
+pre commit install:         "pre-commit install\n"
+pre commit run:             "pre-commit run --all-files\n"
