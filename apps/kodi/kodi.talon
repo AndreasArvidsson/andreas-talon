@@ -8,4 +8,4 @@ settings():
 full screen:                key(alt-enter)
 
 menu:                       key(m)
-(pause | play):             key(space)
+pause | play:               key(space)

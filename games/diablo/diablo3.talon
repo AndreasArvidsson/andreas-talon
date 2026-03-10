@@ -16,7 +16,7 @@ show fps:                   key(ctrl-r)
 # ---------- Keys ----------
 
 {user.letter}:              key(letter)
-(enter | okay):             key(enter)
+enter | okay:               key(enter)
 tab:                        key(tab)
 stop:                       key(escape)
 void:                       key(space)
