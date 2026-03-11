@@ -3,14 +3,14 @@
     user.insert_formatted(prose, formatter_prose)
 {user.formatter_prose} <user.prose> {user.phrase_ender}:
     user.insert_formatted(prose, formatter_prose)
-    "{phrase_ender}"
+    insert("{phrase_ender}")
 
 # Formatted code phrase: "camel hello there" -> helloThere
 {user.formatter_code} <user.code_id>:
     user.insert_formatted(code_id, formatter_code)
 {user.formatter_code} <user.code_id> {user.phrase_ender}:
     user.insert_formatted(code_id, formatter_code)
-    "{phrase_ender}"
+    insert("{phrase_ender}")
 
 # Only words, no symbols or numbers
 escape <user.phrase>$:      "{phrase}"

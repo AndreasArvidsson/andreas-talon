@@ -89,7 +89,7 @@ unzip:                      "unzip "
 # fc last command in editor.
 
 talon user update:
-    "find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \\;\n"
-    "git -C {user.user_home()}/repositories/cursorless-talon pull --ff-only\n"
+    insert("find {user.talon_user()} -type d -name .git -print -execdir git pull --ff-only \\;\n")
+    insert("git -C {user.user_home()}/repositories/cursorless-talon pull --ff-only\n")
 
 watch talon log:            "tail -f {user.talon_home()}/talon.log\n"

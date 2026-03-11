@@ -118,7 +118,7 @@ folder new:                 user.run_rpc_command("explorer.newFolder")
 file open:                  user.run_rpc_command("workbench.action.files.openFile")
 file new [<user.filename>]:
     user.run_rpc_command("explorer.newFile")
-    "{filename or ''}"
+    insert("{filename or ''}")
 file open folder:           user.run_rpc_command("revealFileInOS")
 file reveal:                user.run_rpc_command("workbench.files.action.showActiveFileInExplorer")
 file revert:                user.run_rpc_command("workbench.action.files.revert")
