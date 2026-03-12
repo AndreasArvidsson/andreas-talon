@@ -1,5 +1,6 @@
 from talon import Context, Module, ui, actions, ctrl
 import time
+import re
 
 mod = Module()
 ctx = Context()
@@ -84,6 +85,15 @@ class Actions:
             actions.user.focus_app(active_app)
         else:
             actions.key(key)
+
+    @staticmethod
+    def wait_for_title(title_pattern: str, timeout: float = 1.0):
+        """Wait for a window title to match pattern"""
+        t1 = time.monotonic()
+        while re.search(title_pattern, actions.win.title()) is None:
+            if time.monotonic() - t1 > timeout:
+                raise RuntimeError(f"Can't find window with title: {title_pattern}")
+            actions.sleep("50ms")
 
 
 def cycle_windows(app, diff: int):

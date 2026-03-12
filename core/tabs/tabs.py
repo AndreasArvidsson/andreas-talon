@@ -65,6 +65,9 @@ class TabActions:
     def tab_unpin():
         """Unpin tab"""
 
+    def tab_persist():
+        """Convert the current preview tab into a persistent non-preview tab"""
+
     def tab_close_all():
         """Close all tabs"""
 

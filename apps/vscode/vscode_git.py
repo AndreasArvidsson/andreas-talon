@@ -85,7 +85,7 @@ class UserActions:
     def git_commit(message: Optional[str] = None):
         actions.user.run_rpc_command("git.commit")
         if message:
-            actions.sleep("200ms")
+            actions.user.wait_for_title("^COMMIT_EDITMSG")
             actions.insert(message)
 
     @staticmethod

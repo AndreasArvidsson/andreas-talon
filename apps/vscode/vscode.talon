@@ -84,11 +84,8 @@ panel terminal:             user.run_rpc_command("workbench.action.terminal.focu
 panel debug:                user.run_rpc_command("workbench.debug.action.toggleRepl")
 panel clear:                user.run_rpc_command("workbench.debug.panel.action.clearReplAction")
 
-# Chat
-chat show:
-    user.run_rpc_command("workbench.action.chat.open")
-    user.run_rpc_command("workbench.action.restoreAuxiliaryBar")
-codex show:
+# Codex
+codex (show | small):
     user.run_rpc_command("chatgpt.sidebarView.focus")
     user.run_rpc_command("workbench.action.restoreAuxiliaryBar")
 chat full:
@@ -97,7 +94,7 @@ chat full:
 codex full:
     user.run_rpc_command("chatgpt.sidebarView.focus")
     user.run_rpc_command("workbench.action.maximizeAuxiliaryBar")
-(chat | codex) hide:
+codex hide:
     user.run_rpc_command("workbench.action.closeAuxiliaryBar")
 codex add file:
     user.run_rpc_command("chatgpt.addFileToThread")
