@@ -97,6 +97,9 @@ class UserActions:
     def tab_close_all():
         actions.user.run_rpc_command("workbench.action.closeEditorsInGroup")
 
+    def tab_persist():
+        actions.user.run_rpc_command("workbench.action.keepEditor")
+
     def tab_close_others():
         actions.user.run_rpc_command("workbench.action.closeOtherEditors")
 
