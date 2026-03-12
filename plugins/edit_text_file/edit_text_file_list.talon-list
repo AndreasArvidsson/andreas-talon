@@ -3,13 +3,17 @@ list: user.edit_text_file
 
 # fmt: columnWidth=26
 
-homophones:               core/homophones/homophones_en.csv
-abbreviations:            core/abbreviation/abbreviation_en.csv
-webpages:                 apps/browser/webpages.talon-list
 settings:                 settings/settings.talon
+vscode:                   apps/vscode/vscode.talon
+webpages:                 apps/browser/webpages.talon-list
+abbreviations:            core/abbreviation/abbreviation_en.csv
+homophones:               core/homophones/homophones_en.csv
 vocabulary:               core/vocabulary/vocabulary_en.talon-list
 words to replace:         core/vocabulary/words_to_replace_en.csv
 words to replace swedish: core/vocabulary/words_to_replace_sv.csv
+app names:                core/running_applications/app_name_overrides.csv
+
+gss config:               /opt/gss/conf.properties
 
 codex config:             ~/.codex/config.toml
 codex agents:             ~/.codex/AGENTS.md

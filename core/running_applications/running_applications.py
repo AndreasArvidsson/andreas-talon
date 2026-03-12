@@ -35,10 +35,10 @@ def parse_name(name):
 def update_running():
     global running_applications
     running = {}
-    for app in ui.apps(background=False):
-        name = parse_name(app.name)
+    for a in ui.apps(background=False):
+        name = parse_name(a.name)
         if name:
-            running[name] = app.name
+            running[name] = a.name
     running_applications = running
     ctx.lists["user.running_application"] = running
 
