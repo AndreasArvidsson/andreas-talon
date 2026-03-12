@@ -101,7 +101,7 @@ codex full:
     user.run_rpc_command("workbench.action.closeAuxiliaryBar")
 codex add file:
     user.run_rpc_command("chatgpt.addFileToThread")
-codex new chat:
+codex new:
     user.run_rpc_command("chatgpt.newChat")
 
 # Hide sidebars, panel and widgets
