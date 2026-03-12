@@ -92,7 +92,7 @@ class UserActions:
     def git_commit_amend(message: Optional[str] = None):
         actions.user.run_rpc_command("git.commitAmend")
         if message:
-            actions.sleep("200ms")
+            actions.user.wait_for_title("^COMMIT_EDITMSG")
             actions.insert(message)
 
     def git_commit_empty():
