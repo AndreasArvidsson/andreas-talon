@@ -1,0 +1,16 @@
+list: user.edit_text_file
+-
+
+# fmt: columnWidth=26
+
+homophones:               core/homophones/homophones_en.csv
+abbreviations:            core/abbreviation/abbreviation_en.csv
+webpages:                 apps/browser/webpages.talon-list
+settings:                 settings/settings.talon
+vocabulary:               core/vocabulary/vocabulary_en.talon-list
+words to replace:         core/vocabulary/words_to_replace_en.csv
+words to replace swedish: core/vocabulary/words_to_replace_sv.csv
+
+codex config:             ~/.codex/config.toml
+codex agents:             ~/.codex/AGENTS.md
+ssh config:               ~/.ssh/config

@@ -55,6 +55,17 @@ class Actions:
         return windows[0]
 
     @staticmethod
+    def send_key(key: str, app: ui.App):
+        """Send key <key> to application"""
+        active_app = ui.active_app()
+        if active_app != app:
+            actions.user.focus_app(app)
+            actions.key(key)
+            actions.user.focus_app(active_app)
+        else:
+            actions.key(key)
+
+    @staticmethod
     def focus_app(app: ui.App):
         """Focus app and wait until finished"""
         app.focus()
@@ -68,23 +79,11 @@ class Actions:
     def focus_window(window: ui.Window):
         """Focus window and wait until finished"""
         window.focus()
-
         t1 = time.monotonic()
         while ui.active_window() != window:
             if time.monotonic() - t1 > 1:
                 raise RuntimeError(f"Can't focus window '{window.title}'")
             actions.sleep("50ms")
-
-    @staticmethod
-    def send_key(key: str, app: ui.App):
-        """Send key <key> to application"""
-        active_app = ui.active_app()
-        if active_app != app:
-            actions.user.focus_app(app)
-            actions.key(key)
-            actions.user.focus_app(active_app)
-        else:
-            actions.key(key)
 
     @staticmethod
     def wait_for_title(title_pattern: str, timeout: float = 1.0):
@@ -93,6 +92,16 @@ class Actions:
         while re.search(title_pattern, actions.win.title()) is None:
             if time.monotonic() - t1 > timeout:
                 raise RuntimeError(f"Can't find window with title: {title_pattern}")
+            actions.sleep("50ms")
+
+    @staticmethod
+    def wait_for_title_change(timeout: float = 1.0):
+        """Wait for a window title to change"""
+        initial_title = actions.win.title()
+        t1 = time.monotonic()
+        while actions.win.title() == initial_title:
+            if time.monotonic() - t1 > timeout:
+                raise RuntimeError(f"Window title did not change from: {initial_title}")
             actions.sleep("50ms")
 
 
