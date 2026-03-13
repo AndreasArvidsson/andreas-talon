@@ -86,13 +86,13 @@ panel clear:                user.run_rpc_command("workbench.debug.panel.action.c
 
 # Codex
 codex (show | small):
-    user.run_rpc_command("chatgpt.sidebarView.focus")
+    user.run_rpc_command("chatgpt.openSidebar")
     user.run_rpc_command("workbench.action.restoreAuxiliaryBar")
 chat full:
     user.run_rpc_command("workbench.action.chat.open")
     user.run_rpc_command("workbench.action.maximizeAuxiliaryBar")
 codex full:
-    user.run_rpc_command("chatgpt.sidebarView.focus")
+    user.run_rpc_command("chatgpt.openSidebar")
     user.run_rpc_command("workbench.action.maximizeAuxiliaryBar")
 codex hide:
     user.run_rpc_command("workbench.action.closeAuxiliaryBar")
