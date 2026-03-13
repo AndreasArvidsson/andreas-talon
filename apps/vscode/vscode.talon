@@ -218,6 +218,13 @@ run task [<user.prose>]:
 dev tools:                  user.run_rpc_command("workbench.action.toggleDevTools")
 select element:             key(ctrl-shift-c)
 
+# Testing
+test run this:              user.run_rpc_command("testing.runAtCursor")
+test run file:              user.run_rpc_command("testing.runCurrentFile")
+test run all:               user.run_rpc_command("testing.runAll")
+test run failed:            user.run_rpc_command("testing.reRunFailTests")
+test run last:              user.run_rpc_command("testing.reRunLastRun")
+
 # Find session
 scout (sesh | recent) [<user.prose>]$:
     user.vscode_find_recent(prose or "")
