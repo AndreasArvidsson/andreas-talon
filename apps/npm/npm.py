@@ -34,12 +34,12 @@ npm_commands = {
     "build": "build\n",
     "test": "test\n",
     "run": "run ",
-    "clean": "run clean\n",
     "run build": "run build\n",
     "run build watch": "run build:watch\n",
     "run lint": "run lint\n",
     "run compile": "run compile\n",
     "run compiled": "run compile\n",
+    "run clean": "run clean\n",
     "run test": "run test\n",
 }
 

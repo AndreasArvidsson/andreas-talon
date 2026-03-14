@@ -135,6 +135,7 @@ cron
 end point: endpoint
 endpoint
 header
+lint
 local host: localhost
 localhost: localhost
 override
