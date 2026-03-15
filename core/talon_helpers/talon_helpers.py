@@ -31,42 +31,15 @@ os: windows
 class Actions:
     def talon_add_context_clipboard_python():
         """Adds os-specific context info to the clipboard for the focused app for .py files. Assumes you've a Module named mod declared."""
-        friendly_name = actions.app.name()
-        executable = actions.app.executable().split(os.path.sep)[-1]
-        app_name = create_name(friendly_name)
-        if app.platform == "mac":
-            result = 'mod.apps.{} = r"""\nos: {}\nand app.bundle: {}\n"""'.format(
-                app_name, app.platform, actions.app.bundle()
-            )
-        elif app.platform == "windows":
-            result = 'mod.apps.{} = r"""\nos: windows\nand app.name: {}\nos: windows\nand app.exe: {}\n"""'.format(
-                app_name, friendly_name, executable
-            )
-        else:
-            result = 'mod.apps.{} = r"""\nos: {}\nand app.name: {}\n"""'.format(
-                app_name, app.platform, friendly_name
-            )
-
+        name = get_normalized_app_name()
+        context_matchers = get_contetxt_matchers()
+        result = f'mod.apps.{name} = r"""\n{context_matchers}\n"""'
         actions.clip.set_text(result)
 
     def talon_add_context_clipboard():
         """Adds os-specific context info to the clipboard for the focused app for .talon files"""
-        friendly_name = actions.app.name()
-        executable = actions.app.executable().split(os.path.sep)[-1]
-        if app.platform == "mac":
-            result = "os: {}\nand app.bundle: {}\n".format(
-                app.platform, actions.app.bundle()
-            )
-        elif app.platform == "windows":
-            result = (
-                "os: windows\nand app.name: {}\nos: windows\nand app.exe: {}\n".format(
-                    friendly_name, executable
-                )
-            )
-        else:
-            result = "os: {}\nand app.name: {}\n".format(app.platform, friendly_name)
-
-        actions.clip.set_text(result)
+        context_matchers = get_contetxt_matchers()
+        actions.clip.set_text(context_matchers)
 
     def talon_get_tags() -> str:
         """Get tags as text"""
@@ -220,8 +193,20 @@ def filter_search(values: dict, text: str) -> dict:
     return result
 
 
-def create_name(text, max_len=20):
+def get_contetxt_matchers() -> str:
+    if app.platform == "mac":
+        matcher = f"app.bundle: {actions.app.bundle()}"
+    elif app.platform == "windows":
+        executable = actions.app.executable().split(os.path.sep)[-1]
+        matcher = f"app.exe: {executable}"
+    else:
+        matcher = f"app.name: {actions.app.name()}"
+    return f"os: {app.platform}\nand {matcher}"
+
+
+def get_normalized_app_name() -> str:
     pattern = re.compile(r"[A-Z][a-z]*|[a-z]+|\d")
+    app_name = actions.app.name()
     return "_".join(
-        list(islice(pattern.findall(text.replace(".exe", "")), max_len))
+        list(islice(pattern.findall(app_name.replace(".exe", "")), 20))
     ).lower()

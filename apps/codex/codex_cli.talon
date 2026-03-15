@@ -1,4 +1,4 @@
-tag: user.codex
+tag: user.codex_cli
 -
 
 codex version:              "codex --version\n"
