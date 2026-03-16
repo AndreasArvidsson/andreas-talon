@@ -1,17 +1,33 @@
 from talon import Context, actions
 
 
-# ---------- Default non-sleep implementation ----------
+# ---------- Non-sleep mode & tracker disabled ----------
 
 ctx_eye_tracker = Context()
 ctx_eye_tracker.matches = r"""
+not mode: sleep
+not tag: user.eye_tracker
+and not tag: user.eye_tracker_frozen
+"""
+
+
+@ctx_eye_tracker.action_class("user")
+class EyeTrackerOffActions:
+    def foot_switch_right_down():
+        actions.user.mouse_control_toggle(True)
+
+
+# ---------- Non-sleep mode & tracker enabled/frozen ----------
+
+ctx_eye_tracker_on = Context()
+ctx_eye_tracker_on.matches = r"""
 tag: user.eye_tracker
 tag: user.eye_tracker_frozen
 """
 
 
-@ctx_eye_tracker.action_class("user")
-class EyeTrackerActions:
+@ctx_eye_tracker_on.action_class("user")
+class EyeTrackerOnActions:
     def foot_switch_right_down():
         actions.user.mouse_freeze_toggle()
 

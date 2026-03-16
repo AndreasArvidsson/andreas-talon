@@ -56,8 +56,7 @@ class Actions:
         else:
             disable_tracker()
 
-        enabled = actions.tracking.control_enabled()
-        actions.user.notify(f"Control mouse: {enabled}")
+        print_status()
 
     def mouse_freeze_toggle():
         """Toggle freeze cursor position updates for the eye tracker"""
@@ -96,6 +95,14 @@ def freeze_tracker():
     actions.tracking.control_toggle(False)
     storage.set("tracking_control", "frozen")
     ctx.tags = ["user.eye_tracker_frozen"]
+
+
+def print_status():
+    enabled = actions.tracking.control_enabled()
+    if enabled:
+        actions.user.notify("Control mouse: enabled")
+    else:
+        actions.user.notify("Control mouse: disabled")
 
 
 def on_launch():
