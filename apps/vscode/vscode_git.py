@@ -84,15 +84,15 @@ class UserActions:
     @staticmethod
     def git_commit(message: Optional[str] = None):
         actions.user.run_rpc_command("git.commit")
-        actions.user.wait_for_title("^COMMIT_EDITMSG")
-        actions.edit.file_start()
+        actions.user.wait_for_title("^COMMIT_EDITMSG", 2)
+        actions.edit.file_end()
         actions.insert(message)
 
     @staticmethod
     def git_commit_amend(message: Optional[str] = None):
         actions.user.run_rpc_command("git.commitAmend")
-        actions.user.wait_for_title("^COMMIT_EDITMSG")
-        actions.edit.file_start()
+        actions.user.wait_for_title("^COMMIT_EDITMSG", 2)
+        actions.edit.file_end()
         actions.insert(message)
 
     def git_commit_empty():

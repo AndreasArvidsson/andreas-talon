@@ -143,12 +143,13 @@ git open branch:            user.git_open_remote_file_url(false, true)
 git copy branch:            user.git_copy_remote_file_url(false, true)
 git (repo | repository):    user.git_open_url("Repo")
 git issues:                 user.git_open_url("Issues")
-git new issue:              user.git_open_url("NewIssue")
-git pull requests:          user.git_open_url("PullRequests")
+git new issue:              user.run_rpc_command("issue.createIssue")
+git [open] pull requests:   user.run_rpc_command("pr.openPullsWebsite")
 git open changes:           user.run_rpc_command("git.openAllChanges")
 git view changes:           user.run_rpc_command("git.viewChanges")
 git open:                   user.run_rpc_command("git.openFile")
 git open pull:              user.run_rpc_command("pr.openPullRequestOnGitHub")
+git create pull:            user.run_rpc_command("pr.create")
 
 # Folding
 # fold recursive:             user.run_rpc_command("editor.foldRecursively")
@@ -250,6 +251,10 @@ open settings <user.prose>:
     app.preferences()
     sleep(200ms)
     insert(prose)
+
+# Search file
+scout multiple files [<user.prose>]$:
+    user.run_rpc_command("andreas.searchFiles", prose)
 
 # CSV
 align columns:              user.run_rpc_command("rainbow-csv.Align")

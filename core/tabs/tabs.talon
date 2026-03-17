@@ -19,9 +19,11 @@ tab persist:                user.tab_persist()
 
 tab close:                  app.tab_close()
 tab close all:              user.tab_close_all()
-tab close (other | others): user.tab_close_others()
 tab close left:             user.tab_close_left()
 tab close right:            user.tab_close_right()
+
+tab close (other | others | adder):
+    user.tab_close_others()
 
 tab last close:
     app.tab_previous()
