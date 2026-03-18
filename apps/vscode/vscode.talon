@@ -253,8 +253,8 @@ open settings <user.prose>:
     insert(prose)
 
 # Search file
-scout multiple files [<user.prose>]$:
-    user.run_rpc_command("andreas.searchFiles", prose)
+scout files [<user.prose>]$:
+    user.run_rpc_command("andreas.searchFiles", prose or "")
 
 # CSV
 align columns:              user.run_rpc_command("rainbow-csv.Align")

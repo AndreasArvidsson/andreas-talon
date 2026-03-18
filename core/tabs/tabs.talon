@@ -15,7 +15,7 @@ tab reopen:                 app.tab_reopen()
 tab split:                  app.tab_detach()
 tab pin:                    user.tab_pin()
 tab un pin:                 user.tab_unpin()
-tab persist:                user.tab_persist()
+tab keep:                   user.tab_persist()
 
 tab close:                  app.tab_close()
 tab close all:              user.tab_close_all()

@@ -14,3 +14,5 @@ split tag | join tag, editor.emmet.action.splitJoinTag
 
 # Notebook
 run cell, notebook.cell.executeAndFocusContainer
+
+select file, andreas.searchFilesToggleSelected
