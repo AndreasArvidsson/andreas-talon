@@ -255,6 +255,8 @@ open settings <user.prose>:
 # Search file
 scout files [<user.prose>]$:
     user.run_rpc_command("andreas.searchFiles", prose or "")
+select file:
+    user.run_rpc_command("andreas.searchFilesToggleSelected")
 
 # CSV
 align columns:              user.run_rpc_command("rainbow-csv.Align")
