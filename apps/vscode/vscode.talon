@@ -253,7 +253,7 @@ open settings <user.prose>:
     insert(prose)
 
 # Search file
-scout files [<user.prose>]$:
+scout editor [<user.prose>]$:
     user.run_rpc_command("andreas.searchFiles", prose or "")
 select file:
     user.run_rpc_command("andreas.searchFilesToggleSelected")
