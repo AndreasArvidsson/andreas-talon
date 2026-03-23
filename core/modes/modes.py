@@ -83,6 +83,8 @@ class Actions:
 
 
 def on_launch():
+    actions.mode.disable("face")
+
     if not actions.user.talon_was_restarted():
         actions.user.talon_sleep()
 
