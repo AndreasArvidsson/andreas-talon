@@ -1,5 +1,6 @@
 app: firefox
 -
+
 tag(): browser
 tag(): user.scroll
 # tag(): user.cursorless_everywhere_talon_browser
