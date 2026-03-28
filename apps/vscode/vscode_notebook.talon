@@ -4,7 +4,7 @@ tag: user.vscode_notebook
 render every cell:          user.run_rpc_command("notebook.renderAllMarkdownCells")
 
 # Execution
-run every cells:            user.run_rpc_command("notebook.execute")
+run every cell:             user.run_rpc_command("notebook.execute")
 run cell:                   user.run_rpc_command("notebook.cell.execute")
 run new:                    user.run_rpc_command("notebook.cell.executeAndInsertBelow")
 stop cell:                  user.run_rpc_command("notebook.cell.cancelExecution")
