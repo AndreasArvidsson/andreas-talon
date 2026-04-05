@@ -1,6 +1,7 @@
 from typing import Optional
 from talon import Module, actions
 
+# from .openai import openai_run
 from .codex_cli import codex_run
 from .llm_prompt import get_llm_prompt
 
@@ -40,7 +41,7 @@ class Action:
     ) -> Optional[str]:
         """Model process text"""
         full_prompt = get_llm_prompt(templateId, text, prompt)
-        return codex_run(full_prompt)
+        return actions.user.model_process_prompt(full_prompt)
 
     @staticmethod
     def model_process_prompt(prompt: str) -> Optional[str]:
