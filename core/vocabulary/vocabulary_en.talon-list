@@ -70,7 +70,9 @@ low dash: lodash
 Lua
 Meta Updater
 mod mike: ModMic
-olama: Ollama
+o x format: oxfmt
+o x lint: oxlint
+o lama: Ollama
 Orust
 PHP
 Pokey
