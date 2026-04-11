@@ -74,6 +74,8 @@ oh ex format: oxfmt
 oh ex lint: oxlint
 oh lama: Ollama
 Orust
+ox format: oxfmt
+ox lint: oxlint
 PHP
 Pokey
 pre commit
