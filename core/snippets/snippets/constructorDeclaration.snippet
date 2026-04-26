@@ -9,9 +9,16 @@ $modifiers $name($1) {
 }
 ---
 
-language: javascript | typescript | javascriptreact | typescriptreact
+language: javascript | javascriptreact
 -
 constructor($1) {
+    $0
+}
+---
+
+language: typescript | typescriptreact
+-
+public constructor($1) {
     $0
 }
 ---
