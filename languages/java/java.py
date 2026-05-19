@@ -143,6 +143,8 @@ ctx.lists["user.code_keyword"] = {
     "roles allowed" : "@RolesAllowed",
     "consumes"      : "@Consumes",
     "produces"      : "@Produces",
+    "json creator"  : "@JsonCreator",
+    "json property" : "@JsonProperty",
 }
 
 # fmt: on
