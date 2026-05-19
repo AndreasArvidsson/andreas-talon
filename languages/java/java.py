@@ -145,6 +145,7 @@ ctx.lists["user.code_keyword"] = {
     "produces"      : "@Produces",
     "json creator"  : "@JsonCreator",
     "json property" : "@JsonProperty",
+    "json schema"   : "@JsonSchema",
 }
 
 # fmt: on
