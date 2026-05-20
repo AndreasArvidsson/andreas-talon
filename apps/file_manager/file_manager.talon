@@ -3,6 +3,7 @@ tag: user.file_manager
 
 tag(): user.navigation
 tag(): user.extensions
+tag(): user.insert_paste_disabled
 
 # ----- Navigation -----
 go parent:                  user.file_manager_go_parent()
