@@ -296,7 +296,9 @@ def format_text(text: str, formatters: str, unformat: bool) -> str:
     text, pre, post = shrink_to_string_inside(text)
 
     for i, formatter_name in enumerate(reversed(formatters.split(","))):
-        formatter = formatters_dict[formatter_name]
+        formatter = formatters_dict.get(formatter_name)
+        if formatter is None:
+            raise ValueError(f"Formatter '{formatter_name}' not found")
         if unformat and i == 0:
             text = formatter.unformat(text)
         text = formatter.format(text)
