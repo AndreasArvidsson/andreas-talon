@@ -21,7 +21,7 @@ prompt_templates = {
 }
 
 
-def get_llm_prompt(templateId: str, text: str, prompt: str | None = None) -> str:
+def get_llm_prompt(templateId: str, text: str, prompt: str = "") -> str:
     if templateId not in prompt_templates:
         raise ValueError(f"Unknown templateId '{templateId}'")
 
@@ -35,7 +35,7 @@ def get_llm_prompt(templateId: str, text: str, prompt: str | None = None) -> str
 
     replace("$text", text)
 
-    if prompt is not None:
+    if prompt:
         replace("$prompt", prompt)
 
     return full_prompt

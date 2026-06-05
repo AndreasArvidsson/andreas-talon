@@ -11,7 +11,7 @@ mod = Module()
 @mod.action_class
 class Action:
     @staticmethod
-    def model_process_selected_text(templateId: str, prompt: Optional[str] = None):
+    def model_process_selected_text(templateId: str, prompt: str = ""):
         """Model process selected text and replace with result"""
         text = actions.edit.selected_text()
         actions.user.model_insert_processed_text(templateId, text, prompt)
@@ -20,7 +20,7 @@ class Action:
     def model_insert_processed_text(
         templateId: str,
         text: str,
-        prompt: Optional[str] = None,
+        prompt: str = "",
     ):
         """Model process text and insert result"""
         full_prompt = get_llm_prompt(templateId, text, prompt)
@@ -37,7 +37,7 @@ class Action:
     def model_process_text(
         templateId: str,
         text: str,
-        prompt: Optional[str] = None,
+        prompt: str = "",
     ) -> Optional[str]:
         """Model process text"""
         full_prompt = get_llm_prompt(templateId, text, prompt)

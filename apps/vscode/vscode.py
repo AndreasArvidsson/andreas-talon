@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Module, Context, actions
 import json
 import re
@@ -170,7 +169,7 @@ class Actions:
         actions.user.run_rpc_command("editor.action.formatDocument")
 
     @staticmethod
-    def vscode_find_recent(text: Optional[str] = None):
+    def vscode_find_recent(text: str = ""):
         """Find recent session, directory or file"""
         actions.user.run_rpc_command("workbench.action.openRecent")
         if text:

@@ -89,15 +89,15 @@ class Actions:
 
     # ----- Comment statements -----
     @staticmethod
-    def insert_todo_comment(message: Optional[str] = None):
+    def code_todo_comment(message: str = ""):
         """Inserts a TODO comment"""
-        message = actions.user.format_text(message or "", "SENTENCE")
+        message = actions.user.format_text(message, "SENTENCE")
         actions.user.insert_snippet_by_name("commentLine", {"1": f"TODO: {message}"})
 
     @staticmethod
-    def insert_fixme_comment(message: Optional[str] = None):
+    def code_fixme_comment(message: str = ""):
         """Inserts a FIXME comment"""
-        message = actions.user.format_text(message or "", "SENTENCE")
+        message = actions.user.format_text(message, "SENTENCE")
         actions.user.insert_snippet_by_name("commentLine", {"1": f"FIXME: {message}"})
 
     # ----- Text getters -----

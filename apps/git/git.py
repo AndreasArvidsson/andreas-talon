@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Module, Context, actions
 
 mod = Module()
@@ -46,9 +45,9 @@ class Action:
         actions.insert("git push --tags\n")
 
     @staticmethod
-    def git_create_tag(tag: Optional[str] = None):
+    def git_create_tag(tag: str = ""):
         """Create tag <tag>"""
-        actions.insert(f"git tag {tag or ''}")
+        actions.insert(f"git tag {tag}")
 
     def git_create_tag_clipboard():
         """Create tag from clipboard"""
@@ -80,14 +79,14 @@ class Action:
         actions.insert("git stash list\n")
 
     @staticmethod
-    def git_merge(branch: Optional[str] = None):
+    def git_merge(branch: str = ""):
         """Merge branch <branch>"""
-        actions.insert(f"git merge {branch or ''}")
+        actions.insert(f"git merge {branch}")
 
     @staticmethod
-    def git_checkout(branch: Optional[str] = None, submit: bool = False):
+    def git_checkout(branch: str = "", submit: bool = False):
         """Checkout branch <branch>"""
-        actions.insert(f"git checkout {branch or ''}")
+        actions.insert(f"git checkout {branch}")
         if submit:
             actions.insert("\n")
 
@@ -96,30 +95,30 @@ class Action:
         actions.insert("git branch\n")
 
     @staticmethod
-    def git_create_branch(branch: Optional[str] = None):
+    def git_create_branch(branch: str = ""):
         """Create branch <branch>"""
-        actions.insert(f"git checkout -b {branch or ''}")
+        actions.insert(f"git checkout -b {branch}")
 
     @staticmethod
-    def git_delete_branch(branch: Optional[str] = None):
+    def git_delete_branch(branch: str = ""):
         """Delete branch <branch>"""
-        actions.insert(f"git branch -d {branch or ''}")
+        actions.insert(f"git branch -d {branch}")
 
     @staticmethod
-    def git_commit(message: Optional[str] = None):
+    def git_commit(message: str = ""):
         """Commit changes <message>"""
-        actions.insert(f'git commit -m "{message or ""}"')
+        actions.insert(f'git commit -m "{message}"')
         actions.edit.left()
 
     @staticmethod
-    def git_commit_amend(message: Optional[str] = None):
+    def git_commit_amend(message: str = ""):
         """Commit changes <message>"""
-        actions.insert(f'git commit --amend -m "{message or ""}"')
+        actions.insert(f'git commit --amend -m "{message}"')
         actions.edit.left()
 
     def git_commit_empty():
         """Commit empty"""
-        actions.insert(f'git commit --allow-empty -m "Empty commit"')
+        actions.insert('git commit --allow-empty -m "Empty commit"')
         actions.edit.left()
 
     def git_diff():
@@ -141,7 +140,7 @@ class Action:
         actions.insert("git cherry-pick ")
 
     @staticmethod
-    def git_numstat(since: Optional[str] = None):
+    def git_numstat(since: str = ""):
         """Show git statistics"""
         args = "--author='Andreas Arvidsson'"
         if since:

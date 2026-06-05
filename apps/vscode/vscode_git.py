@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Context, Module, actions
 
 mod = Module()
@@ -34,7 +33,7 @@ class UserActions:
         actions.user.run_rpc_command("git.pushTags")
 
     @staticmethod
-    def git_create_tag(tag: Optional[str] = None):
+    def git_create_tag(tag: str = ""):
         command_with_text("git.createTag", tag)
 
     def git_show_tags():
@@ -50,7 +49,7 @@ class UserActions:
         actions.user.run_rpc_command("git.stashDrop")
 
     @staticmethod
-    def git_merge(branch: Optional[str] = None):
+    def git_merge(branch: str = ""):
         if branch:
             branches = get_branch_names_with_fallback(branch)
             if len(branches) > 1:
@@ -60,7 +59,7 @@ class UserActions:
         command_with_text("git.merge", branch)
 
     @staticmethod
-    def git_checkout(branch: Optional[str] = None, submit: bool = False):
+    def git_checkout(branch: str = "", submit: bool = False):
         if branch:
             branches = get_branch_names_with_fallback(branch)
             try:
@@ -74,22 +73,22 @@ class UserActions:
         actions.user.run_rpc_command("gitlens.showBranchesView")
 
     @staticmethod
-    def git_create_branch(branch: Optional[str] = None):
+    def git_create_branch(branch: str = ""):
         command_with_text("git.branch", branch)
 
     @staticmethod
-    def git_delete_branch(branch: Optional[str] = None):
+    def git_delete_branch(branch: str = ""):
         command_with_text("git.deleteBranch", branch)
 
     @staticmethod
-    def git_commit(message: Optional[str] = None):
+    def git_commit(message: str = ""):
         actions.user.run_rpc_command("git.commit")
         actions.user.wait_for_title("^COMMIT_EDITMSG", 2)
         actions.edit.file_start()
         actions.insert(message)
 
     @staticmethod
-    def git_commit_amend(message: Optional[str] = None):
+    def git_commit_amend(message: str = ""):
         actions.user.run_rpc_command("git.commitAmend")
         actions.user.wait_for_title("^COMMIT_EDITMSG", 2)
         actions.edit.file_start()
@@ -172,7 +171,7 @@ class Actions:
             actions.clip.set_text(f"[`{text}`]({url})")
 
 
-def command_with_text(command: str, text: Optional[str] = None):
+def command_with_text(command: str, text: str = ""):
     actions.user.run_rpc_command(command)
     if text:
         actions.sleep("50ms")
