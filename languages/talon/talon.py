@@ -30,7 +30,7 @@ ctx.lists["user.code_operator"] = CodeOperators(
     is_less          = " < ",
     is_greater       = " > ",
     is_less_equal    = " <= ",
-    is_greater_equal = " >= ",   
+    is_greater_equal = " >= ",
     is_not           = "not ",
     is_null          = " is None",
     is_not_null      = " is not None",
@@ -39,7 +39,7 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_or            = " or ",
 )
 
-ctx.lists["user.code_call_function"] = {  # pyright: ignore[reportArgumentType]
+ctx.lists["user.code_function"] = {  # pyright: ignore[reportArgumentType]
     "key",
     "insert",
 }

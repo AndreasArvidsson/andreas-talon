@@ -61,7 +61,7 @@ ctx.lists["user.code_data_type"] = c_code_data_type_simple
 
 ctx.lists["user.code_collection_type"] = {}
 
-ctx.lists["user.code_call_function"] = {}
+ctx.lists["user.code_function"] = {}
 
 c_keywords = {
     "true"        : "true",

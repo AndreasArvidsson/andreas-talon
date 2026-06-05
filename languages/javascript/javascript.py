@@ -49,7 +49,7 @@ ctx.lists["user.code_variable_modifier"] = {  # pyright: ignore[reportArgumentTy
     "let",
 }
 
-ctx.lists["user.code_call_function"] = {  # pyright: ignore[reportArgumentType]
+ctx.lists["user.code_function"] = {  # pyright: ignore[reportArgumentType]
     "forEach",
     "map",
     "flatMap",

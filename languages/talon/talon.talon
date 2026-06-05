@@ -4,7 +4,7 @@ code.language: talon
 tag(): user.code_operators
 tag(): user.code_comments
 tag(): user.code_keywords
-tag(): user.code_call_function
+tag(): user.code_function_calls
 
 settings():
     user.code_function_formatter = "SNAKE_CASE"

@@ -92,7 +92,7 @@ ctx.lists["user.code_collection_type"] = {
     "linked hash map" : "LinkedHashMap"
 }
 
-ctx.lists["user.code_call_function"] = {
+ctx.lists["user.code_function"] = {
     "to string"  : "toString",
     "equals"     : "equals",
 }

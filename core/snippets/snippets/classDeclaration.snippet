@@ -2,25 +2,25 @@ name: classDeclaration
 phrase: class
 insertionScope: class | statement
 
-$name.insertionFormatter: setting(user.code_class_formatter)
+$1.insertionFormatter: setting(user.code_class_formatter)
 ---
 
 language: csharp | java
 -
-public class $name {
+public class $1 {
     $0
 }
 ---
 
 language: cpp | javascript | typescript | javascriptreact | typescriptreact
 -
-class $name {
+class $1 {
     $0
 }
 ---
 
 language: python
 -
-class $name:
+class $1:
     $0
 ---

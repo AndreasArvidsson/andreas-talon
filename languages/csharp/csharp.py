@@ -67,7 +67,7 @@ ctx.lists["user.code_data_type"] = {
 
 ctx.lists["user.code_collection_type"] = {}
 
-ctx.lists["user.code_call_function"] = {}
+ctx.lists["user.code_function"] = {}
 
 ctx.lists["user.code_keyword"] = {
     **access_modifiers,

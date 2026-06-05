@@ -1,8 +1,12 @@
 code.language: csharp
 -
 
-tag(): user.code_generic_language
+tag(): user.code_keywords
 tag(): user.code_operators
+tag(): user.code_variables
+tag(): user.code_function_calls
+tag(): user.code_constructors
+tag(): user.code_types
 tag(): user.code_comments
 
 settings():

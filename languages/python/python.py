@@ -69,7 +69,7 @@ ctx.lists["user.code_collection_type"] = {
     "optional" : "Optional",
 }
 
-ctx.lists["user.code_call_function"] = {
+ctx.lists["user.code_function"] = {
     "format"      : "format",
     "strip"       : "strip",
     "replace"     : "replace",

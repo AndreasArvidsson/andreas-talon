@@ -2,8 +2,6 @@ from talon import Module
 from dataclasses import dataclass, fields
 
 mod = Module()
-mod.tag("code_operators", "Enable code operators")
-mod.list("code_operator", "List of code operators")
 
 Operator = str | None
 
