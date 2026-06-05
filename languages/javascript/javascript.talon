@@ -16,6 +16,3 @@ settings():
 # ----- JavaScript additional -----
 
 convert to arrow:           user.js_arrowify_line()
-
-snip arrow funk <user.prose>:
-    user.js_arrow_function(prose)

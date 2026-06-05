@@ -5,6 +5,8 @@ from talon import Module, actions
 from .snippet_types import Snippet
 from .snippets_insert_raw_text import insert_snippet_raw_text
 
+SETTING_RE = re.compile(r"setting\(([\w.]+)\)")
+
 mod = Module()
 
 
@@ -44,6 +46,7 @@ class Actions:
         for variable in snippet.variables:
             if variable.insertion_formatters is not None:
                 formatters = ",".join(variable.insertion_formatters)
+                formatters = SETTING_RE.sub(get_setting, formatters)
                 formatted_phrase = actions.user.format_text(phrase, formatters)
                 substitutions[variable.name] = formatted_phrase
 
@@ -53,3 +56,13 @@ class Actions:
             )
 
         actions.user.insert_snippet_by_name(name, substitutions)
+
+
+def get_setting(m: re.Match[str]) -> str:
+    setting_name = m.group(1)
+    try:
+        return str(actions.settings.get(setting_name))
+    except KeyError as ex:
+        raise ValueError(
+            f"Undefined formatter setting '{setting_name}' in snippet"
+        ) from ex

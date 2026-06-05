@@ -44,10 +44,6 @@ access_modifiers = {
     "private": "__",
 }
 
-ctx.lists["user.code_class_modifier"] = {}
-
-ctx.lists["user.code_function_modifier"] = access_modifiers
-
 ctx.lists["user.code_variable_modifier"] = {
     **access_modifiers,
     "global": "global",
@@ -123,24 +119,6 @@ ctx.lists["user.code_keyword"] = {
 
 @ctx.action_class("user")
 class UserActions:
-    # Class statement
-    @staticmethod
-    def code_class(name: str, modifiers: list[str]):
-        actions.user.insert_snippet_by_name("classDeclaration", {"name": name})
-
-    # Constructor statement
-    @staticmethod
-    def code_constructor(modifiers: list[str]):
-        actions.user.insert_snippet_by_name("constructorDeclaration")
-
-    # Function statement
-    @staticmethod
-    def code_function(name: str, modifiers: list[str]):
-        actions.user.insert_snippet_by_name(
-            "functionDeclaration",
-            {"name": f"{''.join(modifiers)}{name}"},
-        )
-
     # Variable statement
     @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):

@@ -5,10 +5,7 @@ mod = Module()
 
 mod.tag("code_generic_language")
 
-mod.list("code_class_modifier", "Class modifiers")
-mod.list("code_function_modifier", "Function modifiers")
 mod.list("code_variable_modifier", "Variable modifiers")
-mod.list("code_symbol", "Known symbols in the code workspace")
 
 mod.setting("code_class_formatter", type=str, desc="Class name formatter")
 mod.setting("code_function_formatter", type=str, desc="Function name formatter")
@@ -17,54 +14,18 @@ mod.setting("code_variable_formatter", type=str, desc="Variable name formatter")
 
 @mod.action_class
 class Actions:
-    # ----- Class statement -----
-    @staticmethod
-    def code_class_wrapper(name: str, modifiers: Union[list[str], str]):
-        """Declare class <name>"""
-        format = actions.user.code_get_class_format()
-        name = actions.user.format_text(name, format)
-        actions.user.code_class(name, modifiers or [])
-
-    @staticmethod
-    def code_class(name: str, modifiers: list[str]):
-        """Declare class <name>"""
-
     # ----- Constructor statement -----
-    @staticmethod
-    def code_constructor_wrapper(modifiers: Union[list[str], str]):
-        """Constructor declaration wrapper"""
-        actions.user.code_constructor(modifiers or [])
-
-    @staticmethod
-    def code_constructor(modifiers: list[str]):
+    def code_constructor():
         """Constructor declaration"""
-        actions.user.code_function("constructor", [])
+        actions.user.insert_snippet_by_name("constructorDeclaration")
 
-    # ----- Function statement -----
-    @staticmethod
-    def code_function_wrapper(name: str, modifiers: Union[list[str], str]):
-        """Declare function <name>"""
-        name = parse_function_name(name)
-        actions.user.code_function(name, modifiers or [])
-
-    @staticmethod
-    def code_method_wrapper(name: str, modifiers: Union[list[str], str]):
-        """Declare method <name>"""
-        name = parse_function_name(name)
-        actions.user.code_method(name, modifiers or [])
-
-    @staticmethod
-    def code_function(name: str, modifiers: list[str]):
-        """Declare function <name>"""
-
-    @staticmethod
-    def code_method(name: str, modifiers: list[str]):
-        """Declare method <name>"""
-        actions.user.code_function(name, modifiers)
-
-    def code_function_main():
-        """Main function declaration"""
-        actions.user.code_function("main", [])
+    def code_constructor_with_class_name():
+        """Constructor declaration with class name"""
+        substitutions: dict[str, str] = {}
+        name = actions.user.code_get_class_name()
+        if name:
+            substitutions["1"] = name
+        actions.user.insert_snippet_by_name("constructorDeclaration", substitutions)
 
     # ----- Variable statement -----
     @staticmethod
@@ -94,10 +55,6 @@ class Actions:
         """Get class format"""
         return actions.settings.get("user.code_class_formatter")  # type: ignore
 
-    def code_get_function_format() -> str:
-        """Get function format"""
-        return actions.settings.get("user.code_function_formatter")  # type: ignore
-
     def code_get_variable_format() -> str:
         """Get variable format"""
         return actions.settings.get("user.code_variable_formatter")  # type: ignore
@@ -108,9 +65,3 @@ class Actions:
 
     def code_get_open_tag_name() -> Optional[str]:
         """Get class name"""
-
-
-def parse_function_name(name: str) -> str:
-    format = actions.user.code_get_function_format()
-    name = actions.user.format_text(name, format)
-    return name

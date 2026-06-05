@@ -1,10 +1,13 @@
 name: classDeclaration
+phrase: class
 insertionScope: class | statement
+
+$name.insertionFormatter: setting(user.code_class_formatter)
 ---
 
 language: csharp | java
 -
-$modifiers class $name {
+public class $name {
     $0
 }
 ---

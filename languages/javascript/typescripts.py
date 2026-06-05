@@ -41,12 +41,6 @@ ctx.lists["user.code_collection_type"] = {
     "set"       : "Set",
 }
 
-ctx.lists["user.code_function_modifier"] = {
-    "public"    : "public",
-    "private"   : "private",
-    "protected" : "protected",
-}
-
 ctx.lists["user.code_keyword"] = {
     **js_keywords,
     **{

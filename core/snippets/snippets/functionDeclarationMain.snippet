@@ -1,0 +1,25 @@
+name: functionDeclarationMain
+phrase: funk main
+insertionScope: namedFunction | statement
+---
+
+language: c | cpp
+-
+void main(int argc, char *argv[]) {
+    $0
+}
+---
+
+language: csharp
+-
+public static void Main(String[] args) {
+    $0
+}
+---
+
+language: java
+-
+public static void main(final String[] args) {
+    $0
+}
+---

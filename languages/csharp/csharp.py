@@ -41,23 +41,6 @@ access_modifiers = {
     "protected": "protected",
 }
 
-static = { "static": "static" }
-
-all_keywords = {
-    **access_modifiers,
-    **static,
-}
-
-ctx.lists["user.code_class_modifier"] = {
-    **access_modifiers,
-    "abstract": "abstract",
-    "sealed": "sealed",
-}
-
-ctx.lists["user.code_function_modifier"] = {
-    **access_modifiers,
-    **static,
-}
 
 ctx.lists["user.code_variable_modifier"] = {
     **access_modifiers,
@@ -87,12 +70,13 @@ ctx.lists["user.code_collection_type"] = {}
 ctx.lists["user.code_call_function"] = {}
 
 ctx.lists["user.code_keyword"] = {
-    **all_keywords,
+    **access_modifiers,
+    "static"      : "static",
     "true"        : "true",
     "false"       : "false",
     "null"        : "null",
     "this"        : "this",
-    "using"      : "using ",
+    "using"       : "using ",
     "new"         : "new ",
     "return"      : "return ",
     "class"       : "class ",
@@ -100,6 +84,8 @@ ctx.lists["user.code_keyword"] = {
     "throw"       : "throw ",
     "continue"    : "continue;",
     "break"       : "break;",
+    "abstract"    : "abstract",
+    "sealed"      : "sealed",
 }
 
 # fmt: on
@@ -107,44 +93,10 @@ ctx.lists["user.code_keyword"] = {
 
 @ctx.action_class("user")
 class UserActions:
-    # Class declaration
     @staticmethod
-    def code_class(name: str, modifiers: list[str]):
-        actions.user.insert_snippet_by_name(
-            "classDeclaration",
-            {"name": name, "modifiers": get_modifiers(modifiers)},
-        )
+    def code_constructor():
+        actions.user.code_constructor_with_class_name()
 
-    # Constructor declaration
-    @staticmethod
-    def code_constructor(modifiers: list[str]):
-        name = actions.user.code_get_class_name()
-        if not name:
-            raise ValueError("Class name not found")
-        actions.user.insert_snippet_by_name(
-            "constructorDeclaration",
-            {"name": name, "modifiers": get_modifiers(modifiers)},
-        )
-
-    # Function declaration
-    @staticmethod
-    def code_function(name: str, modifiers: list[str]):
-        actions.user.insert_snippet_by_name(
-            "functionDeclaration",
-            {"name": name, "modifiers": get_modifiers(modifiers)},
-        )
-
-    def code_function_main():
-        actions.user.insert_snippet_by_name(
-            "functionDeclaration",
-            {
-                "name": "Main",
-                "modifiers": "static",
-                "1": "string[] args",
-            },
-        )
-
-    # Variable declaration
     @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         snippet = ""
@@ -159,10 +111,3 @@ class UserActions:
         if assign:
             snippet += " = $0"
         actions.user.insert_snippet(snippet)
-
-
-def get_modifiers(modifiers: list[str]):
-    if modifiers:
-        return " ".join(modifiers)
-    else:
-        return "public"

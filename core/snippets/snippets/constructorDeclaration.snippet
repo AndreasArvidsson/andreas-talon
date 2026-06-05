@@ -2,29 +2,36 @@ name: constructorDeclaration
 insertionScope: namedFunction | statement
 ---
 
-language: cpp | csharp | java
+language: cpp
 -
-$modifiers $name($1) {
+$1($2) {
+    $0
+}
+---
+
+language: csharp | java
+-
+public $1($2) {
     $0
 }
 ---
 
 language: javascript | javascriptreact
 -
-constructor($1) {
+constructor($2) {
     $0
 }
 ---
 
 language: typescript | typescriptreact
 -
-public constructor($1) {
+public constructor($2) {
     $0
 }
 ---
 
 language: python
 -
-def __init__(self$1):
+def __init__(self$2):
     $0
 ---

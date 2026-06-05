@@ -36,9 +36,7 @@ ctx.lists["user.code_operator"] = CodeOperators(
     op_or            = " || ",
 )
 
-ctx.lists["user.code_class_modifier"] = {}
 
-ctx.lists["user.code_function_modifier"] = {}
 
 ctx.lists["user.code_variable_modifier"] = {}
 
@@ -82,23 +80,6 @@ ctx.lists["user.code_keyword"] = c_keywords
 
 @ctx.action_class("user")
 class UserActions:
-    # Function declaration
-    @staticmethod
-    def code_function(name: str, modifiers: list[str]):
-        actions.user.insert_snippet_by_name(
-            "functionDeclaration",
-            {"name": name},
-        )
-
-    def code_function_main():
-        actions.user.insert_snippet_by_name(
-            "functionDeclaration",
-            {
-                "name": "main",
-                "1": "int argc, char *argv[]",
-            },
-        )
-
     # Variable declaration
     @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):

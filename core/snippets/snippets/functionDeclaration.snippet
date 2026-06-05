@@ -1,33 +1,35 @@
 name: functionDeclaration
+phrase: funk
 insertionScope: namedFunction | statement
 
+$1.insertionFormatter: setting(user.code_function_formatter)
 $0.wrapperPhrase: funk
 $0.wrapperScope: statement
 ---
 
 language: c | cpp
 -
-void $name($1) {
+void $1($2) {
     $0
 }
 ---
 
 language: csharp | java
 -
-$modifiers void $name($1) {
+public void $1($2) {
     $0
 }
 ---
 
 language: javascript | typescript | javascriptreact | typescriptreact
 -
-function $name($1) {
+function $1($2) {
     $0
 }
 ---
 
 language: python
 -
-def $name($1):
+def $1($2):
     $0
 ---

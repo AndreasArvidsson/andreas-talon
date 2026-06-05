@@ -36,21 +36,5 @@ ctx.lists["user.code_keyword"] = {
 
 @ctx.action_class("user")
 class UserActions:
-    # Class declaration
-    @staticmethod
-    def code_class(name: str, modifiers: list[str]):
-        actions.user.insert_snippet_by_name(
-            "classDeclaration",
-            {"name": name},
-        )
-
-    # Constructor declaration
-    @staticmethod
-    def code_constructor(modifiers: list[str]):
-        name = actions.user.code_get_class_name()
-        if not name:
-            raise ValueError("Class name not found")
-        actions.user.insert_snippet_by_name(
-            "constructorDeclaration",
-            {"name": name},
-        )
+    def code_constructor():
+        actions.user.code_constructor_with_class_name()
