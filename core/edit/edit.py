@@ -1,3 +1,5 @@
+from typing import Optional
+
 from talon import Context, Module, actions, clip
 
 mod = Module()
@@ -89,7 +91,7 @@ class EditActions:
 
     # ----- Find -----
     @staticmethod
-    def find(text: str = ""):
+    def find(text: Optional[str] = ""):
         actions.key("ctrl-f")
         if text:
             actions.insert(text)

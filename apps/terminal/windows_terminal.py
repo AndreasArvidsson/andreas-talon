@@ -1,4 +1,6 @@
-from talon import Module, Context, actions
+from typing import Optional
+
+from talon import Context, Module, actions
 
 ctx = Context()
 mod = Module()
@@ -39,7 +41,7 @@ class EditActions:
         actions.sleep("30ms")
 
     @staticmethod
-    def find(text: str = ""):
+    def find(text: Optional[str] = ""):
         actions.key("ctrl-shift-f")
         if text:
             actions.insert(text)

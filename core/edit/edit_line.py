@@ -1,3 +1,5 @@
+from typing import Optional
+
 from talon import Context, Module, actions
 
 ctx = Context()
@@ -13,8 +15,8 @@ class EditActions:
         actions.key("end")
 
     @staticmethod
-    def select_line(n: int = -1):
-        if n > -1:
+    def select_line(n: Optional[int] = None):
+        if n is not None and n > -1:
             actions.edit.jump_line(n)
         actions.key("end shift-home")
 

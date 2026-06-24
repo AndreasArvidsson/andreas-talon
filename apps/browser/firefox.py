@@ -1,3 +1,5 @@
+from typing import Optional
+
 from talon import Module, Context, actions
 import re
 
@@ -92,7 +94,7 @@ class AppActions:
 @ctx.action_class("edit")
 class EditActions:
     @staticmethod
-    def find(text: str = ""):
+    def find(text: Optional[str] = ""):
         actions.key("ctrl-f")
         if text:
             actions.sleep("50ms")
