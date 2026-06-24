@@ -16,7 +16,8 @@ def pretty_print_phrase(analyzed_phrase: AnalyzedPhrase):
     if not actions.settings.get("user.pretty_print_phrase"):
         return
 
-    print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
+    print(f"{bcolors.ENDC}==============================")
+
     print(
         f"{bcolors.BOLD}Phrase:{bcolors.ENDC} {bcolors.GREEN}{bcolors.BOLD}{analyzed_phrase.phrase}{bcolors.ENDC}"
     )
@@ -33,7 +34,7 @@ def pretty_print_phrase(analyzed_phrase: AnalyzedPhrase):
                 f"{action.explanation}",
             )
 
-    print(f"{bcolors.ENDC}=============================={bcolors.ENDC}")
+    print("==============================")
 
 
 def printLine(*argv):
