@@ -10,7 +10,7 @@ repos:
         args: [--write, --list-different, --ignore-unknown]
 
   - repo: https://github.com/cursorless-dev/talon-tools
-    rev: v0.9.0
+    rev: v0.11.2
     hooks:
       - id: talon-fmt
       - id: snippet-fmt
