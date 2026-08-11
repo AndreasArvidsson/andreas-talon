@@ -30,12 +30,12 @@ or a voice command.
 
 ### Show subtitles
 
-Setting: `user.subtitles_show = true`  
+Setting: `user.subtitles_show = true`\
 Say: `"subtitles show"`
 
 ### Hide subtitles
 
-Setting: `user.subtitles_show = false`  
+Setting: `user.subtitles_show = false`\
 Say: `"subtitles hide"`
 
 ## Use notifications
