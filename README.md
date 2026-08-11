@@ -54,12 +54,6 @@ This is a list of features that I have implemented that I think is of more inter
 
 ## Developing
 
-### Running Ruff
-
-- `pip install ruff`
-- `ruff check .`
-- `ruff check . --fix`
-
 ### Running pre-commit
 
 - `pip install pre-commit`
