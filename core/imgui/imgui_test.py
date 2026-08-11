@@ -1,23 +1,23 @@
 from pathlib import Path
 
 from skia import Image as SkImage
-from talon import imgui
+# from talon import imgui
 
 from . import GUI, open
 
 
-@imgui.open()
-def test(gui: imgui.GUI):
-    gui.text("test")
-    gui.line()
-    gui.text("test2")
-    gui.spacer()
-    gui.text("test3 test3 test3 test3")
-    s = gui.slider(0, 0.5, 1)
-    if s.click_value is not None:
-        print("slider clicked, value:", s.click_value)
-    if gui.button("a button"):
-        print("button clicked")
+# @imgui.open()
+# def test(gui: imgui.GUI):
+#     gui.text("test")
+#     gui.line()
+#     gui.text("test2")
+#     gui.spacer()
+#     gui.text("test3 test3 test3 test3")
+#     s = gui.slider(0, 0.5, 1)
+#     if s.click_value is not None:
+#         print("slider clicked, value:", s.click_value)
+#     if gui.button("a button"):
+#         print("button clicked")
 
 
 # test.show()

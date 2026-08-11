@@ -39,7 +39,7 @@ class EditActions:
         actions.sleep("30ms")
 
     @staticmethod
-    def find(text: str = ""):
+    def find(text: str | None = ""):
         actions.key("ctrl-shift-f")
         if text:
             actions.insert(text)

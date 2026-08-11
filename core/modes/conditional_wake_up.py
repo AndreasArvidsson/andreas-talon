@@ -1,47 +1,49 @@
-from talon import Module, cron, actions, tracking_system
+from talon import Module, cron, actions
+# from talon import Module, cron, actions, tracking_system
 
 
 mod = Module()
 gaze_detected: bool
 event_triggered: bool
 
+# TODO: make work in 3.14t
+# def on_gaze(e):
+#     global gaze_detected, event_triggered
 
-def on_gaze(e):
-    global gaze_detected, event_triggered
+#     event_triggered = True
 
-    event_triggered = True
-
-    if not e.gaze.zero():
-        gaze_detected = True
-        tracking_system.unregister("gaze", on_gaze)
+#     if not e.gaze.zero():
+#         gaze_detected = True
+#         tracking_system.unregister("gaze", on_gaze)
 
 
-def evaluate_gaze_detection():
-    tracking_system.unregister("gaze", on_gaze)
+# def evaluate_gaze_detection():
+#     tracking_system.unregister("gaze", on_gaze)
 
-    # Didn't get any gaze events from the eye tracker.
-    # This can happen if the eye tracker is not working properly.
-    if not event_triggered:
-        return
+#     # Didn't get any gaze events from the eye tracker.
+#     # This can happen if the eye tracker is not working properly.
+#     if not event_triggered:
+#         return
 
-    if not gaze_detected:
-        print("No gaze detected, putting Talon to sleep")
-        actions.user.talon_sleep()
+#     if not gaze_detected:
+#         print("No gaze detected, putting Talon to sleep")
+#         actions.user.talon_sleep()
 
 
 @mod.action_class
 class Actions:
     def eye_tracker_detect_gaze_or_sleep():
         """Put Talon to sleep if no gaze is detected, otherwise do nothing"""
-        global gaze_detected, event_triggered
+        # global gaze_detected, event_triggered
+        actions.skip()
 
-        # No eye trackers are connected, do nothing
-        if not tracking_system.trackers:
-            return
+        # # No eye trackers are connected, do nothing
+        # if not tracking_system.trackers:
+        #     return
 
-        gaze_detected = False
-        event_triggered = False
+        # gaze_detected = False
+        # event_triggered = False
 
-        tracking_system.register("gaze", on_gaze)
+        # tracking_system.register("gaze", on_gaze)
 
-        cron.after("1s", evaluate_gaze_detection)
+        # cron.after("1s", evaluate_gaze_detection)

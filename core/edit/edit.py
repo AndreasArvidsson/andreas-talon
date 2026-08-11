@@ -89,7 +89,7 @@ class EditActions:
 
     # ----- Find -----
     @staticmethod
-    def find(text: str = ""):
+    def find(text: str | None = ""):
         actions.key("ctrl-f")
         if text:
             actions.insert(text)

@@ -30,7 +30,7 @@ class AppActions:
 @ctx.action_class("edit")
 class EditActions:
     @staticmethod
-    def find(text: str = ""):
+    def find(text: str | None = ""):
         actions.key("ctrl-f")
         if text:
             actions.sleep("50ms")
