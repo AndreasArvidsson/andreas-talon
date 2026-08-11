@@ -56,6 +56,11 @@ This is a list of features that I have implemented that I think is of more inter
 
 ### Running Ruff
 
-- `python -m pip install ruff`
-- `python -m ruff check .`
-- `python -m ruff check --fix .`
+- `pip install ruff`
+- `ruff check .`
+- `ruff check . --fix`
+
+### Running pre-commit
+
+- `pip install pre-commit`
+- `pre-commit run --all-files`

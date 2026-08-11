@@ -1,4 +1,10 @@
-from talon import Module, cron, actions, tracking_system
+from talon import Module, actions, cron
+
+try:
+    from talon import tracking_system
+except Exception as e:
+    print("Failed to import:", e)
+    tracking_system = None
 
 
 mod = Module()
@@ -13,11 +19,13 @@ def on_gaze(e):
 
     if not e.gaze.zero():
         gaze_detected = True
-        tracking_system.unregister("gaze", on_gaze)
+        if tracking_system:
+            tracking_system.unregister("gaze", on_gaze)
 
 
 def evaluate_gaze_detection():
-    tracking_system.unregister("gaze", on_gaze)
+    if tracking_system:
+        tracking_system.unregister("gaze", on_gaze)
 
     # Didn't get any gaze events from the eye tracker.
     # This can happen if the eye tracker is not working properly.
@@ -34,6 +42,9 @@ class Actions:
     def eye_tracker_detect_gaze_or_sleep():
         """Put Talon to sleep if no gaze is detected, otherwise do nothing"""
         global gaze_detected, event_triggered
+
+        if not tracking_system:
+            return
 
         # No eye trackers are connected, do nothing
         if not tracking_system.trackers:
