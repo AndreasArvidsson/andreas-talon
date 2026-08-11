@@ -126,7 +126,7 @@ class Actions:
     def insert_with_padding(text: str):
         """Insert <text> with padding"""
         if text[0].isspace() or text[-1].isspace():
-            before, after = actions.user.dictation_get_context()
+            before, _after = actions.user.dictation_get_context()
 
             # At start of line or has leading whitespace
             if before is not None and (len(before) == 0 or before[-1].isspace()):
