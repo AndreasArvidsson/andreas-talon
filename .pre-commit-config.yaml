@@ -3,6 +3,19 @@ minimum_pre_commit_version: "3.6.0"
 exclude: ^core/modes/dictation_mode_sv\.talon$
 
 repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.2
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/cursorless-dev/talon-tools
+    rev: v0.11.2
+    hooks:
+      - id: talon-fmt
+      - id: snippet-fmt
+
   - repo: local
     hooks:
       - id: prettier
@@ -11,9 +24,3 @@ repos:
         language: system
         entry: prettier
         args: [--write, --list-different, --ignore-unknown]
-
-  - repo: https://github.com/cursorless-dev/talon-tools
-    rev: v0.11.2
-    hooks:
-      - id: talon-fmt
-      - id: snippet-fmt
