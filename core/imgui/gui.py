@@ -1,4 +1,4 @@
-from typing import Callable
+from collections.abc import Callable
 
 from skia import Canvas as SkCanvas
 from skia import Image as SkImage

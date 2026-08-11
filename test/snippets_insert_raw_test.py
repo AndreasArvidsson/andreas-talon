@@ -1,5 +1,6 @@
-from ..core.snippets.snippets_insert_raw_text import parse_snippet
 from talon import actions
+
+from ..core.snippets.snippets_insert_raw_text import parse_snippet
 
 fixtures = [
     ["stops", "if $1\n\t$0", "if \n    ", 0, 3],

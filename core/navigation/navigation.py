@@ -1,6 +1,5 @@
 from talon import Module, actions
 
-
 mod = Module()
 mod.tag("navigation")
 

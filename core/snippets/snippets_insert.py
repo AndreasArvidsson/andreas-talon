@@ -20,7 +20,7 @@ class Actions:
     @staticmethod
     def insert_snippet_by_name(
         name: str,
-        substitutions: dict[str, str] = {},
+        substitutions: dict[str, str] = {},  # noqa: B006
     ):
         """Insert snippet <name>"""
         snippet: Snippet = actions.user.get_snippet(name)

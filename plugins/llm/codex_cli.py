@@ -1,7 +1,6 @@
+import os
 import subprocess
 import time
-import os
-
 
 timeout_seconds = 10
 

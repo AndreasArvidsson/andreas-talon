@@ -1,16 +1,16 @@
 # fmt: off
-from copy import copy
-from dataclasses import dataclass
-from typing import Callable, Optional
 import json
 import logging
 import time
+from collections.abc import Callable
+from copy import copy
+from dataclasses import dataclass
+from pathlib import Path
 
 # Andreas changed
-from talon import resource, events
+from talon import events, resource
 from talon.debug import log_exception
-from talon.experimental.parrot import ParrotSystem, ParrotDelegate, ParrotFrame
-from pathlib import Path
+from talon.experimental.parrot import ParrotDelegate, ParrotFrame, ParrotSystem
 
 # Andreas changed
 PARROT_HOME = Path(__file__).parent
@@ -22,7 +22,7 @@ class PatternMatcher:
     def detect_all(self, frame: ParrotFrame, detection_functions: list[Callable]) -> bool:
         """Matcher for all detection functions"""
         for detect_function in detection_functions:
-            if detect_function(self, frame) == False:
+            if not detect_function(self, frame):
                 return False
         return True
 
@@ -83,12 +83,12 @@ class NoisePattern(PatternMatcher):
                     self.duration = frame.ts - self.timestamps.duration_start
 
         # Reset graceperiod if the detection did not match
-        if grace_detected == False:
+        if not grace_detected:
             self.timestamps.graceperiod_until = 0
             self.duration = 0
 
         # Reset the duration if the graceperiod has ended
-        if self.timestamps.duration_start > 0 and detected == False and grace_detected == False and self.timestamps.graceperiod_until < (frame.ts + self.graceperiod_length):
+        if self.timestamps.duration_start > 0 and not detected and not grace_detected and self.timestamps.graceperiod_until < (frame.ts + self.graceperiod_length):
             self.timestamps.duration_start = 0
             self.duration = 0
 
@@ -120,7 +120,7 @@ class PatternBuilder:
     possible_thresholds = frozenset(['>power', '>f0', '>f1', '>f2', '>probability', '>ratio', '<power', '<f0', '<f1', '<f2', '<probability', '<ratio'])
     possible_keys = frozenset(['sounds', 'detect_after', 'threshold', 'graceperiod', 'grace_threshold', 'throttle'])
 
-    def build(self, name: str, pattern: dict) -> Optional[NoisePattern]:
+    def build(self, name: str, pattern: dict) -> NoisePattern | None:
         """Builds a valid pattern or skips it in case the pattern is invalid"""
         for key in pattern:
             if key not in self.possible_keys:
@@ -151,8 +151,8 @@ class PatternBuilder:
         if 'grace_threshold' in pattern and '>power' in pattern['grace_threshold']:
             lowest_power_thresholds[1] = pattern['grace_threshold']['>power']
 
-        grace_period = pattern['graceperiod'] if 'graceperiod' in pattern else 0
-        detection_after = pattern['detect_after'] if 'detect_after' in pattern else 0
+        grace_period = pattern.get('graceperiod', 0)
+        detection_after = pattern.get('detect_after', 0)
 
         def match_pattern(self, frame: ParrotFrame, graceperiod_until: float):
             return self.detect_all(frame, graceperiod_detection_calls) if frame.ts < graceperiod_until else self.detect_all(frame, detection_calls)
@@ -205,7 +205,7 @@ class Delegate(ParrotDelegate):
     patterns: dict[str, NoisePattern]
     debug: bool
     last_frame_was_forwardpass: bool
-    classes: Optional[set[str]]
+    classes: set[str] | None
 
     def __init__(self, *, debug: bool=False):
         self.debug = debug

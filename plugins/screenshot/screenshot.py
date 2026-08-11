@@ -1,9 +1,9 @@
+import os
+from datetime import datetime
 from typing import Optional
 
-from talon import Module, Context, screen, ui, cron, actions
+from talon import Context, Module, actions, cron, screen, ui
 from talon.canvas import Canvas
-from datetime import datetime
-import os
 
 screenshot_folder = os.path.expanduser(os.path.join("~", "Pictures"))
 

@@ -1,10 +1,10 @@
-from typing import Optional
-from talon import Module, Context, actions
-from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
-from talon.grammar.vm import VMCapture
-from talon.engines.w2l import DecodeWord
-from dataclasses import dataclass
 import time
+from dataclasses import dataclass
+
+from talon import Context, Module, actions
+from talon.engines.w2l import DecodeWord
+from talon.grammar import Capture, Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import VMCapture
 
 mod = Module()
 ctx = Context()
@@ -35,7 +35,7 @@ class AbortPhrases:
     end: float
 
 
-abort_specific_phrases: Optional[AbortPhrases] = None
+abort_specific_phrases: AbortPhrases | None = None
 ts_threshold: float = 0
 
 

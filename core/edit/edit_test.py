@@ -1,4 +1,5 @@
 import time
+
 from talon import Module, actions
 
 mod = Module()

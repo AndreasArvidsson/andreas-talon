@@ -1,8 +1,8 @@
-from talon import Module, Context, ui
-from talon.screen import Screen
-from talon.canvas import Canvas, MouseEvent
 from skia import Canvas as SkiaCanvas
-from talon.types import Rect, Point2d  # pyright: ignore[reportAttributeAccessIssue]
+from talon import Context, Module, ui
+from talon.canvas import Canvas, MouseEvent
+from talon.screen import Screen
+from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 ctx = Context()

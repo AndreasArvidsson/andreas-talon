@@ -1,6 +1,8 @@
-from talon import Module, actions
-from dataclasses import dataclass
 import time
+from dataclasses import dataclass
+
+from talon import Module, actions
+
 from ... import imgui
 from ..analyze_phrase.types import AnalyzedPhrase
 

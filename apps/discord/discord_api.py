@@ -9,9 +9,9 @@ import re
 import socket
 import struct
 import uuid
+from typing import Optional
 
 import requests
-from typing import Optional
 from talon import Module
 
 # ================================================================================
@@ -117,7 +117,7 @@ class DiscordClient:
                 encoded_header = recived_data[:8]
                 decoded_header = struct.unpack("<ii", encoded_header)
                 encoded_data = recived_data[8:]
-        except socket.timeout as e:
+        except TimeoutError as e:
             raise DiscordError(f"Socket timeout: {e}") from e
 
         result = json.loads(encoded_data.decode("utf-8"))
@@ -146,7 +146,7 @@ class DiscordClient:
 
         try:
             if self.platform == "windows":
-                self.socket = open(self.ipc_path, "w+b")
+                self.socket = open(self.ipc_path, "w+b")  # noqa: SIM115
             else:
                 self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
                 self.socket.settimeout(0.25)

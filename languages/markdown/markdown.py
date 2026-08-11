@@ -1,5 +1,6 @@
-from talon import Context, Module, actions
 from urllib.parse import urlparse
+
+from talon import Context, Module, actions
 
 mod = Module()
 ctx = Context()

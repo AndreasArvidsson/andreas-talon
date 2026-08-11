@@ -1,4 +1,5 @@
 from talon import Module, actions, scope
+
 from ...core import imgui
 
 mod = Module()
@@ -38,10 +39,10 @@ def gui(gui: imgui.GUI):
         actions.user.help_scope_toggle()
 
 
-def print_value(gui: imgui.GUI, path: str, value, ignore: set[str] = set()):
+def print_value(gui: imgui.GUI, path: str, value, ignore: set[str] | None = None):
     if isinstance(value, dict):
         for key in value:
-            if key not in ignore:
+            if ignore is None or key not in ignore:
                 p = f"{path}.{key}" if path else key
                 print_value(gui, p, value[key])
     elif value:
@@ -49,7 +50,7 @@ def print_value(gui: imgui.GUI, path: str, value, ignore: set[str] = set()):
 
 
 def format_value(value):
-    if isinstance(value, list) or isinstance(value, set):
+    if isinstance(value, (list, set)):
         value = ", ".join(sorted(value))
     if isinstance(value, str):
         max_length = actions.settings.get("user.help_scope_max_length")

@@ -1,6 +1,7 @@
-from talon import Module, ui, cron
+from skia import Canvas as SkiaCanvas
+from skia import ImageFilter
+from talon import Module, cron, ui
 from talon.canvas import Canvas
-from skia import Canvas as SkiaCanvas, ImageFilter
 
 mod = Module()
 

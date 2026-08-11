@@ -1,5 +1,7 @@
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable, Literal, Union
+from typing import Literal, Union
+
 from talon import Module, actions
 
 EditSimpleModifierType = Literal["containingTokenIfEmpty",]

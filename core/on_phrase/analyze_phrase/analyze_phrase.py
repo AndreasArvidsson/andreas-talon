@@ -1,14 +1,16 @@
-from talon import actions, speech_system, registry
-from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
-from talon.grammar.vm import VMListCapture, VMCapture
-from talon.engines.w2l import DecodeWord, WordMeta
-from talon.scripting.types import CommandImpl
-from talon_init import TALON_HOME
-from typing import Optional, Any
 import os
 import re
-from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
+from typing import Any
+
+from talon import actions, registry, speech_system
+from talon.engines.w2l import DecodeWord, WordMeta
+from talon.grammar import Capture, Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import VMCapture, VMListCapture
+from talon.scripting.types import CommandImpl
+from talon_init import TALON_HOME
+
 from .calc_command_actions import calc_command_actions
+from .types import AnalyzedCapture, AnalyzedCommand, AnalyzedPhrase, AnalyzedWord
 
 SIM_RE = re.compile(r"""(?:\[\d+] "[^"]+"\s+path: ([^\n]+)\s+rule: "([^"]+))+""")
 
@@ -40,7 +42,7 @@ def get_words(phrase: Phrase) -> list[AnalyzedWord]:
     ]
 
 
-def get_metadata(phrase: Phrase) -> Optional[dict]:
+def get_metadata(phrase: Phrase) -> dict | None:
     meta = phrase.get("_metadata")
     if meta:
         # We have already captured the phrase and don't need a duplication.
@@ -52,7 +54,8 @@ def get_commands(phrase: Phrase, phrase_text: str) -> list[AnalyzedCommand]:
     captures = phrase["parsed"]
     commands = get_commands_impl(captures, phrase_text)
     return [
-        get_command(command, capture) for command, capture in zip(commands, captures)
+        get_command(command, capture)
+        for command, capture in zip(commands, captures, strict=True)
     ]
 
 
@@ -83,7 +86,7 @@ def get_commands_impl(captures: list[Capture], phrase_text: str) -> list[Command
     return commands
 
 
-def try_get_last_commands(captures: list[Capture]) -> Optional[list[CommandImpl]]:
+def try_get_last_commands(captures: list[Capture]) -> list[CommandImpl] | None:
     """
     Returns last command implementation if its captures matches the given list.
     Repeat commands are missing from this list and then we can't use the list of last commands.
@@ -94,7 +97,7 @@ def try_get_last_commands(captures: list[Capture]) -> Optional[list[CommandImpl]
     last_commands = recent_commands[-1]
     if len(captures) != len(last_commands):
         return None
-    for c1, (_, c2) in zip(captures, last_commands):
+    for c1, (_, c2) in zip(captures, last_commands, strict=True):
         if c1 != c2:
             return None
     return [cmd for cmd, _ in last_commands]
@@ -104,7 +107,9 @@ def get_commands_from_sim(phrase_text: str) -> list[CommandImpl]:
     try:
         raw_sim = speech_system._sim(phrase_text)
     except Exception as ex:
-        raise Exception(f"Failed to run sim on phrase '{phrase_text}'. Ex: {ex}")
+        raise Exception(
+            f"Failed to run sim on phrase '{phrase_text}'. Ex: {ex}"
+        ) from ex
 
     matches = SIM_RE.findall(raw_sim)
     if not matches:
@@ -136,7 +141,7 @@ def get_captures(capture: Capture) -> list[AnalyzedCapture]:
     for i, value in enumerate(capture):
         c = capture._capture[i]
 
-        if isinstance(c, DecodeWord) or isinstance(c, WordMeta):
+        if isinstance(c, (DecodeWord, WordMeta)):
             phrase = c.word
             name = None
         elif isinstance(c, VMCapture):

@@ -1,32 +1,31 @@
-from collections.abc import Sequence as AbcSequence, Callable as AbcCallable
+import inspect
+import os
+from collections.abc import Callable
+from collections.abc import Callable as AbcCallable
+from collections.abc import Sequence as AbcSequence
 from dataclasses import dataclass
 from datetime import datetime
 from io import TextIOWrapper
+from pathlib import Path
 from types import NoneType, UnionType
 from typing import (
     Any,
-    Callable,
-    List,
-    Dict,
     Literal,
     Optional,
-    Tuple,
     Union,
-    get_origin,
     get_args,
+    get_origin,
 )
+
+from skia import Image
 from talon import registry
+from talon.grammar import Capture, Phrase  # pyright: ignore[reportAttributeAccessIssue]
 from talon.screen import Screen
-from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
-from talon.scripting.types import CommandImpl, ScriptImpl
 from talon.scripting.rctx import ResourceContext
 from talon.scripting.talon_script import TalonScript
-from talon.ui import Window, App
-from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
-from pathlib import Path
-from skia import Image
-import inspect
-import os
+from talon.scripting.types import CommandImpl, ScriptImpl
+from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
+from talon.ui import App, Window
 
 
 @dataclass
@@ -93,17 +92,17 @@ def get_typescript_type(py_type: Any) -> str:
     origin = get_origin(py_type)
     args = get_args(py_type)
 
-    if origin is list or origin is List or origin is AbcSequence:
+    if origin is list or origin is list or origin is AbcSequence:
         return f"{get_typescript_type(args[0])}[]" if args else "any[]"
 
-    if origin is dict or origin is Dict:
+    if origin is dict or origin is dict:
         return (
             f"Record<{get_typescript_type(args[0])}, {get_typescript_type(args[1])}>"
             if args
             else "Record<string, any>"
         )
 
-    if origin is tuple or origin is Tuple:
+    if origin is tuple or origin is tuple:
         return (
             f"[{', '.join(get_typescript_type(arg) for arg in args)}]" if args else "[]"
         )
@@ -186,8 +185,7 @@ def write_namespace_file(dir: str, namespaces: list[str]):
     namespaces.sort()
     with open(file_path, "w", newline="\n") as f:
         f.write("export type Namespace =")
-        for namespace in namespaces:
-            f.write(f'\n    | "{namespace}"')
+        f.writelines(f'\n    | "{namespace}"' for namespace in namespaces)
         f.write(";\n")
 
 
@@ -201,8 +199,10 @@ def write_actions_file(dir: str, actions_map: dict[str, list[Action]]):
     namespaces.append("user")
 
     with open(file_path, "w", newline="\n") as f:
-        for type_definition in type_definitions:
-            f.write(f"type {type_definition.__name__} = any;\n")
+        f.writelines(
+            f"type {type_definition.__name__} = any;\n"
+            for type_definition in type_definitions
+        )
         f.write("\nexport interface ActionNamespaces {\n")
         for namespace in namespaces:
             ns_actions = actions_map[namespace]

@@ -1,5 +1,6 @@
-from talon import Module
 from datetime import date, timedelta
+
+from talon import Module
 
 mod = Module()
 date_format = "%Y-%m-%d"

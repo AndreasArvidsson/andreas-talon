@@ -1,5 +1,6 @@
-from talon import app, Module, Context, actions
-from os import path, environ
+from os import environ, path
+
+from talon import Context, Module, actions, app
 
 mod = Module()
 mod.tag("file_manager", "Tag for enabling generic file management commands")

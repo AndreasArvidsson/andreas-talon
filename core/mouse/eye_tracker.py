@@ -1,3 +1,5 @@
+from typing import Optional
+
 from talon import (
     Context,
     Module,
@@ -5,7 +7,6 @@ from talon import (
     app,
     storage,
 )
-from typing import Optional
 
 mod = Module()
 

@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Union
 
 from talon import Context, Module, actions, app, fs
 
@@ -88,7 +87,7 @@ class Actions:
 
 
 def get_preferred_snippet(snippets: list[Snippet]) -> Snippet:
-    lang: Union[str, set[str]] = actions.code.language()
+    lang: str | set[str] = actions.code.language()
     languages = [lang] if isinstance(lang, str) else lang
 
     # First try to find a snippet matching the active language

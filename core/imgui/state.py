@@ -31,5 +31,5 @@ class State:
     def get_height(self) -> int:
         return round(self.height + self.padding)
 
-    def rem(self, number: int | float) -> int:
+    def rem(self, number: float) -> int:
         return round(self.font_size * number)

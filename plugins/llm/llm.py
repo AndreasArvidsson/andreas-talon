@@ -1,4 +1,5 @@
 from typing import Optional
+
 from talon import Module, actions
 
 # from .openai import openai_run

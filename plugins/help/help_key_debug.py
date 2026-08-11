@@ -1,4 +1,5 @@
-from talon import Module, Context, actions, ctrl
+from talon import Context, Module, actions, ctrl
+
 from ...core import imgui
 
 mod = Module()

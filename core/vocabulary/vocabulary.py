@@ -1,6 +1,8 @@
-from talon import Context, Module, actions, resource
-from typing import Sequence
 from pathlib import Path
+from typing import Sequence
+
+from talon import Context, Module, actions, resource
+
 from .phrase_replacer import PhraseReplacer
 
 mod = Module()

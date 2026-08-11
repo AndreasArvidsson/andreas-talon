@@ -1,5 +1,6 @@
-from talon import Module, actions, cron
 import time
+
+from talon import Module, actions, cron
 
 HOLD_TIMEOUT = 0.2
 

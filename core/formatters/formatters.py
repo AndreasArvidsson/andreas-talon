@@ -1,7 +1,9 @@
-from talon import Module, actions
-from typing import Callable, Optional
-from abc import ABC, abstractmethod
 import re
+from abc import ABC, abstractmethod
+from collections.abc import Callable
+from typing import Optional
+
+from talon import Module, actions
 
 
 class Formatter(ABC):
@@ -102,9 +104,29 @@ class CodeFormatter(Formatter):
 
 
 class TitleFormatter(Formatter):
-    _words_to_keep_lowercase = (
-        "a an and as at but by en for if in nor of on or per the to v via vs".split()
-    )
+    _words_to_keep_lowercase = [
+        "a",
+        "an",
+        "and",
+        "as",
+        "at",
+        "but",
+        "by",
+        "en",
+        "for",
+        "if",
+        "in",
+        "nor",
+        "of",
+        "on",
+        "or",
+        "per",
+        "the",
+        "to",
+        "v",
+        "via",
+        "vs",
+    ]
 
     def format(self, text: str) -> str:
         words = [x for x in re.split(r"(\s+)", text) if x]

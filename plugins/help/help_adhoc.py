@@ -1,4 +1,5 @@
-from talon import scope, registry
+from talon import registry, scope
+
 from ...core import imgui
 
 

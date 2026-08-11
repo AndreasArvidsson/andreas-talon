@@ -1,8 +1,9 @@
-from talon import Module, actions, registry, cron, app
-from talon_init import VENV_BIN
-import tempfile
 import json
+import tempfile
 from pathlib import Path
+
+from talon import Module, actions, app, cron, registry
+from talon_init import VENV_BIN
 
 config_path = Path(tempfile.gettempdir()) / "talonDeck.json"
 repl_path = (

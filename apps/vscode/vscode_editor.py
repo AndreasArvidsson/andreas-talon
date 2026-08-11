@@ -1,4 +1,5 @@
 from typing import Optional
+
 from talon import Context, actions
 
 ctx = Context()

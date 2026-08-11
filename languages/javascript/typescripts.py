@@ -1,4 +1,5 @@
-from talon import Module, Context, actions
+from talon import Context, Module, actions
+
 from .javascript import js_keywords
 
 mod = Module()
@@ -43,16 +44,14 @@ ctx.lists["user.code_collection_type"] = {
 
 ctx.lists["user.code_keyword"] = {
     **js_keywords,
-    **{
-        "public"    : "public ",
-        "private"   : "private ",
-        "protected" : "protected ",
-        "readonly"  : "readonly ",
-        "interface" : "interface ",
-        "type"      : " type ",
-        "key of"    : "keyof ",
-        "as"        : " as ",
-    },
+    "public"    : "public ",
+    "private"   : "private ",
+    "protected" : "protected ",
+    "readonly"  : "readonly ",
+    "interface" : "interface ",
+    "type"      : " type ",
+    "key of"    : "keyof ",
+    "as"        : " as ",
 }
 
 # fmt: on

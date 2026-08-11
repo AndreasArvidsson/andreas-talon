@@ -1,6 +1,5 @@
 from talon import Context, actions
 
-
 # ---------- Non-sleep mode & tracker disabled ----------
 
 ctx_eye_tracker = Context()

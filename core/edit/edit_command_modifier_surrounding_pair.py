@@ -1,7 +1,8 @@
-from dataclasses import dataclass
-from typing import Literal, Optional
-from talon import Module, actions
 import re
+from dataclasses import dataclass
+from typing import Literal
+
+from talon import Module, actions
 
 delimiters_map: dict[str, list[str]] = {
     "angleBrackets": ["<", ">"],
@@ -28,9 +29,9 @@ class Actions:
         if pair is None:
             return
 
-        for i in range(pair.left_start):
+        for _ in range(pair.left_start):
             actions.edit.right()
-        for i in range(pair.right_end - pair.left_start):
+        for _ in range(pair.right_end - pair.left_start):
             actions.edit.extend_right()
 
     @staticmethod
@@ -43,9 +44,9 @@ class Actions:
         if pair is None:
             return
 
-        for i in range(pair.left_end):
+        for _ in range(pair.left_end):
             actions.edit.right()
-        for i in range(pair.right_start - pair.left_end):
+        for _ in range(pair.right_start - pair.left_end):
             actions.edit.extend_right()
 
 
@@ -80,7 +81,7 @@ class PairOccurrence:
     right_end: int
 
 
-def get_surrounding_pair_for_selection(delimiter_name: str) -> Optional[PairOccurrence]:
+def get_surrounding_pair_for_selection(delimiter_name: str) -> PairOccurrence | None:
     document = get_document_for_selection()
     individual_delimiters = get_individual_delimiters(delimiter_name)
     delimiter_occurrences = get_delimiter_occurrences(
@@ -124,7 +125,7 @@ def get_document_for_selection() -> Document:
 def get_surrounding_pair(
     pair_occurrences: list[PairOccurrence],
     position: int,
-) -> Optional[PairOccurrence]:
+) -> PairOccurrence | None:
     surrounding_pairs = [
         pair
         for pair in pair_occurrences

@@ -1,7 +1,7 @@
-from talon import Module, Context, app, ui, actions, resource
-from pathlib import Path
 import re
+from pathlib import Path
 
+from talon import Context, Module, actions, app, resource, ui
 
 mod = Module()
 ctx = Context()

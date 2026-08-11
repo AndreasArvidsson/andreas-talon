@@ -1,6 +1,7 @@
-from typing import Optional
-from talon import Module, Context, actions, grammar
 import re
+from typing import Optional
+
+from talon import Context, Module, actions, grammar
 
 mod = Module()
 

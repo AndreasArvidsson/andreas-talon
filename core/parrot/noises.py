@@ -1,5 +1,6 @@
-from talon import Module, Context, cron, actions
 import time
+
+from talon import Context, Module, actions, cron
 
 mod = Module()
 state = {}

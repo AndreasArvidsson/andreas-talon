@@ -1,9 +1,10 @@
 # mimic("focus code"); actions.sleep(1); actions.speech.replay("/path/to/recording.flac")
 
-from talon import actions, speech_system
-from os import walk, path
 import json
 import re
+from os import path, walk
+
+from talon import actions, speech_system
 
 delimiter = ","
 expected = {}
@@ -90,7 +91,7 @@ def replay_files(files):
 def replay_dir(dir):
     global expected
     expected = read_expected(dir)
-    for dirpath, dirnames, filenames in walk(dir):
+    for dirpath, _dirnames, filenames in walk(dir):
         filenames = [path.join(dirpath, f) for f in filenames if f.endswith(".flac")]
         replay_files(filenames)
 

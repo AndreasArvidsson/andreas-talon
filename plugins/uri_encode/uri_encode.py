@@ -1,5 +1,6 @@
-from talon import Module, actions
 from urllib import parse
+
+from talon import Module, actions
 
 mod = Module()
 

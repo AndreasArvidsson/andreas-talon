@@ -3,8 +3,9 @@ import json
 import os
 import re
 import time
+from collections.abc import Callable
 from itertools import islice
-from typing import Any, Callable, Union
+from typing import Any, Union
 
 from talon import (
     Context,

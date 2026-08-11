@@ -1,12 +1,13 @@
-from talon import Module, speech_system, actions
+from talon import Module, actions, speech_system
 from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
+
 from .abort.abort import abort_update_phrase
 from .analyze_phrase.analyze_phrase import analyze_phrase
 from .command_history.command_history import command_history_append
-from .subtitles_and_notifications.subtitles_and_notifications import show_subtitle
 from .pretty_print_phrase import pretty_print_phrase
 from .print_phrase_timings import print_phrase_timings
 from .sleep_phrase import sleep_update_phrase
+from .subtitles_and_notifications.subtitles_and_notifications import show_subtitle
 
 mod = Module()
 

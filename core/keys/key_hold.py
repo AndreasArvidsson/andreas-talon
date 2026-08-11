@@ -1,6 +1,5 @@
 from talon import Module, actions, cron
 
-
 REPEAT_DELAY = "250ms"
 REPEAT_RATE = "32ms"
 

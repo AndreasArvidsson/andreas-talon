@@ -1,6 +1,7 @@
-from talon import Module, Context, actions, ui, ctrl
-from talon.screen import Screen
 import time
+
+from talon import Context, Module, actions, ctrl, ui
+from talon.screen import Screen
 
 HOLD_TIMEOUT = 0.2
 

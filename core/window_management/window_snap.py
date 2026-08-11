@@ -77,13 +77,13 @@ ctx.lists["user.snap_position"] = snap_positions.keys()  # pyright: ignore[repor
 @mod.capture(rule="last | next")
 def prev_next(m) -> str:
     "Previous or next position"
-    return "previous" if "last" == m[0] else "next"
+    return "previous" if m[0] == "last" else "next"
 
 
 @mod.capture(
     rule="<user.prev_next> screen | screen (<user.prev_next> | <number_small>)"
 )
-def snap_screen(m) -> Union[int, str]:
+def snap_screen(m) -> int | str:
     "A single screen position."
     try:
         return m.number_small
@@ -225,7 +225,7 @@ def snap_window_to_screen_and_position(
     actions.user.window_set_pos(window, rect.x, rect.y, rect.width, rect.height)
 
 
-def get_screen(screen_desc: Union[int, str]) -> Screen:
+def get_screen(screen_desc: int | str) -> Screen:
     if screen_desc == "previous":
         return actions.user.screen_get_by_offset(-1)
     if screen_desc == "next":

@@ -1,11 +1,16 @@
-from talon import Module, Context, app, registry, scope, ui, actions
+from typing import Literal
+
+from skia import Canvas as SkiaCanvas
+from skia import ImageFilter, Shader
+from talon import Context, Module, actions, app, registry, scope, ui
 from talon.canvas import Canvas
 from talon.screen import Screen
-from skia import Canvas as SkiaCanvas, ImageFilter, Shader
-from talon.types import Rect, Point2d  # pyright: ignore[reportAttributeAccessIssue]
+from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
+
+Mode = Literal["mute", "sleep", "dictation", "mixed", "command", "other"]
 
 canvas: Canvas | None = None
-current_mode = ""
+current_mode: Mode = "other"
 mod = Module()
 ctx = Context()
 
@@ -39,20 +44,20 @@ setting_color_command = "6495ed"
 # GhostWhite color for other modes
 setting_color_other = "f8f8ff"
 
+colors: dict[Mode, str] = {
+    "mute": setting_color_mute,
+    "sleep": setting_color_sleep,
+    "dictation": setting_color_dictation,
+    "mixed": setting_color_mixed,
+    "command": setting_color_command,
+    "other": setting_color_other,
+}
+
 
 def get_mode_color() -> str:
     if not actions.user.sound_microphone_enabled():
         return setting_color_mute
-    if current_mode == "sleep":
-        return setting_color_sleep
-    elif current_mode == "dictation":
-        return setting_color_dictation
-    elif current_mode == "mixed":
-        return setting_color_mixed
-    elif current_mode == "command":
-        return setting_color_command
-    else:
-        return setting_color_other
+    return colors.get(current_mode, setting_color_other)
 
 
 def get_alpha_color() -> str:
@@ -152,6 +157,7 @@ class Actions:
 def on_mode_change(_):
     global current_mode
     modes = scope.get("mode")
+    mode: Mode
     if "sleep" in modes:
         mode = "sleep"
     elif "dictation" in modes:

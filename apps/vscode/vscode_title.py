@@ -1,6 +1,7 @@
-from typing import Union
-from talon import Context, actions
 import re
+from typing import Union
+
+from talon import Context, actions
 
 ctx = Context()
 ctx.matches = r"""

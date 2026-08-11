@@ -1,12 +1,14 @@
-from talon import Module, Context, ui, speech_system, actions
-from talon.screen import Screen
-from talon.canvas import Canvas, MouseEvent
-from skia import RoundRect, Canvas as SkiaCanvas
-from talon.types import Rect, Point2d  # pyright: ignore[reportAttributeAccessIssue]
-from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
-from dataclasses import dataclass
-from typing import Callable, Optional
 import math
+from collections.abc import Callable
+from dataclasses import dataclass
+
+from skia import Canvas as SkiaCanvas
+from skia import RoundRect
+from talon import Context, Module, actions, speech_system, ui
+from talon.canvas import Canvas, MouseEvent
+from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.screen import Screen
+from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 FONT_FAMILY = "Segoe UI Symbol"
 BACKGROUND_COLOR = "fffafa"  # Snow
@@ -28,21 +30,21 @@ class CircleOption:
     text: str
     degrees: int
     callback: Callable[[], None]
-    move_mouse: Optional[bool] = False
+    move_mouse: bool | None = False
 
 
 @dataclass
 class Option:
     text: str
     callback: Callable[[], None]
-    move_mouse: Optional[bool] = False
+    move_mouse: bool | None = False
 
 
 @dataclass
 class Button:
     rect: Rect
     callback: Callable[[], None]
-    move_mouse: Optional[bool] = False
+    move_mouse: bool | None = False
 
 
 class Size:

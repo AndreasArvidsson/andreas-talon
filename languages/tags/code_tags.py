@@ -1,5 +1,6 @@
-from talon import Module, actions
 from typing import Optional, Union
+
+from talon import Module, actions
 
 mod = Module()
 
