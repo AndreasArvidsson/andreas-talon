@@ -5,8 +5,6 @@ from talon import (
     app,
     storage,
 )
-from typing import Optional
-
 mod = Module()
 
 mod.tag("eye_tracker", "Indicates that the eye tracker is enabled")
@@ -46,7 +44,7 @@ class FrozenActions:
 @mod.action_class
 class Actions:
     @staticmethod
-    def mouse_control_toggle(enable: Optional[bool] = None):
+    def mouse_control_toggle(enable: bool | None = None):
         """Toggle enable/disable for the eye tracker"""
         if enable is None:
             enable = not actions.tracking.control_enabled()

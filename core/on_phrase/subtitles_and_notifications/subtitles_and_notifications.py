@@ -2,7 +2,7 @@ from talon import Module, app, ui, cron, actions, ctrl
 from talon.canvas import Canvas
 from skia import Canvas as SkiaCanvas, ImageFilter
 from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
-from typing import Sequence, Callable, Optional, TypeVar
+from typing import Sequence, Callable, TypeVar
 
 mod = Module()
 subtitle_canvas = []
@@ -15,7 +15,7 @@ def setting(
     name: str,
     setting_type: type[T],
     desc: str,
-    default: Optional[T] = None,
+    default: T | None = None,
 ) -> Callable[[bool], T]:
     mod.setting(
         f"subtitles_{name}", setting_type, default=default, desc=f"Subtitles: {desc}"

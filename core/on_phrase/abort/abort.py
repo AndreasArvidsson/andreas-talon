@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Module, Context, actions
 from talon.grammar import Phrase, Capture  # pyright: ignore[reportAttributeAccessIssue]
 from talon.grammar.vm import VMCapture
@@ -35,7 +34,7 @@ class AbortPhrases:
     end: float
 
 
-abort_specific_phrases: Optional[AbortPhrases] = None
+abort_specific_phrases: AbortPhrases | None = None
 ts_threshold: float = 0
 
 

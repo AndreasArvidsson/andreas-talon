@@ -1,7 +1,7 @@
 # fmt: off
 from copy import copy
 from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Callable
 import json
 import logging
 import time
@@ -120,7 +120,7 @@ class PatternBuilder:
     possible_thresholds = frozenset(['>power', '>f0', '>f1', '>f2', '>probability', '>ratio', '<power', '<f0', '<f1', '<f2', '<probability', '<ratio'])
     possible_keys = frozenset(['sounds', 'detect_after', 'threshold', 'graceperiod', 'grace_threshold', 'throttle'])
 
-    def build(self, name: str, pattern: dict) -> Optional[NoisePattern]:
+    def build(self, name: str, pattern: dict) -> NoisePattern | None:
         """Builds a valid pattern or skips it in case the pattern is invalid"""
         for key in pattern:
             if key not in self.possible_keys:
@@ -205,7 +205,7 @@ class Delegate(ParrotDelegate):
     patterns: dict[str, NoisePattern]
     debug: bool
     last_frame_was_forwardpass: bool
-    classes: Optional[set[str]]
+    classes: set[str] | None
 
     def __init__(self, *, debug: bool=False):
         self.debug = debug

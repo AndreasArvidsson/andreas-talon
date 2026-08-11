@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Context, ui
 from talon.windows.ax import TextRange
 
@@ -8,7 +7,7 @@ ctx = Context()
 
 # @ctx.action_class("user")
 # class Actions:
-#     def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
+#     def dictation_get_context() -> tuple[str | None, str | None]:
 #         try:
 #             return dictation_get_context()
 #         except Exception as e:
@@ -16,7 +15,7 @@ ctx = Context()
 #             return (None, None)
 
 
-def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
+def dictation_get_context() -> tuple[str | None, str | None]:
     el = ui.focused_element()
     text_pattern = el.text_pattern2
     document_range = text_pattern.document_range

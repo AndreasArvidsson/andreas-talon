@@ -5,7 +5,7 @@ from skia import RoundRect, Canvas as SkiaCanvas
 from talon.types import Rect, Point2d  # pyright: ignore[reportAttributeAccessIssue]
 from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Callable
 import math
 
 FONT_FAMILY = "Segoe UI Symbol"
@@ -28,21 +28,21 @@ class CircleOption:
     text: str
     degrees: int
     callback: Callable[[], None]
-    move_mouse: Optional[bool] = False
+    move_mouse: bool | None = False
 
 
 @dataclass
 class Option:
     text: str
     callback: Callable[[], None]
-    move_mouse: Optional[bool] = False
+    move_mouse: bool | None = False
 
 
 @dataclass
 class Button:
     rect: Rect
     callback: Callable[[], None]
-    move_mouse: Optional[bool] = False
+    move_mouse: bool | None = False
 
 
 class Size:

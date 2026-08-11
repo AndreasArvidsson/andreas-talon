@@ -1,5 +1,3 @@
-from typing import Optional
-
 from talon import Module, Context, screen, ui, cron, actions
 from talon.canvas import Canvas
 from datetime import datetime
@@ -13,7 +11,7 @@ mod = Module()
 @mod.action_class
 class Actions:
     @staticmethod
-    def screenshot(screen_number: Optional[int] = None):
+    def screenshot(screen_number: int | None = None):
         """Takes a screenshot of the entire screen and saves it to the pictures folder.
         Optional screen number can be given to use screen other than main."""
         screen = get_screen(screen_number)
@@ -28,7 +26,7 @@ class Actions:
         """Triggers an application is capable of taking a screenshot of a portion of the screen"""
 
     @staticmethod
-    def screenshot_clipboard(screen_number: Optional[int] = None):
+    def screenshot_clipboard(screen_number: int | None = None):
         """Takes a screenshot of the entire screen and saves it to the clipboard.
         Optional screen number can be given to use screen other than main."""
         screen = get_screen(screen_number)

@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Module, Context, actions, grammar
 import re
 
@@ -300,7 +299,7 @@ class Actions:
         if add_space_after:
             actions.edit.left()
 
-    def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
+    def dictation_get_context() -> tuple[str | None, str | None]:
         """Returns the text before and after the current selection"""
         return (None, None)
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal, Optional
+from typing import Literal
 from talon import Module, actions
 import re
 
@@ -80,7 +80,7 @@ class PairOccurrence:
     right_end: int
 
 
-def get_surrounding_pair_for_selection(delimiter_name: str) -> Optional[PairOccurrence]:
+def get_surrounding_pair_for_selection(delimiter_name: str) -> PairOccurrence | None:
     document = get_document_for_selection()
     individual_delimiters = get_individual_delimiters(delimiter_name)
     delimiter_occurrences = get_delimiter_occurrences(
@@ -124,7 +124,7 @@ def get_document_for_selection() -> Document:
 def get_surrounding_pair(
     pair_occurrences: list[PairOccurrence],
     position: int,
-) -> Optional[PairOccurrence]:
+) -> PairOccurrence | None:
     surrounding_pairs = [
         pair
         for pair in pair_occurrences

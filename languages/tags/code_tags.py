@@ -1,5 +1,5 @@
 from talon import Module, actions
-from typing import Optional, Union
+from typing import Union
 
 mod = Module()
 
@@ -101,8 +101,8 @@ class Actions:
         actions.user.insert_snippet_by_name("commentLine", {"1": f"FIXME: {message}"})
 
     # ----- Text getters -----
-    def code_get_class_name() -> Optional[str]:
+    def code_get_class_name() -> str | None:
         """Get class name"""
 
-    def code_get_open_tag_name() -> Optional[str]:
+    def code_get_open_tag_name() -> str | None:
         """Get class name"""

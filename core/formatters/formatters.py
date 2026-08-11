@@ -1,5 +1,5 @@
 from talon import Module, actions
-from typing import Callable, Optional
+from typing import Callable
 from abc import ABC, abstractmethod
 import re
 
@@ -22,7 +22,7 @@ class CustomFormatter(Formatter):
         self,
         id: str,
         format: Callable[[str], str],
-        unformat: Optional[Callable[[str], str]] = None,
+        unformat: Callable[[str], str] | None = None,
     ):
         super().__init__(id)
         self._format = format

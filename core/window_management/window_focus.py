@@ -1,5 +1,3 @@
-from typing import Optional
-
 from talon import Context, Module, actions, ui
 from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
 
@@ -26,7 +24,7 @@ class Actions:
         actions.key("alt-tab")
 
     @staticmethod
-    def window_focus_name(name: str, phrase: Optional[Phrase] = None):
+    def window_focus_name(name: str, phrase: Phrase | None = None):
         """Focus application named <name>"""
         focus_name(name)
 

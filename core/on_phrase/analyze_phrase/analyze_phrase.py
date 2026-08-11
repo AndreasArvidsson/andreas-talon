@@ -4,7 +4,7 @@ from talon.grammar.vm import VMListCapture, VMCapture
 from talon.engines.w2l import DecodeWord, WordMeta
 from talon.scripting.types import CommandImpl
 from talon_init import TALON_HOME
-from typing import Optional, Any
+from typing import Any
 import os
 import re
 from .types import AnalyzedPhrase, AnalyzedCommand, AnalyzedCapture, AnalyzedWord
@@ -40,7 +40,7 @@ def get_words(phrase: Phrase) -> list[AnalyzedWord]:
     ]
 
 
-def get_metadata(phrase: Phrase) -> Optional[dict]:
+def get_metadata(phrase: Phrase) -> dict | None:
     meta = phrase.get("_metadata")
     if meta:
         # We have already captured the phrase and don't need a duplication.
@@ -83,7 +83,7 @@ def get_commands_impl(captures: list[Capture], phrase_text: str) -> list[Command
     return commands
 
 
-def try_get_last_commands(captures: list[Capture]) -> Optional[list[CommandImpl]]:
+def try_get_last_commands(captures: list[Capture]) -> list[CommandImpl] | None:
     """
     Returns last command implementation if its captures matches the given list.
     Repeat commands are missing from this list and then we can't use the list of last commands.

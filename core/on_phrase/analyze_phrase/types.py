@@ -1,16 +1,16 @@
 from dataclasses import dataclass
-from typing import Optional, Any
+from typing import Any
 
 
 @dataclass
 class AnalyzedAction:
     code: str
     name: str
-    params: Optional[str]
+    params: str | None
     path: str
-    line: Optional[float]
+    line: float | None
     modDesc: str
-    ctxDesc: Optional[str]
+    ctxDesc: str | None
     explanation: str
 
     def __repr__(self):
@@ -20,8 +20,8 @@ class AnalyzedAction:
 @dataclass
 class AnalyzedWord:
     text: str
-    start: Optional[float]
-    end: Optional[float]
+    start: float | None
+    end: float | None
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
@@ -31,7 +31,7 @@ class AnalyzedWord:
 class AnalyzedCapture:
     phrase: str
     value: Any
-    name: Optional[str]
+    name: str | None
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.__dict__})"
@@ -56,7 +56,7 @@ class AnalyzedCommand:
 class AnalyzedPhrase:
     phrase: str
     words: list[AnalyzedWord]
-    metadata: Optional[dict]
+    metadata: dict | None
     commands: list[AnalyzedCommand]
 
     def __repr__(self):

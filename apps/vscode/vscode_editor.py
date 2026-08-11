@@ -1,4 +1,3 @@
-from typing import Optional
 from talon import Context, actions
 
 ctx = Context()
@@ -108,7 +107,7 @@ class UserActions:
 
     # ----- Dictation -----
 
-    def dictation_get_context() -> tuple[Optional[str], Optional[str]]:
+    def dictation_get_context() -> tuple[str | None, str | None]:
         try:
             context = actions.user.run_rpc_command_get("andreas.getDictationContext")
         except Exception:
@@ -126,10 +125,10 @@ class UserActions:
 
     # ----- Text getters -----
 
-    def code_get_class_name() -> Optional[str]:
+    def code_get_class_name() -> str | None:
         return actions.user.run_rpc_command_get("andreas.getClassName")
 
-    def code_get_open_tag_name() -> Optional[str]:
+    def code_get_open_tag_name() -> str | None:
         return actions.user.run_rpc_command_get("andreas.getOpenTagName")
 
 

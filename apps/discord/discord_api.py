@@ -11,7 +11,6 @@ import struct
 import uuid
 
 import requests
-from typing import Optional
 from talon import Module
 
 # ================================================================================
@@ -288,7 +287,7 @@ class DiscordClient:
         self._send(1, payload)
         self._decode()
 
-    def get_selected_voice_channel(self):
+    def get_selected_voice_channel(self) -> dict | None:
         """Get selected voice channel"""
         payload = {
             "cmd": "GET_SELECTED_VOICE_CHANNEL",
@@ -403,6 +402,6 @@ class Actions:
             not c.get_voice_settings()["mute"],
         )
 
-    def discord_get_selected_voice_channel() -> Optional[dict]:
+    def discord_get_selected_voice_channel() -> dict | None:
         """Gets the selected discord voice channel"""
         return client().get_selected_voice_channel()
