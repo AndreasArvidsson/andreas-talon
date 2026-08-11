@@ -9,7 +9,6 @@ import re
 import socket
 import struct
 import uuid
-from typing import Optional
 
 import requests
 from talon import Module

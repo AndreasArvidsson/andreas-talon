@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence  # noqa: UP035
 
 
 class PhraseReplacer:

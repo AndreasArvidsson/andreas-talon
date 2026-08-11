@@ -5,7 +5,7 @@ import re
 import time
 from collections.abc import Callable
 from itertools import islice
-from typing import Any, Union
+from typing import Any
 
 from talon import (
     Context,
@@ -93,7 +93,7 @@ class Actions:
         return f"{captures_string}\n\n{actions_string}"
 
     @staticmethod
-    def talon_sim_phrase(phrase: Union[str, Phrase]):
+    def talon_sim_phrase(phrase: str | Phrase):
         """Sims the phrase in the active app and dumps to the log"""
         print("**** Simulated phrase **** ")
         sim = speech_system._sim(str(phrase))

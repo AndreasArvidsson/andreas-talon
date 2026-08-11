@@ -1,5 +1,4 @@
 import re
-from typing import Union
 
 from talon import Context, actions
 
@@ -38,7 +37,7 @@ class WinActions:
 
 @ctx_lang.action_class("code")
 class LangCodeActions:
-    def language() -> Union[str, set[str]]:
+    def language() -> str | set[str]:
         title: str = actions.win.title()
         match = LANGUAGE_RE.search(title)
         if match is not None:

@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Literal, Union
+from typing import Literal
 
 from talon import Module, actions
 
@@ -33,11 +33,9 @@ class EditExtendThroughModifier:
         return f"{self.type}({self.scope_type})"
 
 
-EditModifier = Union[
-    EditSimpleModifier,
-    EditContainingScopeModifier,
-    EditExtendThroughModifier,
-]
+EditModifier = (
+    EditSimpleModifier | EditContainingScopeModifier | EditExtendThroughModifier
+)
 
 
 mod = Module()

@@ -1,4 +1,4 @@
-from talon import actions, app, cron  # pyright: ignore[reportUnusedImport] # noqa: F401
+from talon import actions, app, cron  # noqa: F401
 
 title = ""
 

@@ -1,5 +1,3 @@
-from typing import Union
-
 from talon import Context, Module, actions
 
 mod = Module()
@@ -18,7 +16,7 @@ app: visual_studio
 
 @ctx.action_class("code")
 class LangCodeActions:
-    def language() -> Union[str, set[str]]:
+    def language() -> str | set[str]:
         return "cpp"
 
 

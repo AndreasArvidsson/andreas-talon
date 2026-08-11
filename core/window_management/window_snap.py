@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Union
 
 from talon import Context, Module, actions, ui
 from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
@@ -94,7 +93,7 @@ def snap_screen(m) -> int | str:
 @mod.action_class
 class Actions:
     @staticmethod
-    def snap_active_window_to_screen(screen_desc: Union[int, str]):
+    def snap_active_window_to_screen(screen_desc: int | str):
         """Move the active window to screen <screen_desc> while retaining the same relative position"""
         snap_window_to_screen(
             ui.active_window(),
@@ -102,7 +101,7 @@ class Actions:
         )
 
     @staticmethod
-    def snap_window_under_cursor_to_screen(screen_desc: Union[int, str]):
+    def snap_window_under_cursor_to_screen(screen_desc: int | str):
         """Move the window under the cursor to screen <screen_desc> while retaining the same relative position"""
         snap_window_to_screen(
             actions.user.get_window_under_cursor(),
@@ -112,7 +111,7 @@ class Actions:
     @staticmethod
     def snap_application_to_screen(
         app_name: str,
-        screen_desc: Union[int, str],
+        screen_desc: int | str,
     ):
         """Move window for application <app_name> to screen <screen_desc> while retaining the same relative position"""
         snap_window_to_screen(
@@ -155,7 +154,7 @@ class Actions:
 
     @staticmethod
     def snap_active_window_to_screen_and_position(
-        screen_desc: Union[int, str],
+        screen_desc: int | str,
         pos_name: str,
     ):
         """Move the active window to position <pos_name> on screen <screen_desc>"""
@@ -167,7 +166,7 @@ class Actions:
 
     @staticmethod
     def snap_window_under_cursor_to_screen_and_position(
-        screen_desc: Union[int, str],
+        screen_desc: int | str,
         pos_name: str,
     ):
         """Move the window under the cursor to position <pos_name> on screen <screen_desc>"""
@@ -180,7 +179,7 @@ class Actions:
     @staticmethod
     def snap_application_to_screen_and_position(
         app_name: str,
-        screen_desc: Union[int, str],
+        screen_desc: int | str,
         pos_name: str,
     ):
         """Move window for application <app_name> to position <pos_name> on screen <screen_desc>"""

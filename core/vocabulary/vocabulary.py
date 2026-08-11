@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Sequence
+from typing import Sequence  # noqa: UP035
 
 from talon import Context, Module, actions, resource
 

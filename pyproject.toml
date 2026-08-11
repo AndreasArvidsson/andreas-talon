@@ -1,5 +1,5 @@
 [tool.ruff]
-target-version = "py313"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = [
@@ -17,20 +17,14 @@ select = [
     "I",
 ]
 ignore = [
-    # line-too-long
+    # Line too long
     "E501",
-    # variable names l, O, or I
+    # Ambiguous variable names: l, O, I
     "E741",
-    # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
-    "UP007",
-    # Optional[X] -> X | None not supported in Talon 0.4 actions
-    "UP045",
     # Use a single `if` statement instead of nested `if` statements
     "SIM102",
-    # always use ternary operator
+    # Use ternary operator
     "SIM108",
-    # Deprecated import
-    "UP035",
 ]
 
 [tool.pyright]

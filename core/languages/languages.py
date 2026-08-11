@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Union
 
 from talon import Context, Module, actions
 
@@ -75,14 +74,14 @@ forced_language = ""
 
 @ctx.action_class("code")
 class CodeActions:
-    def language() -> Union[str, set[str]]:
+    def language() -> str | set[str]:
         file_extension = actions.win.file_ext()
         return extension_lang_map.get(file_extension, "")
 
 
 @ctx_forced.action_class("code")
 class ForcedCodeActions:
-    def language() -> Union[str, set[str]]:
+    def language() -> str | set[str]:
         return forced_language
 
 

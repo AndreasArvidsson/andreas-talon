@@ -1,10 +1,10 @@
 from collections.abc import Callable
 from typing import Any
 
-from talon import (  # pyright: ignore[reportUnusedImport] # noqa: F401
+from talon import (
     Module,
     actions,
-    app,
+    app,  # noqa: F401
 )
 
 from .command_description_test import test_get_action_explanation
