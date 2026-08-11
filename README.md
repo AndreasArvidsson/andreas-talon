@@ -51,3 +51,11 @@ This is a list of features that I have implemented that I think is of more inter
 - [Command server](https://marketplace.visualstudio.com/items?itemName=pokey.command-server) - Command RPC extension VSCode side
 - [nircmd](https://www.nirsoft.net/utils/nircmd.html) - Change playback device on windows
 - [clipboard-cli](https://www.npmjs.com/package/clipboard-cli) - CLI copy/paste
+
+## Developing
+
+### Running Ruff
+
+- `python -m pip install ruff`
+- `python -m ruff check .`
+- `python -m ruff check --fix .`

@@ -1,4 +1,5 @@
 from talon import Module, actions
+
 from .analyze_phrase.types import AnalyzedPhrase
 
 mod = Module()

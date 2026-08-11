@@ -1,6 +1,5 @@
 from talon import Context, Module, actions
 
-
 mod = Module()
 
 mod.apps.windows_explorer = r"""

@@ -1,5 +1,6 @@
-from talon import Context, Module, cron
 import subprocess
+
+from talon import Context, Module, cron
 
 mod = Module()
 mod.list("launch_command", "List of applications to launch")

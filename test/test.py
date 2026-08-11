@@ -1,6 +1,11 @@
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
-from talon import Module, actions, app  # pyright: ignore[reportUnusedImport] # noqa: F401
+from talon import (  # pyright: ignore[reportUnusedImport] # noqa: F401
+    Module,
+    actions,
+    app,
+)
 
 from .command_description_test import test_get_action_explanation
 from .formatters_test import test_formatters
@@ -8,7 +13,7 @@ from .snippets_insert_raw_test import test_snippets_insert_raw
 
 
 def run_tests():
-    print("")
+    print()
     test_formatters()
     test_get_action_explanation()
     test_snippets_insert_raw()
@@ -38,7 +43,7 @@ class Actions:
                 failed += 1
                 print(f"FAIL | {test_name}")
                 print(ex)
-                print("")
+                print()
         print(f"---- END | {suite_name} | succeeded: {succeeded} | failed: {failed}\n")
         if failed:
             actions.app.notify(f"{failed} tests failed")

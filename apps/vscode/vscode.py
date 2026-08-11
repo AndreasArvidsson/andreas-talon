@@ -1,6 +1,7 @@
-from talon import Module, Context, actions
 import json
 import re
+
+from talon import Context, Module, actions
 
 mod = Module()
 mod.list("vscode_sessions", "Known vscode sessions/workspaces")

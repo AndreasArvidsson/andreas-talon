@@ -1,7 +1,7 @@
 import logging
 import re
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, Union
 
 from .snippet_types import Snippet, SnippetVariable
 
@@ -212,7 +212,7 @@ def parse_document(
     line: int,
     optional_body: bool,
     text: str,
-) -> Union[SnippetDocument, None]:
+) -> SnippetDocument | None:
     parts = re.split(r"^-$", text, maxsplit=1, flags=re.MULTILINE)
     line_body = line + parts[0].count("\n") + 1
     org_doc = SnippetDocument(file, line, line_body)
@@ -237,7 +237,7 @@ def parse_context(
     line: int,
     document: SnippetDocument,
     text: str,
-) -> Union[SnippetDocument, None]:
+) -> SnippetDocument | None:
     lines = [l.strip() for l in text.splitlines()]
     keys: set[str] = set()
     variables: dict[str, SnippetVariable] = {}
@@ -337,7 +337,7 @@ def parse_variable(
             warn(file, line_numb, f"Unknown variable key '{key}'")
 
 
-def parse_body(text: str) -> Union[str, None]:
+def parse_body(text: str) -> str | None:
     # Find first line that is not empty. Preserve indentation.
     match_leading = re.search(r"^[ \t]*\S", text, flags=re.MULTILINE)
 

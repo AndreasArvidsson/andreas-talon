@@ -1,5 +1,6 @@
-from talon import Module, Context, actions
 from typing import Union
+
+from talon import Context, Module, actions
 
 mod = Module()
 
@@ -43,7 +44,6 @@ class CodeActions:
 
     def complete():
         actions.key("ctrl-space")
-        actions.app.window_close
 
 
 @ctx.action_class("user")

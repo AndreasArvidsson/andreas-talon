@@ -1,0 +1,39 @@
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+ignore = [
+    # line-too-long
+    "E501",
+    # variable names l, O, or I
+    "E741",
+    # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
+    "UP007",
+    # Optional[X] -> X | None not supported in Talon 0.4 actions
+    "UP045",
+    # Use a single `if` statement instead of nested `if` statements
+    "SIM102",
+    # always use ternary operator
+    "SIM108",
+    # Deprecated import
+    "UP035",
+]
+
+[tool.pyright]
+reportMissingModuleSource = false
+reportSelfClsParameterName = false
+reportMissingImports = false

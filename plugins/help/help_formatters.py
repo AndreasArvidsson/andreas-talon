@@ -1,4 +1,5 @@
 from talon import Module, actions, registry
+
 from ...core import imgui
 
 mod = Module()

@@ -1,4 +1,5 @@
 import logging
+
 from talon import Module
 
 mod = Module()

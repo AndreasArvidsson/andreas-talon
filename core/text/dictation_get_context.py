@@ -1,7 +1,6 @@
 from talon import Context, ui
 from talon.windows.ax import TextRange
 
-
 ctx = Context()
 
 

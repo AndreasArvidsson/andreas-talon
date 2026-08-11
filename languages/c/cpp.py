@@ -1,4 +1,5 @@
-from talon import Module, Context, actions
+from talon import Context, Module, actions
+
 from .c import c_code_data_type_simple, c_keywords
 
 mod = Module()

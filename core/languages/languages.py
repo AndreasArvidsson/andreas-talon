@@ -1,6 +1,7 @@
-from talon import Context, Module, actions
-from typing import Union
 from dataclasses import dataclass
+from typing import Union
+
+from talon import Context, Module, actions
 
 
 @dataclass

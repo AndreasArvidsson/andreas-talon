@@ -1,7 +1,8 @@
+import re
 from dataclasses import dataclass
 from typing import Literal
+
 from talon import Module, actions
-import re
 
 delimiters_map: dict[str, list[str]] = {
     "angleBrackets": ["<", ">"],
@@ -28,9 +29,9 @@ class Actions:
         if pair is None:
             return
 
-        for i in range(pair.left_start):
+        for _ in range(pair.left_start):
             actions.edit.right()
-        for i in range(pair.right_end - pair.left_start):
+        for _ in range(pair.right_end - pair.left_start):
             actions.edit.extend_right()
 
     @staticmethod
@@ -43,9 +44,9 @@ class Actions:
         if pair is None:
             return
 
-        for i in range(pair.left_end):
+        for _ in range(pair.left_end):
             actions.edit.right()
-        for i in range(pair.right_start - pair.left_end):
+        for _ in range(pair.right_start - pair.left_end):
             actions.edit.extend_right()
 
 

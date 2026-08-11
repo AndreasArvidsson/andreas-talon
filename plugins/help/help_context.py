@@ -1,9 +1,12 @@
-from collections import defaultdict
 import math
-from typing import Any, Iterable, Tuple
-from talon import Module, Context, actions, registry, ui, app
-from ...core import imgui
 import re
+from collections import defaultdict
+from collections.abc import Iterable
+from typing import Any
+
+from talon import Context, Module, actions, app, registry, ui
+
+from ...core import imgui
 
 mod = Module()
 mod.list("help_contexts", "list of available contexts")
@@ -36,7 +39,7 @@ ctx = Context()
 context_command_map = {}
 
 # rule word -> Set[(context name, rule)]
-rule_word_map: dict[str, set[Tuple[str, str]]] = defaultdict(set)
+rule_word_map: dict[str, set[tuple[str, str]]] = defaultdict(set)
 search_phrase = None
 
 # context name -> actual context
@@ -76,7 +79,7 @@ def format_context_title(context_name: str) -> str:
         context_name,
         (
             "ACTIVE"
-            if context_map.get(context_name, None) in cached_active_contexts_list
+            if context_map.get(context_name) in cached_active_contexts_list
             else "INACTIVE"
         ),
     )
@@ -92,12 +95,12 @@ def format_context_button(index: int, context_label: str, context_name: str) -> 
             context_label,
             (
                 "*"
-                if context_map.get(context_name, None) in cached_active_contexts_list
+                if context_map.get(context_name) in cached_active_contexts_list
                 else ""
             ),
         )
     else:
-        return "{}. {} ".format(index, context_label)
+        return f"{index}. {context_label} "
 
 
 # translates 1-based index -> actual index in sorted_context_map_keys
@@ -120,7 +123,7 @@ def get_current_context_page_length() -> int:
     )
 
 
-def get_command_line_count(command: Tuple[str, str]) -> int:
+def get_command_line_count(command: tuple[str, str]) -> int:
     """This should be kept in sync with draw_commands"""
     _, body = command
     lines = len(body.split("\n"))
@@ -178,9 +181,7 @@ def gui_context_help(gui: imgui.GUI):
     if selected_context is None and search_phrase is None:
         total_page_count = get_total_context_pages()
 
-        gui.header(
-            "Help: contexts ({}/{})".format(current_context_page, total_page_count)
-        )
+        gui.header(f"Help: contexts ({current_context_page}/{total_page_count})")
 
         gui.line(bold=True)
 
@@ -260,7 +261,7 @@ def draw_context_commands(gui: imgui.GUI):
 
     filtered_commands = [
         command
-        for command, page in zip(commands, pages)
+        for command, page in zip(commands, pages, strict=True)
         if page == selected_context_page
     ]
 
@@ -291,7 +292,7 @@ def draw_search_commands(gui: imgui.GUI):
 
     draw_commands_title(gui, title)
 
-    for (context, commands), page in zip(sorted_commands_grouped, pages):
+    for (context, commands), page in zip(sorted_commands_grouped, pages, strict=True):
         if page == selected_context_page:
             gui.text(format_context_title(context))
             gui.line()
@@ -299,8 +300,7 @@ def draw_search_commands(gui: imgui.GUI):
             gui.spacer()
 
 
-def get_search_commands(phrase: str) -> dict[str, list[Tuple[str, str]]]:
-    global rule_word_map
+def get_search_commands(phrase: str) -> dict[str, list[tuple[str, str]]]:
     if search_phrase is None:
         return {}
 
@@ -320,15 +320,12 @@ def get_search_commands(phrase: str) -> dict[str, list[Tuple[str, str]]]:
 
 
 def draw_commands_title(gui: imgui.GUI, title: str):
-    global selected_context_page
-    global total_page_count
-
-    gui.header("{} ({}/{})".format(title, selected_context_page, total_page_count))
+    gui.header(f"{title} ({selected_context_page}/{total_page_count})")
     gui.line(bold=True)
 
 
-def draw_commands(gui: imgui.GUI, commands: Iterable[Tuple[str, str]]):
-    for key, val in commands:
+def draw_commands(gui: imgui.GUI, commands: Iterable[tuple[str, str]]):
+    for key, _val in commands:
         gui.text(key)
         # val = val.split("\n")
         # if len(val) > 1:
@@ -370,7 +367,6 @@ overrides = {
 
 
 def refresh_context_command_map(enabled_only=False):
-    global rule_word_map
     global context_command_map
     global context_map
     global sorted_context_map_keys
@@ -395,7 +391,7 @@ def refresh_context_command_map(enabled_only=False):
         else:
             short_name = splits[index].replace("_", " ")
 
-        if "mac" == short_name or "win" == short_name or "linux" == short_name:
+        if short_name == "mac" or short_name == "win" or short_name == "linux":
             index = index - 1
             short_name = splits[index].replace("_", " ")
 
@@ -430,8 +426,8 @@ def refresh_context_command_map(enabled_only=False):
 def get_sorted_keys_by_context_specificity(
     context_map: dict[str, Any],
     display_name_to_context_name_map: dict[str, str],
-) -> list[Tuple[str, str, int]]:
-    def get_group(display_name) -> Tuple[str, str, int]:
+) -> list[tuple[str, str, int]]:
+    def get_group(display_name) -> tuple[str, str, int]:
         try:
             context_name = display_name_to_context_name_map[display_name]
             context = context_map[context_name]
@@ -445,8 +441,7 @@ def get_sorted_keys_by_context_specificity(
             return (display_name, "", 0)
 
     grouped_list = [
-        get_group(display_name)
-        for display_name in display_name_to_context_name_map.keys()
+        get_group(display_name) for display_name in display_name_to_context_name_map
     ]
     return sorted(
         grouped_list,
@@ -546,7 +541,7 @@ class Actions:
     @staticmethod
     def help_select_number(number: int):
         """Select context number <number>"""
-        global sorted_context_map_keys, selected_context
+        global selected_context
         index = number - 1
         if gui_context_help.showing:
             if index < setting_help_max_contexts_per_page() and (
@@ -566,9 +561,7 @@ class Actions:
     def help_previous():
         """Navigates to previous page"""
         global current_context_page
-        global selected_context
         global selected_context_page
-        global total_page_count
 
         if gui_context_help.showing:
             if selected_context is None and search_phrase is None:
@@ -617,7 +610,7 @@ class Actions:
         """Copy all commands to clipboard"""
         commands = {}
         for name, context in ctx.lists["user.help_contexts"].items():
-            for command in context_command_map[context].keys():
+            for command in context_command_map[context]:
                 names = commands.get(command, [])
                 names.append(name)
                 commands[command] = names

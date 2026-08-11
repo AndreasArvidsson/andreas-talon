@@ -1,5 +1,6 @@
-from ..core.on_phrase.analyze_phrase.calc_command_actions import get_action_explanation
 from talon import actions
+
+from ..core.on_phrase.analyze_phrase.calc_command_actions import get_action_explanation
 
 
 def test_get_action_explanation():

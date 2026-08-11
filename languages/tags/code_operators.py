@@ -1,5 +1,6 @@
-from talon import Module
 from dataclasses import dataclass, fields
+
+from talon import Module
 
 mod = Module()
 

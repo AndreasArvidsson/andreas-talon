@@ -1,4 +1,4 @@
-from talon import Module, Context
+from talon import Context, Module
 
 ctx = Context()
 mod = Module()

@@ -1,17 +1,18 @@
-from talon import Module, app, ui, cron, actions, ctrl
+from collections.abc import Callable, Sequence
+
+from skia import Canvas as SkiaCanvas
+from skia import ImageFilter
+from talon import Module, actions, app, cron, ctrl, ui
 from talon.canvas import Canvas
-from skia import Canvas as SkiaCanvas, ImageFilter
 from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
-from typing import Sequence, Callable, TypeVar
 
 mod = Module()
 subtitle_canvas = []
 notify_canvas = []
 show_override = None
-T = TypeVar("T")
 
 
-def setting(
+def setting[T](
     name: str,
     setting_type: type[T],
     desc: str,

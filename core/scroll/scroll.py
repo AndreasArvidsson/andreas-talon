@@ -58,9 +58,8 @@ class Actions:
     @staticmethod
     def scroll_speed(speed: int):
         """Set scroll speed"""
-        if speed > 50:
-            speed = 50
-        set_scroll_speed(speed * 10)
+        speed = min(speed, 50) * 10
+        set_scroll_speed(speed)
 
     def scroll_speed_increase():
         """Increase scroll speed"""

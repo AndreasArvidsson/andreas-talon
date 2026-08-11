@@ -1,7 +1,8 @@
-from talon import Module, actions, resource
 import re
 import time
 from pathlib import Path
+
+from talon import Module, actions, resource
 
 # a list of homophones where each line is a comma separated list
 # e.g. where,wear,ware

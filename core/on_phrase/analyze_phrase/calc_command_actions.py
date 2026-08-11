@@ -131,7 +131,7 @@ def get_action_explanation(
     action_desc = ctx_desc or default_descs.get(action_name) or mod_desc
     length = min(len(action_params), len(action_args))
 
-    for param, arg in zip(action_params[:length], action_args[:length]):
+    for param, arg in zip(action_params[:length], action_args[:length], strict=True):
         value = update_parameter(param, parameters_map) or param
         action_desc = action_desc.replace(f"<{arg}>", f"'{value}'")
 

@@ -1,4 +1,5 @@
-from talon import Module, Context
+from talon import Context, Module
+
 from ..tags.code_operators import CodeOperators
 
 mod = Module()

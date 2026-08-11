@@ -1,10 +1,11 @@
-from talon import Module, actions, app, ui, cron, ctrl
+import math
+import time
+from typing import Literal
+
+from skia import Canvas as SkiaCanvas
+from talon import Module, actions, app, cron, ctrl, ui
 from talon.canvas import Canvas
 from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
-from skia import Canvas as SkiaCanvas
-from typing import Literal
-import time
-import math
 
 mod = Module()
 

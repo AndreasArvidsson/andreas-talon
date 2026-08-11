@@ -1,5 +1,4 @@
-from talon import Module, Context, registry, app, actions
-
+from talon import Context, Module, actions, app, registry
 
 matchers = [
     "os: windows",

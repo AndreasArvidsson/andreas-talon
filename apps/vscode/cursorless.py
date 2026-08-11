@@ -1,6 +1,7 @@
-from talon import Module, actions
-from typing import Any
 import os
+from typing import Any
+
+from talon import Module, actions
 
 mod = Module()
 

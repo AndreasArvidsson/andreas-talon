@@ -1,4 +1,4 @@
-from talon import Module, Context, actions
+from talon import Context, Module, actions
 
 mod = Module()
 mod.tag("vscode_notebook", desc="Vscode is in a notebook")

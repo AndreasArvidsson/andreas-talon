@@ -1,4 +1,4 @@
-from talon import actions, ui, app
+from talon import actions, app, ui
 from talon.screen import Screen
 
 

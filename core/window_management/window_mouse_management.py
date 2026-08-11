@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from talon import Module, actions, ctrl, ui
 from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 

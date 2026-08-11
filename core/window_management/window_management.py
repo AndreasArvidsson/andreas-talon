@@ -1,6 +1,6 @@
 from typing import Literal, get_args
 
-from talon import ui, Module, Context, actions
+from talon import Context, Module, actions, ui
 from talon.ui import BaseWindow
 
 mod = Module()

@@ -2,6 +2,7 @@ import json
 import time
 from urllib.parse import urlencode
 from urllib.request import urlopen
+
 from talon import Module, actions
 
 mod = Module()

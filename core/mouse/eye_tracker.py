@@ -5,6 +5,7 @@ from talon import (
     app,
     storage,
 )
+
 mod = Module()
 
 mod.tag("eye_tracker", "Indicates that the eye tracker is enabled")

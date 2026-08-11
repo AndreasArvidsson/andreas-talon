@@ -1,5 +1,4 @@
 from talon import Module, actions
-from typing import Union
 
 mod = Module()
 
@@ -48,7 +47,7 @@ class Actions:
     @staticmethod
     def code_variable_wrapper(
         assign: bool,
-        modifiers: Union[list[str], str],
+        modifiers: list[str] | str,
         data_type: str,
         name: str,
     ):

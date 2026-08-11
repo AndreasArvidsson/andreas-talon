@@ -1,6 +1,7 @@
-from talon import Context, Module, ui, actions, ctrl
-import time
 import re
+import time
+
+from talon import Context, Module, actions, ctrl, ui
 
 mod = Module()
 ctx = Context()
