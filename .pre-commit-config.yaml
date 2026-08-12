@@ -1,7 +1,5 @@
 minimum_pre_commit_version: "4.6.0"
 
-exclude: ^core/modes/dictation_mode_sv\.talon$
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -47,7 +45,9 @@ repos:
         types_or: [markdown, yaml, toml, json]
 
   - repo: https://github.com/cursorless-dev/talon-tools
-    rev: v0.11.2
+    rev: v0.12.0
     hooks:
       - id: talon-fmt
+        # tree-sitter-talon fails with a syntax error for `.över`
+        exclude: ^core/modes/dictation_mode_sv\.talon$
       - id: snippet-fmt
