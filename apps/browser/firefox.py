@@ -87,7 +87,7 @@ class AppActions:
 
     # ----- Rango -----
     def tab_detach():
-        actions.user.rango_command_without_target("moveCurrentTabToNewWindow")
+        actions.user.rango_move_tab_to_new_window()
 
 
 @ctx.action_class("edit")
@@ -103,7 +103,7 @@ class EditActions:
 @ctx.action_class("user")
 class UserActions:
     def browser_copy_address():
-        actions.user.rango_command_without_target("copyLocationProperty", "href")
+        actions.user.rango_copy_location_property("href")
 
     @staticmethod
     def browser_open_new_tab(url: str):
@@ -115,22 +115,22 @@ class UserActions:
 
     # ----- Scrolling -----
     def scroll_up():
-        actions.user.rango_command_without_target("scrollUpPage", 0.1)
+        actions.user.rango_scroll("main", "up", 0.1)
 
     def scroll_down():
-        actions.user.rango_command_without_target("scrollDownPage", 0.1)
+        actions.user.rango_scroll("main", "down", 0.1)
 
     def scroll_up_half_page():
-        actions.user.rango_command_without_target("scrollUpPage", 0.45)
+        actions.user.rango_scroll("main", "up", 0.45)
 
     def scroll_down_half_page():
-        actions.user.rango_command_without_target("scrollDownPage", 0.45)
+        actions.user.rango_scroll("main", "down", 0.45)
 
     def scroll_up_page():
-        actions.user.rango_command_without_target("scrollUpPage", 0.9)
+        actions.user.rango_scroll("main", "up", 0.9)
 
     def scroll_down_page():
-        actions.user.rango_command_without_target("scrollDownPage", 0.9)
+        actions.user.rango_scroll("main", "down", 0.9)
 
     # ----- Tabs -----
     @staticmethod
@@ -142,19 +142,19 @@ class UserActions:
         actions.key("ctrl-9")
 
     def tab_back():
-        actions.user.rango_command_without_target("focusPreviousTab")
+        actions.user.rango_focus_previous_tab()
 
     def tab_duplicate():
-        actions.user.rango_command_without_target("cloneCurrentTab")
+        actions.user.rango_clone_current_tab()
 
     def tab_close_others():
-        actions.user.rango_command_without_target("closeOtherTabsInWindow")
+        actions.user.rango_close_other_tabs()
 
     def tab_close_left():
-        actions.user.rango_command_without_target("closeTabsToTheLeftInWindow")
+        actions.user.rango_close_tabs_to_left()
 
     def tab_close_right():
-        actions.user.rango_command_without_target("closeTabsToTheRightInWindow")
+        actions.user.rango_close_tabs_to_right()
 
 
 # ----- LINUX -----
