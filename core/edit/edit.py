@@ -147,7 +147,7 @@ class Actions:
         actions.edit.line_insert_down()
 
     @staticmethod
-    def paste_text(text: str):
+    def paste(text: str):
         """Paste <text> and preserves clipboard"""
         with clip.revert():
             actions.user.clip_set_transient_text(text)
@@ -160,7 +160,7 @@ class Actions:
         """Paste clipboard text formatted as <formatters>"""
         text = actions.clip.text()
         text = actions.user.reformat_text(text, formatters)
-        actions.user.paste_text(text)
+        actions.user.paste(text)
 
     @staticmethod
     def clip_set_transient_text(text: str):

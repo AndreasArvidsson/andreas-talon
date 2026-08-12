@@ -25,6 +25,6 @@ class MainActions:
     @staticmethod
     def insert(text: str):
         if len(text) >= PASTE_THRESHOLD or re.search(PASTE_RE, text):
-            actions.user.paste_text(text)
+            actions.user.paste(text)
         else:
             actions.next(text)

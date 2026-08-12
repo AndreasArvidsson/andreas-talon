@@ -15,21 +15,21 @@ class Actions:
         actions.sleep("100ms")
         test(lambda _: actions.edit.paste())
 
-    def edit_test_paste_text():
-        """Test user.paste_text()"""
-        test(lambda i: actions.user.paste_text(f"{TEXT}_{i}"))
+    def edit_test_user_paste():
+        """Test user.paste()"""
+        test(lambda i: actions.user.paste(f"{TEXT}_{i}"))
 
     def edit_test_insert():
         """Test insert()"""
         test(lambda i: actions.insert(f"{TEXT}_{i}"))
 
-    def edit_test_paste_text_performance():
-        """Test user.paste_text() performance"""
+    def edit_test_user_paste_performance():
+        """Test user.paste() performance"""
         test_performance(
             "insert",
-            "user.paste_text",
+            "user.paste",
             actions.insert,
-            actions.user.paste_text,
+            actions.user.paste,
         )
 
 

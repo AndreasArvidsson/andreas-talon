@@ -3,4 +3,4 @@ from talon import Context, Module
 mod = Module()
 ctx = Context()
 
-mod.list("webpage", "List of webpages")
+mod.list("website", "List of websites")
