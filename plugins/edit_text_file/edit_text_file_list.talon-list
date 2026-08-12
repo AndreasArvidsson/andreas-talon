@@ -5,8 +5,8 @@ list: user.edit_text_file
 
 settings:                 settings/settings.talon
 vscode:                   apps/vscode/vscode.talon
-webpages:                 apps/browser/webpages.talon-list
-abbreviations:            core/abbreviation/abbreviation_en.csv
+website:                  apps/browser/website.talon-list
+abbreviation:             core/abbreviation/abbreviation_en.csv
 homophones:               core/homophones/homophones_en.csv
 vocabulary:               core/vocabulary/vocabulary_en.talon-list
 words to replace:         core/vocabulary/words_to_replace_en.csv

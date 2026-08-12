@@ -78,6 +78,6 @@ fat arrow:                  " => "
 
 # edit test insert:           user.edit_test_insert()
 # edit test paste:            user.edit_test_paste()
-# edit test paste text:       user.edit_test_paste_text()
-# edit test paste performance:
-#     user.edit_test_paste_text_performance()
+# edit test user paste:       user.edit_test_user_paste()
+# edit test user paste performance:
+#     user.edit_test_user_paste_performance()

@@ -17,5 +17,5 @@ open {user.launch_command}:
 open path {user.path}:
     user.file_manager_open(path)
 
-open browser {user.webpage}:
-    user.browser_open(webpage)
+open browser {user.website}:
+    user.browser_open(website)
