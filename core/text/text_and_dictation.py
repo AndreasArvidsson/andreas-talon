@@ -130,8 +130,7 @@ def capture_to_words(m: grammar.vm.Capture, lowercase_phrase=False) -> list[str]
         else:
             words.append(item)
     words = actions.dictate.replace_words(words)
-    words = actions.user.homophones_replace_words(words)
-    return words
+    return actions.user.homophones_replace_words(words)
 
 
 # There must be a simpler way to do this, but I don't see it right now.

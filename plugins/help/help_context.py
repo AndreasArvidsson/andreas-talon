@@ -99,8 +99,7 @@ def format_context_button(index: int, context_label: str, context_name: str) -> 
                 else ""
             ),
         )
-    else:
-        return f"{index}. {context_label} "
+    return f"{index}. {context_label} "
 
 
 # translates 1-based index -> actual index in sorted_context_map_keys
@@ -129,8 +128,7 @@ def get_command_line_count(command: tuple[str, str]) -> int:
     lines = len(body.split("\n"))
     if lines == 1:
         return 1
-    else:
-        return lines + 1
+    return lines + 1
 
 
 def get_pages(item_line_counts: list[int]) -> list[int]:
@@ -455,7 +453,7 @@ def refresh_rule_word_map(context_command_map):
 
     for context_name, commands in context_command_map.items():
         for rule in commands:
-            tokens = set(token for token in rule.split(" ") if token.isalpha())
+            tokens = {token for token in rule.split(" ") if token.isalpha()}
             for token in tokens:
                 rule_word_map[token].add((context_name, rule))
 

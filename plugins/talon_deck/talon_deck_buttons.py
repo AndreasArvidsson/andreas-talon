@@ -138,6 +138,7 @@ def get_language():
     for lang in language:
         if "_" in lang:
             return lang
+    return None
 
 
 def get_code_language_buttons():

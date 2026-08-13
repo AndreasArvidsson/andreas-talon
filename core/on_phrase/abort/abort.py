@@ -77,10 +77,10 @@ def abort_update_phrase(phrase: Phrase) -> tuple[bool, str]:
                 abort_entire_phrase(phrase)
                 abort_specific_phrases = None
                 return True, ""
-            else:
-                print("Matching abort specific phrase but not timestamps")
-                print(abort_specific_phrases)
-                print(current_phrase, start, end)
+
+            print("Matching abort specific phrase but not timestamps")
+            print(abort_specific_phrases)
+            print(current_phrase, start, end)
         abort_specific_phrases = None
 
     if ts_threshold != 0:

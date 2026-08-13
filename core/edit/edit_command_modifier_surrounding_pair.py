@@ -196,9 +196,9 @@ def get_delimiter_occurrences(
 
 
 def get_delimiter_regex(individual_delimiters: list[Delimiter]) -> re.Pattern[str]:
-    unique_delimiter_texts = set(
-        [re.escape(delimiter.text) for delimiter in individual_delimiters]
-    )
+    unique_delimiter_texts = {
+        re.escape(delimiter.text) for delimiter in individual_delimiters
+    }
     pattern_string = "|".join(unique_delimiter_texts)
     return re.compile(pattern_string, re.UNICODE)
 
@@ -223,6 +223,6 @@ def get_individual_delimiters(delimiter_name: str):
 def get_delimiter_names(delimiter_name: str) -> list[str]:
     if delimiter_name == "any":
         return [*delimiters_map.keys()]
-    elif delimiter_name == "string":
+    if delimiter_name == "string":
         return ["singleQuotes", "doubleQuotes", "backtickQuotes"]
     return [delimiter_name]
