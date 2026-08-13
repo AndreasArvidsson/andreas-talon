@@ -345,10 +345,7 @@ def parse_body(text: str) -> str | None:
         return None
 
     body = text[match_leading.start() :].rstrip()
-
-    body = ESCAPED_SNIPPET_DELIMITER_EXPRESSION.sub(SNIPPET_DELIMITER, body)
-
-    return body
+    return ESCAPED_SNIPPET_DELIMITER_EXPRESSION.sub(SNIPPET_DELIMITER, body)
 
 
 def parse_vector_value(value: str) -> list[str]:

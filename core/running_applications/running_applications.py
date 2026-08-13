@@ -28,8 +28,7 @@ def parse_name(name):
     name = re.sub(r"\d", "", name)
     # Split on camel case
     name = re.sub(r"[^a-zA-Z]", " ", name)
-    name = actions.user.de_camel(name)
-    return name
+    return actions.user.de_camel(name)
 
 
 def update_running():

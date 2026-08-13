@@ -37,7 +37,7 @@ def gui_commands(gui: imgui.GUI):
             commands = list(
                 filter(
                     lambda c: search_text in c,
-                    map(lambda c: c.rule.rule, context.commands.values()),
+                    (c.rule.rule for c in context.commands.values()),
                 )
             )
             if commands:

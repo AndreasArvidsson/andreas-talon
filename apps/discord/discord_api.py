@@ -77,16 +77,15 @@ class DiscordClient:
         if self.platform == "windows":
             # IPC path for Windows.
             return f"\\\\?\\pipe\\discord-ipc-{ipc_id}"
-        else:
-            # IPC path for unix based systems (Linux, macOS).
-            path = (
-                os.environ.get("XDG_RUNTIME_DIR")
-                or os.environ.get("TMPDIR")
-                or os.environ.get("TMP")
-                or os.environ.get("TEMP")
-                or "/tmp"
-            )
-            return re.sub(r"\/$", "", path) + f"/discord-ipc-{ipc_id}"
+        # IPC path for unix based systems (Linux, macOS).
+        path = (
+            os.environ.get("XDG_RUNTIME_DIR")
+            or os.environ.get("TMPDIR")
+            or os.environ.get("TMP")
+            or os.environ.get("TEMP")
+            or "/tmp"
+        )
+        return re.sub(r"\/$", "", path) + f"/discord-ipc-{ipc_id}"
 
     def _encode(self, opcode, payload):
         """Encode the payload to send to the IPC Socket."""
@@ -262,7 +261,8 @@ class DiscordClient:
             print("Access token is expired; refreshing...")
             self.oauth2_refresh()
             # NOTE(pcohen): prevent infinite looping here
-            return self.authenticate()
+            self.authenticate()
+            return
 
         print("[discord_client] Authenticating succeeded!")
 

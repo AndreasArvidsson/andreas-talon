@@ -40,8 +40,7 @@ class MainActions:
                 held.add(k[:-5])
             if ":up" in k:
                 k = k[:-3]
-                if k in held:
-                    held.remove(k)
+                held.discard(k)
 
 
 @mod.action_class

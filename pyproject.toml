@@ -3,34 +3,28 @@ target-version = "py313"
 
 [tool.ruff.lint]
 select = [
-    # pycodestyle
-    "E",
-    # Pyflakes
-    "F",
-    # pyupgrade
-    "UP",
-    # flake8-bugbear
-    "B",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
+    "E", # pycodestyle
+    "F", # Pyflakes
+    "UP", # pyupgrade
+    "B", # flake8-bugbear
+    "SIM", # flake8-simplify
+    "I", # isort
+    "W", # PyCodeStyle warnings
+    "C4", # Catch incorrect use of comprehensions, dict, list, etc
+    "ISC", # Good use of string concatenation
+    "ICN", # Use common import conventions
+    "RET", # Good return practices
+    "FURB", # Suggest more idiomatic Python patterns
 ]
 ignore = [
-    # line-too-long
-    "E501",
-    # variable names l, O, or I
-    "E741",
-    # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
-    "UP007",
-    # Optional[X] -> X | None not supported in Talon 0.4 actions
-    "UP045",
-    # Use a single `if` statement instead of nested `if` statements
-    "SIM102",
-    # always use ternary operator
-    "SIM108",
-    # Deprecated import
-    "UP035",
+    "E501", # Line too long
+    "E741", # Ambiguous variable names: l, O, I
+    "SIM102", # Use a single `if` statement instead of nested `if` statements
+    "SIM108", # Use ternary operator
+    "ISC001", # Conflicts with Ruff formatter
+    "UP007", # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
+    "UP045", # Optional[X] -> X | None not supported in Talon 0.4 actions
+    "UP035", # Deprecated import
 ]
 
 [tool.pyright]

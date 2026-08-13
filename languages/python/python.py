@@ -104,7 +104,7 @@ ctx.lists["user.code_keyword"] = {
     "regex"     : "re",
     "return"    : "return ",
     "import"    : "import ",
-    "def"""       : "def ",
+    "def"       : "def ",
     "class"     : "class ",
     "lambda"    : "lambda: ",
     "global"    : "global ",

@@ -269,8 +269,7 @@ class Delegate(ParrotDelegate):
         # If no noises are active - skip all noise recognition and save some CPU
         if len(thresholds) == 0:
             return inactive_power_threshold
-        else:
-            return min(thresholds)
+        return min(thresholds)
 
     def throttle_patterns(self, throttles_s: dict[str, float], current_time: float):
         """Throttles the given pattern names until the matching milliseconds are passed"""

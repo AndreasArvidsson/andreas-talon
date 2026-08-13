@@ -10,7 +10,7 @@ class PhraseReplacer:
 
     def __init__(self, phrase_dict: dict[str, str]):
         # Index phrases by first word, then number of subsequent words n_next
-        phrase_index = dict()
+        phrase_index = {}
         for spoken_form, written_form in phrase_dict.items():
             words = spoken_form.split()
             first_word, n_next = words[0], len(words) - 1

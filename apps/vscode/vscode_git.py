@@ -187,7 +187,6 @@ def get_first_available_branch(branches: list[str]) -> str | None:
 def get_branch_names_with_fallback(branch: str) -> list[str]:
     if branch == "main":
         return ["main", "master"]
-    elif branch == "master":
+    if branch == "master":
         return ["master", "main"]
-    else:
-        return [branch]
+    return [branch]
