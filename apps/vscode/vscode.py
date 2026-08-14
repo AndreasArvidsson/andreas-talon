@@ -4,7 +4,7 @@ import re
 from talon import Context, Module, actions
 
 mod = Module()
-mod.list("vscode_sessions", "Known vscode sessions/workspaces")
+mod.list("vscode_session", "Known vscode sessions/workspaces")
 
 mod.apps.vscode = r"""
 os: windows
@@ -176,6 +176,16 @@ class Actions:
         if text:
             actions.sleep("150ms")
             actions.insert(text)
+
+    @staticmethod
+    def vscode_open_recent(text: str = "", new_window: bool = False):
+        """Open recent session, directory or file"""
+        actions.user.vscode_find_recent(text)
+        actions.sleep("150ms")
+        if new_window:
+            actions.key("ctrl-enter")
+        else:
+            actions.key("enter")
 
     @staticmethod
     def vscode_take_word(cursorless_target: dict, repeats: int):
