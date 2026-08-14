@@ -39,6 +39,7 @@ fixtures_format = [
     # Symbols
     ["Numbers camel", "CAMEL_CASE", input_raw_symbols, "whyAnd.itsNice123.0, hello"],
     ["Numbers snake", "SNAKE_CASE", input_raw_symbols, "why_and.its_nice_123.0, hello"],
+    ["Alnum snake", "SNAKE_CASE", "hello X11 world", "hello_x11_world"],
     # Unicode characters
     ["Unicode camel", "CAMEL_CASE", import_unicode, "hejPåDigÅäö"],
     ["Unicode snake", "SNAKE_CASE", import_unicode, "hej_på_dig_åäö"],
