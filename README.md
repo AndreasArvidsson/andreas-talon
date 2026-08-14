@@ -58,3 +58,8 @@ This is a list of features that I have implemented that I think is of more inter
 
 - `pip install pre-commit`
 - `pre-commit run --all-files`
+
+### Running tests
+
+- `pip install pytest`
+- `pytest`
