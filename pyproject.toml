@@ -15,7 +15,7 @@ select = [
     "I", # isort
     "W", # PyCodeStyle warnings
     "C4", # Catch incorrect use of comprehensions, dict, list, etc
-    "ISC", # Good use of string concatenation
+    "ISC", # Require explicit string concatenation
     "ICN", # Use common import conventions
     "RET", # Good return practices
     "FURB", # Suggest more idiomatic Python patterns
@@ -30,6 +30,9 @@ ignore = [
     "UP045", # Optional[X] -> X | None not supported in Talon 0.4 actions
     "UP035", # Deprecated import
 ]
+
+[tool.ruff.lint.flake8-implicit-str-concat]
+allow-multiline = false
 
 [tool.pyright]
 reportMissingModuleSource = false

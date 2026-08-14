@@ -84,8 +84,8 @@ def edit_format_action(m) -> EditFormatAction:
 
 @mod.capture(
     rule="<user.edit_simple_action>"
-    " | <user.edit_wrap_action>"
-    " | <user.edit_format_action>"
+    + " | <user.edit_wrap_action>"
+    + " | <user.edit_format_action>"
 )
 def edit_action(m) -> EditAction:
     return m[0]
