@@ -26,6 +26,13 @@ jobs:
             - name: Install test tools
               run: pip install pre-commit pytest
 
+            - name: Print versions
+              run: |
+                  node --version
+                  python --version
+                  pre-commit --version
+                  pytest --version
+
             - name: Run pre-commit
               run: pre-commit run --all-files --show-diff-on-failure --color=always
 
