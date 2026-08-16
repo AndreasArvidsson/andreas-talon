@@ -25,7 +25,6 @@ ignore = [
     "E741", # Ambiguous variable names: l, O, I
     "SIM102", # Use a single `if` statement instead of nested `if` statements
     "SIM108", # Use ternary operator
-    "ISC001", # Conflicts with Ruff formatter
     "UP007", # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
     "UP045", # Optional[X] -> X | None not supported in Talon 0.4 actions
     "UP035", # Deprecated import
