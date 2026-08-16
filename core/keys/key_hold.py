@@ -20,13 +20,15 @@ class Actions:
                 lambda: actions.key(key),
             )
 
+        if key in repeated_key_jobs:
+            cron.cancel(repeated_key_jobs[key])
+
         repeated_key_jobs[key] = cron.after(REPEAT_DELAY, add_interval)
 
     @staticmethod
     def key_release(key: str):
         """Stop repeating key"""
-        job = repeated_key_jobs.get(key)
+        job = repeated_key_jobs.pop(key, None)
 
         if job is not None:
             cron.cancel(job)
-            repeated_key_jobs[key] = None
