@@ -11,14 +11,14 @@ This is a list of features that I have implemented that I think is of more inter
 
 1. **VSCode language definition for Talon** - Supports `on hover` and `go to definition` for Talon lists, captures and actions.
    - [andreas-talon-vscode](https://github.com/AndreasArvidsson/andreas-talon-vscode)
-2. **Command history** - Improved command history with description of commands
+2. **Clippy - Clipboard manager** - Clipboard manager with Talon rpc support
+   - [Clippy](https://github.com/AndreasArvidsson/clippy)
+3. **Command history** - Improved command history with description of commands
    - [Command history](./core/on_phrase/command_history)
-3. **Analyze phrase** - Analyze a Talon phrase and retrieve metadata and description of commands
+4. **Analyze phrase** - Analyze a Talon phrase and retrieve metadata and description of commands
    - [Analyze phrase](./core/on_phrase/analyze_phrase)
-4. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
+5. **Talon Deck** - Stream deck inspired interactive dashboard for Talon Voice
    - [Talon Deck](https://github.com/AndreasArvidsson/talon-deck)
-5. **Clippy - Clipboard manager** - Clipboard manager with Talon rpc support
-   - [Clippy](./apps/clippy)
 6. **Quick pick** - UI for quick access to useful features by clicking buttons
    - [Quick pick](./plugins/quick_pick)
 7. **Foot switch support** - Add support for scrolling, navigating and more
