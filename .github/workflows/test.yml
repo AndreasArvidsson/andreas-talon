@@ -1,13 +1,13 @@
 name: Test
 
+permissions:
+    contents: read
+
 on:
     push:
         branches: [main]
     pull_request:
         types: [opened, synchronize, reopened]
-
-permissions:
-    contents: read
 
 jobs:
     run-tests:
