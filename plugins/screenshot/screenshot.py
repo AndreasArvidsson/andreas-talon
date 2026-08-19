@@ -2,10 +2,9 @@ import os
 from datetime import datetime
 from typing import Optional
 
+from skia import Image
 from talon import Context, Module, actions, cron, screen, ui
 from talon.canvas import Canvas
-
-screenshot_folder = os.path.expanduser(os.path.join("~", "Pictures"))
 
 mod = Module()
 
@@ -40,27 +39,30 @@ class Actions:
         clipboard_rect(win.rect)
 
 
-def screenshot_rect(rect: ui.Rect, title: str = ""):
+def capture_rect(rect: ui.Rect) -> Image:
     actions.user.clear_subtitles()
     flash_rect(rect)
-    img = screen.capture_rect(rect)
-    path = get_screenshot_path(title)
+    return screen.capture_rect(rect)
+
+
+def screenshot_rect(rect: ui.Rect, title: str = ""):
+    img = capture_rect(rect)
+    path = get_file_path(title)
     img.save(path)
 
 
 def clipboard_rect(rect: ui.Rect):
-    actions.user.clear_subtitles()
-    flash_rect(rect)
-    img = screen.capture_rect(rect)
+    img = capture_rect(rect)
     actions.clip.set_image(img)
 
 
-def get_screenshot_path(title: str = ""):
+def get_file_path(title: str = ""):
     if title:
         title = f" - {title.replace('.', '_')}"
     date = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     filename = f"Screenshot {date}{title}.png"
-    return os.path.join(screenshot_folder, filename)
+    folder = os.path.expanduser(os.path.join("~", "Pictures"))
+    return os.path.join(folder, filename)
 
 
 def flash_rect(rect: ui.Rect):
