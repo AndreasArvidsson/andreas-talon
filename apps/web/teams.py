@@ -25,3 +25,6 @@ ctx.tags = ["user.voip"]
 class UserActions:
     def mute_microphone():
         actions.key("ctrl-shift-m")
+
+    def raise_hand():
+        actions.key("ctrl-shift-k")
