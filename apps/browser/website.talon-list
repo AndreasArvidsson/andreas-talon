@@ -9,7 +9,6 @@ avanza:               https://www.avanza.se
 bahnhof:              https://bahnhof.se
 bygga hus:            https://www.byggahus.se
 calendar:             https://calendar.google.com
-card market:          https://www.cardmarket.com/en/Magic
 chat gpt:             https://chat.openai.com
 codex:                https://chatgpt.com/codex
 crunchyroll:          https://www.crunchyroll.com/watchlist
@@ -36,7 +35,6 @@ my uplink:            https://myuplink.com/
 news:                 https://www.svt.se
 nine gag:             https://9gag.com
 npm:                  https://www.npmjs.com
-open collective:      https://opencollective.com
 reddit:               https://www.reddit.com
 regex cheat sheet:    https://duckduckgo.com/?q=regex+cheat+sheet&t=ffab&ia=cheatsheet&iax=1
 regex one oh one:     https://regex101.com
@@ -48,14 +46,20 @@ swedbank:             https://swedbank.se
 translate:            https://translate.google.com/?sl=sv&tl=en
 tree sitter query:    https://tree-sitter.github.io/tree-sitter/using-parsers#query-syntax
 udevala energy:       https://www.uddevallaenergi.se
-unifi controller:     https://192.168.1.11:8443
-untapped:             https://mtga.untapped.gg/constructed/standard/tier-list
 valuta:               https://www.valuta.se
 vast trafik:          https://www.vasttrafik.se
 weather:              https://www.smhi.se/vader/prognoser-och-varningar/vaderprognos/q/Uddevalla/2666670
 web grid:             https://neuralink.com/webgrid
 whats my ip:          https://whatismyipaddress.com
 youtube:              https://www.youtube.com/feed/subscriptions
+
+
+# Magic
+
+card market:          https://www.carrdmarket.com/en/Magic
+moxfield:             https://moxfield.com/decks
+untapped:             https://mtga.untapped.gg/constructed/standard/tier-list
+
 
 # Talon
 
