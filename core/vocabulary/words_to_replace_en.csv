@@ -101,11 +101,6 @@ organizations, organisations
 pars,parse
 pit on, python
 piton, python
-poll request, pull request
-poll request, pull request
-poll requests, pull requests
-Pool request, pull request
-pool request, pull request
 pours, parse
 pre comet, pre commit
 ranch, range
@@ -141,6 +136,13 @@ white space, whitespace
 wicky, wiki
 wide space, whitespace
 you sir, user
+
+poll request, pull request
+poll requests, pull requests
+Pool request, pull request
+pool request, pull request
+Pool requests, pull requests
+pool requests, pull requests
 
 seen tax, syntax
 seen taxes, syntaxes
