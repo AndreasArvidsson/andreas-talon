@@ -1,4 +1,4 @@
-from talon import Context, Module, actions, ctrl
+from talon import Context, Module, actions
 
 mod = Module()
 
@@ -9,17 +9,6 @@ ctx = Context()
 ctx.matches = r"""
 mode: user.game
 """
-
-ctx.settings = {
-    "speech.timeout": 0.05,
-}
-
-
-@ctx.action_class("main")
-class MainActions:
-    @staticmethod
-    def mouse_click(button: int = 0):
-        ctrl.mouse_click(button=button, hold=16000)
 
 
 @ctx.action_class("speech")
