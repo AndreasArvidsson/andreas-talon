@@ -1,3 +1,5 @@
+import win32api
+import win32con
 from talon import Context, Module, actions, ctrl, ui
 
 mod = Module()
@@ -77,3 +79,9 @@ class Actions:
                 actions.mouse_release(button)
             return True
         return False
+
+    def mouse_nudge():
+        """Nudge the mouse to trigger mouse move event"""
+        delta = 2
+        win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, delta, delta)
+        win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, -delta, -delta)

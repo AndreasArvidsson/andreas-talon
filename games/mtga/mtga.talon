@@ -7,3 +7,4 @@ settings():
 next:                       key(space)
 skip:                       key(enter)
 full control:               key(ctrl)
+hover:                      user.mouse_nudge()
