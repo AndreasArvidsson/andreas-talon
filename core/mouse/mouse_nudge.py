@@ -2,10 +2,10 @@ import win32api
 import win32con
 from talon import Module, actions, cron, ui
 
-mod = Module()
-
 cron_job = None
 move_offset = 2
+
+mod = Module()
 
 mod.setting(
     "mouse_nudge",
