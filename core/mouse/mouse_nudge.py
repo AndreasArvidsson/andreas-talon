@@ -1,9 +1,25 @@
-import win32api
-import win32con
+import ctypes
+from ctypes import wintypes
+
 from talon import Module, actions, cron, ui
 
 cron_job = None
 move_offset = 2
+
+MOUSEEVENTF_MOVE = 0x0001
+ULONG_PTR = (
+    ctypes.c_ulonglong if ctypes.sizeof(ctypes.c_void_p) == 8 else ctypes.c_ulong
+)
+
+mouse_event = ctypes.WinDLL("user32", use_last_error=True).mouse_event
+mouse_event.argtypes = (
+    wintypes.DWORD,
+    wintypes.DWORD,
+    wintypes.DWORD,
+    wintypes.DWORD,
+    ULONG_PTR,
+)
+mouse_event.restype = None
 
 mod = Module()
 
@@ -17,8 +33,8 @@ mod.setting(
 
 def mouse_nudge():
     """Nudge the mouse to trigger mouse move event"""
-    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, move_offset, move_offset)
-    win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, -move_offset, -move_offset)
+    mouse_event(MOUSEEVENTF_MOVE, move_offset, move_offset, 0, 0)
+    mouse_event(MOUSEEVENTF_MOVE, -move_offset, -move_offset, 0, 0)
 
 
 def on_activate(app):
