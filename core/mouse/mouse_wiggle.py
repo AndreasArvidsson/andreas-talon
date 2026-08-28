@@ -24,23 +24,22 @@ mouse_event.restype = None
 mod = Module()
 
 mod.setting(
-    "mouse_nudge",
+    "mouse_wiggle",
     type=bool,
     default=False,
-    desc="Nudge the mouse periodically to trigger mouse move event",
+    desc="Wiggle the mouse periodically to trigger mouse move event",
 )
 
 
-def mouse_nudge():
-    """Nudge the mouse to trigger mouse move event"""
+def mouse_wiggle():
     mouse_event(MOUSEEVENTF_MOVE, move_offset, move_offset, 0, 0)
     mouse_event(MOUSEEVENTF_MOVE, -move_offset, -move_offset, 0, 0)
 
 
 def on_activate(app):
     global cron_job
-    if actions.settings.get("user.mouse_nudge"):
-        cron_job = cron.interval("8ms", mouse_nudge)
+    if actions.settings.get("user.mouse_wiggle"):
+        cron_job = cron.interval("8ms", mouse_wiggle)
 
 
 def on_deactivate(app):

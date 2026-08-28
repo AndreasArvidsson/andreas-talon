@@ -3,7 +3,7 @@ app: mtga
 
 settings():
     key_hold = 16
-    user.mouse_nudge = true
+    user.mouse_wiggle = true
 
 next:                       key(space)
 skip:                       key(enter)
