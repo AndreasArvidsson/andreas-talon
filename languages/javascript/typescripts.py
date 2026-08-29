@@ -52,6 +52,7 @@ ctx.lists["user.code_keyword"] = {
     "type"      : " type ",
     "key of"    : "keyof ",
     "as"        : " as ",
+    "satisfies" : " satisfies ",
 }
 
 # fmt: on
