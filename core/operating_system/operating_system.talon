@@ -1,5 +1,3 @@
-open settings:              app.preferences()
-
 ^system shutdown [{user.abort_phrase}]$:
     user.system_shutdown()
 ^system restart [{user.abort_phrase}]$:
@@ -11,11 +9,14 @@ open settings:              app.preferences()
     user.talon_sleep()
     user.system_lock()
 
-open {user.launch_command}:
-    user.exec(launch_command)
+open settings:
+    app.preferences()
 
 open path {user.path}:
     user.file_manager_open(path)
 
 open browser {user.website}:
     user.browser_open(website)
+
+launch {user.launch_command}:
+    user.exec(launch_command)
