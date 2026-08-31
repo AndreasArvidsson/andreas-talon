@@ -36,6 +36,7 @@ git pull upstream master:   "git pull upstream master\n"
 git pull upstream main:     "git pull upstream main\n"
 
 git push deli:              "git push origin -d "
+git push force:             "git push -f "
 
 git numstat:                user.git_numstat("")
 git numstat year:           user.git_numstat("1 year")
