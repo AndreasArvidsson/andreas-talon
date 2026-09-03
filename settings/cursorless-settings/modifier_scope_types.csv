@@ -53,6 +53,7 @@ value, value
 access, private.fieldAccess
 text fragment, textFragment
 disqualify, disqualifyDelimiter
+pair delimiter, pairDelimiter
 core, interior
 
 # Markdown

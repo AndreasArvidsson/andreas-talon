@@ -5,7 +5,7 @@ take:          setSelection
 pre:           setSelectionBefore
 post:          setSelectionAfter
 
-clear:         clearAndSetSelection
+change:        clearAndSetSelection
 chuck:         remove
 
 copy:          copyToClipboard

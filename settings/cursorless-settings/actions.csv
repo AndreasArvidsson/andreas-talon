@@ -27,7 +27,7 @@ move, moveToTarget
 swap, swapTargets
 
 chuck, remove
-clear, clearAndSetSelection
+change, clearAndSetSelection
 
 crown, scrollToTop
 center, scrollToCenter
@@ -75,7 +75,7 @@ call, callAsFunction
 comment, toggleLineComment
 extract, extractVariable
 flash, flashTargets
-format | form, applyFormatter
+form, applyFormatter
 highlight, highlight
 phones, nextHomophone
 quick fix, showQuickFix

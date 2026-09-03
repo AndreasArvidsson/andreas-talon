@@ -51,7 +51,7 @@ copy <user.cursorless_target> <user.repeater_phrase_all>:
 paste to <user.cursorless_target> <user.repeater_phrase_all>:
     user.vscode_take_word(cursorless_target, repeater_phrase_all)
     edit.paste()
-clear <user.cursorless_target> <user.repeater_phrase_all>:
+change <user.cursorless_target> <user.repeater_phrase_all>:
     user.vscode_take_word(cursorless_target, repeater_phrase_all)
     edit.delete()
 
@@ -63,8 +63,8 @@ place ({user.symbol} | <user.prose>) <user.cursorless_destination>:
 #     user.c_wrap_with_symbol(cursorless_target, symbol)
 
 # Format action
-<user.formatters> {user.cursorless_reformat_action} <user.cursorless_target>:
-    user.cursorless_reformat(cursorless_target, formatters)
+# <user.formatters> {user.cursorless_reformat_action} <user.cursorless_target>:
+#     user.cursorless_reformat(cursorless_target, formatters)
 
 # llm
 model fix <user.cursorless_target>:
