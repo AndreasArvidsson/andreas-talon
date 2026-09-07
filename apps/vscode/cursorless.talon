@@ -63,8 +63,8 @@ place ({user.symbol} | <user.prose>) <user.cursorless_destination>:
 #     user.c_wrap_with_symbol(cursorless_target, symbol)
 
 # Format action
-# <user.formatters> {user.cursorless_reformat_action} <user.cursorless_target>:
-#     user.cursorless_reformat(cursorless_target, formatters)
+<user.formatters> (form at | format) <user.cursorless_target>:
+    user.cursorless_reformat(cursorless_target, formatters)
 
 # llm
 model fix <user.cursorless_target>:

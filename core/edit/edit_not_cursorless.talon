@@ -7,5 +7,8 @@ not tag: user.cursorless
 form <user.edit_format_action> at <user.edit_target>:
     user.edit_command(edit_format_action, edit_target)
 
+<user.edit_format_action> (form at | format) <user.edit_target>:
+    user.edit_command(edit_format_action, edit_target)
+
 bring <user.edit_target> to <user.edit_target>:
     user.edit_command_bring(edit_target_1, edit_target_2)
