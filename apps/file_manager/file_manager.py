@@ -122,6 +122,7 @@ def get_windows_paths():
         "temp": environ["TEMP"],
         "windows": environ["WINDIR"],
         "talon bin": path.join(str(actions.path.talon_home()), ".venv", "Scripts"),
+        "magic arena": f"{environ['USERPROFILE']}\\AppData\\LocalLow\\Wizards Of The Coast\\MTGA",
     }
 
 

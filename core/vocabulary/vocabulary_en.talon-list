@@ -148,6 +148,7 @@ localhost: localhost
 override
 plugin
 questionnaire
+shellscript
 snippet
 snippets
 stat
