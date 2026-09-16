@@ -1,0 +1,40 @@
+name: Test
+
+permissions:
+    contents: read
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        types: [opened, synchronize, reopened]
+
+jobs:
+    run-tests:
+        name: Run tests
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v7
+
+            - name: Set up Python
+              uses: actions/setup-python@v7
+              with:
+                  python-version-file: "pyproject.toml"
+
+            - name: Install test tools
+              run: pip install pre-commit pytest
+
+            - name: Print versions
+              run: |
+                  node --version
+                  python --version
+                  pre-commit --version
+                  pytest --version
+
+            - name: Run pre-commit
+              run: pre-commit run --all-files --show-diff-on-failure --color=always
+
+            - name: Run pytest
+              run: pytest

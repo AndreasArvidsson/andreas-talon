@@ -1,9 +1,12 @@
-from talon import actions
+import talon
 
-from ..core.on_phrase.analyze_phrase.calc_command_actions import get_action_explanation
+if hasattr(talon, "test_mode"):
+    import pytest
 
+    from core.on_phrase.analyze_phrase.calc_command_actions import (
+        get_action_explanation,
+    )
 
-def test_get_action_explanation():
     def get_print(name: str, params: str, expected: str | None = None):
         return [
             name,
@@ -112,10 +115,11 @@ def test_get_action_explanation():
         ],
     ]
 
-    def test(fixture):
-        params = fixture[1:-1]
+    @pytest.mark.parametrize(
+        "fixture",
+        [pytest.param(fixture, id=fixture[0]) for fixture in fixtures],
+    )
+    def test_get_action_explanation(fixture):
+        parameters = fixture[1:-1]
         expected = fixture[-1]
-        found = get_action_explanation(*params)
-        actions.user.assert_equals(expected, found)
-
-    actions.user.test_run_suite("get_action_explanation", fixtures, test)
+        assert get_action_explanation(*parameters) == expected

@@ -27,6 +27,7 @@ and point, endpoint
 and points, endpoints
 arrange, a range
 axis, access
+bite code, bytecode
 blue tack, blu tack
 bullion, boolean
 bullions, booleans
@@ -44,6 +45,8 @@ coppy, copy
 counsel, console
 curse les, cursorless
 de, the
+deaf touch, deathtouch
+death touch, deathtouch
 dick, deck
 dis, this
 docent, doesn't
@@ -61,6 +64,7 @@ Esther, is there
 et cetera, etc
 etcetera, etc
 falls, false
+feed back, feedback
 fire fox, firefox
 flack, flac
 flatmap, flat map
@@ -87,6 +91,7 @@ juicing, using
 key cloak, Keycloak
 lacy, lazy
 lama, llama
+life link, lifelink
 mack, mac
 marino, merino
 meat up, meetup
@@ -101,11 +106,6 @@ organizations, organisations
 pars,parse
 pit on, python
 piton, python
-poll request, pull request
-poll request, pull request
-poll requests, pull requests
-Pool request, pull request
-pool request, pull request
 pours, parse
 pre comet, pre commit
 ranch, range
@@ -140,7 +140,15 @@ water fox, waterfox
 white space, whitespace
 wicky, wiki
 wide space, whitespace
+work flow, workflow
 you sir, user
+
+poll request, pull request
+poll requests, pull requests
+Pool request, pull request
+pool request, pull request
+Pool requests, pull requests
+pool requests, pull requests
 
 seen tax, syntax
 seen taxes, syntaxes

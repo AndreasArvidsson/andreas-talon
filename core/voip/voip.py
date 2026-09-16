@@ -9,3 +9,6 @@ mod.tag("voip")
 class Actions:
     def mute_microphone():
         """Mute microphone"""
+
+    def raise_hand():
+        """Raise hand"""

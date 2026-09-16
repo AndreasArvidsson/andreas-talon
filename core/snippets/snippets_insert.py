@@ -28,12 +28,16 @@ class Actions:
 
         if substitutions:
             for k, v in substitutions.items():
-                reg = re.compile(rf"\${k}|\$\{{{k}\}}")
-                if not reg.search(body):
+                placeholders = (f"${k}", f"${{{k}}}")
+                found = False
+                for placeholder in placeholders:
+                    if placeholder in body:
+                        body = body.replace(placeholder, v)
+                        found = True
+                if not found:
                     raise ValueError(
                         f"Can't substitute non existing variable '{k}' in snippet '{name}'"
                     )
-                body = reg.sub(v, body)
 
         actions.user.insert_snippet(body)
 

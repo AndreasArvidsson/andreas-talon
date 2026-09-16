@@ -74,6 +74,7 @@ code_data_type_simple = {
     "Map",
     "List",
     "Set",
+    "Pattern",
 }
 
 ctx.lists["user.code_data_type"] = {
@@ -118,8 +119,9 @@ ctx.lists["user.code_keyword"] = {
     "yield"         : "yield ",
     "var"           : "var ",
 
-    "nullable"      : "@Nullable ",
     "null marked"   : "@NullMarked",
+    "nullable"      : "@Nullable ",
+    "non null"      : "@NonNull ",
     "inject"        : "@Inject",
     "context"       : "@Context",
     "get"           : "@GET",

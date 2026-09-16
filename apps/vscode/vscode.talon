@@ -230,14 +230,12 @@ test run last:              user.run_rpc_command("testing.reRunLastRun")
 # Find session
 scout (sesh | recent) [<user.prose>]$:
     user.vscode_find_recent(prose or "")
-pop sesh {user.vscode_sessions}$:
-    user.vscode_find_recent(vscode_sessions)
-    sleep(150ms)
-    key(enter)
-pop sesh [<user.prose>]$:
-    user.vscode_find_recent(prose or "")
-    sleep(150ms)
-    key(enter)
+pop sesh$:
+    user.vscode_open_recent()
+pop sesh ({user.vscode_session} | <user.prose>)$:
+    user.vscode_open_recent(vscode_session or prose)
+pop new sesh ({user.vscode_session} | <user.prose>)$:
+    user.vscode_open_recent(vscode_session or prose, true)
 
 # Find a symbol
 scout symbol [<user.prose>]$:

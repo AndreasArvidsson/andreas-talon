@@ -18,48 +18,6 @@ ctx.matches = r"""
 app: firefox
 """
 
-mod.list("rango_with_target_action", "List of Rango actions used WITH a target")
-mod.list("rango_without_target_action", "List of Rango actions used WITHOUT a target")
-
-# https://github.com/david-tejada/rango
-ctx.lists["user.rango_with_target_action"] = {
-    "click": "clickElement",
-    "open": "openInNewTab",
-    "stash": "openInBackgroundTab",
-    "show": "showLink",
-    "hover": "hoverElement",
-    "copy": "copyLink",
-    "copy mark": "copyMarkdownLink",
-    "copy text": "copyElementTextContent",
-    "crown": "scrollElementToTop",
-    "bottom": "scrollElementToBottom",
-    "center": "scrollElementToCenter",
-    "upper": "scrollUpAtElement",
-    "downer": "scrollDownAtElement",
-    "hunt include": "includeExtraSelectors",
-    "hunt exclude": "excludeExtraSelectors",
-}
-
-ctx.lists["user.rango_without_target_action"] = {
-    "rango single": "includeSingleLetterHints",
-    "rango double": "excludeSingleLetterHints",
-    "hunt on": "toggleHints",
-    "hunt off": "toggleHints",
-    "hunt refresh": "refreshHints",
-    "hover nothing": "unhoverAll",
-    "upper again": "scrollUpAtElement",
-    "downer again": "scrollDownAtElement",
-    "hunt extra": "displayExtraHints",
-    "hunt more": "displayExcludedHints",
-    "hunt less": "displayLessHints",
-    "hunt save": "confirmSelectorsCustomization",
-    "hunt reset": "resetCustomSelectors",
-    "hunt bigger": "increaseHintSize",
-    "hunt smaller": "decreaseHintSize",
-    "hunt some more": "includeOrExcludeMoreSelectors",
-    "hunt some less": "includeOrExcludeLessSelectors",
-}
-
 url_pattern = re.compile(r"https?://\S+")
 
 

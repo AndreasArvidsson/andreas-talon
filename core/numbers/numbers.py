@@ -219,7 +219,7 @@ mod.list("number_small", "List of small (0-99) numbers")
 ctx.lists["user.number_small"] = number_small_map
 
 
-@mod.capture(rule=(f"{number_word_dd} | {number_word_leading} ([and] {number_word})+"))
+@mod.capture(rule=f"{number_word_dd} | {number_word_leading} ([and] {number_word})+")
 def number_dd(m) -> str:
     """Parses a double digit, or more, number phrase, returning that number as a string."""
     return parse_number(list(m))
@@ -231,13 +231,19 @@ def number_string(m) -> str:
     return parse_number(list(m))
 
 
-@ctx.capture("number", rule="<user.number_string>")
+@ctx.capture(
+    "number",
+    rule="<user.number_string>",
+)
 def number(m) -> int:
     """Parses a number phrase, returning it as an integer."""
     return int(m.number_string)
 
 
-@ctx.capture("number_small", rule="{user.number_small}")
+@ctx.capture(
+    "number_small",
+    rule="{user.number_small}",
+)
 def number_small(m) -> int:
     """Parses a small (0-99) number phrase, returning it as an integer."""
     return int(m.number_small)

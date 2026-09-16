@@ -46,6 +46,12 @@ mode: sleep
 tag: user.voip
 """
 
+ctx_voip_sleep = Context()
+ctx_voip_sleep.matches = r"""
+mode: sleep
+tag: user.voip
+"""
+
 
 @ctx_voip.action_class("user")
 class VoipActions:
@@ -56,3 +62,13 @@ class VoipActions:
     def foot_switch_left_up(held: bool):
         if held:
             actions.user.mute_microphone()
+
+
+@ctx_voip_sleep.action_class("user")
+class VoipSleepActions:
+    def foot_switch_right_down():
+        actions.user.raise_hand()
+
+    @staticmethod
+    def foot_switch_right_up(held: bool):
+        actions.skip()

@@ -1,3 +1,11 @@
+[project]
+name = "andreas-talon"
+requires-python = "==3.14.*"
+
+[tool.pytest.ini_options]
+pythonpath = [".", "test/stubs"]
+testpaths = ["test"]
+
 [tool.ruff]
 target-version = "py314"
 
@@ -11,23 +19,26 @@ select = [
     "I", # isort
     "W", # PyCodeStyle warnings
     "C4", # Catch incorrect use of comprehensions, dict, list, etc
-    "ISC", # Good use of string concatenation
+    "ISC", # Require explicit string concatenation
     "ICN", # Use common import conventions
     "RET", # Good return practices
     "FURB", # Suggest more idiomatic Python patterns
 ]
 ignore = [
-    # Line too long
-    "E501",
-    # Ambiguous variable names: l, O, I
-    "E741",
-    # Use a single `if` statement instead of nested `if` statements
-    "SIM102",
-    # Use ternary operator
-    "SIM108",
+    "E501", # Line too long
+    "E741", # Ambiguous variable names: l, O, I
+    "SIM102", # Use a single `if` statement instead of nested `if` statements
+    "SIM108", # Use ternary operator
+    "UP007", # Union[X, Y] -> X | Y not supported in Talon 0.4 actions
+    "UP045", # Optional[X] -> X | None not supported in Talon 0.4 actions
+    "UP035", # Deprecated import
 ]
 
+[tool.ruff.lint.flake8-implicit-str-concat]
+allow-multiline = false
+
 [tool.pyright]
+pythonVersion = "3.14"
 reportMissingModuleSource = false
 reportSelfClsParameterName = false
 reportMissingImports = false

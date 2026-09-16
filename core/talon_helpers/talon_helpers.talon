@@ -33,13 +33,13 @@ talon copy context:         user.talon_add_context_clipboard()
 talon copy commands:        user.help_copy_all_commands()
 
 talon copy default actions: user.copy_default_talon_actions()
-
 talon create app context:   user.talon_create_app_context()
 
-talon open log:             menu.open_log()
-talon open repl:            menu.open_repl()
-talon open home:            menu.open_talon_home()
-talon open debug:           menu.open_debug_window()
+launch talon log:           menu.open_log()
+launch talon repl:          menu.open_repl()
+launch talon home:          menu.open_talon_home()
+launch talon debug:         menu.open_debug_window()
+
 talon check updates:        menu.check_for_updates()
 
 talon sim <user.prose>$:    user.talon_sim_phrase(prose)
