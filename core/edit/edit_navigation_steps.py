@@ -58,6 +58,6 @@ class Actions:
                         repeat_action(actions.edit.right, step.count)
 
 
-def repeat_action(action: Callable, count: int):
+def repeat_action(action: Callable[[], None], count: int):
     for _ in range(count):
         action()
