@@ -1,7 +1,7 @@
 import ctypes
 from ctypes import wintypes
 
-from talon import Module, actions, cron, ui
+from talon import Module, cron, settings, ui
 
 cron_job = None
 move_offset = 2
@@ -38,7 +38,7 @@ def mouse_wiggle():
 
 def on_activate(app):
     global cron_job
-    if actions.settings.get("user.mouse_wiggle"):
+    if settings.get("user.mouse_wiggle"):
         cron_job = cron.interval("8ms", mouse_wiggle)
 
 
