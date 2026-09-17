@@ -42,15 +42,30 @@ def printLine(*argv):
     print(" ".join(argv))
 
 
+# TODO: Reactivate terminal colors once Talon supports them again. This broke after 3.14t update.
+# class bcolors:
+#     HEADER = "\033[95m"
+#     OKBLUE = "\033[94m"
+#     OKCYAN = "\033[96m"
+#     OKGREEN = "\033[92m"
+#     WARNING = "\033[93m"
+#     FAIL = "\033[91m"
+#     ENDC = "\033[0m"
+#     BOLD = "\033[1m"
+#     UNDERLINE = "\033[4m"
+#     RED = "\033[31m"
+#     GREEN = "\033[92m"
+
+
 class bcolors:
-    HEADER = "\033[95m"
-    OKBLUE = "\033[94m"
-    OKCYAN = "\033[96m"
-    OKGREEN = "\033[92m"
-    WARNING = "\033[93m"
-    FAIL = "\033[91m"
-    ENDC = "\033[0m"
-    BOLD = "\033[1m"
-    UNDERLINE = "\033[4m"
-    RED = "\033[31m"
-    GREEN = "\033[92m"
+    HEADER = ""
+    OKBLUE = ""
+    OKCYAN = ""
+    OKGREEN = ""
+    WARNING = ""
+    FAIL = ""
+    ENDC = ""
+    BOLD = ""
+    UNDERLINE = ""
+    RED = ""
+    GREEN = ""
