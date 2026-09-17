@@ -37,7 +37,9 @@ allow-multiline = false
 [tool.pyright]
 pythonVersion = "3.14"
 # Read pytest source instead of Talon's compiled-only copy.
-extraPaths = ["C:/Users/andreas/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages"]
+extraPaths = [
+    "C:/Users/andreas/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages",
+]
 reportMissingModuleSource = false
 reportSelfClsParameterName = false
 reportMissingImports = false
