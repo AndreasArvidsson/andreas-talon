@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 @dataclass
 class Props:
-    callback: Callable[["GUI"], None]
+    callback: Callable[[GUI], None]
     screen: Screen | None
     x: float | None
     y: float | None

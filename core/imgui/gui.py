@@ -43,7 +43,7 @@ class GUI:
 
     def __init__(
         self,
-        callback: Callable[["GUI"], None],
+        callback: Callable[[GUI], None],
         screen: Screen | None,
         x: float | None,
         y: float | None,
