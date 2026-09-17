@@ -1,4 +1,5 @@
 from talon import Context, Module, actions, clip
+from talon_rust.clip import PyMimeData as MimeData
 
 mod = Module()
 ctx = Context()
@@ -165,7 +166,7 @@ class Actions:
     @staticmethod
     def clip_set_transient_text(text: str):
         """Set clipboard text without monitoring"""
-        mime = clip.MimeData()
+        mime = MimeData()
         mime.text = text
         mime["ExcludeClipboardContentFromMonitorProcessing"] = b"true"  # pyright: ignore[reportIndexIssue]
         clip.set_mime(mime)
