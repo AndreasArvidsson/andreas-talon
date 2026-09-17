@@ -3,8 +3,7 @@ from dataclasses import dataclass
 
 from talon import Context, Module, actions
 from talon.engines.w2l import DecodeWord
-from talon.grammar import Capture, Phrase  # pyright: ignore[reportAttributeAccessIssue]
-from talon.grammar.vm import VMCapture
+from talon.grammar.vm import Capture, Phrase, VMCapture
 
 mod = Module()
 ctx = Context()

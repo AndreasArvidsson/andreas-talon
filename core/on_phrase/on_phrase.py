@@ -1,5 +1,5 @@
 from talon import Module, actions, speech_system
-from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import Phrase
 
 from .abort.abort import abort_update_phrase
 from .analyze_phrase.analyze_phrase import analyze_phrase

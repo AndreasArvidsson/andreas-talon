@@ -3,12 +3,11 @@ from collections.abc import Callable
 from dataclasses import dataclass
 
 from skia import Canvas as SkiaCanvas
-from skia import RoundRect
+from skia import Point2d, Rect, RoundRect
 from talon import Context, Module, actions, speech_system, ui
 from talon.canvas import Canvas, MouseEvent
-from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import Phrase
 from talon.screen import Screen
-from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 FONT_FAMILY = "Segoe UI Symbol"
 BACKGROUND_COLOR = "fffafa"  # Snow

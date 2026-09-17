@@ -1,10 +1,9 @@
 from collections.abc import Callable, Sequence
 
 from skia import Canvas as SkiaCanvas
-from skia import ImageFilter
+from skia import ImageFilter, Rect
 from talon import Module, actions, app, cron, ctrl, ui
 from talon.canvas import Canvas
-from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 subtitle_canvas = []

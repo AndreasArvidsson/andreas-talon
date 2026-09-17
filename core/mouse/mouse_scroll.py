@@ -3,9 +3,9 @@ import time
 from typing import Literal
 
 from skia import Canvas as SkiaCanvas
+from skia import Rect
 from talon import Module, actions, app, cron, ctrl, ui
 from talon.canvas import Canvas
-from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 mod = Module()
 

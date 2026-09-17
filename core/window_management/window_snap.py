@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
+from skia import Rect
 from talon import Context, Module, actions, ui
-from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 from talon.ui import BaseWindow, Screen
 
 

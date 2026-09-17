@@ -1,11 +1,10 @@
 from typing import Literal
 
 from skia import Canvas as SkiaCanvas
-from skia import ImageFilter, Shader
+from skia import ImageFilter, Point2d, Rect, Shader
 from talon import Context, Module, actions, app, registry, scope, ui
 from talon.canvas import Canvas
 from talon.screen import Screen
-from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 Mode = Literal["mute", "sleep", "dictation", "mixed", "command", "other"]
 

@@ -17,14 +17,13 @@ from typing import (
     get_origin,
 )
 
-from skia import Image
+from skia import Image, Rect
 from talon import registry
-from talon.grammar import Capture, Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import Capture, Phrase
 from talon.screen import Screen
 from talon.scripting.rctx import ResourceContext
 from talon.scripting.talon_script import TalonScript
 from talon.scripting.types import CommandImpl, ScriptImpl
-from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
 from talon.ui import App, Window
 
 

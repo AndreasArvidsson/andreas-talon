@@ -1,5 +1,4 @@
-from skia import RoundRect
-from talon.types import Rect  # pyright: ignore[reportAttributeAccessIssue]
+from skia import Rect, RoundRect
 
 from .constants import BORDER_COLOR, BUTTON_BG_COLOR, BUTTON_RADIUS, BUTTON_TEXT_COLOR
 from .state import State

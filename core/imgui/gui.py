@@ -2,11 +2,10 @@ from collections.abc import Callable
 
 from skia import Canvas as SkCanvas
 from skia import Image as SkImage
-from skia import RoundRect
+from skia import Point2d, Rect, RoundRect
 from talon import ui
 from talon.canvas import Canvas, MouseEvent
 from talon.screen import Screen
-from talon.types import Point2d, Rect  # pyright: ignore[reportAttributeAccessIssue]
 
 from .button import Button
 from .constants import (

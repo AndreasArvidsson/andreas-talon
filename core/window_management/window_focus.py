@@ -1,5 +1,5 @@
 from talon import Context, Module, actions, ui
-from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import Phrase
 
 mod = Module()
 ctx = Context()

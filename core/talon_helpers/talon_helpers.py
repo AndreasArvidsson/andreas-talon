@@ -18,7 +18,7 @@ from talon import (
     storage,
     ui,
 )
-from talon.grammar import Phrase  # pyright: ignore[reportAttributeAccessIssue]
+from talon.grammar.vm import Phrase
 
 mod = Module()
 

@@ -4,8 +4,7 @@ from typing import Any
 
 from talon import actions, registry, speech_system
 from talon.engines.w2l import DecodeWord, WordMeta
-from talon.grammar import Capture, Phrase  # pyright: ignore[reportAttributeAccessIssue]
-from talon.grammar.vm import VMCapture, VMListCapture
+from talon.grammar.vm import Capture, Phrase, VMCapture, VMListCapture
 from talon.scripting.types import CommandImpl
 from talon_init import TALON_HOME
 
