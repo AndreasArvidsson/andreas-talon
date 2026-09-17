@@ -12,8 +12,7 @@ settings():
     user.print_phrase_timings = false
 
     # Pretty print spoken phrases
-    # TODO: make work in 3.14t
-    user.pretty_print_phrase = false
+    user.pretty_print_phrase = true
 
     # Show mode indicator
     user.mode_indicator_show = true
