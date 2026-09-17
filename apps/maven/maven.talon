@@ -3,21 +3,23 @@ tag: user.maven
 
 maven:                      "mvn "
 maven version:              "mvn -v\n"
-maven clean:                "mvn clean\n"
 
-maven install:              "mvn -T 1C install\n"
+maven clean:                "mvn clean\n"
 maven package:              "mvn -T 1C package\n"
+maven install:              "mvn -T 1C install\n"
 maven deploy:               "mvn -T 1C package -P deploy "
-maven test:                 "mvn verify -P it "
-maven test light:           "mvn verify -P it-light "
+
+maven clean package:        "mvn clean && mvn package\n"
+maven clean install:        "mvn clean && mvn install\n"
+maven clean deploy:         "mvn clean && mvn -T 1C package -P deploy "
 
 maven package slow:         "mvn package\n"
 maven install slow:         "mvn install\n"
 maven deploy slow:          "mvn package -P deploy "
 
-maven clean package:        "mvn clean && mvn package\n"
-maven clean install:        "mvn clean && mvn install\n"
-maven clean deploy:         "mvn clean && mvn -T 1C package -P deploy "
+maven test:                 "mvn test\n"
+maven test it:              "mvn verify -P it "
+maven test it light:        "mvn verify -P it-light "
 
 maven dependency list:      "mvn dependency:list\n"
 maven dependency tree:      "mvn dependency:tree\n"
