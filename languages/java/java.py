@@ -160,3 +160,6 @@ class UserActions:
         if assign:
             snippet += " = $0"
         actions.user.insert_snippet(snippet)
+
+    def insert_arrow():
+        actions.insert(" -> ")

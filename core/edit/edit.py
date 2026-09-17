@@ -185,4 +185,4 @@ class Actions:
 
     def insert_arrow():
         """Insert arrow symbol"""
-        actions.insert(" -> ")
+        actions.insert(" => ")

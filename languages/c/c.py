@@ -81,7 +81,6 @@ ctx.lists["user.code_keyword"] = c_keywords
 
 @ctx.action_class("user")
 class UserActions:
-    # Variable declaration
     @staticmethod
     def code_variable(assign: bool, modifiers: list[str], data_type: str, name: str):
         snippet = ""
@@ -94,3 +93,6 @@ class UserActions:
         if assign:
             snippet += " = $0"
         actions.user.insert_snippet(snippet)
+
+    def insert_arrow():
+        actions.insert(" -> ")

@@ -155,3 +155,7 @@ class UserActions:
     @staticmethod
     def code_format_or_type(item_types: list[str]) -> str:
         return f"{' | '.join(item_types)}"
+
+    # Miscellaneous
+    def insert_arrow():
+        actions.insert(" -> ")
