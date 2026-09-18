@@ -20,3 +20,6 @@ run talon deck:             "talon-deck\n"
 
 python version:             "python --version\n"
 java version:               "java --version\n"
+
+spotless check:             "mvn -N -q spotless:check\n"
+spotless apply:             "mvn -N -q spotless:apply\n"
