@@ -132,7 +132,7 @@ def get_window_containing(x: float, y: float):
 
 def show_gaze_indicator(x: float, y: float):
     global gaze_canvas
-    screen = ui.screen_containing(x, y)
+    screen = ui.screen.containing(x, y)
     scale = screen.scale if app.platform != "mac" else 1
     size = 10 * scale
     gaze_canvas = Canvas.from_rect(

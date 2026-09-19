@@ -326,7 +326,7 @@ def gamepad_mouse_move_slow_toggle():
 def gamepad_mouse_jump(direction: str):
     """Move the mouse cursor to the specified quadrant of the active screen"""
     x, y = ctrl.mouse_pos()
-    rect = ui.screen_containing(x, y).rect
+    rect = ui.screen.containing(x, y).rect
 
     # Half distance between cursor and screen edge
     match direction:
@@ -356,5 +356,5 @@ def gamepad_mouse_jump(direction: str):
 def get_screen(x: float, y: float) -> Screen:
     global screen
     if not screen.contains(x, y):
-        screen = ui.screen_containing(x, y)
+        screen = ui.screen.containing(x, y)
     return screen

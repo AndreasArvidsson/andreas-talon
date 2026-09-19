@@ -107,7 +107,7 @@ def get_screens(is_subtitle: bool) -> Sequence[ui.Screen]:
             return ui.screens()
         case "cursor":
             x, y = ctrl.mouse_pos()
-            return [ui.screen_containing(x, y)]
+            return [ui.screen.containing(x, y)]
         case "focus":
             return [ui.active_window().screen]
         case _:

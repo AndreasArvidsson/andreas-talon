@@ -280,7 +280,7 @@ class GUI:
     def get_containing_screen(self, x: float, y: float) -> Screen:
         if self._screen is not None and self._screen.rect.contains(x, y):
             return self._screen
-        return ui.screen_containing(x, y)
+        return ui.screen.containing(x, y)
 
     def get_initial_rect(
         self,
