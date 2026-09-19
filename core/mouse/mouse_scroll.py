@@ -110,24 +110,10 @@ def scroll_continuous_helper():
 
 def scroll_gaze_helper():
     x, y = ctrl.mouse_pos()
-    window = get_window_containing(x, y)
-    if window is None:
-        return
+    window = ui.window_at(x, y)
     rect = window.rect
     y = ((y - gaze_origin_y) / (rect.height / 10)) ** 3
     actions.mouse_scroll(y)
-
-
-def get_window_containing(x: float, y: float):
-    # on windows, check the active_window first since ui.windows() is not z-ordered
-    if app.platform == "windows" and ui.active_window().rect.contains(x, y):
-        return ui.active_window()
-
-    for window in ui.windows():
-        if window.rect.contains(x, y):
-            return window
-
-    return None
 
 
 def show_gaze_indicator(x: float, y: float):

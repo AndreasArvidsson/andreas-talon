@@ -66,14 +66,7 @@ class Actions:
     def get_window_under_cursor() -> ui.Window:
         """Get the window under the mouse cursor"""
         x, y = ctrl.mouse_pos()
-        windows = [
-            w
-            for w in ui.windows(hidden=False)
-            if w.rect.contains(x, y) and is_window_valid(w) and is_app_valid(w.app)
-        ]
-        if not windows:
-            raise ValueError("Can't find window under the mouse cursor")
-        return windows[0]
+        return ui.window_at(x, y)  # pyright: ignore[reportReturnType]
 
     @staticmethod
     def send_key(key: str, app: ui.App):
