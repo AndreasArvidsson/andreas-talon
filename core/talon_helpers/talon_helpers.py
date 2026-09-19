@@ -141,10 +141,15 @@ class Actions:
             if not action.type_decl:
                 raise ValueError(f"Action {name} has no type_decl")
 
+            signature = (
+                str(inspect.signature(action.func))
+                .replace("(self, ", "(")
+                .replace("(self)", "()")
+            )
             result.append(
                 {
                     "name": name,
-                    "signature": str(inspect.signature(action.func)),
+                    "signature": signature,
                     "docstr": action.type_decl.desc,
                 }
             )
