@@ -13,28 +13,26 @@ mod.setting(
 
 @imgui.open(x=0)
 def gui(gui: imgui.GUI):
-    gui.header("Scope")
-    gui.line(bold=True)
-    gui.spacer()
-    gui.text("Modes")
-    gui.line()
+    gui.title("Scope")
+    gui.header("Modes")
+    gui.separator()
     for mode in sorted(scope.get("mode")):
         gui.text(mode)
-    gui.spacer()
+    gui.spacing()
     gui.text("Tags")
-    gui.line()
+    gui.separator()
     for tag in sorted(scope.get("tag")):
         gui.text(tag)
-    gui.spacer()
+    gui.spacing()
     gui.text("Misc")
-    gui.line()
+    gui.separator()
     ignore = {"main", "mode", "tag"}
     keys = {*scope.data.keys(), *scope.data["main"].keys()}
     for key in sorted(keys):
         if key not in ignore:
             value = scope.get(key)
             print_value(gui, key, value, ignore)
-    gui.spacer()
+    gui.spacing()
     if gui.button("Hide"):
         actions.user.help_scope_toggle()
 

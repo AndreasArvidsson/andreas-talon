@@ -33,7 +33,7 @@ def gui(gui: imgui.GUI):
         # If ttl is disabled or time hasn't passed yet: show command.
         if not use_ttl or entry.ttl < 0 or entry.ttl >= t:
             if add_line and entry.phrase_start:
-                gui.line()
+                gui.separator()
             add_line = True
             gui.header(entry.phrase)
             for action in entry.actions:

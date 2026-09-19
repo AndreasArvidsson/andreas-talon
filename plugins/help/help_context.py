@@ -179,9 +179,7 @@ def gui_context_help(gui: imgui.GUI):
     if selected_context is None and search_phrase is None:
         total_page_count = get_total_context_pages()
 
-        gui.header(f"Help: contexts ({current_context_page}/{total_page_count})")
-
-        gui.line(bold=True)
+        gui.title(f"Help: contexts ({current_context_page}/{total_page_count})")
 
         current_item_index = 1
         current_selection_index = 1
@@ -193,7 +191,7 @@ def gui_context_help(gui: imgui.GUI):
                 if current_context_page == target_page:
                     if current_group != group:
                         if current_group:
-                            gui.line()
+                            gui.separator()
                         gui.text(f"{group}:")
                         current_group = group
 
@@ -210,14 +208,14 @@ def gui_context_help(gui: imgui.GUI):
                 current_item_index += 1
 
         if total_page_count > 1:
-            gui.spacer()
+            gui.spacing()
             if gui.button("Next..."):
                 actions.user.help_next()
 
             if gui.button("Previous..."):
                 actions.user.help_previous()
 
-        gui.line()
+        gui.separator()
 
     # if there's a selected context, draw the commands for it
     else:
@@ -226,7 +224,7 @@ def gui_context_help(gui: imgui.GUI):
         elif search_phrase is not None:
             draw_search_commands(gui)
 
-        gui.spacer()
+        gui.spacing()
         if total_page_count > 1:
             if gui.button("Next..."):
                 actions.user.help_next()
@@ -293,9 +291,9 @@ def draw_search_commands(gui: imgui.GUI):
     for (context, commands), page in zip(sorted_commands_grouped, pages, strict=True):
         if page == selected_context_page:
             gui.text(format_context_title(context))
-            gui.line()
+            gui.separator()
             draw_commands(gui, commands)
-            gui.spacer()
+            gui.spacing()
 
 
 def get_search_commands(phrase: str) -> dict[str, list[tuple[str, str]]]:
@@ -318,8 +316,7 @@ def get_search_commands(phrase: str) -> dict[str, list[tuple[str, str]]]:
 
 
 def draw_commands_title(gui: imgui.GUI, title: str):
-    gui.header(f"{title} ({selected_context_page}/{total_page_count})")
-    gui.line(bold=True)
+    gui.title(f"{title} ({selected_context_page}/{total_page_count})")
 
 
 def draw_commands(gui: imgui.GUI, commands: Iterable[tuple[str, str]]):

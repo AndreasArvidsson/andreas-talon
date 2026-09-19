@@ -1,48 +1,36 @@
 from collections.abc import Callable
+from dataclasses import dataclass
 
-from skia import Canvas as SkCanvas
-from skia import Image as SkImage
-from skia import Point2d, Rect, RoundRect
-from talon import ui
-from talon.canvas import Canvas, MouseEvent
+import egui
+from skia import Rect
+from talon import cron, ui
+from talon.egui import Window
 from talon.screen import Screen
 
-from .button import Button
-from .constants import (
-    BACKGROUND_COLOR,
-    BORDER_COLOR,
-    BORDER_RADIUS,
-    FONT_FAMILY,
-    FONT_SIZE,
-)
-from .image import Image
-from .line import Line
-from .props import Props
-from .spacer import Spacer
-from .state import State
-from .text import Text
-from .utils import (
-    NOT_SET,
-    NotSetType,
-    get_active_screen,
-    get_screen_scale,
-)
-from .widget import Widget
+TEXT_SIZE = 14
+TEXT_COLOR_DARK_MODE = "#D0D0D0"
+BUTTON_PADDING = egui.Vec2(5.0, 2.5)
+
+
+@dataclass
+class Props:
+    draw: Callable[[GUI], None]
+    screen: Screen | None
+    x: float | None
+    y: float | None
+    width: float | None
+    height: float | None
 
 
 class GUI:
     _props: Props
-    _canvas: Canvas | None
-    _screen: Screen | None
-    _mouse_drag_pos: Point2d | None
-    _widgets: list[Widget]
-    _buttons: list[Button]
-    _draw_clicked_buttons: set[str]
-    _pending_clicked_buttons: set[str]
+    _window: Window | None
+    _egui: egui.Ui | None
+    _stored_rect: Rect | None
 
     def __init__(
         self,
-        callback: Callable[[GUI], None],
+        draw: Callable[[GUI], None],
         screen: Screen | None,
         x: float | None,
         y: float | None,
@@ -50,255 +38,144 @@ class GUI:
         height: float | None,
     ):
         self._props = Props(
-            callback=callback,
+            draw=draw,
             screen=screen,
             x=x,
             y=y,
             width=width,
             height=height,
         )
-        self._canvas = None
-        self._screen = None
-        self._mouse_drag_pos = None
-        self._widgets = []
-        self._buttons = []
-        self._draw_clicked_buttons = set()
-        self._pending_clicked_buttons = set()
+        self._window = None
+        self._egui = None
+        self._stored_rect = None
 
     @property
     def showing(self) -> bool:
-        return self._canvas is not None
+        return self._window is not None
 
     def show(self):
-        # Already showing
-        if self._canvas is not None:
+        if self.showing:
             return
 
-        self._screen = self._props.screen or get_active_screen()
+        self._window = Window()
+        self._window.draggable = True
+        self._window.autosize = self._props.width is None or self._props.height is None
+        # Hide title bar
+        self._window.decorated = False
+        self._window.set_content(self._render)
 
-        # Initializes at minimum size so to calculate and set correct size later
-        rect = self.get_initial_rect(self._screen, 0, 0, 0, 0)
-        self._canvas = Canvas.from_rect(rect)
-
-        self._canvas.draggable = True
-        self._canvas.blocks_mouse = True
-        self._canvas.register("draw", self._draw)
-        self._canvas.register("mouse", self._mouse)
+        if self._stored_rect is not None:
+            self._window.show()
+            self._window.rect = self._stored_rect
+        else:
+            screen = self._get_screen()
+            self._window.show()
+            self._window.rect = self._apply_partial_rect(screen.rect)
 
     def hide(self):
-        if self._canvas is not None:
-            self._canvas.unregister("draw", self._draw)
-            self._canvas.unregister("mouse", self._mouse)
-            self._canvas.close()
-            self._canvas = None
-            self._mouse_drag_pos = None
-            self._widgets = []
-            self._buttons = []
-            self._draw_clicked_buttons.clear()
-            self._pending_clicked_buttons.clear()
+        if self._window is None:
+            return
 
-    def update(
-        self,
-        *,
-        screen: Screen | None | NotSetType = NOT_SET,
-        x: float | None | NotSetType = NOT_SET,
-        y: float | None | NotSetType = NOT_SET,
-        width: float | None | NotSetType = NOT_SET,
-        height: float | None | NotSetType = NOT_SET,
-    ):
-        old_screen = self._screen
+        # Defer hiding until after rendering
+        if self._egui is not None:
+            cron.after("0ms", self.hide)
+            return
 
-        if not isinstance(screen, NotSetType):
-            self._props.screen = screen
-            self._screen = self._props.screen or get_active_screen()
-        if not isinstance(x, NotSetType):
-            self._props.x = x
-        if not isinstance(y, NotSetType):
-            self._props.y = y
-        if not isinstance(width, NotSetType):
-            self._props.width = width
-        if not isinstance(height, NotSetType):
-            self._props.height = height
-
-        if (
-            self._canvas is not None
-            and old_screen is not None
-            and self._screen is not None
-        ):
-            self._canvas.rect = self.get_initial_rect(
-                self._screen,
-                (self._canvas.rect.x - old_screen.x) / old_screen.width,
-                (self._canvas.rect.y - old_screen.y) / old_screen.height,
-                (self._canvas.rect.width) / old_screen.width,
-                (self._canvas.rect.height) / old_screen.height,
-            )
-
-    def freeze(self):
-        if self._canvas is not None:
-            self._canvas.freeze()
+        try:
+            self._stored_rect = self._window.rect
+            self._window.close()
+        finally:
+            self._window = None
 
     def text(self, text: str):
-        self._widgets.append(Text(text, is_header=False))
+        self._ui().label(text)
 
     def header(self, text: str):
-        self._widgets.append(Text(text, is_header=True))
+        self._ui().heading(text)
 
-    def image(self, image: SkImage):
-        self._widgets.append(Image(image))
+    def title(self, text: str):
+        ui = self._ui()
+        title = egui.RichText(text).size(TEXT_SIZE * 1.5).strong()
+        ui.label(title)
+        ui.separator()
+        self._ui().add_space(8)
 
-    def button(self, text: str, id: str | None = None) -> bool:
-        """Returns whether the button was clicked since last draw.
+    def button(self, text: str) -> bool:
+        return self._ui().button(text).clicked()
 
-        Duplicate text buttons require id to be set to be treated as separate buttons.
-        If id is not set, buttons with the same text will be treated as the same button and share clicked state.
-        """
-        button = Button(text, id)
-        self._widgets.append(button)
-        self._buttons.append(button)
-        return button.id in self._draw_clicked_buttons
+    def separator(self):
+        self._ui().separator()
 
-    def line(self, bold: bool = False):
-        self._widgets.append(Line(bold))
+    def spacing(self):
+        self._ui().add_space(TEXT_SIZE)
 
-    def spacer(self):
-        self._widgets.append(Spacer())
+    async def _render(self, ui: egui.Ui) -> None:
+        self._apply_theme(ui)
 
-    def _draw(self, canvas: SkCanvas):
-        # Should not happen
-        if self._screen is None:
-            return
+        frame = egui.Frame().inner_margin(16.0)
 
-        # Consume only clicks collected since the previous draw.
-        self._draw_clicked_buttons = self._pending_clicked_buttons
-        self._pending_clicked_buttons = set()
+        async with frame.show() as content_ui:
+            try:
+                self._egui = content_ui
+                self._props.draw(self)
+            finally:
+                # An egui.Ui is only valid during the current frame.
+                self._egui = None
 
-        # Reset widgets on each draw since the callback may conditionally add widgets
-        self._widgets = []
-        self._buttons = []
+    def _apply_theme(self, ui: egui.Ui) -> None:
+        style = ui.style()
+        visuals = style.visuals()
 
-        # Call the callback to populate widgets
-        self._props.callback(self)
+        # Default dark mode text is too dark.
+        if visuals.dark_mode:
+            visuals.override_text_color = egui.Color32.from_hex(TEXT_COLOR_DARK_MODE)
+            style.set_visuals(visuals)
 
-        canvas.paint.typeface = FONT_FAMILY
-        self._draw_background(canvas)
-
-        state = State(
-            canvas,
-            FONT_SIZE * get_screen_scale(self._screen),
+        # Default text size (13) is too small. This also applies to the button text.
+        style.set_text_style(
+            egui.TextStyle.Body,
+            egui.FontId(TEXT_SIZE, egui.FontFamily.Proportional),
         )
 
-        if self._widgets:
-            for w in self._widgets:
-                w.draw(state)
-        # If there are no widgets, collapse the GUI to avoid having a big empty box
+        # Default button padding (4, 1) is too little.
+        style.spacing.button_padding = BUTTON_PADDING
+
+        ui.set_style(style)
+
+    def _apply_partial_rect(self, screen: Rect) -> Rect:
+        if self._window is None:
+            raise RuntimeError("Window is not initialized")
+
+        props = self._props
+        window = self._window.rect
+
+        width = window.width if props.width is None else screen.width * props.width
+        height = window.height if props.height is None else screen.height * props.height
+
+        if props.x is None:
+            x = screen.center.x - width / 2
         else:
-            state.width = 0
-            state.height = 0
+            x = screen.x + screen.width * props.x
 
-        # Resize to fit content
-        if self._props.width is not None:
-            width = self._screen.width * self._props.width
+        if props.y is None:
+            y = screen.center.y - height / 2
         else:
-            width = state.get_width()
-        if self._props.height is not None:
-            height = self._screen.height * self._props.height
-        else:
-            height = state.get_height()
+            y = screen.y + screen.height * props.y
 
-        if canvas.width != width or canvas.height != height:
-            self._resize(width, height)
+        return Rect(x, y, width, height)
 
-    def _resize(self, width: float, height: float):
-        # Should not happen
-        if self._canvas is None or self._screen is None:
-            return
+    def _get_screen(self):
+        if self._props.screen is not None:
+            return self._props.screen
+        try:
+            return ui.active_window().screen
+        except Exception as e:
+            print(f"Error getting active screen, defaulting to main screen: {e}")
+            return ui.main_screen()
 
-        if self._props.x is not None:
-            x = self._screen.x + self._screen.width * self._props.x
-        else:
-            x = self._screen.x + max(0, (self._screen.width - width) / 2)
-        if self._props.y is not None:
-            y = self._screen.y + self._screen.height * self._props.y
-        else:
-            y = self._screen.y + max(0, (self._screen.height - height) / 2)
-
-        self._canvas.rect = Rect(x, y, width, height)
-
-    def _move(self, dx: float, dy: float):
-        # Should not happen
-        if self._canvas is None:
-            return
-
-        x = self._canvas.rect.x + dx
-        y = self._canvas.rect.y + dy
-        self._screen = self.get_containing_screen(
-            self._canvas.rect.center.x + dx,
-            self._canvas.rect.center.y + dy,
-        )
-        self._props.x = (x - self._screen.x) / self._screen.width
-        self._props.y = (y - self._screen.y) / self._screen.height
-
-        self._canvas.move(x, y)
-
-    def _draw_background(self, canvas: SkCanvas):
-        rrect = RoundRect.from_rect(canvas.rect, x=BORDER_RADIUS, y=BORDER_RADIUS)
-
-        canvas.paint.style = canvas.paint.Style.FILL
-        canvas.paint.color = BACKGROUND_COLOR
-        canvas.draw_rrect(rrect)
-
-        canvas.paint.style = canvas.paint.Style.STROKE
-        canvas.paint.color = BORDER_COLOR
-        canvas.draw_rrect(rrect)
-
-    def _mouse(self, e: MouseEvent):
-        if e.event == "mousedown" and e.button == 0:
-            button = self._get_button(e.gpos)
-            # Clicking a button
-            if button is not None:
-                self._pending_clicked_buttons.add(button.id)
-            # Starting mouse drag
-            else:
-                self._mouse_drag_pos = e.gpos
-
-        elif e.event == "mousemove" and self._mouse_drag_pos is not None:
-            dx = e.gpos.x - self._mouse_drag_pos.x
-            dy = e.gpos.y - self._mouse_drag_pos.y
-            self._mouse_drag_pos = e.gpos
-            self._move(dx, dy)
-
-        elif e.event == "mouseup" and e.button == 0:
-            # End mouse drag
-            self._mouse_drag_pos = None
-
-    def _get_button(self, pos: Point2d) -> Button | None:
-        for w in self._buttons:
-            if w.rect is not None and w.rect.contains(pos.x, pos.y):
-                return w
-        return None
-
-    def get_containing_screen(self, x: float, y: float) -> Screen:
-        if self._screen is not None and self._screen.rect.contains(x, y):
-            return self._screen
-        return ui.screen.containing(x, y)
-
-    def get_initial_rect(
-        self,
-        screen: Screen,
-        default_x: float,
-        default_y: float,
-        default_width: float,
-        default_height: float,
-    ) -> Rect:
-        x = self._props.x if self._props.x is not None else default_x
-        y = self._props.y if self._props.y is not None else default_y
-        width = self._props.width if self._props.width is not None else default_width
-        height = (
-            self._props.height if self._props.height is not None else default_height
-        )
-        return Rect(
-            screen.x + screen.width * x,
-            screen.y + screen.height * y,
-            screen.width * width,
-            screen.height * height,
-        )
+    def _ui(self) -> egui.Ui:
+        if self._egui is None:
+            raise RuntimeError(
+                "GUI widgets may only be created inside the draw callback"
+            )
+        return self._egui

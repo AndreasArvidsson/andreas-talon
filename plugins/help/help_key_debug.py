@@ -16,9 +16,8 @@ held = set()
 
 @imgui.open(x=0)
 def gui(gui: imgui.GUI):
-    gui.header("Held keys")
-    gui.line(bold=True)
-    gui.spacer()
+    gui.title("Held keys")
+
     for button in ctrl.mouse_buttons_down():
         gui.text(f"Mouse {button}")
     for key in held:

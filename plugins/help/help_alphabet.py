@@ -7,13 +7,12 @@ mod = Module()
 
 @imgui.open()
 def gui(gui: imgui.GUI):
-    gui.header("Alphabet")
-    gui.line(bold=True)
+    gui.title("Alphabet")
     alphabet = registry.lists["user.letter"][-1]
     if isinstance(alphabet, dict):
         for key, val in alphabet.items():
             gui.text(f"{val}:  {key}")
-    gui.spacer()
+    gui.spacing()
     if gui.button("Hide"):
         actions.user.help_alphabet_toggle()
 

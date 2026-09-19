@@ -7,8 +7,7 @@ mod = Module()
 
 @imgui.open()
 def gui(gui: imgui.GUI):
-    gui.header("Formatters")
-    gui.line(bold=True)
+    gui.title("Formatters")
 
     code_formatters = registry.lists["user.formatter_code"][-1]
     prose_formatters = registry.lists["user.formatter_prose"][-1]
@@ -24,7 +23,7 @@ def gui(gui: imgui.GUI):
         gui.text(
             f"{name.ljust(30)}{actions.user.format_text('one two three', formatters[name])}"
         )
-    gui.spacer()
+    gui.spacing()
     if gui.button("Hide"):
         actions.user.help_formatters_toggle()
 

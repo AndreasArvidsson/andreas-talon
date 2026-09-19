@@ -13,8 +13,8 @@ search_type = ""
 
 @imgui.open()
 def gui(gui: imgui.GUI):
-    gui.header(f"Search - {search_type}: {search_text}")
-    gui.line(bold=True)
+    gui.title(f"Search - {search_type}: {search_text}")
+
     if search_type == "actions":
         gui_actions(gui)
     elif search_type == "commands":
@@ -27,7 +27,7 @@ def gui_actions(gui: imgui.GUI):
     actions = filter(lambda a: search_text in a, registry.decls.actions.keys())
     for value in sorted(actions):
         gui.text(value)
-    gui.spacer()
+    gui.spacing()
 
 
 def gui_commands(gui: imgui.GUI):
@@ -44,7 +44,7 @@ def gui_commands(gui: imgui.GUI):
                 gui.text(f"# {format_context_name(context_name)}")
                 for command in sorted(commands):
                     gui.text(command)
-                gui.spacer()
+                gui.spacing()
 
 
 def show_gui(text: str, type: str):

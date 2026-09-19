@@ -10,12 +10,14 @@ mod.tag("help_running_apps", "Help running applications gui is showing")
 
 @imgui.open()
 def gui(gui: imgui.GUI):
-    gui.header("Running apps")
-    gui.line(bold=True)
+    gui.title("Running apps")
+
     for i, name in enumerate(actions.apps.running()):
         line = f"{i + 1}".rjust(2)
         gui.text(f"{line}    {name}")
-    gui.spacer()
+
+    gui.spacing()
+
     if gui.button("Hide"):
         actions.user.help_running_apps_toggle()
 
