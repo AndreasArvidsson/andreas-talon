@@ -7,7 +7,7 @@ Application name, Spoken form
 Codium, Code
 Diablo III Retail, Diablo
 Diablo IV Retail, Diablo
-foobar2000, foobar
+foobar2000, Foobar
 Gnome-control-center, Settings
 Gnome-terminal, Terminal
 Google Chrome, Chrome
@@ -34,6 +34,7 @@ WindowsTerminal.exe, Terminal
 Application Frame Host,
 ApplicationFrameHost.exe,
 atieclxx.exe,
+clipboard-event-handler-win32,
 ConEmuC64.exe,
 conhost.exe,
 Console Window Host,

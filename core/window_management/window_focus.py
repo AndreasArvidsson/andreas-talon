@@ -1,19 +1,15 @@
-from talon import Context, Module, actions, ui
-from talon.grammar.vm import Phrase
+from talon import Module, actions, ui
 
 mod = Module()
-ctx = Context()
 
 
-def focus_name(name: str):
-    app = actions.user.get_app(name)
-
+def focus_app_or_cycle_window(app: ui.App):
     # Focus next window on same app
     if app == ui.active_app():
         actions.app.window_next()
     # Focus new app
     else:
-        actions.user.focus_app(app)
+        actions.apps.focus(app)
     actions.user.help_running_apps_hide()
 
 
@@ -24,20 +20,18 @@ class Actions:
         actions.key("alt-tab")
 
     @staticmethod
-    def window_focus_name(name: str, phrase: Phrase | None = None):
+    def window_focus_name(name: str):
         """Focus application named <name>"""
-        focus_name(name)
-
-        if phrase:
-            actions.sleep("300ms")
-            actions.user.rephrase(phrase)
+        app = actions.user.get_app(name)
+        focus_app_or_cycle_window(app)
 
     @staticmethod
     def focus_number(number: int):
         """Focus application number <number>"""
-        names = list(actions.user.get_running_applications().values())
-        if number > 0 and number <= len(names):
-            focus_name(names[number - 1])
+        apps = list(actions.apps.running().values())
+        if number > 0 and number <= len(apps):
+            app = apps[number - 1]
+            focus_app_or_cycle_window(app)
 
     def window_switcher_menu():
         """Show window switcher menu"""

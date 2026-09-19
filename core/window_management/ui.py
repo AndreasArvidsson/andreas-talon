@@ -7,6 +7,26 @@ mod = Module()
 ctx = Context()
 
 
+def focus_app(app: ui.App):
+    """Focus app and wait until finished"""
+    app.focus()
+    t1 = time.monotonic()
+    while ui.active_app() != app:
+        if time.monotonic() - t1 > 1:
+            raise RuntimeError(f"Can't focus app: {app.name}")
+        actions.sleep("50ms")
+
+
+@ctx.action_class("apps")
+class AppsActions:
+    @staticmethod
+    def focus(app: str | ui.App):
+        if isinstance(app, ui.App):
+            focus_app(app)
+        else:
+            focus_app(actions.user.get_app(app))
+
+
 @ctx.action_class("app")
 class AppActions:
     def window_previous():
@@ -60,21 +80,11 @@ class Actions:
         """Send key <key> to application"""
         active_app = ui.active_app()
         if active_app != app:
-            actions.user.focus_app(app)
+            actions.apps.focus(app)
             actions.key(key)
-            actions.user.focus_app(active_app)
+            actions.apps.focus(active_app)
         else:
             actions.key(key)
-
-    @staticmethod
-    def focus_app(app: ui.App):
-        """Focus app and wait until finished"""
-        app.focus()
-        t1 = time.monotonic()
-        while ui.active_app() != app:
-            if time.monotonic() - t1 > 1:
-                raise RuntimeError(f"Can't focus app: {app.name}")
-            actions.sleep("50ms")
 
     @staticmethod
     def focus_window(window: ui.Window):

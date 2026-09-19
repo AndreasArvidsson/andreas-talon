@@ -10,12 +10,12 @@ mod.list("running_application", "All running applications")
 ctx.lists["user.running_application"] = {}
 
 # Mapping of current overrides
-overrides = {}
+overrides: dict[str, str] = {}
 # List of running applications
-running_applications = {}
+running_applications: dict[str, ui.App] = {}
 
 
-def parse_name(name):
+def parse_name(name: str) -> str:
     if name.lower() in overrides:
         return overrides[name.lower()]
     # Remove executable file ending
@@ -33,19 +33,20 @@ def parse_name(name):
 
 def update_running():
     global running_applications
-    running = {}
+    running_apps = {}
+    running_list = {}
     for a in ui.apps(background=False):
         name = parse_name(a.name)
         if name:
-            running[name] = a.name
-    running_applications = running
-    ctx.lists["user.running_application"] = running
+            running_apps[name] = a
+            running_list[name] = a.name
+    running_applications = running_apps
+    ctx.lists["user.running_application"] = running_list
 
 
-@mod.action_class
-class Actions:
-    def get_running_applications() -> dict[str, str]:
-        """Fetch a dict of running applications"""
+@ctx.action_class("apps")
+class AppActions:
+    def running() -> dict[str, ui.App]:
         return running_applications
 
 

@@ -12,7 +12,7 @@ mod.tag("help_running_apps", "Help running applications gui is showing")
 def gui(gui: imgui.GUI):
     gui.header("Running apps")
     gui.line(bold=True)
-    for i, name in enumerate(actions.user.get_running_applications()):
+    for i, name in enumerate(actions.apps.running()):
         line = f"{i + 1}".rjust(2)
         gui.text(f"{line}    {name}")
     gui.spacer()

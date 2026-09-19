@@ -215,9 +215,9 @@ def draw_snap_positions(
 
 
 def get_running_options() -> list[Option]:
-    running = actions.user.get_running_applications()
+    running = actions.apps.running()
     return [
-        Option(key, lambda key=key: actions.user.window_focus_name(running[key]))
+        Option(key, lambda key=key: actions.user.window_focus_name(running[key].name))
         for key in sorted(running)
     ]
 

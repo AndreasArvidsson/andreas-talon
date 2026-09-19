@@ -21,7 +21,7 @@ class Actions:
         original_window = ui.active_window()
         editor_app = get_editor_app()
         original_selected_text = actions.edit.selected_text()
-        actions.user.focus_app(editor_app)
+        actions.apps.focus(editor_app)
         # Wait for context to change.
         actions.sleep("100ms")
         actions.app.tab_open()
