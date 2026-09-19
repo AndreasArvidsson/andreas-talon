@@ -6,6 +6,9 @@ tag(): user.tabs
 tag(): user.find
 tag(): user.bash
 
+settings():
+    user.mouse_wiggle = true
+
 split cross:                key(alt-shift-d)
 split right:                key(alt-shift-+)
 split down:                 key(alt-shift--)
