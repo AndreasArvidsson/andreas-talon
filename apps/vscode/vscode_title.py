@@ -22,7 +22,7 @@ FILENAME_DELIMITERS = [
     " (Index) ",
 ]
 FILENAME_RE = re.compile("|".join(re.escape(d) for d in FILENAME_DELIMITERS))
-LANGUAGE_RE = re.compile(r"\[(\w+)\]$")
+LANGUAGE_RE = re.compile(r"\[Text Editor\] \[(\w+)\]$")
 
 
 @ctx.action_class("win")
