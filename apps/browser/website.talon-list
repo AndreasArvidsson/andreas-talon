@@ -55,6 +55,17 @@ web grid:             https://neuralink.com/webgrid
 whats my ip:          https://whatismyipaddress.com
 youtube:              https://www.youtube.com/feed/subscriptions
 
+# Talon
+
+talon voice:          https://talonvoice.com
+talon noise:          https://noise.talonvoice.com
+talon search:         https://search.talonvoice.com
+talon slack:          https://talonvoice.slack.com
+talon speech:         https://speech.talonvoice.com
+talon changelog:      https://talonvoice.com/dl/latest/changelog.html
+talon wiki:           https://talon.wiki
+talon deck:           http://localhost:3000
+
 
 # Magic
 
@@ -62,17 +73,6 @@ card market:          https://www.cardmarket.com/en/Magic
 moxfield:             https://moxfield.com/decks
 scryfall:             https://scryfall.com
 untapped:             https://mtga.untapped.gg/constructed/standard/tier-list
-
-
-# Talon
-
-talon deck:           http://localhost:3000
-talon noise:          https://noise.talonvoice.com
-talon search:         https://search.talonvoice.com
-talon slack:          https://talonvoice.slack.com
-talon speech:         https://speech.talonvoice.com
-talon voice:          https://talonvoice.com
-talon wiki:           https://talon.wiki
 
 
 # Stores
