@@ -45,7 +45,7 @@ repos:
         types_or: [markdown, yaml, toml, json]
 
   - repo: https://github.com/cursorless-dev/talon-tools
-    rev: v0.12.0
+    rev: v0.12.1
     hooks:
       - id: talon-fmt
         # tree-sitter-talon fails with a syntax error for `.över`
