@@ -52,10 +52,10 @@ class Actions:
 
     def swedish_dictation_mode():
         """Enter swedish dictation mode"""
+        actions.user.dictation_mode()
         ctx.settings = {
             "speech.language": "sv_SE",
         }
-        actions.user.dictation_mode()
 
     def mixed_mode():
         """Enter mixed mode"""
