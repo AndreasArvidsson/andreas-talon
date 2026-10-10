@@ -12,6 +12,7 @@ def open(
     y: float | None = None,
     width: float | None = None,
     height: float | None = None,
+    refresh_interval: str | None = "64ms",  # 15Hz
 ):
     def open_inner(draw: Callable[[GUI], None]):
         return GUI(
@@ -21,6 +22,7 @@ def open(
             y=y,
             width=width,
             height=height,
+            refresh_interval=refresh_interval,
         )
 
     return open_inner

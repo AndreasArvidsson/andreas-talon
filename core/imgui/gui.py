@@ -20,6 +20,7 @@ class Props:
     y: float | None
     width: float | None
     height: float | None
+    refresh_interval: str | None
 
 
 class GUI:
@@ -27,6 +28,8 @@ class GUI:
     _window: Window | None
     _egui: egui.Ui | None
     _stored_rect: Rect | None
+    _refresh_job: cron.Job | None
+    _refresh_interval: str | None
 
     def __init__(
         self,
@@ -36,6 +39,7 @@ class GUI:
         y: float | None,
         width: float | None,
         height: float | None,
+        refresh_interval: str | None,
     ):
         self._props = Props(
             draw=draw,
@@ -44,10 +48,12 @@ class GUI:
             y=y,
             width=width,
             height=height,
+            refresh_interval=refresh_interval,
         )
         self._window = None
         self._egui = None
         self._stored_rect = None
+        self._refresh_job = None
 
     @property
     def showing(self) -> bool:
@@ -72,9 +78,17 @@ class GUI:
             self._window.show()
             self._window.rect = self._apply_partial_rect(screen.rect)
 
+        if self._props.refresh_interval is not None:
+            self._refresh_job = cron.interval(
+                self._props.refresh_interval, self._refresh
+            )
+
     def hide(self):
         if self._window is None:
             return
+
+        cron.cancel(self._refresh_job)
+        self._refresh_job = None
 
         # Defer hiding until after rendering
         if self._egui is not None:
@@ -108,6 +122,10 @@ class GUI:
 
     def spacing(self):
         self._ui().add_space(TEXT_SIZE)
+
+    def _refresh(self):
+        if self._window is not None:
+            self._window.refresh()
 
     async def _render(self, ui: egui.Ui) -> None:
         self._apply_theme(ui)
