@@ -6,7 +6,9 @@ mod = Module()
 
 mod.apps.git_bash = r"""
 app: windows_terminal
-and win.title: /MINGW64:/i
+and win.title: /^MINGW64:/
+app: windows_terminal
+and win.title: /^UCRT64:/
 """
 mod.apps.git_bash = r"""
 os: windows
