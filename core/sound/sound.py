@@ -97,7 +97,9 @@ class UserActionsWin:
 
 def change_sound_device_win(name: str, role: int):
     """Roles: 0: Console, 1: Multimedia, 2: Communications"""
-    call(["nircmd.exe", "setdefaultsounddevice", name, str(role)])
+    call(
+        ["C:/Program Files/nircmd/nircmd.exe", "setdefaultsounddevice", name, str(role)]
+    )
 
 
 def on_launch():
