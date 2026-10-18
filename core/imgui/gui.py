@@ -65,6 +65,8 @@ class GUI:
 
         self._window = Window()
         self._window.draggable = True
+        # Always on top
+        self._window.toplevel = True
         self._window.autosize = self._props.width is None or self._props.height is None
         # Hide title bar
         self._window.decorated = False
