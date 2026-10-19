@@ -6,6 +6,7 @@ from talon import Context, Module, actions, cron, screen, ui
 from talon.canvas import Canvas
 
 mod = Module()
+folder=r"D:\Pictures"
 
 
 @mod.action_class
@@ -60,7 +61,6 @@ def get_file_path(title: str = ""):
         title = f" - {title.replace('.', '_')}"
     date = datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
     filename = f"Screenshot {date}{title}.png"
-    folder = os.path.expanduser(os.path.join("~", "Pictures"))
     return os.path.join(folder, filename)
 
 

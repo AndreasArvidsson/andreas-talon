@@ -123,6 +123,7 @@ def get_windows_paths():
         "windows": environ["WINDIR"],
         "talon bin": path.join(actions.path.talon_home(), ".venv", "Scripts"),
         "magic arena": rf"{app_data}\LocalLow\Wizards Of The Coast\MTGA",
+        "pictures": r"D:\Pictures",
         "dropbox": r"D:\Dropbox",
         "repositories": r"D:\repositories",
         "gss": r"D:\repositories\gss-dev-environment",
@@ -159,7 +160,6 @@ def on_ready():
         "Desktop",
         "Documents",
         "Downloads",
-        "Pictures",
         "Videos",
     ]
 
