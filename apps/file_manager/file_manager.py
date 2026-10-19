@@ -136,6 +136,7 @@ def get_linux_paths():
 
 def on_ready():
     user_path = str(actions.path.user_home())
+    directories_path = r"D:\repositories"
     user_dirs = [
         "Desktop",
         "Documents",
@@ -143,7 +144,6 @@ def on_ready():
         "Pictures",
         "Videos",
         "Dropbox",
-        "repositories",
     ]
     common_paths = {
         "user": user_path,
@@ -151,8 +151,10 @@ def on_ready():
         "talon home": str(actions.path.talon_home()),
         "talon user": str(actions.path.talon_user()),
         "talon recordings": path.join(str(actions.path.talon_home()), "recordings"),
-        "gss": path.join(user_path, "repositories", "gss-dev-environment"),
+        "repositories": directories_path,
+        "gss": path.join(directories_path, "gss-dev-environment"),
     }
+
     if app.platform == "windows":
         os_paths = get_windows_paths()
     elif app.platform == "linux":
@@ -165,9 +167,6 @@ def on_ready():
         **common_paths,
         **os_paths,
     }
-
-    # for k, v in sorted(ctx.lists["user.path"].items(), key=lambda i: i[1]):
-    #     print(f"{k.ljust(20)}{v}")
 
 
 app.register("ready", on_ready)
