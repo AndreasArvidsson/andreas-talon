@@ -112,17 +112,20 @@ class Actions:
 
 
 def get_windows_paths():
+    app_data = path.dirname(environ["APPDATA"])
     return {
         "recycle bin": "shell:RecycleBinFolder",
         "applications": "shell:AppsFolder",
         "root": environ["HOMEDRIVE"],
-        "app data": environ["APPDATA"],
-        "local app data": environ["LOCALAPPDATA"],
+        "app data": app_data,
         "program files": environ["PROGRAMFILES"],
         "temp": environ["TEMP"],
         "windows": environ["WINDIR"],
-        "talon bin": path.join(str(actions.path.talon_home()), ".venv", "Scripts"),
-        "magic arena": f"{environ['USERPROFILE']}\\AppData\\LocalLow\\Wizards Of The Coast\\MTGA",
+        "talon bin": path.join(actions.path.talon_home(), ".venv", "Scripts"),
+        "magic arena": rf"{app_data}\LocalLow\Wizards Of The Coast\MTGA",
+        "dropbox": r"D:\Dropbox",
+        "repositories": r"D:\repositories",
+        "gss": r"D:\repositories\gss-dev-environment",
     }
 
 
@@ -130,42 +133,40 @@ def get_linux_paths():
     return {
         "root": "/",
         "temp": "/tmp",
-        "talon bin": path.join(str(actions.path.talon_home()), "bin"),
+        "talon bin": path.join(actions.path.talon_home(), "bin"),
     }
 
 
+def get_os_paths():
+    if app.platform == "windows":
+        return get_windows_paths()
+    if app.platform == "linux":
+        return get_linux_paths()
+    return {}
+
+
 def on_ready():
-    user_path = actions.path.user_home()
-    directories_path = r"D:\repositories"
+
+    common_paths = {
+        "user": actions.path.user_home(),
+        "talon app": actions.path.talon_app(),
+        "talon home": actions.path.talon_home(),
+        "talon user": actions.path.talon_user(),
+        "talon recordings": path.join(actions.path.talon_home(), "recordings"),
+    }
+
     user_dirs = [
         "Desktop",
         "Documents",
         "Downloads",
         "Pictures",
         "Videos",
-        "Dropbox",
     ]
-    common_paths = {
-        "user": user_path,
-        "talon app": actions.path.talon_app(),
-        "talon home": actions.path.talon_home(),
-        "talon user": actions.path.talon_user(),
-        "talon recordings": path.join(actions.path.talon_home(), "recordings"),
-        "repositories": directories_path,
-        "gss": path.join(directories_path, "gss-dev-environment"),
-    }
-
-    if app.platform == "windows":
-        os_paths = get_windows_paths()
-    elif app.platform == "linux":
-        os_paths = get_linux_paths()
-    else:
-        os_paths = {}
 
     ctx.lists["user.path"] = {
-        **{p.lower(): path.join(user_path, p) for p in user_dirs},
+        **get_os_paths(),
         **common_paths,
-        **os_paths,
+        **{p.lower(): path.join(actions.path.user_home(), p) for p in user_dirs},
     }
 
 
