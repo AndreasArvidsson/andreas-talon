@@ -135,7 +135,7 @@ def get_linux_paths():
 
 
 def on_ready():
-    user_path = str(actions.path.user_home())
+    user_path = actions.path.user_home()
     directories_path = r"D:\repositories"
     user_dirs = [
         "Desktop",
@@ -147,10 +147,10 @@ def on_ready():
     ]
     common_paths = {
         "user": user_path,
-        "talon app": str(actions.path.talon_app()),
-        "talon home": str(actions.path.talon_home()),
-        "talon user": str(actions.path.talon_user()),
-        "talon recordings": path.join(str(actions.path.talon_home()), "recordings"),
+        "talon app": actions.path.talon_app(),
+        "talon home": actions.path.talon_home(),
+        "talon user": actions.path.talon_user(),
+        "talon recordings": path.join(actions.path.talon_home(), "recordings"),
         "repositories": directories_path,
         "gss": path.join(directories_path, "gss-dev-environment"),
     }
