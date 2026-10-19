@@ -46,7 +46,7 @@ class Actions:
 
 
 def switch_folder(useRelease: bool):
-    link = fr"{actions.path.talon_user()}\\cursorless-talon"
+    link = rf"{actions.path.talon_user()}\\cursorless-talon"
 
     if useRelease:
         target = r"D:\talon-user\cursorless-talon"

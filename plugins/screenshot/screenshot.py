@@ -6,7 +6,7 @@ from talon import Context, Module, actions, cron, screen, ui
 from talon.canvas import Canvas
 
 mod = Module()
-folder=r"D:\Pictures"
+folder = r"D:\Pictures"
 
 
 @mod.action_class
