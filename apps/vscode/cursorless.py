@@ -46,18 +46,15 @@ class Actions:
 
 
 def switch_folder(useRelease: bool):
-    link = f"{actions.path.talon_user()}\\cursorless-talon"
-    link_dev = f"{actions.path.talon_user()}\\cursorless-talon-dev"
-    repos = f"{actions.path.user_home()}\\repositories"
-    target_path = "cursorless-talon" if useRelease else "cursorless\\cursorless-talon"
-    target = f"{repos}\\{target_path}"
-    target_dev = f"{repos}\\cursorless\\cursorless-talon-dev"
+    link = fr"{actions.path.talon_user()}\\cursorless-talon"
+
+    if useRelease:
+        target = r"D:\talon-user\cursorless-talon"
+    else:
+        target = r"D:\repositories\cursorless\cursorless-talon"
 
     os.system(f"cmd /c rmdir {link}")
     os.system(f"cmd /c mklink /J {link} {target}")
-
-    os.system(f"cmd /c rmdir {link_dev}")
-    os.system(f"cmd /c mklink /J {link_dev} {target_dev}")
 
     actions.sleep("500ms")
     actions.user.talon_restart()
