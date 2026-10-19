@@ -46,7 +46,7 @@ class BrowserActions:
         actions.key("ctrl-shift-r")
 
     def toggle_dev_tools():
-        actions.key("ctrl-shift-i")
+        actions.key("f12")
 
     def show_history():
         actions.key("ctrl-h")
