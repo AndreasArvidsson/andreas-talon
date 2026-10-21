@@ -54,7 +54,7 @@ class EditActions:
     def find(text: str | None = ""):
         actions.key("ctrl-f")
         if text:
-            actions.sleep("50ms")
+            actions.sleep("100ms")
             actions.insert(text)
 
 
@@ -66,7 +66,7 @@ class UserActions:
     @staticmethod
     def browser_open_new_tab(url: str):
         actions.browser.focus_address()
-        actions.sleep("50ms")
+        actions.sleep("100ms")
         actions.insert(url)
         actions.sleep("50ms")
         actions.key("alt-enter")
