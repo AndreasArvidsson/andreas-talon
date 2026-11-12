@@ -10,6 +10,7 @@ stack:         :
 semi:          ;
 score:         _
 dash:          -
+em dash:       —
 
 minus:         -
 plus:          +
