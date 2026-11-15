@@ -13,12 +13,14 @@ One of the use cases for analyzing phrases is to provide description of commands
 ```py
 from talon import speech_system
 
+
 def on_post_phrase(phrase):
     # Get an analyzed phrase
     analyzed_phrase = analyze_phrase(phrase)
 
     # Pretty print analyzed phrase
     pretty_print_phrase(analyzed_phrase)
+
 
 speech_system.register("post:phrase", on_post_phrase)
 ```
