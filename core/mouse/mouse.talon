@@ -28,3 +28,7 @@ track calibrate:            tracking.calibrate()
 cursor center:              user.mouse_move_center_window()
 cursor print:               print("{mouse_x()}, {mouse_y()}")
 cursor copy:                clip.set_text("{mouse_x()}, {mouse_y()}")
+
+# Mouse wiggle
+cursor wiggle on:           user.mouse_wiggle_toggle(true)
+cursor wiggle off:          user.mouse_wiggle_toggle(false)
