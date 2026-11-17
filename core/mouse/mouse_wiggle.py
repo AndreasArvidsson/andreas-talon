@@ -53,7 +53,7 @@ def mouse_wiggle():
 def activate():
     global cron_job
     if cron_job is None:
-        cron_job = cron.interval("8ms", mouse_wiggle)
+        cron_job = cron.interval("16ms", mouse_wiggle)
 
 
 def deactivate():
@@ -71,4 +71,3 @@ def update():
 
 
 ui.register("app_activate", lambda _: update())
-ui.register("app_deactivate", lambda _: update())
