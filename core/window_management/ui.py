@@ -108,6 +108,13 @@ class Actions:
                 raise RuntimeError(f"Window title did not change from: {initial_title}")
             actions.sleep("50ms")
 
+    @staticmethod
+    def copy_window_resolution():
+        """Copy the resolution of the active window to the clipboard"""
+        window = ui.active_window()
+        resolution = f"{int(window.rect.width)}x{int(window.rect.height)}"
+        actions.clip.set_text(resolution)
+
 
 def cycle_windows(app, diff: int):
     """Cycle windows backwards or forwards for the given application"""
